@@ -38,4 +38,5 @@ aur_helper_yay
 instalar_pacotes_pacman
 instalar_pacotes_aur
 
+echo Configurando sistema
 configurar_sistema
