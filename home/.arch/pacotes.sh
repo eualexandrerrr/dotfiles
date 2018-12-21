@@ -7,7 +7,7 @@ readonly PACOTES=(
     "firefox")
 
 function aur_helper_yay(){
-    pacman -S git --needed --noconfirm
+    sudo pacman -S git --needed --noconfirm
     git clone https://aur.archlinux.org/yay.git /home/${MY_USER}/yay
     cd "/home/${MY_USER}/yay"
     makepkg -si --noconfirm
