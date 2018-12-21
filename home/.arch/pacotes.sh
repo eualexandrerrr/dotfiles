@@ -33,9 +33,14 @@ function configurar_sistema(){
     sudo chown -R $MY_USER:$MY_USER /home/$MY_USER
 }
 
+echo Atualizando YAY
 aur_helper_yay
 
+echo Instalando pacotes
+
+echo PACMAN
 instalar_pacotes_pacman
+echo AUR
 instalar_pacotes_aur
 
 echo Configurando sistema
