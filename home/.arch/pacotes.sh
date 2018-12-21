@@ -5,7 +5,7 @@ MY_USER=mamutal91
 
 readonly PACOTES=(
     "firefox")
-    
+
 function aur_helper_yay(){
     pacman -S git --needed --noconfirm
     git clone https://aur.archlinux.org/yay.git /home/${MY_USER}/yay
@@ -15,24 +15,26 @@ function aur_helper_yay(){
     rm -rf yay
 }
 
-function instalar_pacote(){
+function instalar_pacotes_pacman(){
+    for i in "${PACOTES[@]}"; do
+        yay -S ${i} --needed --noconfirm
+    done 
+}
+
+function instalar_pacotes_aur(){
     for i in "${PACOTES[@]}"; do
         yay -S ${i} --needed --noconfirm
     done 
 }
 
 function configurar_sistema(){
-    pacman -S git --needed --noconfirm
-    git clone https://aur.archlinux.org/yay.git /home/${MY_USER}/yay
-    cd "/home/${MY_USER}/yay"
-    makepkg -si --noconfirm
-    cd ..
-    rm -rf yay
+    sudo systemctl enable NetworkManager
+    sudo systemctl enable cronie
+    sudo chown -R $MY_USER:$MY_USER /home/$MY_USER
 }
 
-instalar_pacote
-instalar_pacote_aur
+instalar_pacotes_pacman
+instalar_pacotes_aur
 
-
-aur_helper_yay
+#aur_helper_yay
 configurar_sistema
