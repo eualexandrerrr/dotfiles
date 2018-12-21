@@ -16,12 +16,7 @@ function aur_helper_yay(){
 }
 
 function zsh(){
-    sudo pacman -S git --needed --noconfirm
-    git clone https://aur.archlinux.org/yay.git /home/${MY_USER}/yay
-    cd "/home/${MY_USER}/yay"
-    makepkg -si --noconfirm
-    cd ..
-    rm -rf yay
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 }
 
 function instalar_pacotes_pacman(){
