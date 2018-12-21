@@ -45,6 +45,9 @@ function configurar_sistema(){
 echo :::::::::::::::::::::::: Atualizando YAY
 aur_helper_yay
 
+echo :::::::::::::::::::::::: ZSH
+zsh
+
 echo :::::::::::::::::::::::: Instalando pacotes
 echo :::::::::::::::::::::::: PACMAN
 instalar_pacotes_pacman
