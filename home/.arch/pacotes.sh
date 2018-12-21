@@ -4,7 +4,8 @@
 MY_USER=mamutal91
 
 readonly PACOTES=(
-    "firefox")
+    "firefox"
+    "firefox-i18n-pt-br")
 
 function aur_helper_yay(){
     sudo pacman -S git --needed --noconfirm
@@ -37,13 +38,10 @@ function configurar_sistema(){
     sudo chown -R $MY_USER:$MY_USER /home/$MY_USER
 }
 
-echo :::::::::::::::::::::::: Atualizando YAY
-aur_helper_yay
-
-echo :::::::::::::::::::::::: ZSH
+echo :::::::::::::::::::::::: YAY - ZSH
+#aur_helper_yay
 zsh
 
-echo :::::::::::::::::::::::: Instalando pacotes
 echo :::::::::::::::::::::::: PACMAN
 instalar_pacotes_pacman
 
