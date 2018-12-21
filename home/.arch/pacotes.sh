@@ -4,8 +4,7 @@
 MY_USER=mamutal91
 
 readonly PACOTES_PACMAN=(
-    "firefox"
-    "firefox-i18n-pt-br")
+    code dunst firefox firefox-i18n-pt-br flat-remix-git git gpciview i3-gaps i3lock iw libreoffice-fresh libreoffice-fresh-pt-br linux-headers lxappearance maim neofetch networkmanager numlockx pinta pulseeffects pulsemixer rambox-bin rofi scrot telegram-desktop teamviewer terminus-font termite thunar thunar-archive-plugin ttf-dejavu tt-font-awesome ttf-liberation spotify unrar unzip vlc wget xf86-video-intel xorg-server xorg-xrandr xorg-xblacklight xorg-xinit xclip)
 
 readonly PACOTES_AUR=(
     nvidia-xrun polybar grive-git)
