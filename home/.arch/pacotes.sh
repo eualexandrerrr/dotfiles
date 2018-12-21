@@ -3,9 +3,12 @@
 
 MY_USER=mamutal91
 
-readonly PACOTES=(
+readonly PACOTES_PACMAN=(
     "firefox"
     "firefox-i18n-pt-br")
+
+readonly PACOTES_AUR=(
+    nvidia-xrun polybar grive-git)
 
 function aur_helper_yay(){
     sudo pacman -S git --needed --noconfirm
@@ -21,13 +24,13 @@ function zsh(){
 }
 
 function instalar_pacotes_pacman(){
-    for i in "${PACOTES[@]}"; do
+    for i in "${PACOTES_PACMAN[@]}"; do
         sudo pacman -S ${i} --needed --noconfirm
     done 
 }
 
 function instalar_pacotes_aur(){
-    for i in "${PACOTES[@]}"; do
+    for i in "${PACOTES_AUR[@]}"; do
         yay -S ${i} --needed --noconfirm
     done 
 }
