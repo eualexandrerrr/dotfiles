@@ -21,9 +21,18 @@ function instalar_pacote(){
     done 
 }
 
+function configurar_sistema(){
+    pacman -S git --needed --noconfirm
+    git clone https://aur.archlinux.org/yay.git /home/${MY_USER}/yay
+    cd "/home/${MY_USER}/yay"
+    makepkg -si --noconfirm
+    cd ..
+    rm -rf yay
+}
 
 instalar_pacote
 instalar_pacote_aur
 
 
 aur_helper_yay
+configurar_sistema
