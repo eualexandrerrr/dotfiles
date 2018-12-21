@@ -17,7 +17,7 @@ function aur_helper_yay(){
 
 function instalar_pacotes_pacman(){
     for i in "${PACOTES[@]}"; do
-        yay -S ${i} --needed --noconfirm
+        sudo pacman -S ${i} --needed --noconfirm
     done 
 }
 
@@ -33,8 +33,9 @@ function configurar_sistema(){
     sudo chown -R $MY_USER:$MY_USER /home/$MY_USER
 }
 
+aur_helper_yay
+
 instalar_pacotes_pacman
 instalar_pacotes_aur
 
-#aur_helper_yay
 configurar_sistema
