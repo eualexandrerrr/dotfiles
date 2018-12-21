@@ -15,6 +15,15 @@ function aur_helper_yay(){
     rm -rf yay
 }
 
+function zsh(){
+    sudo pacman -S git --needed --noconfirm
+    git clone https://aur.archlinux.org/yay.git /home/${MY_USER}/yay
+    cd "/home/${MY_USER}/yay"
+    makepkg -si --noconfirm
+    cd ..
+    rm -rf yay
+}
+
 function instalar_pacotes_pacman(){
     for i in "${PACOTES[@]}"; do
         sudo pacman -S ${i} --needed --noconfirm
@@ -37,9 +46,9 @@ echo :::::::::::::::::::::::: Atualizando YAY
 aur_helper_yay
 
 echo :::::::::::::::::::::::: Instalando pacotes
-
 echo :::::::::::::::::::::::: PACMAN
 instalar_pacotes_pacman
+
 echo :::::::::::::::::::::::: AUR
 instalar_pacotes_aur
 
