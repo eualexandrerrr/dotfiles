@@ -54,4 +54,5 @@ function configuracoespessoais(){
 echo :::::::::::::::::::::::: Finalizando
 canberra-gtk-play --file=$HOME/.local/share/sounds/completed.wav 
 sleep 1s
+i3-msg restart
 notify-send "Atualização concluída com sucesso"
