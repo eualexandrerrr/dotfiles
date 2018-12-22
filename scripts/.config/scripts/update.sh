@@ -57,6 +57,6 @@ cd $HOME/.config/polybar/
 ./launch.sh
 
 echo :::::::::::::::::::::::: Finalizando
-canberra-gtk-play --file=$HOME/.local/share/sounds/concluido.wav 
+canberra-gtk-play --file=$HOME/.local/share/sounds/completed.wav 
 sleep 1s
 notify-send "Atualizações concluídas com sucesso"
