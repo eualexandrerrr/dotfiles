@@ -210,6 +210,10 @@
     <string name="ambient_ticker_footer">O Ambient Music Ticker mostra a reprodução de informações da faixa musical na tela de exibição do ambiente.\n\n Também será acionado se a exibição em ambiente estiver desativada quando uma nova trilha for iniciada, forçando uma tela ambiente limpa com informações de faixa no meio da tela.\n\nVocê também pode tocar duas vezes nas informações da faixa para pular.</string>
     <string name="force_ambient_for_media_title">Habilitar</string>
 
+    <!-- DU logo -->
+    <string name="du_logo_title">DU swag</string>
+    <string name="du_logo_summary">Que todos saibam que você está usando DU quando vê sua tela</string>
+
     <!-- Status bar clock and date options -->
     <string name="status_bar_title">Barra de status</string>
     <string name="status_bar_style_title">Estilo</string>
