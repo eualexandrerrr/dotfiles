@@ -65,8 +65,8 @@
     <!-- Navigation -->
     <string name="buttons_title">Botões</string>
     <string name="buttons_summary">Configurar botões físicos e/ou controle de mídia</string>
-    <string name="navigationbar_title">Barra de navegação</string>
-    <string name="navigationbar_summary">Configure smartbar, fling ou pulse</string>
+    <string name="navigation_options_title">Barra de navegação</string>
+    <string name="navigation_options_summary">Configure smartbar, fling ou pulse</string>
     <!-- Multitasking -->
     <string name="headsup_title">Heads up</string>
     <string name="headsup_summary">Configurar opções de heads up</string>
