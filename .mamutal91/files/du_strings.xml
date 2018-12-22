@@ -65,8 +65,8 @@
     <!-- Navigation -->
     <string name="buttons_title">Botões</string>
     <string name="buttons_summary">Configurar botões físicos e/ou controle de mídia</string>
-    <string name="navigation_options_title">Barra de navegação</string>
-    <string name="navigation_options_summary">Configure smartbar, fling ou pulse</string>
+    <string name="navigation_options_title">Navegação</string>
+    <string name="navigation_options_summary">Configurar opções de navegação</string>
     <!-- Multitasking -->
     <string name="headsup_title">Heads up</string>
     <string name="headsup_summary">Configurar opções de heads up</string>
@@ -198,9 +198,13 @@
     <string name="pulse_empty_block_size">Espaçamento do bloco</string>
 
     <!-- Stock navbar -->
-    <string name="systemui_tuner_navbar_title">Stock navbar</string>
-    <string name="systemui_tuner_navbar_enabled_summary">Personalize a barra de navegação de ações</string>
+    <string name="systemui_tuner_navbar_title">Layout</string>
+    <string name="systemui_tuner_navbar_enabled_summary">Personalize o layout da barra de navegação</string>
     <string name="systemui_tuner_navbar_disabled_summary">A barra de navegação de gestos está ativada. Desative-o para usar essas opções.</string>
+
+    <!-- Navbar arrow keys -->
+    <string name="show_navbar_arrow_keys_title">Mostrar teclas de setas durante a digitação</string>
+    <string name="show_navbar_arrow_keys_summary">Exibe os botões do cursor esquerdo e direito na barra de navegação durante a digitação.</string>
 
     <!-- ChooserActivity blacklist -->
     <string name="chooser_activity_blacklist_title">Lista negra de atividades do seletor</string>
@@ -285,4 +289,31 @@
     <string name="network_traffic_state_title">Mostrar traffic em barra de status exptendida</string>
     <string name="network_traffic_autohide_threshold_title">Auto-ocultar (KB/s)</string>
     
+    <!-- Button Settings -->
+    <string name="button_settings_title">Botões</string>
+    <string name="button_settings_title_summary">Executar ações de botão personalizadas</string>
+    <string name="button_settings_description">Defina ações de botão personalizadas para várias chaves de hardware apresentadas no seu dispositivo.</string>
+    <string name="navigation_bar_title">Barra de navegação na tela</string>
+    <string name="navigation_bar_title_summary">Ativar as teclas de navegação na tela</string>
+    <string name="hardware_brightness_keys_title">Backlight</string>
+    <string name="hardware_brightness_keys_title_summary">Ativar a luz de fundo para as teclas capacitivas</string>
+    <string name="home_key_title">Botão início</string>
+    <string name="back_key_title">Botão voltar</string>
+    <string name="menu_key_title">Botão menu</string>
+    <string name="assist_key_title">Botão de assistência</string>
+    <string name="app_switch_key_title">Botão recents</string>
+    <string name="camera_key_title">Botão câmera</string>
+    <string name="short_press_title">Ação de toque curto</string>
+    <string name="long_press_title">Ação de toque longo</string>
+    <string name="double_tap_title">Ação de toque duplo</string>
+    <string name="action_nothing">Sem ação</string>
+    <string name="action_menu">Abrir/fechar menu</string>
+    <string name="action_app_switch">Recentes</string>
+    <string name="action_search">Assistente de pesquisa</string>
+    <string name="action_voice_search">Pesquisa por voz</string>
+    <string name="action_in_app_search">Pesquisa no aplicativo</string>
+    <string name="action_launch_camera">Abrir câmera</string>
+    <string name="action_last_app">Abrir último app</string>
+    <string name="action_splitscreen">Tela dividida</string>
+
 </resources>
