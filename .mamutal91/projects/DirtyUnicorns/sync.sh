@@ -15,5 +15,5 @@ git clone https://github.com/AOSiP/platform_frameworks_opt_telephony.git -b pie 
 rm -rf packages/apps/DU-Tweaks/res/values-pt-rBR/du_strings.xml
 mkdir -p packages/apps/DU-Tweaks/res/values-pt-rBR
 cd packages/apps/DU-Tweaks/res/values-pt-rBR/
-wget https://raw.githubusercontent.com/mamutal91/dotfiles/master/.mamutal91/DirtyUnicorns/du_strings.xml
+wget https://raw.githubusercontent.com/mamutal91/dotfiles/master/.mamutal91/projects/DirtyUnicorns/du_strings.xml
 cd $DU
