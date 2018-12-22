@@ -49,8 +49,7 @@ function configuracoespessoais(){
 
 [[ $USER == "mamutal91" ]] && configuracoespessoais || echo No
 
-#cd $HOME/.config/polybar/
-#./launch.sh
+#cd $HOME/.config/polybar && ./launch.sh
 
 echo :::::::::::::::::::::::: Finalizando
 canberra-gtk-play --file=$HOME/.local/share/sounds/completed.wav 

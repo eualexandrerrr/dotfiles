@@ -253,7 +253,7 @@ bindsym $mod+r mode "resize"
 
 # Inicialização do sistema
 exec_always --no-startup-id $HOME/.config/scripts/pywal.sh
-#exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+exec --no-startup-id $HOME/.config/polybar/launch.sh
 exec --no-startup-id compton -b
 exec --no-startup-id dunst
 exec --no-startup-id pactl set-sink-volume 0 80%
