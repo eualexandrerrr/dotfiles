@@ -1,4 +1,5 @@
-#!/bin/sh
+#!/bin/bash
+# github.com/mamutal91
 
 # Xresources
 xrdb -merge "${HOME}/.Xresources"
@@ -17,3 +18,6 @@ exec xautolock -time 10 -detectsleep -locker $HOME/.config/scripts/i3lock.sh &
 
 # Iniciar i3
 exec i3
+
+polybar cima&
+polybar baixo&
