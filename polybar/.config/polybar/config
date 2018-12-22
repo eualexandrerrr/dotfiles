@@ -60,6 +60,7 @@ fixed-center = true
 bottom = false
 locale = pt_BR.UTF-8
 override-redirect = true
+wm-restack = i3
 
 background = ${cores.transparente}
 foreground = ${cores.transparente}
@@ -100,6 +101,7 @@ fixed-center = true
 bottom = true
 locale = pt_BR.UTF-8
 override-redirect = true
+wm-restack = i3
 
 background = ${cores.transparente}
 foreground = ${cores.fontes}

@@ -15,7 +15,5 @@ numlockx &
 # i3lock
 exec xautolock -time 10 -detectsleep -locker $HOME/.config/scripts/i3lock.sh &
 
-($HOME/.config/polybar/launch.sh) &
-
 # Iniciar i3
 exec i3
