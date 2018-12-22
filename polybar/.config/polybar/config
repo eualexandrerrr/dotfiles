@@ -498,10 +498,10 @@ label-connected = %local_ip%
 type = custom/text
 content = 
 content-foreground = ${cores.icones-modulos}
-click-left = exec ~/.config/scripts/github.sh -c &
-click-middle = exec ~/.config/scripts/github.sh -c &
-click-right = exec ~/.config/scripts/github.sh -c &
-scroll-down = exec ~/.config/scripts/github.sh -c &
+click-left = exec ~/.config/scripts/git-cron.sh -c &
+click-middle = exec ~/.config/scripts/git-cron.sh -c &
+click-right = exec ~/.config/scripts/git-cron.sh -c &
+scroll-down = exec ~/.config/scripts/git-cron.sh -c &
 
 # Screenshot
 [module/screenshot]
