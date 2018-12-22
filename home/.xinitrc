@@ -19,5 +19,4 @@ exec xautolock -time 10 -detectsleep -locker $HOME/.config/scripts/i3lock.sh &
 # Iniciar i3
 exec i3
 
-polybar cima&
-polybar baixo&
+(~/.config/polybar/launch.sh)
