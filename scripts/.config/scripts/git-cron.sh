@@ -24,7 +24,7 @@ atualiza() {
 			git add .
 			git commit -m "$m"
 			git push
-			DISPLAY=:0 notify-send "Git-Cron" "Repo <b>$(basename $1)</b> atualizado."
+			notify-send "Git-Cron" "Repo <b>$(basename $1)</b> atualizado."
 			fi
 		fi
 	fi
