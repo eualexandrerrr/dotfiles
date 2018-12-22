@@ -59,6 +59,7 @@ radius = 7.0
 fixed-center = true
 bottom = false
 locale = pt_BR.UTF-8
+override-redirect = true
 
 background = ${cores.transparente}
 foreground = ${cores.transparente}
@@ -98,6 +99,7 @@ radius = 0.0
 fixed-center = true
 bottom = true
 locale = pt_BR.UTF-8
+override-redirect = true
 
 background = ${cores.transparente}
 foreground = ${cores.fontes}
