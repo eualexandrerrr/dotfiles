@@ -10,7 +10,7 @@ git config --global user.name "mamutal91"
 git config --global user.email "mamutal91@gmail.com"
 
 dir="${HOME}/github"
-repos=('dotfiles' 'stojects' 'mamutal91.github.io')
+repos=('dotfiles' 'strojects' 'mamutal91.github.io')
 remoto="mamutal91@archlinux"
 
 atualiza() {
