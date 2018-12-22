@@ -11,7 +11,7 @@ if [ ! -z $res ]; then
       cd $HOME/.config/scripts/ && ./i3lock.sh &
     ;;
     Encerrar)
-      sudo pkill -9 -u mamutal91
+      sudo pkill -9 -u $USER
     ;;
     Reiniciar)
       sudo reboot
