@@ -76,6 +76,11 @@
     <!-- Sub categories -->
     <string name="sub_cat_advanced">Avançado</string>
 
+    <!-- Heads up -->
+    <string name="heads_up_title">Permitir Heads up</string>
+    <string name="heads_up_summary_enabled">Heads-up as notificações estão ativadas</string>
+    <string name="heads_up_summary_disabled">Heads-up as notificações estão desativadas</string>
+
     <!-- Lockscreen Media art -->
     <string name="media_art_title">Arte de capa de mídia em tela cheia</string>
     <string name="media_art_summary">Definir a arte da capa de mídia em tela cheia na tela de bloqueio</string>
