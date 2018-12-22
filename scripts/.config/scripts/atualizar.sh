@@ -15,7 +15,7 @@ dotfiles="${HOME}/github/dotfiles"
     sudo rm -rf $HOME/{.nanorc,.zshrc,.Xresources,.xinitrc,.nvidia-xinitrc,.zprofile}
 
     echo :::::::::::::::::::::::: Copiando .local
-    sudo cp -r home/.local/ $HOME
+    sudo cp -r home/.local/ $HOME/.local/share
 
     echo :::::::::::::::::::::::: Copiando .configs
     sudo cp -r compton/.config/compton $HOME/.config
