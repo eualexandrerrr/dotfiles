@@ -30,10 +30,6 @@ dotfiles="${HOME}/github/dotfiles"
 
 # Se o usuário for = mamutal91
 function configuracoespessoais(){
-    echo :::::::::::::::::::::::: .arch
-    sudo rm -rf $HOME/.arch
-    sudo cp -r home/.arch $HOME
-
     echo :::::::::::::::::::::::: Teclado, Touchpad e Intel
     sudo rm -rf /etc/X11/xorg.conf.d/10-evdev.conf
     sudo rm -rf /etc/X11/xorg.conf.d/20-intel.conf
