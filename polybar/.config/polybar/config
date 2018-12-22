@@ -59,7 +59,7 @@ radius = 7.0
 fixed-center = true
 bottom = false
 locale = pt_BR.UTF-8
-override-redirect = true
+override-redirect = false
 wm-restack = i3
 
 background = ${cores.transparente}
@@ -100,7 +100,7 @@ radius = 0.0
 fixed-center = true
 bottom = true
 locale = pt_BR.UTF-8
-override-redirect = true
+override-redirect = false
 wm-restack = i3
 
 background = ${cores.transparente}
