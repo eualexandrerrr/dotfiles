@@ -3,6 +3,8 @@
 
 echo :::::::::::::::::::::::: pt_BR.UTF-8
 echo LANG=pt_BR.UTF-8 > /etc/locale.conf
+
+echo :::::::::::::::::::::::: archlinux > hostname
 echo archlinux > /etc/hostname
 
 echo :::::::::::::::::::::::: Horário definido para America/Sao_Paulo
