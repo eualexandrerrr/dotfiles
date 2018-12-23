@@ -28,7 +28,6 @@ dotfiles="${HOME}/github/dotfiles"
     sudo cp -r termite/.config/termite $HOME/.config
     sudo cp -r home/{.nanorc,.zshrc,.Xresources,.xinitrc,.nvidia-xinitrc,.zprofile} $HOME
 
-# Se o usuário for = mamutal91
 function configuracoespessoais(){
     echo :::::::::::::::::::::::: Teclado, Touchpad e Intel
     sudo rm -rf /etc/X11/xorg.conf.d/10-evdev.conf
@@ -46,7 +45,7 @@ function configuracoespessoais(){
     sudo cp -r ${dotfiles}/system/.files/etc/modules-load.d/bbswitch.conf /etc/modules-load.d/
     sudo cp -r ${dotfiles}/system/.files/etc/modprobe.d/bbswitch.conf /etc/modprobe.d/
 }
-
+# Se o usuário for = mamutal91
 [[ $USER == "mamutal91" ]] && configuracoespessoais || echo No
 
 #cd $HOME/.config/polybar && ./launch.sh
