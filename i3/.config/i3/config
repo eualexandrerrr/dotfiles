@@ -27,7 +27,7 @@ bindsym $mod+F4 exec --no-startup-id /usr/bin/rambox &
         for_window [window_role="bubble"] floating enable, resize set 800 px 600 px, move position center focus
         for_window [window_role="task_dialog"] floating enable, resize set 800 px 600 px, move position center focus
         for_window [window_role="Preferences"] floating enable, resize set 800 px 600 px, move position center focus
-for_window [window_type="dialog"] floating enable, resize set 800 px 600 px, move position center focus
+        for_window [window_type="dialog"] floating enable, resize set 800 px 600 px, move position center focus
 for_window [window_type="menu"] floating enable, resize set 800 px 600 px, move position center focus
 
 # Regras de apps
