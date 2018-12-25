@@ -14,8 +14,8 @@ cd $df
     sudo rm -rf $HOME/{.zshrc,.Xresources,.xinitrc,.nvidia-xinitrc,.zprofile}
     sudo cp -r home/{.zshrc,.Xresources,.xinitrc,.nvidia-xinitrc,.zprofile} $HOME
 
-    sudo rm -rf ${dc}/i3 && sudo cp -r i3 ${dc}
-    sudo rm -rf ${dc}/scripts && sudo cp -r scripts ${dc}
+    sudo rm -rf i3 && sudo cp -r i3 ${dc}
+    sudo rm -rf scripts && sudo cp -r scripts ${dc}
 
 
 function mamutal91configs(){
