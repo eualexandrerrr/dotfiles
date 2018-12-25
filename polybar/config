@@ -1,0 +1,544 @@
+#   ██████╗  ██████╗ ██╗  ██╗   ██╗██████╗  █████╗ ██████╗ 
+#   ██╔══██╗██╔═══██╗██║  ╚██╗ ██╔╝██╔══██╗██╔══██╗██╔══██╗
+#   ██████╔╝██║   ██║██║   ╚████╔╝ ██████╔╝███████║██████╔╝
+#   ██╔═══╝ ██║   ██║██║    ╚██╔╝  ██╔══██╗██╔══██║██╔══██╗
+#   ██║     ╚██████╔╝███████╗██║   ██████╔╝██║  ██║██║  ██║
+#   ╚═╝      ╚═════╝ ╚══════╝╚═╝   ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
+#   https://github.com/jaagr/polybar
+
+#----------------------------
+# Cores
+#----------------------------
+[cores]
+
+background = ${xrdb:background}
+foreground = ${xrdb:foreground}
+color0 = ${xrdb:color0}
+color1 = ${xrdb:color1}
+color2 = ${xrdb:color2}
+color3 = ${xrdb:color3}
+color4 = ${xrdb:color4}
+color5 = ${xrdb:color5}
+color6 = ${xrdb:color6}
+color7 = ${xrdb:color7}
+color8 = ${xrdb:color8}
+color9 = ${xrdb:color9}
+color10 = ${xrdb:color10}
+color11 = ${xrdb:color11}
+color12 = ${xrdb:color12}
+color13 = ${xrdb:color13}
+color14 = ${xrdb:color14}
+color15 = ${xrdb:color15}
+
+bg = #0C2430
+fg = #0C2430
+transparente = #00000000
+
+focado = #041F4C
+urgente = #1F4178
+fontes = #FFFFFF
+
+icones = #B6C0C9
+icones-modulos = #AAB5E6
+icones-unfocado = #486178
+
+vermelho = #C80302
+branco = #ffffff
+cinza = #DED3CB
+cinzaescuro = #A19A93
+verde = #00D965
+
+spotify = #00D965
+
+# Barra de cima
+[bar/cima]
+monitor = eDP1
+width = 100%
+height = 27
+radius = 7.0
+fixed-center = true
+bottom = false
+locale = pt_BR.UTF-8
+override-redirect = true
+wm-restack = i3
+
+background = ${cores.transparente}
+foreground = ${cores.transparente}
+
+line-size = 1
+line-color = ${cores.transparente}
+
+border-size = 1
+border-color = ${cores.transparente}
+
+padding-left = 2
+padding-right = 2
+
+module-margin-left = 1
+module-margin-right = 2
+
+font-0 = Terminus:size=9;0
+font-1 = OpenSans:size=10;2:antialias=false 
+font-2 = siji:pixelsize=10;1
+font-3 = "Font Awesome 5 Free:style=Regular:pixelsize=9;1"
+font-4 = "Font Awesome 5 Free:style=Solid:pixelsize=9;1"
+font-5 = "Font Awesome 5 Brands:pixelsize=9;1"
+
+modules-left = spotify
+modules-center = i3
+modules-right = teclado temperatura bateria data hora usuario brilho menu-power
+
+cursor-click = pointer
+cursor-scroll = ns-resize
+
+# Barra de baixo
+[bar/baixo]
+#monitor = ${env:MONITOR:}
+width = 100%
+height = 27
+radius = 0.0
+fixed-center = true
+bottom = true
+locale = pt_BR.UTF-8
+#override-redirect = false
+#wm-restack = i3
+
+background = ${cores.transparente}
+foreground = ${cores.fontes}
+
+line-size = 1
+line-color = ${cores.transparente}
+
+border-size = 1
+border-color = ${cores.transparente}
+
+padding-left = 2
+padding-right = 2
+
+module-margin-left = 1
+module-margin-right = 2
+
+font-0 = Terminus:size=9;0
+font-1 = OpenSans:size=10;2:antialias=false 
+font-2 = siji:pixelsize=10;1
+font-3 = "Font Awesome 5 Free:style=Regular:pixelsize=9;1"
+font-4 = "Font Awesome 5 Free:style=Solid:pixelsize=9;1"
+font-5 = "Font Awesome 5 Brands:pixelsize=9;1"
+
+modules-left = memoria cpu kernel
+modules-center = janela
+modules-right = ethernet wireless screencast screenshot github volume
+
+cursor-click = pointer
+cursor-scroll = ns-resize
+
+# Janela
+[module/janela]
+type = internal/xwindow
+
+format-prefix = "  "
+format-prefix-foreground = ${cores.icones-modulos}
+
+format = <label>
+format-background = ${cores.transparente}
+format-foreground = ${cores.fontes}
+format-padding = 4
+
+label = %title%
+label-maxlen = 80
+
+label-empty = Sem janelas
+label-empty-foreground = ${cores.fontes}
+
+# Teclado
+[module/teclado]
+type = internal/xkeyboard
+blacklist-0 = num lock
+blacklist-1 = scroll lock
+blacklist-2 = caps lock
+
+format = <label-layout> <label-indicator>
+
+format-prefix = " "
+format-prefix-foreground = ${cores.icones-modulos}
+
+label-layout = %layout%
+label-layout-foreground = ${cores.fontes}
+
+# Usuário
+[module/usuario]
+type = custom/script
+interval = 1
+
+format-prefix = " "
+format-prefix-foreground = ${cores.icones-modulos}
+exec = echo $USER
+format-foreground = ${cores.fontes}
+
+# Kernel
+[module/kernel]
+type = custom/script
+interval = 1
+
+format-prefix = " "
+format-prefix-foreground = ${cores.icones-modulos}
+exec = uname -r
+tail = false
+format-foreground = ${cores.fontes}
+
+# Spotify
+[module/spotify]
+type = custom/script
+format-prefix = " "
+format-prefix-foreground = ${cores.spotify}
+format-padding = 01
+format-foreground = ${cores.fontes}
+interval = 3
+exec = python $HOME/.config/scripts/spotify.py
+exec-if = pgrep -x spotify
+tail = true
+label-maxlen = 35
+
+# i3wm
+[module/i3]
+type = internal/i3
+pin-workspaces = true
+strip-wsnumbers = true
+index-sort = true
+enable-click = true
+enable-scroll = true
+wrapping-scroll = true
+reverse-scroll = false
+fuzzy-match = true
+
+ws-icon-0 = 1;
+ws-icon-1 = 2;
+ws-icon-2 = 3;
+ws-icon-3 = 4;
+ws-icon-4 = 5;
+ws-icon-5 = 6;
+ws-icon-6 = 7;
+ws-icon-7 = 8;
+ws-icon-8 = 9;
+ws-icon-9 = 10;
+ws-icon-default = ♟
+
+format = <label-state> <label-mode>
+
+label-mode = %mode%
+label-mode-padding = 2
+label-mode-background = ${cores.vermelho}
+
+label-focused = %icon%
+label-focused-foreground = ${cores.icones}
+label-focused-background = ${cores.focado}
+label-focused-underline = ${cores.transparente}
+label-focused-padding = 2
+
+label-unfocused = %icon%
+label-unfocused-foreground = ${cores.icones-unfocado}
+label-unfocused-padding = 2
+
+label-visible = %icon%
+label-visible-foreground = ${cores.vermelho}
+label-visible-underline = ${cores.transparente}
+label-visible-padding = 2
+
+label-urgent = %icon%
+label-urgent-foreground = ${cores.icones}
+label-urgent-background = ${cores.urgente}
+label-urgent-padding = 2
+
+label-separator =
+label-separator-padding = 2
+label-separator-foreground = ${cores.urgente}
+
+# CPU
+[module/cpu]
+type = internal/cpu
+interval = 0.5
+format = <label> <ramp-coreload>
+label = 
+label-foreground = #FF8000
+ramp-coreload-0 = ▁
+ramp-coreload-0-font = 2
+ramp-coreload-0-foreground = #F5A9BC
+ramp-coreload-1 = ▂
+ramp-coreload-1-font = 2
+ramp-coreload-1-foreground = #F7819F
+ramp-coreload-2 = ▃
+ramp-coreload-2-font = 2
+ramp-coreload-2-foreground = #FA5882
+ramp-coreload-3 = ▄
+ramp-coreload-3-font = 2
+ramp-coreload-3-foreground = #FE2E64
+ramp-coreload-4 = ▅
+ramp-coreload-4-font = 2
+ramp-coreload-4-foreground = #FF0040
+ramp-coreload-5 = ▆
+ramp-coreload-5-font = 2
+ramp-coreload-5-foreground = #DF013A
+ramp-coreload-6 = ▇
+ramp-coreload-6-font = 2
+ramp-coreload-6-foreground = #B40431
+ramp-coreload-7 = █
+ramp-coreload-7-font = 2
+ramp-coreload-7-foreground = #8A0829
+
+# Memória
+[module/memoria]
+type = internal/memory
+format = <label> <bar-used>
+label = 
+label-foreground = ${cores.icones-modulos}
+bar-used-width = 10
+bar-used-foreground-0 = #D8CEF6
+bar-used-foreground-1 = #D0A9F5
+bar-used-foreground-2 = #DA81F5
+bar-used-foreground-3 = #FA58F4
+bar-used-foreground-4 = #FE2EC8
+bar-used-foreground-5 = #FF0080
+bar-used-foreground-6 = #DF013A
+bar-used-indicator = |
+bar-used-indicator-font = 6
+bar-used-indicator-foreground = ${cores.icones-modulos}
+bar-used-fill = ─
+bar-used-fill-font = 6
+bar-used-empty = ─
+bar-used-empty-font = 6
+bar-used-empty-foreground = ${cores.cinzaescuro}
+
+# Data
+[module/data]
+type = internal/date
+interval = 1
+date = %a, %d/%m
+date-alt = %a, %d de %B de %G%
+time = %H:%M
+format =  <label>
+format-foreground = ${cores.icones-modulos}
+label = %date%
+label-foreground = ${cores.fontes}
+
+# Hora
+[module/hora]
+type = internal/date
+interval = 1
+time = %H:%M
+format =  <label>
+format-foreground = ${cores.icones-modulos}
+label = %time%
+label-foreground = ${cores.fontes}
+
+# Brilho
+[module/brilho]
+type = internal/xbacklight
+format = <ramp> <bar> 
+ramp-0 = 
+ramp-foreground = ${cores.icones-modulos}
+
+bar-indicator = |
+bar-indicator-foreground = ${cores.icones-modulos}
+#bar-indicator-font = 1
+bar-fill = ─
+bar-fill-font = 2
+bar-gradient = true
+bar-empty= ─
+bar-empty-font = 2
+bar-empty-foreground = ${cores.cinzaescuro}
+bar-width = 10
+bar-foreground-0 = #D881ED
+bar-foreground-1 = #CB59E8
+bar-foreground-2 = #CB59E8
+bar-foreground-3 = #BA21E0
+bar-foreground-4 = #A41CC6
+bar-foreground-5 = #8D18AB
+bar-foreground-6 = #74138C
+
+# Volume
+[module/volume]
+type = internal/pulseaudio
+interval = 5
+use-ui-max = false
+sink = alsa_output.pci-0000_00_1f.3.analog-stereo
+
+format-volume = <label-volume> <bar-volume>
+
+label-volume =  %percentage%%
+label-volume-foreground = ${cores.icones-modulos}
+
+label-muted =  0% -------------------
+label-muted-foreground = ${cores.icones-modulos}
+
+bar-volume-width = 10
+bar-volume-foreground-0 = #D881ED
+bar-volume-foreground-1 = #CB59E8
+bar-volume-foreground-2 = #CB59E8
+bar-volume-foreground-3 = #BA21E0
+bar-volume-foreground-4 = #A41CC6
+bar-volume-foreground-5 = #8D18AB
+bar-volume-foreground-6 = #74138C
+bar-volume-gradient = true
+bar-volume-indicator = |
+bar-volume-indicator-font = 2
+bar-volume-indicator-foreground = ${cores.icones-modulos}
+bar-volume-fill = ─
+bar-volume-fill-font = 2
+bar-volume-empty = ─
+bar-volume-empty-font = 2
+bar-volume-empty-foreground = ${cores.cinzaescuro}
+
+# Bateria
+[module/bateria]
+battery = BAT1
+adapter = ADP1
+type = internal/battery
+full-at = 85
+interval = 1
+poll-interval = 5
+time-format = %H:%M
+
+format-charging = <animation-charging> <label-charging>
+format-discharging = <ramp-capacity> <label-discharging>
+
+format-charging-foreground = ${cores.icones-modulos}
+format-discharging-foreground = ${cores.icones-modulos}
+format-full-foreground = ${cores.icones-modulos}
+
+
+label-charging = %percentage%%
+label-charging-foreground = ${cores.fontes}
+
+label-discharging = %percentage%%
+label-discharging-foreground = ${cores.fontes}
+
+
+format-full-prefix = " "
+format-full-prefix-foreground = ${cores.icones-modulos}
+label-full = 100%
+label-full-foreground = ${cores.fontes}
+
+
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+
+bar-capacity-width = 10
+
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = 
+animation-charging-4 = 
+animation-charging-framerate = 250
+
+animation-discharging-0 = 
+animation-discharging-1 = 
+animation-discharging-2 = 
+animation-discharging-3 = 
+animation-discharging-4 = 
+animation-discharging-framerate = 250
+
+# Temperatura
+[module/temperatura]
+type = internal/temperature
+interval = 0.5
+thermal-zone = 0
+hwmon-path = /sys/devices/platform/coretemp.0/hwmon/hwmon2/temp1_input
+warn-temperature = 60
+units = true
+format = <ramp> <label>
+
+format-warn = <ramp> <label-warn>
+
+label = %temperature-c%
+label-foreground = ${cores.fontes}
+
+label-warn = %temperature-c%
+label-warn-foreground = ${cores.fontes}
+
+ramp-0 = 
+ramp-1 = 
+ramp-2 = 
+ramp-foreground = ${cores.icones-modulos}
+
+# Wireless
+[module/wireless]
+type = internal/network
+interface = wlp3s0
+interval = 3.0
+
+format-connected = "<label-connected>  <ramp-signal>"
+format-packetloss = <animation-packetloss>
+label-connected = %essid%
+
+ramp-signal-0 = 
+ramp-signal-0-foreground = #BD574C
+ramp-signal-1 = 
+ramp-signal-1-foreground = #FF8066
+ramp-signal-2 = 
+ramp-signal-2-foreground = #F5DE72
+ramp-signal-3 = 
+ramp-signal-3-foreground = #D8DE72
+ramp-signal-4 = 
+ramp-signal-4-foreground = #BADE72
+ramp-signal-5 = 
+ramp-signal-5-foreground = #96DE72
+
+# Ethernet
+[module/ethernet]
+type = internal/network
+interface = enp4s0
+interval = 3.0
+
+format-connected-prefix = " "
+format-connected-prefix-foreground = ${cores.icones-modulos}
+label-connected = %local_ip%
+
+# GitHub
+[module/github]
+type = custom/text
+content = 
+content-foreground = ${cores.icones-modulos}
+click-left = exec ~/.config/scripts/git-cron.sh -c &
+click-middle = exec ~/.config/scripts/git-cron.sh -c &
+click-right = exec ~/.config/scripts/git-cron.sh -c &
+scroll-down = exec ~/.config/scripts/git-cron.sh -c &
+
+# Screenshot
+[module/screenshot]
+type = custom/text
+content = 
+content-foreground = ${cores.icones-modulos}
+click-left = ~/.config/scripts/screenshot.sh &
+click-middle = ~/.config/scripts/screenshot.sh -w &
+click-right = ~/.config/scripts/screenshot.sh -c &
+scroll-down = ~/.config/scripts/screenshot.sh -e &
+
+# Screencast
+[module/screencast]
+type = custom/text
+content = 
+content-foreground = ${cores.icones-modulos}
+click-left = ~/.config/scripts/screencast.sh &
+click-middle = ~/.config/scripts/screencast.sh -w &
+click-right = ~/.config/scripts/screencast.sh -c &
+scroll-down = ~/.config/scripts/screencast.sh -e &
+
+# Menu Power
+[module/menu-power]
+type = custom/text
+content = 
+content-foreground = ${cores.icones}
+click-left = ~/.config/scripts/menu-power.sh &
+
+[settings]
+screenchange-reload = true
+
+[global/wm]
+margin-top = 5
+margin-bottom = 5
+
+; vim:ft=dosini

@@ -17,6 +17,7 @@ cd $dotfiles
     sudo rm -rf ${configs}/compton && sudo cp -r compton ${configs}
     sudo rm -rf ${configs}/dunst && sudo cp -r dunst ${configs}
     sudo rm -rf ${configs}/i3 && sudo cp -r i3 ${configs}
+    sudo rm -rf ${configs}/polybar && sudo cp -r polybar ${configs}
     sudo rm -rf ${configs}/rofi && sudo cp -r rofi ${configs}
     sudo rm -rf ${configs}/scripts && sudo cp -r scripts ${configs}
 
