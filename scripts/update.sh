@@ -8,6 +8,9 @@ dc="${HOME}/.config"
 
 cd $df
 
+    sudo rm -rf $HOME/.local/share/{fonts,i3lock,sounds,wallpapers}
+    sudo cp -r home/.local/ $HOME
+
     sudo rm -rf $HOME/{.zshrc,.Xresources,.xinitrc,.nvidia-xinitrc,.zprofile}
     sudo cp -r home/{.zshrc,.Xresources,.xinitrc,.nvidia-xinitrc,.zprofile} $HOME
 
