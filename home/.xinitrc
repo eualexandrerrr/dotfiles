@@ -5,10 +5,10 @@
 xrdb -merge "${HOME}/.Xresources"
 
 # Dunst
-#dunst &
+dunst &
 
 # Compton
-#compton --config ${HOME}/.config/compton/compton.conf -b &
+compton --config ${HOME}/.config/compton/compton.conf -b &
 
 # Numlock On
 numlockx &
