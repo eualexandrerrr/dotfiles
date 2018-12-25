@@ -59,7 +59,7 @@ radius = 7.0
 fixed-center = true
 bottom = false
 locale = pt_BR.UTF-8
-override-redirect = true
+override-redirect = false
 wm-restack = i3
 
 background = ${cores.transparente}
@@ -93,15 +93,15 @@ cursor-scroll = ns-resize
 
 # Barra de baixo
 [bar/baixo]
-#monitor = ${env:MONITOR:}
+monitor = eDP1
 width = 100%
 height = 27
 radius = 0.0
 fixed-center = true
 bottom = true
 locale = pt_BR.UTF-8
-#override-redirect = false
-#wm-restack = i3
+override-redirect = false
+wm-restack = i3
 
 background = ${cores.transparente}
 foreground = ${cores.fontes}
@@ -360,7 +360,7 @@ bar-foreground-6 = #74138C
 type = internal/pulseaudio
 interval = 5
 use-ui-max = false
-sink = alsa_output.pci-0000_00_1f.3.analog-stereo
+#sink = alsa_output.pci-0000_00_1f.3.analog-stereo
 
 format-volume = <label-volume> <bar-volume>
 
