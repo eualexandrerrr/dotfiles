@@ -44,3 +44,4 @@ function mamutal91configs(){
 sleep 1s
 i3-msg restart
 notify-send "Atualização concluída com sucesso"
+cd $HOME/.config/polybar && ./launch.sh
