@@ -24,5 +24,3 @@ browser = firefox
 editor = nano
 
 cursor_blink = system
-
-cursor_shape = ibeam
