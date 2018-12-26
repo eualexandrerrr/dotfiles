@@ -20,6 +20,7 @@ cd $dotfiles
     sudo rm -rf ${configs}/polybar && sudo cp -r polybar ${configs}
     sudo rm -rf ${configs}/rofi && sudo cp -r rofi ${configs}
     sudo rm -rf ${configs}/scripts && sudo cp -r scripts ${configs}
+    sudo rm -rf ${configs}/termite && sudo cp -r termite ${configs}
 
 
 function mamutal91configs(){
