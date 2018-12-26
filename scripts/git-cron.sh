@@ -27,8 +27,8 @@ atualiza() {
 			git push
 			DISPLAY=:0 notify-send "Git-Cron" "Repo <b>$(basename $1)</b> atualizado."
 			fi
-		notify-send "Nenhum."
 		fi
+	DISPLAY=:0 notify-send "Nenhum."
 	fi
 }
 
