@@ -44,4 +44,5 @@ canberra-gtk-play --file=$HOME/.local/share/sounds/completed.wav
 sleep 1s
 i3-msg restart
 notify-send "Atualização concluída com sucesso"
+sleep 1s
 cd $HOME/.config/polybar && ./launch.sh
