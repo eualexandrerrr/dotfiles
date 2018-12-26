@@ -53,6 +53,7 @@ spotify = #00D965
 # Barra de cima
 [bar/cima]
 monitor = ${env:MONITOR:}
+monitor-strict = false
 width = 100%
 height = 27
 radius = 7.0
@@ -95,9 +96,10 @@ cursor-scroll = ns-resize
 # Barra de baixo
 [bar/baixo]
 monitor = ${env:MONITOR:}
-width = 100%
+monitor-strict = false
+cdwidth = 100%
 height = 27
-radius = 0.0
+radius = 7.0
 fixed-center = true
 bottom = true
 locale = pt_BR.UTF-8
