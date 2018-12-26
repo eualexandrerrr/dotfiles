@@ -1,3 +1,5 @@
+<center><img src="https://dotfiles.github.io/images/dotfiles-logo.png" height="40%" width="40%;"/></center>
+
 # dotfiles
 💻 🎨 Arch Linux DotFiles
 
