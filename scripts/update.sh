@@ -21,6 +21,7 @@ cd $dotfiles
     sudo rm -rf ${configs}/rofi && sudo cp -r rofi ${configs}
     sudo rm -rf ${configs}/scripts && sudo cp -r scripts ${configs}
     sudo rm -rf ${configs}/termite && sudo cp -r termite ${configs}
+    sudo rm -rf ${configs}/Thunar && sudo cp -r Thunar ${configs}
 
 
 function mamutal91configs(){
