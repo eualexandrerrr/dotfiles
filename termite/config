@@ -1,0 +1,19 @@
+# Básico
+[options]
+transparency = 1.0
+font = Terminus
+use_xft = true
+allow_bold = true
+audible_bell = false
+clickable_url = true
+dynamic_title = true
+icon_name = termite
+scrollback_lines = 999999
+urgent_on_bell = true
+
+# Navegador
+browser = firefox
+editor = nano
+
+################ Cursor cego | system | on | off
+cursor_blink = on
