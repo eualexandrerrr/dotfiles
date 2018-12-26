@@ -63,7 +63,7 @@ locale = pt_BR.UTF-8
 wm-restack = i3
 
 tray-position = right
-tray-padding = 0
+tray-padding = 3
 
 background = ${cores.transparente}
 foreground = ${cores.transparente}
