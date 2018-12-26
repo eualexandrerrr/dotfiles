@@ -1,4 +1,8 @@
 #!/bin/bash
 # github.com/mamutal91
 
-feh --bg-scale $HOME/.local/share/wallpapers/firefox.png
+wpp=$HOME/.local/share/wallpapers/firefox.png
+
+wal -i $wpp -o wal-set
+
+#feh --bg-scale $wpp
