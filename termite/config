@@ -10,39 +10,19 @@
 
 [options]
 transparency = 1.0
-font = Terminus 11
+font = xos4 Terminus 16px
 use_xft = true
 allow_bold = true
 audible_bell = false
 clickable_url = true
 dynamic_title = true
-#fullscreen = true
-#geometry = 640x480
-icon_name = terminal
-#mouse_autohide = false
-#scroll_on_output = false
-#scroll_on_keystroke = true
-# Length of the scrollback buffer, 0 disabled the scrollback buffer
-# and setting it to a negative value means "infinite scrollback"
 scrollback_lines = 999999
-#search_wrap = true
 urgent_on_bell = true
 
 # $BROWSER is used by default if set, with xdg-open as a fallback
 browser = firefox
 editor = nano
 
-# "system", "on" or "off"
 cursor_blink = system
 
-# "block", "underline" or "ibeam"
 cursor_shape = ibeam
-
-# Hide links that are no longer valid in url select overlay mode
-#filter_unmatched_urls = true
-
-# Emit escape sequences for extra modified keys
-#modify_other_keys = false
-
-# set size hints for the window
-#size_hints = false
