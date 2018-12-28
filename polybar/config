@@ -201,7 +201,7 @@ exec-if = pgrep -x spotify
 tail = true
 label-maxlen = 35
 
-# i3wm
+# i3
 [module/i3]
 type = internal/i3
 pin-workspaces = true
