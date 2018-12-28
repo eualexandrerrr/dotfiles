@@ -174,7 +174,7 @@ interval = 1
 
 format-prefix = " "
 format-prefix-foreground = ${cores.icones-modulos}
-exec = echo $USER
+exec = echo $USER@$HOSTNAME
 format-foreground = ${cores.fontes}
 
 # Kernel
