@@ -46,6 +46,8 @@ for_window [class="libreoffice-startcenter|libreoffice-writer|libreoffice-draw|l
 
 for_window [class="Lxappearance|Thunar|qbittorrent"] move to workspace $ws7, floating enable, resize set 1030 px 630 px, move position center, focus
 for_window [class="qBittorrent"] move to workspace $ws7, floating enable, resize set 1024 px 630 px, move position left, focus
+for_window [class="Galculator"] move to workspace $ws7, floating enable, resize set 400 px 440 px, move position center focus
+
 
 for_window [class="Pinta"] move to workspace $ws8, focus
 for_window [class="feh"] move to workspace $ws8, floating enable, resize set 1024 px 630 px, move position center focus
@@ -59,7 +61,7 @@ assign [class="^TelegramDesktop|Rambox"] $ws3
 assign [class="^Spotify|vlc|Steam"] $ws4
 assign [class="^code"] $ws5
 assign [class="^libreoffice-startcenter|libreoffice-writer|libreoffice-draw|libreoffice-presentation|libreoffice-impress|libreoffice-calc"] $ws6
-assign [class="^Lxappearance|Thunar|qBittorrent"] $ws7
+assign [class="^Lxappearance|Thunar|qBittorrent|Galculator"] $ws7
 assign [class="^Pinta|feh"] $ws8
 assign [class="^"] $ws9
 assign [class="^"] $ws10
