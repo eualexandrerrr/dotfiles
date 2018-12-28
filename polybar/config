@@ -87,9 +87,9 @@ font-3 = "Font Awesome 5 Free:style=Regular:pixelsize=9;1"
 font-4 = "Font Awesome 5 Free:style=Solid:pixelsize=9;1"
 font-5 = "Font Awesome 5 Brands:pixelsize=9;1"
 
-modules-left = spotify
-modules-center = i3
-modules-right = teclado temperatura bateria data hora usuario brilho menu-power
+modules-left = 
+modules-center = 
+modules-right = battery
 
 cursor-click = pointer
 cursor-scroll = ns-resize
@@ -128,410 +128,105 @@ font-3 = "Font Awesome 5 Free:style=Regular:pixelsize=9;1"
 font-4 = "Font Awesome 5 Free:style=Solid:pixelsize=9;1"
 font-5 = "Font Awesome 5 Brands:pixelsize=9;1"
 
-modules-left = memoria cpu kernel
-modules-center = janela
-modules-right = ethernet wireless screencast screenshot github volume
+modules-left =
+modules-center = 
+modules-right = 
 
 cursor-click = pointer
 cursor-scroll = ns-resize
 
-# Janela
-[module/janela]
-type = internal/xwindow
+[module/battery]
+type = internal/battery
 
-format-prefix = "  "
-format-prefix-foreground = ${cores.icones-modulos}
+; This is useful in case the battery never reports 100% charge
+full-at = 99
 
-format = <label>
-format-background = ${cores.transparente}
-format-foreground = ${cores.fontes}
-format-padding = 4
-
-label = %title%
-label-maxlen = 80
-
-label-empty = Sem janelas
-label-empty-foreground = ${cores.fontes}
-
-# Teclado
-[module/teclado]
-type = internal/xkeyboard
-blacklist-0 = num lock
-blacklist-1 = scroll lock
-blacklist-2 = caps lock
-
-format = <label-layout> <label-indicator>
-
-format-prefix = " "
-format-prefix-foreground = ${cores.icones-modulos}
-
-label-layout = %layout%
-label-layout-foreground = ${cores.fontes}
-
-# Usuário
-[module/usuario]
-type = custom/script
-interval = 1
-
-format-prefix = " "
-format-prefix-foreground = ${cores.icones-modulos}
-exec = echo $USER
-format-foreground = ${cores.fontes}
-
-# Kernel
-[module/kernel]
-type = custom/script
-interval = 1
-
-format-prefix = " "
-format-prefix-foreground = ${cores.icones-modulos}
-exec = uname -r
-tail = false
-format-foreground = ${cores.fontes}
-
-# Spotify
-[module/spotify]
-type = custom/script
-format-prefix = " "
-format-prefix-foreground = ${cores.spotify}
-format-padding = 01
-format-foreground = ${cores.fontes}
-interval = 3
-exec = python $HOME/.config/scripts/spotify.py
-exec-if = pgrep -x spotify
-tail = true
-label-maxlen = 35
-
-# i3wm
-[module/i3]
-type = internal/i3
-pin-workspaces = true
-strip-wsnumbers = true
-index-sort = true
-enable-click = true
-enable-scroll = true
-wrapping-scroll = true
-reverse-scroll = false
-fuzzy-match = true
-
-ws-icon-0 = 1;
-ws-icon-1 = 2;
-ws-icon-2 = 3;
-ws-icon-3 = 4;
-ws-icon-4 = 5;
-ws-icon-5 = 6;
-ws-icon-6 = 7;
-ws-icon-7 = 8;
-ws-icon-8 = 9;
-ws-icon-9 = 10;
-ws-icon-default = ♟
-
-format = <label-state> <label-mode>
-
-label-mode = %mode%
-label-mode-padding = 2
-label-mode-background = ${cores.vermelho}
-
-label-focused = %icon%
-label-focused-foreground = ${cores.icones}
-label-focused-background = ${cores.focado}
-label-focused-underline = ${cores.transparente}
-label-focused-padding = 2
-
-label-unfocused = %icon%
-label-unfocused-foreground = ${cores.icones-unfocado}
-label-unfocused-padding = 2
-
-label-visible = %icon%
-label-visible-foreground = ${cores.vermelho}
-label-visible-underline = ${cores.transparente}
-label-visible-padding = 2
-
-label-urgent = %icon%
-label-urgent-foreground = ${cores.icones}
-label-urgent-background = ${cores.urgente}
-label-urgent-padding = 2
-
-label-separator =
-label-separator-padding = 2
-label-separator-foreground = ${cores.urgente}
-
-# CPU
-[module/cpu]
-type = internal/cpu
-interval = 0.5
-format = <label> <ramp-coreload>
-label = 
-label-foreground = #FF8000
-ramp-coreload-0 = ▁
-ramp-coreload-0-font = 2
-ramp-coreload-0-foreground = #F5A9BC
-ramp-coreload-1 = ▂
-ramp-coreload-1-font = 2
-ramp-coreload-1-foreground = #F7819F
-ramp-coreload-2 = ▃
-ramp-coreload-2-font = 2
-ramp-coreload-2-foreground = #FA5882
-ramp-coreload-3 = ▄
-ramp-coreload-3-font = 2
-ramp-coreload-3-foreground = #FE2E64
-ramp-coreload-4 = ▅
-ramp-coreload-4-font = 2
-ramp-coreload-4-foreground = #FF0040
-ramp-coreload-5 = ▆
-ramp-coreload-5-font = 2
-ramp-coreload-5-foreground = #DF013A
-ramp-coreload-6 = ▇
-ramp-coreload-6-font = 2
-ramp-coreload-6-foreground = #B40431
-ramp-coreload-7 = █
-ramp-coreload-7-font = 2
-ramp-coreload-7-foreground = #8A0829
-
-# Memória
-[module/memoria]
-type = internal/memory
-format = <label>
-#label = 
-label-foreground = ${cores.icones-modulos}
-
-
-label =  %gb_used%/%gb_total%
-
-; Only applies if <bar-used> is used
-bar-used-indicator =
-bar-used-width = 50
-bar-used-foreground-0 = #55aa55
-bar-used-foreground-1 = #557755
-bar-used-foreground-2 = #f5a70a
-bar-used-foreground-3 = #ff5555
-bar-used-fill = ▐
-bar-used-empty = ▐
-bar-used-empty-foreground = #444444
-
-; Only applies if <ramp-used> is used
-ramp-used-0 = ▁
-ramp-used-1 = ▂
-ramp-used-2 = ▃
-ramp-used-3 = ▄
-ramp-used-4 = ▅
-ramp-used-5 = ▆
-ramp-used-6 = ▇
-ramp-used-7 = █
-
-# Data
-[module/data]
-type = internal/date
-interval = 1
-date = %a, %d/%m
-date-alt = %a, %d de %B de %G%
-time = %H:%M
-format =  <label>
-format-foreground = ${cores.icones-modulos}
-label = %date%
-label-foreground = ${cores.fontes}
-
-# Hora
-[module/hora]
-type = internal/date
-interval = 1
-time = %H:%M
-format =  <label>
-format-foreground = ${cores.icones-modulos}
-label = %time%
-label-foreground = ${cores.fontes}
-
-# Brilho
-[module/brilho]
-type = internal/xbacklight
-format = 🌓 <label> 
-format-foreground = ${cores.icones-modulos}
-label = %percentage%%
-label-foreground = ${cores.fontes}
-label-font = 3
-
-# Volume
-[module/volume]
-type = internal/pulseaudio
-interval = 5
-use-ui-max = false
-sink = alsa_output.pci-0000_00_1f.3.analog-stereo
-
-master-soundcard = hw:1
-speaker-soundcard = hw:1
-headphone-soundcard = hw:1
-
-format-volume = <label-volume> <bar-volume>
-
-label-volume =  %percentage%%
-label-volume-foreground = ${cores.icones-modulos}
-
-label-muted =  0% -------------------
-label-muted-foreground = ${cores.icones-modulos}
-
-bar-volume-width = 10
-bar-volume-foreground-0 = #D881ED
-bar-volume-foreground-1 = #CB59E8
-bar-volume-foreground-2 = #CB59E8
-bar-volume-foreground-3 = #BA21E0
-bar-volume-foreground-4 = #A41CC6
-bar-volume-foreground-5 = #8D18AB
-bar-volume-foreground-6 = #74138C
-bar-volume-gradient = true
-bar-volume-indicator = |
-bar-volume-indicator-font = 2
-bar-volume-indicator-foreground = ${cores.icones-modulos}
-bar-volume-fill = ─
-bar-volume-fill-font = 2
-bar-volume-empty = ─
-bar-volume-empty-font = 2
-bar-volume-empty-foreground = ${cores.cinzaescuro}
-
-# Bateria
-[module/bateria]
+; Use the following command to list batteries and adapters:
+; $ ls -1 /sys/class/power_supply/
 battery = BAT1
 adapter = ADP1
-type = internal/battery
-full-at = 85
-interval = 1
+
+; If an inotify event haven't been reported in this many
+; seconds, manually poll for new values.
+;
+; Needed as a fallback for systems that don't report events
+; on sysfs/procfs.
+;
+; Disable polling by setting the interval to 0.
+;
+; Default: 5
 poll-interval = 5
+
+; Additional formatting
+
+; see "man date" for details on how to format the time string
+; NOTE: if you want to use syntax tags here you need to use %%{...}
+; Default: %H:%M:%S
 time-format = %H:%M
 
+; Available tags:
+;   <label-charging> (default)
+;   <bar-capacity>
+;   <ramp-capacity>
+;   <animation-charging>
 format-charging = <animation-charging> <label-charging>
+
+; Available tags:
+;   <label-discharging> (default)
+;   <bar-capacity>
+;   <ramp-capacity>
+;   <animation-discharging>
 format-discharging = <ramp-capacity> <label-discharging>
 
-format-charging-foreground = ${cores.icones-modulos}
-format-discharging-foreground = ${cores.icones-modulos}
-format-full-foreground = ${cores.icones-modulos}
+; Available tags:
+;   <label-full> (default)
+;   <bar-capacity>
+;   <ramp-capacity>
+;format-full = <ramp-capacity> <label-full>
 
+; Available tokens:
+;   %percentage% (default)
+;   %time%
+;   %consumption% (shows current charge rate in watts)
+label-charging = Charging %percentage%%
 
-label-charging = %percentage%%
-label-charging-foreground = ${cores.fontes}
+; Available tokens:
+;   %percentage% (default)
+;   %time%
+;   %consumption% (shows current discharge rate in watts)
+label-discharging = Discharging %percentage%%
 
-label-discharging = %percentage%%
-label-discharging-foreground = ${cores.fontes}
+; Available tokens:
+;   %percentage% (default)
+label-full = Fully charged
 
-
-format-full-prefix = " "
-format-full-prefix-foreground = ${cores.icones-modulos}
-label-full = 100%
-label-full-foreground = ${cores.fontes}
-
-
+; Only applies if <ramp-capacity> is used
 ramp-capacity-0 = 
 ramp-capacity-1 = 
 ramp-capacity-2 = 
 ramp-capacity-3 = 
 ramp-capacity-4 = 
 
+; Only applies if <bar-capacity> is used
 bar-capacity-width = 10
 
+; Only applies if <animation-charging> is used
 animation-charging-0 = 
 animation-charging-1 = 
 animation-charging-2 = 
 animation-charging-3 = 
 animation-charging-4 = 
-animation-charging-framerate = 250
+; Framerate in milliseconds
+animation-charging-framerate = 750
 
+; Only applies if <animation-discharging> is used
 animation-discharging-0 = 
 animation-discharging-1 = 
 animation-discharging-2 = 
 animation-discharging-3 = 
 animation-discharging-4 = 
-animation-discharging-framerate = 250
-
-# Temperatura
-[module/temperatura]
-type = internal/temperature
-interval = 0.5
-thermal-zone = 0
-hwmon-path = /sys/devices/platform/coretemp.0/hwmon/hwmon2/temp1_input
-warn-temperature = 60
-units = true
-format = <ramp> <label>
-
-format-warn = <ramp> <label-warn>
-
-label = %temperature-c%
-label-foreground = ${cores.fontes}
-
-label-warn = %temperature-c%
-label-warn-foreground = ${cores.fontes}
-
-ramp-0 = 
-ramp-1 = 
-ramp-2 = 
-ramp-foreground = ${cores.icones-modulos}
-
-# Wireless
-[module/wireless]
-type = internal/network
-interface = wlp3s0
-interval = 3.0
-
-format-connected = "<label-connected>  <ramp-signal>"
-format-packetloss = <animation-packetloss>
-label-connected = %essid%
-
-ramp-signal-0 = 
-ramp-signal-0-foreground = #BD574C
-ramp-signal-1 = 
-ramp-signal-1-foreground = #FF8066
-ramp-signal-2 = 
-ramp-signal-2-foreground = #F5DE72
-ramp-signal-3 = 
-ramp-signal-3-foreground = #D8DE72
-ramp-signal-4 = 
-ramp-signal-4-foreground = #BADE72
-ramp-signal-5 = 
-ramp-signal-5-foreground = #96DE72
-
-# Ethernet
-[module/ethernet]
-type = internal/network
-interface = enp4s0
-interval = 3.0
-
-format-connected-prefix = " "
-format-connected-prefix-foreground = ${cores.icones-modulos}
-label-connected = %local_ip%
-
-# GitHub
-[module/github]
-type = custom/text
-content = 
-content-foreground = ${cores.icones-modulos}
-click-left = exec ~/.config/scripts/git-cron.sh -c &
-click-middle = exec ~/.config/scripts/git-cron.sh -c &
-click-right = exec ~/.config/scripts/git-cron.sh -c &
-scroll-down = exec ~/.config/scripts/git-cron.sh -c &
-
-# Screenshot
-[module/screenshot]
-type = custom/text
-content = 
-content-foreground = ${cores.icones-modulos}
-click-left = ~/.config/scripts/screenshot.sh &
-click-middle = ~/.config/scripts/screenshot.sh -w &
-click-right = ~/.config/scripts/screenshot.sh -c &
-scroll-down = ~/.config/scripts/screenshot.sh -e &
-
-# Screencast
-[module/screencast]
-type = custom/text
-content = 
-content-foreground = ${cores.icones-modulos}
-click-left = ~/.config/scripts/screencast.sh &
-click-middle = ~/.config/scripts/screencast.sh -w &
-click-right = ~/.config/scripts/screencast.sh -c &
-scroll-down = ~/.config/scripts/screencast.sh -e &
-
-# Menu Power
-[module/menu-power]
-type = custom/text
-content = 
-content-foreground = ${cores.icones}
-click-left = ~/.config/scripts/menu-power.sh &
+; Framerate in milliseconds
+animation-discharging-framerate = 500
 
 [settings]
 screenchange-reload = true
