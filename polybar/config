@@ -297,6 +297,12 @@ type = internal/memory
 format = <label> <bar-used>
 label = 
 label-foreground = ${cores.icones-modulos}
+
+bar-used-indicator = |
+bar-used-indicator-foreground = ${cores.icones-modulos}
+bar-used-fill = ─
+bar-used-empty = ─
+bar-used-empty-foreground = ${cores.cinzaescuro}
 bar-used-width = 10
 bar-used-foreground-0 = #D8CEF6
 bar-used-foreground-1 = #D0A9F5
@@ -305,36 +311,6 @@ bar-used-foreground-3 = #FA58F4
 bar-used-foreground-4 = #FE2EC8
 bar-used-foreground-5 = #FF0080
 bar-used-foreground-6 = #DF013A
-bar-used-indicator = |
-bar-used-indicator-font = 6
-bar-used-indicator-foreground = ${cores.icones-modulos}
-bar-used-fill = ─
-bar-used-fill-font = 6
-bar-used-empty = ─
-bar-used-empty-font = 6
-bar-used-empty-foreground = ${cores.cinzaescuro}
-
-# Data
-[module/data]
-type = internal/date
-interval = 1
-date = %a, %d/%m
-date-alt = %a, %d de %B de %G%
-time = %H:%M
-format =  <label>
-format-foreground = ${cores.icones-modulos}
-label = %date%
-label-foreground = ${cores.fontes}
-
-# Hora
-[module/hora]
-type = internal/date
-interval = 1
-time = %H:%M
-format =  <label>
-format-foreground = ${cores.icones-modulos}
-label = %time%
-label-foreground = ${cores.fontes}
 
 # Brilho
 [module/brilho]
@@ -347,10 +323,8 @@ bar-indicator = |
 bar-indicator-foreground = ${cores.icones-modulos}
 #bar-indicator-font = 1
 bar-fill = ─
-bar-fill-font = 2
 bar-gradient = true
 bar-empty= ─
-bar-empty-font = 2
 bar-empty-foreground = ${cores.cinzaescuro}
 bar-width = 10
 bar-foreground-0 = #D881ED
@@ -380,23 +354,42 @@ label-volume-foreground = ${cores.icones-modulos}
 label-muted =  0% -------------------
 label-muted-foreground = ${cores.icones-modulos}
 
-bar-volume-width = 10
-bar-volume-foreground-0 = #D881ED
-bar-volume-foreground-1 = #CB59E8
-bar-volume-foreground-2 = #CB59E8
-bar-volume-foreground-3 = #BA21E0
-bar-volume-foreground-4 = #A41CC6
-bar-volume-foreground-5 = #8D18AB
-bar-volume-foreground-6 = #74138C
 bar-volume-gradient = true
 bar-volume-indicator = |
-bar-volume-indicator-font = 2
 bar-volume-indicator-foreground = ${cores.icones-modulos}
 bar-volume-fill = ─
-bar-volume-fill-font = 2
 bar-volume-empty = ─
-bar-volume-empty-font = 2
 bar-volume-empty-foreground = ${cores.cinzaescuro}
+bar-volume-width = 10
+bar-volume-foreground-0 = #D8CEF6
+bar-volume-foreground-1 = #D0A9F5
+bar-volume-foreground-2 = #DA81F5
+bar-volume-foreground-3 = #FA58F4
+bar-volume-foreground-4 = #FE2EC8
+bar-volume-foreground-5 = #FF0080
+bar-volume-foreground-6 = #DF013A
+
+# Data
+[module/data]
+type = internal/date
+interval = 1
+date = %a, %d/%m
+date-alt = %a, %d de %B de %G%
+time = %H:%M
+format =  <label>
+format-foreground = ${cores.icones-modulos}
+label = %date%
+label-foreground = ${cores.fontes}
+
+# Hora
+[module/hora]
+type = internal/date
+interval = 1
+time = %H:%M
+format =  <label>
+format-foreground = ${cores.icones-modulos}
+label = %time%
+label-foreground = ${cores.fontes}
 
 # Bateria
 [module/bateria]
@@ -482,7 +475,7 @@ interval = 3.0
 
 format-connected = <label-connected> <ramp-signal>
 format-packetloss = <animation-packetloss>
-label-connected = %upspeed% %downspeed% %essid%
+label-connected =  %upspeed%  %downspeed%  %essid%
 label-connected-font = 0
 
 ramp-signal-0 = 
