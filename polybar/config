@@ -227,6 +227,7 @@ ws-icon-default = ♟
 
 format = <label-state> <label-mode>
 
+#---------------------------------------
 # FOCADO
 label-focused = %icon%
 label-focused-padding = 1
