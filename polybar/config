@@ -291,12 +291,12 @@ ramp-coreload-7-foreground = #8A0829
 # Memória
 [module/memoria]
 type = internal/memory
-format = <label> <bar-used>
+format = <label>
 #label = 
 label-foreground = ${cores.icones-modulos}
 
 
-label = RAM %gb_used%/%gb_free%
+label =  %gb_used%/%gb_total%
 
 ; Only applies if <bar-used> is used
 bar-used-indicator =
