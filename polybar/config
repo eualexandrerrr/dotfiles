@@ -344,27 +344,11 @@ label-foreground = ${cores.fontes}
 # Brilho
 [module/brilho]
 type = internal/xbacklight
-format = <ramp> <bar> 
-ramp-0 = 
-ramp-foreground = ${cores.icones-modulos}
-
-bar-indicator = |
-bar-indicator-foreground = ${cores.icones-modulos}
-#bar-indicator-font = 1
-bar-fill = ─
-bar-fill-font = 2
-bar-gradient = true
-bar-empty= ─
-bar-empty-font = 2
-bar-empty-foreground = ${cores.cinzaescuro}
-bar-width = 10
-bar-foreground-0 = #D881ED
-bar-foreground-1 = #CB59E8
-bar-foreground-2 = #CB59E8
-bar-foreground-3 = #BA21E0
-bar-foreground-4 = #A41CC6
-bar-foreground-5 = #8D18AB
-bar-foreground-6 = #74138C
+format = 🌓 <label> 
+format-foreground = ${cores.icones-modulos}
+label = %percentage%%
+label-foreground = ${cores.fontes}
+label-font = 3
 
 # Volume
 [module/volume]
