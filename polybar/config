@@ -236,23 +236,31 @@ label-focused-foreground = ${cores.foreground}
 label-focused-background = ${cores.background}
 label-focused-underline = ${cores.verde}
 #---------------------------------------
+
+# UNFOCADO
+label-unfocused-padding = 1
 label-unfocused = %icon%
 label-unfocused-foreground = ${cores.icones-unfocado}
-label-unfocused-padding = 1
+#---------------------------------------
 
+# VISIVEL
 label-visible = %icon%
 label-visible-foreground = ${cores.vermelho}
 label-visible-underline = ${cores.transparente}
 label-visible-padding = 1
+#---------------------------------------
+
 
 label-urgent = %icon%
 label-urgent-foreground = ${cores.icones}
 label-urgent-background = ${cores.urgente}
 label-urgent-padding = 1
+#---------------------------------------
 
 label-separator =
 label-separator-padding = 1
 label-separator-foreground = ${cores.urgente}
+#---------------------------------------
 
 # CPU
 [module/cpu]
