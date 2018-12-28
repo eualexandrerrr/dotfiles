@@ -11,7 +11,7 @@ fi
 app="maim"
 params="-u"
 data=$(date +%Hh%Mm%Ss-%d-%m-%Y)
-nome="SS-${data}"
+nome="Screenshot-${data}"
 extensao=".png"
 atraso=10
 tipo="image/png"
