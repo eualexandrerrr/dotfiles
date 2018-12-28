@@ -125,7 +125,7 @@ font-3 = "Font Awesome 5 Free:style=Regular:pixelsize=9;1"
 font-4 = "Font Awesome 5 Free:style=Solid:pixelsize=9;1"
 font-5 = "Font Awesome 5 Brands:pixelsize=9;1"
 
-modules-left = memoria cpu kernel
+modules-left = weather memoria cpu kernel
 modules-center = janela
 modules-right = ethernet wireless screencast screenshot github volume
 
@@ -149,6 +149,12 @@ label-maxlen = 80
 
 label-empty = Sem janelas
 label-empty-foreground = ${cores.fontes}
+
+# Weather
+[module/weather]
+type = custom/script
+interval = 60
+exec = ~/.config/scripts/weather.py
 
 # Teclado
 [module/teclado]
