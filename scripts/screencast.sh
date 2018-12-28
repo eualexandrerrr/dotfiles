@@ -26,7 +26,7 @@ else
 fi
 
 if [ ! $1 ]; then
-        data=$(date +%H-%M-%S--%d-%m-%Y)
+        data=$(date +%Hh%Mm%Ss-%d-%m-%Y)
         arquivo="${caminho}/Screencast-${data}.mp4"
         [ ! -d $caminho ] && mkdir -p $caminho
         fi
