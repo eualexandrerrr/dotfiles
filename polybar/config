@@ -54,9 +54,9 @@ spotify = #00D965
 [bar/cima]
 monitor = ${env:MONITOR:}
 monitor-strict = false
-width = 100%
-height = 27
-radius = 7.0
+width = 1000
+height = 30
+radius = 10.0
 fixed-center = true
 bottom = false
 locale = pt_BR.UTF-8
@@ -65,10 +65,10 @@ wm-restack = i3
 background = ${cores.color0}
 foreground = ${cores.vermelho}
 
-line-size = 1
+line-size = 0
 line-color = ${cores.transparente}
 
-border-size = 1
+border-size = 0
 border-color = ${cores.transparente}
 
 padding-left = 2
