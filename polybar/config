@@ -321,7 +321,6 @@ ramp-foreground = ${cores.icones-modulos}
 
 bar-indicator = |
 bar-indicator-foreground = ${cores.icones-modulos}
-#bar-indicator-font = 1
 bar-fill = ─
 bar-gradient = true
 bar-empty= ─
