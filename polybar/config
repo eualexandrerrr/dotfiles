@@ -327,13 +327,13 @@ bar-gradient = true
 bar-empty= ─
 bar-empty-foreground = ${cores.cinzaescuro}
 bar-width = 10
-bar-foreground-0 = #D881ED
-bar-foreground-1 = #CB59E8
-bar-foreground-2 = #CB59E8
-bar-foreground-3 = #BA21E0
-bar-foreground-4 = #A41CC6
-bar-foreground-5 = #8D18AB
-bar-foreground-6 = #74138C
+bar-foreground-0 = #D8CEF6
+bar-foreground-1 = #D0A9F5
+bar-foreground-2 = #DA81F5
+bar-foreground-3 = #FA58F4
+bar-foreground-4 = #FE2EC8
+bar-foreground-5 = #FF0080
+bar-foreground-6 = #DF013A
 
 # Volume
 [module/volume]
