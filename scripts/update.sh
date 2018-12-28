@@ -24,7 +24,6 @@ cd $dotfiles
     sudo rm -rf ${configs}/termite && sudo cp -r termite ${configs}
     sudo rm -rf ${configs}/thunar && sudo cp -r thunar ${configs}
 
-
 function mamutal91configs(){
     sudo rm -rf /etc/X11/xorg.conf.d/10-evdev.conf
     sudo rm -rf /etc/X11/xorg.conf.d/20-intel.conf
