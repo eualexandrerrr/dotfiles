@@ -68,7 +68,7 @@ wm-restack = i3
 background = ${cores.transparente}
 foreground = ${cores.transparente}
 
-line-size = 1
+line-size = 0
 line-color = ${cores.transparente}
 
 border-size = 0
@@ -292,24 +292,32 @@ ramp-coreload-7-foreground = #8A0829
 [module/memoria]
 type = internal/memory
 format = <label> <bar-used>
-label = 
+#label = 
 label-foreground = ${cores.icones-modulos}
-bar-used-width = 10
-bar-used-foreground-0 = #D8CEF6
-bar-used-foreground-1 = #D0A9F5
-bar-used-foreground-2 = #DA81F5
-bar-used-foreground-3 = #FA58F4
-bar-used-foreground-4 = #FE2EC8
-bar-used-foreground-5 = #FF0080
-bar-used-foreground-6 = #DF013A
-bar-used-indicator = |
-bar-used-indicator-font = 6
-bar-used-indicator-foreground = ${cores.icones-modulos}
-bar-used-fill = ─
-bar-used-fill-font = 6
-bar-used-empty = ─
-bar-used-empty-font = 6
-bar-used-empty-foreground = ${cores.cinzaescuro}
+
+
+label = RAM %gb_used%/%gb_free%
+
+; Only applies if <bar-used> is used
+bar-used-indicator =
+bar-used-width = 50
+bar-used-foreground-0 = #55aa55
+bar-used-foreground-1 = #557755
+bar-used-foreground-2 = #f5a70a
+bar-used-foreground-3 = #ff5555
+bar-used-fill = ▐
+bar-used-empty = ▐
+bar-used-empty-foreground = #444444
+
+; Only applies if <ramp-used> is used
+ramp-used-0 = ▁
+ramp-used-1 = ▂
+ramp-used-2 = ▃
+ramp-used-3 = ▄
+ramp-used-4 = ▅
+ramp-used-5 = ▆
+ramp-used-6 = ▇
+ramp-used-7 = █
 
 # Data
 [module/data]
