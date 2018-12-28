@@ -8,11 +8,11 @@ configs="${HOME}/.config"
 
 cd $dotfiles
 
-    sudo rm -rf $HOME/.local/share/{fonts,i3lock,sounds,wallpapers}
-    sudo cp -r home/.local/ $HOME
+    sudo rm -rf $HOME/.files/.local/share/{fonts,i3lock,sounds,wallpapers}
+    sudo cp -r home/.files/.local/ $HOME
 
-    sudo rm -rf $HOME/{.zshrc,.Xresources,.xinitrc,.nvidia-xinitrc,.zlogin}
-    sudo cp -r home/{.zshrc,.Xresources,.xinitrc,.nvidia-xinitrc,.zlogin} $HOME
+    sudo rm -rf $HOME/.files/{.zshrc,.Xresources,.xinitrc,.nvidia-xinitrc,.zlogin}
+    sudo cp -r home/.files/{.zshrc,.Xresources,.xinitrc,.nvidia-xinitrc,.zlogin} $HOME
 
     sudo rm -rf ${configs}/compton && sudo cp -r compton ${configs}
     sudo rm -rf ${configs}/dunst && sudo cp -r dunst ${configs}
