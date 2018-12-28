@@ -1,6 +1,9 @@
 #!/bin/bash
 # github.com/mamutal91
 
-wpp=$HOME/.local/share/wallpapers/towner.png
+dir=$HOME/.local/share/wallpapers
+img=towner.png
 
-wal -i $wpp -o wal-set
+wallpaper=$dir/$img
+
+wal -i $wallapper -o wal-set
