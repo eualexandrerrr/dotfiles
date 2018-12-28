@@ -227,32 +227,31 @@ ws-icon-default = ♟
 
 format = <label-state> <label-mode>
 
-label-mode = %mode%
-label-mode-padding = 2
-label-mode-background = ${cores.vermelho}
-
+# FOCADO
 label-focused = %icon%
-label-focused-foreground = ${cores.icones}
-label-focused-background = ${cores.focado}
-label-focused-underline = ${cores.transparente}
-label-focused-padding = 2
-
+label-focused-padding = 1
+# Cor do ícone FOCADO
+label-focused-foreground = ${cores.foreground}
+# Cor de fundo FOCADO
+label-focused-background = ${cores.background}
+label-focused-underline = ${cores.verde}
+#---------------------------------------
 label-unfocused = %icon%
 label-unfocused-foreground = ${cores.icones-unfocado}
-label-unfocused-padding = 2
+label-unfocused-padding = 1
 
 label-visible = %icon%
 label-visible-foreground = ${cores.vermelho}
 label-visible-underline = ${cores.transparente}
-label-visible-padding = 2
+label-visible-padding = 1
 
 label-urgent = %icon%
 label-urgent-foreground = ${cores.icones}
 label-urgent-background = ${cores.urgente}
-label-urgent-padding = 2
+label-urgent-padding = 1
 
 label-separator =
-label-separator-padding = 2
+label-separator-padding = 1
 label-separator-foreground = ${cores.urgente}
 
 # CPU
