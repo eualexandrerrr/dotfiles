@@ -52,16 +52,15 @@ spotify = #00D965
 
 # Barra de cima
 [bar/cima]
-monitor = eDP1
+monitor = ${env:MONITOR:}
+monitor-strict = false
 width = 100%
 height = 27
 radius = 7.0
 fixed-center = true
 bottom = false
 locale = pt_BR.UTF-8
-
-tray-position = right
-tray-padding = 0
+wm-restack = i3
 
 background = ${cores.transparente}
 foreground = ${cores.transparente}
@@ -94,13 +93,15 @@ cursor-scroll = ns-resize
 
 # Barra de baixo
 [bar/baixo]
-monitor = eDP1
-width = 100%
+monitor = ${env:MONITOR:}
+monitor-strict = false
+cdwidth = 100%
 height = 27
-radius = 0.0
+radius = 7.0
 fixed-center = true
 bottom = true
 locale = pt_BR.UTF-8
+wm-restack = i3
 
 background = ${cores.transparente}
 foreground = ${cores.fontes}

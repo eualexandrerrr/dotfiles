@@ -62,8 +62,8 @@ bottom = false
 locale = pt_BR.UTF-8
 wm-restack = i3
 
-background = ${cores.transparente}
-foreground = ${cores.transparente}
+background = ${cores.color0}
+foreground = ${cores.vermelho}
 
 line-size = 1
 line-color = ${cores.transparente}
