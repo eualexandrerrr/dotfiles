@@ -108,8 +108,9 @@ line-size = 0
 line-color = ${cores.transparente}
 border-size = 0
 border-color = ${cores.transparente}
-padding-left = 0
-padding-right = 0
+
+padding-left = 2
+padding-right = 2
 
 module-margin-left = 1
 module-margin-right = 1
@@ -355,7 +356,7 @@ format-volume = <label-volume> <bar-volume>
 label-volume =  %percentage%%
 label-volume-foreground = ${cores.icones-modulos}
 
-label-muted =  0% -------------------
+label-muted =  0% ──────────
 label-muted-foreground = ${cores.icones-modulos}
 
 bar-volume-gradient = true
