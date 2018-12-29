@@ -2,8 +2,8 @@
 # github.com/mamutal91
 
 dir=$HOME/.local/share/wallpapers
-img=towner.png
+img=abstrato.png
 
 wallpaper=$dir/$img
 
-wal -i $wallapper -o wal-set
+wal -i $wallpaper -o wal-set
