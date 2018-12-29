@@ -66,9 +66,9 @@ background = ${cores.transparente}
 foreground = ${cores.transparente}
 
 line-size = 0
-line-color = ${cores.transparente}
+line-color = ${cores.vermelho}
 border-size = 0
-border-color = ${cores.transparente}
+border-color = ${cores.vermelho}
 
 padding-left = 2
 padding-right = 2
@@ -105,9 +105,9 @@ background = ${cores.transparente}
 foreground = ${cores.transparente}
 
 line-size = 0
-line-color = ${cores.transparente}
+line-color = ${cores.vermelho}
 border-size = 0
-border-color = ${cores.transparente}
+border-color = ${cores.vermelho}
 
 padding-left = 2
 padding-right = 2
@@ -153,6 +153,11 @@ ws-icon-9 = 10;
 ws-icon-default = ♟
 
 format = <label-state> <label-mode>
+
+
+label-mode = %mode%
+label-mode-padding = 2
+label-mode-background = #e60053
 
 #---------------------------------------
 # FOCADO
