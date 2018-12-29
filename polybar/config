@@ -55,7 +55,7 @@ spotify = #00D965
 monitor = ${env:MONITOR:}
 monitor-strict = false
 width = 100%
-height = 27
+height = 30
 radius = 7.0
 fixed-center = true
 bottom = false
@@ -116,11 +116,10 @@ module-margin-left = 1
 module-margin-right = 1
 
 font-0 = xos4 Terminus:size=12;0
-font-1 = OpenSans:size=10;2:antialias=false 
-font-2 = siji:pixelsize=10;1
-font-3 = "Font Awesome 5 Free:style=Regular:pixelsize=9;1"
-font-4 = "Font Awesome 5 Free:style=Solid:pixelsize=9;1"
-font-5 = "Font Awesome 5 Brands:pixelsize=9;1"
+font-1 = OpenSans:size=10;0
+font-2 = "Font Awesome 5 Free:style=Regular:pixelsize=9;1"
+font-3 = "Font Awesome 5 Free:style=Solid:pixelsize=9;1"
+font-4 = "Font Awesome 5 Brands:pixelsize=9;1"
 
 modules-left = menu-power memoria cpu kernel
 modules-center = janela
@@ -173,7 +172,7 @@ label-layout-foreground = ${cores.fontes}
 type = custom/script
 interval = 1
 
-format-prefix = " "
+format-prefix = " "
 format-prefix-foreground = ${cores.icones-modulos}
 exec = echo $USER@$HOSTNAME
 format-foreground = ${cores.fontes}
