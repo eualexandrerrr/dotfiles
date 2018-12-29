@@ -464,13 +464,12 @@ ramp-foreground = ${cores.icones-modulos}
 # Wireless
 [module/wireless]
 type = internal/network
-#interface = wlp3s0
-interface = ${env:POLYBAR_WLAN_INTERFACE}
+interface = wlp3s0
 interval = 3.0
 
 format-connected = <label-connected> <ramp-signal>
 format-packetloss = <animation-packetloss>
-label-connected =  %upspeed%  %downspeed%  %essid%
+label-connected =  %upspeed%  %downspeed% %essid%
 label-connected-foreground = ${cores.fontes}
 
 ramp-signal-0 = 
@@ -494,7 +493,7 @@ interval = 3.0
 
 format-connected-prefix = " "
 format-connected-prefix-foreground = ${cores.icones-modulos}
-label-connected = %local_ip%
+label-connected =  %upspeed%  %downspeed% %local_ip%
 label-connected-foreground = ${cores.fontes}
 
 # GitHub
