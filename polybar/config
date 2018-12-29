@@ -82,9 +82,9 @@ font-2 = "Font Awesome 5 Free:style=Regular:pixelsize=9;1"
 font-3 = "Font Awesome 5 Free:style=Solid:pixelsize=9;1"
 font-4 = "Font Awesome 5 Brands:pixelsize=9;1"
 
-modules-left = spotify
+modules-left = usuario spotify
 modules-center = i3
-modules-right = teclado temperatura bateria data hora usuario brilho menu-power
+modules-right = brilho teclado temperatura bateria data hora
 
 cursor-click = pointer
 cursor-scroll = ns-resize
@@ -122,7 +122,7 @@ font-3 = "Font Awesome 5 Free:style=Regular:pixelsize=9;1"
 font-4 = "Font Awesome 5 Free:style=Solid:pixelsize=9;1"
 font-5 = "Font Awesome 5 Brands:pixelsize=9;1"
 
-modules-left = memoria cpu kernel
+modules-left = menu-power memoria cpu kernel
 modules-center = janela
 modules-right = speednet ethernet wireless screencast screenshot github volume
 
@@ -470,7 +470,7 @@ interval = 1.0
 format-connected = <label-connected> <ramp-signal>
 format-packetloss = <animation-packetloss>
 label-connected = %upspeed%   %downspeed% - %essid%
-label-connected-foreground = ${cores.fontes}
+label-connected-foreground = ${cores.cinza}
 
 ramp-signal-0 = 
 ramp-signal-0-foreground = #BD574C
@@ -494,7 +494,7 @@ interval = 1.0
 format-connected = <label-connected> <ramp-signal>
 format-packetloss = <animation-packetloss>
 label-connected = %upspeed%   %downspeed% - %local_ip%
-label-connected-foreground = ${cores.fontes}
+label-connected-foreground = ${cores.cinza}
 
 ramp-signal-0 = 
 ramp-signal-0-foreground = ${cores.icones-modulos}
