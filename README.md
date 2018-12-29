@@ -5,3 +5,8 @@
 Requisitos mínimos (Minimum requirements)
 
 - `i3-gaps` `i3lock` `compton` `dunst` `rofi` `maim` `scrot` `python-pywal` `python-setuptools`
+
+Para instalar, basta colocar o repositório no diretório
+`/home/USER/github/dotfiles`
+e executar o script
+`./scripts/update.sh`
