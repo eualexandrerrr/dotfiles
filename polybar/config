@@ -489,7 +489,7 @@ ramp-signal-5-foreground = #96DE72
 [module/ethernet]
 type = internal/network
 interface = enp4s0
-interval = 3.0
+interval = 1.0
 
 format-connected-prefix = " "
 format-connected-prefix-foreground = ${cores.icones-modulos}
