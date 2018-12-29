@@ -531,7 +531,7 @@ scroll-down = ~/.config/scripts/screencast.sh -e &
 [module/menu-power]
 type = custom/text
 content = 
-content-foreground = ${cores.icones}
+content-foreground = ${cores.icones-modulos}
 click-left = ~/.config/scripts/menu-power.sh &
 
 [settings]
