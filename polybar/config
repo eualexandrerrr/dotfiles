@@ -465,7 +465,7 @@ ramp-foreground = ${cores.icones-modulos}
 [module/wireless]
 type = internal/network
 interface = wlp3s0
-interval = 3.0
+interval = 1.0
 
 format-connected = <label-connected> <ramp-signal>
 format-packetloss = <animation-packetloss>
