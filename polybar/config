@@ -69,8 +69,9 @@ line-size = 0
 line-color = ${cores.transparente}
 border-size = 0
 border-color = ${cores.transparente}
-padding-left = 0
-padding-right = 0
+
+padding-left = 2
+padding-right = 2
 
 module-margin-left = 1
 module-margin-right = 1
