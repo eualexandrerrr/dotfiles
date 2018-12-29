@@ -124,7 +124,7 @@ font-5 = "Font Awesome 5 Brands:pixelsize=9;1"
 
 modules-left = memoria cpu kernel
 modules-center = janela
-modules-right = ethernet wireless screencast screenshot github volume
+modules-right = speednet ethernet wireless screencast screenshot github volume
 
 cursor-click = pointer
 cursor-scroll = ns-resize
@@ -464,12 +464,27 @@ ramp-foreground = ${cores.icones-modulos}
 # Wireless
 [module/wireless]
 type = internal/network
-interface = wlp3s0
+#interface = wlp3s0
+interface = ${env:POLYBAR_WLAN_INTERFACE}
 interval = 3.0
 
-format-connected = <ramp-signal> <label-connected>
-label-connected = %signal%%
+format-connected = <label-connected> <ramp-signal>
+format-packetloss = <animation-packetloss>
+label-connected =  %upspeed%  %downspeed%  %essid%
+label-connected-foreground = ${cores.fontes}
 
+ramp-signal-0 = 
+ramp-signal-0-foreground = #BD574C
+ramp-signal-1 = 
+ramp-signal-1-foreground = #FF8066
+ramp-signal-2 = 
+ramp-signal-2-foreground = #F5DE72
+ramp-signal-3 = 
+ramp-signal-3-foreground = #D8DE72
+ramp-signal-4 = 
+ramp-signal-4-foreground = #BADE72
+ramp-signal-5 = 
+ramp-signal-5-foreground = #96DE72
 
 # Ethernet
 [module/ethernet]
@@ -479,7 +494,8 @@ interval = 3.0
 
 format-connected-prefix = " "
 format-connected-prefix-foreground = ${cores.icones-modulos}
-label-connected = X
+label-connected = %local_ip%
+label-connected-foreground = ${cores.fontes}
 
 # GitHub
 [module/github]
