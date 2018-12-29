@@ -199,69 +199,6 @@ exec = ~/.config/scripts/spotify.sh %artist% - %title%
 tail = true
 interval = 1
 
-# i3
-[module/i3]
-type = internal/i3
-pin-workspaces = true
-strip-wsnumbers = true
-index-sort = true
-enable-click = true
-enable-scroll = true
-wrapping-scroll = true
-reverse-scroll = false
-fuzzy-match = true
-
-ws-icon-0 = 1;
-ws-icon-1 = 2;
-ws-icon-2 = 3;
-ws-icon-3 = 4;
-ws-icon-4 = 5;
-ws-icon-5 = 6;
-ws-icon-6 = 7;
-ws-icon-7 = 8;
-ws-icon-8 = 9;
-ws-icon-9 = 10;
-ws-icon-default = ♟
-
-format = <label-state> <label-mode>
-
-#---------------------------------------
-# FOCADO
-label-focused = %icon%
-label-focused-padding = 1
-# Cor do ícone FOCADO
-label-focused-foreground = ${cores.foreground}
-# Cor de fundo FOCADO
-label-focused-background = ${cores.background}
-label-focused-underline = ${cores.verde}
-#---------------------------------------
-
-# UNFOCADO
-label-unfocused-padding = 1
-label-unfocused = %icon%
-label-unfocused-foreground = ${cores.icones-unfocado}
-#---------------------------------------
-
-# VISIVEL
-label-visible = %icon%
-label-visible-foreground = ${cores.vermelho}
-label-visible-underline = ${cores.transparente}
-label-visible-padding = 1
-#---------------------------------------
-
-# URGENTE
-label-urgent = %icon%
-label-urgent-foreground = ${cores.icones}
-label-urgent-background = ${cores.urgente}
-label-urgent-padding = 1
-#---------------------------------------
-
-# SEPARADORES
-label-separator =
-label-separator-padding = 1
-label-separator-foreground = ${cores.urgente}
-#---------------------------------------
-
 # CPU
 [module/cpu]
 type = internal/cpu
