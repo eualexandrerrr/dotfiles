@@ -198,7 +198,7 @@ format-foreground = ${cores.fontes}
 type = custom/script
 exec = ~/.config/scripts/spotify.sh %artist% - %title%
 tail = true
-interval = 2
+interval = 1
 
 # i3
 [module/i3]
