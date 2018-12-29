@@ -469,7 +469,7 @@ interval = 1.0
 
 format-connected = <label-connected> <ramp-signal>
 format-packetloss = <animation-packetloss>
-label-connected =  %upspeed%  %downspeed% %essid%
+label-connected =  %upspeed%  %downspeed% - %essid%
 label-connected-foreground = ${cores.fontes}
 
 ramp-signal-0 = 
@@ -491,10 +491,10 @@ type = internal/network
 interface = enp4s0
 interval = 1.0
 
-format-connected-prefix = " "
-format-connected-prefix-foreground = ${cores.icones-modulos}
 label-connected =  %upspeed%  %downspeed% %local_ip%
 label-connected-foreground = ${cores.fontes}
+format-connected-prefix = " "
+format-connected-prefix-foreground = ${cores.icones-modulos}
 
 # GitHub
 [module/github]
