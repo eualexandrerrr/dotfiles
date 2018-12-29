@@ -45,7 +45,6 @@ for_window [class="Electron"] move to workspace $ws5, floating enable, focus
 for_window [class="libreoffice-startcenter|libreoffice-writer|libreoffice-draw|libreoffice-presentation|libreoffice-impress|libreoffice-calc"] move to workspace $ws6, focus
 
 for_window [class="Lxappearance|Thunar|qbittorrent"] move to workspace $ws7, floating enable, resize set 1030 px 630 px, move position center, focus
-for_window [class="qBittorrent"] move to workspace $ws7, floating enable, resize set 1024 px 630 px, move position left, focus
 for_window [class="Galculator"] move to workspace $ws7, floating enable, resize set 400 px 440 px, move position center focus
 
 
