@@ -2,6 +2,6 @@
 
 💻 🎨 Arch Linux DotFiles
 
-Requisitos mínimos
+Requisitos mínimos (Minimum requirements)
 
-- `i3-gaps` `i3lock` `compton` `dunst` `rofi` `maim` `scrot` `feh` `python-pywal` `python-setuptools` `zsh`
+- `i3-gaps` `i3lock` `compton` `dunst` `rofi` `maim` `scrot` `python-pywal` `python-setuptools`
