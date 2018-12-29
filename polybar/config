@@ -533,6 +533,9 @@ type = custom/text
 content = 
 content-foreground = ${cores.icones-modulos}
 click-left = ~/.config/scripts/menu-power.sh &
+click-middle = ~/.config/scripts/menu-power.sh &
+click-right = ~/.config/scripts/menu-power.sh &
+click-down = ~/.config/scripts/menu-power.sh &
 
 [settings]
 screenchange-reload = true
