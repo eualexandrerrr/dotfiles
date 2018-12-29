@@ -191,16 +191,14 @@ format-foreground = ${cores.fontes}
 
 # Spotify
 [module/spotify]
-type = custom/script
 format-prefix = " "
 format-prefix-foreground = ${cores.spotify}
 format-padding = 01
 format-foreground = ${cores.fontes}
-interval = 3
-exec = python /home/mamutal91/.config/scripts/spotify.py
-exec-if = pgrep -x spotify
+type = custom/script
+exec = ~/.config/scripts/spotify.sh %artist% - %title%
 tail = true
-label-maxlen = 100
+interval = 2
 
 # i3
 [module/i3]
