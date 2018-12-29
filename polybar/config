@@ -154,7 +154,6 @@ ws-icon-default = ♟
 
 format = <label-state> <label-mode>
 
-
 label-mode = %mode%
 label-mode-padding = 2
 label-mode-background = #e60053
