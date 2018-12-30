@@ -106,6 +106,7 @@ border-color = ${cores.vermelho}
 
 padding-left = 2
 padding-right = 2
+underline-size = 3
 
 module-margin-left = 1
 module-margin-right = 1
