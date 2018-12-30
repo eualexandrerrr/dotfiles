@@ -238,8 +238,13 @@ interval = 1
 type = internal/cpu
 interval = 0.5
 format = <label> <ramp-coreload>
-label = 
-label-foreground = #FF8000
+
+format-prefix = " "
+format-prefix-foreground = #FF8000
+
+label = 
+label-foreground = ${cores.fontes}
+
 ramp-coreload-0 = ▁
 ramp-coreload-0-foreground = #F5A9BC
 ramp-coreload-1 = ▂
@@ -260,14 +265,10 @@ ramp-coreload-7-foreground = #8A0829
 # Memória
 [module/memoria]
 type = internal/memory
-format = <ramp-used> <label>
+format = <label>
 
-format-prefix = "  "
+format-prefix = " "
 format-prefix-foreground = ${cores.icones-modulos}
-
-ramp-used-0 = 
-ramp-used-foreground = ${cores.icones-modulos}
-
 
 label =  %gb_used%/%gb_total%
 label-foreground = ${cores.fontes}
@@ -289,11 +290,13 @@ bar-used-foreground-6 = #DF013A
 # Brilho
 [module/brilho]
 type = internal/xbacklight
-format = <ramp> <label> <bar> 
-ramp-0 = 
+format = <label> <bar>
+
+format-prefix = " "
+format-prefix-foreground = ${cores.icones-modulos}
+
 label = %percentage%%
 label-foreground = ${cores.fontes}
-ramp-foreground = ${cores.icones-modulos}
 
 bar-indicator = |
 bar-indicator-foreground = ${cores.icones-modulos}
@@ -321,10 +324,11 @@ master-soundcard = hw:1
 speaker-soundcard = hw:1
 headphone-soundcard = hw:1
 
-format-volume = <ramp-volume> <label-volume> <bar-volume>
+format-volume-prefix = " "
+format-volume-prefix-foreground = ${cores.icones-modulos}
 
-ramp-volume-0 = 
-ramp-volume-foreground = ${cores.icones-modulos}
+format-volume = <label-volume> <bar-volume>
+
 label-volume = %percentage%%
 label-volume-foreground = ${cores.fontes}
 
