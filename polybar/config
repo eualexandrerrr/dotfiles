@@ -76,8 +76,8 @@ border-color = ${cores.vermelho}
 padding-left = 2
 padding-right = 2
 
-underline-size = 0
-overline-size = 0
+underline-size = 2
+overline-size = 2
 
 module-margin-left = 1
 module-margin-right = 1
@@ -149,15 +149,15 @@ wrapping-scroll = true
 reverse-scroll = false
 fuzzy-match = true
 
-ws-icon-0 = 1;
-ws-icon-1 = 2;
-ws-icon-2 = 3;
-ws-icon-3 = 4;
-ws-icon-4 = 5;
-ws-icon-5 = 6;
-ws-icon-6 = 7;
-ws-icon-7 = 8;
-ws-icon-8 = 9;
+ws-icon-0 = 1; <terminal>
+ws-icon-1 = 2; <browser>
+ws-icon-2 = 3; <chats>
+ws-icon-3 = 4; <studio>
+ws-icon-4 = 5; <codes>
+ws-icon-5 = 6; <office>
+ws-icon-6 = 7; <pc>
+ws-icon-7 = 8; <art>
+ws-icon-8 = 9; <android>
 ws-icon-9 = 10;
 ws-icon-default = ♟
 
@@ -195,8 +195,6 @@ format-background = ${cores.transparente}
 format-foreground = ${cores.fontes}
 format-padding = 4
 
-underline = 
-
 label = %title%
 label-maxlen = 80
 
@@ -212,7 +210,7 @@ fixed-values = true
 
 format-mounted-prefix = " root "
 format-mounted-prefix-foreground = ${cores.verde}
-format-mounted-underline = ${cores.verde}
+format-mounted-underline = ${cores.transparente}
 format-mounted = <label-mounted>
 label-mounted = %used% / 80 GB
 label-mounted-foreground = ${cores.verdeclaro}
@@ -227,7 +225,7 @@ fixed-values = true
 
 format-mounted-prefix = " storage "
 format-mounted-prefix-foreground = ${cores.roxo}
-format-mounted-underline = ${cores.roxo}
+format-mounted-underline = ${cores.transparente}
 format-mounted = <label-mounted>
 label-mounted = %used% / 1 TB
 label-mounted-foreground = ${cores.roxoclaro}
@@ -240,7 +238,7 @@ interval = 1
 
 format-prefix = " "
 format-prefix-foreground = ${cores.azul}
-format-underline = ${cores.azul}
+format-underline = ${cores.transparente}
 exec = echo $USER@$HOSTNAME
 format-foreground = ${cores.azul}
 
@@ -262,7 +260,7 @@ format-prefix = " "
 format-prefix-foreground = ${cores.spotify}
 format-padding = 1
 format-foreground = ${cores.fontes}
-format-underline = ${cores.spotify}
+format-underline = ${cores.transparente}
 type = custom/script
 exec = ~/.config/scripts/spotify.sh %artist% - %title%
 tail = true
@@ -379,7 +377,7 @@ date = %a, %d-%m-%Y
 date-alt = %A, %d de %B de %G%
 time = %H:%M
 format =  <label>
-format-underline = ${cores.amarelo}
+format-underline = ${cores.transparente}
 format-foreground = ${cores.amarelo}
 label = %date%
 label-foreground = ${cores.fontes}
@@ -390,7 +388,7 @@ type = internal/date
 interval = 1
 time = %Hh %Mm
 format =  <label>
-format-underline = ${cores.rosa}
+format-underline = ${cores.transparente}
 format-foreground = ${cores.rosa}
 label = %time%
 label-foreground = ${cores.fontes}
@@ -408,8 +406,8 @@ time-format = %H:%M
 format-charging = <animation-charging> <label-charging>
 format-discharging = <ramp-capacity> <label-discharging>
 
-format-charging-underline = ${cores.verde}
-format-discharging-underline = ${cores.vermelho}
+format-charging-underline = ${cores.transparente}
+format-discharging-underline = ${cores.transparente}
 
 format-charging-foreground = ${cores.verde}
 format-discharging-foreground = ${cores.vermelho}
@@ -451,7 +449,7 @@ warn-temperature = 60
 units = true
 
 format = <ramp> <label>
-format-underline = ${cores.laranja}
+format-underline = ${cores.transparente}
 
 format-warn = <ramp> <label-warn>
 
@@ -509,7 +507,7 @@ ramp-signal-0-foreground = ${cores.icones-modulos}
 type = custom/text
 content = 
 content-foreground = ${cores.cinza}
-content-underline = ${cores.cinza}
+content-underline = ${cores.transparente}
 click-left = exec ~/.config/scripts/git-cron.sh -c &
 click-middle = exec ~/.config/scripts/git-cron.sh -c &
 click-right = exec ~/.config/scripts/git-cron.sh -c &
@@ -520,7 +518,7 @@ scroll-down = exec ~/.config/scripts/git-cron.sh -c &
 type = custom/text
 content = 
 content-foreground = ${cores.verde}
-content-underline = ${cores.verde}
+content-underline = ${cores.transparente}
 click-left = ~/.config/scripts/screenshot.sh &
 click-middle = ~/.config/scripts/screenshot.sh &
 click-right = ~/.config/scripts/screenshot.sh &
@@ -531,7 +529,7 @@ scroll-down = ~/.config/scripts/screenshot.sh &
 type = custom/text
 content = 
 content-foreground = ${cores.vermelho}
-content-underline = ${cores.vermelho}
+content-underline = ${cores.transparente}
 click-left = ~/.config/scripts/screencast.sh &
 click-middle = ~/.config/scripts/screencast.sh &
 click-right = ~/.config/scripts/screencast.sh &
