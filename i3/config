@@ -64,7 +64,7 @@ assign [class="^libreoffice-startcenter|libreoffice-writer|libreoffice-draw|libr
 assign [class="^Lxappearance|Thunar|qBittorrent|Galculator"] $ws7
 assign [class="^Pinta|feh"] $ws8
 assign [class="^GParted"] $ws9
-assign [class="^"] $ws10
+#assign [class="^"] $ws10 TEMPORARIAMENTE
 
 set $ws1 "1:"
 set $ws2 "2:"
@@ -75,7 +75,7 @@ set $ws6 "6:"
 set $ws7 "7:"
 set $ws8 "8:"
 set $ws9 "9:"
-set $ws10 "10:"
+#set $ws10 "10:" TEMPORARIAMENTE
 
 # Screenshot & Screencast
 bindsym Insert exec --no-startup-id $HOME/.config/scripts/screenshot.sh
