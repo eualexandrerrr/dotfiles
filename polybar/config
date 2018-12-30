@@ -319,14 +319,14 @@ master-soundcard = hw:1
 speaker-soundcard = hw:1
 headphone-soundcard = hw:1
 
-format-volume = <ramp> <label> <bar>
+format-volume = <ramp-volume> <label-volume> <bar-volume>
 
+ramp-volume-0 = 
+ramp-volume-foreground = ${cores.icones-modulos}
 label-volume = %percentage%%
-label-volume-foreground = ${cores.icones-modulos}
-ramp-0 = 
-ramp-foreground = ${cores.fontes}
+label-volume-foreground = ${cores.fontes}
 
-label-muted =  0% ──────────
+label-muted =  MUTE ──────────
 label-muted-foreground = ${cores.icones-modulos}
 
 bar-volume-gradient = true
