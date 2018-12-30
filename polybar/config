@@ -80,7 +80,7 @@ font-4 = "Font Awesome 5 Brands:pixelsize=9;1"
 
 modules-left = github screenshot screencast usuario spotify
 modules-center = i3
-modules-right = discos temperatura bateria data hora
+modules-right = discos-root discos-storage temperatura bateria data hora
 
 cursor-click = pointer
 cursor-scroll = ns-resize
@@ -197,47 +197,39 @@ label-maxlen = 80
 label-empty = Sem janelas
 label-empty-foreground = ${cores.fontes}
 
-# Discos
-[module/discos]
+# Discos/Root
+[module/discos-root]
 type = internal/fs
 
 mount-0 = /
-mount-1 = /home
-mount-2 = /media/storage
 
 interval = 10
 fixed-values = true
 spacing = 4
 
-; Available tags:
-;   <label-mounted> (default)
-;   <bar-free>
-;   <bar-used>
-;   <ramp-capacity>
+format-mounted-prefix = " "
+format-mounted-prefix-foreground = ${cores.icones-modulos}
 format-mounted = <label-mounted>
-
-; Available tags:
-;   <label-unmounted> (default)
-format-unmounted = <label-unmounted>
-
-; Available tokens:
-;   %mountpoint%
-;   %type%
-;   %fsname%
-;   %percentage_free%
-;   %percentage_used%
-;   %total%
-;   %free%
-;   %used%
-; Default: %mountpoint% %percentage_free%%
-label-mounted = %mountpoint%: %used%
+;   %mountpoint% ;   %type%;   %fsname%;   %percentage_free%;   %percentage_used%;   %total%;   %free%;   %used%
+label-mounted = Root: %used%
 label-mounted-foreground = ${cores.fontes}
 
-; Available tokens:
-;   %mountpoint%
-; Default: %mountpoint% is not mounted
-label-unmounted = %mountpoint%: not mounted
-label-unmounted-foreground = #55
+# Discos/Storage
+[module/discos-storage]
+type = internal/fs
+
+mount-0 = /media/storage
+
+interval = 10
+fixed-values = true
+spacing = 4
+
+format-mounted-prefix = " "
+format-mounted-prefix-foreground = ${cores.icones-modulos}
+format-mounted = <label-mounted>
+;   %mountpoint% ;   %type%;   %fsname%;   %percentage_free%;   %percentage_used%;   %total%;   %free%;   %used%
+label-mounted = Storage: %used%
+label-mounted-foreground = ${cores.fontes}
 
 # Usuário
 [module/usuario]
