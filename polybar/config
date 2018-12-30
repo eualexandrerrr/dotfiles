@@ -374,7 +374,7 @@ type = custom/script
 interval = 600
 format-prefix = " "
 format = <label>
-exec = python3 ~/.config/scripts/clima.py
+exec = ~/.config/scripts/clima.sh
 exec-if = ping openweathermap.org -c 1
 format-foreground = ${cores.fontes}
 
