@@ -222,7 +222,7 @@ format-foreground = ${cores.fontes}
 [module/spotify]
 format-prefix = " "
 format-prefix-foreground = ${cores.spotify}
-format-padding = 01
+format-padding = 1
 format-foreground = ${cores.fontes}
 type = custom/script
 exec = ~/.config/scripts/spotify.sh %artist% - %title%
