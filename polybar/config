@@ -260,9 +260,17 @@ ramp-coreload-7-foreground = #8A0829
 # Memória
 [module/memoria]
 type = internal/memory
-format = <label> <bar-used>
-label = 
-label-foreground = ${cores.icones-modulos}
+format = <ramp-used> <label>
+
+format-prefix = "  "
+format-prefix-foreground = ${cores.icones-modulos}
+
+ramp-used-0 = 
+ramp-used-foreground = ${cores.icones-modulos}
+
+
+label =  %gb_used%/%gb_total%
+label-foreground = ${cores.fontes}
 
 bar-used-indicator = |
 bar-used-indicator-foreground = ${cores.icones-modulos}
