@@ -388,7 +388,7 @@ label-foreground = ${cores.fontes}
 [module/hora]
 type = internal/date
 interval = 1
-time = %H:%M
+time = %Hh %Mm
 format =  <label>
 format-underline = ${cores.rosa}
 format-foreground = ${cores.rosa}
