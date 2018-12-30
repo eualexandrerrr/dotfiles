@@ -268,24 +268,27 @@ type = internal/memory
 format = <label>
 
 format-prefix = " "
-format-prefix-foreground = #894856
+format-prefix-foreground = #FF8000
 
-label =  %gb_used%/%gb_total%
-label-foreground = #C68291
+label = %percentage%%
+label-foreground = #FF8000
 
-bar-used-indicator = |
-bar-used-indicator-foreground = ${cores.icones-modulos}
-bar-used-fill = ─
-bar-used-empty = ─
-bar-used-empty-foreground = ${cores.cinzaescuro}
-bar-used-width = 10
-bar-used-foreground-0 = #D8CEF6
-bar-used-foreground-1 = #D0A9F5
-bar-used-foreground-2 = #DA81F5
-bar-used-foreground-3 = #FA58F4
-bar-used-foreground-4 = #FE2EC8
-bar-used-foreground-5 = #FF0080
-bar-used-foreground-6 = #DF013A
+ramp-used-0 = ▁
+ramp-coreload-0-foreground = #F5A9BC
+ramp-coreload-1 = ▂
+ramp-coreload-1-foreground = #F7819F
+ramp-coreload-2 = ▃
+ramp-coreload-2-foreground = #FA5882
+ramp-coreload-3 = ▄
+ramp-coreload-3-foreground = #FE2E64
+ramp-coreload-4 = ▅
+ramp-coreload-4-foreground = #FF0040
+ramp-coreload-5 = ▆
+ramp-coreload-5-foreground = #DF013A
+ramp-coreload-6 = ▇
+ramp-coreload-6-foreground = #B40431
+ramp-coreload-7 = █
+ramp-coreload-7-foreground = #8A0829
 
 # Brilho
 [module/brilho]
