@@ -287,8 +287,10 @@ bar-used-foreground-6 = #DF013A
 # Brilho
 [module/brilho]
 type = internal/xbacklight
-format = <ramp> <bar> 
+format = <ramp> <label> <bar> 
 ramp-0 = 
+label = %percentage%%
+label-foreground = ${cores.fontes}
 ramp-foreground = ${cores.icones-modulos}
 
 bar-indicator = |
@@ -317,10 +319,12 @@ master-soundcard = hw:1
 speaker-soundcard = hw:1
 headphone-soundcard = hw:1
 
-format-volume = <label-volume> <bar-volume>
+format-volume = <ramp> <label> <bar>
 
-label-volume =  %percentage%%
+label-volume = %percentage%%
 label-volume-foreground = ${cores.icones-modulos}
+ramp-0 = 
+ramp-foreground = ${cores.fontes}
 
 label-muted =  0% ──────────
 label-muted-foreground = ${cores.icones-modulos}
