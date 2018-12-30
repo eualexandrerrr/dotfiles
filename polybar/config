@@ -153,30 +153,21 @@ label-mode = %mode%
 label-mode-padding = 2
 label-mode-background = #e60053
 
-#---------------------------------------
-# FOCADO
 label-focused = %icon%
 label-focused-padding = 1
-# Cor do ícone FOCADO
 label-focused-foreground = ${cores.foreground}
-# Cor de fundo FOCADO
 label-focused-background = ${cores.background}
 label-focused-underline = ${cores.vermelho}
-#---------------------------------------
 
-# UNFOCADO
 label-unfocused-padding = 1
 label-unfocused = %icon%
 label-unfocused-foreground = ${cores.color2}
 label-unfocused-underline = ${cores.color2}
-#---------------------------------------
 
-# URGENTE
 label-urgent = %icon%
 label-urgent-foreground = ${cores.color0}
 label-urgent-background = ${cores.color1}
 label-urgent-padding = 1
-#---------------------------------------
 
 # Janela
 [module/janela]
