@@ -82,7 +82,7 @@ overline-size = 0
 module-margin-left = 1
 module-margin-right = 1
 
-font-0 = xos4 Terminus:size=12;0
+font-0 = xos4 Terminus:size=12,5;0
 font-1 = OpenSans:size=10;0
 font-2 = "Font Awesome 5 Free:style=Regular:pixelsize=9;1"
 font-3 = "Font Awesome 5 Free:style=Solid:pixelsize=9;1"
@@ -375,7 +375,7 @@ bar-volume-foreground-6 = #DF013A
 [module/data]
 type = internal/date
 interval = 1
-date = %a, %d/%m
+date = %a, %d/%m/%y
 date-alt = %a, %d de %B de %G%
 time = %H:%M
 format =  <label>
@@ -432,7 +432,7 @@ ramp-capacity-2 = 
 ramp-capacity-3 = 
 ramp-capacity-4 = 
 
-bar-capacity-width = 10
+bar-capacity-width = 20
 
 animation-charging-0 = 
 animation-charging-1 = 
