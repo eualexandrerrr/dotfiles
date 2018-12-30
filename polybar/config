@@ -30,13 +30,9 @@ color13 = ${xrdb:color13}
 color14 = ${xrdb:color14}
 color15 = ${xrdb:color15}
 
-bg = #0C2430
-fg = #0C2430
 transparente = #00000000
 
-focado = #041F4C
-urgente = #1F4178
-fontes = #FFFFFF
+fontes = #F8F2EE
 
 icones = #B6C0C9
 icones-modulos = #AAB5E6
@@ -278,7 +274,7 @@ label-foreground = #F7819F
 type = internal/xbacklight
 format = <label> <bar>
 
-format-prefix = " "
+format-prefix = " "
 format-prefix-foreground = ${cores.icones-modulos}
 
 label = %percentage%%
@@ -290,7 +286,7 @@ bar-fill = ─
 bar-gradient = true
 bar-empty= ─
 bar-empty-foreground = ${cores.cinzaescuro}
-bar-width = 10
+bar-width = 8
 bar-foreground-0 = #D8CEF6
 bar-foreground-1 = #D0A9F5
 bar-foreground-2 = #DA81F5
