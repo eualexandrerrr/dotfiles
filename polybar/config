@@ -37,11 +37,15 @@ fontes = #F8F2EE
 icones = #B6C0C9
 icones-modulos = #AAB5E6
 
-vermelho = #C80302
+verde = #58d68d 
+vermelho = #c0392b
+azul = #5dade2
+amarelo = #f1c40f
+laranja = #dc7633
+roxo = #dc7633
 branco = #ffffff
 cinza = #DED3CB
 cinzaescuro = #A19A93
-verde = #00D965
 
 spotify = #00D965
 
