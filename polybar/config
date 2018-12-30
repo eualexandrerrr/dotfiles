@@ -43,6 +43,8 @@ azul = #5dade2
 amarelo = #f1c40f
 laranja = #dc7633
 roxo = #8a2be2
+rosa = #cd1076
+
 branco = #ffffff
 cinza = #DED3CB
 cinzaescuro = #A19A93
@@ -157,19 +159,19 @@ ws-icon-default = ♟
 format = <label-state> <label-mode>
 
 label-mode = %mode%
-label-mode-padding = 2
+label-mode-padding = 1
 label-mode-background = #e60053
 
 label-focused = %icon%
-label-focused-padding = 1
 label-focused-foreground = ${cores.foreground}
 label-focused-background = ${cores.background}
 label-focused-underline = ${cores.vermelho}
+label-focused-padding = 2
 
-label-unfocused-padding = 1
 label-unfocused = %icon%
-label-unfocused-foreground = ${cores.color2}
+label-unfocused-foreground = ${cores.foreground}
 label-unfocused-underline = ${cores.transparente}
+label-unfocused-padding = 1
 
 label-urgent = %icon%
 label-urgent-foreground = ${cores.color0}
@@ -370,6 +372,7 @@ date = %a, %d/%m
 date-alt = %a, %d de %B de %G%
 time = %H:%M
 format =  <label>
+format-underline = ${cores.amarelo}
 format-foreground = ${cores.icones-modulos}
 label = %date%
 label-foreground = ${cores.fontes}
@@ -380,6 +383,7 @@ type = internal/date
 interval = 1
 time = %H:%M
 format =  <label>
+format-underline = ${cores.rosa}
 format-foreground = ${cores.icones-modulos}
 label = %time%
 label-foreground = ${cores.fontes}
@@ -397,9 +401,8 @@ time-format = %H:%M
 format-charging = <animation-charging> <label-charging>
 format-discharging = <ramp-capacity> <label-discharging>
 
-format-charging-underline = ${cores.laranja}
+format-charging-underline = ${cores.verde}
 format-discharging-underline = ${cores.vermelho}
-
 
 format-charging-foreground = ${cores.icones-modulos}
 format-discharging-foreground = ${cores.icones-modulos}
