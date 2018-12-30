@@ -78,7 +78,7 @@ underline-size = 1
 overline-size = 1
 
 module-margin-left = 1
-module-margin-right = 1
+module-margin-right = 0
 
 font-0 = xos4 Terminus:size=12;0
 font-1 = OpenSans:size=10;0
@@ -237,8 +237,8 @@ type = custom/script
 interval = 1
 
 format-prefix = " "
-format-prefix-foreground = ${cores.icones-modulos}
-format-prefix-underline = ${cores.icones-modulos}
+format-prefix-foreground = ${cores.roxo}
+format-underline = ${cores.roxo}
 exec = echo $USER@$HOSTNAME
 format-foreground = ${cores.fontes}
 
@@ -260,6 +260,7 @@ format-prefix = " "
 format-prefix-foreground = ${cores.spotify}
 format-padding = 1
 format-foreground = ${cores.fontes}
+format-underline = ${cores.spotify}
 type = custom/script
 exec = ~/.config/scripts/spotify.sh %artist% - %title%
 tail = true
