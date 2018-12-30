@@ -130,7 +130,7 @@ font-2 = "Font Awesome 5 Free:style=Regular:pixelsize=9;1"
 font-3 = "Font Awesome 5 Free:style=Solid:pixelsize=9;1"
 font-4 = "Font Awesome 5 Brands:pixelsize=9;1"
 
-modules-left = menu-power memoria cpu kernel
+modules-left = menu-power lock memoria cpu kernel
 modules-center = janela
 modules-right = speednet ethernet wireless brilho volume
 
@@ -543,6 +543,15 @@ click-left = ~/.config/scripts/menu-power.sh &
 click-middle = ~/.config/scripts/menu-power.sh &
 click-right = ~/.config/scripts/menu-power.sh &
 click-down = ~/.config/scripts/menu-power.sh &
+
+[module/lock]
+type = custom/text
+content = 
+content-foreground = ${cores.cinzaescuro}
+click-left = ~/.config/scripts/i3lock.sh &
+click-middle = ~/.config/scripts/i3lock.sh &
+click-right = ~/.config/scripts/i3lock.sh &
+click-down = ~/.config/scripts/i3lock.sh &
 
 [settings]
 screenchange-reload = true
