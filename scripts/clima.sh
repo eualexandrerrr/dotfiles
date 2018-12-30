@@ -3,29 +3,29 @@
 
 get_icon() {
     case $1 in
-        01d) icon="";;
-        01n) icon="";;
-        02d) icon="";;
-        02n) icon="";;
-        03*) icon="";;
-        04*) icon="";;
-        09d) icon="";;
-        09n) icon="";;
-        10d) icon="";;
-        10n) icon="";;
-        11d) icon="";;
-        11n) icon="";;
-        13d) icon="";;
-        13n) icon="";;
-        50d) icon="";;
-        50n) icon="";;
+        01d) icon="x";;
+        01n) icon="x";;
+        02d) icon="x";;
+        02n) icon="x";;
+        03*) icon="x";;
+        04*) icon="x";;
+        09d) icon="x";;
+        09n) icon="x";;
+        10d) icon="x";;
+        10n) icon="X";;
+        11d) icon="X";;
+        11n) icon="x";;
+        13d) icon="x";;
+        13n) icon="X";;
+        50d) icon="X";;
+        50n) icon="X";;
         *) icon="X";
     esac
 
     echo $icon
 }
 
-KEY=""
+KEY="cde33c9a5643013ffdf5d4320d55bc41"
 CITY="Linhares"
 UNITS="metric"
 SYMBOL="°"
