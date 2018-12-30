@@ -74,8 +74,8 @@ border-color = ${cores.vermelho}
 padding-left = 2
 padding-right = 2
 
-underline-size = 1
-overline-size = 1
+underline-size = 0
+overline-size = 0
 
 module-margin-left = 1
 module-margin-right = 0
@@ -237,10 +237,10 @@ type = custom/script
 interval = 1
 
 format-prefix = " "
-format-prefix-foreground = ${cores.roxo}
-format-underline = ${cores.roxo}
+format-prefix-foreground = ${cores.azul}
+format-underline = ${cores.azul}
 exec = echo $USER@$HOSTNAME
-format-foreground = ${cores.fontes}
+format-foreground = ${cores.azul}
 
 # Kernel
 [module/kernel]
