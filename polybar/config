@@ -194,7 +194,7 @@ mount-0 = /
 interval = 10
 fixed-values = true
 
-format-mounted-prefix = " Root "
+format-mounted-prefix = " root "
 format-mounted-prefix-foreground = ${cores.icones-modulos}
 format-mounted = <label-mounted>
 label-mounted = %used% / 80 GB
@@ -207,7 +207,7 @@ mount-0 = /media/storage
 interval = 10
 fixed-values = true
 
-format-mounted-prefix = " Storage "
+format-mounted-prefix = " storage "
 format-mounted-prefix-foreground = ${cores.icones-modulos}
 format-mounted = <label-mounted>
 label-mounted = %used% / 1 TB
