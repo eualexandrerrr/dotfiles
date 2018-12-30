@@ -80,7 +80,7 @@ font-4 = "Font Awesome 5 Brands:pixelsize=9;1"
 
 modules-left = github screenshot screencast usuario spotify
 modules-center = i3
-modules-right = discos-root discos-storage temperatura bateria data hora
+modules-right = root home storage temperatura bateria data hora
 
 cursor-click = pointer
 cursor-scroll = ns-resize
@@ -198,28 +198,23 @@ label-empty = Sem janelas
 label-empty-foreground = ${cores.fontes}
 
 # Discos/Root
-[module/discos-root]
+[module/root]
 type = internal/fs
-
 mount-0 = /
-
 interval = 10
 fixed-values = true
 spacing = 4
 
-format-mounted-prefix = " "
+format-mounted-prefix = " "
 format-mounted-prefix-foreground = ${cores.icones-modulos}
 format-mounted = <label-mounted>
-;   %mountpoint% ;   %type%;   %fsname%;   %percentage_free%;   %percentage_used%;   %total%;   %free%;   %used%
-label-mounted = Root: %used%
+label-mounted = Root: %used%/80 GB
 label-mounted-foreground = ${cores.fontes}
 
 # Discos/Storage
-[module/discos-storage]
+[module/storage]
 type = internal/fs
-
 mount-0 = /media/storage
-
 interval = 10
 fixed-values = true
 spacing = 4
@@ -227,8 +222,7 @@ spacing = 4
 format-mounted-prefix = " "
 format-mounted-prefix-foreground = ${cores.icones-modulos}
 format-mounted = <label-mounted>
-;   %mountpoint% ;   %type%;   %fsname%;   %percentage_free%;   %percentage_used%;   %total%;   %free%;   %used%
-label-mounted = Storage: %used%
+label-mounted = %used%/1 TB
 label-mounted-foreground = ${cores.fontes}
 
 # Usuário
