@@ -84,7 +84,7 @@ font-4 = "Font Awesome 5 Brands:pixelsize=9;1"
 
 modules-left = usuario spotify
 modules-center = i3
-modules-right = gmail brilho temperatura bateria data hora
+modules-right = brilho temperatura bateria data hora
 
 cursor-click = pointer
 cursor-scroll = ns-resize
