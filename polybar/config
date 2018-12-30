@@ -439,7 +439,7 @@ animation-charging-1 = 
 animation-charging-2 = 
 animation-charging-3 = 
 animation-charging-4 = 
-animation-charging-framerate = 200
+animation-charging-framerate = 220
 
 # Temperatura
 [module/temperatura]
