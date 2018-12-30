@@ -207,7 +207,7 @@ fixed-values = true
 format-mounted-prefix = " "
 format-mounted-prefix-foreground = ${cores.icones-modulos}
 format-mounted = <label-mounted>
-label-mounted = Root: %used% / 80 GB
+label-mounted = %used% / 80 GB
 label-mounted-foreground = ${cores.fontes}
 
 # Discos/Storage
