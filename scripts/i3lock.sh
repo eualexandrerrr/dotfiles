@@ -6,7 +6,6 @@ icon="$HOME/.local/share/i3lock/i3lock.png"
 font="$HOME/.local/share/fonts/OpenSans.ttf"
 
 [ ! -d $HOME/.local/share/i3lock/ ] && mkdir -p $HOME/.local/share/i3lock/
-[ ! -f $icon ] && curl -s -L 'https://i.imgur.com/XbxRMX7.png' > $icon
 
 gradientColor='#282a36'
 
