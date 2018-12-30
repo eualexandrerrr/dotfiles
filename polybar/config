@@ -529,9 +529,9 @@ content = 
 content-foreground = ${cores.verde}
 content-underline = ${cores.verde}
 click-left = ~/.config/scripts/screenshot.sh &
-click-middle = ~/.config/scripts/screenshot.sh -w &
-click-right = ~/.config/scripts/screenshot.sh -c &
-scroll-down = ~/.config/scripts/screenshot.sh -e &
+click-middle = ~/.config/scripts/screenshot.sh &
+click-right = ~/.config/scripts/screenshot.sh &
+scroll-down = ~/.config/scripts/screenshot.sh &
 
 # Screencast
 [module/screencast]
