@@ -375,8 +375,8 @@ bar-volume-foreground-6 = #DF013A
 [module/data]
 type = internal/date
 interval = 1
-date = %a, %d/%m/%y
-date-alt = %a, %d de %B de %G%
+date = %a, %d-%m-%Y
+date-alt = %A, %d de %B de %G%
 time = %H:%M
 format =  <label>
 format-underline = ${cores.amarelo}
@@ -540,9 +540,9 @@ content = 
 content-foreground = ${cores.vermelho}
 content-underline = ${cores.vermelho}
 click-left = ~/.config/scripts/screencast.sh &
-click-middle = ~/.config/scripts/screencast.sh -w &
-click-right = ~/.config/scripts/screencast.sh -c &
-scroll-down = ~/.config/scripts/screencast.sh -e &
+click-middle = ~/.config/scripts/screencast.sh &
+click-right = ~/.config/scripts/screencast.sh &
+scroll-down = ~/.config/scripts/screencast.sh &
 
 # Menu Power
 [module/menu-power]
