@@ -220,7 +220,7 @@ format-prefix = " "
 format-prefix-foreground = ${cores.icones-modulos}
 exec = uname -r
 tail = false
-format-foreground = ${cores.fontes}
+format-foreground = ${cores.cinza}
 
 # Spotify
 [module/spotify]
@@ -268,10 +268,10 @@ type = internal/memory
 format = <label>
 
 format-prefix = " "
-format-prefix-foreground = #702335
+format-prefix-foreground = #894856
 
 label =  %gb_used%/%gb_total%
-label-foreground = #702335
+label-foreground = #C68291
 
 bar-used-indicator = |
 bar-used-indicator-foreground = ${cores.icones-modulos}
