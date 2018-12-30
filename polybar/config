@@ -265,30 +265,45 @@ ramp-coreload-7-foreground = #8A0829
 # Memória
 [module/memoria]
 type = internal/memory
-format = <label>
+format = <label> <ramp-used> <ramp-free>
 
 format-prefix = " "
 format-prefix-foreground = #FF8000
 
-label = %percentage%%
-label-foreground = #FF8000
+label = %gb_used%/%gb_total%
+label-foreground = #F7819F
+
+
+bar-used-fill = ▐
+bar-used-empty = ▐
+bar-used-empty-foreground = #444444
 
 ramp-used-0 = ▁
-ramp-coreload-0-foreground = #F5A9BC
-ramp-coreload-1 = ▂
-ramp-coreload-1-foreground = #F7819F
-ramp-coreload-2 = ▃
-ramp-coreload-2-foreground = #FA5882
-ramp-coreload-3 = ▄
-ramp-coreload-3-foreground = #FE2E64
-ramp-coreload-4 = ▅
-ramp-coreload-4-foreground = #FF0040
-ramp-coreload-5 = ▆
-ramp-coreload-5-foreground = #DF013A
-ramp-coreload-6 = ▇
-ramp-coreload-6-foreground = #B40431
-ramp-coreload-7 = █
-ramp-coreload-7-foreground = #8A0829
+ramp-used-0-foreground = #F5A9BC
+ramp-used-1 = ▂
+ramp-used-1-foreground = #F7819F
+ramp-used-2 = ▃
+ramp-used-2-foreground = #FA5882
+ramp-used-3 = ▄
+ramp-used-3-foreground = #FE2E64
+ramp-used-4 = ▅
+ramp-used-4-foreground = #FF0040
+ramp-used-5 = ▆
+ramp-used-5-foreground = #DF013A
+ramp-used-6 = ▇
+ramp-used-6-foreground = #B40431
+ramp-used-7 = █
+ramp-used-7-foreground = #8A0829
+
+ramp-free-0 = ▁
+ramp-free-1 = ▂
+ramp-free-2 = ▃
+ramp-free-3 = ▄
+ramp-free-4 = ▅
+ramp-free-5 = ▆
+ramp-free-6 = ▇
+ramp-free-7 = █
+ramp-free-foreground = #8A0829
 
 # Brilho
 [module/brilho]
