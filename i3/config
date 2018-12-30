@@ -47,9 +47,10 @@ for_window [class="libreoffice-startcenter|libreoffice-writer|libreoffice-draw|l
 for_window [class="Lxappearance|Thunar|qbittorrent"] move to workspace $ws7, floating enable, resize set 1030 px 630 px, move position center, focus
 for_window [class="Galculator"] move to workspace $ws7, floating enable, resize set 400 px 440 px, move position center focus
 
-
 for_window [class="Pinta"] move to workspace $ws8, focus
 for_window [class="feh"] move to workspace $ws8, floating enable, resize set 1024 px 630 px, move position center focus
+
+for_window [class="GParted"] move to workspace $ws9, floating enable, resize set 400 px 440 px, move position center focus
 
 
 # Para conseguir nome da class, digitar comando no terminal, depois ir para janela correspondente com $MOD+TAB e clicar sobre
@@ -62,7 +63,7 @@ assign [class="^code"] $ws5
 assign [class="^libreoffice-startcenter|libreoffice-writer|libreoffice-draw|libreoffice-presentation|libreoffice-impress|libreoffice-calc"] $ws6
 assign [class="^Lxappearance|Thunar|qBittorrent|Galculator"] $ws7
 assign [class="^Pinta|feh"] $ws8
-assign [class="^"] $ws9
+assign [class="^GParted"] $ws9
 assign [class="^"] $ws10
 
 set $ws1 "1:"
