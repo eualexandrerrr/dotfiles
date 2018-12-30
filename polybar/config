@@ -400,7 +400,7 @@ label-foreground = ${cores.fontes}
 battery = BAT1
 adapter = ADP1
 type = internal/battery
-full-at = 85
+full-at = 80
 interval = 1
 poll-interval = 5
 time-format = %H:%M
@@ -439,14 +439,7 @@ animation-charging-1 = 
 animation-charging-2 = 
 animation-charging-3 = 
 animation-charging-4 = 
-animation-charging-framerate = 250
-
-animation-discharging-0 = 
-animation-discharging-1 = 
-animation-discharging-2 = 
-animation-discharging-3 = 
-animation-discharging-4 = 
-animation-discharging-framerate = 250
+animation-charging-framerate = 200
 
 # Temperatura
 [module/temperatura]
