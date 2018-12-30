@@ -26,7 +26,7 @@ get_icon() {
 }
 
 KEY=""
-CITY=""
+CITY="Linhares"
 UNITS="metric"
 SYMBOL="°"
 

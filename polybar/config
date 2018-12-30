@@ -88,7 +88,7 @@ font-2 = "Font Awesome 5 Free:style=Regular:pixelsize=9;1"
 font-3 = "Font Awesome 5 Free:style=Solid:pixelsize=9;1"
 font-4 = "Font Awesome 5 Brands:pixelsize=9;1"
 
-modules-left = github screenshot screencast usuario spotify
+modules-left = github screenshot screencast usuario clima spotify
 modules-center = i3
 modules-right = root home storage temperatura bateria data hora
 
@@ -374,6 +374,8 @@ type = custom/script
 exec = ~/.config/scripts/clima.sh
 interval = 600
 label-font = 3
+content = 
+content-foreground = ${cores.cinza}
 
 # Data
 [module/data]
