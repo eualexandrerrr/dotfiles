@@ -78,9 +78,9 @@ font-2 = "Font Awesome 5 Free:style=Regular:pixelsize=9;1"
 font-3 = "Font Awesome 5 Free:style=Solid:pixelsize=9;1"
 font-4 = "Font Awesome 5 Brands:pixelsize=9;1"
 
-modules-left = usuario spotify
+modules-left = github screenshot screencast usuario spotify
 modules-center = i3
-modules-right = brilho temperatura bateria data hora
+modules-right = temperatura bateria data hora
 
 cursor-click = pointer
 cursor-scroll = ns-resize
@@ -119,7 +119,7 @@ font-4 = "Font Awesome 5 Brands:pixelsize=9;1"
 
 modules-left = menu-power memoria cpu kernel
 modules-center = janela
-modules-right = speednet ethernet wireless screencast screenshot github volume
+modules-right = speednet ethernet wireless brilho volume
 
 cursor-click = pointer
 cursor-scroll = ns-resize
@@ -216,7 +216,7 @@ format-prefix = " Kernel "
 format-prefix-foreground = ${cores.icones-modulos}
 exec = uname -r
 tail = false
-format-foreground = ${cores.cinza}
+format-foreground = ${cores.fontes}
 
 # Spotify
 [module/spotify]
@@ -323,7 +323,7 @@ bar-volume-indicator-foreground = ${cores.icones-modulos}
 bar-volume-fill = ─
 bar-volume-empty = ─
 bar-volume-empty-foreground = ${cores.cinzaescuro}
-bar-volume-width = 10
+bar-volume-width = 8
 bar-volume-foreground-0 = #D8CEF6
 bar-volume-foreground-1 = #D0A9F5
 bar-volume-foreground-2 = #DA81F5
@@ -499,7 +499,7 @@ scroll-down = ~/.config/scripts/screencast.sh -e &
 [module/menu-power]
 type = custom/text
 content = 
-content-foreground = ${cores.icones-modulos}
+content-foreground = ${cores.cinzaescuro}
 click-left = ~/.config/scripts/menu-power.sh &
 click-middle = ~/.config/scripts/menu-power.sh &
 click-right = ~/.config/scripts/menu-power.sh &
