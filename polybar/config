@@ -32,7 +32,7 @@ color15 = ${xrdb:color15}
 
 transparente = #00000000
 
-fontes = #F8F2EE
+fontes = #D3D3D3
 
 icones = #B6C0C9
 icones-modulos = #AAB5E6
@@ -46,7 +46,7 @@ roxo = #8a2be2
 rosa = #cd1076
 
 branco = #ffffff
-cinza = #DED3CB
+cinza = #D3D3D3
 cinzaescuro = #A19A93
 
 spotify = #00D965
@@ -209,12 +209,12 @@ interval = 10
 fixed-values = true
 
 format-mounted-prefix = " root "
-format-mounted-prefix-foreground = ${cores.icones-modulos}
+format-mounted-prefix-foreground = ${cores.verde}
+format-mounted-underline = ${cores.verde}
 format-mounted = <label-mounted>
 label-mounted = %used% / 80 GB
 label-mounted-foreground = ${cores.fontes}
 
-format-mounted-underline = ${cores.color1}
 
 # Discos/Storage
 [module/storage]
@@ -224,12 +224,12 @@ interval = 10
 fixed-values = true
 
 format-mounted-prefix = " storage "
-format-mounted-prefix-foreground = ${cores.icones-modulos}
+format-mounted-prefix-foreground = ${cores.roxo}
+format-mounted-underline = ${cores.roxo}
 format-mounted = <label-mounted>
 label-mounted = %used% / 1 TB
 label-mounted-foreground = ${cores.fontes}
 
-format-mounted-underline = ${cores.roxo}
 
 # Usuário
 [module/usuario]
@@ -376,7 +376,7 @@ date-alt = %a, %d de %B de %G%
 time = %H:%M
 format =  <label>
 format-underline = ${cores.amarelo}
-format-foreground = ${cores.icones-modulos}
+format-foreground = ${cores.amarelo}
 label = %date%
 label-foreground = ${cores.fontes}
 
@@ -387,7 +387,7 @@ interval = 1
 time = %H:%M
 format =  <label>
 format-underline = ${cores.rosa}
-format-foreground = ${cores.icones-modulos}
+format-foreground = ${cores.rosa}
 label = %time%
 label-foreground = ${cores.fontes}
 
@@ -407,8 +407,8 @@ format-discharging = <ramp-capacity> <label-discharging>
 format-charging-underline = ${cores.verde}
 format-discharging-underline = ${cores.vermelho}
 
-format-charging-foreground = ${cores.icones-modulos}
-format-discharging-foreground = ${cores.icones-modulos}
+format-charging-foreground = ${cores.verde}
+format-discharging-foreground = ${cores.vermelho}
 format-full-foreground = ${cores.icones-modulos}
 
 label-charging = %percentage%%
@@ -467,7 +467,7 @@ label-warn-foreground = ${cores.fontes}
 ramp-0 = 
 ramp-1 = 
 ramp-2 = 
-ramp-foreground = ${cores.icones-modulos}
+ramp-foreground = ${cores.laranja}
 
 # Wireless
 [module/wireless]
