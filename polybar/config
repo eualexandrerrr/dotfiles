@@ -393,15 +393,15 @@ format-unmounted = <label-unmounted>
 ;   %total%
 ;   %free%
 ;   %used%
-; Default: %mountpoint% %percentage_free%%
-label-mounted = %mountpoint%: %percentage_free%% of %total%
-label-mounted-foreground = {cores.color0}
+; Default: %mountpoint% %percentage_used%%
+label-mounted = %fsname%: %percentage_used%%
+label-mounted-foreground = ${cores.fontes}
 
 ; Available tokens:
 ;   %mountpoint%
 ; Default: %mountpoint% is not mounted
 label-unmounted = %mountpoint%: not mounted
-label-unmounted-foreground = {cores.color0}
+label-unmounted-foreground = ${cores.fontes}
 
 # Data
 [module/data]
