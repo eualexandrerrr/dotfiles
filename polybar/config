@@ -68,6 +68,9 @@ border-color = ${cores.vermelho}
 padding-left = 2
 padding-right = 2
 
+underline-size = 1
+#overline-size = 1
+
 module-margin-left = 1
 module-margin-right = 1
 
@@ -106,7 +109,6 @@ border-color = ${cores.vermelho}
 
 padding-left = 2
 padding-right = 2
-underline-size = 3
 
 module-margin-left = 1
 module-margin-right = 1
@@ -163,7 +165,7 @@ label-focused-underline = ${cores.vermelho}
 label-unfocused-padding = 1
 label-unfocused = %icon%
 label-unfocused-foreground = ${cores.color2}
-label-unfocused-underline = ${cores.color2}
+label-unfocused-underline = ${cores.transparente}
 
 label-urgent = %icon%
 label-urgent-foreground = ${cores.color0}
@@ -181,6 +183,8 @@ format = <label>
 format-background = ${cores.transparente}
 format-foreground = ${cores.fontes}
 format-padding = 4
+
+underline = 
 
 label = %title%
 label-maxlen = 80
@@ -200,6 +204,8 @@ format-mounted-prefix-foreground = ${cores.icones-modulos}
 format-mounted = <label-mounted>
 label-mounted = %used% / 80 GB
 label-mounted-foreground = ${cores.fontes}
+
+format-mounted-underline = ${cores.color1}
 
 # Discos/Storage
 [module/storage]
