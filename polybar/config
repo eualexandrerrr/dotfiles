@@ -208,7 +208,7 @@ spacing = 4
 format-mounted-prefix = " "
 format-mounted-prefix-foreground = ${cores.icones-modulos}
 format-mounted = <label-mounted>
-label-mounted = Root: %used%/80 GB
+label-mounted = Root: %used% / 80 GB
 label-mounted-foreground = ${cores.fontes}
 
 # Discos/Storage
@@ -222,7 +222,7 @@ spacing = 4
 format-mounted-prefix = " "
 format-mounted-prefix-foreground = ${cores.icones-modulos}
 format-mounted = <label-mounted>
-label-mounted = %used%/1 TB
+label-mounted = %used% / 1 TB
 label-mounted-foreground = ${cores.fontes}
 
 # Usuário
