@@ -75,7 +75,7 @@ padding-left = 2
 padding-right = 2
 
 underline-size = 1
-#overline-size = 1
+overline-size = 1
 
 module-margin-left = 1
 module-margin-right = 1
@@ -115,6 +115,9 @@ border-color = ${cores.vermelho}
 
 padding-left = 2
 padding-right = 2
+
+underline-size = 1
+overline-size = 1
 
 module-margin-left = 1
 module-margin-right = 1
