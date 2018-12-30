@@ -1,6 +1,6 @@
 (cat ~/.cache/wal/sequences &)
-cat ~/.cache/wal/sequences
-source ~/.cache/wal/colors-tty.sh
+#cat ~/.cache/wal/sequences
+#source ~/.cache/wal/colors-tty.sh
 
   export ZSH="/home/mamutal91/.oh-my-zsh"
 

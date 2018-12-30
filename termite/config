@@ -10,7 +10,7 @@
 
 [options]
 transparency = 20.0
-font = xos4 Terminus 16px
+font = xos4 Terminus 14px
 use_xft = true
 allow_bold = true
 audible_bell = false
@@ -22,5 +22,4 @@ urgent_on_bell = true
 # $BROWSER is used by default if set, with xdg-open as a fallback
 browser = firefox
 editor = nano
-
 cursor_blink = system
