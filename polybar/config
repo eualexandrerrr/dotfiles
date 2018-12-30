@@ -368,6 +368,13 @@ bar-volume-foreground-4 = #FE2EC8
 bar-volume-foreground-5 = #FF0080
 bar-volume-foreground-6 = #DF013A
 
+# Clima
+[module/clima]
+type = custom/script
+exec = ~/.config/scripts/clima.sh
+interval = 600
+label-font = 3
+
 # Data
 [module/data]
 type = internal/date
