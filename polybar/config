@@ -201,12 +201,6 @@ label-maxlen = 80
 label-empty = Sem janelas
 label-empty-foreground = ${cores.fontes}
 
-# Weather
-[module/weather]
-type = custom/script
-interval = 60
-exec = ~/.config/scripts/weather.py
-
 # Usuário
 [module/usuario]
 type = custom/script
