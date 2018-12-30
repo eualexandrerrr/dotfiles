@@ -350,59 +350,6 @@ bar-volume-foreground-4 = #FE2EC8
 bar-volume-foreground-5 = #FF0080
 bar-volume-foreground-6 = #DF013A
 
-# Filesystem
-[module/filesystem]
-type = internal/fs
-
-; Mountpoints to display
-mount-0 = /
-mount-1 = /home
-mount-2 = /media/storage
-
-; Seconds to sleep between updates
-; Default: 30
-interval = 10
-
-; Display fixed precision values
-; Default: false
-fixed-values = true
-
-; Spacing between entries
-; Default: 2
-spacing = 4
-
-; Additional formatting
-
-; Available tags:
-;   <label-mounted> (default)
-;   <bar-free>
-;   <bar-used>
-;   <ramp-capacity>
-format-mounted = <label-mounted>
-
-; Available tags:
-;   <label-unmounted> (default)
-format-unmounted = <label-unmounted>
-
-; Available tokens:
-;   %mountpoint%
-;   %type%
-;   %fsname%
-;   %percentage_free%
-;   %percentage_used%
-;   %total%
-;   %free%
-;   %used%
-; Default: %mountpoint% %percentage_used%%
-label-mounted = %fsname%: %percentage_used%%
-label-mounted-foreground = ${cores.fontes}
-
-; Available tokens:
-;   %mountpoint%
-; Default: %mountpoint% is not mounted
-label-unmounted = %mountpoint%: not mounted
-label-unmounted-foreground = ${cores.fontes}
-
 # Data
 [module/data]
 type = internal/date
