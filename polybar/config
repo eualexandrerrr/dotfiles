@@ -203,7 +203,6 @@ type = internal/fs
 mount-0 = /
 interval = 10
 fixed-values = true
-spacing = 4
 
 format-mounted-prefix = " "
 format-mounted-prefix-foreground = ${cores.icones-modulos}
@@ -217,7 +216,6 @@ type = internal/fs
 mount-0 = /media/storage
 interval = 10
 fixed-values = true
-spacing = 4
 
 format-mounted-prefix = " "
 format-mounted-prefix-foreground = ${cores.icones-modulos}
