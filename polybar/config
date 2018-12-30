@@ -42,7 +42,7 @@ vermelho = #c0392b
 azul = #5dade2
 amarelo = #f1c40f
 laranja = #dc7633
-roxo = #dc7633
+roxo = #8a2be2
 branco = #ffffff
 cinza = #DED3CB
 cinzaescuro = #A19A93
@@ -224,6 +224,8 @@ format-mounted = <label-mounted>
 label-mounted = %used% / 1 TB
 label-mounted-foreground = ${cores.fontes}
 
+format-mounted-underline = ${cores.roxo}
+
 # Usuário
 [module/usuario]
 type = custom/script
@@ -395,6 +397,10 @@ time-format = %H:%M
 format-charging = <animation-charging> <label-charging>
 format-discharging = <ramp-capacity> <label-discharging>
 
+format-charging-underline = ${cores.laranja}
+format-discharging-underline = ${cores.vermelho}
+
+
 format-charging-foreground = ${cores.icones-modulos}
 format-discharging-foreground = ${cores.icones-modulos}
 format-full-foreground = ${cores.icones-modulos}
@@ -440,7 +446,9 @@ thermal-zone = 0
 hwmon-path = /sys/devices/platform/coretemp.0/hwmon/hwmon2/temp1_input
 warn-temperature = 60
 units = true
+
 format = <ramp> <label>
+format-underline = ${cores.laranja}
 
 format-warn = <ramp> <label-warn>
 
