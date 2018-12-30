@@ -32,6 +32,7 @@ for_window [window_type="menu"] floating enable, resize set 800 px 600 px, move 
 
 # Regras de apps
 for_window [class="Termite"] move to workspace $ws1, focus
+
 for_window [class="Firefox"] move to workspace $ws2, focus
 
 for_window [class="TelegramDesktop"] move to workspace $ws3, floating enable, resize set 1000 px 810 px, focus
