@@ -49,7 +49,7 @@ for_window [class="Lxappearance|Thunar|qbittorrent"] move to workspace $ws7, flo
 for_window [class="Galculator"] move to workspace $ws7, floating enable, resize set 400 px 440 px, move position center focus
 
 for_window [class="Pinta"] move to workspace $ws8, focus
-for_window [class="feh"] move to workspace $ws8, floating enable, resize set 1024 px 630 px, move position center focus
+for_window [class="feh"] move to workspace $ws8, move position center focus
 
 for_window [class="GParted"] move to workspace $ws9, floating enable, resize set 1024 px 840 px, move position center focus
 
