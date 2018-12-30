@@ -2,7 +2,7 @@
 # github.com/mamutal91
 
 dir=$HOME/.local/share/wallpapers
-img=cidadedigital.png
+img=falcon.jpg
 
 wallpaper=$dir/$img
 
