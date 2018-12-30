@@ -220,6 +220,7 @@ format-foreground = ${cores.fontes}
 
 # Spotify
 [module/spotify]
+interval = 1
 format-prefix = " "
 format-prefix-foreground = ${cores.spotify}
 format-padding = 1
@@ -227,7 +228,7 @@ format-foreground = ${cores.fontes}
 type = custom/script
 exec = ~/.config/scripts/spotify.sh %artist% - %title%
 tail = true
-interval = 1
+label-maxlen = 45
 
 # CPU
 [module/cpu]
