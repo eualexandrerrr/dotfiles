@@ -166,13 +166,13 @@ label-mode-padding = 1
 label-mode-background = #e60053
 
 label-focused = %icon%
-label-focused-foreground = ${cores.foreground}
+label-focused-foreground = ${cores.color1}
 label-focused-background = ${cores.background}
-label-focused-underline = ${cores.vermelho}
-label-focused-padding = 2
+label-focused-underline = ${cores.color1}
+label-focused-padding = 1
 
 label-unfocused = %icon%
-label-unfocused-foreground = ${cores.foreground}
+label-unfocused-foreground = ${cores.color2}
 label-unfocused-underline = ${cores.transparente}
 label-unfocused-padding = 1
 
@@ -238,6 +238,7 @@ interval = 1
 
 format-prefix = " "
 format-prefix-foreground = ${cores.icones-modulos}
+format-prefix-underline = ${cores.icones-modulos}
 exec = echo $USER@$HOSTNAME
 format-foreground = ${cores.fontes}
 
@@ -511,7 +512,8 @@ ramp-signal-0-foreground = ${cores.icones-modulos}
 [module/github]
 type = custom/text
 content = 
-content-foreground = ${cores.icones-modulos}
+content-foreground = ${cores.cinza}
+content-underline = ${cores.cinza}
 click-left = exec ~/.config/scripts/git-cron.sh -c &
 click-middle = exec ~/.config/scripts/git-cron.sh -c &
 click-right = exec ~/.config/scripts/git-cron.sh -c &
@@ -521,7 +523,8 @@ scroll-down = exec ~/.config/scripts/git-cron.sh -c &
 [module/screenshot]
 type = custom/text
 content = 
-content-foreground = ${cores.icones-modulos}
+content-foreground = ${cores.verde}
+content-underline = ${cores.verde}
 click-left = ~/.config/scripts/screenshot.sh &
 click-middle = ~/.config/scripts/screenshot.sh -w &
 click-right = ~/.config/scripts/screenshot.sh -c &
@@ -531,7 +534,8 @@ scroll-down = ~/.config/scripts/screenshot.sh -e &
 [module/screencast]
 type = custom/text
 content = 
-content-foreground = ${cores.icones-modulos}
+content-foreground = ${cores.vermelho}
+content-underline = ${cores.vermelho}
 click-left = ~/.config/scripts/screencast.sh &
 click-middle = ~/.config/scripts/screencast.sh -w &
 click-right = ~/.config/scripts/screencast.sh -c &
