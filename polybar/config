@@ -186,7 +186,7 @@ label-urgent-padding = 1
 [module/janela]
 type = internal/xwindow
 
-format-prefix = "  "
+format-prefix = "  "
 format-prefix-foreground = ${cores.icones-modulos}
 
 format = <label>
@@ -238,7 +238,7 @@ interval = 1
 format-prefix = " "
 format-prefix-foreground = ${cores.azul}
 format-underline = ${cores.transparente}
-exec = echo $USER@$HOSTNAME
+exec = echo $USER  $HOSTNAME
 format-foreground = ${cores.azul}
 
 # Kernel
