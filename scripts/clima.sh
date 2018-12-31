@@ -1,31 +1,61 @@
 #!/bin/bash
 # github.com/mamutal91
 
-city="Linhares"
-api_key="39214b9803f123f428d81d0e38c1af9c"
-lang="pt"
-unit="metric"
-api="http://api.openweathermap.org/data/2.5/weather"
-url="$api?q=$city&lang=$lang&APPID=$api_key&units=$unit"
+get_icon() {
+    case $1 in
+        01d) icon="";;
+        01n) icon="";;
+        02d) icon="";;
+        02n) icon="";;
+        03*) icon="";;
+        04*) icon="";;
+        09d) icon="";;
+        09n) icon="";;
+        10d) icon="";;
+        10n) icon="";;
+        11d) icon="";;
+        11n) icon="";;
+        13d) icon="";;
+        13n) icon="";;
+        50d) icon="";;
+        50n) icon="";;
+        *) icon="";
+    esac
 
-weather=$(curl -s $url | jq -r '. | "\(.weather[].main)"')
-temp=$(curl -s $url | jq -r '. | "\(.main.temp)"')
-icons=$(curl -s $url | jq -r '. | "\(.weather[].icon)"')
-description=$(curl -s $url | jq -r '. | "\(.weather[].description)"')
+    echo $icon
+}
 
-case $icons in
-  01d) icon=x;;
-  01n) icon=a;;
-  02d) icon=b;;
-  02n) icon=e;;
-  03*) icon=e;;
-  04*) icon=e;;
-  09*) icon=e;;
-  10*) icon=e;;
-  11*) icon=e;;
-  13*) icon=e;;
-  50*) icon=e;;
-  *) icon=x;;
-esac
+KEY="39214b9803f123f428d81d0e38c1af9c"
+CITY="Linhares"
+LANG="pt"
+UNITS="metric"
+SYMBOL="°"
 
-echo $icon\ $weather, $temp"°C" $description
+API="https://api.openweathermap.org/data/2.5"
+
+if [ ! -z $CITY ]; then
+    if [ "$CITY" -eq "$CITY" ] 2>/dev/null; then
+        CITY_PARAM="id=$CITY"
+    else
+        CITY_PARAM="q=$CITY"
+    fi
+
+    weather=$(curl -sf "$API/weather?appid=$KEY&lang=$LANG&$CITY_PARAM&units=$UNITS")
+else
+    location=$(curl -sf https://location.services.mozilla.com/v1/geolocate?key=geoclue)
+
+    if [ ! -z "$location" ]; then
+        location_lat="$(echo "$location" | jq '.location.lat')"
+        location_lon="$(echo "$location" | jq '.location.lng')"
+
+        weather=$(curl -sf "$API/weather?appid=$KEY&lang=$LANG&lat=$location_lat&lon=$location_lon&units=$UNITS")
+    fi
+fi
+
+if [ ! -z "$weather" ]; then
+    weather_desc=$(echo "$weather" | jq -r ".weather[0].description")
+    weather_temp=$(echo "$weather" | jq ".main.temp" | cut -d "." -f 1)
+    weather_icon=$(echo "$weather" | jq -r ".weather[0].icon")
+
+    echo "$(get_icon "$weather_icon")" "$weather_desc", "$weather_temp$SYMBOL"
+fi
