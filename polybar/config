@@ -371,8 +371,7 @@ bar-volume-foreground-6 = #DF013A
 # Clima
 [module/clima]
 type = custom/script
-interval = 600
-format-prefix = " "
+interval = 5
 format = <label>
 exec = ~/.config/scripts/clima.sh
 exec-if = ping openweathermap.org -c 1

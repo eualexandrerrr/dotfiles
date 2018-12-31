@@ -13,18 +13,18 @@ temp=$(curl -s $url | jq -r '. | "\(.main.temp)"')
 icons=$(curl -s $url | jq -r '. | "\(.weather[].icon)"')
 
 case $icons in
-  01d) icon=;;
-  01n) icon=;;
-  02d) icon=;;
-  02n) icon=;;
-  03*) icon=;;
-  04*) icon=;;
-  09*) icon=;;
-  10*) icon=;;
-  11*) icon=;;
-  13*) icon=;;
-  50*) icon=;;
-  *) icon=;;
+  01d) icon=x;;
+  01n) icon=a;;
+  02d) icon=b;;
+  02n) icon=e;;
+  03*) icon=e;;
+  04*) icon=e;;
+  09*) icon=e;;
+  10*) icon=e;;
+  11*) icon=e;;
+  13*) icon=e;;
+  50*) icon=e;;
+  *) icon=x;;
 esac
 
 echo $icon\ $weather, $temp"°C"
