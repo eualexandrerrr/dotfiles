@@ -11,6 +11,7 @@ url="$api?q=$city&lang=$lang&APPID=$api_key&units=$unit"
 weather=$(curl -s $url | jq -r '. | "\(.weather[].main)"')
 temp=$(curl -s $url | jq -r '. | "\(.main.temp)"')
 icons=$(curl -s $url | jq -r '. | "\(.weather[].icon)"')
+description=$(curl -s $url | jq -r '. | "\(.weather[].description)"')
 
 case $icons in
   01d) icon=x;;
@@ -27,4 +28,4 @@ case $icons in
   *) icon=x;;
 esac
 
-echo $icon\ $weather, $temp"°C"
+echo $icon\ $weather, $temp"°C" $description
