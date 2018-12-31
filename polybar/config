@@ -88,7 +88,7 @@ font-2 = "Font Awesome 5 Free:style=Regular:pixelsize=9;1"
 font-3 = "Font Awesome 5 Free:style=Solid:pixelsize=9;1"
 font-4 = "Font Awesome 5 Brands:pixelsize=9;1"
 
-modules-left = github screenshot screencast usuario spotify
+modules-left = github git-cron screenshot screencast usuario spotify
 modules-center = i3
 modules-right = root home storage temperatura bateria data hora
 
@@ -211,7 +211,7 @@ format-mounted-prefix = " root "
 format-mounted-prefix-foreground = ${cores.verde}
 format-mounted-underline = ${cores.transparente}
 format-mounted = <label-mounted>
-label-mounted = %used% / 80 GB
+label-mounted = %used%
 label-mounted-foreground = ${cores.verdeclaro}
 
 
@@ -226,7 +226,7 @@ format-mounted-prefix = " storage "
 format-mounted-prefix-foreground = ${cores.roxo}
 format-mounted-underline = ${cores.transparente}
 format-mounted = <label-mounted>
-label-mounted = %used% / 1 TB
+label-mounted = %used%
 label-mounted-foreground = ${cores.roxoclaro}
 
 
@@ -501,8 +501,14 @@ label-connected-foreground = ${cores.cinza}
 ramp-signal-0 = 
 ramp-signal-0-foreground = ${cores.icones-modulos}
 
-# GitHub
 [module/github]
+type = internal/github
+token = ${file:/.ssh/id_rsa.pub}
+empty-notifications = false
+interval = 10
+
+# Git-Cron
+[module/git-cron]
 type = custom/text
 content = 
 content-foreground = ${cores.cinza}
