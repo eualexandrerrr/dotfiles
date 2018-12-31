@@ -88,7 +88,7 @@ font-2 = "Font Awesome 5 Free:style=Regular:pixelsize=9;1"
 font-3 = "Font Awesome 5 Free:style=Solid:pixelsize=9;1"
 font-4 = "Font Awesome 5 Brands:pixelsize=9;1"
 
-modules-left = github git-cron screenshot screencast usuario spotify
+modules-left = git-cron screenshot screencast usuario spotify
 modules-center = i3
 modules-right = root home storage temperatura bateria data hora
 
@@ -500,12 +500,6 @@ label-connected-foreground = ${cores.cinza}
 
 ramp-signal-0 = 
 ramp-signal-0-foreground = ${cores.icones-modulos}
-
-[module/github]
-type = internal/github
-token = ${file:/.ssh/id_rsa.pub}
-empty-notifications = false
-interval = 10
 
 # Git-Cron
 [module/git-cron]
