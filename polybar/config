@@ -472,7 +472,7 @@ interval = 1.0
 format-connected = <label-connected> <ramp-signal>
 format-packetloss = <animation-packetloss>
 label-connected = %upspeed%   %downspeed%  %essid%
-label-connected-foreground = ${cores.cinza}
+label-connected-foreground = ${cores.fontes}
 
 ramp-signal-0 = 
 ramp-signal-0-foreground = #BD574C
@@ -496,7 +496,7 @@ interval = 1.0
 format-connected = <label-connected> <ramp-signal>
 format-packetloss = <animation-packetloss>
 label-connected = %upspeed%   %downspeed%  %local_ip%
-label-connected-foreground = ${cores.cinza}
+label-connected-foreground = ${cores.fontes}
 
 ramp-signal-0 = 
 ramp-signal-0-foreground = ${cores.icones-modulos}
