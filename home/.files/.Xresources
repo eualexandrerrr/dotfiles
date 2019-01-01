@@ -1,4 +1,4 @@
 ! URxvt
 
 ! General settings
-URxvt.scrollBar: true
+URxvt.scrollBar: false
