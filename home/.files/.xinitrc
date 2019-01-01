@@ -2,7 +2,7 @@
 # github.com/mamutal91
 
 # Xresources
-xrdb -merge "${HOME}/.Xresources"
+xrdb .Xresources
 
 # Dunst
 dunst &
