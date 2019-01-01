@@ -16,7 +16,7 @@ font pango:monospace 8
 floating_modifier $mod
 
 # Regras
-bindsym $mod+Return exec --no-startup-id i3-sensible-terminal &
+bindsym $mod+Return exec --no-startup-id urxvt &
 bindsym $mod+e exec --no-startup-id thunar &
 bindsym $mod+F2 exec --no-startup-id firefox &
 bindsym $mod+F3 exec --no-startup-id telegram-desktop &
@@ -31,7 +31,7 @@ for_window [window_type="dialog"] floating enable, resize set 800 px 600 px, mov
 for_window [window_type="menu"] floating enable, resize set 800 px 600 px, move position center focus
 
 # Regras de apps
-for_window [class="Termite"] move to workspace $ws1, focus
+for_window [class="urxvt"] move to workspace $ws1, focus
 
 for_window [class="Firefox"] move to workspace $ws2, focus
 
@@ -55,7 +55,7 @@ for_window [class="GParted"] move to workspace $ws9, floating enable, resize set
 
 # Para conseguir nome da class, digitar comando no terminal, depois ir para janela correspondente com $MOD+TAB e clicar sobre
 # sudo xprop | grep -i 'class' 
-assign [class="^Termite"] $ws1
+assign [class="^urxvt"] $ws1
 assign [class="^Firefox"] $ws2
 assign [class="^TelegramDesktop|Rambox"] $ws3
 assign [class="^Spotify|vlc|Steam"] $ws4
@@ -265,7 +265,7 @@ exec --no-startup-id pulseeffects --gapplication-service &
 
 # Comandos de sistema
 bindsym F8 exec --no-startup-id $HOME/github/dotfiles/polybar/launch.sh
-bindsym F9 exec --no-startup-id termite -e $HOME/github/strojects/archlinux/pacotes.sh
+bindsym F9 exec --no-startup-id urxvt -e $HOME/github/strojects/archlinux/pacotes.sh
 bindsym F10 exec --no-startup-id $HOME/.config/scripts/git-cron.sh
 bindsym F11 exec --no-startup-id $HOME/github/dotfiles/scripts/update.sh
-bindsym F12 exec --no-startup-id termite -e $HOME/.config/scripts/pacman.sh
+bindsym F12 exec --no-startup-id urxvt -e $HOME/.config/scripts/pacman.sh
