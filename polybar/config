@@ -238,7 +238,7 @@ interval = 1
 format-prefix = " "
 format-prefix-foreground = ${cores.azul}
 format-underline = ${cores.transparente}
-exec = echo $USER  $HOSTNAME
+exec = echo $USER@$HOSTNAME
 format-foreground = ${cores.azul}
 
 # Kernel
