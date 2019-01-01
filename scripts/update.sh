@@ -14,8 +14,8 @@ cd $dotfiles
     sudo rm -rf $HOME/.files/{.zshrc,.Xresources,.xinitrc,.nvidia-xinitrc,.zlogin}
     sudo cp -r home/.files/{.zshrc,.Xresources,.xinitrc,.nvidia-xinitrc,.zlogin} $HOME
 
-    sudo rm -rf ${configs}/compton && sudo cp -r compton ${configs}
-    sudo rm -rf ${configs}/dunst && sudo cp -r dunst ${configs}
+#    sudo rm -rf ${configs}/compton && sudo cp -r compton ${configs}
+#    sudo rm -rf ${configs}/dunst && sudo cp -r dunst ${configs}
     sudo rm -rf ${configs}/i3 && sudo cp -r i3 ${configs}
     sudo rm -rf ${configs}/neofetch && sudo cp -r neofetch ${configs}
     sudo rm -rf ${configs}/polybar && sudo cp -r polybar ${configs}
