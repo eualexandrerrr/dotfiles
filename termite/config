@@ -5,4 +5,3 @@ font = xos4 Terminus 14px
 # $BROWSER is used by default if set, with xdg-open as a fallback
 browser = firefox
 editor = nano
-cursor_blink = system
