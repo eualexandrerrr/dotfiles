@@ -350,7 +350,7 @@ format-volume = <label-volume> <bar-volume>
 label-volume = %percentage%%
 label-volume-foreground = ${cores.fontes}
 
-label-muted =  MUTE ──────────
+label-muted =  MUTE ───────
 label-muted-foreground = ${cores.icones-modulos}
 
 bar-volume-gradient = true
