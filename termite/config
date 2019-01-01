@@ -4,6 +4,5 @@ font = xos4 Terminus 14px
 [colors]
 background = rgba(0, 0, 0, 0.7)
 
-# $BROWSER is used by default if set, with xdg-open as a fallback
 browser = firefox
 editor = nano
