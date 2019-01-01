@@ -1,6 +1,8 @@
 [options]
-background = rgba(15, 9, 8, 0.7)
 font = xos4 Terminus 14px
+
+[colors]
+background = rgba(126, 44, 44, 0.5)
 
 # $BROWSER is used by default if set, with xdg-open as a fallback
 browser = firefox
