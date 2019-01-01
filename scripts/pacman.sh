@@ -1,8 +1,6 @@
 #!/bin/bash
 # github.com/mamutal91
 
-wal -R
-
 echo Atualizando Pacman
 sleep 1s
     sudo pacman -Syu --noconfirm
