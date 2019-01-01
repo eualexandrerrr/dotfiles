@@ -1,4 +1,4 @@
-(cat ~/.cache/wal/sequences &)
+#(cat ~/.cache/wal/sequences &)
 #cat ~/.cache/wal/sequences
 #source ~/.cache/wal/colors-tty.sh
 
@@ -6,8 +6,6 @@
 
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="agnoster"
-export EDITOR="nano"
-export BROWSER="firefox"
 
 HIST_STAMPS="dd/mm/yyyy"
 
