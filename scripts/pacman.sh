@@ -1,7 +1,7 @@
 #!/bin/bash
 # github.com/mamutal91
 
-cd $HOME/.config/scripts && ./wallpaper.sh
+source ~/.config/scripts/scripts.sh
 
 echo Atualizando Pacman
 sleep 1s

@@ -1,6 +1,8 @@
 #!/bin/bash
 # github.com/mamutal91
 
+source ~/.config/scripts/scripts.sh
+
 # Add linha no crontab
 # */5 * * * * sh -c "~/.config/scripts/git-cron.sh" > /dev/null 2>&1
 
