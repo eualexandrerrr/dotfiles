@@ -1,7 +1,7 @@
 #!/bin/bash
 # github.com/mamutal91
 
-source ~/.config/scripts/scripts.sh
+(cat ~/.cache/wal/sequences &)
 
 echo Atualizando Pacman
 sleep 1s
