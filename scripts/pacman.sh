@@ -1,6 +1,8 @@
 #!/bin/bash
 # github.com/mamutal91
 
+cd $HOME/.config/scripts && ./wallpaper.sh
+
 echo Atualizando Pacman
 sleep 1s
     sudo pacman -Syu --noconfirm
