@@ -263,7 +263,7 @@ format-underline = ${cores.transparente}
 type = custom/script
 exec = ~/.config/scripts/spotify.sh "%artist% - %title% (%album%)"
 tail = true
-label-maxlen = 45
+label-maxlen = 80
 
 # CPU
 [module/cpu]
