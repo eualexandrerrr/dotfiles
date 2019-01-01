@@ -1,31 +1,77 @@
-!You may want to run $ xrdb -merge ~/.Xresources with each update
+URxvt.font: xft:dina:size=9
+URxvt.letterSpace: 0
+URxvt.boldFont:
+URxvt.scrollBar: false
+URxvt*geometry: 80x21
+URxvt.internalBorder: 4
+!urxvt*depth: 32
+!urxvt*background: [85]#000000
+Xft.autohint: 0
+Xft.antialias: 1
+Xft.hinting: true
 
-!Xft settings:
+URxvt.foreground: 	    #a6a6a6
+URxvt.background: 	    #121212
+URxvt*cursorColor:          #a6a6a6
+URxvt*colorUL:              #6E484e
 
-Xft*dpi:                96
-Xft*hinting:            true
-! hintstyle 3 for flat-panel displays 
-Xft*hintstyle:          2
-Xft*antialias:          true
-! uncomment/adjust for flat-panel display
-Xft*rgba:              rgb
+!Black
+URxvt*color0:               #333333
+URxvt*color8:               #474747
+
+!Red
+URxvt*color1:               #63484e
+URxvt*color9:               #63484e
+
+!Green
+URxvt*color2:               #486350
+URxvt*color10:              #486350
+
+!Yellow
+URxvt*color3:               #6f6b56
+URxvt*color11:              #6f6b56
+
+!Blue
+URxvt*color4:               #56676f
+URxvt*color12:              #56676f
+
+!Magenta
+URxvt*color5:               #63485b
+URxvt*color13:              #63485b
+
+!Cyan
+URxvt*color6:               #636363
+URxvt*color14:              #636363
+
+!White
+URxvt*color7:               #a6a6a6
+URxvt*color15:              #a6a6a6
 
 
-! URxvt settings
+! ------------------------------------------------------------------------------
+! ROFI Color theme
+! ------------------------------------------------------------------------------
+rofi.color-enabled: true
+rofi.color-window: #273238, #273238, #1e2529
+rofi.color-normal: #273238, #c1c1c1, #273238, #394249, #ffffff
+rofi.color-active: #273238, #80cbc4, #273238, #394249, #80cbc4
+rofi.color-urgent: #273238, #ff1844, #273238, #394249, #ff1844
 
-URxvt*font:              -*-terminus-medium-r-*-*-14-*-*-*-*-*-*-*
-URxvt*boldFont:          -*-terminus-medium-r-*-*-14-*-*-*-*-*-*-*
-URxvt*loginShell:        true
-URxvt*scrollBar:         false 
-!URxvt*scrollstyle:      plain 
-!URxvt*scrollBar_right:  true
-URxvt*termName:          rxvt
-URxvt.buffered:          true
-URxvt.perl-ext:          default,matcher
-URxvt.urlLauncher:       /usr/bin/firefox
-URxvt.matcher.button:    1 
-URxvt.transparent:       True
-URxvt.shading:           25
-URxvt*cursorColor:       #aaaaaa
-URxvt*colorUL:           #366060
-URxvt*underlineColor:    #dfaf8f
+rofi.lines: 5
+rofi.width: 20
+rofi.font: Lucy Tewi 9
+
+
+! -----------------------------------------------------------------------------
+! 2bwm
+! -----------------------------------------------------------------------------
+twobwm.border_width: 10
+twobwm.outer_border: 7
+twobwm.focus_color: #ff6262
+twobwm.unfocus_color: #ebebeb
+!twobwm.fixed_color: #ff0000
+!twobwm.unkill_color: #ff0000
+!twobwm.outer_border_color: #ffffff
+!twobwm.fixed_unkill_color: #ff0000
+!twobwm.inverted_colors: true
+twobwm.enable_compton: false
