@@ -261,7 +261,7 @@ format-padding = 1
 format-foreground = ${cores.fontes}
 format-underline = ${cores.transparente}
 type = custom/script
-exec = ~/.config/scripts/spotify.sh %artist% - %title%
+exec = ~/.config/scripts/spotify.sh %artist% - %title% %album%
 tail = true
 label-maxlen = 45
 
