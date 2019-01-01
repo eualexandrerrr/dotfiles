@@ -17,7 +17,7 @@ export LC_CTYPE="pt_BR.UTF-8"
 export EDITOR="nano"
 
 # Xresources
-xrdb .Xresources
+[[ -f ~/.Xresources ]] && xrdb -merge -I$HOME ~/.Xresources
 
 # Dunst
 dunst &
