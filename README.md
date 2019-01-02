@@ -2,13 +2,12 @@
 
 💻 🎨 Arch Linux DotFiles
 
-Requisitos mínimos (Minimum requirements)
+Minimum requirements (Requisitos mínimos)
 
-- `i3-gaps` `i3lock` `compton` `dunst` `rofi` `maim` `scrot` `python-pywal` `python-setuptools`
+- `i3-gaps` `i3lock` `compton` `dunst` `polybar` `rofi` `termite` `thunar` `python-pywal` `python-setuptools`
 
-Para instalar, basta colocar o repositório no diretório (To install, just put the repository in the directory)
-- `/home/USER/github/dotfiles`
-e executar o script (and run the script)
-- `./scripts/update.sh`
+Installation (instalação)
+
+- `bash <(curl -s -L http://bit.ly/mamutal91DOTFILES)`
 
 ![screenshot](https://raw.githubusercontent.com/mamutal91/dotfiles/master/screenshot.png)
