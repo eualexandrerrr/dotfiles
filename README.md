@@ -8,7 +8,7 @@
 
 ## Minimum requirements (Requisitos mínimos)
 
-`compton` `dunst` `i3-gaps` `i3lock` `polybar` `rofi` `termite` `terminus-font` `zsh` `scrot` `feh` `pywal`
+- `compton` `dunst` `i3-gaps` `i3lock` `polybar` `rofi` `termite` `terminus-font` `zsh` `scrot` `feh` `pywal`
 
 All packages above must be installed. Look for the guide for your distribution.
 
