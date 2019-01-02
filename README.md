@@ -17,14 +17,11 @@
 |Window Compositor   |`compton`   | [Compton](https://github.com/chjj/compton)  |[Compton](https://github.com/mamutal91/dotfiles/blob/master/compton/compton.conf)   |   |   |   |
 |Launcher   |`rofi`   |[Rofi](https://github.com/DaveDavenport/rofi)   | [Rofi](https://github.com/mamutal91/dotfiles/blob/master/rofi/config)  |   |   |   |
 |Notification Daemon | `dunst` | [dunst](https://dunst-project.org/) | [dunst](https://github.com/mamutal91/dotfiles/blob/master/dunst/dunstrc) | 
-|Terminal Emulator   | `Termite` and `st`   |[urxvt](http://software.schmorp.de/pkg/rxvt-unicode.html) - [st](st.suckless.org)  | [urxvt](https://github.com/mamutal91/dotfiles/blob/master/Xresources/Xresources.d/urxvt) - [st](https://github.com/mamutal91/suckless-terminal) |
-|Window Manager | `i3-gaps` - `bspwm` | [i3-gaps](https://github.com/Airblader/i3) - [bspwm](https://github.com/baskerville/bspwm) | [i3-gaps](https://github.com/mamutal91/dotfiles/blob/master/i3/.config/i3/config) - [bspwm](https://github.com/mamutal91/dotfiles/blob/master/bspwm/.config/bspwm/bspwmrc) 
-|AUR Helper| `aurutils` | [aurutils](https://github.com/AladW/aurutils) |
+|Terminal Emulator   | `termite`   |[Termite](http://software.schmorp.de/pkg/rxvt-unicode.html) - [st](st.suckless.org)  | [urxvt](https://github.com/mamutal91/dotfiles/blob/master/Xresources/Xresources.d/urxvt) - [st](https://github.com/mamutal91/suckless-terminal) |
+|Window Manager | `i3-gaps` and `i3lock` | [i3-gaps](https://github.com/Airblader/i3) - [bspwm](https://github.com/baskerville/bspwm) | [i3-gaps](https://github.com/mamutal91/dotfiles/blob/master/i3/.config/i3/config) - [bspwm](https://github.com/mamutal91/dotfiles/blob/master/bspwm/.config/bspwm/bspwmrc) 
+|AUR Helper| `yay` | [yay](https://github.com/Jguer/yay) |
 |Screenshooter| `scrot` | [Scrot](https://github.com/dreamer/scrot) |
-|Display Manager| `lightdm` | [LightDM](https://freedesktop.org/wiki/Software/LightDM) | 
 |Browser    |`firefox`   |[Firefox](https://www.mozilla.org/en-US/firefox/new/)   | 
-|File Manager   |`thunar`|[Ranger](https://github.com/xfce-mirror/thunar)  |   |   |   |   |
-|Terminal Font   |`hack`   |[Hack](https://github.com/source-foundry/Hack)   |   |   |   |   |
-|Video Player   |`mpv`   |[Mpv](https://github.com/mpv-player/mpv)   |   |   |   |   |
-|Image Viewer | `feh` - `viewnior` | [Feh](https://github.com/derf/feh) - [Viewnior](https://github.com/hellosiyan/Viewnior) |
-|Password manager | `pass` | [pass: The Standard Unix Password Manager](https://www.passwordstore.org/) |
+|File Manager   |`thunar`|[Thunar](https://github.com/xfce-mirror/thunar)  |   |   |   |   |
+|Video Player   |`vlc`   |[VLC](https://github.com/videolan/vlc)   |   |   |   |   |
+|Image Viewer | `feh` | [Feh](https://github.com/derf/feh) |
