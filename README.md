@@ -18,7 +18,6 @@
  zsh            > zshell settings, aliases, and custom prompts
 ```
 
-
 - `bash <(curl -s -L http://bit.ly/mamutal91DOTFILES)`
 
 
