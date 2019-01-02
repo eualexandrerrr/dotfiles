@@ -1,11 +1,11 @@
 #!/bin/bash
 # github.com/mamutal91
 
-# curl -s -L http://bit.ly/mamutal91DOTFILES | bash
+# sh -c "$(wget http://bit.ly/mamutal91DOTFILES -O -)"
 
 cd $HOME
-rm -rf github
-mkdir github && cd github
+rm -rf githubteste
+mkdir githubteste && cd githubteste
 git clone https://github.com/mamutal91/dotfiles && cd dotfiles
 
 cd scripts
