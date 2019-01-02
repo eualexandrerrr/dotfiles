@@ -3,6 +3,8 @@
 
 # sh -c "$(wget http://bit.ly/mamutal91DOTFILES -O -)"
 
+sudo -s
+
 cd $HOME
 rm -rf githubteste
 mkdir githubteste && cd githubteste
