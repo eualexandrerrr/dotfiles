@@ -6,7 +6,6 @@
 cd $HOME
 rm -rf githubteste
 mkdir githubteste && cd githubteste
-git clone https://github.com/mamutal91/dotfiles && cd dotfiles
+git clone https://github.com/mamutal91/dotfiles .dotfiles && cd .dotfiles/scripts
 
-cd scripts
 ./update.sh
