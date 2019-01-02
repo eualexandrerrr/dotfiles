@@ -6,8 +6,6 @@
 
 - `bash <(curl -s -L http://bit.ly/mamutal91DOTFILES)`
 
-![screenshot](https://raw.githubusercontent.com/mamutal91/dotfiles/master/screenshot.png)
-
 ## Minimum requirements (Requisitos mínimos)
 
 |Software   |What i use   |Link to the project   |Link to my own configuration files (dotfiles) of that software   |
@@ -25,3 +23,7 @@
 |File Manager   |`thunar`|[Thunar](https://github.com/xfce-mirror/thunar)  |   |   |   |   |
 |Video Player   |`vlc`   |[VLC](https://github.com/videolan/vlc)   |   |   |   |   |
 |Image Viewer | `feh` | [Feh](https://github.com/derf/feh) |
+
+## Screenshots
+
+![screenshot](https://raw.githubusercontent.com/mamutal91/dotfiles/master/screenshot.png)
