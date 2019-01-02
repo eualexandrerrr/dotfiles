@@ -1,26 +1,33 @@
 #!/bin/bash
 # github.com/mamutal91
 
-[[ $USER == "mamutal91" ]] && cd $HOME/github/dotfiles || cd $HOME/.dotfiles
+cd $HOME/.dotfiles
 
 # DOTCONFIGS
 configs="${HOME}/.config"
 
     sudo rm -rf $HOME/.local/share/{fonts,i3lock,sounds,wallpapers}
-    sudo cp -r home/.local/ $HOME
 
     sudo rm -rf $HOME/{.zshrc,.xinitrc,.nvidia-xinitrc,.zlogin}
-    sudo cp -r home/{.zshrc,.xinitrc,.nvidia-xinitrc,.zlogin} $HOME
 
-    sudo rm -rf ${configs}/compton && sudo cp -r compton ${configs}
-    sudo rm -rf ${configs}/dunst && sudo cp -r dunst ${configs}
-    sudo rm -rf ${configs}/i3 && sudo cp -r i3 ${configs}
-    sudo rm -rf ${configs}/neofetch && sudo cp -r neofetch ${configs}
-    sudo rm -rf ${configs}/polybar && sudo cp -r polybar ${configs}
-    sudo rm -rf ${configs}/rofi && sudo cp -r rofi ${configs}
-    sudo rm -rf ${configs}/scripts && sudo cp -r scripts ${configs}
-    sudo rm -rf ${configs}/termite && sudo cp -r termite ${configs}
-    sudo rm -rf ${configs}/thunar && sudo cp -r thunar ${configs}
+    sudo rm -rf ${configs}/compton
+    sudo rm -rf ${configs}/dunst
+    sudo rm -rf ${configs}/i3
+    sudo rm -rf ${configs}/neofetch
+    sudo rm -rf ${configs}/polybar
+    sudo rm -rf ${configs}/rofi
+    sudo rm -rf ${configs}/scripts
+    sudo rm -rf ${configs}/termite
+    sudo rm -rf ${configs}/thunar
+
+stow compton
+stow dunst
+stow home
+stow i3
+stow neofetch
+stow polybar
+stow rofi
+stow termite
 
 function mamutal91configs(){
     sudo rm -rf /etc/X11/xorg.conf.d/10-evdev.conf
