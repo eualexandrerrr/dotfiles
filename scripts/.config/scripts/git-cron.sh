@@ -12,7 +12,7 @@ git config --global user.email "mamutal91@gmail.com"
 cd $HOME/.dotfiles
 
 atualiza() {
-	status=$(git add . -n)
+		status=$(git add . -n)
 		if [ ! -z "$status" ]; then
 			c=$(echo $(git add . -n | tr '\r\n' ' '))
 			m="Autocommit Git-Cron: $c"
