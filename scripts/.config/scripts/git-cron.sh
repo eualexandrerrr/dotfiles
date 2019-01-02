@@ -9,8 +9,8 @@ export EDITOR="nano"
 git config --global user.name "mamutal91" 
 git config --global user.email "mamutal91@gmail.com"
 
-dir="${HOME}/github"
-repos=('dotfiles' 'mamutal91.github.io' 'strojects')
+dir="${HOME}"
+repos=('.dotfiles')
 remoto="mamutal91@archlinux"
 
 atualiza() {
@@ -37,7 +37,7 @@ if [ ! $1 ] || [ $1 == "-a" ]; then
 		atualiza "$caminho"
 	done
 
-	atualiza "${HOME}/dotfiles"
+	atualiza "${HOME}"
 	[ "$1" == "-a" ] && ssh $remoto "/usr/local/scripts/git-http"
 else
 	caminho="$@"

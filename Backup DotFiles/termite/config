@@ -1,8 +1,0 @@
-[options]
-font = xos4 Terminus 14px
-
-[colors]
-background = rgba(0, 0, 0, 0.7)
-
-browser = firefox
-editor = nano
