@@ -253,7 +253,7 @@ bindsym $mod+r mode "resize"
 
 # Inicialização do sistema
 
-exec_always --no-startup-id $HOME/.config/scripts/wallpaper.sh
+exec_always --no-startup-id $HOME/.local/bin/wallpaper.sh
 #exec_always --no-startup-id wal -R
 
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
@@ -267,6 +267,6 @@ exec --no-startup-id pulseeffects --gapplication-service &
 # Comandos de sistema
 bindsym F8 exec --no-startup-id $HOME/.config/polybar/launch.sh
 bindsym F9 exec --no-startup-id termite -e $HOME/github/strojects/archlinux/pacotes.sh
-bindsym F10 exec --no-startup-id $HOME/.dotfiles/scripts/.config/scripts/git-cron-dotfiles.sh
-bindsym F11 exec --no-startup-id $HOME/.dotfiles/scripts/.config/scripts/stow.sh
-bindsym F12 exec --no-startup-id termite -e $HOME/.config/scripts/pacman.sh
+bindsym F10 exec --no-startup-id $HOME/.dotfiles/.local/bin/git-cron-dotfiles.sh
+bindsym F11 exec --no-startup-id $HOME/.dotfiles/.local/bin/scripts/stow.sh
+bindsym F12 exec --no-startup-id termite -e $HOME/.local/bin/pacman.sh
