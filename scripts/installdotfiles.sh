@@ -4,7 +4,7 @@
 # bash <(curl -s -L http://bit.ly/mamutal91DOTFILES)
 
 cd $HOME
-sudo rm -rf githubteste
+rm -rf githubteste
 mkdir githubteste && cd githubteste
 git clone https://github.com/mamutal91/dotfiles && cd dotfiles
 
