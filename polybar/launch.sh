@@ -12,5 +12,3 @@ else
   polybar --reload cima &
   polybar --reload baixo &
 fi
-
-echo "POLYBAR: Barras iniciadas..."
