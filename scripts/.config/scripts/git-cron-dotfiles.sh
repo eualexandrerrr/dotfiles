@@ -16,11 +16,11 @@ atualiza() {
 		if [ ! -z "$status" ]; then
 			c=$(echo $(git add . -n | tr '\r\n' ' '))
 			m="Autocommit Git-Cron: $c"
-			DISPLAY=:0 notify-send "Git-Cron Commits"
+			DISPLAY=:0 notify-send "Git-Cron Commits" "dotfiles"
 			git add .
 			git commit -m "$m"
 			git push
-			DISPLAY=:0 notify-send "Git-Cron Push atualizado."
+			DISPLAY=:0 notify-send "Git-Cron Push atualizado." "dotfiles"
 		fi
 }
 
