@@ -12,9 +12,9 @@ configs="${HOME}/.config"
     sudo rm -rf $HOME/{.zshrc,.xinitrc,.nvidia-xinitrc,.zlogin}
     sudo cp -r {.zshrc,.xinitrc,.nvidia-xinitrc,.zlogin} $HOME
 
-    sudo rm -rf ${configs}/compton && sudo cp -r compton ${configs}
-    sudo rm -rf ${configs}/dunst && sudo cp -r dunst ${configs}
-    sudo rm -rf ${configs}/i3 && sudo cp -r i3 ${configs}
+    sudo rm -rf ${configs}/compton && sudo cp -r compton/.config/compton ${configs}
+    sudo rm -rf ${configs}/dunst && sudo cp -r dunst/.config/dunst ${configs}
+    sudo rm -rf ${configs}/i3 && sudo cp -r i3/.config/i3 ${configs}
     sudo rm -rf ${configs}/neofetch && sudo cp -r neofetch ${configs}
     sudo rm -rf ${configs}/polybar && sudo cp -r polybar ${configs}
     sudo rm -rf ${configs}/rofi && sudo cp -r rofi ${configs}
