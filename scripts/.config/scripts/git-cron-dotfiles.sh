@@ -2,7 +2,7 @@
 # github.com/mamutal91
 
 # Add linha no crontab 
-# */5 * * * * sh -c "~/.config/scripts/git-cron.sh" > /dev/null 2>&1
+# */5 * * * * sh -c "~/.config/scripts/git-cron-dotfiles.sh" > /dev/null 2>&1
 
 export EDITOR="nano"
 
