@@ -3,10 +3,8 @@
 
 # sh -c "$(wget http://bit.ly/mamutal91DOTFILES -O -)"
 
-sudo -s
-
 cd $HOME
-rm -rf githubteste
+sudo rm -rf githubteste
 mkdir githubteste && cd githubteste
 git clone https://github.com/mamutal91/dotfiles && cd dotfiles
 
