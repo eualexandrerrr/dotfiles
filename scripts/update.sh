@@ -7,10 +7,10 @@
 configs="${HOME}/.config"
 
     sudo rm -rf $HOME/.local/share/{fonts,i3lock,sounds,wallpapers}
-    sudo cp -r .local/ $HOME
+    sudo cp -r home/.local/ $HOME
 
     sudo rm -rf $HOME/{.zshrc,.xinitrc,.nvidia-xinitrc,.zlogin}
-    sudo cp -r {.zshrc,.xinitrc,.nvidia-xinitrc,.zlogin} $HOME
+    sudo cp -r home/{.zshrc,.xinitrc,.nvidia-xinitrc,.zlogin} $HOME
 
     sudo rm -rf ${configs}/compton && sudo cp -r compton ${configs}
     sudo rm -rf ${configs}/dunst && sudo cp -r dunst ${configs}
