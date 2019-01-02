@@ -5,6 +5,7 @@ cd $HOME/.dotfiles
 
 stow compton
 stow dunst
+stow home
 stow i3
 stow neofetch
 stow polybar
