@@ -1,7 +1,7 @@
 #!/bin/bash
 # github.com/mamutal91
 
-# sh -c "$(wget http://bit.ly/mamutal91DOTFILES -O -)"
+# bash <(curl -s -L http://bit.ly/mamutal91DOTFILES)
 
 cd $HOME
 sudo rm -rf githubteste
