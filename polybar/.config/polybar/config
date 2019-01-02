@@ -261,7 +261,7 @@ format-padding = 1
 format-foreground = ${cores.fontes}
 format-underline = ${cores.transparente}
 type = custom/script
-exec = ~/.config/scripts/spotify.sh "%artist% - %title% (%album%)"
+exec = ~/.local/bin/spotify.sh "%artist% - %title% (%album%)"
 tail = true
 label-maxlen = 80
 
@@ -507,10 +507,10 @@ type = custom/text
 content = 
 content-foreground = ${cores.cinza}
 content-underline = ${cores.transparente}
-click-left = exec ~/.config/scripts/git-cron.sh -c &
-click-middle = exec ~/.config/scripts/git-cron.sh -c &
-click-right = exec ~/.config/scripts/git-cron.sh -c &
-scroll-down = exec ~/.config/scripts/git-cron.sh -c &
+click-left = exec ~/.local/bin/git-cron.sh -c &
+click-middle = exec ~/.local/bin/git-cron.sh -c &
+click-right = exec ~/.local/bin/git-cron.sh -c &
+scroll-down = exec ~/.local/bin/git-cron.sh -c &
 
 # Screenshot
 [module/screenshot]
@@ -518,10 +518,10 @@ type = custom/text
 content = 
 content-foreground = ${cores.verde}
 content-underline = ${cores.transparente}
-click-left = ~/.config/scripts/screenshot.sh &
-click-middle = ~/.config/scripts/screenshot.sh &
-click-right = ~/.config/scripts/screenshot.sh &
-scroll-down = ~/.config/scripts/screenshot.sh &
+click-left = ~/.local/bin/screenshot.sh &
+click-middle = ~/.local/bin/screenshot.sh &
+click-right = ~/.local/bin/screenshot.sh &
+scroll-down = ~/.local/bin/screenshot.sh &
 
 # Screencast
 [module/screencast]
@@ -529,29 +529,29 @@ type = custom/text
 content = 
 content-foreground = ${cores.vermelho}
 content-underline = ${cores.transparente}
-click-left = ~/.config/scripts/screencast.sh &
-click-middle = ~/.config/scripts/screencast.sh &
-click-right = ~/.config/scripts/screencast.sh &
-scroll-down = ~/.config/scripts/screencast.sh &
+click-left = ~/.local/bin/screencast.sh &
+click-middle = ~/.local/bin/screencast.sh &
+click-right = ~/.local/bin/screencast.sh &
+scroll-down = ~/.local/bin/screencast.sh &
 
 # Menu Power
 [module/menu-power]
 type = custom/text
 content = 
 content-foreground = ${cores.cinzaescuro}
-click-left = ~/.config/scripts/menu-power.sh &
-click-middle = ~/.config/scripts/menu-power.sh &
-click-right = ~/.config/scripts/menu-power.sh &
-click-down = ~/.config/scripts/menu-power.sh &
+click-left = ~/.local/bin/menu-power.sh &
+click-middle = ~/.local/bin/menu-power.sh &
+click-right = ~/.local/bin/menu-power.sh &
+click-down = ~/.local/bin/menu-power.sh &
 
 [module/lock]
 type = custom/text
 content = 
 content-foreground = ${cores.cinzaescuro}
-click-left = ~/.config/scripts/i3lock.sh &
-click-middle = ~/.config/scripts/i3lock.sh &
-click-right = ~/.config/scripts/i3lock.sh &
-click-down = ~/.config/scripts/i3lock.sh &
+click-left = ~/.local/bin/i3lock.sh &
+click-middle = ~/.local/bin/i3lock.sh &
+click-right = ~/.local/bin/i3lock.sh &
+click-down = ~/.local/bin/i3lock.sh &
 
 [settings]
 screenchange-reload = true
