@@ -7,7 +7,7 @@
 configs="${HOME}/.config"
 
     sudo rm -rf $HOME/.local/share/{fonts,i3lock,sounds,wallpapers}
-    sudo cp -r home/.config/.files/.local/ $HOME
+    sudo cp -r .local/ $HOME
 
     sudo rm -rf $HOME/{.zshrc,.xinitrc,.nvidia-xinitrc,.zlogin}
     sudo cp -r home/.config/.files/{.zshrc,.xinitrc,.nvidia-xinitrc,.zlogin} $HOME
