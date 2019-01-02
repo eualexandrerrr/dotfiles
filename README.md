@@ -8,6 +8,8 @@
 
 ## Minimum requirements (Requisitos mínimos)
 
+`compton` `dunst` `i3-gaps` `i3lock` `polybar` `rofi` `termite` `terminus-font` `zsh` `scrot` `feh` `pywal`
+
 |Software   |What i use   |Link to the project   |Link to my own configuration files (dotfiles) of that software   |
 |---|---|---|---|
 |Shell prompt  |`bash` and `zsh` |[bash](https://www.gnu.org/software/bash/) - [zsh](http://www.zsh.org/) | [zsh](https://github.com/mamutal91/dotfiles/blob/master/home/.files/.zshrc)|
