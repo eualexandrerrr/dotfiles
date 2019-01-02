@@ -5,6 +5,6 @@
 
 cd $HOME
 rm -rf .dotfiles
-git clone https://github.com/mamutal91/dotfiles .dotfiles && cd .dotfiles/scripts
+git clone https://github.com/mamutal91/dotfiles dotfiles && cd dotfiles/scripts
 
 ./update.sh
