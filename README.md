@@ -1,4 +1,4 @@
-<h1 align="center">Dotfiles</h1>
+![dotfiles](https://dotfiles.github.io/images/dotfiles-logo.png)
 <p align="center"> If there is a shell, there is a way</p>
 <p align="center">
   <img src="https://img.shields.io/badge/Editor-neovim-brightgreen.svg" />
