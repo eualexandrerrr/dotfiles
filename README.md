@@ -23,7 +23,7 @@
 |Screenshooter| `scrot` | [Scrot](https://github.com/dreamer/scrot) |
 |Display Manager| `lightdm` | [LightDM](https://freedesktop.org/wiki/Software/LightDM) | 
 |Browser    |`firefox`   |[Firefox](https://www.mozilla.org/en-US/firefox/new/)   | 
-|File Manager   |`ranger` and `pcmanfm`   |[Ranger](https://github.com/ranger/ranger) - [PCManFM](https://wiki.lxde.org/en/PCManFM)  |   |   |   |   |
+|File Manager   |`thunar`|[Ranger](https://github.com/xfce-mirror/thunar)  |   |   |   |   |
 |Terminal Font   |`hack`   |[Hack](https://github.com/source-foundry/Hack)   |   |   |   |   |
 |Video Player   |`mpv`   |[Mpv](https://github.com/mpv-player/mpv)   |   |   |   |   |
 |Image Viewer | `feh` - `viewnior` | [Feh](https://github.com/derf/feh) - [Viewnior](https://github.com/hellosiyan/Viewnior) |
