@@ -10,7 +10,7 @@ configs="${HOME}/.config"
     sudo cp -r .local/ $HOME
 
     sudo rm -rf $HOME/{.zshrc,.xinitrc,.nvidia-xinitrc,.zlogin}
-    sudo cp -r home/.config/.files/{.zshrc,.xinitrc,.nvidia-xinitrc,.zlogin} $HOME
+    sudo cp -r {.zshrc,.xinitrc,.nvidia-xinitrc,.zlogin} $HOME
 
     sudo rm -rf ${configs}/compton && sudo cp -r compton ${configs}
     sudo rm -rf ${configs}/dunst && sudo cp -r dunst ${configs}
