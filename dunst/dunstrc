@@ -1,5 +1,6 @@
 [global]
 font = xos4 Terminus 11
+
 markup = yes
 plain_text = no
 
