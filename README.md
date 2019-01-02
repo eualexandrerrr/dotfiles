@@ -12,9 +12,11 @@
 
 All packages above must be installed. Look for the guide for your distribution.
 
-# Arch Linux:
+## Arch Linux:
 - `sudo pacman -S compton dunst i3-gaps i3lock rofi termite terminus-font zsh scrot feh python-pywal python-setuptools`
 - `yay -S polybar`
+
+## Softwares
 
 |Software   |What i use   |Link to the project   |Link to my own configuration files (dotfiles) of that software   |
 |---|---|---|---|
