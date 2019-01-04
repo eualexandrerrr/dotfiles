@@ -1,7 +1,7 @@
 #!/bin/bash
 # github.com/mamutal91
 
-function dotfiles(){
+function mamutal91-dotfiles(){
     sudo rm -rf $HOME/.dotfiles
     cp -r $HOME/github/dotfiles $HOME/.dotfiles
     cd $HOME/.dotfiles
@@ -19,7 +19,7 @@ stow scripts
 stow termite
 }
 
-function mamutal91configs(){
+function mamutal91-configs(){
     sudo rm -rf /etc/X11/xorg.conf.d/10-evdev.conf
     sudo rm -rf /etc/X11/xorg.conf.d/20-intel.conf
     sudo rm -rf /etc/X11/xorg.conf.d/30-touchpad.conf
@@ -35,7 +35,7 @@ function mamutal91configs(){
     sudo cp -r etc/modprobe.d/bbswitch.conf /etc/modprobe.d/
 }
 
-[[ $USER == "mamutal91" ]] && dotfiles || cd $HOME/.dotfiles
+[[ $USER == "mamutal91" ]] && mamutal91-dotfiles || cd $HOME/.dotfiles
 
 stows
 
