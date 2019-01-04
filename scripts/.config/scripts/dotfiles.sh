@@ -3,22 +3,6 @@
 
 cd $HOME/.dotfiles
 
-# DOTCONFIGS
-configs="${HOME}/.config"
-
-    sudo rm -rf $HOME/.local/share/{fonts,i3lock,sounds,wallpapers}
-
-    sudo rm -rf $HOME/{.zshrc,.xinitrc,.nvidia-xinitrc,.zlogin}
-
-    sudo rm -rf ${configs}/compton
-    sudo rm -rf ${configs}/dunst
-#    sudo rm -rf ${configs}/i3
-    sudo rm -rf ${configs}/neofetch
-    sudo rm -rf ${configs}/polybar
-    sudo rm -rf ${configs}/rofi
-    sudo rm -rf ${configs}/scripts
-    sudo rm -rf ${configs}/termite
-
 stow compton
 stow dunst
 stow home
