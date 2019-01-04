@@ -20,7 +20,6 @@ configs="${HOME}/.config"
     sudo rm -rf ${configs}/rofi && sudo cp -r rofi ${configs}
     sudo rm -rf ${configs}/scripts && sudo cp -r scripts ${configs}
     sudo rm -rf ${configs}/termite && sudo cp -r termite ${configs}
-    sudo rm -rf ${configs}/thunar && sudo cp -r thunar ${configs}
 
 function mamutal91configs(){
     sudo rm -rf /etc/X11/xorg.conf.d/10-evdev.conf
