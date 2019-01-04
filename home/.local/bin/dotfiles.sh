@@ -1,8 +1,13 @@
 #!/bin/bash
 # github.com/mamutal91
 
-cd $HOME/.dotfiles
+function dotfiles(){
+    sudo rm -rf $HOME/.dotfiles
+    cp -r $HOME/github/dotfiles $HOME/.dotfiles
+    cd $HOME/.dotfiles
+}
 
+function stows(){
 stow compton
 stow dunst
 stow home
@@ -10,8 +15,9 @@ stow i3
 stow neofetch
 stow polybar
 stow rofi
+stow scripts
 stow termite
-stow thunar
+}
 
 function mamutal91configs(){
     sudo rm -rf /etc/X11/xorg.conf.d/10-evdev.conf
@@ -28,6 +34,11 @@ function mamutal91configs(){
     sudo cp -r etc/modules-load.d/bbswitch.conf /etc/modules-load.d/
     sudo cp -r etc/modprobe.d/bbswitch.conf /etc/modprobe.d/
 }
+
+[[ $USER == "mamutal91" ]] && dotfiles || cd $HOME/.dotfiles
+
+stows
+
 [[ $USER == "mamutal91" ]] && mamutal91configs || echo No
 
 # Finalizando
