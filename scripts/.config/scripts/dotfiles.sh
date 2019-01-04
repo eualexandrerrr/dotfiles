@@ -21,6 +21,7 @@ configs="${HOME}/.config"
 
 stow compton
 stow dunst
+stow home
 stow i3
 stow neofetch
 stow polybar
