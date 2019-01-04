@@ -21,6 +21,8 @@ This will symlink the necessary files.
 git clone https://github.com/mamutal91/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
 stow i3
+     ...
+     ...
 ```
 
 ## Screenshots
