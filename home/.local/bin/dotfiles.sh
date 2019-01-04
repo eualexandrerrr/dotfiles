@@ -11,6 +11,7 @@ stow neofetch
 stow polybar
 stow rofi
 stow termite
+stow thunar
 
 function mamutal91configs(){
     sudo rm -rf /etc/X11/xorg.conf.d/10-evdev.conf
