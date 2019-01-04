@@ -4,6 +4,9 @@
 # Add linha no crontab
 # */5 * * * * sh -c "~/.local/bin/git-cron.sh" > /dev/null 2>&1
 
+rm -rf $HOME/.dotfiles
+cp -r $HOME/github/dotfiles $HOME/.teste
+
 export EDITOR="nano"
 
 git config --global user.name "mamutal91" 
