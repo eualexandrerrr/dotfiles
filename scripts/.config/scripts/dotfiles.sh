@@ -1,7 +1,7 @@
 #!/bin/bash
 # github.com/mamutal91
 
-#[[ $USER == "mamutal91" ]] && cd $HOME/github/dotfiles || cd $HOME/dotfiles
+cd $HOME/.dotfiles
 
 # DOTCONFIGS
 configs="${HOME}/.config"
