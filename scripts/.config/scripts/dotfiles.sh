@@ -12,7 +12,7 @@ configs="${HOME}/.config"
 
     sudo rm -rf ${configs}/compton
     sudo rm -rf ${configs}/dunst
-    sudo rm -rf ${configs}/i3
+#    sudo rm -rf ${configs}/i3
     sudo rm -rf ${configs}/neofetch
     sudo rm -rf ${configs}/polybar
     sudo rm -rf ${configs}/rofi
