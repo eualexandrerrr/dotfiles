@@ -35,11 +35,18 @@ function mamutal91-configs(){
     sudo cp -r etc/modprobe.d/bbswitch.conf /etc/modprobe.d/
 }
 
-[[ $USER == "mamutal91" ]] && mamutal91-dotfiles || cd $HOME/.dotfiles
+function mamutal91(){
+    mamutal91-dotfiles
+    stows
+    mamutal91-configs
+}
 
-stows
+function user(){
+    cd $HOME/.dotfiles
+    stows
+}
 
-[[ $USER == "mamutal91" ]] && mamutal91configs || echo No
+[[ $USER == "mamutal91" ]] && mamutal91 || user
 
 # Finalizando
 canberra-gtk-play --file=$HOME/.local/share/sounds/completed.wav 
