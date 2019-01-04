@@ -37,7 +37,7 @@ function mamutal91configs(){
     sudo cp -r etc/modules-load.d/bbswitch.conf /etc/modules-load.d/
     sudo cp -r etc/modprobe.d/bbswitch.conf /etc/modprobe.d/
 }
-[[ $USER == "mamutal91" ]] && mamutal91configs || echo No
+[[ $USER == "mamutal91" ]] && mamutal91configs || echo Noo
 
 # Finalizando
 canberra-gtk-play --file=$HOME/.local/share/sounds/completed.wav 
