@@ -5,16 +5,16 @@ res=$(echo "Desligar;Bloquear;Encerrar;Reiniciar" | rofi -sep ";" -dmenu -p "Men
 if [ ! -z $res ]; then
   case $res in
     Desligar)
-      sudo poweroff
+      poweroff
     ;;
     Bloquear)
       cd $HOME/.config/scripts/ && ./i3lock.sh &
     ;;
     Encerrar)
-      sudo pkill -9 -u $USER
+      pkill -9 -u $USER
     ;;
     Reiniciar)
-      sudo reboot
+      reboot
     ;;
   esac
 fi
