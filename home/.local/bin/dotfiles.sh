@@ -11,7 +11,7 @@ function stows(){
 stow compton
 stow dunst
 stow gpicview
-stow gtk-3.0
+stow gtk
 stow home
 stow i3
 stow neofetch
