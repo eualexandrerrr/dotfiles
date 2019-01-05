@@ -1,5 +1,4 @@
 ![dotfiles](https://dotfiles.github.io/images/dotfiles-logo.png)
-<p align="center"> If there is a shell, there is a way</p>
 <p align="center">
   <br><br>
   <img src="https://i.imgur.com/pVGr7tX.png">
