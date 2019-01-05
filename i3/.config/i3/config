@@ -1,0 +1,275 @@
+#   ██╗██████╗  ██╗    ██╗███╗   ███╗
+#   ██║╚════██╗ ██║    ██║████╗ ████║
+#   ██║ █████╔╝ ██║ █╗ ██║██╔████╔██║
+#   ██║ ╚═══██╗ ██║███╗██║██║╚██╔╝██║
+#   ██║██████╔╝ ╚███╔███╔╝██║ ╚═╝ ██║
+#   ╚═╝╚═════╝   ╚══╝╚══╝ ╚═╝     ╚═╝
+#   https://github.com/i3/i3
+
+# Básico
+set $mod Mod4
+
+# Fonte de título para janela
+font pango:monospace 8
+
+# $mod para arrastar janelas flutuantes
+floating_modifier $mod
+
+# Regras
+bindsym $mod+Return exec --no-startup-id termite &
+bindsym $mod+e exec --no-startup-id thunar &
+bindsym $mod+F2 exec --no-startup-id firefox &
+bindsym $mod+F3 exec --no-startup-id telegram-desktop &
+bindsym $mod+F4 exec --no-startup-id /usr/bin/rambox &
+
+# Regras de janelas pop-up
+for_window [window_role="pop-up"] floating enable, resize set 800 px 600 px, move position center focus
+for_window [window_role="bubble"] floating enable, resize set 800 px 600 px, move position center focus
+for_window [window_role="task_dialog"] floating enable, resize set 800 px 600 px, move position center focus
+for_window [window_role="Preferences"] floating enable, resize set 800 px 600 px, move position center focus
+for_window [window_type="dialog"] floating enable, resize set 800 px 600 px, move position center focus
+for_window [window_type="menu"] floating enable, resize set 800 px 600 px, move position center focus
+
+# Regras de apps
+for_window [class="Termite"] move to workspace $ws1, focus
+
+for_window [class="Firefox"] move to workspace $ws2, focus
+
+for_window [class="TelegramDesktop"] move to workspace $ws3, floating enable, resize set 1000 px 810 px, focus
+for_window [class="Rambox"] move to workspace $ws3, floating enable, resize set 1200 px 900 px, focus
+
+for_window [class="Spotify|vlc|Steam"] move to workspace $ws4, focus
+
+for_window [class="code"] move to workspace $ws5, focus
+for_window [class="Electron"] move to workspace $ws5, floating enable, focus
+
+for_window [class="libreoffice-startcenter|libreoffice-writer|libreoffice-draw|libreoffice-presentation|libreoffice-impress|libreoffice-calc"] move to workspace $ws6, focus
+
+for_window [class="Lxappearance|Thunar|qbittorrent"] move to workspace $ws7, floating enable, resize set 1030 px 630 px, move position center, focus
+for_window [class="Galculator"] move to workspace $ws7, floating enable, resize set 400 px 440 px, move position center focus
+
+for_window [class="Pinta"] move to workspace $ws8, focus
+for_window [class="Gpicview|feh"] move to workspace $ws8, move position center focus
+
+for_window [class="GParted"] move to workspace $ws9, floating enable, resize set 1024 px 840 px, move position center focus
+
+# Para conseguir nome da class, digitar comando no terminal, depois ir para janela correspondente com $MOD+TAB e clicar sobre
+# sudo xprop | grep -i 'class' 
+assign [class="^Termite"] $ws1
+assign [class="^Firefox"] $ws2
+assign [class="^TelegramDesktop|Rambox"] $ws3
+assign [class="^Spotify|vlc|Steam"] $ws4
+assign [class="^code"] $ws5
+assign [class="^libreoffice-startcenter|libreoffice-writer|libreoffice-draw|libreoffice-presentation|libreoffice-impress|libreoffice-calc"] $ws6
+assign [class="^Lxappearance|Thunar|qBittorrent|Galculator"] $ws7
+assign [class="^Pinta|Gpicview|feh"] $ws8
+assign [class="^GParted"] $ws9
+#assign [class="^"] $ws10 TEMPORARIAMENTE
+
+set $ws1 "1:"
+set $ws2 "2:"
+set $ws3 "3:"
+set $ws4 "4:"
+set $ws5 "5:"
+set $ws6 "6:"
+set $ws7 "7:"
+set $ws8 "8:"
+set $ws9 "9:"
+#set $ws10 "10:" TEMPORARIAMENTE
+
+# Screenshot & Screencast
+bindsym Insert exec --no-startup-id $HOME/.local/bin/screenshot.sh
+bindsym Control+Insert exec --no-startup-id $HOME/.local/bin/screenshot.sh -w
+bindsym --release Mod1+Sys_Req exec --no-startup-id $HOME/.local/bin/screenshot.sh -s
+bindsym $mod+Insert exec --no-startup-id $HOME/.local/bin/screenshot.sh -d
+bindsym $mod+Shift+Insert exec --no-startup-id $HOME/.local/bin/screenshot.sh -e
+
+bindsym --release $mod+K exec --no-startup-id $HOME/.local/bin/screencast.sh
+
+# Controle de Áudio/Brilho
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5%
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5%
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle
+
+bindsym XF86MonBrightnessUp exec --no-startup-id xbacklight -inc 10
+bindsym XF86MonBrightnessDown exec --no-startup-id xbacklight -dec 10
+
+# Fechar janela
+bindsym $mod+w kill
+
+# Iniciar Rofi
+bindsym $mod+d exec --no-startup-id rofi -show drun -display-run -show-icons -width 30 "Arch Linux -"
+
+# Mudar foco
+bindsym $mod+j focus left
+bindsym $mod+k focus down
+bindsym $mod+l focus up
+bindsym $mod+semicolon focus right
+
+# Como alternativa, você pode usar as teclas do cursor
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# Mover janela focada
+bindsym $mod+Shift+j move left
+bindsym $mod+Shift+k move down
+bindsym $mod+Shift+l move up
+bindsym $mod+Shift+semicolon move right
+
+# Como alternativa, você pode usar as teclas do cursor
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# Dividir na orientação horizontal
+bindsym $mod+h split h
+
+# Dividir na orientação vertical
+bindsym $mod+v split v
+
+# Entrar em modo fullscreen com janela focada
+bindsym $mod+f fullscreen toggle
+
+# Alterar o layout do container (Empilhado, com guias e alternando)
+#bindsym $mod+s layout stacking
+#bindsym $mod+w layout tabbed
+bindsym $mod+s layout toggle split
+
+# Alterar para janela flutuante ou vice-versa
+bindsym $mod+Shift+space floating toggle
+
+# Mudar o foco entre janelas e janelas flutuantes
+bindsym $mod+space focus mode_toggle
+
+# Focar container pai
+bindsym $mod+a focus parent
+
+# Workspaces
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws10
+
+# Navegação - Próximo/Voltar
+bindsym $mod+Tab workspace next
+bindsym $mod+Shift+Tab workspace prev
+
+# Mover janela focada para determinado Workspace
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
+bindsym $mod+Shift+0 move container to workspace $ws10
+
+# Recarregar arquivo de configuração
+bindsym $mod+Shift+c reload
+
+# Recarregar i3wm
+bindsym $mod+Shift+r restart
+
+# Sair da sessão
+bindsym $mod+Shift+x exec "i3-nagbar -t warning -m 'Você está prestes a encerrar a sessão do I3, deseja continuar?' -b 'Sim, encerrar!' 'i3-msg exit'"
+
+# Gaps
+for_window [class="^.*"] border pixel 0
+
+gaps inner 10
+gaps outer 10
+
+set $mode_gaps Gaps: (o) outer, (i)
+set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
+bindsym $mod+Shift+g mode "$mode_gaps"
+
+mode "$mode_gaps" {
+        bindsym o      mode "$mode_gaps_outer"
+        bindsym i      mode "$mode_gaps_inner"
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+mode "$mode_gaps_inner" {
+        bindsym plus  gaps inner current plus 5
+        bindsym minus gaps inner current minus 5
+        bindsym 0     gaps inner current set 0
+
+        bindsym Shift+plus  gaps inner all plus 5
+        bindsym Shift+minus gaps inner all minus 5
+        bindsym Shift+0     gaps inner all set 0
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_outer" {
+        bindsym plus  gaps outer current plus 5
+        bindsym minus gaps outer current minus 5
+        bindsym 0     gaps outer current set 0
+
+        bindsym Shift+plus  gaps outer all plus 5
+        bindsym Shift+minus gaps outer all minus 5
+        bindsym Shift+0     gaps outer all set 0
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+# Redimensionar janela, você também pode usar o mouse 
+mode "resize" {
+        # Essas ligações são acionadas assim que você entrar no modo redimensionamento
+        # Pressionar para a esquerda ou direita para reduzir ou aumentar a largura da janela
+        # Pressionar para cima ou para baixo para diminuir ou aumentar a altura da janela
+        bindsym j resize shrink width 10 px or 10 ppt
+        bindsym k resize grow height 10 px or 10 ppt
+        bindsym l resize shrink height 10 px or 10 ppt
+        bindsym semicolon resize grow width 10 px or 10 ppt
+
+        # Mesmas ligações, mas para as teclas de setas
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+
+        # Voltar ao normal: Enter, Escape ou $Mod+R
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+r mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+# Inicialização do sistema
+
+exec_always --no-startup-id $HOME/.local/bin/wallpaper.sh
+exec_always --no-startup-id wal -R
+
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+
+exec --no-startup-id compton -b
+exec --no-startup-id dunst
+
+exec --no-startup-id pactl set-sink-volume 0 80%
+exec --no-startup-id pulseeffects --gapplication-service &
+
+# Comandos de sistema
+bindsym F8 exec --no-startup-id $HOME/.config/polybar/launch.sh
+bindsym F9 exec --no-startup-id termite -e $HOME/github/strojects/archlinux/pacotes.sh
+
+bindsym F10 exec --no-startup-id $HOME/.local/bin/git-cron.sh
+
+bindsym F11 exec --no-startup-id $HOME/.dotfiles/home/.local/bin/dotfiles.sh
+
+bindsym F12 exec --no-startup-id termite -e $HOME/.local/bin/arch-pacman.sh
