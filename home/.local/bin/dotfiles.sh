@@ -17,6 +17,7 @@ stow polybar
 stow rofi
 stow scripts
 stow termite
+stow thunar
 }
 
 function mamutal91-configs(){
