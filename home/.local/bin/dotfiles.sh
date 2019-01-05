@@ -10,6 +10,7 @@ function mamutal91-dotfiles(){
 function stows(){
 stow compton
 stow dunst
+stow gpicview
 stow home
 stow i3
 stow neofetch
