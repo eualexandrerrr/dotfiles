@@ -63,7 +63,6 @@ radius = 7.0
 fixed-center = true
 bottom = false
 locale = pt_BR.UTF-8
-wm-restack = i3
 
 background = ${cores.transparente}
 foreground = ${cores.transparente}
@@ -105,7 +104,6 @@ radius = 7.0
 fixed-center = true
 bottom = true
 locale = pt_BR.UTF-8
-wm-restack = i3
 
 background = ${cores.transparente}
 foreground = ${cores.transparente}
