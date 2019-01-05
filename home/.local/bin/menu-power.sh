@@ -8,7 +8,7 @@ if [ ! -z $res ]; then
       poweroff
     ;;
     Bloquear)
-      cd $HOME/.config/scripts/ && ./i3lock.sh &
+      $HOME/.local/bin/i3lock.sh &
     ;;
     Encerrar)
       pkill -9 -u $USER
