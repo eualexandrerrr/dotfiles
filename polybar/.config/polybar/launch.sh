@@ -1,5 +1,4 @@
-#!/usr/bin/xrandr
-###!/bin/bash
+#!/bin/bash
 # github.com/mamutal91
 
 killall -q polybar
