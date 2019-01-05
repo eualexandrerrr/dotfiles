@@ -266,7 +266,7 @@ exec --no-startup-id pulseeffects --gapplication-service &
 
 # Comandos de sistema
 bindsym F8 exec --no-startup-id $HOME/.config/polybar/launch.sh
-bindsym F9 exec --no-startup-id termite -e $HOME/github/strojects/archlinux/pacotes.sh
+bindsym F9 exec --no-startup-id termite -e $HOME/github/strojects/archlinux/arch-pacotes.sh
 
 bindsym F10 exec --no-startup-id $HOME/.local/bin/git-cron.sh
 
