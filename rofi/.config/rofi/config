@@ -1,0 +1,3 @@
+# Arquivo para execução do Rofi (pywal)
+
+rofi.theme: ~/.cache/wal/colors-rofi-dark.rasi
