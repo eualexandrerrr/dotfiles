@@ -147,16 +147,16 @@ wrapping-scroll = true
 reverse-scroll = false
 fuzzy-match = true
 
-ws-icon-1 = 1; terminal
-ws-icon-2 = 2; browser
-ws-icon-3 = 3; chats
-ws-icon-4 = 4; studio
-ws-icon-5 = 5; codes
-ws-icon-6 = 6; office
-ws-icon-7 = 7; pc
-ws-icon-8 = 8; art
-ws-icon-9 = 9; games
-ws-icon-10 = 10; outros
+ws-icon-0 = 1; terminal
+ws-icon-1 = 2; browser
+ws-icon-2 = 3; chats
+ws-icon-3 = 4; studio
+ws-icon-4 = 5; codes
+ws-icon-5 = 6; office
+ws-icon-6 = 7; pc
+ws-icon-7 = 8; art
+ws-icon-8 = 9; games
+ws-icon-9 = 10; outros
 
 format = <label-state> <label-mode>
 
