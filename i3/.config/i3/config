@@ -256,6 +256,7 @@ bindsym $mod+r mode "resize"
 exec_always --no-startup-id $HOME/.local/bin/wallpaper.sh
 exec_always --no-startup-id wal -R
 
+exec_always --no-startup-id $HOME/.local/bin/xrandr.sh
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
 exec --no-startup-id compton -b

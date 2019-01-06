@@ -40,7 +40,7 @@ function mamutal91-configs(){
 function mamutal91(){
     mamutal91-dotfiles
     stows
-    mamutal91-configs
+#    mamutal91-configs
 }
 
 function user(){
