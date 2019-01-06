@@ -22,13 +22,8 @@ stow termite
 }
 
 function mamutal91-configs(){
-    sudo rm -rf /etc/X11/xorg.conf.d/10-evdev.conf
-    sudo rm -rf /etc/X11/xorg.conf.d/30-touchpad.conf
-    sudo cp -r etc/X11/xorg.conf.d/10-evdev.conf /etc/X11/xorg.conf.d/
-    sudo cp -r etc/X11/xorg.conf.d/30-touchpad.conf /etc/X11/xorg.conf.d/
-
-    sudo rm -rf /etc/X11/xorg.conf.d/20-gpu.conf
-    sudo cp -r etc/X11/xorg.conf.d/20-gpu.conf /etc/X11/xorg.conf.d/
+    sudo rm -rf /etc/X11/xorg.conf.d
+    sudo cp -r etc/X11/xorg.conf.d /etc/X11
 }
 
 function mamutal91(){
