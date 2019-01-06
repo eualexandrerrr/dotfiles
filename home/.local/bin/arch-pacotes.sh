@@ -20,7 +20,7 @@ readonly PACOTES_PACMAN=(
     steam ttf-liberation
     winetricks
     nvidia nvidia-settings nvidia-utils lib32-virtualgl lib32-nvidia-utils bumblebee mesa primus
-#   opencl-nvidia lib32-libvdpau lib32-opencl-nvidia
+    opencl-nvidia lib32-libvdpau lib32-opencl-nvidia
 #   xf86-video-intel
     xorg-server xorg-xrandr xorg-xblacklight xorg-xinit xorg-xprop xautolock xclip
     linux-headers networkmanager numlockx gvfs unrar unzip wget)
@@ -61,8 +61,8 @@ function configurar_sistema(){
     sudo gpasswd -a $USUARIO bumblebee
 }
 
-#mirror
-#winetricks
+mirror
+winetricks
 
 instalar_pacotes_pacman
 instalar_pacotes_aur
