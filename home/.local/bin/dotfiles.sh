@@ -20,6 +20,9 @@ stow rofi
 stow termite
 }
 
+function nvidia(){
+
+
 function mamutal91-configs(){
     sudo rm -rf /etc/X11/xorg.conf.d/10-evdev.conf
     sudo rm -rf /etc/X11/xorg.conf.d/30-touchpad.conf
@@ -33,6 +36,7 @@ function mamutal91(){
     mamutal91-dotfiles
     stows
     mamutal91-configs
+    nvidia
 }
 
 function user(){
