@@ -1,6 +1,9 @@
 #!/bin/bash
 # github.com/mamutal91
 
+# Para obter melhores mirros use
+# sudo reflector -c Brazil --save /etc/pacman.d/mirrorlist
+
 (cat ~/.cache/wal/sequences &)
 
 USUARIO=mamutal91
@@ -44,11 +47,6 @@ function instalar_pacotes_aur(){
     done 
 }
 
-function mirror(){
-    sudo pacman -Sy reflector --needed --noconfirm
-    sudo reflector -c Brazil --save /etc/pacman.d/mirrorlist
-}
-
 function winetricks(){
     winetricks --force directx9 vcrun2005 vcrun2008 vcrun2010 vcrun2012 vcrun2013 vcrun2015 dotnet40 dotnet452 vb6 xact xna31 xna40 msl31 openal corefonts
 }
@@ -61,8 +59,7 @@ function configurar_sistema(){
     sudo gpasswd -a $USUARIO bumblebee
 }
 
-mirror
-winetricks
+#winetricks
 
 instalar_pacotes_pacman
 instalar_pacotes_aur
