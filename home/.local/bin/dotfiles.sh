@@ -24,6 +24,7 @@ stow termite
 function mamutal91-configs(){
     sudo rm -rf /etc/X11/xorg.conf.d/10-evdev.conf
     sudo rm -rf /etc/X11/xorg.conf.d/30-touchpad.conf
+    sudo mkdir -p /etc/X11/xorg.conf.d/
     sudo cp -r etc/X11/xorg.conf.d/10-evdev.conf /etc/X11/xorg.conf.d/
     sudo cp -r etc/X11/xorg.conf.d/30-touchpad.conf /etc/X11/xorg.conf.d/
 }
