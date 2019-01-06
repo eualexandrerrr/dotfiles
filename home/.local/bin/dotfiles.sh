@@ -2,8 +2,8 @@
 # github.com/mamutal91
 
 function mamutal91-dotfiles(){
-    rm -rf $HOME/.dotfiles
-    cp -r $HOME/github/dotfiles $HOME/.dotfiles
+    sudo rm -rf $HOME/.dotfiles
+    sudo cp -r $HOME/github/dotfiles $HOME/.dotfiles
     cd $HOME/.dotfiles
 }
 
