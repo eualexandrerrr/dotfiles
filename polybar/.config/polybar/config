@@ -156,7 +156,7 @@ ws-icon-5 = 6; office
 ws-icon-6 = 7; pc
 ws-icon-7 = 8; art
 ws-icon-8 = 9; games
-ws-icon-9 = 10; outros
+#ws-icon-9 = 10; outros
 
 format = <label-state> <label-mode>
 
