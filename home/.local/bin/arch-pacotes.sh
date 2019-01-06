@@ -29,7 +29,7 @@ readonly PACOTES_PACMAN=(
     linux-headers networkmanager numlockx gvfs unrar unzip wget)
 
 readonly PACOTES_AUR=(
-    nvidia-xrun
+#   nvidia-xrun
     polybar jsoncpp
     arc-gtk-theme paper-icon-theme-git capitaine-cursors
     ttf-dejavu ttf-font-awesome 
