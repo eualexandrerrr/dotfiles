@@ -2,22 +2,22 @@
 # github.com/mamutal91
 
 function mamutal91-dotfiles(){
-    rm -rf $HOME/.dotfiles
-    cp -r $HOME/github/dotfiles $HOME/.dotfiles
+    sudo rm -rf $HOME/.dotfiles
+    sudo cp -r $HOME/github/dotfiles $HOME/.dotfiles
     cd $HOME/.dotfiles
 }
 
 function stows(){
-stow -D compton && stow compton
-stow -D dunst && stow dunst
-stow -D gpicview && stow gpicview
-stow -D gtk && stow gtk
-stow -D home && stow home
-stow -D i3 && stow i3
-stow -D neofetch && stow neofetch
-stow -D polybar && stow polybar
-stow -D rofi && stow rofi
-stow -D termite && stow termite
+stow compton
+stow dunst
+stow gpicview
+stow gtk
+stow home
+stow i3
+stow neofetch
+stow polybar
+stow rofi
+stow termite
 }
 
 function mamutal91-configs(){
