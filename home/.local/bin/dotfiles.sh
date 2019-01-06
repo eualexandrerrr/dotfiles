@@ -24,6 +24,15 @@ stow termite
 function mamutal91-configs(){
     sudo rm -rf /etc/X11/xorg.conf.d
     sudo cp -r etc/X11/xorg.conf.d /etc/X11
+
+    sudo rm -rf /etc/X11/nvidia-xorg.conf.d
+    sudo cp -r etc/X11/nvidia-xorg.conf.d /etc/X11
+
+    sudo rm -rf /etc/modules-load.d/bbswitch.conf
+    sudo cp -r etc/modules-load.d/bbswitch.conf /etc/modules-load.d/
+
+    sudo rm -rf /etc/modprobe.d/bbswitch.conf
+    sudo cp -r etc/modprobe.d/bbswitch.conf /etc/modprobe.d/
 }
 
 function mamutal91(){
