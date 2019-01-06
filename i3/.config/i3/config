@@ -36,7 +36,7 @@ set $ws6 "6: office"
 set $ws7 "7: pc"
 set $ws8 "8: art"
 set $ws9 "9: games"
-#set $ws10 "10: games"
+set $ws10 "10: outros"
 
 # Regras de janelas pop-up
 for_window [window_role="pop-up"] floating enable, resize set 800 px 600 px, move position center focus
