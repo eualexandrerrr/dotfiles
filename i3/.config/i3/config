@@ -53,6 +53,8 @@ for_window [class="Gpicview|feh"] move to workspace $ws8, move position center f
 
 for_window [class="GParted"] move to workspace $ws9, floating enable, resize set 1024 px 840 px, move position center focus
 
+for_window [class="Wine"] move to workspace $ws10, floating enable, resize set 1024 px 840 px, move position center focus
+
 # Para conseguir nome da class, digitar comando no terminal, depois ir para janela correspondente com $MOD+TAB e clicar sobre
 # sudo xprop | grep -i 'class' 
 assign [class="^Termite"] $ws1
@@ -64,7 +66,7 @@ assign [class="^libreoffice-startcenter|libreoffice-writer|libreoffice-draw|libr
 assign [class="^Lxappearance|Thunar|qBittorrent|Galculator"] $ws7
 assign [class="^Pinta|Gpicview|feh"] $ws8
 assign [class="^GParted"] $ws9
-#assign [class="^"] $ws10 TEMPORARIAMENTE
+assign [class="^Wine"] $ws10
 
 set $ws1 "1:"
 set $ws2 "2:"
@@ -75,7 +77,7 @@ set $ws6 "6:"
 set $ws7 "7:"
 set $ws8 "8:"
 set $ws9 "9:"
-#set $ws10 "10:" TEMPORARIAMENTE
+set $ws10 "10:"
 
 # Screenshot & Screencast
 bindsym Insert exec --no-startup-id $HOME/.local/bin/screenshot.sh
