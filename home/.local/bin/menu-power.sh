@@ -11,7 +11,7 @@ if [ ! -z $res ]; then
       $HOME/.local/bin/i3lock.sh &
     ;;
     Encerrar)
-      pkill -9 -u $USER
+      sudo pkill -9 -u $USER
     ;;
     Reiniciar)
       reboot
