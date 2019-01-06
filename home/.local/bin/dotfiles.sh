@@ -22,18 +22,13 @@ stow termite
 }
 
 function mamutal91-configs(){
-    sudo rm -rf /etc/X11/
-    sudo cp -r etc/X11/ /etc/
-
-    sudo rm -rf /etc/modules-load.d
-    sudo rm -rf /etc/modprobe.d
-
-    sudo cp -r etc/modules-load.d /etc/
-    sudo cp -r etc/modprobe.d /etc/
+    sudo rm -rf /etc/X11/xorg.conf.d/10-evdev.conf
+    sudo rm -rf /etc/X11/xorg.conf.d/30-touchpad.conf
+    sudo cp -r etc/X11/xorg.conf.d/10-evdev.conf /etc/xorg.conf.d/
 }
 
 function mamutal91(){
-#    mamutal91-dotfiles
+    mamutal91-dotfiles
     stows
     mamutal91-configs
 }
