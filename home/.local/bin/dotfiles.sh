@@ -8,16 +8,16 @@ function mamutal91-dotfiles(){
 }
 
 function stows(){
-stow compton
-stow dunst
-stow gpicview
-stow gtk
-stow home
-stow i3
-stow neofetch
-stow polybar
-stow rofi
-stow termite
+stow -D compton && stow compton
+stow -D dunst && stow dunst
+stow -D gpicview && stow gpicview
+stow -D gtk && stow gtk
+stow -D home && stow home
+stow -D i3 && stow i3
+stow -D neofetch && stow neofetch
+stow -D polybar && stow polybar
+stow -D rofi && stow rofi
+stow -D termite && stow termite
 }
 
 function mamutal91-configs(){
