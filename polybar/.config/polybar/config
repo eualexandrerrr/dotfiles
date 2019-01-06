@@ -138,14 +138,10 @@ cursor-scroll = ns-resize
 # i3
 [module/i3]
 type = internal/i3
-pin-workspaces = true
+
 strip-wsnumbers = true
 index-sort = true
-enable-click = true
-enable-scroll = true
-wrapping-scroll = true
-reverse-scroll = false
-fuzzy-match = true
+wrapping-scroll = false
 
 ws-icon-0 = 1; terminal
 ws-icon-1 = 2; browser
