@@ -18,7 +18,7 @@ export EDITOR="nano"
 export BROWSER="firefox"
 
 # VIDEO
-export PLACA_DE_VIDEO=" NVIDIA"
+export PLACA_DE_VIDEO=" NVIDIA GTX 1050"
 
 # Dunst
 dunst &
@@ -30,7 +30,7 @@ compton --config ${HOME}/.config/compton/compton.conf -b &
 numlockx &
 
 # i3lock
-exec xautolock -time 10 -detectsleep -locker $HOME/.config/scripts/i3lock.sh &
+exec xautolock -time 10 -detectsleep -locker $HOME/.local/bin/i3lock.sh &
 
 # Iniciar i3
 exec i3

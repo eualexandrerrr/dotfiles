@@ -30,7 +30,6 @@ function xorg(){
     sudo cp -r etc/X11/xorg.conf.d/30-touchpad.conf /etc/X11/xorg.conf.d/
 }
 
-
 function xorg-nvidia(){
     # XORG da INTEL
     sudo rm -rf /etc/X11/xorg.conf.d/20-intel.conf
