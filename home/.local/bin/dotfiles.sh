@@ -54,8 +54,8 @@ function xorg-nvidia(){
     sudo rm -rf /etc/X11/nvidia-xorg.conf.d/10-evdev.conf
     sudo rm -rf /etc/X11/nvidia-xorg.conf.d/30-touchpad.conf
 
-#    sudo cp -r etc/X11/xorg.conf.d/10-evdev.conf /etc/X11/nvidia-xorg.conf.d/
-#    sudo cp -r etc/X11/xorg.conf.d/30-touchpad.conf /etc/X11/nvidia-xorg.conf.d/
+    sudo cp -r etc/X11/xorg.conf.d/10-evdev.conf /etc/X11/nvidia-xorg.conf.d/
+    sudo cp -r etc/X11/xorg.conf.d/30-touchpad.conf /etc/X11/nvidia-xorg.conf.d/
 }
 
 function mamutal91(){
