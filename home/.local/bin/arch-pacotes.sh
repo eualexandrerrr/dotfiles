@@ -12,7 +12,7 @@ sudo pacman -Sy
 
 readonly PACOTES_PACMAN=(
     git
-    i3-gaps i3lock compton dunst rofi mpd maim neofetch scrot lxappearance feh gpicview python-pywal python-setuptools zsh openssh cronie plasma-browser-integration
+    i3-gaps i3lock compton dunst rofi maim neofetch scrot lxappearance feh gpicview python-pywal python-setuptools zsh openssh cronie plasma-browser-integration
     pulseaudio pulseeffects pulsemixer
     termite terminus-font
     telegram-desktop
