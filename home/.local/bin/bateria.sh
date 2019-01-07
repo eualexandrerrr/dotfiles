@@ -55,13 +55,14 @@ FULL=`grep -P '(POWER_SUPPLY_CHARGE_FULL_DESIGN)|(POWER_SUPPLY_ENERGY_FULL_DESIG
 PERCENT=`echo $(( $REM * 100 / $FULL ))`
 
 # set error message
-MESSAGE="Bateria descarregando"
+MESSAGE="  Bateria descarregando..."
 
 # set energy limit in percent, where warning should be displayed
 LIMIT="30"
 
 # show warning if energy limit in percent is less then user set limit and
 # if battery is discharging
-if [ $PERCENT -le "$(echo $LIMIT)" ] && [ "$STAT" == "Descarregando" ]; then
-    DISPLAY=:0 notify-send $(echo $MESSAGE)"
+if [ $PERCENT -le "$(echo $LIMIT)" ] && [ "$STAT" == "Discharging" ]; then
+#   DISPLAY=:0.0 /usr/bin/i3-nagbar -m "$(echo $MESSAGE)"
+    DISPLAY=:0 notify-send "$(echo $MESSAGE)"
 fi
