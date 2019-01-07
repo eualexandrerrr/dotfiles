@@ -16,6 +16,9 @@ export LANGUAGE="pt_BR.UTF-8"
 export LC_CTYPE="pt_BR.UTF-8"
 export EDITOR="nano"
 
+# VIDEO
+export PLACA_DE_VIDEO="Nvidia"
+
 # Dunst
 dunst &
 

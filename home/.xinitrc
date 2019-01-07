@@ -17,6 +17,9 @@ export LC_CTYPE="pt_BR.UTF-8"
 export EDITOR="nano"
 export BROWSER="firefox"
 
+# VIDEO
+export PLACA_DE_VIDEO="Intel"
+
 # Dunst
 dunst &
 
