@@ -22,10 +22,9 @@ readonly PACOTES_PACMAN=(
     thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman 
     steam ttf-liberation
     winetricks
-    nvidia nvidia-settings nvidia-utils lib32-virtualgl lib32-nvidia-utils bumblebee mesa primus
-    opencl-nvidia lib32-libvdpau lib32-opencl-nvidia
-    xf86-video-intel
-    xorg-server xorg-xrandr xorg-xblacklight xorg-xinit xorg-xprop xautolock xclip
+    nvidia nvidia-settings nvidia-utils lib32-virtualgl lib32-nvidia-utils opencl-nvidia lib32-libvdpau lib32-opencl-nvidia
+    xf86-video-intel bumblebee mesa
+    xorg-server xorg-xrandr xorg-xinit xorg-xprop xautolock xclip
     linux-headers networkmanager numlockx gvfs unrar unzip wget)
 
 readonly PACOTES_AUR=(
