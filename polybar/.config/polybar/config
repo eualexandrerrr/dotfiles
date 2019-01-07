@@ -128,7 +128,7 @@ font-2 = "Font Awesome 5 Free:style=Regular:pixelsize=9;1"
 font-3 = "Font Awesome 5 Free:style=Solid:pixelsize=9;1"
 font-4 = "Font Awesome 5 Brands:pixelsize=9;1"
 
-modules-left = menu-power lock exit memoria cpu kernel
+modules-left = menu-power lock memoria cpu kernel
 modules-center = janela
 modules-right = ethernet wireless brilho volume
 
@@ -562,17 +562,6 @@ click-left = ~/.local/bin/i3lock.sh &
 click-middle = ~/.local/bin/i3lock.sh &
 click-right = ~/.local/bin/i3lock.sh &
 click-down = ~/.local/bin/i3lock.sh &
-
-# Exit 
-[module/exit]
-type = custom/script
-interval = 1
-
-format-prefix = ""
-format-prefix-foreground = ${cores.azul}
-format-underline = ${cores.transparente}
-exec = sudo pkill X
-format-foreground = ${cores.azul}
 
 [settings]
 screenchange-reload = true
