@@ -313,7 +313,8 @@ label-foreground = #F7819F
 
 # Brilho
 [module/brilho]
-type = internal/xbacklight
+type = internal/backlight
+card = intel_backlight
 format = <label> <bar>
 
 format-prefix = " "
