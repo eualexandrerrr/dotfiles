@@ -1,56 +1,67 @@
 #!/bin/bash
 # github.com/mamutal91
 
-SLEEP_TIME=5   # Default time between checks.
-SAFE_PERCENT=30  # Still safe at this level.
-DANGER_PERCENT=15  # Warn when battery at this level.
-CRITICAL_PERCENT=5  # Hibernate when battery at this level.
+# lock file location
+export LOCK_FILE=/tmp/battery_state.lock
 
-NAGBAR_PID=0
-export DISPLAY=:0.0
+# check if another copy is running
+if [[ -a $LOCK_FILE ]]; then
 
-function launchNagBar
-{
-    i3-nagbar -m 'Battery low!' -b 'Hibernate!' 'pm-hibernate' >/dev/null 2>&1 &
-    NAGBAR_PID=$!
-}
+    pid=$(cat $LOCK_FILE | awk '{print $1}')
+	ppid=$(cat $LOCK_FILE | awk '{print $2}')
+	# validate contents of previous lock file
+	vpid=${pid:-"0"}
+	vppid=${ppid:-"0"}
 
-function killNagBar
-{
-    if [[ $NAGBAR_PID -ne 0 ]]; then
-        ps -p $NAGBAR_PID | grep "i3-nagbar"
-        if [[ $? -eq 0 ]]; then
-            kill $NAGBAR_PID
-        fi
-        NAGBAR_PID=0
-    fi
-}
+    if (( $vpid < 2 || $vppid < 2 )); then
+		# corrupt lock file $LOCK_FILE ... Exiting
+		cp -f $LOCK_FILE ${LOCK_FILE}.`date +%Y%m%d%H%M%S`
+		exit
+	fi
 
+    # check if ppid matches pid
+	ps -f -p $pid --no-headers | grep $ppid >/dev/null 2>&1
 
-while [ true ]; do
+    if [[ $? -eq 0 ]]; then
+		# another copy of script running with process id $pid
+		exit
+	else
+		# bogus lock file found, removing
+		rm -f $LOCK_FILE >/dev/null
+	fi
 
-    killNagBar
+fi
 
-    if [[ -n $(acpi -b | grep -i discharging) ]]; then
-        rem_bat=$(acpi -b | grep -Eo "[0-9]+%" | grep -Eo "[0-9]+")
+pid=$$
+ps -f -p $pid --no-headers | awk '{print $2,$3}' > $LOCK_FILE
+# starting with process id $pid
 
-        if [[ $rem_bat -gt $SAFE_PERCENT ]]; then
-            SLEEP_TIME=10
-        else
-            SLEEP_TIME=5
-            if [[ $rem_bat -le $DANGER_PERCENT ]]; then
-                SLEEP_TIME=2
-                launchNagBar
-            fi
-            if [[ $rem_bat -le $CRITICAL_PERCENT ]]; then
-                SLEEP_TIME=1
-                pm-hibernate
-            fi
-        fi
-    else
-        SLEEP_TIME=10
-    fi
+# set Battery
+BATTERY=$(ls /sys/class/power_supply/ | grep '^BAT')
 
-    sleep ${SLEEP_TIME}m
+# set full path
+ACPI_PATH="/sys/class/power_supply/$BATTERY"
 
-done
+# get battery status
+STAT=$(cat $ACPI_PATH/status)
+
+# get remaining energy value
+REM=`grep -P '(POWER_SUPPLY_CHARGE_NOW)|(POWER_SUPPLY_ENERGY_NOW)' $ACPI_PATH/uevent | cut -d= -f2`
+
+# get full energy value
+FULL=`grep -P '(POWER_SUPPLY_CHARGE_FULL_DESIGN)|(POWER_SUPPLY_ENERGY_FULL_DESIGN)' $ACPI_PATH/uevent | cut -d= -f2`
+
+# get current energy value in percent
+PERCENT=`echo $(( $REM * 100 / $FULL ))`
+
+# set error message
+MESSAGE="Bateria descarregando"
+
+# set energy limit in percent, where warning should be displayed
+LIMIT="30"
+
+# show warning if energy limit in percent is less then user set limit and
+# if battery is discharging
+if [ $PERCENT -le "$(echo $LIMIT)" ] && [ "$STAT" == "Descarregando" ]; then
+    DISPLAY=:0 notify-send $(echo $MESSAGE)"
+fi
