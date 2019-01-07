@@ -18,7 +18,7 @@ export EDITOR="nano"
 export BROWSER="firefox"
 
 # VIDEO
-export PLACA_DE_VIDEO="NVIDIA"
+export PLACA_DE_VIDEO=" NVIDIA"
 
 # Dunst
 dunst &
