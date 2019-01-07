@@ -244,7 +244,7 @@ format-foreground = ${cores.azul}
 type = custom/script
 interval = 1
 
-format-prefix = " "
+format-prefix = " "
 format-prefix-foreground = ${cores.azul}
 format-underline = ${cores.transparente}
 exec = echo $PLACA_DE_VIDEO
