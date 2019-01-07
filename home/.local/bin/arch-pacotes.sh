@@ -24,15 +24,15 @@ readonly PACOTES_PACMAN=(
     winetricks
     nvidia nvidia-settings nvidia-utils lib32-virtualgl lib32-nvidia-utils bumblebee mesa primus
     opencl-nvidia lib32-libvdpau lib32-opencl-nvidia
-#   xf86-video-intel
+    xf86-video-intel
     xorg-server xorg-xrandr xorg-xblacklight xorg-xinit xorg-xprop xautolock xclip
     linux-headers networkmanager numlockx gvfs unrar unzip wget)
 
 readonly PACOTES_AUR=(
-#   nvidia-xrun
+    nvidia-xrun
     polybar jsoncpp
     arc-gtk-theme paper-icon-theme-git capitaine-cursors
-    ttf-dejavu ttf-font-awesome 
+    ttf-dejavu ttf-font-awesome
     rambox-bin spotify grive-git)
 
 function instalar_pacotes_pacman(){
