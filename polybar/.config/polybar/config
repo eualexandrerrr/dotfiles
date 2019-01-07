@@ -89,7 +89,7 @@ font-4 = "Font Awesome 5 Brands:pixelsize=9;1"
 
 modules-left = git-cron screenshot screencast usuario spotify
 modules-center = i3
-modules-right = root storage temperatura bateria data hora
+modules-right = placadevideo root storage temperatura bateria data hora
 
 cursor-click = pointer
 cursor-scroll = ns-resize
@@ -237,6 +237,17 @@ format-prefix = " "
 format-prefix-foreground = ${cores.azul}
 format-underline = ${cores.transparente}
 exec = echo $USER@$HOSTNAME
+format-foreground = ${cores.azul}
+
+# Placa de vídeo
+[module/placadevideo]
+type = custom/script
+interval = 1
+
+format-prefix = " "
+format-prefix-foreground = ${cores.azul}
+format-underline = ${cores.transparente}
+exec = echo $PLACA_DE_VIDEO
 format-foreground = ${cores.azul}
 
 # Kernel
