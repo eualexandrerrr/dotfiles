@@ -10,5 +10,6 @@ if type "xrandr"; then
   done
 else
   polybar --reload cima &
+  sleep 1s
   polybar --reload baixo &
 fi
