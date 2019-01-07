@@ -21,7 +21,8 @@ stow termite
 }
 
 function nvidia(){
-
+    $HOME/.dotfiles/home/.local/bin/nvidia.sh
+}
 
 function mamutal91-configs(){
     sudo rm -rf /etc/X11/xorg.conf.d/10-evdev.conf
