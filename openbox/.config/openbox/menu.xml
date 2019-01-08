@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<openbox_menu xmlns="http://openbox.org/3.4/menu">
+
+<menu id="apps-editors-menu" label="Editors">
+  <item label="Code">
+    <action name="Execute">
+      <command>codes</command>
+      <startupnotify>
+        <enabled>yes</enabled>
+      </startupnotify>
+    </action>
+  </item>
+  <item label="Termite">
+    <action name="Execute">
+      <command>termite</command>
+      <startupnotify>
+        <enabled>yes</enabled>
+      </startupnotify>
+    </action>
+  </item>
+</menu>
+
+
+<menu id="apps-net-menu" label="Internet">
+  <item label="Firefox">
+    <action name="Execute">
+      <command>firefox</command>
+      <startupnotify>
+        <enabled>yes</enabled>
+      </startupnotify>
+    </action>
+  </item>
+</menu>
+
+<menu id="apps-office-menu" label="Office">
+  <item label="LibreOffice Base">
+    <action name="Execute">
+      <command>libreoffice -base</command>
+    </action>
+  </item>
+  <item label="LibreOffice Calc">
+    <action name="Execute">
+      <command>libreoffice -calc</command>
+    </action>
+  </item>
+  <item label="LibreOffice Draw">
+    <action name="Execute">
+      <command>libreoffice -draw</command>
+    </action>
+  </item>
+  <item label="LibreOffice Impress">
+    <action name="Execute">
+      <command>libreoffice -impress</command>
+    </action>
+  </item>
+  <item label="LibreOffice Math">
+    <action name="Execute">
+      <command>libreoffice -math</command>
+    </action>
+  </item>
+  <item label="LibreOffice Writer">
+    <action name="Execute">
+      <command>libreoffice -writer</command>
+    </action>
+  </item>
+</menu>
+
+<menu id="apps-fileman-menu" label="File Managers">
+  <item label="Thunar">
+    <action name="Execute">
+      <command>Thunar</command>
+      <startupnotify>
+        <enabled>yes</enabled>
+      </startupnotify>
+    </action>
+  </item>
+  <item label="Ranger">
+    <action name="Execute">
+      <command>ranger</command>
+      <startupnotify>
+        <enabled>yes</enabled>
+      </startupnotify>
+    </action>
+  </item>
+</menu>
+
+<menu id="apps-graphics-menu" label="Graphics">
+  <item label="Pinta">
+    <action name="Execute">
+      <command>pinta</command>
+      <startupnotify>
+        <enabled>yes</enabled>
+      </startupnotify>
+    </action>
+  </item>
+</menu>
+
+<menu id="system-menu" label="System">
+  <item label="Openbox Configuration Manager">
+    <action name="Execute">
+      <command>obconf</command>
+      <startupnotify><enabled>yes</enabled></startupnotify>
+    </action>
+  </item>
+  <item label="Gnome Control Center">
+    <action name="Execute">
+      <command>gnome-control-center</command>
+      <startupnotify><enabled>yes</enabled></startupnotify>
+    </action>
+  </item>
+  <item label="Manage Cups Printers">
+    <action name="Execute">
+      <command>xdg-open http://localhost:631/</command>
+      <startupnotify>
+        <enabled>no</enabled>
+        <icon>cups</icon>
+      </startupnotify>
+    </action>
+  </item>
+  <separator />
+  <item label="Reconfigure Openbox">
+    <action name="Recarregar" />
+  </item>
+</menu>
+
+<menu id="root-menu" label="Openbox 3">
+  <!-- <separator label="Applications" /> -->
+  <menu id="apps-editors-menu"/>
+  <menu id="apps-graphics-menu"/>
+  <menu id="apps-net-menu"/>
+  <menu id="apps-office-menu"/>
+  <menu id="apps-multimedia-menu"/>
+  <menu id="apps-games-menu"/>
+  <menu id="apps-term-menu"/>
+  <menu id="apps-fileman-menu"/>
+  <!-- <separator label="System" /> -->
+  <menu id="system-menu"/>
+  <separator />
+  <item label="Log Out">
+    <action name="Exit">
+      <prompt>yes</prompt>
+    </action>
+  </item>
+</menu>
+
+</openbox_menu>
