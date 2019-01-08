@@ -13,6 +13,7 @@ bindsym $mod+F2 exec --no-startup-id firefox &
 bindsym $mod+F3 exec --no-startup-id telegram-desktop &
 bindsym $mod+F4 exec --no-startup-id /usr/bin/rambox &
 
+# REGRAS DE APPS
 # sudo xprop | grep -i 'class' 
 set $ws1 "1: terminal"
 set $ws2 "2: browser"
@@ -53,7 +54,7 @@ for_window [class="Gpicview|feh"] move to workspace $ws8, move position center f
 
 for_window [class="Wine|csgo_linux64"] move to workspace $ws9, focus
 
-# WorkSpaces Apps
+# Workspaces Apps
 assign [class="^Termite"] $ws1
 assign [class="^Firefox"] $ws2
 assign [class="^TelegramDesktop|Rambox"] $ws3
@@ -63,10 +64,7 @@ assign [class="^libreoffice-startcenter|libreoffice-writer|libreoffice-draw|libr
 assign [class="^Lxappearance|qBittorrent|Thunar|Galculator"] $ws7
 assign [class="^Pinta|Gpicview|feh"] $ws8
 assign [class="^Wine|csgo_linux64"] $ws9
-
-#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*
-#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*    F  I  M    *#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*
-#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*
+###################################################################################
 
 # Screenshot & Screencast
 bindsym Insert exec --no-startup-id $HOME/.local/bin/screenshot.sh
