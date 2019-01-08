@@ -120,7 +120,7 @@
   </item>
   <separator />
   <item label="Reconfigure Openbox">
-    <action name="Recarregar" />
+    <action name="reconfigure" />
   </item>
 </menu>
 
