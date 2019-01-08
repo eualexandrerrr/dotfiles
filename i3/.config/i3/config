@@ -4,24 +4,19 @@
 
 set $mod Mod4
 
-# Fonte de título para janela
 font pango:xos4 Terminus 8
 
-# $mod para arrastar janelas flutuantes
+# Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
-# Regras
+# Atalhos de APPS
 bindsym $mod+Return exec --no-startup-id termite &
 bindsym $mod+e exec --no-startup-id thunar &
 bindsym $mod+F2 exec --no-startup-id firefox &
 bindsym $mod+F3 exec --no-startup-id telegram-desktop &
 bindsym $mod+F4 exec --no-startup-id /usr/bin/rambox &
 
-#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*
-#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*  R E G R A S   D E   A P P S   #*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*
-#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*
-
-# WorkSpaces Icons
+# sudo xprop | grep -i 'class' 
 set $ws1 "1: terminal"
 set $ws2 "2: browser"
 set $ws3 "3: chats"
@@ -32,16 +27,12 @@ set $ws7 "7: pc"
 set $ws8 "8: art"
 set $ws9 "9: games"
 
-# Regras de janelas pop-up
 for_window [window_role="pop-up"] floating enable, resize set 800 px 600 px, move position center focus
 for_window [window_role="bubble"] floating enable, resize set 800 px 600 px, move position center focus
 for_window [window_role="task_dialog"] floating enable, resize set 800 px 600 px, move position center focus
 for_window [window_role="Preferences"] floating enable, resize set 800 px 600 px, move position center focus
 for_window [window_type="dialog"] floating enable, resize set 800 px 600 px, move position center focus
 for_window [window_type="menu"] floating enable, resize set 800 px 600 px, move position center focus
-
-# Para conseguir nome da class, digitar comando no terminal, depois ir para janela correspondente com $MOD+TAB e clicar sobre
-# sudo xprop | grep -i 'class' 
 
 for_window [class="Termite"] move to workspace $ws1, focus
 
@@ -267,11 +258,7 @@ exec --no-startup-id pulseeffects --gapplication-service &
 
 # ATALHOS Comandos de sistema
 bindsym F8 exec --no-startup-id $HOME/.config/polybar/launch.sh
-
 bindsym F9 exec --no-startup-id termite -e $HOME/.local/bin/arch-pacotes.sh
-
 bindsym F10 exec --no-startup-id $HOME/.local/bin/git-cron.sh
-
 bindsym F11 exec --no-startup-id $HOME/github/dotfiles/home/.local/bin/dotfiles.sh
-
 bindsym F12 exec --no-startup-id termite -e $HOME/.local/bin/arch-pacman.sh
