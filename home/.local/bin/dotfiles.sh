@@ -14,7 +14,7 @@ stow gpicview
 stow gtk
 stow home
 stow i3
-stow openbox
+#stow openbox
 stow neofetch
 stow polybar
 stow rofi
