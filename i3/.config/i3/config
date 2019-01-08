@@ -1,8 +1,11 @@
-# Básico
+# i3 config file (v4)
+#
+# Please see http://i3wm.org/docs/userguide.html for a complete reference!
+
 set $mod Mod4
 
 # Fonte de título para janela
-font pango:monospace 8
+font pango:xos4 Terminus 8
 
 # $mod para arrastar janelas flutuantes
 floating_modifier $mod
