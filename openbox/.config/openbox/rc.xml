@@ -284,10 +284,18 @@
           <enabled>true</enabled>
           <name>Restart</name>
         </startupnotify>
-        <command>bash $HOME/github/dotfiles/home/.local/bin/dotfiles.sh</command>
+        <command>~/github/dotfiles/home/.local/bin/dotfiles.sh</command>
       </action>
     </keybind>
-
+    <keybind key="F10">
+      <action name="Execute">
+        <startupnotify>
+          <enabled>true</enabled>
+          <name>Restart</name>
+        </startupnotify>
+        <command>~/.local/bin/git-cron.sh</command>
+      </action>
+    </keybind>
   </keyboard>
   <mouse>
     <dragThreshold>1</dragThreshold>
@@ -772,6 +780,22 @@
       <size>
         <width>860</width>
         <height>500</height>
+      </size>
+    </application>
+
+    <application class="TelegramDesktop">
+      <desktop>1</desktop>
+
+      <position force="yes">
+      
+        <monitor>1</monitor>
+        <x>center</x>
+        <y>center</y>
+      </position>
+
+      <size>
+        <width>860</width>
+        <height>650</height>
       </size>
     </application>
 
