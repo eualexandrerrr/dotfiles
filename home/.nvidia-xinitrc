@@ -28,5 +28,5 @@ exec xautolock -time 10 -detectsleep -locker $HOME/.local/bin/i3lock.sh &
 
 $HOME/.config/polybar/launch.sh
 
-# Iniciar OpenBox
-exec openbox-session
+# Iniciar i3
+exec i3
