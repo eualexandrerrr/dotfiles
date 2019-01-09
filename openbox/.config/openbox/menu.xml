@@ -5,7 +5,7 @@
 <menu id="apps-editors-menu" label="Editors">
   <item label="Code">
     <action name="Execute">
-      <command>codes</command>
+      <command>code</command>
       <startupnotify>
         <enabled>yes</enabled>
       </startupnotify>
