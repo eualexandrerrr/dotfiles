@@ -553,6 +553,7 @@ content-foreground = ${cores.cinzaescuro}
 click-left = sudo pkill X
 
 [settings]
+pseudo-transparency = true
 screenchange-reload = true
 
 [global/wm]
