@@ -164,37 +164,21 @@ icon-default = ♟
 format = <label-state>
 label-monitor = %name%
 
-label-active = %icon% %name%
-label-active-foreground = #ffffff
-label-active-background = #3f3f3f
-label-active-underline = #fba922
+label-active = %icon%
+label-active-foreground = ${cores.color1}
+label-active-background = ${cores.background}
+label-active-underline = ${cores.color1}
+label-active-padding = 1
 
-; Available tokens:
-;   %name%
-;   %icon%
-;   %index%
-; Default: %icon%  %name%
 label-occupied = %icon%
-label-occupied-underline = #555555
 
-; Available tokens:
-;   %name%
-;   %icon%
-;   %index%
-; Default: %icon%  %name%
 label-urgent = %icon%
-label-urgent-foreground = #000000
-label-urgent-background = #bd2c40
-label-urgent-underline = #9b0a20
+label-urgent-foreground = ${cores.color0}
+label-urgent-background = ${cores.color1}
+label-urgent-padding = 1
 
-; Available tokens:
-;   %name%
-;   %icon%
-;   %index%
-; Default: %icon%  %name%
 label-empty = %icon%
-label-empty-foreground = #55
-
+label-empty-foreground = ${cores.color1}
 
 # i3
 [module/i3]
