@@ -78,3 +78,4 @@ canberra-gtk-play --file=$HOME/.local/share/sounds/completed.wav
 openbox --restart
 sleep 1s
 $HOME/.config/polybar/launch.sh
+notify-send "dotfiles atualizado!!!"
