@@ -1,6 +1,8 @@
-# i3 config file (v4)
 #
-# Please see http://i3wm.org/docs/userguide.html for a complete reference!
+# i3 config
+#
+# http://i3wm.org/docs/userguide.html
+#
 
 set $mod Mod4
 font pango:xos4 Terminus 8
