@@ -339,14 +339,10 @@ bar-foreground-6 = #DF013A
 
 # Volume
 [module/volume]
-type = internal/pulseaudio
+type = internal/alsa
 interval = 5
 use-ui-max = false
 sink = alsa_output.pci-0000_00_1f.3.analog-stereo
-
-master-soundcard = hw:1
-speaker-soundcard = hw:1
-headphone-soundcard = hw:1
 
 format-volume-prefix = " "
 format-volume-prefix-foreground = ${cores.icones-modulos}
