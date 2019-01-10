@@ -1,7 +1,7 @@
 #!/bin/bash
 # github.com/mamutal91
 
-function mamutal91-dotfiles(){
+function dotfiles(){
     sudo rm -rf $HOME/.dotfiles
     sudo cp -r $HOME/github/dotfiles $HOME/.dotfiles
     cd $HOME/.dotfiles
@@ -58,7 +58,7 @@ function xorg-nvidia(){
 }
 
 function mamutal91(){
-    mamutal91-dotfiles
+    dotfiles
     stows
     xorg
     xorg-nvidia
