@@ -13,7 +13,7 @@ sudo pacman -Sy
 readonly PACOTES_PACMAN=(
     git
     i3-gaps i3lock compton dunst rofi mpd maim neofetch scrot lxappearance feh gpicview python-pywal python-setuptools zsh openssh cronie plasma-browser-integration
-    pulseaudio pulseeffects pulsemixer
+    alsa alsa-utils 
     termite terminus-font
     telegram-desktop
     code pinta vlc gparted qbittorrent galculator
@@ -28,6 +28,7 @@ readonly PACOTES_PACMAN=(
     linux-headers networkmanager numlockx gvfs unrar unzip wget)
 
 readonly PACOTES_AUR=(
+    alsaequal
     nvidia-xrun
     polybar jsoncpp
     arc-gtk-theme paper-icon-theme-git capitaine-cursors
