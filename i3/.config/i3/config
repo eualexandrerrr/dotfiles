@@ -16,7 +16,7 @@ bindsym $mod+F3 exec --no-startup-id telegram-desktop &
 bindsym $mod+F4 exec --no-startup-id /usr/bin/rambox &
 
 # REGRAS DE APPS
-# sudo xprop | grep -i 'class' 
+# sudo xprop | grep -i 'class'
 set $ws1 "1: terminal"
 set $ws2 "2: browser"
 set $ws3 "3: chats"
