@@ -18,6 +18,7 @@ stow neofetch
 stow polybar
 stow rofi
 stow termite
+stow thunar
 }
 
 function xorg(){
