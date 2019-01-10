@@ -76,9 +76,9 @@ bindsym $mod+Shift+Insert exec --no-startup-id $HOME/.local/bin/screenshot.sh -e
 bindsym --release $mod+K exec --no-startup-id $HOME/.local/bin/screencast.sh
 
 # Controle de Áudio/Brilho
-bindsym XF86AudioRaiseVolume exec amixer -q set Master 3dB+ unmute
-bindsym XF86AudioLowerVolume exec amixer -q set Master 3dB- unmute
-bindsym XF86AudioMute exec amixer -q set Master toggle
+bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q set Master 3dB+ unmute
+bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q set Master 3dB- unmute
+bindsym XF86AudioMute exec --no-startup-id amixer -q set Master toggle
 
 bindsym XF86MonBrightnessUp exec  --no-startup-id echo $((`cat /sys/class/backlight/intel_backlight/brightness` + 10)) | sudo tee /sys/class/backlight/intel_backlight/brightness
 bindsym XF86MonBrightnessDown exec  --no-startup-id echo $((`cat /sys/class/backlight/intel_backlight/brightness` - 10)) | sudo tee /sys/class/backlight/intel_backlight/brightness
