@@ -199,7 +199,6 @@ format-mounted = <label-mounted>
 label-mounted = %used%
 label-mounted-foreground = ${cores.verdeclaro}
 
-
 # Discos/Storage
 [module/storage]
 type = internal/fs
