@@ -1,16 +1,4 @@
-#   ██████╗  ██████╗ ██╗  ██╗   ██╗██████╗  █████╗ ██████╗ 
-#   ██╔══██╗██╔═══██╗██║  ╚██╗ ██╔╝██╔══██╗██╔══██╗██╔══██╗
-#   ██████╔╝██║   ██║██║   ╚████╔╝ ██████╔╝███████║██████╔╝
-#   ██╔═══╝ ██║   ██║██║    ╚██╔╝  ██╔══██╗██╔══██║██╔══██╗
-#   ██║     ╚██████╔╝███████╗██║   ██████╔╝██║  ██║██║  ██║
-#   ╚═╝      ╚═════╝ ╚══════╝╚═╝   ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
-#   https://github.com/jaagr/polybar
-
-#----------------------------
-# Cores
-#----------------------------
 [cores]
-
 background = ${xrdb:background}
 foreground = ${xrdb:foreground}
 color0 = ${xrdb:color0}
@@ -225,7 +213,6 @@ format-mounted-underline = ${cores.transparente}
 format-mounted = <label-mounted>
 label-mounted = %used%
 label-mounted-foreground = ${cores.roxoclaro}
-
 
 # Usuário
 [module/usuario]
