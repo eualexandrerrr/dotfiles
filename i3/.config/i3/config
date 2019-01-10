@@ -249,7 +249,6 @@ exec --no-startup-id compton -b
 exec --no-startup-id dunst
 
 exec --no-startup-id pactl set-sink-volume 0 80%
-exec --no-startup-id pulseeffects --gapplication-service &
 
 # ATALHOS Comandos de sistema
 bindsym F8 exec --no-startup-id $HOME/.config/polybar/launch.sh
