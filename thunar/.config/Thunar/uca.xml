@@ -10,49 +10,4 @@
 	<startup-notify/>
 	<directories/>
 </action>
-<action>
-	<icon>catfish</icon>
-	<name>Pesquisar</name>
-	<unique-id>1542407563971765-1</unique-id>
-	<command>catfish --path=%f</command>
-	<description></description>
-	<patterns>*</patterns>
-	<directories/>
-</action>
-<action>
-	<icon>viewnior</icon>
-	<name>Imagens</name>
-	<unique-id>1542629194348820-1</unique-id>
-	<command>~/bin/viewnior.sh</command>
-	<description></description>
-	<patterns>*</patterns>
-	<directories/>
-</action>
-<action>
-	<icon>edit-cut</icon>
-	<name>Cortar Video</name>
-	<unique-id>1542932666832353-1</unique-id>
-	<command>/home/mamutal91/bin/videocut-gui.sh %f</command>
-	<description></description>
-	<patterns>*</patterns>
-	<video-files/>
-</action>
-<action>
-	<icon>camera-video</icon>
-	<name>Converter Video</name>
-	<unique-id>1542932835876238-2</unique-id>
-	<command>/home/mamutal91/bin/videoresize-gui.sh %f</command>
-	<description></description>
-	<patterns>*</patterns>
-	<video-files/>
-</action>
-<action>
-	<icon>weather-overcast</icon>
-	<name>CastNow</name>
-	<unique-id>1546383797562485-1</unique-id>
-	<command>castnow %F --myip 192.168.0.1</command>
-	<description>Executa um vídeo no ChromeCast</description>
-	<patterns>*</patterns>
-	<video-files/>
-</action>
 </actions>
