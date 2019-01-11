@@ -24,8 +24,8 @@ stow i3
 
 **Or clone the repository in the same way as above, and run the script**
 ```
-cd $HOME/.dotfiles/home/.local/bin
-./dotfiles.sh
+cd $HOME/.dotfiles
+./install.sh
 ```
 
 ## Screenshots
