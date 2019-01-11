@@ -21,6 +21,10 @@ stow termite
 stow thunar
 }
 
+function i3config(){
+    $HOME/.local/bin/i3config.sh
+}
+
 function xorg(){
     # XORGS de teclado e mouse
     sudo rm -rf /etc/X11/xorg.conf.d/10-evdev.conf
@@ -61,6 +65,7 @@ function xorg-nvidia(){
 function mamutal91(){
     dotfiles
     stows
+    i3config
     xorg
     xorg-nvidia
 }
@@ -68,6 +73,7 @@ function mamutal91(){
 function user(){
     cd $HOME/.dotfiles
     stows
+    i3config
 }
 
 [[ $USER == "mamutal91" ]] && mamutal91 || user
