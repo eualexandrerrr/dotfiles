@@ -21,7 +21,7 @@ export BROWSER="firefox"
 #export PLACA_DE_VIDEO=" Intel Graphics"
 
 #cat ~/.config/i3/rules
-$HOME/.local/bin/cat.sh
+$HOME/.local/bin/i3config.sh
 
 # Numlock On
 numlockx &
