@@ -2,7 +2,7 @@
 # github.com/mamutal91
 
 dir=$HOME/.local/share/wallpapers
-img=forest.jpg
+img=highway.jpg
 
 wallpaper=$dir/$img
 
