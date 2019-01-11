@@ -43,24 +43,6 @@ bindsym $mod+w kill
 # Iniciar Rofi
 bindsym $mod+d exec --no-startup-id rofi -show drun -display-run -show-icons -width 30 "Arch Linux -"
 
-# Mudar foco
-bindsym $mod+j focus left
-bindsym $mod+k focus down
-bindsym $mod+l focus up
-bindsym $mod+semicolon focus right
-
-# Como alternativa, você pode usar as teclas do cursor
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
-bindsym $mod+Right focus right
-
-# Mover janela focada
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
-bindsym $mod+Shift+semicolon move right
-
 # Como alternativa, você pode usar as teclas do cursor
 bindsym $mod+Shift+Left move left
 bindsym $mod+Shift+Down move down
@@ -84,15 +66,13 @@ bindsym $mod+7 workspace $ws7
 bindsym $mod+8 workspace $ws8
 bindsym $mod+9 workspace $ws9
 
-# Navegação - Próximo/Voltar
+# Navegação workspaces
 bindsym $mod+Tab workspace next
 
-# Recarregar i3wm
+# Recarregar i3
 bindsym $mod+Shift+r restart
 
 # Gaps
-for_window [class="^.*"] border pixel 0
-
 gaps inner 10
 gaps outer 10
 
@@ -154,19 +134,14 @@ mode "resize" {
         bindsym Escape mode "default"
         bindsym $mod+r mode "default"
 }
-
 bindsym $mod+r mode "resize"
 
 # Inicialização do sistema
-
 exec_always --no-startup-id $HOME/.local/bin/wallpaper.sh
 exec_always --no-startup-id wal -R
-
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
-
 exec --no-startup-id compton -b
 exec --no-startup-id dunst
-
 exec --no-startup-id amixer set Master 80%
 
 # ATALHOS Comandos de sistema
@@ -181,6 +156,8 @@ bindsym F12 exec --no-startup-id termite -e $HOME/.local/bin/arch-pacman.sh
 # sudo xprop | grep -i 'class'
 # xprop |awk '/^WM_CLASS/{sub(/.* =/, "instance:"); sub(/,/, "\nclass:"); print} /^WM_NAME/{sub(/.* =/, "title:"); print}'
 ##############################################
+
+for_window [class="^.*"] border pixel 0
 
 for_window [window_role="pop-up|bubble|task_dialog|Preferences"] floating enable, resize set 800 px 600 px, move position center, focus
 for_window [window_type="dialog|menu"] floating enable, resize set 800 px 600 px, move position center, focus
