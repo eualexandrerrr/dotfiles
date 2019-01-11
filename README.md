@@ -6,7 +6,9 @@
 
 **Hey**, these are the dotfiles that I use.
 
-It includes my `compton` `dunst` `i3-gaps` `i3lock` `polybar` `rofi` `termite` `terminus-font` `zsh` `scrot` `feh` `pywal` , ... config files.
+`sudo pacman -S i3-gaps i3lock compton dunst rofi mpd maim scrot feh python-pywal python-setuptools plasma-browser-integration termite terminus-font`
+
+`yay -S polybar jsoncpp --noconfirm`
 
 ## How to use
 
