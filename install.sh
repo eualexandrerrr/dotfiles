@@ -1,7 +1,10 @@
 #!/bin/bash
 # github.com/mamutal91
 
-source $HOME/github/dotfiles/home/.local/bin/mamutal91.sh
+function dots(){
+    source $HOME/github/dotfiles/home/.local/bin/mamutal91.sh
+    mamutal91
+}
 
 function stows(){
 stow compton
@@ -22,7 +25,7 @@ function userinstall(){
     stows
 }
 
-[[ $USER == "mamutal91" ]] && mamutal91 || userinstall
+[[ $USER == "mamutal91" ]] && dots || userinstall
 
 # Finalizando
 canberra-gtk-play --file=$HOME/.local/share/sounds/completed.wav 
