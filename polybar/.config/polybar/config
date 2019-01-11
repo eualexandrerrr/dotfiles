@@ -23,8 +23,6 @@ color15 = ${xrdb:color15}
 
 transparente = #00000000
 
-barra = #0B121A4D
-
 fontes = #D3D3D3
 
 icones = #B6C0C9
@@ -57,13 +55,13 @@ fixed-center = true
 bottom = false
 locale = pt_BR.UTF-8
 
-background = ${cores.barra}
+background = ${cores.transparente}
 foreground = ${cores.transparente}
 
 line-size = 0
 line-color = ${cores.vermelho}
 
-border-size = 5
+border-size = 1
 border-color = ${cores.transparente}
 
 padding-left = 2
