@@ -1,9 +1,6 @@
-#
-# i3 config
-#
-# http://i3wm.org/docs/userguide.html
-#
+# Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
+set $term --no-startup-id termite
 set $mod Mod4
 font pango:xos4 Terminus 8
 floating_modifier $mod
@@ -158,6 +155,13 @@ bindsym F12 exec --no-startup-id termite -e $HOME/.local/bin/arch-pacman.sh
 ##############################################
 
 for_window [class="^.*"] border pixel 0
+
+for_window [instance="dropdown"] floating enable
+for_window [instance="dropdown"] resize set 625 400
+for_window [instance="dropdown"] move scratchpad
+for_window [instance="dropdown"] border pixel 5
+exec $term --name="dropdown"
+
 
 for_window [window_role="pop-up|bubble|task_dialog|Preferences"] floating enable, resize set 800 px 600 px, move position center, focus
 for_window [window_type="dialog|menu"] floating enable, resize set 800 px 600 px, move position center, focus
