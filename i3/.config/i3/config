@@ -15,18 +15,6 @@ bindsym $mod+F2 exec --no-startup-id firefox &
 bindsym $mod+F3 exec --no-startup-id telegram-desktop &
 bindsym $mod+F4 exec --no-startup-id /usr/bin/rambox &
 
-# REGRAS DE APPS
-# sudo xprop | grep -i 'class'
-set $ws1 "1: terminal"
-set $ws2 "2: browser"
-set $ws3 "3: chats"
-set $ws4 "4: studio"
-set $ws5 "5: codes"
-set $ws6 "6: office"
-set $ws7 "7: pc"
-set $ws8 "8: art"
-set $ws9 "9: games"
-
 # Screenshot & Screencast
 bindsym Insert exec --no-startup-id $HOME/.local/bin/screenshot.sh
 bindsym Control+Insert exec --no-startup-id $HOME/.local/bin/screenshot.sh -w
@@ -218,5 +206,7 @@ bindsym F10 exec --no-startup-id $HOME/.local/bin/git-cron.sh
 bindsym F11 exec --no-startup-id $HOME/github/dotfiles/home/.local/bin/dotfiles.sh
 bindsym F12 exec --no-startup-id termite -e $HOME/.local/bin/arch-pacman.sh
 
-# Rules
+##############################################
+# Rules (include /rules/config)
+##############################################
 
