@@ -3,7 +3,7 @@
 
 function dots(){
     source $HOME/github/dotfiles/home/.local/bin/mamutal91.sh
-    mamutal91
+    install
 }
 
 function stows(){

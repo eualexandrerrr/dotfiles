@@ -44,7 +44,7 @@ function xorg-nvidia(){
     sudo cp -r etc/X11/xorg.conf.d/30-touchpad.conf /etc/X11/nvidia-xorg.conf.d/
 }
 
-function mamutal91(){
+function install(){
     dotfiles
     stows
     xorg
