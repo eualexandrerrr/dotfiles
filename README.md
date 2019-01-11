@@ -6,8 +6,11 @@
 
 **Hey**, these are the dotfiles that I use.
 
+Search on the correct way for your distribution.
+
 `sudo pacman -S i3-gaps i3lock compton dunst rofi mpd maim scrot feh python-pywal python-setuptools plasma-browser-integration termite terminus-font`
 
+AUR:
 `yay -S polybar jsoncpp --noconfirm`
 
 ## How to use
