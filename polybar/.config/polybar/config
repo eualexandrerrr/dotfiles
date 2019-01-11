@@ -67,8 +67,8 @@ border-color = ${cores.transparente}
 padding-left = 2
 padding-right = 2
 
-underline-size = 0
-overline-size = 0
+underline-size = 2
+overline-size = 2
 
 module-margin-left = 1
 module-margin-right = 1
