@@ -203,7 +203,6 @@ bindsym $mod+r mode "resize"
 # Inicialização do sistema
 
 exec_always --no-startup-id $HOME/.local/bin/wallpaper.sh
-exec_always --no-startup-id $HOME/.config/i3/rules
 exec_always --no-startup-id wal -R
 
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
