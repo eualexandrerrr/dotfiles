@@ -29,7 +29,7 @@ bindsym $mod+F4 exec --no-startup-id /usr/bin/rambox &
 bindsym Insert exec --no-startup-id $HOME/.local/bin/screenshot.sh
 bindsym --release $mod+K exec --no-startup-id $HOME/.local/bin/screencast.sh
 
-# Controle de Áudio/Brilho                    
+# Controle de Áudio/Brilho
 bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q set Master 5%+ unmute
 bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q set Master 5%- unmute
 bindsym XF86AudioMute exec --no-startup-id amixer -q set Master toggle
@@ -67,28 +67,11 @@ bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
-# Dividir na orientação horizontal
-bindsym $mod+h split h
-
-# Dividir na orientação vertical
-bindsym $mod+v split v
-
 # Entrar em modo fullscreen com janela focada
 bindsym $mod+f fullscreen toggle
 
-# Alterar o layout do container (Empilhado, com guias e alternando)
-#bindsym $mod+s layout stacking
-#bindsym $mod+w layout tabbed
-bindsym $mod+s layout toggle split
-
 # Alterar para janela flutuante ou vice-versa
 bindsym $mod+Shift+space floating toggle
-
-# Mudar o foco entre janelas e janelas flutuantes
-bindsym $mod+space focus mode_toggle
-
-# Focar container pai
-bindsym $mod+a focus parent
 
 # Workspaces
 bindsym $mod+1 workspace $ws1
@@ -103,27 +86,9 @@ bindsym $mod+9 workspace $ws9
 
 # Navegação - Próximo/Voltar
 bindsym $mod+Tab workspace next
-bindsym $mod+Shift+Tab workspace prev
-
-# Mover janela focada para determinado Workspace
-bindsym $mod+Shift+1 move container to workspace $ws1
-bindsym $mod+Shift+2 move container to workspace $ws2
-bindsym $mod+Shift+3 move container to workspace $ws3
-bindsym $mod+Shift+4 move container to workspace $ws4
-bindsym $mod+Shift+5 move container to workspace $ws5
-bindsym $mod+Shift+6 move container to workspace $ws6
-bindsym $mod+Shift+7 move container to workspace $ws7
-bindsym $mod+Shift+8 move container to workspace $ws8
-bindsym $mod+Shift+9 move container to workspace $ws9
-
-# Recarregar arquivo de configuração
-bindsym $mod+Shift+c reload
 
 # Recarregar i3wm
 bindsym $mod+Shift+r restart
-
-# Sair da sessão
-bindsym $mod+Shift+x exec "i3-nagbar -t warning -m 'Você está prestes a encerrar a sessão do I3, deseja continuar?' -b 'Sim, encerrar!' 'i3-msg exit'"
 
 # Gaps
 for_window [class="^.*"] border pixel 0
