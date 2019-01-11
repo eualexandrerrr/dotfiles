@@ -21,10 +21,6 @@ stow termite
 stow thunar
 }
 
-function i3config(){
-    $HOME/.local/bin/i3gen.sh
-}
-
 function xorg(){
     # XORGS de teclado e mouse
     sudo rm -rf /etc/X11/xorg.conf.d/10-evdev.conf
