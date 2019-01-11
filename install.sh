@@ -2,7 +2,7 @@
 # github.com/mamutal91
 
 cd $HOME/.dotfiles
-source $HOME/.dotfiles/home/.local/bin/mamutal91.sh
+source $HOME/github/dotfiles/home/.local/bin/mamutal91.sh
 
 function stows(){
 stow compton
