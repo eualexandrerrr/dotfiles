@@ -20,8 +20,8 @@ export BROWSER="firefox"
 # VIDEO
 #export PLACA_DE_VIDEO=" Intel Graphics"
 
-cat="$HOME/.config/i3/rules"
-
+#cat ~/.config/i3/rules
+cat ~/.config/i3/rules >> ~/.config/i3/config
 # Numlock On
 numlockx &
 
