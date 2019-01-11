@@ -16,7 +16,7 @@ set $ws7 "7: pc"
 set $ws8 "8: art"
 set $ws9 "9: games"
 
-# Atalhos de APPS
+# Application shortcuts
 bindsym $mod+Return exec --no-startup-id termite &
 bindsym $mod+e exec --no-startup-id thunar &
 bindsym $mod+F2 exec --no-startup-id firefox &
@@ -27,7 +27,7 @@ bindsym $mod+F4 exec --no-startup-id /usr/bin/rambox &
 bindsym Insert exec --no-startup-id $HOME/.local/bin/screenshot.sh
 bindsym --release $mod+K exec --no-startup-id $HOME/.local/bin/screencast.sh
 
-# Controle de Áudio/Brilho
+# Audio/Brightness Control
 bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q set Master 5%+ unmute
 bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q set Master 5%- unmute
 bindsym XF86AudioMute exec --no-startup-id amixer -q set Master toggle
@@ -35,24 +35,24 @@ bindsym XF86AudioMute exec --no-startup-id amixer -q set Master toggle
 bindsym XF86MonBrightnessUp exec  --no-startup-id echo $((`cat /sys/class/backlight/intel_backlight/brightness` + 10)) | sudo tee /sys/class/backlight/intel_backlight/brightness
 bindsym XF86MonBrightnessDown exec  --no-startup-id echo $((`cat /sys/class/backlight/intel_backlight/brightness` - 10)) | sudo tee /sys/class/backlight/intel_backlight/brightness
 
-# Fechar janela
+# Close window
 bindsym $mod+w kill
 
-# Iniciar Rofi
+# Start Rofi
 bindsym $mod+d exec --no-startup-id rofi -show drun -display-run -show-icons -width 30 "Arch Linux -"
 
-# Como alternativa, você pode usar as teclas do cursor
+# Move windows
 bindsym $mod+Shift+Left move left
 bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
-# Entrar em modo fullscreen com janela focada
+# Enter fullscreen mode with window focused
 bindsym $mod+f fullscreen toggle
 bindsym $alt+f fullscreen toggle
 bindsym $alt+Return fullscreen toggle
 
-# Alterar para janela flutuante ou vice-versa
+# Floating window
 bindsym $mod+Shift+space floating toggle
 
 # Workspaces
@@ -66,10 +66,10 @@ bindsym $mod+7 workspace $ws7
 bindsym $mod+8 workspace $ws8
 bindsym $mod+9 workspace $ws9
 
-# Navegação workspaces
+# Next workspaces
 bindsym $mod+Tab workspace next
 
-# Recarregar i3
+# Restart i3
 bindsym $mod+Shift+r restart
 
 # Gaps
@@ -95,7 +95,7 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-# Inicialização do sistema
+# Startup
 exec_always --no-startup-id $HOME/.local/bin/wallpaper.sh
 exec_always --no-startup-id wal -R
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
@@ -103,18 +103,18 @@ exec --no-startup-id compton -b
 exec --no-startup-id dunst
 exec --no-startup-id amixer set Master 80%
 
-# ATALHOS Comandos de sistema
+# System shortcuts
 bindsym F8 exec --no-startup-id $HOME/.config/polybar/launch.sh
 bindsym F9 exec --no-startup-id termite -e $HOME/.local/bin/arch-pacotes.sh
 bindsym F10 exec --no-startup-id $HOME/.local/bin/git-cron.sh
 bindsym F11 exec --no-startup-id $HOME/github/dotfiles/install.sh
 bindsym F12 exec --no-startup-id termite -e $HOME/.local/bin/arch-pacman.sh
 
-##############################################
+
 # Rules
 # sudo xprop | grep -i 'class'
 # xprop |awk '/^WM_CLASS/{sub(/.* =/, "instance:"); sub(/,/, "\nclass:"); print} /^WM_NAME/{sub(/.* =/, "title:"); print}'
-##############################################
+
 
 for_window [class="^.*"] border pixel 0, focus
 
