@@ -1,3 +1,15 @@
+# sudo xprop | grep -i 'class'
+
+set $ws1 "1: terminal"
+set $ws2 "2: browser"
+set $ws3 "3: chats"
+set $ws4 "4: studio"
+set $ws5 "5: codes"
+set $ws6 "6: office"
+set $ws7 "7: pc"
+set $ws8 "8: art"
+set $ws9 "9: games"
+
 for_window [window_role="pop-up"] floating enable, resize set 800 px 600 px, move position center focus
 for_window [window_role="bubble"] floating enable, resize set 800 px 600 px, move position center focus
 for_window [window_role="task_dialog"] floating enable, resize set 800 px 600 px, move position center focus
