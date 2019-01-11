@@ -1,6 +1,5 @@
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
-set $term --no-startup-id termite
 set $mod Mod4
 font pango:xos4 Terminus 8
 floating_modifier $mod
