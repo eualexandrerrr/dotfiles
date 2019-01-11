@@ -2,6 +2,7 @@
 
 set $mod Mod4
 set $alt Mod1
+set $ctrl Control
 
 font pango:xos4 Terminus 8
 floating_modifier $mod
@@ -54,6 +55,7 @@ bindsym $alt+Return fullscreen toggle
 
 # Floating window
 bindsym $mod+Shift+space floating toggle
+bindsym $ctrl+space floating toggle
 
 # Workspaces
 bindsym $mod+1 workspace $ws1
@@ -73,8 +75,8 @@ bindsym $mod+Tab workspace next
 bindsym $mod+Shift+r restart
 
 # Gaps
-gaps inner 5
-gaps outer 5
+gaps inner 10
+gaps outer 10
 hide_edge_borders smart
 
 mode "resize" {
