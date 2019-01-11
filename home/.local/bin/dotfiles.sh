@@ -22,7 +22,7 @@ stow thunar
 }
 
 function i3config(){
-    $HOME/.local/bin/i3config.sh
+    $HOME/.local/bin/i3gen.sh
 }
 
 function xorg(){
@@ -73,7 +73,6 @@ function mamutal91(){
 function user(){
     cd $HOME/.dotfiles
     stows
-    i3config
 }
 
 [[ $USER == "mamutal91" ]] && mamutal91 || user

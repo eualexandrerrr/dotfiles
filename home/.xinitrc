@@ -20,7 +20,7 @@ export BROWSER="firefox"
 # VIDEO
 #export PLACA_DE_VIDEO=" Intel Graphics"
 
-$HOME/.local/bin/i3config.sh
+$HOME/.local/bin/i3gen.sh
 
 # Numlock On
 numlockx &
