@@ -7,6 +7,16 @@ function dotfiles(){
     cd $HOME/.dotfiles
 }
 
+function xorg(){
+    # XORGS de teclado e mouse
+    sudo rm -rf /etc/X11/xorg.conf.d/10-evdev.conf
+    sudo rm -rf /etc/X11/xorg.conf.d/30-touchpad.conf
+
+    sudo mkdir -p /etc/X11/xorg.conf.d/
+    sudo cp -r etc/X11/xorg.conf.d/10-evdev.conf /etc/X11/xorg.conf.d/
+    sudo cp -r etc/X11/xorg.conf.d/30-touchpad.conf /etc/X11/xorg.conf.d/
+}
+
 function xorg-nvidia(){
     # XORG da INTEL
     sudo rm -rf /etc/X11/xorg.conf.d/20-intel.conf
@@ -34,20 +44,9 @@ function xorg-nvidia(){
     sudo cp -r etc/X11/xorg.conf.d/30-touchpad.conf /etc/X11/nvidia-xorg.conf.d/
 }
 
-function xorg(){
-    # XORGS de teclado e mouse
-    sudo rm -rf /etc/X11/xorg.conf.d/10-evdev.conf
-    sudo rm -rf /etc/X11/xorg.conf.d/30-touchpad.conf
-
-    sudo mkdir -p /etc/X11/xorg.conf.d/
-    sudo cp -r etc/X11/xorg.conf.d/10-evdev.conf /etc/X11/xorg.conf.d/
-    sudo cp -r etc/X11/xorg.conf.d/30-touchpad.conf /etc/X11/xorg.conf.d/
-}
-
 function mamutal91(){
     dotfiles
     stows
-    i3config
     xorg
     xorg-nvidia
 }
