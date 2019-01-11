@@ -27,11 +27,6 @@ bindsym $mod+F4 exec --no-startup-id /usr/bin/rambox &
 
 # Screenshot & Screencast
 bindsym Insert exec --no-startup-id $HOME/.local/bin/screenshot.sh
-bindsym Control+Insert exec --no-startup-id $HOME/.local/bin/screenshot.sh -w
-bindsym --release Mod1+Sys_Req exec --no-startup-id $HOME/.local/bin/screenshot.sh -s
-bindsym $mod+Insert exec --no-startup-id $HOME/.local/bin/screenshot.sh -d
-bindsym $mod+Shift+Insert exec --no-startup-id $HOME/.local/bin/screenshot.sh -e
-
 bindsym --release $mod+K exec --no-startup-id $HOME/.local/bin/screencast.sh
 
 # Controle de Áudio/Brilho
