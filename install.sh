@@ -1,7 +1,6 @@
 #!/bin/bash
 # github.com/mamutal91
 
-cd $HOME/.dotfiles
 source $HOME/github/dotfiles/home/.local/bin/mamutal91.sh
 
 function stows(){
@@ -17,7 +16,6 @@ stow rofi
 stow termite
 stow thunar
 }
-
 
 function userinstall(){
     cd $HOME/.dotfiles
