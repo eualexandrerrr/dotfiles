@@ -29,9 +29,9 @@ bindsym $mod+F4 exec --no-startup-id /usr/bin/rambox &
 bindsym Insert exec --no-startup-id $HOME/.local/bin/screenshot.sh
 bindsym --release $mod+K exec --no-startup-id $HOME/.local/bin/screencast.sh
 
-# Controle de Áudio/Brilho
-bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q set Master 3dB+ unmute
-bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q set Master 3dB- unmute
+# Controle de Áudio/Brilho                    
+bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q set Master 5%+ unmute
+bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q set Master 5%- unmute
 bindsym XF86AudioMute exec --no-startup-id amixer -q set Master toggle
 
 bindsym XF86MonBrightnessUp exec  --no-startup-id echo $((`cat /sys/class/backlight/intel_backlight/brightness` + 10)) | sudo tee /sys/class/backlight/intel_backlight/brightness
@@ -202,7 +202,7 @@ exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 exec --no-startup-id compton -b
 exec --no-startup-id dunst
 
-exec --no-startup-id pactl set-sink-volume 0 80%
+exec --no-startup-id amixer set Master 80%
 
 # ATALHOS Comandos de sistema
 bindsym F8 exec --no-startup-id $HOME/.config/polybar/launch.sh
