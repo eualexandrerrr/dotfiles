@@ -121,7 +121,7 @@ for_window [class="^.*"] border pixel 0, focus
 for_window [window_role="pop-up|bubble|task_dialog|Preferences"] floating enable, resize set 800 px 600 px, move position center
 for_window [window_type="dialog|menu"] floating enable, resize set 800 px 600 px, move position center
 
-for_window [class="Termite"] move to workspace $ws1
+for_window [class="Termite"] move to workspace $ws1, border pixel 1
 
 for_window [class="Firefox"] move to workspace $ws2
 
