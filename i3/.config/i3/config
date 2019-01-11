@@ -258,3 +258,6 @@ bindsym F9 exec --no-startup-id termite -e $HOME/.local/bin/arch-pacotes.sh
 bindsym F10 exec --no-startup-id $HOME/.local/bin/git-cron.sh
 bindsym F11 exec --no-startup-id $HOME/github/dotfiles/home/.local/bin/dotfiles.sh
 bindsym F12 exec --no-startup-id termite -e $HOME/.local/bin/arch-pacman.sh
+
+# Rules
+

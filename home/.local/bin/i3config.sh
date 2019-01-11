@@ -3,6 +3,8 @@
 
 cd $HOME/github/dotfiles/i3/.config/i3/
 
-cat i3 rules > /tmp/i3config
+cat config \
+    rules > /tmp/i3config
 
+rm -rf $HOME/.config/i3/config
 sudo mv /tmp/i3config $HOME/.config/i3/config
