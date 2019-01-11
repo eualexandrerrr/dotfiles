@@ -16,7 +16,6 @@ export LANGUAGE="pt_BR.UTF-8"
 export LC_CTYPE="pt_BR.UTF-8"
 export EDITOR="nano"
 export BROWSER="firefox"
-export x="$HOME/.local/bin/xprop.sh"
 
 # VIDEO
 #export PLACA_DE_VIDEO=" Intel Graphics"
