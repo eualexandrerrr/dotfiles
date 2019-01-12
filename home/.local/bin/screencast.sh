@@ -22,7 +22,7 @@ if [ -f $HOME/.config/user-dirs.dirs ]; then
     source $HOME/.config/user-dirs.dirs
     caminho="${XDG_VIDEOS_DIR}/Screencasts/"
 else
-    caminho="${HOME}/Vídeos/Screencasts/"
+    caminho="${HOME}/Vídeos/"
 fi
 
 if [ ! $1 ]; then
