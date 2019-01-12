@@ -35,7 +35,7 @@ if [ ! $1 ] || [ $1 == "-a" ]; then
 		atualiza "$caminho"
 	done
 
-	atualiza "${HOME}/dotfiles"
+	atualiza "${HOME}/github"
 	[ "$1" == "-a" ] && ssh $remoto "/usr/local/scripts/git-http"
 else
 	caminho="$@"
