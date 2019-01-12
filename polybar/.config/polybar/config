@@ -175,13 +175,12 @@ label-urgent-padding = 1
 [module/janela]
 type = internal/xwindow
 
-format-prefix = "  "
-format-prefix-foreground = ${cores.icones-modulos}
+format-prefix = "  "
+format-prefix-foreground = ${cores.foreground}
 
 format = <label>
 format-background = ${cores.transparente}
 format-foreground = ${cores.fontes}
-format-padding = 4
 
 label = %title%
 label-maxlen = 80
