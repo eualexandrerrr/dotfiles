@@ -174,17 +174,13 @@ label-urgent-padding = 1
 # Janela
 [module/janela]
 type = internal/xwindow
-
 format-prefix = "  "
 format-prefix-foreground = ${cores.foreground}
-
 format = <label>
 format-background = ${cores.transparente}
 format-foreground = ${cores.fontes}
-
 label = %title%
 label-maxlen = 80
-
 label-empty = Sem janelas
 label-empty-foreground = ${cores.fontes}
 
@@ -194,7 +190,6 @@ type = internal/fs
 mount-0 = /
 interval = 10
 fixed-values = true
-
 format-mounted-prefix = " root "
 format-mounted-prefix-foreground = ${cores.verde}
 format-mounted-underline = ${cores.transparente}
@@ -208,7 +203,6 @@ type = internal/fs
 mount-0 = /media/storage
 interval = 10
 fixed-values = true
-
 format-mounted-prefix = " storage "
 format-mounted-prefix-foreground = ${cores.roxo}
 format-mounted-underline = ${cores.transparente}
@@ -216,22 +210,10 @@ format-mounted = <label-mounted>
 label-mounted = %used%
 label-mounted-foreground = ${cores.roxoclaro}
 
-# Usuário
-[module/usuario]
-type = custom/script
-interval = 1
-
-format-prefix = " "
-format-prefix-foreground = ${cores.azul}
-format-underline = ${cores.transparente}
-exec = echo $USER@$HOSTNAME
-format-foreground = ${cores.azul}
-
 # Placa de vídeo
 [module/placadevideo]
 type = custom/script
 interval = 1
-
 exec = echo $PLACA_DE_VIDEO
 format-foreground = ${cores.azul}
 
@@ -239,7 +221,6 @@ format-foreground = ${cores.azul}
 [module/kernel]
 type = custom/script
 interval = 1
-
 format-prefix = " Kernel "
 format-prefix-foreground = ${cores.icones-modulos}
 exec = uname -r
@@ -264,10 +245,8 @@ label-maxlen = 80
 type = internal/cpu
 interval = 0.5
 format = <label> <ramp-coreload>
-
 format-prefix = " CPU "
 format-prefix-foreground = #FF8000
-
 label = %percentage%%
 label-foreground = #F5A9BC
 
@@ -292,10 +271,8 @@ ramp-coreload-7-foreground = #8A0829
 [module/memoria]
 type = internal/memory
 format = <label>
-
 format-prefix = " RAM "
 format-prefix-foreground = #B40431
-
 label = %mb_used%
 label-foreground = #F7819F
 
@@ -491,30 +468,6 @@ label-connected-foreground = ${cores.fontes}
 
 ramp-signal-0 = 
 ramp-signal-0-foreground = ${cores.icones-modulos}
-
-# Git-Cron
-[module/git-cron]
-type = custom/text
-content = 
-content-foreground = ${cores.cinza}
-content-underline = ${cores.transparente}
-click-left = ~/.local/bin/git-cron.sh -c &
-
-# Screenshot
-[module/screenshot]
-type = custom/text
-content = 
-content-foreground = ${cores.verde}
-content-underline = ${cores.transparente}
-click-left = ~/.local/bin/screenshot.sh &
-
-# Screencast
-[module/screencast]
-type = custom/text
-content = 
-content-foreground = ${cores.vermelho}
-content-underline = ${cores.transparente}
-click-left = ~/.local/bin/screencast.sh &
 
 # Menu Power
 [module/menu-power]
