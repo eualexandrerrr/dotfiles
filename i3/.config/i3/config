@@ -112,11 +112,8 @@ bindsym F10 exec --no-startup-id $HOME/.local/bin/git-cron.sh
 bindsym F11 exec --no-startup-id $HOME/github/dotfiles/install.sh
 bindsym F12 exec --no-startup-id termite -e $HOME/.local/bin/arch-pacman.sh
 
-
 # Rules
 # sudo xprop | grep -i 'class'
-# xprop |awk '/^WM_CLASS/{sub(/.* =/, "instance:"); sub(/,/, "\nclass:"); print} /^WM_NAME/{sub(/.* =/, "title:"); print}'
-
 
 for_window [class="^.*"] border pixel 0, focus
 
