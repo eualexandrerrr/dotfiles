@@ -3,14 +3,14 @@
 
 if [ -f $HOME/.config/user-dirs.dirs ]; then
 	source $HOME/.config/user-dirs.dirs
-	dir="${XDG_PICTURES_DIR}/Screenshots/"
+	dir="${XDG_PICTURES_DIR}/"
 else
-	dir="${HOME}/Imagens/Screenshots/"
+	dir="${HOME}/Imagens/"
 fi
 
 app="maim"
 params="-u"
-data=$(date +%Hh%Mm%Ss-%d-%m-%Y)
+data=$(date +%H%M%S-%d-%m-%Y)
 nome="Screenshot-${data}"
 extensao=".png"
 atraso=10
@@ -41,26 +41,26 @@ elif [ "$1" == "-w" ]; then
 	params="$params -w"
 	arquivo="${nome}-window${extensao}"
 	$app $params ${arquivo}
-	msg="Imagens/Screenshots/$arquivo"
+	msg="Imagens/$arquivo"
 elif [ "$1" == "-s" ]; then
 	params="$params -s"
 	arquivo="${nome}-sel${extensao}"
 	$app -d 2 $params ${arquivo}
-	msg="Imagens/Screenshots/$arquivo"
+	msg="Imagens/$arquivo"
 elif [ "$1" == "-d" ]; then
 	params="$params -d $atraso"
 	arquivo="${nome}-delay${extensao}"
 	$app $params ${arquivo}
-	msg="Imagens/Screenshots/$arquivo"
+	msg="Imagens/$arquivo"
 elif [ "$1" == "-e" ]; then
 	arquivo="${nome}-edit${extensao}"
 	$app $params ${dir}${arquivo}
-	msg="Imagens/Screenshots/$arquivo"
+	msg="Imagens/$arquivo"
 	viewnior ${dir}${arquivo}
 else
 	arquivo="${nome}${extensao}"
 	$app $params ${arquivo}
-	msg="Imagens/Screenshots/$arquivo"
+	msg="Imagens/$arquivo"
 fi
 
 if [ ! -z $arquivo ]; then
