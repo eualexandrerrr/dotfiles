@@ -1,9 +1,6 @@
 #!/bin/bash
 # github.com/mamutal91
 
-# VIDEO
-#export PLACA_DE_VIDEO=" Intel Graphics"
-
 # Numlock On
 numlockx &
 
