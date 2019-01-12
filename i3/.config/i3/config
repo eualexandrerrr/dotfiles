@@ -25,7 +25,8 @@ bindsym $mod+F3 exec --no-startup-id telegram-desktop &
 bindsym $mod+F4 exec --no-startup-id /usr/bin/rambox &
 
 # Screenshot & Screencast
-bindsym Insert exec --no-startup-id $HOME/.local/bin/screenshot.sh
+bindsym Insert exec --no-startup-id $HOME/.local/bin/screenshot.sh -s
+bindsym $ctrl+Insert exec --no-startup-id $HOME/.local/bin/screenshot.sh
 bindsym --release $mod+K exec --no-startup-id $HOME/.local/bin/screencast.sh
 
 # Audio/Brightness Control
