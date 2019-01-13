@@ -2,7 +2,7 @@
 # github.com/mamutal91
 
 dir=$HOME/.local/share/wallpapers
-img=lobo.jpg
+img=lua.png
 
 wallpaper=$dir/$img
 
