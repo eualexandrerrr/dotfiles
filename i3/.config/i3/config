@@ -21,17 +21,9 @@ set $ws9 "9: games"
 # Use $mod+Mouse to drag floating windows to their wanted position
 floating_modifier $mod
 
-# Application shortcuts
-bindsym $mod+Return exec --no-startup-id termite &
-bindsym $mod+e exec --no-startup-id thunar &
-bindsym $mod+F2 exec --no-startup-id firefox &
-bindsym $mod+F3 exec --no-startup-id telegram-desktop &
-bindsym $mod+F4 exec --no-startup-id /usr/bin/rambox &
-
 # Screenshot & Screencast
 bindsym Insert exec --no-startup-id $HOME/.local/bin/screenshot.sh -s
 bindsym $ctrl+Insert exec --no-startup-id $HOME/.local/bin/screenshot.sh
-
 bindsym --release $mod+K exec --no-startup-id $HOME/.local/bin/screencast.sh
 
 # Audio/Brightness Control
@@ -80,11 +72,12 @@ bindsym $mod+Tab workspace next
 # Restart i3
 bindsym $mod+Shift+r restart
 
-# Gaps
-gaps inner 20
+# i3-gaps
+gaps inner 25
 gaps outer 10
 hide_edge_borders smart
 
+# Re
 mode "resize" {
         bindsym j resize shrink width 10 px or 10 ppt
         bindsym k resize grow height 10 px or 10 ppt
@@ -113,6 +106,13 @@ exec --no-startup-id amixer set Master 80%
 exec --no-startup-id xautolock -time 10 -detectsleep -locker $HOME/.local/bin/i3lock.sh &
 exec --no-startup-id numlockx &
 
+# Application shortcuts
+bindsym $mod+Return exec --no-startup-id termite &
+bindsym $mod+e exec --no-startup-id thunar &
+bindsym $mod+F2 exec --no-startup-id firefox &
+bindsym $mod+F3 exec --no-startup-id telegram-desktop &
+bindsym $mod+F4 exec --no-startup-id /usr/bin/rambox &
+
 # System shortcuts
 bindsym F8 exec --no-startup-id $HOME/.config/polybar/launch.sh
 bindsym F9 exec --no-startup-id termite -e $HOME/.local/bin/arch-pacotes.sh
@@ -125,8 +125,8 @@ bindsym F12 exec --no-startup-id termite -e $HOME/.local/bin/arch-pacman.sh
 
 for_window [class="^.*"] border pixel 0, focus
 
-for_window [window_role="pop-up|bubble|task_dialog|Preferences"] floating enable, resize set 800 px 600 px, move position center
-for_window [window_type="dialog|menu"] floating enable, resize set 800 px 600 px, move position center
+for_window [window_role="pop-up|bubble|task_dialog|Preferences"] floating enable
+for_window [window_type="dialog|menu"] floating enable
 
 for_window [class="Termite"] move to workspace $ws1
 
