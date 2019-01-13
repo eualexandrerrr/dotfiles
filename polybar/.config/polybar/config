@@ -180,7 +180,7 @@ format = <label>
 format-background = ${cores.transparente}
 format-foreground = ${cores.fontes}
 label = %title%
-label-maxlen = 80
+label-maxlen = 50
 label-empty = Sem janelas
 label-empty-foreground = ${cores.fontes}
 
