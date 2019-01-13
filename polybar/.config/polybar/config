@@ -236,9 +236,9 @@ format-padding = 1
 format-foreground = ${cores.fontes}
 format-underline = ${cores.transparente}
 type = custom/script
-exec = ~/.local/bin/spotify.sh "%artist% - %title% (%album%)"
+exec = ~/.local/bin/spotify.sh "%artist% - %title%"
 tail = true
-label-maxlen = 80
+label-maxlen = 50
 
 # CPU
 [module/cpu]
