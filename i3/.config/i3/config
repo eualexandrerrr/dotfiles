@@ -1,12 +1,13 @@
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
+# use win/alt/control key
 set $mod Mod4
 set $alt Mod1
 set $ctrl Control
 
-font pango:xos4 Terminus 8
-floating_modifier $mod
+font pango:Source Sans Pro 10
 
+# Fefine names for workspaces
 set $ws1 "1: terminal"
 set $ws2 "2: browser"
 set $ws3 "3: chats"
@@ -16,6 +17,9 @@ set $ws6 "6: office"
 set $ws7 "7: pc"
 set $ws8 "8: art"
 set $ws9 "9: games"
+
+# Use $mod+Mouse to drag floating windows to their wanted position
+floating_modifier $mod
 
 # Application shortcuts
 bindsym $mod+Return exec --no-startup-id termite &
