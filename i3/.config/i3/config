@@ -146,7 +146,7 @@ for_window [class="Electron"] move to workspace $ws5, floating enable
 for_window [class="libreoffice-startcenter|libreoffice-writer|libreoffice-draw|libreoffice-presentation|libreoffice-impress|libreoffice-calc"] move to workspace $ws6
 
 for_window [class="Lxappearance|qbittorrent|Thunar"] move to workspace $ws7, floating enable
-for_window [class="Galculator"] move to workspace $ws7, floating enable, resize set 400 px 440 px, move position center
+for_window [class="Galculator"] move to workspace $ws7, floating enable, resize set 380 px 440 px, move position center
 
 for_window [class="Pinta"] move to workspace $ws8
 for_window [class="Gpicview|feh"] move to workspace $ws8
