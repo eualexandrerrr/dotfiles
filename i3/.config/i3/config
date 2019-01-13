@@ -21,11 +21,6 @@ set $ws9 "9: games"
 # Use $mod+Mouse to drag floating windows to their wanted position
 floating_modifier $mod
 
-# Screenshot & Screencast
-bindsym Insert exec --no-startup-id $HOME/.local/bin/screenshot.sh -s
-bindsym $ctrl+Insert exec --no-startup-id $HOME/.local/bin/screenshot.sh
-bindsym --release $mod+K exec --no-startup-id $HOME/.local/bin/screencast.sh
-
 # Audio/Brightness Control
 bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q set Master 5%+ unmute
 bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q set Master 5%- unmute
@@ -105,6 +100,11 @@ exec --no-startup-id dunst
 exec --no-startup-id amixer set Master 80%
 exec --no-startup-id xautolock -time 10 -detectsleep -locker $HOME/.local/bin/i3lock.sh &
 exec --no-startup-id numlockx &
+
+# Screenshot & Screencast
+bindsym Insert exec --no-startup-id $HOME/.local/bin/screenshot.sh -s
+bindsym $ctrl+Insert exec --no-startup-id $HOME/.local/bin/screenshot.sh
+bindsym --release $mod+K exec --no-startup-id $HOME/.local/bin/screencast.sh
 
 # Application shortcuts
 bindsym $mod+Return exec --no-startup-id termite &
