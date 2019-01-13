@@ -4,6 +4,8 @@
 # Add linha no crontab 
 # */5 * * * * sh -c "~/.local/bin/git-cron.sh" > /dev/null 2>&1
 
+(cat ~/.cache/wal/sequences &)
+
 git config --global user.name "mamutal91" 
 git config --global user.email "mamutal91@gmail.com"
 
