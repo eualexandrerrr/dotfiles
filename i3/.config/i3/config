@@ -107,6 +107,7 @@ exec --no-startup-id compton -b
 exec --no-startup-id dunst
 exec --no-startup-id amixer set Master 80%
 exec --no-startup-id xautolock -time 10 -detectsleep -locker $HOME/.local/bin/i3lock.sh &
+exec --no-startup-id numlockx &
 
 # System shortcuts
 bindsym F8 exec --no-startup-id $HOME/.config/polybar/launch.sh
