@@ -131,7 +131,8 @@ for_window [class="TelegramDesktop"] move to workspace $ws3, floating enable, re
 for_window [title="Media viewer"] move to workspace $ws3, fullscreen
 
 for_window [class="Spotify|vlc|Steam"] move to workspace $ws4
-for_window [title="Lista de amigos|"] move to workspace $ws4, floating enable, resize set 1200 px 900 px
+for_window [title="Lista de amigos"] move to workspace $ws4, floating enable, resize set 320 px 600 px
+for_window [title="Steam — Novidades*"] move to workspace $ws4, floating enable, resize set 410 px 600 px
 
 for_window [class="code"] move to workspace $ws5
 for_window [class="Electron"] move to workspace $ws5, floating enable
