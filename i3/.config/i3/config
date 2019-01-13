@@ -125,8 +125,8 @@ bindsym F12 exec --no-startup-id termite -e $HOME/.local/bin/arch-pacman.sh
 
 for_window [class="^.*"] border pixel 0, focus
 
-for_window [window_role="pop-up|bubble|task_dialog|Preferences"] floating enable, move position center
-for_window [window_type="dialog|menu"] floating enable, move position center
+for_window [window_role="pop-up|bubble|task_dialog|Preferences"] floating enable, move position center, focus
+for_window [window_type="dialog|menu"] floating enable, move position center, focus
 
 for_window [class="Termite"] move to workspace $ws1
 
