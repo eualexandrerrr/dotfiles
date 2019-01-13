@@ -77,8 +77,8 @@ bindsym $mod+Tab workspace next
 bindsym $mod+Shift+r restart
 
 # Gaps
-gaps inner 25
-gaps outer 0
+gaps inner 20
+gaps outer 10
 hide_edge_borders smart
 
 mode "resize" {
@@ -106,6 +106,7 @@ exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 exec --no-startup-id compton -b
 exec --no-startup-id dunst
 exec --no-startup-id amixer set Master 80%
+exec --no-startup-id xautolock -time 10 -detectsleep -locker $HOME/.local/bin/i3lock.sh &
 
 # System shortcuts
 bindsym F8 exec --no-startup-id $HOME/.config/polybar/launch.sh
