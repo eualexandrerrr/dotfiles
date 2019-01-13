@@ -6,9 +6,6 @@
 
 (cat ~/.cache/wal/sequences &)
 
-git config --global user.name "mamutal91" 
-git config --global user.email "mamutal91@gmail.com"
-
 dir="${HOME}/github"
 repos=('archlinux' 'dotfiles' 'dirtyunicorns' 'mamutal91.github.io')
 remoto="mamutal91@archlinux"
