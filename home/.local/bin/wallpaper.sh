@@ -2,7 +2,7 @@
 # github.com/mamutal91
 
 dir=$HOME/.local/share/wallpapers
-img=lua.jpg
+img=bloomy.jpg
 
 wallpaper=$dir/$img
 
