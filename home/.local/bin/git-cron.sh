@@ -1,9 +1,6 @@
 #!/bin/bash
 # github.com/mamutal91
 
-git config --global user.name "mamutal91" 
-git config --global user.email "mamutal91@gmail.com"
-
 dir="${HOME}/github"
 repos=('archlinux' 'dotfiles' 'backups' 'dirtyunicorns' 'mamutal91.github.io')
 remoto="mamutal91@archlinux"
