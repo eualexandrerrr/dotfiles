@@ -54,6 +54,7 @@ function winetricks(){
 function configurar_sistema(){
     sudo systemctl enable NetworkManager
     sudo systemctl enable cronie
+    sudo systemctl enable ntpd
     sudo systemctl enable bumblebeed.service
     sudo chown -R $USUARIO:$USUARIO /home/$USUARIO
     sudo gpasswd -a $USUARIO bumblebee
