@@ -81,7 +81,7 @@ font-4 = "Font Awesome 5 Brands:pixelsize=9;1"
 
 modules-left = window spotify
 modules-center = i3
-modules-right = video root storage temperature battery date hora
+modules-right = video root storage temperature battery date hour
 
 cursor-click = pointer
 cursor-scroll = ns-resize
@@ -350,7 +350,7 @@ label = %date%
 label-foreground = ${cores.fontes}
 
 # Hora
-[module/hora]
+[module/hour]
 type = internal/date
 interval = 1
 time = %R
