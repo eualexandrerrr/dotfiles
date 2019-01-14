@@ -129,7 +129,7 @@ for_window [window_role="pop-up|bubble|task_dialog|Preferences"] floating enable
 for_window [window_type="dialog|menu"] floating enable, move position center, focus
 
 for_window [class="Termite"] move to workspace $ws1
-for_window [title="/home/mamutal91/.local/bin/git-cron.sh"] move to workspace $ws1, floating enable, resize set 600 px 300 px, border pixel 5
+for_window [title="/home/mamutal91/.local/bin/git-cron.sh"] move to workspace $ws5, floating enable, resize set 600 px 300 px, border pixel 5
 
 for_window [class="Firefox"] move to workspace $ws2
 
@@ -155,7 +155,7 @@ for_window [class="Gpicview|feh"] move to workspace $ws8
 for_window [class="Wine|csgo_linux64"] move to workspace $ws9
 
 # Workspaces
-assign [class="^Termite"] $ws1
+#assign [class="^Termite"] $ws1
 assign [class="^Firefox"] $ws2
 assign [class="^TelegramDesktop|Rambox"] $ws3
 assign [class="^Spotify|vlc|Steam"] $ws4
