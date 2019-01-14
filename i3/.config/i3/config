@@ -117,7 +117,7 @@ bindsym $mod+F4 exec --no-startup-id /usr/bin/rambox &
 bindsym F8 exec --no-startup-id $HOME/.config/polybar/launch.sh
 bindsym F9 exec --no-startup-id termite -e $HOME/.local/bin/arch-pacotes.sh
 bindsym F10 exec --no-startup-id termite -e $HOME/.local/bin/git-cron.sh
-bindsym F11 exec --no-startup-id $HOME/github/dotfiles/install.sh
+bindsym F11 exec --no-startup-i $HOME/github/dotfiles/install.sh
 bindsym F12 exec --no-startup-id termite -e $HOME/.local/bin/arch-pacman.sh
 
 # Rules
