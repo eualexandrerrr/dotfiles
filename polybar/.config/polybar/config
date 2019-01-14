@@ -81,7 +81,7 @@ font-4 = "Font Awesome 5 Brands:pixelsize=9;1"
 
 modules-left = window spotify
 modules-center = i3
-modules-right = video root storage temperature battery data hora
+modules-right = video root storage temperature battery date hora
 
 cursor-click = pointer
 cursor-scroll = ns-resize
@@ -337,7 +337,7 @@ bar-volume-foreground-5 = #FF0080
 bar-volume-foreground-6 = #DF013A
 
 # Data
-[module/data]
+[module/date]
 type = internal/date
 interval = 1
 date = %a, %d-%m-%Y
