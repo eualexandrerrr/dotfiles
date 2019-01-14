@@ -10,10 +10,13 @@ These settings are personal, for my use, and my PC ... surely you will not have 
 
 Search on the correct way for your distribution.
 
-## Arch:
-`sudo pacman -S i3-gaps i3lock compton dunst rofi mpd maim scrot feh python-pywal python-setuptools plasma-browser-integration termite terminus-font`
-
-`yay -S polybar jsoncpp --noconfirm`
+## Arch
+```
+sudo pacman -S i3-gaps i3lock compton dunst rofi mpd maim scrot feh python-pywal python-setuptools plasma-browser-integration termite terminus-font
+```
+```
+yay -S polybar jsoncpp --noconfirm
+```
 
 ## How to use
 
