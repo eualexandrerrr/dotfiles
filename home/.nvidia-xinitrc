@@ -1,7 +1,0 @@
-#!/bin/bash
-# github.com/mamutal91
-
-# VIDEO
-export PLACA_DE_VIDEO=" Nvidia GTX 1050"
-
-exec i3
