@@ -2,7 +2,7 @@
 # github.com/mamutal91
 
 dir="${HOME}/github"
-repos=('archlinux' 'backups' 'backups' 'dirtyunicorns' 'mamutal91.github.io')
+repos=('archlinux' 'backups' 'dirtyunicorns' 'mamutal91.github.io')
 remoto="mamutal91@archlinux"
 
 atualiza() {
@@ -11,9 +11,13 @@ atualiza() {
 			cd $1
 			status=$(git add . -n)
 			if [ ! -z "$status" ]; then
+			c=$(echo $(git add . -n | tr '\r\n' ' '))
+			m="Autocommit Git-Cron: $c"
+			DISPLAY=:0 notify-send "Git-Cron Commits" "$(basename $1)"
 			git add .
-			git commit
+			git commit -m "$m"
 			git push
+			DISPLAY=:0 notify-send "Git-Cron Push" "$(basename $1) atualizado."
 			fi
 		fi
 	fi
