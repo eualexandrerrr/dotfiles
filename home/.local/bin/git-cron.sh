@@ -2,7 +2,7 @@
 # github.com/mamutal91
 
 dir="${HOME}/github"
-repos=('archlinux' 'backups' 'dotfiles' 'backups' 'dirtyunicorns' 'mamutal91.github.io')
+repos=('archlinux' 'backups' 'backups' 'dirtyunicorns' 'mamutal91.github.io')
 remoto="mamutal91@archlinux"
 
 atualiza() {
