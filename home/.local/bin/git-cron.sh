@@ -1,6 +1,9 @@
 #!/bin/bash
 # github.com/mamutal91
 
+# Add linha no crontab
+# */5 * * * * sh -c "~/.local/bin/git-cron.sh" > /dev/null 2>&1
+
 dir="${HOME}/github"
 repos=('archlinux' 'backups' 'dirtyunicorns' 'mamutal91.github.io')
 remoto="mamutal91@archlinux"
