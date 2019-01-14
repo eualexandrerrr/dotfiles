@@ -6,8 +6,11 @@
 
 **Hey**, these are the dotfiles that I use.
 
+These settings are personal, for my use, and my PC ... surely you will not have a 100% effective operation without any adjustments being made. Feel free to copy, paste, distribute, or fork the project.
+
 Search on the correct way for your distribution.
 
+## Arch:
 `sudo pacman -S i3-gaps i3lock compton dunst rofi mpd maim scrot feh python-pywal python-setuptools plasma-browser-integration termite terminus-font`
 
 `yay -S polybar jsoncpp --noconfirm`
