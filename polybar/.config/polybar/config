@@ -79,7 +79,7 @@ font-2 = "Font Awesome 5 Free:style=Regular:pixelsize=9;1"
 font-3 = "Font Awesome 5 Free:style=Solid:pixelsize=9;1"
 font-4 = "Font Awesome 5 Brands:pixelsize=9;1"
 
-modules-left = janela spotify
+modules-left = window spotify
 modules-center = i3
 modules-right = video root storage temperature bateria data hora
 
@@ -172,7 +172,7 @@ label-urgent-background = ${cores.color1}
 label-urgent-padding = 1
 
 # Janela
-[module/janela]
+[module/window]
 type = internal/xwindow
 format-prefix = "  "
 format-prefix-foreground = ${cores.foreground}
