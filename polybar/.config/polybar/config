@@ -81,7 +81,7 @@ font-4 = "Font Awesome 5 Brands:pixelsize=9;1"
 
 modules-left = janela spotify
 modules-center = i3
-modules-right = video root storage temperatura bateria data hora
+modules-right = video root storage temperature bateria data hora
 
 cursor-click = pointer
 cursor-scroll = ns-resize
@@ -407,7 +407,7 @@ animation-charging-4 = 
 animation-charging-framerate = 220
 
 # Temperatura
-[module/temperatura]
+[module/temperature]
 type = internal/temperature
 interval = 0.5
 thermal-zone = 0
