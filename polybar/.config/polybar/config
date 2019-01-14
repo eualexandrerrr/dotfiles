@@ -81,7 +81,7 @@ font-4 = "Font Awesome 5 Brands:pixelsize=9;1"
 
 modules-left = janela spotify
 modules-center = i3
-modules-right = placadevideo root storage temperatura bateria data hora
+modules-right = video root storage temperatura bateria data hora
 
 cursor-click = pointer
 cursor-scroll = ns-resize
@@ -211,10 +211,10 @@ label-mounted = %used%
 label-mounted-foreground = ${cores.roxoclaro}
 
 # Placa de vídeo
-[module/placadevideo]
+[module/video]
 type = custom/script
 interval = 1
-exec = echo $PLACA_DE_VIDEO
+exec = echo $video
 format-foreground = ${cores.azul}
 
 # Kernel

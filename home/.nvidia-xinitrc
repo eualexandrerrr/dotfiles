@@ -2,6 +2,6 @@
 # github.com/mamutal91
 
 # VIDEO
-export PLACA_DE_VIDEO=" Nvidia GTX 1050"
+export video=" Nvidia GTX 1050"
 
 exec i3
