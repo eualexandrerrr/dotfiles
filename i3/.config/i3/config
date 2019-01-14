@@ -131,28 +131,28 @@ for_window [window_type="dialog|menu"] floating enable, move position center, fo
 for_window [class="Termite"] move to workspace $ws1, focus
 for_window [title="/home/mamutal91/.local/bin/git-cron.sh"] move to workspace $ws5, floating enable, resize set 600 px 300 px, border pixel 5, focus
 
-for_window [class="Firefox"] move to workspace $ws2
+for_window [class="Firefox"] move to workspace $ws2, focus
 
-for_window [class="Rambox"] move to workspace $ws3, floating enable, resize set 1200 px 900 px
-for_window [class="TelegramDesktop"] move to workspace $ws3, floating enable, resize set 1000 px 810 px
-for_window [title="Media viewer"] move to workspace $ws3, fullscreen
+for_window [class="Rambox"] move to workspace $ws3, floating enable, resize set 1200 px 900 px, focus
+for_window [class="TelegramDesktop"] move to workspace $ws3, floating enable, resize set 1000 px 810 px, focus
+for_window [title="Media viewer"] move to workspace $ws3, fullscreen, focus
 
-for_window [class="Spotify|vlc|Steam"] move to workspace $ws4
-for_window [title="Lista de amigos"] move to workspace $ws4, floating enable, resize set 320 px 600 px
-for_window [title="Steam — Novidades*"] move to workspace $ws4, floating enable, resize set 410 px 600 px
+for_window [class="Spotify|vlc|Steam"] move to workspace $ws4, focus
+for_window [title="Lista de amigos"] move to workspace $ws4, floating enable, resize set 320 px 600 px, focus
+for_window [title="Steam — Novidades*"] move to workspace $ws4, floating enable, resize set 410 px 600 px, focus
 
-for_window [class="code"] move to workspace $ws5
-for_window [class="Electron"] move to workspace $ws5, floating enable
+for_window [class="code"] move to workspace $ws5, focus
+for_window [class="Electron"] move to workspace $ws5, floating enable, focus
 
-for_window [class="libreoffice-startcenter|libreoffice-writer|libreoffice-draw|libreoffice-presentation|libreoffice-impress|libreoffice-calc"] move to workspace $ws6
+for_window [class="libreoffice-startcenter|libreoffice-writer|libreoffice-draw|libreoffice-presentation|libreoffice-impress|libreoffice-calc"] move to workspace $ws6, focus
 
-for_window [class="Lxappearance|qbittorrent|Thunar"] move to workspace $ws7, floating enable
-for_window [class="Galculator"] move to workspace $ws7, floating enable, resize set 380 px 440 px, move position center
+for_window [class="Lxappearance|qbittorrent|Thunar"] move to workspace $ws7, floating enable, focus
+for_window [class="Galculator"] move to workspace $ws7, floating enable, resize set 380 px 440 px, move position center, focus
 
-for_window [class="Pinta"] move to workspace $ws8
-for_window [class="Gpicview|feh"] move to workspace $ws8
+for_window [class="Pinta"] move to workspace $ws8, focus
+for_window [class="Gpicview|feh"] move to workspace $ws8, focus
 
-for_window [class="Wine|csgo_linux64"] move to workspace $ws9
+for_window [class="Wine|csgo_linux64"] move to workspace $ws9, focus
 
 # Workspaces
 #assign [class="^Termite"] $ws1
