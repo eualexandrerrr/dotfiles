@@ -23,7 +23,7 @@ readonly PACOTES_PACMAN=(
     steam ttf-liberation
     winetricks
     nvidia nvidia-settings nvidia-utils lib32-virtualgl lib32-nvidia-utils opencl-nvidia lib32-libvdpau lib32-opencl-nvidia 
-    xf86-video-intel bumblebee mesa bbswitch
+    bumblebee mesa bbswitch
     xorg-server xorg-xrandr xorg-xbacklight xorg-xinit xorg-xprop xautolock xclip
     linux-headers networkmanager numlockx gvfs ntp unrar unzip wget)
 
