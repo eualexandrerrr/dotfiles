@@ -22,8 +22,8 @@ readonly PACOTES_PACMAN=(
     thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman 
     steam ttf-liberation
     winetricks
-    nvidia nvidia-settings nvidia-utils lib32-virtualgl lib32-nvidia-utils opencl-nvidia lib32-libvdpau lib32-opencl-nvidia
-    xf86-video-intel bumblebee mesa
+    nvidia nvidia-settings nvidia-utils lib32-virtualgl lib32-nvidia-utils opencl-nvidia lib32-libvdpau lib32-opencl-nvidia 
+    xf86-video-intel bumblebee mesa bbswitch
     xorg-server xorg-xrandr xorg-xbacklight xorg-xinit xorg-xprop xautolock xclip
     linux-headers networkmanager numlockx gvfs ntp unrar unzip wget)
 
