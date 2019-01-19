@@ -44,9 +44,15 @@ function xorg-nvidia(){
     sudo cp -r etc/X11/xorg.conf.d/30-touchpad.conf /etc/X11/nvidia-xorg.conf.d/
 }
 
+function systemd(){
+    sudo rm -rf /etc/systemd/logind.conf
+    sudo cp -r etc/systemd/logind.conf /etc/systemd/
+}
+
 function install(){
     dotfiles
     stows
     xorg
     xorg-nvidia
+    systemd
 }
