@@ -31,6 +31,7 @@ readonly PACOTES_AUR=(
     nvidia-xrun
     alsaequal
     polybar jsoncpp
+    gvfs-mtp
     arc-gtk-theme paper-icon-theme-git capitaine-cursors
     ttf-dejavu ttf-font-awesome
     rambox-bin spotify grive-git)
