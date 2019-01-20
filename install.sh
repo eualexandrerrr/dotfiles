@@ -32,3 +32,4 @@ canberra-gtk-play --file=$HOME/.local/share/sounds/completed.wav
 i3-msg restart
 sleep 1s
 $HOME/.config/polybar/launch.sh
+notify-send "dotfiles atualizado!"

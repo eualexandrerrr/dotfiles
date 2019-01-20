@@ -57,7 +57,7 @@ dmenu = /usr/bin/dmenu -p dunst:
 
 browser = /usr/bin/firefox -new-tab
 
-icon_position = off
+icon_position = left
 max_icon_size = 80
 
 icon_path = /usr/share/icons/Paper/16x16/mimetypes/:/usr/share/icons/Paper/48x48/status/:/usr/share/icons/Paper/16x16/devices/:/usr/share/icons/Paper/48x48/notifications/:/usr/share/icons/Paper/48x48/emblems/
