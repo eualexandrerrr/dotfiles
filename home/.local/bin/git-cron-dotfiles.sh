@@ -1,6 +1,8 @@
 #!/bin/bash
 # github.com/mamutal91
 
+(cat ~/.cache/wal/sequences &)
+
 dir="${HOME}/github"
 repos=('dotfiles')
 remoto="mamutal91@archlinux"
