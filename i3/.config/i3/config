@@ -142,7 +142,7 @@ for_window [class="Spotify|vlc|Steam"] move to workspace $ws4, focus
 for_window [title="Lista de amigos"] move to workspace $ws4, floating enable, resize set 320 px 600 px, focus
 for_window [title="Steam — Novidades*"] move to workspace $ws4, floating enable, resize set 410 px 600 px, focus
 
-for_window [class="code"] move to workspace $ws5, focus
+for_window [class="Atom"] move to workspace $ws5, focus
 for_window [class="Electron"] move to workspace $ws5, floating enable, focus
 
 for_window [class="libreoffice-startcenter|libreoffice-writer|libreoffice-draw|libreoffice-presentation|libreoffice-impress|libreoffice-calc"] move to workspace $ws6, focus
@@ -160,7 +160,7 @@ assign [class="^Termite"] $ws1
 assign [class="^Firefox"] $ws2
 assign [class="^TelegramDesktop|Rambox"] $ws3
 assign [class="^Spotify|vlc|Steam"] $ws4
-assign [class="^code"] $ws5
+assign [class="^Atom"] $ws5
 assign [class="^libreoffice-startcenter|libreoffice-writer|libreoffice-draw|libreoffice-presentation|libreoffice-impress|libreoffice-calc"] $ws6
 assign [class="^Lxappearance|qBittorrent|Thunar|Galculator"] $ws7
 assign [class="^Pinta|Gpicview|feh"] $ws8
