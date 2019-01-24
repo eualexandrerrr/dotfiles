@@ -156,7 +156,7 @@ for_window [class="Gpicview|feh"] move to workspace $ws8, focus
 for_window [class="Wine|csgo_linux64"] move to workspace $ws9, focus
 
 # Workspaces
-#assign [class="^Termite"] $ws1
+assign [class="^Termite"] $ws1
 assign [class="^Firefox"] $ws2
 assign [class="^TelegramDesktop|Rambox"] $ws3
 assign [class="^Spotify|vlc|Steam"] $ws4
