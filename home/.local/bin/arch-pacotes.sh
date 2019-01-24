@@ -17,13 +17,13 @@ readonly PACOTES_PACMAN=(
     alsa alsa-utils
     termite terminus-font
     telegram-desktop
-    code pinta vlc gparted qbittorrent galculator
+    atom pinta vlc gparted qbittorrent galculator
     libreoffice-fresh libreoffice-fresh-pt-br
     firefox firefox-i18n-pt-br
-    thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman 
+    thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman
     steam ttf-liberation
     winetricks
-    nvidia nvidia-settings nvidia-utils lib32-virtualgl lib32-nvidia-utils opencl-nvidia lib32-libvdpau lib32-opencl-nvidia 
+    nvidia nvidia-settings nvidia-utils lib32-virtualgl lib32-nvidia-utils opencl-nvidia lib32-libvdpau lib32-opencl-nvidia
     xf86-video-intel bumblebee mesa bbswitch
     xorg-server xorg-xrandr xorg-xbacklight xorg-xinit xorg-xprop xautolock xclip
     linux-headers android-tools networkmanager numlockx gvfs ntp unrar unzip wget)
@@ -40,13 +40,13 @@ readonly PACOTES_AUR=(
 function instalar_pacotes_pacman(){
     for i in "${PACOTES_PACMAN[@]}"; do
         sudo pacman -S ${i} --needed --noconfirm
-    done 
+    done
 }
 
 function instalar_pacotes_aur(){
     for i in "${PACOTES_AUR[@]}"; do
         yay -S ${i} --needed --noconfirm
-    done 
+    done
 }
 
 function winetricks(){
