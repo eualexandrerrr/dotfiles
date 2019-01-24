@@ -3,6 +3,7 @@
 
 # Para obter melhores mirros use
 # sudo reflector -c Brazil --save /etc/pacman.d/mirrorlist
+# sudo reflector -l 10 --sort rate --save /etc/pacman.d/mirrorlist
 
 (cat ~/.cache/wal/sequences &)
 
