@@ -108,11 +108,11 @@ bindsym $ctrl+Insert exec --no-startup-id $HOME/.local/bin/screenshot.sh
 bindsym --release $mod+K exec --no-startup-id $HOME/.local/bin/screencast.sh
 
 # Application shortcuts
-bindsym $mod+Return exec --no-startup-id termite &
-bindsym $mod+e exec --no-startup-id thunar &
-bindsym $mod+F2 exec --no-startup-id firefox &
-bindsym $mod+F3 exec --no-startup-id telegram-desktop &
-bindsym $mod+F4 exec --no-startup-id /usr/bin/rambox &
+bindsym $mod+Return exec --no-startup-id termite &; workspace $ws1
+bindsym $mod+e exec --no-startup-id thunar &; workspace $ws7
+bindsym $mod+F2 exec --no-startup-id firefox &; workspace $ws2
+bindsym $mod+F3 exec --no-startup-id telegram-desktop &; workspace $ws3
+bindsym $mod+F4 exec --no-startup-id /usr/bin/rambox &; workspace $ws3
 
 # System shortcuts
 bindsym F8 exec --no-startup-id $HOME/.config/polybar/launch.sh
