@@ -13,7 +13,7 @@ params="-u"
 data=$(date +%H-%M-%S-%d-%m-%Y)
 nome="Screenshot-${data}"
 extensao=".png"
-atraso=10
+atraso=1
 tipo="image/png"
 lixeira="${HOME}/.local/share/Trash"
 titulo="."
@@ -22,7 +22,7 @@ titulo="."
 [ ! -d $lixeira ] && mkdir -p $lixeira
 
 command -v $app >/dev/null 2>&1 || {
-	msg="O aplicativo $app não está instalado." 
+	msg="O aplicativo $app não está instalado."
 
 	command -v notify-send >/dev/null 2>&1 && {
 		notify-send "ERRO" "$msg";
