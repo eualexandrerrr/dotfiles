@@ -6,8 +6,10 @@
 
 dir="${HOME}/github"
 repos=('archlinux' 'backups' 'dirtyunicorns' 'mamutal91.github.io')
-remoto="mamutal91@archlinux"
+remoto="mamut@35.229.107.212"
 
+app=git.png
+icon=$iconsnotify/$app
 committemp="$(cat ~/.commit)"
 
 atualiza() {
@@ -22,7 +24,7 @@ atualiza() {
 			git add .
 			git commit -m "$m" -m "$committemp"
 			git push
-			DISPLAY=:0 notify-send "Git-Cron Push" "$(basename $1) atualizado."
+			DISPLAY=:0 notify-send -i $icon "Git-Cron Push" "$(basename $1) atualizado."
 			fi
 		fi
 	fi
