@@ -4,6 +4,8 @@
 # Add linha no crontab
 # */5 * * * * sh -c "~/.local/bin/git-cron.sh" > /dev/null 2>&1
 
+git config --global commit.template ~/.commit.txt
+
 dir="${HOME}/github"
 repos=('archlinux' 'backups' 'dirtyunicorns' 'mamutal91.github.io')
 remoto="mamutal91@archlinux"

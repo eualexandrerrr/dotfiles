@@ -3,6 +3,8 @@
 
 (cat ~/.cache/wal/sequences &)
 
+git config --global commit.template ~/.commit.txt
+
 dir="${HOME}/github"
 repos=('dotfiles')
 remoto="mamutal91@archlinux"
