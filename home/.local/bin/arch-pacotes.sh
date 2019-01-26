@@ -35,7 +35,7 @@ readonly PACOTES_AUR=(
     polybar jsoncpp
     gvfs-mtp selinux-python
     arc-gtk-theme paper-icon-theme-git capitaine-cursors
-    ttf-dejavu ttf-font-awesome
+    ttf-dejavu ttf-font-awesome nerdfont
     rambox-bin spotify grive-git)
 
 function instalar_pacotes_pacman(){
