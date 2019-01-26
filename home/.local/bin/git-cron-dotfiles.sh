@@ -3,7 +3,7 @@
 
 (cat ~/.cache/wal/sequences &)
 
-git config --global commit.template ~/.commit.txt
+git config --global commit.template ~/.commit
 
 dir="${HOME}/github"
 repos=('dotfiles')

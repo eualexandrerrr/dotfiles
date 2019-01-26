@@ -4,11 +4,11 @@
 # Add linha no crontab
 # */5 * * * * sh -c "~/.local/bin/git-cron.sh" > /dev/null 2>&1
 
-git config --global commit.template ~/.commit.txt
-
 dir="${HOME}/github"
 repos=('archlinux' 'backups' 'dirtyunicorns' 'mamutal91.github.io')
 remoto="mamutal91@archlinux"
+
+template="Signed-off-by: Alexandre Rangel <mamutal91@gmail.com>"
 
 atualiza() {
 	if [ -d $1 ]; then
@@ -20,7 +20,7 @@ atualiza() {
 			m="Autocommit Git-Cron: $c"
 			DISPLAY=:0 notify-send "Git-Cron Commits" "$(basename $1)"
 			git add .
-			git commit -m "$m"
+			git commit -m "$m" -m "$template"
 			git push
 			DISPLAY=:0 notify-send "Git-Cron Push" "$(basename $1) atualizado."
 			fi
