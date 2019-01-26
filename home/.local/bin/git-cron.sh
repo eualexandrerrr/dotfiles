@@ -8,7 +8,7 @@ dir="${HOME}/github"
 repos=('archlinux' 'backups' 'dirtyunicorns' 'mamutal91.github.io')
 remoto="mamutal91@archlinux"
 
-template="Signed-off-by: Alexandre Rangel <mamutal91@gmail.com>"
+committemp="$(cat ~/.commit)"
 
 atualiza() {
 	if [ -d $1 ]; then
@@ -20,7 +20,7 @@ atualiza() {
 			m="Autocommit Git-Cron: $c"
 			DISPLAY=:0 notify-send "Git-Cron Commits" "$(basename $1)"
 			git add .
-			git commit -m "$m" -m "$template"
+			git commit -m "$m" -m "$committemp"
 			git push
 			DISPLAY=:0 notify-send "Git-Cron Push" "$(basename $1) atualizado."
 			fi

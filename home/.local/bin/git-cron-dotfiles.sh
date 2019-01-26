@@ -17,7 +17,6 @@ atualiza() {
 			if [ ! -z "$status" ]; then
 			git add .
 			git commit
-			git push
 			fi
 		fi
 	fi
