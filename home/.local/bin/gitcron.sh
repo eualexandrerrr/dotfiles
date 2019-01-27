@@ -12,7 +12,7 @@ app=git.png
 icon=$iconsnotify/$app
 committemp="$(cat ~/.commit)"
 
-function atualiza() {
+atualiza() {
 	if [ -d $1 ]; then
 		if [ ! -f $1/.noup ]; then
 			cd $1
@@ -30,4 +30,15 @@ function atualiza() {
 	fi
 }
 
-atualiza "$caminho"
+if [ ! $1 ] || [ $1 == "-a" ]; then
+	for r in "${repos[@]}";	do
+		caminho="${dir}/${r}"
+		atualiza "$caminho"
+	done
+
+	atualiza "${HOME}/github"
+	[ "$1" == "-a" ] && ssh $remoto "/usr/local/scripts/git-http"
+else
+	caminho="$@"
+	atualiza "$caminho"
+fi
