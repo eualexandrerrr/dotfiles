@@ -6,7 +6,7 @@
 
 dir="${HOME}/github"
 repos=('archlinux' 'dirtyunicorns' 'mamutal91.github.io' 'strojects')
-remoto="mamut@35.229.107.212"
+remoto="mamut@mamut"
 
 app=git.png
 icon=$iconsnotify/$app
