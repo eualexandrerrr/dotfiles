@@ -9,6 +9,9 @@ dir="${HOME}/github"
 repos=('dotfiles')
 remoto="mamutal91@archlinux"
 
+app=git.png
+icon=$iconsnotify/$app
+
 atualiza() {
 	if [ -d $1 ]; then
 		if [ ! -f $1/.noup ]; then
@@ -18,6 +21,7 @@ atualiza() {
 			git add .
 			git commit
 			git push
+			DISPLAY=:0 notify-send -i $icon "dotfiles atualizado."
 			fi
 		fi
 	fi
