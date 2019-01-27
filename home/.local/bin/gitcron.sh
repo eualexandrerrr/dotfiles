@@ -5,7 +5,7 @@
 # */5 * * * * sh -c "~/.local/bin/gitcron.sh" > /dev/null 2>&1
 
 dir="${HOME}/github"
-repos=('archlinux' 'backups' 'dirtyunicorns' 'mamutal91.github.io')
+repos=('archlinux' 'dirtyunicorns' 'mamutal91.github.io' 'strojects')
 remoto="mamut@35.229.107.212"
 
 app=git.png
