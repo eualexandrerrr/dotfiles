@@ -1,6 +1,9 @@
 #!/bin/bash
 # github.com/mamutal91
 
+app=variety.png
+icon=$iconsnotify/$app
+
 if [ -f $HOME/.config/user-dirs.dirs ]; then
 	source $HOME/.config/user-dirs.dirs
 	dir="${XDG_PICTURES_DIR}/"
@@ -70,6 +73,6 @@ if [ ! -z $arquivo ]; then
 	xclip -selection c -t $tipo -i $dir$arquivo
 fi
 
-notify-send -i $titulo "Captura de tela realizada" "$msg"
+notify-send -i $icon "Captura de tela realizada" "$msg"
 canberra-gtk-play --file=$HOME/.local/share/sounds/screenshot.wav
 exit 0
