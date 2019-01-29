@@ -25,8 +25,8 @@ fontes = #D3D3D3
 icones = #B6C0C9
 icones-modulos = #AAB5E6
 
-verde = #219A54 
-verdeclaro = #58d68d 
+verde = #219A54
+verdeclaro = #58d68d
 vermelho = #c0392b
 azul = #5dade2
 amarelo = #f1c40f
@@ -41,7 +41,6 @@ cinzaescuro = #A19A93
 
 spotify = #00D965
 
-# Barra de cima
 [bar/cima]
 monitor = ${env:MONITOR:}
 monitor-strict = false
@@ -83,7 +82,6 @@ modules-right = video root storage temperature battery date hour
 cursor-click = pointer
 cursor-scroll = ns-resize
 
-# Barra de baixo
 [bar/baixo]
 monitor = ${env:MONITOR:}
 monitor-strict = false
@@ -99,6 +97,7 @@ foreground = ${cores.transparente}
 
 line-size = 0
 line-color = ${cores.vermelho}
+
 border-size = 0
 border-color = ${cores.vermelho}
 
@@ -118,13 +117,12 @@ font-3 = "Font Awesome 5 Free:style=Solid:pixelsize=9;1"
 font-4 = "Font Awesome 5 Brands:pixelsize=9;1"
 
 modules-left = menu-power lock exit memory cpu kernel
-modules-center = 
+modules-center =
 modules-right = ethernet wireless brightness volume
 
 cursor-click = pointer
 cursor-scroll = ns-resize
 
-# i3
 [module/i3]
 type = internal/i3
 pin-workspaces = true
@@ -168,7 +166,6 @@ label-urgent-foreground = ${cores.color0}
 label-urgent-background = ${cores.color1}
 label-urgent-padding = 1
 
-# Janela
 [module/window]
 type = internal/xwindow
 format-prefix = "  "
@@ -181,7 +178,6 @@ label-maxlen = 50
 label-empty = Sem janelas
 label-empty-foreground = ${cores.fontes}
 
-# Discos/Root
 [module/root]
 type = internal/fs
 mount-0 = /
@@ -194,7 +190,6 @@ format-mounted = <label-mounted>
 label-mounted = %used%
 label-mounted-foreground = ${cores.verdeclaro}
 
-# Discos/Storage
 [module/storage]
 type = internal/fs
 mount-0 = /media/storage
@@ -207,14 +202,12 @@ format-mounted = <label-mounted>
 label-mounted = %used%
 label-mounted-foreground = ${cores.roxoclaro}
 
-# Placa de vídeo
 [module/video]
 type = custom/script
 interval = 1
 exec = echo $video
 format-foreground = ${cores.azul}
 
-# Kernel
 [module/kernel]
 type = custom/script
 interval = 1
@@ -224,7 +217,6 @@ exec = uname -r
 tail = false
 format-foreground = ${cores.fontes}
 
-# Spotify
 [module/spotify]
 interval = 1
 format-prefix = " "
@@ -237,7 +229,6 @@ exec = ~/.local/bin/spotify.sh "%artist% - %title%"
 tail = true
 label-maxlen = 50
 
-# CPU
 [module/cpu]
 type = internal/cpu
 interval = 0.5
@@ -264,7 +255,6 @@ ramp-coreload-6-foreground = #B40431
 ramp-coreload-7 = █
 ramp-coreload-7-foreground = #8A0829
 
-# Memória
 [module/memory]
 type = internal/memory
 format = <label>
@@ -273,7 +263,6 @@ format-prefix-foreground = #B40431
 label = %mb_used%
 label-foreground = #F7819F
 
-# Brilho
 [module/brightness]
 type = internal/backlight
 card = intel_backlight
@@ -300,7 +289,6 @@ bar-foreground-4 = #FE2EC8
 bar-foreground-5 = #FF0080
 bar-foreground-6 = #DF013A
 
-# Volume
 [module/volume]
 type = internal/alsa
 interval = 5
@@ -333,7 +321,6 @@ bar-volume-foreground-4 = #FE2EC8
 bar-volume-foreground-5 = #FF0080
 bar-volume-foreground-6 = #DF013A
 
-# Data
 [module/date]
 type = internal/date
 interval = 1
@@ -346,7 +333,6 @@ format-foreground = ${cores.amarelo}
 label = %date%
 label-foreground = ${cores.fontes}
 
-# Hora
 [module/hour]
 type = internal/date
 interval = 1
@@ -357,7 +343,6 @@ format-foreground = ${cores.rosa}
 label = %time%
 label-foreground = ${cores.fontes}
 
-# Bateria
 [module/battery]
 battery = BAT1
 adapter = ADP1
@@ -403,7 +388,6 @@ animation-charging-3 = 
 animation-charging-4 = 
 animation-charging-framerate = 220
 
-# Temperatura
 [module/temperature]
 type = internal/temperature
 interval = 0.5
@@ -428,7 +412,6 @@ ramp-1 = 
 ramp-2 = 
 ramp-foreground = ${cores.laranja}
 
-# Wireless
 [module/wireless]
 type = internal/network
 interface = wlp3s0
@@ -452,7 +435,6 @@ ramp-signal-4-foreground = #BADE72
 ramp-signal-5 = 
 ramp-signal-5-foreground = #96DE72
 
-# Ethernet
 [module/ethernet]
 type = internal/network
 interface = enp4s0
@@ -466,21 +448,18 @@ label-connected-foreground = ${cores.fontes}
 ramp-signal-0 = 
 ramp-signal-0-foreground = ${cores.icones-modulos}
 
-# Menu Power
 [module/menu-power]
 type = custom/text
 content = 
 content-foreground = ${cores.cinzaescuro}
 click-left = ~/.local/bin/menu-power.sh &
 
-# Lock
 [module/lock]
 type = custom/text
 content = 
 content-foreground = ${cores.cinzaescuro}
 click-left = ~/.local/bin/i3lock.sh &
 
-# Exit
 [module/exit]
 type = custom/text
 content = 
