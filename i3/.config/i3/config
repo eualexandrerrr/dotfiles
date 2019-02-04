@@ -48,7 +48,6 @@ bindsym $alt+Return fullscreen toggle
 
 # Floating window
 bindsym $mod+Shift+space floating toggle
-bindsym $ctrl+space floating toggle
 
 # Workspaces
 bindsym $mod+1 workspace $ws1
