@@ -22,7 +22,7 @@ atualiza() {
 			m="Autocommit Git-Cron: $c"
 			DISPLAY=:0 notify-send -i $icon "Git-Cron Commits" "$(basename $1)"
 			git add .
-			git commit -m "$m" -m "$committemp"
+			git commit -m "$m" -m "$committemp" --author="Alexandre Rangel <mamutal91@gmail.com>" --date "$(date)"
 			git push
 			DISPLAY=:0 notify-send -i $icon "Git-Cron Push" "$(basename $1) atualizado."
 			fi
