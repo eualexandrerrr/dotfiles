@@ -19,7 +19,7 @@ atualiza() {
 			status=$(git add . -n)
 			if [ ! -z "$status" ]; then
 			git add .
-			git commit
+			git commit --author="Alexandre Rangel <mamutal91@gmail.com>" --date "$(date)"
 			git push
 			DISPLAY=:0 notify-send -i $icon "dotfiles atualizado."
 			fi
