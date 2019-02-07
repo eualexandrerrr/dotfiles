@@ -2,7 +2,7 @@
 # github.com/mamutal91
 
 dir=$HOME/.local/share/wallpapers
-img=glitch.jpg
+img=firefox.png
 
 wallpaper=$dir/$img
 
