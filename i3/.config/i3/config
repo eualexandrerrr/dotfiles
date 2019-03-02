@@ -123,7 +123,7 @@ bindsym $mod+F4 exec --no-startup-id /usr/bin/rambox &; workspace $ws3
 # System shortcuts
 bindsym F7 exec --no-startup-id termite -e $HOME/.local/bin/gitcron.sh
 bindsym F8 exec --no-startup-id $HOME/.config/polybar/launch.sh
-bindsym F9 exec --no-startup-id termite -e $HOME/.local/bin/arch-pacotes.sh
+bindsym F9 exec --no-startup-id termite -e $HOME/.local/bin/arch-packages.sh
 bindsym F10 exec --no-startup-id termite -e $HOME/.local/bin/gitcron-dotfiles.sh &; workspace $ws5
 bindsym F11 exec --no-startup-id /media/storage/GitHub/dotfiles/install.sh
 bindsym F12 exec --no-startup-id termite -e $HOME/.local/bin/arch-pacman.sh
