@@ -13,15 +13,13 @@ sudo pacman -Sy
 
 readonly PKGS_PACMAN=(
   git
-  i3-gaps i3lock compton dunst rofi mpd maim ffmpeg neofetch scrot lxappearance feh gpicview python-pywal python-setuptools openssh cronie plasma-browser-integration
+  i3-gaps i3lock compton dunst rofi mpd maim ffmpeg neofetch scrot lxappearance feh gpicview python-pywal python-setuptools openssh cronie
   zsh zsh-syntax-highlighting
-  alsa alsa-utils
   termite terminus-font
   telegram-desktop
   atom pinta mpv smplayer qbittorrent galculator
   libreoffice-fresh libreoffice-fresh-pt-br
   firefox firefox-i18n-pt-br filezilla
-  thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman
   steam ttf-liberation
   winetricks
   nvidia nvidia-settings nvidia-utils lib32-virtualgl lib32-nvidia-utils opencl-nvidia lib32-libvdpau lib32-opencl-nvidia
@@ -31,11 +29,10 @@ readonly PKGS_PACMAN=(
 
 readonly PKGS_AUR=(
   nvidia-xrun
-  alsaequal
   polybar jsoncpp
   gvfs-mtp selinux-python
-  arc-gtk-theme paper-icon-theme-git capitaine-cursors
-  ttf-dejavu ttf-font-awesome nerdfont
+  arc-gtk-theme capitaine-cursors
+  ttf-dejavu ttf-font-awesome
   rambox-bin spotify grive-git)
 
 function install_pkgs_pacman(){
