@@ -48,7 +48,7 @@ function systemd(){
     sudo rm -rf /etc/systemd/logind.conf
     sudo cp -r etc/systemd/logind.conf /etc/systemd/
 
-#    sudo rm -rf /etc/systemd/system/getty@tty1.service.d
-#    sudo mkdir -p /etc/systemd/system/getty@tty1.service.d/
-#    sudo cp -r etc/system/override.conf /etc/systemd/system/getty@tty1.service.d/
+    sudo rm -rf /etc/systemd/system/getty@tty1.service.d
+    sudo mkdir -p /etc/systemd/system/getty@tty1.service.d/
+    sudo cp -r etc/system/override.conf /etc/systemd/system/getty@tty1.service.d/
 }

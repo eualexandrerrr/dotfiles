@@ -12,8 +12,7 @@ USUARIO=mamutal91
 sudo pacman -Sy
 
 readonly PKGS_PACMAN=(
-  git
-  i3-gaps i3lock compton dunst rofi mpd maim ffmpeg neofetch scrot lxappearance feh gpicview python-pywal python-setuptools openssh cronie
+  git i3-gaps i3lock compton dunst rofi mpd maim ffmpeg neofetch scrot lxappearance feh gpicview python-pywal python-setuptools openssh cronie
   zsh zsh-syntax-highlighting
   termite terminus-font
   telegram-desktop
@@ -25,13 +24,13 @@ readonly PKGS_PACMAN=(
   nvidia nvidia-settings nvidia-utils lib32-virtualgl lib32-nvidia-utils opencl-nvidia lib32-libvdpau lib32-opencl-nvidia
   xf86-video-intel bumblebee mesa bbswitch
   xorg-server xorg-xrandr xorg-xbacklight xorg-xinit xorg-xprop xautolock xclip
-  linux-headers android-tools wicd wicd-gtk wireless_tools numlockx gvfs ntp unrar unzip wget)
+  linux-headers android-tools wireless_tools numlockx gvfs ntp unrar unzip wget)
 
 readonly PKGS_AUR=(
   nvidia-xrun
   polybar jsoncpp
   gvfs-mtp selinux-python
-  arc-gtk-theme capitaine-cursors
+  arc-gtk-theme paper-icon-theme-git capitaine-cursors
   ttf-dejavu ttf-font-awesome
   rambox-bin spotify grive-git)
 
