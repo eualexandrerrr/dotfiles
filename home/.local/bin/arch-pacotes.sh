@@ -12,7 +12,8 @@ USUARIO=mamutal91
 sudo pacman -Sy
 
 readonly PKGS_PACMAN=(
-  git i3-gaps i3lock compton dunst rofi mpd maim ffmpeg neofetch scrot lxappearance feh gpicview python-pywal python-setuptools openssh cronie
+  git i3-gaps i3lock compton dunst rofi mpd maim ffmpeg neofetch scrot lxappearance feh gpicview
+  python-pywal python-setuptools openssh cronie stow
   zsh zsh-syntax-highlighting
   termite terminus-font
   telegram-desktop
@@ -30,7 +31,7 @@ readonly PKGS_AUR=(
   nvidia-xrun
   polybar jsoncpp
   gvfs-mtp selinux-python
-  arc-gtk-theme paper-icon-theme-git capitaine-cursors
+  arc-gtk-theme capitaine-cursors
   ttf-dejavu ttf-font-awesome
   rambox-bin spotify grive-git)
 
@@ -58,6 +59,11 @@ function winetricks(){
   winetricks --force directx9 vcrun2005 vcrun2008 vcrun2010 vcrun2012 vcrun2013 vcrun2015 dotnet40 dotnet452 vb6 xact xna31 xna40 msl31 openal corefonts
 }
 
+function oh-my-zsh(){
+  rm -rf $HOME/.oh-my-zsh
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+}
+
 function setup_system(){
   sudo systemctl enable NetworkManager
   sudo systemctl enable cronie
@@ -68,8 +74,8 @@ function setup_system(){
 }
 
 #winetricks
-
 install_pkgs_pacman
-install_yay
+#install_yay
 install_pkgs_aur
+#oh-my-zsh
 setup_system

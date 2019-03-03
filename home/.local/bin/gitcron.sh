@@ -1,8 +1,11 @@
 #!/bin/bash
 # github.com/mamutal91
 
-# Add linha no crontab
+# Add no crontab
 # */5 * * * * sh -c "~/.local/bin/gitcron.sh" > /dev/null 2>&1
+
+git config --global user.email "mamutal91@gmail.com"
+git config --global user.name "Alexandre Rangel"
 
 dir="/media/storage/GitHub/"
 repos=('archlinux' 'buildroid' 'mamutal91.github.io' 'strojects')
