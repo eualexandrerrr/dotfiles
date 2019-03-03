@@ -14,6 +14,7 @@ sudo pacman -Sy
 readonly PKGS_PACMAN=(
   git i3-gaps i3lock compton dunst rofi mpd maim ffmpeg neofetch scrot lxappearance feh gpicview
   python-pywal python-setuptools openssh cronie stow
+  pulseaudio pulseeffects
   zsh zsh-syntax-highlighting
   termite terminus-font
   telegram-desktop
