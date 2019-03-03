@@ -3,7 +3,11 @@
 
 function mamutal91(){
     source /media/storage/GitHub/dotfiles/home/.local/bin/mamutal91.sh
-    install
+    dotfiles
+    stows
+    xorg
+    xorg-nvidia
+    systemd
 }
 
 function stows(){
