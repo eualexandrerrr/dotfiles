@@ -46,6 +46,14 @@ function install_pkgs_aur(){
   done
 }
 
+function install_yay(){
+  git clone https://aur.archlinux.org/yay.git /home/mamutal91/yay
+  cd "/home/mamutal91/yay"
+  makepkg -si --noconfirm
+  cd ..
+  rm -rf yay
+}
+
 function winetricks(){
   winetricks --force directx9 vcrun2005 vcrun2008 vcrun2010 vcrun2012 vcrun2013 vcrun2015 dotnet40 dotnet452 vb6 xact xna31 xna40 msl31 openal corefonts
 }
@@ -62,5 +70,6 @@ function setup_system(){
 #winetricks
 
 install_pkgs_pacman
+install_yay
 install_pkgs_aur
 setup_system
