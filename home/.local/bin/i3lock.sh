@@ -2,10 +2,10 @@
 # github.com/mamutal91
 
 scr='/tmp/screenshot.png'
-icon="$HOME/.mut/share/i3lock/i3lock.png"
-font="$HOME/.mut/share/fonts/OpenSans.ttf"
+icon="$HOME/.local/share/i3lock/i3lock.png"
+font="$HOME/.local/share/fonts/OpenSans.ttf"
 
-[ ! -d $HOME/.mut/share/i3lock/ ] && mkdir -p $HOME/.mut/share/i3lock/
+[ ! -d $HOME/.local/share/i3lock/ ] && mkdir -p $HOME/.local/share/i3lock/
 
 gradientColor='#282a36'
 

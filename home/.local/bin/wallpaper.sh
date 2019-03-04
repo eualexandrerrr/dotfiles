@@ -1,7 +1,7 @@
 #!/bin/bash
 # github.com/mamutal91
 
-dir=$HOME/.mut/share/wallpapers
+dir=$HOME/.local/share/wallpapers
 img=keyboard.jpg
 
 wallpaper=$dir/$img

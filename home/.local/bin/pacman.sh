@@ -24,6 +24,6 @@ sleep 1s
     yay -Qdtq
     yay -R $(yay -Qdtq) --noconfirm
 
-canberra-gtk-play --file=$HOME/.mut/share/sounds/completed.wav
+canberra-gtk-play --file=$HOME/.local/share/sounds/completed.wav
 
 notify-send -i $icon "Pacotes atualizados com sucesso."

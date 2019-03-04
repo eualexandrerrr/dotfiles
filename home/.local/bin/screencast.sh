@@ -15,14 +15,14 @@ file=$local/$(date "+%d-%m-%Y_%H-%M-%S")
 
 function record(){
 	notify-send -i $icon "Gravação de tela" "Início."
-	canberra-gtk-play --file=$HOME/.mut/share/sounds/screencast-start.wav
+	canberra-gtk-play --file=$HOME/.local/share/sounds/screencast-start.wav
 	ffmpeg -f x11grab -video_size 1920x1080 -i $DISPLAY -f alsa -i default -c:v ffvhuff -c:a flac $file.mkv
 }
 
 function stop(){
 	notify-send -i $iconfim "Gravação de tela" "Fim."
 	sudo pkill ffmpeg
-	canberra-gtk-play --file=$HOME/.mut/share/sounds/screencast-stop.wav
+	canberra-gtk-play --file=$HOME/.local/share/sounds/screencast-stop.wav
 }
 
 [[ $variable == "-start" ]] && record || stop

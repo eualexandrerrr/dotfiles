@@ -1,7 +1,7 @@
 #!/bin/bash
 # github.com/mamutal91
 
-function stows(){
+function programs(){
     cd $HOME/.dotfiles
     stow compton
     stow dunst
@@ -15,19 +15,17 @@ function stows(){
 }
 
 function mamutal91(){
-    cd /home/mamutal91/.dotfiles
-    rm -rf *
-    cd /media/storage/GitHub/dotfiles
-    cp -rf * $HOME/.dotfiles
-    cd $HOME/.dotfiles
-    stows
-    sudo stow -t /etc etc
+    rm -rf $HOME/.dotfiles && cp -rf /media/storage/GitHub/dotfiles $HOME/.dotfiles
+    programs
+    sudo stow bbswitch -t /etc
+    sudo stow X11 -t /etc/X11
+
+    sudo rm -rf /etc/systemd/logind.conf && sudo cp -rf systemd/logind.conf /etc/systemd
 }
 
-[[ $USER == "mamutal91" ]] && mamutal91 || stows
+[[ $USER == "mamutal91" ]] && mamutal91 || programs
 
- Finalizando
-canberra-gtk-play --file=$HOME/.mut/share/sounds/completed.wav
+canberra-gtk-play --file=$HOME/.local/share/sounds/completed.wav
 i3-msg restart
 sleep 1s
 $HOME/.config/polybar/launch.sh

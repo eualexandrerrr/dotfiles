@@ -8,7 +8,7 @@ if [ ! -z $res ]; then
       poweroff
     ;;
     Bloquear)
-      $HOME/.mut/scripts/i3lock.sh &
+      $HOME/.local/bin/i3lock.sh &
     ;;
     Encerrar)
       sudo pkill -9 -u $USER

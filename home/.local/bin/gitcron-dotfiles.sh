@@ -3,9 +3,6 @@
 
 (cat ~/.cache/wal/sequences &)
 
-git config --global user.email "mamutal91@gmail.com"
-git config --global user.name "Alexandre Rangel"
-
 app=git.png
 icon=$iconsnotify/$app
 

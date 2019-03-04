@@ -95,23 +95,22 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # Startup
-exec_always --no-startup-id $HOME/.mut/scripts/wallpaper.sh
-exec_always --no-startup-id $HOME/.mut/scripts/mbox.sh
-exec_always --no-startup-id $HOME/.mut/scripts/xdg.sh
+exec_always --no-startup-id $HOME/.local/bin/wallpaper.sh
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
-exec_always --no-startup-id sudo ntpdate -u pool.ntp.org
+exec_always --no-startup-id $HOME/.local/bin/xdg.sh
 exec_always --no-startup-id wal -R
 exec --no-startup-id compton -C
 exec --no-startup-id dunst
-exec --no-startup-id amixer set Master 90%
-exec --no-startup-id xautolock -time 10 -detectsleep -locker $HOME/.mut/scripts/i3lock.sh &
-exec --no-startup-id numlockx &
+exec --no-startup-id numlockx on
+exec --no-startup-id pulseeffects --gapplication-service &>/dev/null
+exec --no-startup-id "pactl set-sink-mute @DEFAULT_SINK@ false; pactl set-sink-volume @DEFAULT_SINK@ 70%"
+exec --no-startup-id xautolock -time 10 -detectsleep -locker $HOME/.local/bin/i3lock.sh &
 
 # Screenshot & Screencast
-bindsym Insert exec --no-startup-id $HOME/.mut/scripts/screenshot.sh -s Recorte
-bindsym $ctrl+Insert exec --no-startup-id $HOME/.mut/scripts/screenshot.sh -u Fullscreen
-bindsym $ctrl+K exec --no-startup-id $HOME/.mut/scripts/screencast.sh -start
-bindsym $ctrl+$shift+K exec --no-startup-id $HOME/.mut/scripts/screencast.sh
+bindsym Insert exec --no-startup-id $HOME/.local/bin/screenshot.sh -s Recorte
+bindsym $ctrl+Insert exec --no-startup-id $HOME/.local/bin/screenshot.sh -u Fullscreen
+bindsym $ctrl+K exec --no-startup-id $HOME/.local/bin/screencast.sh -start
+bindsym $ctrl+$shift+K exec --no-startup-id $HOME/.local/bin/screencast.sh
 
 # Application shortcuts
 bindsym $mod+Return exec --no-startup-id termite &; workspace $ws1
@@ -121,12 +120,12 @@ bindsym $mod+F3 exec --no-startup-id telegram-desktop &; workspace $ws3
 bindsym $mod+F4 exec --no-startup-id /usr/bin/rambox &; workspace $ws3
 
 # System shortcuts
-bindsym F7 exec --no-startup-id termite -e $HOME/.mut/scripts/gitcron.sh
+bindsym F7 exec --no-startup-id termite -e $HOME/.local/bin/gitcron.sh
 bindsym F8 exec --no-startup-id $HOME/.config/polybar/launch.sh
-bindsym F9 exec --no-startup-id termite -e $HOME/.mut/scripts/arch-pacotes.sh
-bindsym F10 exec --no-startup-id termite -e $HOME/.mut/scripts/gitcron-dotfiles.sh &; workspace $ws5
+bindsym F9 exec --no-startup-id termite -e $HOME/.local/bin/pgks.sh
+bindsym F10 exec --no-startup-id termite -e $HOME/.local/bin/gitcron-dotfiles.sh &; workspace $ws5
 bindsym F11 exec --no-startup-id $HOME/.dotfiles/install.sh
-bindsym F12 exec --no-startup-id termite -e $HOME/.mut/scripts/arch-pacman.sh
+bindsym F12 exec --no-startup-id termite -e $HOME/.local/bin/pacman.sh
 
 # Rules
 # xprop |awk '/^WM_CLASS/{sub(/.* =/, "instance:"); sub(/,/, "\nclass:"); print} /^WM_NAME/{sub(/.* =/, "title:"); print}'
@@ -141,7 +140,7 @@ for_window [title="Escolha uma imagem"] floating enable, focus
 
 for_window [class="Termite"] move to workspace $ws1, focus
 for_window [class="Wicd-client.py"] move to workspace $ws1, floating enable, resize set 800 px 400 px, focus
-for_window [title="/home/mamutal91/.mut/scripts/gitcron-dotfiles.sh"] move to workspace $ws5, floating enable, resize set 600 px 300 px, focus
+for_window [title="/home/mamutal91/.local/bin/gitcron-dotfiles.sh"] move to workspace $ws5, floating enable, resize set 600 px 300 px, focus
 
 for_window [class="Firefox"] move to workspace $ws2, focus
 for_window [title="Biblioteca"] floating enable, resize set 800 px 540 px, focus
@@ -157,9 +156,12 @@ for_window [class="Atom"] move to workspace $ws5, focus
 for_window [class="Electron"] move to workspace $ws5, floating enable, focus
 
 for_window [class="libreoffice-startcenter|libreoffice-writer|libreoffice-draw|libreoffice-presentation|libreoffice-impress|libreoffice-calc"] move to workspace $ws6, focus
-for_window [class="Lxappearance|qbittorrent|Thunar"] move to workspace $ws7, floating enable, focus
+for_window [class="Lxappearance|qbittorrent"] move to workspace $ws7, floating enable, focus
 for_window [class="Filezilla"] move to workspace $ws7, focus
 for_window [class="Galculator"] floating enable, resize set 380 px 440 px, move position center, focus
+
+for_window [class="Thunar"] move to workspace $ws7, floating enable, resize set 1000 px 700 px, focus
+for_window [title="Progresso da operação de arquivo*"] move to workspace $ws4, floating enable, focus
 
 for_window [class="Pinta"] move to workspace $ws8, focus
 for_window [class="Gpicview|feh"] move to workspace $ws8, focus
