@@ -2,7 +2,7 @@
 # github.com/mamutal91
 
 dir=$HOME/.local/share/wallpapers
-img=keyboard.jpg
+img=deer.jpg
 
 wallpaper=$dir/$img
 
