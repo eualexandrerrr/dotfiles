@@ -17,3 +17,10 @@ export LC_CTYPE=pt_BR.UTF-8
 
 export BROWSER=firefox
 export iconsnotify="/usr/share/icons/Paper/32x32/apps"
+
+function push () {
+ repo=${1}
+ branch=${2}
+ git push ssh://git@github.com/mamutal91/$repo HEAD:refs/heads/$branch --force
+ git push ssh://git@github.com/KrakenProject/$repo HEAD:refs/heads/$branch --force
+}
