@@ -39,7 +39,7 @@ readonly PKGS_AUR=(
     arc-gtk-theme capitaine-cursors
     paper-icon-theme-git
     ttf-dejavu ttf-font-awesome
-    rambox-bin spotify grive-git
+    Whatsie-bin spotify grive-git
     smplayer-skins smplayer-themes)
 
 function install_pkgs_pacman(){

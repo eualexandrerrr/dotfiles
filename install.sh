@@ -16,6 +16,7 @@ function programs(){
 
 function mamutal91(){
     rm -rf $HOME/.dotfiles && cp -rf /media/storage/GitHub/dotfiles $HOME/.dotfiles
+    rm -rf $HOME/.zshrc
     programs
     sudo stow bbswitch -t /etc
     sudo stow X11 -t /etc/X11
