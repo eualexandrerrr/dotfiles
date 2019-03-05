@@ -20,7 +20,7 @@ readonly PACOTES_PACMAN=(
     telegram-desktop
     atom pinta vlc gparted qbittorrent galculator
     libreoffice-fresh libreoffice-fresh-pt-br
-    firefox firefox-i18n-pt-br
+    firefox firefox-i18n-pt-br filezilla
     thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman
     steam ttf-liberation
     winetricks

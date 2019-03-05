@@ -162,6 +162,7 @@ for_window [class="Electron"] move to workspace $ws5, floating enable
 
 for_window [class="libreoffice-startcenter|libreoffice-writer|libreoffice-draw|libreoffice-presentation|libreoffice-impress|libreoffice-calc"] move to workspace $ws6, focus
 
+for_window [class="Filezilla"] move to workspace $ws7
 for_window [class="Lxappearance|qbittorrent|Thunar"] move to workspace $ws7, floating enable
 for_window [class="Galculator"] move to workspace $ws7, floating enable, resize set 380 px 440 px, move position center
 
@@ -177,6 +178,6 @@ assign [class="^TelegramDesktop|Rambox"] $ws3
 assign [class="^Spotify|vlc|Steam"] $ws4
 assign [class="^Atom"] $ws5
 assign [class="^libreoffice-startcenter|libreoffice-writer|libreoffice-draw|libreoffice-presentation|libreoffice-impress|libreoffice-calc"] $ws6
-assign [class="^Lxappearance|qBittorrent|Thunar|Galculator"] $ws7
+assign [class="^Lxappearance|qBittorrent|Filezilla|Thunar|Galculator"] $ws7
 assign [class="^Pinta|Gpicview|feh"] $ws8
 assign [class="^Wine|csgo_linux64"] $ws9
