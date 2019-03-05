@@ -26,4 +26,4 @@ sleep 1s
 
 canberra-gtk-play --file=$HOME/.local/share/sounds/completed.wav
 
-notify-send -i $icon "Pacotes atualizados com sucesso."
+DISPLAY=:0 dbus-launch notify-send -i $icon "Pacotes atualizados com sucesso."
