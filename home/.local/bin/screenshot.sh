@@ -10,14 +10,14 @@ icon=$iconsnotify/$app
 var=${1}
 msg=${2}
 
-local="${HOME}/Imagens"
+[ ! -d $local ] && mkdir -p $local
+
+local="$HOME/Imagens"
 name=$(date "+%d-%m-%Y_%H-%M-%S").png
 file=$local/$name
 type="image/png"
 
-[ ! -d $local ] && mkdir -p $local
-
 maim $var $file
+xclip -selection c -t $type -i $file
 notify-send -i $icon "Captura de tela" "$msg $name"
 canberra-gtk-play --file=$HOME/.local/share/sounds/screenshot.wav
-xclip -selection c -t $type -i $file
