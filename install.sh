@@ -2,7 +2,7 @@
 # github.com/mamutal91
 
 function mamutal91(){
-    source $HOME/github/dotfiles/home/.local/bin/mamutal91.sh
+    source /media/storage/GitHub/dotfiles/home/.local/bin/mamutal91.sh
     install
 }
 

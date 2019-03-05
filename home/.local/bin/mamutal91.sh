@@ -3,7 +3,7 @@
 
 function dotfiles(){
     sudo rm -rf $HOME/.dotfiles
-    sudo cp -r $HOME/github/dotfiles $HOME/.dotfiles
+    sudo cp -rf /media/storage/GitHub/dotfiles $HOME/.dotfiles
     cd $HOME/.dotfiles
 }
 
