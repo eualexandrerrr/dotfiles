@@ -8,7 +8,7 @@ icon=$iconsnotify/$app
 
 echo ▆▆ Atualizando Pacman
 sleep 1s
-    sudo pacman -Syu --noconfirm
+    sudo pacman -Syyu --noconfirm
 
 echo ▆▆ Atualizando AUR
 sleep 1s
@@ -17,12 +17,12 @@ sleep 1s
 echo ▆▆ Removendo pacotes Pacman não utilizados
 sleep 1s
     sudo pacman -Qdtq
-    sudo pacman -Rns $(pacman -Qdtq) --noconfirm
+    sudo pacman -Rncs $(pacman -Qdtq)
 
 echo ▆▆ Removendo pacotes AUR não utilizados
 sleep 1s
     yay -Qdtq
-    yay -R $(yay -Qdtq) --noconfirm
+    yay -Rncs $(yay -Qdtq)
 
 canberra-gtk-play --file=$HOME/.local/share/sounds/completed.wav
 

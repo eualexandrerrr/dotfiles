@@ -14,7 +14,7 @@ sudo pacman -Sy
 readonly PKGS_PACMAN=(
     archlinux-keyring git i3-gaps i3lock compton dunst rofi mpd maim ffmpeg neofetch scrot lxappearance feh gpicview
     bluez bluez-utils
-    python-pywal python-setuptools openssh cronie stow
+    python-pywal python-setuptools openssh cronie stow jsoncpp
     pulseaudio pulseeffects
     zsh zsh-syntax-highlighting
     termite terminus-font
@@ -34,7 +34,7 @@ readonly PKGS_PACMAN=(
 
 readonly PKGS_AUR=(
     nvidia-xrun
-    polybar-git jsoncpp
+    polybar
     gvfs-mtp selinux-python
     arc-gtk-theme capitaine-cursors
     paper-icon-theme-git
