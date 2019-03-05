@@ -24,3 +24,8 @@ function push () {
  git push ssh://git@github.com/mamutal91/$repo HEAD:refs/heads/$branch --force
  git push ssh://git@github.com/KrakenProject/$repo HEAD:refs/heads/$branch --force
 }
+
+function p () {
+ commit=${1}
+ git cherry-pick $commit
+}
