@@ -156,12 +156,9 @@ for_window [class="Atom"] move to workspace $ws5, focus
 for_window [class="Electron"] move to workspace $ws5, floating enable, focus
 
 for_window [class="libreoffice-startcenter|libreoffice-writer|libreoffice-draw|libreoffice-presentation|libreoffice-impress|libreoffice-calc"] move to workspace $ws6, focus
-for_window [class="Lxappearance|qbittorrent"] move to workspace $ws7, floating enable, focus
+for_window [class="Lxappearance|Thunar|qbittorrent"] move to workspace $ws7, floating enable, focus
 for_window [class="Filezilla"] move to workspace $ws7, focus
 for_window [class="Galculator"] floating enable, resize set 380 px 440 px, move position center, focus
-
-for_window [class="Thunar"] move to workspace $ws7, floating enable, resize set 1000 px 700 px, focus
-for_window [title="Progresso da operação de arquivo*"] move to workspace $ws4, floating enable, focus
 
 for_window [class="Pinta"] move to workspace $ws8, focus
 for_window [class="Gpicview|feh"] move to workspace $ws8, focus
