@@ -5,4 +5,4 @@ cd /media/storage/Google\ Drive/Files/zsh_history
 rm -rf .zsh_history
 
 cd $HOME
-cp .zsh_history /media/storage/Google\ Drive/Files/zsh_history
+cp -rf .zsh_history /media/storage/Google\ Drive/Files/zsh_history
