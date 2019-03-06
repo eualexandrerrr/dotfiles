@@ -1,9 +1,6 @@
 #!/bin/bash
 # github.com/mamutal91
 
-# Add no crontab
-# */5 * * * * "~/.local/bin/gitcron.sh"
-
 source $HOME/.zshrc
 
 dir="/media/storage/GitHub/"

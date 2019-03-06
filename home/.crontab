@@ -1,0 +1,2 @@
+*/5 * * * * "~/.local/bin/gitcron.sh"
+*/5 * * * * cd /media/storage/Google\ Drive/ && grive
