@@ -4,6 +4,8 @@
 # Add no crontab
 # */5 * * * * "~/.local/bin/gitcron.sh"
 
+source $HOME/.zshrc
+
 dir="/media/storage/GitHub/"
 repos=('archlinux' 'buildroid' 'mamutal91.github.io' 'strojects')
 remoto="mamut@mamut"
