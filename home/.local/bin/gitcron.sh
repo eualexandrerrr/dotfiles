@@ -2,7 +2,7 @@
 # github.com/mamutal91
 
 # Add no crontab
-# */5 * * * * sh -c "~/.local/bin/gitcron.sh" > /dev/null 2>&1
+# */5 * * * * "~/.local/bin/gitcron.sh"
 
 dir="/media/storage/GitHub/"
 repos=('archlinux' 'buildroid' 'mamutal91.github.io' 'strojects')
