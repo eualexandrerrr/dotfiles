@@ -89,4 +89,4 @@ install_pkgs_pacman
 install_yay
 install_pkgs_aur
 config_system
-oh-my-zsh
+#oh-my-zsh

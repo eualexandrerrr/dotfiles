@@ -6,7 +6,7 @@
 app=git.png
 icon=$iconsnotify/$app
 
-atualiza() {
+dotfiles() {
 	if [ -d $1 ]; then
 		if [ ! -f $1/.noup ]; then
 			cd /media/storage/GitHub/dotfiles
@@ -21,4 +21,4 @@ atualiza() {
 	fi
 }
 
-atualiza
+dotfiles
