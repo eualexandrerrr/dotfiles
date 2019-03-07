@@ -3,7 +3,8 @@
 
 function mamutal91(){
     source /media/storage/GitHub/dotfiles/home/.local/bin/etc.sh
-    dotfiles
+    copydotfiles
+    cd $HOME/.dotfiles
     stows
     xorg
     xorg-nvidia
@@ -11,16 +12,16 @@ function mamutal91(){
 }
 
 function stows(){
-stow compton
-stow dunst
-stow gpicview
-stow gtk
-stow home
-stow i3
-stow neofetch
-stow polybar
-stow rofi
-stow termite
+    stow compton
+    stow dunst
+    stow gpicview
+    stow gtk
+    stow home
+    stow i3
+    stow neofetch
+    stow polybar
+    stow rofi
+    stow termite
 }
 
 function userinstall(){

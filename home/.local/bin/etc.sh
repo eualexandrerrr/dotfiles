@@ -1,10 +1,11 @@
 #!/bin/bash
 # github.com/mamutal91
 
-function dotfiles(){
-    sudo rm -rf $HOME/.dotfiles
-    sudo cp -rf /media/storage/GitHub/dotfiles $HOME/.dotfiles
-    cd $HOME/.dotfiles
+function copydotfiles(){
+    cd /home/mamutal91/.dotfiles
+    rm -rf *
+    cd /media/storage/GitHub/dotfiles
+    cp -rf * $HOME/.dotfiles
 }
 
 function xorg(){
