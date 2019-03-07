@@ -6,8 +6,8 @@
 git config --global user.email "mamutal91@gmail.com"
 git config --global user.name "Alexandre Rangel"
 
-dir="/media/storage/GitHub/"
-repos=('dotfiles')
+dir="/home/mamutal91/"
+repos=('.dotfiles')
 remoto="mamutal91@archlinux"
 
 app=git.png
