@@ -1,16 +1,6 @@
 #!/bin/bash
 # github.com/mamutal91
 
-function mamutal91(){
-    source /media/storage/GitHub/dotfiles/home/.local/bin/etc.sh
-    copydotfiles
-    cd $HOME/.dotfiles
-    stows
-    xorg
-    xorg-nvidia
-    systemd
-}
-
 function stows(){
     stow compton
     stow dunst
@@ -27,6 +17,14 @@ function stows(){
 function userinstall(){
     cd $HOME/.dotfiles
     stows
+}
+
+function mamutal91(){
+    cd /home/mamutal91/.dotfiles && rm -rf *
+    cd /media/storage/GitHub/dotfiles && cp -rf * $HOME/.dotfiles
+    cd $HOME/.dotfiles
+    stows
+    sudo stow -t /etc etc
 }
 
 [[ $USER == "mamutal91" ]] && mamutal91 || userinstall
