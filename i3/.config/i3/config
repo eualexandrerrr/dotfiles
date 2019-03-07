@@ -137,7 +137,7 @@ for_window [window_role="pop-up|bubble|task_dialog|Preferences"] floating enable
 for_window [window_type="dialog|menu"] floating enable, move position center, focus
 for_window [title="Open Folder*"] floating enable, resize set 700 px 500 px, move position center, focus
 for_window [title="Media viewer"] fullscreen enable, focus
-for_window [title="Escolha uma imagem"] flating enable, focus
+for_window [title="Escolha uma imagem"] floating enable, focus
 
 for_window [class="Termite"] move to workspace $ws1, focus
 for_window [class="Wicd-client.py"] move to workspace $ws1, floating enable, resize set 800 px 400 px, focus
