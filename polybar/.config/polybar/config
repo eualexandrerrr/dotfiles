@@ -116,7 +116,7 @@ font-2 = "Font Awesome 5 Free:style=Regular:pixelsize=9;1"
 font-3 = "Font Awesome 5 Free:style=Solid:pixelsize=9;1"
 font-4 = "Font Awesome 5 Brands:pixelsize=9;1"
 
-modules-left = menu-power memory cpu kernel
+modules-left = git menu-power memory cpu kernel
 modules-center =
 modules-right = ethernet wireless brightness volume
 
@@ -453,6 +453,12 @@ type = custom/text
 content = 
 content-foreground = ${cores.azul}
 click-left = ~/.local/bin/menu-power.sh &
+
+[module/git]
+type = custom/text
+content = 
+content-foreground = ${cores.cinza}
+click-left = termite -t git -e $HOME/.local/bin/gitscript.sh &
 
 [settings]
 pseudo-transparency = true

@@ -9,7 +9,7 @@ icon=$iconsnotify/$app
 dotfiles() {
 	if [ -d $1 ]; then
 		if [ ! -f $1/.noup ]; then
-			cd /media/storage/GitHub/dotfiles
+			cd /media/storage/github/dotfiles
 			status=$(git add . -n)
 			if [ ! -z "$status" ]; then
 			git add .

@@ -1,8 +1,9 @@
 #!/bin/bash
 # github.com/mamutal91
 
+export iconsnotify="/usr/share/icons/Paper/32x32/apps"
 
-dir="/media/storage/GitHub/"
+dir="/media/storage/github/"
 readonly repos=('archlinux' 'buildroid' 'mamutal91.github.io' 'strojects')
 
 app=git.png
