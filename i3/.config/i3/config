@@ -107,7 +107,7 @@ exec --no-startup-id pulseeffects --gapplication-service &>/dev/null
 exec --no-startup-id sudo timedatectl set-ntp true && sudo hwclock --systohc
 exec --no-startup-id sudo hwclock --systohc --utc && sudo timedatectl set-ntp true
 exec --no-startup-id "pactl set-sink-mute @DEFAULT_SINK@ false; pactl set-sink-volume @DEFAULT_SINK@ 50%"
-exec --no-startup-id xidlehook --not-when-fullscreen --not-when-audio --timer normal 600 '$HOME/.config/scripts/i3lock.sh -t -ef -n' ''
+exec --no-startup-id xidlehook --not-when-audio --not-when-fullscreen --timer 600 '$HOME/.config/scripts/i3lock.sh -t -ef -n' ''
 
 # Screenshot & Screencast
 bindsym Insert exec --no-startup-id $HOME/.config/scripts/screenshot.sh -s Recorte
