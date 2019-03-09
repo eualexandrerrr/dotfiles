@@ -15,7 +15,7 @@ export LC_ALL=pt_BR.UTF-8
 export LANGUAGE=pt_BR.UTF-8
 export LC_CTYPE=pt_BR.UTF-8
 
-export BROWSER=firefox
+export BROWSER=google-chrome-stable
 export iconsnotify="/usr/share/icons/Paper/32x32/apps"
 
 function push () {

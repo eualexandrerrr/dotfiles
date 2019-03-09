@@ -11,7 +11,7 @@ sudo pacman -Sy
 
 readonly PKGS_PACMAN=(
     alacritty android-tools archlinux-keyring atom bbswitch bluez bluez-utils bumblebee compton cronie dunst feh ffmpeg
-    filezilla firefox firefox-i18n-pt-br galculator git gpicview gvfs gparted i3-gaps i3lock imagemagick jsoncpp
+    filezilla galculator git gpicview gvfs gparted i3-gaps i3lock imagemagick jsoncpp
     lib32-libvdpau lib32-nvidia-utils lib32-opencl-nvidia lib32-virtualgl libreoffice-fresh libreoffice-fresh-pt-br
     linux-headers lxappearance maim mesa mpd mpv neofetch ntp numlockx
     nvidia nvidia-settings nvidia-utils opencl-nvidia
@@ -22,7 +22,7 @@ readonly PKGS_PACMAN=(
     zsh zsh-syntax-highlighting)
 
 readonly PKGS_AUR=(
-    arc-gtk-theme capitaine-cursors grive-git gvfs-mtp nvidia-xrun nerd-fonts-complete
+    arc-gtk-theme capitaine-cursors grive-git gvfs-mtp nvidia-xrun nerd-fonts-complete google-chrome
 #   paper-icon-theme-git
     polybar smplayer-skins smplayer-themes spotify ttf-dejavu ttf-font-awesome whatsapp-nativefier)
 
