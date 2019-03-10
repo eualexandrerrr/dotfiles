@@ -5,11 +5,11 @@ killall -q polybar
 
 if type "xrandr"; then
   for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
-    MONITOR=$m polybar --reload cima &
-    MONITOR=$m polybar --reload baixo &
+    MONITOR=$m polybar --reload up &
+    MONITOR=$m polybar --reload down &
   done
 else
-  polybar --reload cima &
+  polybar --reload up &
   sleep 1s
-  polybar --reload baixo &
+  polybar --reload down &
 fi
