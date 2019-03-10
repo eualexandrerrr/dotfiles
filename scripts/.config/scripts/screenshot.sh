@@ -4,7 +4,7 @@
 # -s = Recorte
 # -u = Fullscreen
 
-app=variety.png
+app=screenshot.png
 icon=$iconsnotify/$app
 
 var=${1}

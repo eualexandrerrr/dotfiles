@@ -1,7 +1,7 @@
 #!/bin/bash
 # github.com/mamutal91
 
-app=utilities-terminal.png
+app=pacman.png
 icon=$iconsnotify/$app
 
 echo -e "

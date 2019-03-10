@@ -16,7 +16,7 @@ export LANGUAGE=pt_BR.UTF-8
 export LC_CTYPE=pt_BR.UTF-8
 
 export BROWSER=firefox
-export iconsnotify="/usr/share/icons/Paper/32x32/apps"
+export iconsnotify="/home/mamutal91/.config/files/icons"
 
 function push () {
  repo=${1}

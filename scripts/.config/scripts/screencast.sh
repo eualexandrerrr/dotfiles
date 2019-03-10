@@ -1,7 +1,7 @@
 #!/bin/bash
 # github.com/mamutal91
 
-app=audience.png
+app=screencast.png
 appfim=XMind.png
 icon=$iconsnotify/$app
 iconfim=$iconsnotify/$appfim

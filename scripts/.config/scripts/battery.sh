@@ -1,7 +1,7 @@
 #!/bin/bash
 # github.com/mamutal91
 
-app=variety.png
+app=battery.png
 icon=$iconsnotify/$app
 bat="/sys/class/power_supply/BAT1"
 
