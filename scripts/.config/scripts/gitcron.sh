@@ -1,8 +1,6 @@
 #!/bin/bash
 # github.com/mamutal91
 
-export iconsnotify="/usr/share/icons/Paper/32x32/apps"
-
 dir="/media/storage/GitHub/"
 readonly repos=('archlinux' 'mamutal91.github.io')
 
