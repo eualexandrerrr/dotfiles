@@ -123,7 +123,7 @@ bindsym $mod+F4 exec --no-startup-id /usr/bin/whatsie &; workspace $ws3
 bindsym F7 exec --no-startup-id termite -e $HOME/.local/bin/gitcron.sh
 bindsym F8 exec --no-startup-id $HOME/.config/polybar/launch.sh
 bindsym F9 exec --no-startup-id termite -e $HOME/.local/bin/pgks.sh
-bindsym F10 exec --no-startup-id termite -t gitscript -e /media/storage/github/dotfiles/home/.local/bin/gitscript.sh &; workspace $ws5
+bindsym F10 exec --no-startup-id termite -t git-dotfiles -e $HOME/.local/bin/gitcron-dotfiles.sh &; workspace $ws5
 bindsym F11 exec --no-startup-id $HOME/.dotfiles/install.sh
 bindsym F12 exec --no-startup-id termite -e $HOME/.local/bin/pacman.sh
 
@@ -140,8 +140,7 @@ for_window [title="Escolha uma imagem"] floating enable, focus
 
 for_window [class="Termite"] focus
 for_window [class="Wicd-client.py"] move to workspace $ws1, floating enable, resize set 800 px 400 px, focus
-for_window [title="/home/mamutal91/.local/bin/gitcron-dotfiles.sh"] move to workspace $ws5, floating enable, resize set 600 px 300 px, focus
-for_window [title="gitscript"] move to workspace $ws5, floating enable, resize set 600 px 300 px, focus
+for_window [title="git-dotfiles"] move to workspace $ws5, floating enable, resize set 600 px 300 px, focus
 
 for_window [class="Firefox"] move to workspace $ws2, focus
 for_window [title="Biblioteca"] floating enable, resize set 800 px 540 px, focus
