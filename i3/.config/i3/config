@@ -139,8 +139,7 @@ for_window [title="Media viewer"] fullscreen enable, focus
 for_window [title="Escolha uma imagem"] floating enable, focus
 
 for_window [class="Alacritty"] focus
-for_window [class="Wicd-client.py"] move to workspace $ws1, floating enable, resize set 800 px 400 px, focus
-for_window [title="git-dotfiles"] move to workspace $ws5, floating enable, resize set 600 px 300 px, focus
+for_window [title="git-dotfiles"] move to workspace $ws5, floating enable, resize set 600 px 300 px, move right 330px, move down 200px, focus
 
 for_window [instance="Navigator"] move to workspace $ws2, focus
 for_window [class="Firefox|firefox"] move to workspace $ws2, focus
@@ -167,7 +166,7 @@ for_window [class="Gpicview|feh"] move to workspace $ws8, focus
 for_window [class="Wine|csgo_linux64"] move to workspace $ws9, focus
 
 # Workspaces
-assign [class="^Alacritty|Wicd-client.py"] $ws1
+assign [class="^Alacritty"] $ws1
 assign [class="^Firefox"] $ws2
 assign [class="^TelegramDesktop|Franz"] $ws3
 assign [class="^Spotify|smplayer|Steam"] $ws4
