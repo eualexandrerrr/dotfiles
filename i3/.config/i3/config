@@ -139,7 +139,7 @@ for_window [title="Media viewer"] fullscreen enable, focus
 for_window [title="Escolha uma imagem"] floating enable, focus
 
 for_window [class="Alacritty"] move to workspace $ws1, focus
-for_window [title="git-dotfiles"] move to workspace $ws5, floating enable, resize set 600 px 300 px, move right 330px, move down 200px, focus
+for_window [title="git-dotfiles"] move to workspace $ws5, floating enable, resize set 600 px 300 px, move right 30px, move down 150px, focus
 
 for_window [instance="Navigator"] move to workspace $ws2, focus
 for_window [class="Firefox|firefox"] move to workspace $ws2, focus
