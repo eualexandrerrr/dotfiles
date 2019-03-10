@@ -18,13 +18,13 @@ readonly PKGS_PACMAN=(
     openssh pinta pulseaudio pulseeffects python-setuptools qbittorrent reflector rofi scrot smplayer steam stow telegram-desktop
     terminus-font thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman ttf-liberation
     unrar unzip wget winetricks wireless_tools
-    xautolock xclip xf86-video-intel xorg-server xorg-xbacklight xorg-xinit xorg-xprop xorg-xrandr
+    xclip xf86-video-intel xorg-server xorg-xbacklight xorg-xinit xorg-xprop xorg-xrandr
     zsh zsh-syntax-highlighting)
 
 readonly PKGS_AUR=(
     arc-gtk-theme capitaine-cursors grive-git gvfs-mtp nvidia-xrun nerd-fonts-complete
 #   paper-icon-theme-git
-    polybar smplayer-skins smplayer-themes spotify ttf-dejavu ttf-font-awesome whatsapp-nativefier)
+    polybar smplayer-skins smplayer-themes spotify ttf-dejavu ttf-font-awesome whatsapp-nativefier xidlehook)
 
 function install_pkgs_pacman(){
     for i in "${PKGS_PACMAN[@]}"; do
