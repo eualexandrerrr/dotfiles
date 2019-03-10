@@ -19,5 +19,5 @@ type="image/png"
 
 maim $var $file
 notify-send -i $icon "Captura de tela" "$msg $name"
-canberra-gtk-play --file=$HOME/.local/share/sounds/screenshot.wav
+canberra-gtk-play --file=$HOME/.mut/share/sounds/screenshot.wav
 xclip -selection c -t $type -i $file

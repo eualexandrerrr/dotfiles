@@ -33,6 +33,7 @@ readonly PKGS_AUR=(
   polybar jsoncpp
   gvfs-mtp selinux-python
   arc-gtk-theme capitaine-cursors
+  paper-icon-theme-git
   ttf-dejavu ttf-font-awesome
   rambox-bin spotify grive-git)
 

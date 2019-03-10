@@ -2,7 +2,7 @@
 # github.com/mamutal91
 
 # Add no crontab
-# */5 * * * * sh -c "~/.local/bin/gitcron.sh" > /dev/null 2>&1
+# */5 * * * * sh -c "~/.mut/scripts/gitcron.sh" > /dev/null 2>&1
 
 git config --global user.email "mamutal91@gmail.com"
 git config --global user.name "Alexandre Rangel"

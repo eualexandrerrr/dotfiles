@@ -225,7 +225,7 @@ format-padding = 1
 format-foreground = ${cores.fontes}
 format-underline = ${cores.transparente}
 type = custom/script
-exec = ~/.local/bin/spotify.sh "%artist% - %title%"
+exec = ~/.mut/scripts/spotify.sh "%artist% - %title%"
 tail = true
 label-maxlen = 50
 
@@ -452,7 +452,7 @@ ramp-signal-0-foreground = ${cores.icones-modulos}
 type = custom/text
 content = 
 content-foreground = ${cores.azul}
-click-left = ~/.local/bin/menu-power.sh &
+click-left = ~/.mut/scripts/menu-power.sh &
 
 [settings]
 pseudo-transparency = true
