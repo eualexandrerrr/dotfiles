@@ -18,6 +18,8 @@ file=$local/$name
 type="image/png"
 
 maim $var -u $file
-xclip -selection c -t $type -i $file
+echo $file
 DISPLAY=:0 dbus-launch notify-send -i $icon "Captura de tela" "$msg $name"
 canberra-gtk-play --file=$HOME/.config/files/sounds/screenshot.wav
+sleep 2;
+xclip -selection c -t $type -i $file
