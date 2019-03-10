@@ -168,7 +168,7 @@ for_window [class="Wine|csgo_linux64"] move to workspace $ws9, focus
 # Workspaces
 assign [class="^Alacritty"] $ws1
 assign [class="^Firefox"] $ws2
-assign [class="^TelegramDesktop|Franz"] $ws3
+assign [class="^TelegramDesktop"] $ws3
 assign [class="^Spotify|smplayer|Steam"] $ws4
 assign [class="^Atom"] $ws5
 assign [class="^libreoffice-startcenter|libreoffice-writer|libreoffice-draw|libreoffice-presentation|libreoffice-impress|libreoffice-calc"] $ws6
