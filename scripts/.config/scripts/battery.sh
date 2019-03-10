@@ -7,18 +7,20 @@ bat="/sys/class/power_supply/BAT1"
 
 while sleep 400
 do
-    LEVEL=$(cat "$bat"/charge_full)
-    STATUS=$(cat "$bat"/charge_now)
-    if [ "$STATUS" = "3136000" ]; then
+    LEVEL=$(cat "$bat"/capacity)
+    STATUS=$(cat "$bat"/status)
 
-        if [ "$LEVEL" -eq 3136000 ]; then
-            DISPLAY=:0 dbus-launch notify-send -i $icon "Bateria está carrega!" "Pode remover da tomada!"
-        elif [ "$LEVEL" -ge 3136000 ]; then
-            DISPLAY=:0 dbus-launch notify-send -i $icon "Bateria está carregando acima de 80%!" "Por favor tire-o da tomada!"
+    if [ "$STATUS" = "Discharging" ]; then
+        if [ "$LEVEL" -le 15 ]; then
+            DISPLAY=:0 dbus-launch notify-send -i $icon "Bateria está abaixo de 15%" "Precisa carregar! Por favor plugue-o na tomada!"
+            canberra-gtk-play --file=$HOME/.config/files/sounds/battery.wav
         fi
     else
-        if [ "$LEVEL" -le 476000 ]; then
-            DISPLAY=:0 dbus-launch notify-send -i $icon "Bateria está abaixo de 15%!" "Precisa carregar! Por favor plugue o na tomada!."
-        fi
+      echo "Charging..."
+#        if [ "$LEVEL" -eq 98 ]; then
+#            DISPLAY=:0 dbus-launch notify-send -i $icon "Bateria está carrega!" "Pode remover da tomada!"
+#        elif [ "$LEVEL" -ge 80 ]; then
+#            DISPLAY=:0 dbus-launch notify-send -i $icon "Bateria está carregando acima de 80%" "Por favor tire-o da tomada!"
+#        fi
     fi
 done
