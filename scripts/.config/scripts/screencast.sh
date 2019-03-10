@@ -2,9 +2,7 @@
 # github.com/mamutal91
 
 app=screencast.png
-appfim=XMind.png
 icon=$iconsnotify/$app
-iconfim=$iconsnotify/$appfim
 
 variable=${1}
 
@@ -20,7 +18,7 @@ function record(){
 }
 
 function stop(){
-	DISPLAY=:0 dbus-launch notify-send -i $iconfim "Gravação de tela" "Fim."
+	DISPLAY=:0 dbus-launch notify-send -i $icon "Gravação de tela" "Fim."
 	sudo pkill ffmpeg
 }
 
