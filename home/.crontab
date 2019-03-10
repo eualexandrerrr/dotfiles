@@ -1,3 +1,2 @@
 */5 * * * * $HOME/.config/scripts/gitcron.sh
-*/5 * * * * $HOME/.config/scripts/zsh_history_backup.sh
 */5 * * * * cd /media/storage/Google\ Drive/ && grive
