@@ -10,7 +10,7 @@ USER=mamutal91
 sudo pacman -Sy
 
 readonly PKGS_PACMAN=(
-    alacritty android-tools archlinux-keyring atom bbswitch bluez bluez-utils bumblebee compton cronie dunst feh ffmpeg \
+    alacritty alsa-utils android-tools archlinux-keyring atom bbswitch bluez bluez-utils bumblebee compton cronie dunst feh ffmpeg \
     filezilla firefox firefox-i18n-pt-br galculator git gpicview gvfs gparted i3-gaps i3lock imagemagick jsoncpp \
     lib32-libvdpau lib32-nvidia-utils lib32-opencl-nvidia lib32-virtualgl libreoffice-fresh libreoffice-fresh-pt-br \
     linux-headers lxappearance maim mesa mpd mpv neofetch ntp numlockx \
