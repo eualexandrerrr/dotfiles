@@ -5,7 +5,7 @@ app=battery.png
 icon=$iconsnotify/$app
 bat="/sys/class/power_supply/BAT1"
 
-while sleep 240
+while sleep 180
 do
     LEVEL=$(cat "$bat"/capacity)
     STATUS=$(cat "$bat"/status)
