@@ -223,7 +223,7 @@ format-padding = 1
 format-foreground = ${colors.fontes}
 format-underline = ${colors.transparente}
 type = custom/script
-exec = ~/.local/bin/spotify.sh "%artist% - %title%"
+exec = ~/.config/polybar/scripts/spotify.sh "%artist% - %title%"
 tail = true
 label-maxlen = 50
 
@@ -450,7 +450,7 @@ ramp-signal-0-foreground = ${colors.icones-modulos}
 type = custom/text
 content = 
 content-foreground = ${colors.cinza}
-click-left = ~/.local/bin/menu-power.sh &
+click-left = ~/.config/polybar/scripts/menu-power.sh &
 
 [settings]
 pseudo-transparency = true
