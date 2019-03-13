@@ -1,4 +1,4 @@
-[cores]
+[colors]
 background = ${xrdb:background}
 foreground = ${xrdb:foreground}
 color0 = ${xrdb:color0}
@@ -34,11 +34,9 @@ laranja = #dc7633
 roxo = #8a2be2
 roxoclaro = #C88CFF
 rosa = #cd1076
-
 branco = #ffffff
 cinza = #D3D3D3
 cinzaescuro = #A19A93
-
 spotify = #00D965
 
 [bar/cima]
@@ -51,14 +49,14 @@ fixed-center = true
 bottom = false
 locale = pt_BR.UTF-8
 
-background = ${cores.transparente}
-foreground = ${cores.transparente}
+background = ${colors.transparente}
+foreground = ${colors.transparente}
 
 line-size = 0
-line-color = ${cores.vermelho}
+line-color = ${colors.vermelho}
 
 border-size = 1
-border-color = ${cores.transparente}
+border-color = ${colors.transparente}
 
 padding-left = 2
 padding-right = 2
@@ -92,14 +90,14 @@ fixed-center = true
 bottom = true
 locale = pt_BR.UTF-8
 
-background = ${cores.transparente}
-foreground = ${cores.transparente}
+background = ${colors.transparente}
+foreground = ${colors.transparente}
 
 line-size = 0
-line-color = ${cores.vermelho}
+line-color = ${colors.vermelho}
 
 border-size = 0
-border-color = ${cores.vermelho}
+border-color = ${colors.vermelho}
 
 padding-left = 2
 padding-right = 2
@@ -151,32 +149,32 @@ label-mode-padding = 1
 label-mode-background = #e60053
 
 label-focused = %icon%
-label-focused-foreground = ${cores.color1}
-label-focused-background = ${cores.background}
-label-focused-underline = ${cores.color1}
+label-focused-foreground = ${colors.color1}
+label-focused-background = ${colors.transparente}
+label-focused-underline = ${colors.color1}
 label-focused-padding = 1
 
 label-unfocused = %icon%
-label-unfocused-foreground = ${cores.color2}
-label-unfocused-underline = ${cores.transparente}
+label-unfocused-foreground = ${colors.color4}
+label-unfocused-underline = ${colors.transparente}
 label-unfocused-padding = 1
 
 label-urgent = %icon%
-label-urgent-foreground = ${cores.color0}
-label-urgent-background = ${cores.color1}
+label-urgent-foreground = ${colors.color0}
+label-urgent-background = ${colors.color1}
 label-urgent-padding = 1
 
 [module/window]
 type = internal/xwindow
 format-prefix = "  "
-format-prefix-foreground = ${cores.foreground}
+format-prefix-foreground = ${colors.foreground}
 format = <label>
-format-background = ${cores.transparente}
-format-foreground = ${cores.fontes}
+format-background = ${colors.transparente}
+format-foreground = ${colors.fontes}
 label = %title%
 label-maxlen = 50
 label-empty = Sem janelas
-label-empty-foreground = ${cores.fontes}
+label-empty-foreground = ${colors.fontes}
 
 [module/root]
 type = internal/fs
@@ -184,11 +182,11 @@ mount-0 = /
 interval = 10
 fixed-values = true
 format-mounted-prefix = " root "
-format-mounted-prefix-foreground = ${cores.verde}
-format-mounted-underline = ${cores.transparente}
+format-mounted-prefix-foreground = ${colors.verde}
+format-mounted-underline = ${colors.transparente}
 format-mounted = <label-mounted>
 label-mounted = %used%
-label-mounted-foreground = ${cores.verdeclaro}
+label-mounted-foreground = ${colors.verdeclaro}
 
 [module/storage]
 type = internal/fs
@@ -196,34 +194,34 @@ mount-0 = /media/storage
 interval = 10
 fixed-values = true
 format-mounted-prefix = " storage "
-format-mounted-prefix-foreground = ${cores.roxo}
-format-mounted-underline = ${cores.transparente}
+format-mounted-prefix-foreground = ${colors.roxo}
+format-mounted-underline = ${colors.transparente}
 format-mounted = <label-mounted>
 label-mounted = %used%
-label-mounted-foreground = ${cores.roxoclaro}
+label-mounted-foreground = ${colors.roxoclaro}
 
 [module/video]
 type = custom/script
 interval = 1
 exec = echo $video
-format-foreground = ${cores.azul}
+format-foreground = ${colors.azul}
 
 [module/kernel]
 type = custom/script
 interval = 1
 format-prefix = " Kernel "
-format-prefix-foreground = ${cores.icones-modulos}
+format-prefix-foreground = ${colors.icones-modulos}
 exec = uname -r
 tail = false
-format-foreground = ${cores.fontes}
+format-foreground = ${colors.fontes}
 
 [module/spotify]
 interval = 1
 format-prefix = " "
-format-prefix-foreground = ${cores.spotify}
+format-prefix-foreground = ${colors.spotify}
 format-padding = 1
-format-foreground = ${cores.fontes}
-format-underline = ${cores.transparente}
+format-foreground = ${colors.fontes}
+format-underline = ${colors.transparente}
 type = custom/script
 exec = ~/.local/bin/spotify.sh "%artist% - %title%"
 tail = true
@@ -269,17 +267,17 @@ card = intel_backlight
 format = <label> <bar>
 
 format-prefix = " "
-format-prefix-foreground = ${cores.icones-modulos}
+format-prefix-foreground = ${colors.icones-modulos}
 
 label = %percentage%%
-label-foreground = ${cores.fontes}
+label-foreground = ${colors.fontes}
 
 bar-indicator = |
-bar-indicator-foreground = ${cores.icones-modulos}
+bar-indicator-foreground = ${colors.icones-modulos}
 bar-fill = ─
 bar-gradient = true
 bar-empty= ─
-bar-empty-foreground = ${cores.cinzaescuro}
+bar-empty-foreground = ${colors.cinzaescuro}
 bar-width = 8
 bar-foreground-0 = #D8CEF6
 bar-foreground-1 = #D0A9F5
@@ -296,22 +294,22 @@ use-ui-max = false
 sink = alsa_output.pci-0000_00_1f.3.analog-stereo
 
 format-volume-prefix = " "
-format-volume-prefix-foreground = ${cores.icones-modulos}
+format-volume-prefix-foreground = ${colors.icones-modulos}
 
 format-volume = <label-volume> <bar-volume>
 
 label-volume = %percentage%%
-label-volume-foreground = ${cores.fontes}
+label-volume-foreground = ${colors.fontes}
 
 label-muted =  MUTE ───────
-label-muted-foreground = ${cores.icones-modulos}
+label-muted-foreground = ${colors.icones-modulos}
 
 bar-volume-gradient = true
 bar-volume-indicator = |
-bar-volume-indicator-foreground = ${cores.icones-modulos}
+bar-volume-indicator-foreground = ${colors.icones-modulos}
 bar-volume-fill = ─
 bar-volume-empty = ─
-bar-volume-empty-foreground = ${cores.cinzaescuro}
+bar-volume-empty-foreground = ${colors.cinzaescuro}
 bar-volume-width = 8
 bar-volume-foreground-0 = #D8CEF6
 bar-volume-foreground-1 = #D0A9F5
@@ -328,20 +326,20 @@ date = %a, %d-%m-%Y
 date-alt = %A, %d de %B de %G%
 time = %H:%M
 format =  <label>
-format-underline = ${cores.transparente}
-format-foreground = ${cores.amarelo}
+format-underline = ${colors.transparente}
+format-foreground = ${colors.amarelo}
 label = %date%
-label-foreground = ${cores.fontes}
+label-foreground = ${colors.fontes}
 
 [module/hour]
 type = internal/date
 interval = 1
 time = %R
 format =  <label>
-format-underline = ${cores.transparente}
-format-foreground = ${cores.rosa}
+format-underline = ${colors.transparente}
+format-foreground = ${colors.rosa}
 label = %time%
-label-foreground = ${cores.fontes}
+label-foreground = ${colors.fontes}
 
 [module/battery]
 battery = BAT1
@@ -355,23 +353,23 @@ time-format = %H:%M
 format-charging = <animation-charging> <label-charging>
 format-discharging = <ramp-capacity> <label-discharging>
 
-format-charging-underline = ${cores.transparente}
-format-discharging-underline = ${cores.transparente}
+format-charging-underline = ${colors.transparente}
+format-discharging-underline = ${colors.transparente}
 
-format-charging-foreground = ${cores.verde}
-format-discharging-foreground = ${cores.vermelho}
-format-full-foreground = ${cores.icones-modulos}
+format-charging-foreground = ${colors.verde}
+format-discharging-foreground = ${colors.vermelho}
+format-full-foreground = ${colors.icones-modulos}
 
 label-charging = %percentage%%
-label-charging-foreground = ${cores.fontes}
+label-charging-foreground = ${colors.fontes}
 
 label-discharging = %percentage%%
-label-discharging-foreground = ${cores.fontes}
+label-discharging-foreground = ${colors.fontes}
 
 format-full-prefix = " "
-format-full-prefix-foreground = ${cores.icones-modulos}
+format-full-prefix-foreground = ${colors.icones-modulos}
 label-full = 100%
-label-full-foreground = ${cores.fontes}
+label-full-foreground = ${colors.fontes}
 
 ramp-capacity-0 = 
 ramp-capacity-1 = 
@@ -397,20 +395,20 @@ warn-temperature = 60
 units = true
 
 format = <ramp> <label>
-format-underline = ${cores.transparente}
+format-underline = ${colors.transparente}
 
 format-warn = <ramp> <label-warn>
 
 label = %temperature-c%
-label-foreground = ${cores.fontes}
+label-foreground = ${colors.fontes}
 
 label-warn = %temperature-c%
-label-warn-foreground = ${cores.fontes}
+label-warn-foreground = ${colors.fontes}
 
 ramp-0 = 
 ramp-1 = 
 ramp-2 = 
-ramp-foreground = ${cores.laranja}
+ramp-foreground = ${colors.laranja}
 
 [module/wireless]
 type = internal/network
@@ -420,7 +418,7 @@ interval = 1.0
 format-connected = <label-connected> <ramp-signal>
 format-packetloss = <animation-packetloss>
 label-connected = %upspeed%   %downspeed%  %essid%
-label-connected-foreground = ${cores.fontes}
+label-connected-foreground = ${colors.fontes}
 
 ramp-signal-0 = 
 ramp-signal-0-foreground = #BD574C
@@ -443,15 +441,15 @@ interval = 1.0
 format-connected = <label-connected> <ramp-signal>
 format-packetloss = <animation-packetloss>
 label-connected = %upspeed%   %downspeed%  %local_ip%
-label-connected-foreground = ${cores.fontes}
+label-connected-foreground = ${colors.fontes}
 
 ramp-signal-0 = 
-ramp-signal-0-foreground = ${cores.icones-modulos}
+ramp-signal-0-foreground = ${colors.icones-modulos}
 
 [module/menu-power]
 type = custom/text
 content = 
-content-foreground = ${cores.cinza}
+content-foreground = ${colors.cinza}
 click-left = ~/.local/bin/menu-power.sh &
 
 [settings]

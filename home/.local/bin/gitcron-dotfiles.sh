@@ -1,8 +1,6 @@
 #!/bin/bash
 # github.com/mamutal91
 
-(cat ~/.cache/wal/sequences &)
-
 app=git.png
 icon=$iconsnotify/$app
 

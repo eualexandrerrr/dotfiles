@@ -4,8 +4,6 @@
 app=utilities-terminal.png
 icon=$iconsnotify/$app
 
-(cat ~/.cache/wal/sequences &)
-
 echo "Atualizando Pacman"
     sudo pacman -Syyu --noconfirm
 

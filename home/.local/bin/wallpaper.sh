@@ -6,4 +6,4 @@ img=deer.jpg
 
 wallpaper=$dir/$img
 
-wal -i $wallpaper -o wal-set
+feh --bg-fill $wallpaper

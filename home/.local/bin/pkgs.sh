@@ -5,8 +5,6 @@
 # sudo reflector -c Brazil --save /etc/pacman.d/mirrorlist
 # sudo reflector -l 10 --sort rate --save /etc/pacman.d/mirrorlist
 
-(cat ~/.cache/wal/sequences &)
-
 USER=mamutal91
 
 sudo pacman -Sy
@@ -14,7 +12,7 @@ sudo pacman -Sy
 readonly PKGS_PACMAN=(
     archlinux-keyring git i3-gaps i3lock compton dunst rofi mpd maim ffmpeg neofetch scrot lxappearance feh gpicview
     bluez bluez-utils
-    python-pywal python-setuptools openssh cronie stow jsoncpp
+    python-setuptools openssh cronie stow jsoncpp
     pulseaudio pulseeffects
     zsh zsh-syntax-highlighting
     termite terminus-font
