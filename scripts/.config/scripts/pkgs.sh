@@ -22,8 +22,7 @@ readonly PKGS_PACMAN=(
     zsh zsh-syntax-highlighting)
 
 readonly PKGS_AUR=(
-#   paper-icon-theme-git
-    arc-gtk-theme capitaine-cursors grive-git gvfs-mtp nvidia-xrun nerd-fonts-complete \
+    arc-gtk-theme capitaine-cursors grive-git gvfs-mtp nvidia-xrun nerd-fonts-complete papirus-icon-theme-git \
     polybar smplayer-skins smplayer-themes spotify ttf-dejavu ttf-font-awesome whatsapp-nativefier xidlehook)
 
 function install_pkgs_pacman(){
