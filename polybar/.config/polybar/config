@@ -75,7 +75,7 @@ font-4 = "Font Awesome 5 Brands:pixelsize=9;1"
 
 modules-left = window spotify
 modules-center = i3
-modules-right = video ssh keep production root storage temperature battery date hour
+modules-right = video keep production root storage temperature battery date hour
 
 cursor-click = pointer
 cursor-scroll = ns-resize
@@ -463,12 +463,6 @@ type = custom/text
 content = 
 content-foreground = ${colors.amarelo}
 click-left = firefox https://keep.google.com/ &
-
-[module/ssh]
-type = custom/text
-content = 
-content-foreground = ${colors.azul}
-click-left = alacritty -e ssh -i ~/.ssh/kk mamutal91@173.249.49.99 &
 
 [settings]
 pseudo-transparency = true
