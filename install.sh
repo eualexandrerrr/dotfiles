@@ -16,10 +16,10 @@ function stows(){
 }
 
 function mamutal91(){
-    cd /home/mamutal91/.dotfiles
-    rm -rf *
-    cd /media/storage/GitHub/dotfiles
-    cp -rf * $HOME/.dotfiles
+#    cd /home/mamutal91/.dotfiles
+#    rm -rf *
+#    cd /media/storage/GitHub/dotfiles
+#    cp -rf * $HOME/.dotfiles
     cd $HOME/.dotfiles
     stows
     sudo stow -t /etc etc
