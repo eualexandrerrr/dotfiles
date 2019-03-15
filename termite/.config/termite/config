@@ -13,7 +13,7 @@ editor = nano
 foreground      = #c5c8c6
 foreground_bold = #c5c8c6
 cursor          = #c5c8c6
-background = rgba(14,10,19,0.90)
+background = rgba(1,6,36,0.80)
 
 # black
 color0  = #282a2e
