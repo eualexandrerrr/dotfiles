@@ -257,7 +257,6 @@ set nowrap
 ## To include all existing syntax definitions, you can do:
 # include "/usr/share/nano/*.nanorc"
 
-
 ## Key bindings.
 ## See nanorc(5) (section REBINDING KEYS) for more details on this.
 
@@ -273,85 +272,3 @@ set nowrap
 ## normally use <Backspace> for backspacing and not ^H, you can make
 ## <Ctrl+Backspace> delete the word to the left of the cursor with:
 # bind ^H cutwordleft main
-
-#Definindo a cor dos comentarios
-syntax "comments" ".*"
-color blue "^#.*"
-
-## Nanorc files
-include "/usr/share/nano/nanorc.nanorc"
-
-## C/C++
-include "/usr/share/nano/c.nanorc"
-
-## Makefiles
-include "/usr/share/nano/makefile.nanorc"
-
-## Cascading Style Sheets
-include "/usr/share/nano/css.nanorc"
-
-## Debian files
-include "/usr/share/nano/debian.nanorc"
-
-## Gentoo files
-include "/usr/share/nano/gentoo.nanorc"
-
-## HTML
-include "/usr/share/nano/html.nanorc"
-
-## PHP
-include "/usr/share/nano/php.nanorc"
-
-## TCL
-include "/usr/share/nano/tcl.nanorc"
-
-## TeX
-include "/usr/share/nano/tex.nanorc"
-
-## Quoted emails (under e.g. mutt)
-# include "/usr/share/nano/mutt.nanorc"
-
-## Patch files
-include "/usr/share/nano/patch.nanorc"
-
-## Manpages
-include "/usr/share/nano/man.nanorc"
-
-## Groff
-include "/usr/share/nano/groff.nanorc"
-
-## Perl
-include "/usr/share/nano/perl.nanorc"
-
-## Python
-include "/usr/share/nano/python.nanorc"
-
-## Ruby
-include "/usr/share/nano/ruby.nanorc"
-
-## Java
-include "/usr/share/nano/java.nanorc"
-
-## Fortran
-include "/usr/share/nano/fortran.nanorc"
-
-## Objective-C
-include "/usr/share/nano/objc.nanorc"
-
-## OCaml
-include "/usr/share/nano/ocaml.nanorc"
-
-## AWK
-include "/usr/share/nano/awk.nanorc"
-
-## Assembler
-include "/usr/share/nano/asm.nanorc"
-
-## Bourne shell scripts
-include "/usr/share/nano/sh.nanorc"
-
-## POV-Ray
-include "/usr/share/nano/pov.nanorc"
-
-## XML-type files
-include "/usr/share/nano/xml.nanorc"
