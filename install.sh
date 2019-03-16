@@ -16,10 +16,10 @@ function stows(){
 }
 
 function mamutal91(){
-#    cd /home/mamutal91/.dotfiles
-#    rm -rf *
-#    cd /media/storage/GitHub/dotfiles
-#    cp -rf * $HOME/.dotfiles
+    cd /home/mamutal91/.dotfiles
+    rm -rf *
+    cd /media/storage/GitHub/dotfiles
+    cp -rf * $HOME/.dotfiles
     cd $HOME/.dotfiles
     stows
     sudo stow -t /etc etc
@@ -27,7 +27,7 @@ function mamutal91(){
 
 [[ $USER == "mamutal91" ]] && mamutal91 || stows
 
-# Finalizando
+ Finalizando
 canberra-gtk-play --file=$HOME/.mut/share/sounds/completed.wav
 i3-msg restart
 sleep 1s
