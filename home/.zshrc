@@ -34,5 +34,3 @@ export LC_CTYPE="pt_BR.UTF-8"
 export EDITOR="nano"
 export BROWSER="firefox"
 export iconsnotify="/usr/share/icons/Paper/32x32/apps"
-
-export kraken=/media/storage/KraKenROM/

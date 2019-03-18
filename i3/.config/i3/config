@@ -104,7 +104,7 @@ bindsym $mod+r mode "resize"
 
 # Startup
 exec_always --no-startup-id $HOME/.local/bin/wallpaper.sh
-exec_always --no-startup-id $HOME/.local/bin/kraken.sh
+exec_always --no-startup-id $HOME/.local/bin/mbox.sh
 exec_always --no-startup-id wal -R
 exec_always --no-startup-id $HOME/.local/bin/xdg.sh
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
