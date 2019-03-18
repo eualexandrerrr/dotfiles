@@ -4,7 +4,7 @@
 # Add linha no crontab
 # */5 * * * * sh -c "~/.local/bin/gitcron.sh" > /dev/null 2>&1
 
-dir="${HOME}/github"
+dir="/media/storage/GitHub/"
 repos=('archlinux' 'buildroid' 'mamutal91.github.io' 'strojects')
 remoto="mamut@mamut"
 

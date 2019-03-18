@@ -5,7 +5,7 @@
 
 git config --global commit.template ~/.commit
 
-dir="${HOME}/github"
+dir="/media/storage/GitHub/"
 repos=('dotfiles')
 remoto="mamutal91@archlinux"
 
