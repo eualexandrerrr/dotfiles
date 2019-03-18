@@ -6,7 +6,6 @@ function stows(){
     stow compton
     stow dunst
     stow gpicview
-    stow gtk
     stow home
     stow i3
     stow neofetch
