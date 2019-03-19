@@ -57,10 +57,6 @@ function install_yay(){
     rm -rf yay
 }
 
-function winetricks_photoshop(){
-    winetricks atmlib gdiplus msxml3 msxml6 vcrun2005 vcrun2005sp1 vcrun2008 ie6 fontsmooth-rgb gecko
-}
-
 function winetricks(){
     winetricks --force directx9 vcrun2005 vcrun2008 vcrun2010 vcrun2012 vcrun2013 vcrun2015 dotnet40 dotnet452 vb6 xact xna31 xna40 msl31 openal corefonts
 }
@@ -85,7 +81,6 @@ function config_system(){
 }
 
 #winetricks
-#winetricks_photoshop
 install_pkgs_pacman
 install_yay
 install_pkgs_aur
