@@ -3,6 +3,7 @@
 
 function install(){
     rm -rf $HOME/.dotfiles && cp -rf /media/storage/GitHub/dotfiles $HOME/.dotfiles
+    rm -rf $HOME/.zshrc
     cd $HOME/.dotfiles
 
     stow alacritty
