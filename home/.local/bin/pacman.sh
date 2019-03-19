@@ -4,18 +4,14 @@
 app=utilities-terminal.png
 icon=$iconsnotify/$app
 
-echo "Atualizando Pacman"
-    sudo pacman -Syyu --noconfirm
+echo "Atualizando Pacman e AUR"
+    sudo pacman -Syyu
+    yay -Syyu
 
-echo "Atualizando AUR"
-    yay -Syyu --noconfirm
-
-echo "Removendo pacotes Pacman não utilizados"
+echo "Removendo pacotes não utilizados"
     sudo pacman -Qdtq --noconfirm
-    sudo pacman -Rncs $(pacman -Qdtq) --noconfirm
-
-echo "Removendo pacotes AUR não utilizados"
     yay -Qdtq --noconfirm
+    sudo pacman -Rncs $(pacman -Qdtq) --noconfirm
     yay -Rncs $(yay -Qdtq) --noconfirm
 
 canberra-gtk-play --file=$HOME/.local/share/sounds/completed.wav
