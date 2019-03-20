@@ -73,7 +73,7 @@ font-2 = "Font Awesome 5 Free:style=Regular:pixelsize=9;1"
 font-3 = "Font Awesome 5 Free:style=Solid:pixelsize=9;1"
 font-4 = "Font Awesome 5 Brands:pixelsize=9;1"
 
-modules-left = window spotify
+modules-left = window
 modules-center = i3
 modules-right = video bluetooth-jbl root storage temperature battery date hour
 
@@ -115,7 +115,7 @@ font-3 = "Font Awesome 5 Free:style=Solid:pixelsize=9;1"
 font-4 = "Font Awesome 5 Brands:pixelsize=9;1"
 
 modules-left = menu-power memory cpu kernel
-modules-center =
+modules-center = spotify
 modules-right = ethernet wireless brightness volume
 
 cursor-click = pointer
@@ -225,7 +225,7 @@ format-underline = ${colors.transparente}
 type = custom/script
 exec = ~/.config/polybar/scripts/spotify.sh "%artist% - %title%"
 tail = true
-label-maxlen = 50
+label-maxlen = 100
 
 [module/cpu]
 type = internal/cpu
