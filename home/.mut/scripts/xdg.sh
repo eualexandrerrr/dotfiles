@@ -4,7 +4,7 @@
 # Query filetype:
 # Para descobrir o formato do arquivo
 # xdg-mime query filetype file.txt
-# xdg-mime query default file.txt
+# xdg-mime query default video/mp4
 
 # Web
 xdg-mime default firefox.desktop 'x-scheme-handler/about'
