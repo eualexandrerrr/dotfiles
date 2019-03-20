@@ -18,7 +18,6 @@ function install(){
     stow polybar
     stow rofi
     stow scripts
-    stow thunar
     sudo stow X11 -t /etc/X11
 
     sudo rm -rf /etc/systemd/logind.conf && sudo cp -rf systemd/logind.conf /etc/systemd
