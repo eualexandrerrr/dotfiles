@@ -12,7 +12,7 @@ font pango:Source Sans Pro 10
 set $ws1 "1: terminal"
 set $ws2 "2: browser"
 set $ws3 "3: chats"
-set $ws4 "4: studio"
+set $ws4 "4: media"
 set $ws5 "5: codes"
 set $ws6 "6: office"
 set $ws7 "7: pc"
