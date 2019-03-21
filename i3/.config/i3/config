@@ -149,7 +149,7 @@ for_window [title="Biblioteca"] floating enable, resize set 800 px 540 px, focus
 for_window [class="Rambox"] move to workspace $ws3, floating enable, resize set 1200 px 900 px, focus
 for_window [class="TelegramDesktop"] move to workspace $ws3, floating enable, resize set 930 px 810 px, focus
 
-for_window [class="Spotify|mpv|Steam"] move to workspace $ws4, focus
+for_window [class="Spotify|smplayer|Steam"] move to workspace $ws4, focus
 for_window [title="Lista de amigos"] move to workspace $ws4, floating enable, resize set 320 px 600 px, focus
 for_window [title="Steam — Novidades*"] move to workspace $ws4, floating enable, resize set 410 px 600 px, focus
 
@@ -170,7 +170,7 @@ for_window [class="Wine|csgo_linux64"] move to workspace $ws9, focus
 assign [class="^Termite|Wicd-client.py"] $ws1
 assign [class="^Firefox"] $ws2
 assign [class="^TelegramDesktop|Rambox"] $ws3
-assign [class="^Spotify|mpv|Steam"] $ws4
+assign [class="^Spotify|smplayer|Steam"] $ws4
 assign [class="^Atom"] $ws5
 assign [class="^libreoffice-startcenter|libreoffice-writer|libreoffice-draw|libreoffice-presentation|libreoffice-impress|libreoffice-calc"] $ws6
 assign [class="^Lxappearance|qBittorrent|Filezilla|Thunar|Galculator"] $ws7

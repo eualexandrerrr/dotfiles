@@ -18,6 +18,7 @@ readonly PKGS_PACMAN=(
   zsh zsh-syntax-highlighting
   termite terminus-font
   telegram-desktop
+  smplayer
   thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman
   atom pinta mpv smplayer qbittorrent galculator
   libreoffice-fresh libreoffice-fresh-pt-br
@@ -36,7 +37,8 @@ readonly PKGS_AUR=(
   arc-gtk-theme capitaine-cursors
   paper-icon-theme-git
   ttf-dejavu ttf-font-awesome
-  rambox-bin spotify grive-git)
+  rambox-bin spotify grive-git
+  smplayer-skins smplayer-themes)
 
 function install_pkgs_pacman(){
   for i in "${PKGS_PACMAN[@]}"; do
