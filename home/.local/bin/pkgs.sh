@@ -35,6 +35,7 @@ readonly PKGS_AUR=(
     polybar
     gvfs-mtp selinux-python
     arc-gtk-theme capitaine-cursors
+    franz
     paper-icon-theme-git
     ttf-dejavu ttf-font-awesome
     Whatsie-bin spotify grive-git

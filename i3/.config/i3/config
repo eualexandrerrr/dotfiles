@@ -117,7 +117,7 @@ bindsym $mod+Return exec --no-startup-id termite &; workspace $ws1
 bindsym $mod+e exec --no-startup-id thunar &; workspace $ws7
 bindsym $mod+F2 exec --no-startup-id firefox &; workspace $ws2
 bindsym $mod+F3 exec --no-startup-id telegram-desktop &; workspace $ws3
-bindsym $mod+F4 exec --no-startup-id /usr/bin/whatsie &; workspace $ws3
+bindsym $mod+F4 exec --no-startup-id franz &; workspace $ws3
 
 # System shortcuts
 bindsym F7 exec --no-startup-id termite -e $HOME/.local/bin/gitcron.sh
@@ -145,7 +145,7 @@ for_window [title="git-dotfiles"] move to workspace $ws5, floating enable, resiz
 for_window [class="Firefox"] move to workspace $ws2, focus
 for_window [title="Biblioteca"] floating enable, resize set 800 px 540 px, focus
 
-for_window [class="Whatsie"] move to workspace $ws3, floating enable, resize set 1000 px 800 px, focus
+for_window [class="Franz"] move to workspace $ws3, floating enable, resize set 1000 px 800 px, focus
 for_window [class="TelegramDesktop"] move to workspace $ws3, floating enable, resize set 930 px 810 px, focus
 
 for_window [class="Spotify|smplayer|Steam"] move to workspace $ws4, focus
@@ -168,7 +168,7 @@ for_window [class="Wine|csgo_linux64"] move to workspace $ws9, focus
 # Workspaces
 assign [class="^Termite|Wicd-client.py"] $ws1
 assign [class="^Firefox"] $ws2
-assign [class="^TelegramDesktop|Whatsie"] $ws3
+assign [class="^TelegramDesktop|Franz"] $ws3
 assign [class="^Spotify|smplayer|Steam"] $ws4
 assign [class="^Atom"] $ws5
 assign [class="^libreoffice-startcenter|libreoffice-writer|libreoffice-draw|libreoffice-presentation|libreoffice-impress|libreoffice-calc"] $ws6
