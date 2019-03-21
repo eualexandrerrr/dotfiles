@@ -126,6 +126,7 @@ bindsym $mod+F3 exec --no-startup-id telegram-desktop &; workspace $ws3
 bindsym $mod+F4 exec --no-startup-id /usr/bin/rambox &; workspace $ws3
 
 # System shortcuts
+bindsym F7 exec --no-startup-id termite -e $HOME/.local/bin/gitcron.sh
 bindsym F8 exec --no-startup-id $HOME/.config/polybar/launch.sh
 bindsym F9 exec --no-startup-id termite -e $HOME/.local/bin/arch-pacotes.sh
 bindsym F10 exec --no-startup-id termite -e $HOME/.local/bin/gitcron-dotfiles.sh &; workspace $ws5
