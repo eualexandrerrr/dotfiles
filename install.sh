@@ -18,9 +18,21 @@ function install(){
     stow polybar
     stow rofi
     stow scripts
-    sudo stow X11 -t /etc/X11
+}
 
-    sudo rm -rf /etc/systemd/logind.conf && sudo cp -rf systemd/logind.conf /etc/systemd
+function systemd(){
+  sudo rm -rf /etc/systemd/logind.conf
+  sudo cp -rf $HOME/.dotfiles/systemd/logind.conf /etc/systemd
+
+  sudo rm -rf /etc/systemd/system/getty@tty1.service.d/override.conf
+  sudo mkdir -p /etc/systemd/system/getty@tty1.service.d/
+  sudo cp -rf $HOME/.dotfiles/systemd/override.conf /etc/systemd/system/getty@tty1.service.d/
+}
+
+function X11(){
+    sudo rm -rf /etc/X11/nvidia-xorg.conf.d
+    sudo rm -rf /etc/X11/xorg.conf.d
+    sudo cp -rf $HOME/.dotfiles/X11/* /etc/X11
 }
 
 function first_boot() {
@@ -34,6 +46,8 @@ function first_boot() {
 #first_boot
 
 install
+systemd
+X11
 
 canberra-gtk-play --file=$HOME/.config/files/sounds/completed.wav
 i3-msg restart
