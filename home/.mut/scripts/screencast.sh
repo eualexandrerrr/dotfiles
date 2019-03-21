@@ -8,7 +8,7 @@ iconfim=$iconsnotify/$appfim
 
 variable=${1}
 
-local=/home/mamutal91/Videos
+local=/home/mamutal91/Vídeos
 file=$local/$(date "+%d-%m-%Y_%H-%M-%S")
 
 [ ! -d $local ] && mkdir -p $local
