@@ -1,2 +1,2 @@
 */5 * * * * $HOME/.config/scripts/gitcron.sh
-*/5 * * * * cd /media/storage/Google\ Drive/ && grive
+*/30 * * * * cd /media/storage/Google\ Drive/ && grive
