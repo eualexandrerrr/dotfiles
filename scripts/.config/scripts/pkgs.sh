@@ -37,8 +37,8 @@ readonly PKGS_AUR=(
     capitaine-cursors
     franz
     grive-git gvfs-mtp
-    namebench nvidia-xrun numix-icon-theme-git
-    polybar
+    namebench nvidia-xrun
+    paper-icon-theme-git polybar
     smplayer-skins smplayer-themes spotify
     ttf-dejavu ttf-font-awesome
     xidlehook
