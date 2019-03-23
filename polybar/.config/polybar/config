@@ -223,7 +223,7 @@ format-padding = 1
 format-foreground = ${colors.fontes}
 format-underline = ${colors.transparente}
 type = custom/script
-exec = ~/.config/polybar/scripts/spotify.sh "%artist% - %title%"
+exec = ~/.config/scripts/spotify.sh "%artist% - %title%"
 tail = true
 label-maxlen = 100
 
