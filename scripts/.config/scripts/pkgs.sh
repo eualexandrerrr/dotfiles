@@ -19,7 +19,7 @@ readonly PKGS_PACMAN=(
     i3-gaps i3lock
     imagemagick
     jsoncpp
-    lib32-libvdpau lib32-nvidia-utils lib32-opencl-nvidia lib32-virtualgl libreoffice-fresh libreoffice-fresh-pt-br lxappearance
+    lib32-libvdpau lib32-nvidia-utils lib32-opencl-nvidia lib32-virtualgl lxappearance
     maim mesa mpd mpv
     neofetch ntfs-3g ntp
     numlockx nvidia nvidia-settings nvidia-utils
@@ -40,7 +40,8 @@ readonly PKGS_AUR=(
     namebench nvidia-xrun
     paper-icon-theme-git polybar
     smplayer-skins smplayer-themes spotify
-    ttf-dejavu ttf-font-awesome
+    ttf-dejavu ttf-font-awesome ttf-wps-fonts
+    wps-office wps-office-extension-portuguese-brazilian-dictionary wps-office-mui-pt-br
     xidlehook
     zuki-themes)
 

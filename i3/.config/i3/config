@@ -156,7 +156,7 @@ for_window [title="Steam — Novidades*"] move to workspace $ws4, floating enabl
 for_window [class="Atom"] move to workspace $ws5, focus
 for_window [class="Electron"] move to workspace $ws5, floating enable, focus
 
-for_window [class="libreoffice-startcenter|libreoffice-writer|libreoffice-draw|libreoffice-presentation|libreoffice-impress|libreoffice-calc"] move to workspace $ws6, focus
+for_window [class="Wpspdf|Wpp|Wps|Et"] move to workspace $ws6, focus
 for_window [class="Lxappearance|Thunar|qbittorrent"] move to workspace $ws7, floating enable, focus
 for_window [class="Filezilla"] move to workspace $ws7, focus
 for_window [class="Galculator"] floating enable, resize set 380 px 440 px, move position center, focus
@@ -172,7 +172,7 @@ assign [class="^Firefox"] $ws2
 assign [class="^TelegramDesktop"] $ws3
 assign [class="^Spotify|smplayer|Steam"] $ws4
 assign [class="^Atom"] $ws5
-assign [class="^libreoffice-startcenter|libreoffice-writer|libreoffice-draw|libreoffice-presentation|libreoffice-impress|libreoffice-calc"] $ws6
+assign [class="^Wpspdf|Wpp|Wps|Et"] $ws6
 assign [class="^Lxappearance|qBittorrent|Filezilla|Thunar"] $ws7
 assign [class="^Pinta|Gpicview|feh"] $ws8
 assign [class="^Wine|csgo_linux64"] $ws9
