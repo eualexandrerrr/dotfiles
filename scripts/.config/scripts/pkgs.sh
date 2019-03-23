@@ -34,7 +34,7 @@ readonly PKGS_PACMAN=(
     xclip xf86-video-intel xorg-server xorg-xbacklight xorg-xinit xorg-xprop xorg-xrandr zsh zsh-syntax-highlighting)
 
 readonly PKGS_AUR=(
-    arc-gtk-theme capitaine-cursors franz grive-git gvfs-mtp nvidia-xrun nerd-fonts-complete papirus-icon-theme-git
+    arc-gtk-theme capitaine-cursors franz grive-git gvfs-mtp namebench nvidia-xrun nerd-fonts-complete papirus-icon-theme-git
     polybar smplayer-skins smplayer-themes spotify ttf-dejavu ttf-font-awesome xidlehook)
 
 function install_pkgs_pacman(){
