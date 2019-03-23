@@ -114,7 +114,7 @@ font-2 = "Font Awesome 5 Free:style=Regular:pixelsize=9;1"
 font-3 = "Font Awesome 5 Free:style=Solid:pixelsize=9;1"
 font-4 = "Font Awesome 5 Brands:pixelsize=9;1"
 
-modules-left = menu-power memory cpu kernel
+modules-left = memory cpu kernel
 modules-center = spotify
 modules-right = ethernet wireless brightness volume
 
@@ -445,12 +445,6 @@ label-connected-foreground = ${colors.fontes}
 
 ramp-signal-0 = 
 ramp-signal-0-foreground = ${colors.icones-modulos}
-
-[module/menu-power]
-type = custom/text
-content = 
-content-foreground = ${colors.cinza}
-click-left = ~/.config/polybar/scripts/menu-power.sh &
 
 [module/bluetooth-jbl]
 type = custom/text
