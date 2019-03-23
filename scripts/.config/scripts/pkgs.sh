@@ -13,7 +13,7 @@ readonly PKGS_PACMAN=(
     alacritty alsa alsa-firmware alsa-utils android-tools archlinux-keyring atom
     bbswitch bluez bluez-libs bluez-tools bluez-utils bumblebee
     compton cronie
-    dunst
+    dunst dhcpcd
     feh ffmpeg filezilla firefox firefox-i18n-pt-br
     galculator gimp git gparted gpicview gvfs
     i3-gaps i3lock
@@ -78,6 +78,7 @@ function config_system(){
     git config --global user.email "mamutal91@gmail.com"
     git config --global user.name "Alexandre Rangel"
     sudo ln -sf /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime
+    sudo systemctl enable dhcpcd
     sudo systemctl enable NetworkManager
     sudo systemctl enable cronie
     sudo systemctl enable ntpd
