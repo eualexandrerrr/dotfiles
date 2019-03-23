@@ -15,7 +15,7 @@ readonly PKGS_PACMAN=(
     compton cronie
     dunst dhcpcd
     feh ffmpeg filezilla firefox firefox-i18n-pt-br
-    galculator gimp git gparted gpicview gvfs
+    galculator gimp git gparted gpicview gvfs gvfs-mtp
     i3-gaps i3lock
     imagemagick
     jsoncpp
@@ -36,7 +36,7 @@ readonly PKGS_PACMAN=(
 readonly PKGS_AUR=(
     capitaine-cursors
     franz
-    grive-git gvfs-mtp
+    grive-git
     namebench nvidia-xrun
     paper-icon-theme-git polybar
     smplayer-skins smplayer-themes spotify
