@@ -5,8 +5,6 @@
 # sudo reflector -c Brazil --save /etc/pacman.d/mirrorlist
 # sudo reflector -l 10 --sort rate --save /etc/pacman.d/mirrorlist
 
-USER=mamutal91
-
 sudo pacman -Sy
 
 readonly PKGS_PACMAN=(
@@ -75,6 +73,7 @@ function oh-my-zsh(){
 }
 
 function config_system(){
+    USER=mamutal91
     git config --global user.email "mamutal91@gmail.com"
     git config --global user.name "Alexandre Rangel"
     sudo ln -sf /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime
