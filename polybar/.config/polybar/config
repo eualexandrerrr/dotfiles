@@ -35,7 +35,7 @@ roxo = #8a2be2
 roxoclaro = #C88CFF
 rosa = #cd1076
 branco = #ffffff
-cinza = #D3D3D3
+cinza = #8a8a8a
 cinzaescuro = #A19A93
 spotify = #00D965
 
@@ -394,7 +394,7 @@ interval = 1.0
 format-connected = <label-connected> <ramp-signal>
 format-packetloss = <animation-packetloss>
 label-connected = %upspeed%   %downspeed%  %essid%
-label-connected-foreground = ${colors.fontes}
+label-connected-foreground = ${colors.cinza}
 
 ramp-signal-0 = 
 ramp-signal-0-foreground = #BD574C
@@ -417,7 +417,7 @@ interval = 1.0
 format-connected = <label-connected> <ramp-signal>
 format-packetloss = <animation-packetloss>
 label-connected = %upspeed%   %downspeed%  %local_ip%
-label-connected-foreground = ${colors.fontes}
+label-connected-foreground = ${colors.cinza}
 
 ramp-signal-0 = 
 ramp-signal-0-foreground = ${colors.icones-modulos}
