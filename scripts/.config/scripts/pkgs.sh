@@ -13,7 +13,7 @@ readonly PKGS_PACMAN=(
     compton cronie
     dunst dhcpcd
     feh ffmpeg filezilla firefox firefox-i18n-pt-br
-    galculator gimp git gparted gpicview gvfs gvfs-mtp
+    galculator git gparted gpicview gvfs gvfs-mtp
     i3-gaps i3lock
     imagemagick
     jsoncpp
