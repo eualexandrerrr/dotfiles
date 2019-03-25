@@ -10,7 +10,7 @@ USER=mamutal91
 sudo pacman -Sy
 
 readonly PKGS_PACMAN=(
-    archlinux-keyring git i3-gaps i3lock compton dunst rofi mpd maim ffmpeg neofetch scrot lxappearance feh gpicview
+    archlinux-keyring git i3-gaps i3lock compton dunst rofi mpd maim ffmpeg reflector neofetch scrot lxappearance feh gpicview
     bluez bluez-utils
     python-setuptools openssh cronie stow jsoncpp
     pulseaudio pulseeffects
