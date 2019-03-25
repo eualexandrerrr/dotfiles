@@ -266,7 +266,7 @@ type = internal/backlight
 card = intel_backlight
 format = <label> <bar>
 
-format-prefix = " "
+format-prefix = " "
 format-prefix-foreground = ${colors.icones-modulos}
 
 label = %percentage%%
