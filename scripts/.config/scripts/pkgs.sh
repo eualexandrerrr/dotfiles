@@ -5,7 +5,7 @@
 # sudo reflector -c Brazil --save /etc/pacman.d/mirrorlist
 # sudo reflector -l 10 --sort rate --save /etc/pacman.d/mirrorlist
 
-sudo pacman -Sy
+sudo pacman -Syu
 
 readonly PKGS_PACMAN=(
     alacritty alsa alsa-firmware alsa-utils android-tools archlinux-keyring atom
