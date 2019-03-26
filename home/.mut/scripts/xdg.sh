@@ -22,6 +22,7 @@ xdg-mime default gpicview.desktop image/gif
 # Videos
 xdg-mime default smplayer.desktop video/x-matroska
 xdg-mime default smplayer.desktop video/mp4
+xdg-mime default smplayer.desktop video/x-msvideo
 
 # Text
 xdg-mime default atom.desktop text/plain
