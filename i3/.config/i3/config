@@ -105,6 +105,7 @@ bindsym $mod+r mode "resize"
 # Startup
 exec_always --no-startup-id $HOME/.local/bin/wallpaper.sh
 exec_always --no-startup-id wal -R
+exec_always --no-startup-id $HOME/.local/bin/xdg.sh
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 exec_always --no-startup-id sudo ntpdate -u pool.ntp.org
 exec --no-startup-id compton -C
