@@ -4,6 +4,7 @@
 set $mod Mod4
 set $alt Mod1
 set $ctrl Control
+set $shift Shift
 
 font pango:Source Sans Pro 10
 
@@ -118,7 +119,8 @@ exec --no-startup-id numlockx &
 # Screenshot & Screencast
 bindsym Insert exec --no-startup-id $HOME/.local/bin/screenshot.sh -s
 bindsym $ctrl+Insert exec --no-startup-id $HOME/.local/bin/screenshot.sh
-bindsym --release $mod+K exec --no-startup-id $HOME/.local/bin/screencast.sh
+bindsym $ctrl+K exec --no-startup-id $HOME/.local/bin/screencast.sh -start
+bindsym $ctrl+$shift+K exec --no-startup-id $HOME/.local/bin/screencast.sh
 
 # Application shortcuts
 bindsym $mod+Return exec --no-startup-id termite &; workspace $ws1
