@@ -7,7 +7,7 @@ icon=$iconsnotify/$app
 variavel=${1}
 
 local="${HOME}/Imagens"
-file=$local/Screenshot-$(date "+%Y-%m-%d_%H-%M-%S").png
+file=$local/$(date "+%d-%m-%Y_%H-%M-%S").png
 tipo="image/png"
 
 [ ! -d $local ] && mkdir -p $local

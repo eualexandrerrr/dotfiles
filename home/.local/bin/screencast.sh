@@ -9,7 +9,7 @@ iconfim=$iconsnotify/$appfim
 variavel=${1}
 
 local=/home/mamutal91/Videos
-file=$local/Screencast-$(date "+%Y-%m-%d_%H-%M-%S")
+file=$local/$(date "+%d-%m-%Y_%H-%M-%S")
 
 [ ! -d $local ] && mkdir -p $local
 
