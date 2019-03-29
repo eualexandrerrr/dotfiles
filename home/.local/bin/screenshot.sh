@@ -21,7 +21,7 @@ function full(){
 
 function cortar(){
 	maim -s $file
-	notify-send -i $iconfim "Gravação de tela" "Fim."
+	notify-send -i $icon "Gravação de tela" "Recorte."
 	canberra-gtk-play --file=$HOME/.local/share/sounds/screenshot.wav
 	xclip -selection c -t $tipo -i $file
 }
