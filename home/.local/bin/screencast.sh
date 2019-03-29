@@ -11,6 +11,8 @@ variavel=${1}
 local=/home/mamutal91/Videos/
 file=$local/Screencast-$(date "+%Y-%m-%d_%H-%M-%S")
 
+[ ! -d $local ] && mkdir -p $local
+
 function gravar(){
 	notify-send -i $icon "Gravação de tela" "Início."
 	canberra-gtk-play --file=$HOME/.local/share/sounds/screencast-start.wav
