@@ -2,7 +2,7 @@
 # github.com/mamutal91
 
 dir=$HOME/.local/share/wallpapers
-img=firefox.png
+img=astronaut.jpg
 
 wallpaper=$dir/$img
 
