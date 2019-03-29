@@ -4,75 +4,26 @@
 app=variety.png
 icon=$iconsnotify/$app
 
-if [ -f $HOME/.config/user-dirs.dirs ]; then
-	source $HOME/.config/user-dirs.dirs
-	dir="${XDG_PICTURES_DIR}/"
-else
-	dir="${HOME}/Imagens/"
-fi
+variavel=${1}
 
-app="maim"
-params="-u"
-data=$(date +%H-%M-%S-%d-%m-%Y)
-nome="Screenshot-${data}"
-extensao=".png"
-atraso=10
+local="${HOME}/Imagens"
+file=$local/Screenshot-$(date "+%Y-%m-%d_%H-%M-%S").png
 tipo="image/png"
-lixeira="${HOME}/.local/share/Trash"
-titulo="."
 
-[ ! -d $dir ] && mkdir -p $dir
-[ ! -d $lixeira ] && mkdir -p $lixeira
+[ ! -d $local ] && mkdir -p $local
 
-command -v $app >/dev/null 2>&1 || {
-	msg="O aplicativo $app não está instalado."
-
-	command -v notify-send >/dev/null 2>&1 && {
-		notify-send "ERRO" "$msg";
-	} || {
-		echo $msg;
-	}
-
-	exit 1;
+function full(){
+	maim $file
+	notify-send -i $icon "Captura de tela" "Fullscreen."
+	canberra-gtk-play --file=$HOME/.local/share/sounds/screenshot.wav
+	xclip -selection c -t $tipo -i $file
 }
 
-if [ "$1" == "-c" ]; then
+function cortar(){
+	maim -s $file
+	notify-send -i $iconfim "Gravação de tela" "Fim."
+	canberra-gtk-play --file=$HOME/.local/share/sounds/screenshot.wav
+	xclip -selection c -t $tipo -i $file
+}
 
-	exit 0
-
-elif [ "$1" == "-w" ]; then
-	params="$params -w"
-	arquivo="${nome}-window${extensao}"
-	$app $params ${arquivo}
-	msg="Imagens/$arquivo"
-elif [ "$1" == "-s" ]; then
-	params="$params -s"
-	arquivo="${nome}-sel${extensao}"
-	$app -d 2 $params ${arquivo}
-	msg="Imagens/$arquivo"
-elif [ "$1" == "-d" ]; then
-	params="$params -d $atraso"
-	arquivo="${nome}-delay${extensao}"
-	$app $params ${arquivo}
-	msg="Imagens/$arquivo"
-elif [ "$1" == "-e" ]; then
-	arquivo="${nome}-edit${extensao}"
-	$app $params ${dir}${arquivo}
-	msg="Imagens/$arquivo"
-	viewnior ${dir}${arquivo}
-else
-	arquivo="${nome}${extensao}"
-	$app $params ${arquivo}
-	msg="Imagens/$arquivo"
-fi
-
-if [ ! -z $arquivo ]; then
-	if [ $(pwd) != $dir ]; then
-		mv $arquivo $dir
-	fi
-	xclip -selection c -t $tipo -i $dir$arquivo
-fi
-
-notify-send -i $icon "Captura de tela realizada" "$msg"
-canberra-gtk-play --file=$HOME/.local/share/sounds/screenshot.wav
-exit 0
+[[ $variavel == "-full" ]] && full || cortar

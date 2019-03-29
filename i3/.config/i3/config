@@ -117,7 +117,7 @@ exec --no-startup-id xautolock -time 10 -detectsleep -locker $HOME/.local/bin/i3
 exec --no-startup-id numlockx &
 
 # Screenshot & Screencast
-bindsym Insert exec --no-startup-id $HOME/.local/bin/screenshot.sh -s
+bindsym Insert exec --no-startup-id $HOME/.local/bin/screenshot.sh -full
 bindsym $ctrl+Insert exec --no-startup-id $HOME/.local/bin/screenshot.sh
 bindsym $ctrl+K exec --no-startup-id $HOME/.local/bin/screencast.sh -start
 bindsym $ctrl+$shift+K exec --no-startup-id $HOME/.local/bin/screencast.sh
