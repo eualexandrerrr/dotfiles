@@ -5,25 +5,16 @@ app=variety.png
 icon=$iconsnotify/$app
 
 variavel=${1}
-
 local="${HOME}/Imagens"
-file=$local/$(date "+%d-%m-%Y_%H-%M-%S").png
-tipo="image/png"
+name=$(date "+%d-%m-%Y_%H-%M-%S").png
+file=$local/$name
+type="image/png"
 
+[[ $variavel == "-full" ]] && var="-u" || var="-s"
+[[ $variavel == "-full" ]] && msg="Fullscreen" || msg="Recorte"
 [ ! -d $local ] && mkdir -p $local
 
-function full(){
-	maim $file
-	notify-send -i $icon "Captura de tela" "Fullscreen."
-	canberra-gtk-play --file=$HOME/.local/share/sounds/screenshot.wav
-	xclip -selection c -t $tipo -i $file
-}
-
-function cortar(){
-	maim -s $file
-	notify-send -i $icon "Gravação de tela" "Recorte."
-	canberra-gtk-play --file=$HOME/.local/share/sounds/screenshot.wav
-	xclip -selection c -t $tipo -i $file
-}
-
-[[ $variavel == "-full" ]] && full || cortar
+maim $var $file
+notify-send -i $icon "Captura de tela" "$msg. $name"
+canberra-gtk-play --file=$HOME/.local/share/sounds/screenshot.wav
+xclip -selection c -t $type -i $file
