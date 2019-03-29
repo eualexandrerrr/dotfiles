@@ -1,7 +1,7 @@
   export ZSH="/home/mamutal91/.oh-my-zsh"
 
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="af-magic"
+ZSH_THEME="robbyrussell"
 
 HIST_STAMPS="dd/mm/yyyy"
 
