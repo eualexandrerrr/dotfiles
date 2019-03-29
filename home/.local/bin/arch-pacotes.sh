@@ -18,7 +18,7 @@ readonly PACOTES_PACMAN=(
   alsa alsa-utils
   termite terminus-font
   telegram-desktop
-  atom pinta vlc gparted qbittorrent galculator
+  atom pinta mpv gparted qbittorrent galculator
   libreoffice-fresh libreoffice-fresh-pt-br
   firefox firefox-i18n-pt-br filezilla
   thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman
