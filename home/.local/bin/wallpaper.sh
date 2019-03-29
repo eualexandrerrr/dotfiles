@@ -2,7 +2,7 @@
 # github.com/mamutal91
 
 dir=$HOME/.local/share/wallpapers
-img=astronaut.jpg
+img=keyboard.jpg
 
 wallpaper=$dir/$img
 
