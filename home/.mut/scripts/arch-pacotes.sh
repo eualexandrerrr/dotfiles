@@ -13,6 +13,7 @@ sudo pacman -Sy
 
 readonly PKGS_PACMAN=(
   git i3-gaps i3lock compton dunst rofi mpd maim ffmpeg neofetch scrot lxappearance feh gpicview
+  bluez bluez-utils
   python-pywal python-setuptools openssh cronie stow
   pulseaudio pulseeffects
   zsh zsh-syntax-highlighting
@@ -75,6 +76,7 @@ function setup_system(){
   sudo systemctl enable cronie
   sudo systemctl enable ntpd
   sudo systemctl enable bumblebeed.service
+  sudo systemctl enable bluetooth
   sudo chown -R $USUARIO:$USUARIO /home/$USUARIO
   sudo gpasswd -a $USUARIO bumblebee
 }
