@@ -58,6 +58,7 @@ function oh-my-zsh(){
 function config_system(){
     git config --global user.email "mamutal91@gmail.com"
     git config --global user.name "Alexandre Rangel"
+    sudo ln -sf /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime
     sudo systemctl enable NetworkManager
     sudo systemctl enable cronie
     sudo systemctl enable ntpd
