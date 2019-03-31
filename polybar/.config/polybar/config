@@ -451,7 +451,7 @@ ramp-signal-0-foreground = ${cores.icones-modulos}
 [module/menu-power]
 type = custom/text
 content = 
-content-foreground = ${cores.cinzaescuro}
+content-foreground = ${cores.azul}
 click-left = ~/.local/bin/menu-power.sh &
 
 [settings]
