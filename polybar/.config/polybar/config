@@ -116,7 +116,7 @@ font-2 = "Font Awesome 5 Free:style=Regular:pixelsize=9;1"
 font-3 = "Font Awesome 5 Free:style=Solid:pixelsize=9;1"
 font-4 = "Font Awesome 5 Brands:pixelsize=9;1"
 
-modules-left = menu-power lock exit memory cpu kernel
+modules-left = menu-power memory cpu kernel
 modules-center =
 modules-right = ethernet wireless brightness volume
 
@@ -453,18 +453,6 @@ type = custom/text
 content = 
 content-foreground = ${cores.cinzaescuro}
 click-left = ~/.local/bin/menu-power.sh &
-
-[module/lock]
-type = custom/text
-content = 
-content-foreground = ${cores.cinzaescuro}
-click-left = ~/.local/bin/i3lock.sh &
-
-[module/exit]
-type = custom/text
-content = 
-content-foreground = ${cores.cinzaescuro}
-click-left = sudo pkill X
 
 [settings]
 pseudo-transparency = true
