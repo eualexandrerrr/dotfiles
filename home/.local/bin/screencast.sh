@@ -21,8 +21,8 @@ function gravar(){
 
 function parar(){
 	notify-send -i $iconfim "Gravação de tela" "Fim."
-	canberra-gtk-play --file=$HOME/.local/share/sounds/screencast-stop.wav
 	sudo pkill ffmpeg
+	canberra-gtk-play --file=$HOME/.local/share/sounds/screencast-stop.wav
 }
 
 [[ $variavel == "-start" ]] && gravar || parar
