@@ -6,23 +6,23 @@ appfim=XMind.png
 icon=$iconsnotify/$app
 iconfim=$iconsnotify/$appfim
 
-variavel=${1}
+variable=${1}
 
 local=/home/mamutal91/Videos
 file=$local/$(date "+%d-%m-%Y_%H-%M-%S")
 
 [ ! -d $local ] && mkdir -p $local
 
-function gravar(){
+function record(){
 	notify-send -i $icon "Gravação de tela" "Início."
 	canberra-gtk-play --file=$HOME/.local/share/sounds/screencast-start.wav
 	ffmpeg -f x11grab -video_size 1920x1080 -i $DISPLAY -f alsa -i default -c:v ffvhuff -c:a flac $file.mkv
 }
 
-function parar(){
+function stop(){
 	notify-send -i $iconfim "Gravação de tela" "Fim."
 	sudo pkill ffmpeg
 	canberra-gtk-play --file=$HOME/.local/share/sounds/screencast-stop.wav
 }
 
-[[ $variavel == "-start" ]] && gravar || parar
+[[ $variable == "-start" ]] && record || stop

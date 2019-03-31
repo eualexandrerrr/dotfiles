@@ -4,14 +4,14 @@
 app=variety.png
 icon=$iconsnotify/$app
 
-variavel=${1}
+variable=${1}
 local="${HOME}/Imagens"
 name=$(date "+%d-%m-%Y_%H-%M-%S").png
 file=$local/$name
 type="image/png"
 
-[[ $variavel == "-full" ]] && var="-u" || var="-s"
-[[ $variavel == "-full" ]] && msg="Fullscreen" || msg="Recorte"
+[[ $variable == "-full" ]] && var="-u" || var="-s"
+[[ $variable == "-full" ]] && msg="Fullscreen" || msg="Recorte"
 [ ! -d $local ] && mkdir -p $local
 
 maim $var $file
