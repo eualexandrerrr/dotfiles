@@ -8,6 +8,10 @@ source ~/.cache/wal/colors-tty.sh
 ZSH_THEME="robbyrussell"
 
 HIST_STAMPS="dd/mm/yyyy"
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+setopt appendhistory
 
 plugins=(
   git

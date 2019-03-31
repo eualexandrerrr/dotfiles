@@ -182,6 +182,6 @@ assign [class="^TelegramDesktop|Rambox"] $ws3
 assign [class="^Spotify|mpv|Steam"] $ws4
 assign [class="^Atom"] $ws5
 assign [class="^libreoffice-startcenter|libreoffice-writer|libreoffice-draw|libreoffice-presentation|libreoffice-impress|libreoffice-calc"] $ws6
-assign [class="^Lxappearance|qBittorrent|Filezilla|Dolphin|Galculator"] $ws7
+assign [class="^Lxappearance|qBittorrent|Filezilla|Thunar|Galculator"] $ws7
 assign [class="^Pinta|Gpicview|feh"] $ws8
 assign [class="^Wine|csgo_linux64"] $ws9
