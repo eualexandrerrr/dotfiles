@@ -1,7 +1,7 @@
 #!/bin/bash
 # github.com/mamutal91
 
-# Para obter melhores mirros use
+# Mirrors
 # sudo reflector -c Brazil --save /etc/pacman.d/mirrorlist
 # sudo reflector -l 10 --sort rate --save /etc/pacman.d/mirrorlist
 
@@ -11,7 +11,7 @@ USUARIO=mamutal91
 
 sudo pacman -Sy
 
-readonly PACOTES_PACMAN=(
+readonly PKGS_PACMAN=(
   git
   i3-gaps i3lock compton dunst rofi mpd maim ffmpeg neofetch scrot lxappearance feh gpicview python-pywal python-setuptools openssh cronie plasma-browser-integration
   zsh zsh-syntax-highlighting
@@ -29,7 +29,7 @@ readonly PACOTES_PACMAN=(
   xorg-server xorg-xrandr xorg-xbacklight xorg-xinit xorg-xprop xautolock xclip
   linux-headers android-tools wicd wicd-gtk wireless_tools numlockx gvfs ntp unrar unzip wget)
 
-readonly PACOTES_AUR=(
+readonly PKGS_AUR=(
   nvidia-xrun
   alsaequal
   polybar jsoncpp
@@ -38,14 +38,14 @@ readonly PACOTES_AUR=(
   ttf-dejavu ttf-font-awesome nerdfont
   rambox-bin spotify grive-git)
 
-function instalar_pacotes_pacman(){
-  for i in "${PACOTES_PACMAN[@]}"; do
+function install_pkgs_pacman(){
+  for i in "${PKGS_PACMAN[@]}"; do
     sudo pacman -S ${i} --needed --noconfirm
   done
 }
 
-function instalar_pacotes_aur(){
-  for i in "${PACOTES_AUR[@]}"; do
+function install_pkgs_aur(){
+  for i in "${PKGS_AUR[@]}"; do
     yay -S ${i} --needed --noconfirm
   done
 }
@@ -54,7 +54,7 @@ function winetricks(){
   winetricks --force directx9 vcrun2005 vcrun2008 vcrun2010 vcrun2012 vcrun2013 vcrun2015 dotnet40 dotnet452 vb6 xact xna31 xna40 msl31 openal corefonts
 }
 
-function configurar_sistema(){
+function setup_system(){
   sudo systemctl enable NetworkManager
   sudo systemctl enable cronie
   sudo systemctl enable ntpd
@@ -65,6 +65,6 @@ function configurar_sistema(){
 
 #winetricks
 
-instalar_pacotes_pacman
-instalar_pacotes_aur
-configurar_sistema
+install_pkgs_pacman
+install_pkgs_aur
+setup_system
