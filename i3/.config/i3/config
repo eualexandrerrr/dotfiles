@@ -145,6 +145,8 @@ for_window [class="^.*"] border pixel 0, focus
 for_window [window_role="pop-up|bubble|task_dialog|Preferences"] floating enable, move position center
 for_window [window_type="dialog|menu"] floating enable, move position center
 for_window [title="Open Folder*"] floating enable, resize set 700 px 500 px, move position center, focus
+for_window [title="Media viewer"] fullscreen enable
+for_window [title="Escolha uma imagem"] focus
 
 for_window [class="Termite"] move to workspace $ws1
 for_window [class="Wicd-client.py"] move to workspace $ws1, floating enable, resize set 800 px 400 px, focus
@@ -155,8 +157,6 @@ for_window [title="Biblioteca"] floating enable, resize set 800 px 540 px
 
 for_window [class="Rambox"] move to workspace $ws3, floating enable, resize set 1200 px 900 px
 for_window [class="TelegramDesktop"] move to workspace $ws3, floating enable, resize set 930 px 810 px
-for_window [title="Media viewer"] fullscreen enable
-for_window [title="Escolha uma imagem"] focus
 
 for_window [class="Spotify|mpv|Steam"] move to workspace $ws4
 for_window [title="Lista de amigos"] move to workspace $ws4, floating enable, resize set 320 px 600 px
