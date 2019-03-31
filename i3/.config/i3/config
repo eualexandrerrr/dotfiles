@@ -81,6 +81,7 @@ bindsym $mod+$shift+r restart
 gaps inner 25
 gaps outer 10
 hide_edge_borders smart
+focus_on_window_activation focus
 
 # Rezise
 mode "resize" {
@@ -132,38 +133,38 @@ bindsym F12 exec --no-startup-id termite -e $HOME/.local/bin/arch-pacman.sh
 
 for_window [class="^.*"] border pixel 0, focus
 
-for_window [window_role="pop-up|bubble|task_dialog|Preferences"] floating enable, move position center
-for_window [window_type="dialog|menu"] floating enable, move position center
+for_window [window_role="pop-up|bubble|task_dialog|Preferences"] floating enable, move position center, focus
+for_window [window_type="dialog|menu"] floating enable, move position center, focus
 for_window [title="Open Folder*"] floating enable, resize set 700 px 500 px, move position center, focus
-for_window [title="Media viewer"] fullscreen enable
-for_window [title="Escolha uma imagem"] focus
+for_window [title="Media viewer"] fullscreen enable, focus
+for_window [title="Escolha uma imagem"] flating enable, focus
 
-for_window [class="Termite"] move to workspace $ws1
+for_window [class="Termite"] move to workspace $ws1, focus
 for_window [class="Wicd-client.py"] move to workspace $ws1, floating enable, resize set 800 px 400 px, focus
 for_window [title="/home/mamutal91/.local/bin/gitcron-dotfiles.sh"] move to workspace $ws5, floating enable, resize set 600 px 300 px, focus
 
-for_window [class="Firefox"] move to workspace $ws2
-for_window [title="Biblioteca"] floating enable, resize set 800 px 540 px
+for_window [class="Firefox"] move to workspace $ws2, focus
+for_window [title="Biblioteca"] floating enable, resize set 800 px 540 px, focus
 
-for_window [class="Rambox"] move to workspace $ws3, floating enable, resize set 1200 px 900 px
-for_window [class="TelegramDesktop"] move to workspace $ws3, floating enable, resize set 930 px 810 px
+for_window [class="Rambox"] move to workspace $ws3, floating enable, resize set 1200 px 900 px, focus
+for_window [class="TelegramDesktop"] move to workspace $ws3, floating enable, resize set 930 px 810 px, focus
 
-for_window [class="Spotify|mpv|Steam"] move to workspace $ws4
-for_window [title="Lista de amigos"] move to workspace $ws4, floating enable, resize set 320 px 600 px
-for_window [title="Steam — Novidades*"] move to workspace $ws4, floating enable, resize set 410 px 600 px
+for_window [class="Spotify|mpv|Steam"] move to workspace $ws4, focus
+for_window [title="Lista de amigos"] move to workspace $ws4, floating enable, resize set 320 px 600 px, focus
+for_window [title="Steam — Novidades*"] move to workspace $ws4, floating enable, resize set 410 px 600 px, focus
 
-for_window [class="Atom"] move to workspace $ws5
-for_window [class="Electron"] move to workspace $ws5, floating enable
+for_window [class="Atom"] move to workspace $ws5, focus
+for_window [class="Electron"] move to workspace $ws5, floating enable, focus
 
 for_window [class="libreoffice-startcenter|libreoffice-writer|libreoffice-draw|libreoffice-presentation|libreoffice-impress|libreoffice-calc"] move to workspace $ws6, focus
-for_window [class="Lxappearance|qbittorrent|Thunar"] move to workspace $ws7, floating enable
-for_window [class="Filezilla"] move to workspace $ws7
-for_window [class="Galculator"] move to workspace $ws7, floating enable, resize set 380 px 440 px, move position center
+for_window [class="Lxappearance|qbittorrent|Thunar"] move to workspace $ws7, floating enable, focus
+for_window [class="Filezilla"] move to workspace $ws7, focus
+for_window [class="Galculator"] move to workspace $ws7, floating enable, resize set 380 px 440 px, move position center, focus
 
-for_window [class="Pinta"] move to workspace $ws8
-for_window [class="Gpicview|feh"] move to workspace $ws8
+for_window [class="Pinta"] move to workspace $ws8, focus
+for_window [class="Gpicview|feh"] move to workspace $ws8, focus
 
-for_window [class="Wine|csgo_linux64"] move to workspace $ws9
+for_window [class="Wine|csgo_linux64"] move to workspace $ws9, focus
 
 # Workspaces
 assign [class="^Termite|Wicd-client.py"] $ws1
