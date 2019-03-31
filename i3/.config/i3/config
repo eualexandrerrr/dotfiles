@@ -37,19 +37,16 @@ bindsym $mod+w kill
 bindsym $mod+d exec --no-startup-id rofi -show drun -display-run -show-icons -width 30 "Arch Linux -"
 
 # Move windows
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
+bindsym $mod+$shift+Left move left
+bindsym $mod+$shift+Down move down
+bindsym $mod+$shift+Up move up
+bindsym $mod+$shift+Right move right
 
 # Enter fullscreen mode with window focused
 bindsym $mod+f fullscreen toggle
-bindsym $alt+f fullscreen toggle
-bindsym $alt+Return fullscreen toggle
 
 # Floating window
-bindsym $mod+Shift+space floating toggle
-bindsym $ctrl+Shift+space floating toggle
+bindsym $ctrl+$shift+space floating toggle
 
 # Workspaces
 bindsym $mod+1 workspace $ws1
@@ -63,21 +60,22 @@ bindsym $mod+8 workspace $ws8
 bindsym $mod+9 workspace $ws9
 
 # Move to workspace
-bindsym $ctrl+Shift+1 move container to workspace $ws1; workspace $ws1
-bindsym $ctrl+Shift+2 move container to workspace $ws2; workspace $ws2
-bindsym $ctrl+Shift+3 move container to workspace $ws3; workspace $ws3
-bindsym $ctrl+Shift+4 move container to workspace $ws4; workspace $ws4
-bindsym $ctrl+Shift+5 move container to workspace $ws5; workspace $ws5
-bindsym $ctrl+Shift+6 move container to workspace $ws6; workspace $ws6
-bindsym $ctrl+Shift+7 move container to workspace $ws7; workspace $ws7
-bindsym $ctrl+Shift+8 move container to workspace $ws8; workspace $ws8
-bindsym $ctrl+Shift+9 move container to workspace $ws9; workspace $ws9
+bindsym $ctrl+$shift+1 move container to workspace $ws1; workspace $ws1
+bindsym $ctrl+$shift+2 move container to workspace $ws2; workspace $ws2
+bindsym $ctrl+$shift+3 move container to workspace $ws3; workspace $ws3
+bindsym $ctrl+$shift+4 move container to workspace $ws4; workspace $ws4
+bindsym $ctrl+$shift+5 move container to workspace $ws5; workspace $ws5
+bindsym $ctrl+$shift+6 move container to workspace $ws6; workspace $ws6
+bindsym $ctrl+$shift+7 move container to workspace $ws7; workspace $ws7
+bindsym $ctrl+$shift+8 move container to workspace $ws8; workspace $ws8
+bindsym $ctrl+$shift+9 move container to workspace $ws9; workspace $ws9
 
 # Next workspaces
 bindsym $mod+Tab workspace next
+bindsym $alt+Tab workspace next
 
 # Restart i3
-bindsym $mod+Shift+r restart
+bindsym $mod+$shift+r restart
 
 # i3-gaps
 gaps inner 25
@@ -100,7 +98,6 @@ mode "resize" {
         bindsym Escape mode "default"
         bindsym $mod+r mode "default"
 }
-
 bindsym $mod+r mode "resize"
 
 # Startup
