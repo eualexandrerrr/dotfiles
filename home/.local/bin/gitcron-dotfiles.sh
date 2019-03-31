@@ -3,8 +3,6 @@
 
 (cat ~/.cache/wal/sequences &)
 
-git config --global commit.template ~/.commit
-
 dir="/media/storage/GitHub/"
 repos=('dotfiles')
 remoto="mamutal91@archlinux"
@@ -19,7 +17,7 @@ atualiza() {
 			status=$(git add . -n)
 			if [ ! -z "$status" ]; then
 			git add .
-			git commit --author="Alexandre Rangel <mamutal91@gmail.com>" --date "$(date)"
+			git commit -s --author="Alexandre Rangel <mamutal91@gmail.com>" --date "$(date)"
 			git push
 			DISPLAY=:0 notify-send -i $icon "dotfiles atualizado."
 			fi

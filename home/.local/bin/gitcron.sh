@@ -10,7 +10,6 @@ remoto="mamut@mamut"
 
 app=git.png
 icon=$iconsnotify/$app
-committemp="$(cat ~/.commit)"
 
 atualiza() {
 	if [ -d $1 ]; then
@@ -22,7 +21,7 @@ atualiza() {
 			m="Autocommit Git-Cron: $c"
 			DISPLAY=:0 notify-send -i $icon "Git-Cron Commits" "$(basename $1)"
 			git add .
-			git commit -m "$m" -m "$committemp" --author="Alexandre Rangel <mamutal91@gmail.com>" --date "$(date)"
+			git commit -m "$m" -s --author="Alexandre Rangel <mamutal91@gmail.com>" --date "$(date)"
 			git push
 			DISPLAY=:0 notify-send -i $icon "Git-Cron Push" "$(basename $1) atualizado."
 			fi
