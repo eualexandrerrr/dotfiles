@@ -17,7 +17,6 @@ readonly PKGS_PACMAN=(
     zsh zsh-syntax-highlighting
     termite terminus-font
     telegram-desktop
-    smplayer
     pinta
     thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman
     atom mpv smplayer qbittorrent galculator
