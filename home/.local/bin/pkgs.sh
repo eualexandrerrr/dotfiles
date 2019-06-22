@@ -18,7 +18,7 @@ readonly PKGS_PACMAN=(
     termite terminus-font
     telegram-desktop
     smplayer
-    gimp gimp-help-pt_br pinta
+    pinta
     thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman
     atom mpv smplayer qbittorrent galculator
     libreoffice-fresh libreoffice-fresh-pt-br
