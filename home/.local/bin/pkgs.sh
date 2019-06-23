@@ -10,35 +10,21 @@ USER=mamutal91
 sudo pacman -Sy
 
 readonly PKGS_PACMAN=(
-    archlinux-keyring git i3-gaps i3lock compton dunst rofi mpd maim ffmpeg reflector neofetch scrot lxappearance feh gpicview
-    bluez bluez-utils
-    python-setuptools openssh cronie stow jsoncpp
-    pulseaudio pulseeffects
-    zsh zsh-syntax-highlighting
-    termite terminus-font
-    telegram-desktop
-    pinta
-    thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman
-    atom mpv smplayer qbittorrent galculator
-    libreoffice-fresh libreoffice-fresh-pt-br
-    firefox firefox-i18n-pt-br filezilla
-    steam ttf-liberation
-    winetricks
-    nvidia nvidia-settings nvidia-utils lib32-virtualgl lib32-nvidia-utils opencl-nvidia lib32-libvdpau lib32-opencl-nvidia
-    xf86-video-intel bumblebee mesa bbswitch
-    xorg-server xorg-xrandr xorg-xbacklight xorg-xinit xorg-xprop xautolock xclip
-    linux-headers android-tools wireless_tools numlockx gvfs ntp unrar unzip wget)
+    android-tools archlinux-keyring atom bbswitch bluez bluez-utils bumblebee compton cronie dunst feh ffmpeg
+    filezilla firefox firefox-i18n-pt-br galculator git gpicview gvfs i3-gaps i3lock jsoncpp
+    lib32-libvdpau lib32-nvidia-utils lib32-opencl-nvidia lib32-virtualgl libreoffice-fresh libreoffice-fresh-pt-br
+    linux-headers lxappearance maim mesa mpd mpv neofetch ntp numlockx
+    nvidia nvidia-settings nvidia-utils opencl-nvidia
+    openssh pinta pulseaudio pulseeffects python-setuptools qbittorrent reflector rofi scrot smplayer steam stow telegram-desktop
+    terminus-font termite thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman ttf-liberation
+    unrar unzip wget winetricks wireless_tools
+    xautolock xclip xf86-video-intel xorg-server xorg-xbacklight xorg-xinit xorg-xprop xorg-xrandr
+    zsh zsh-syntax-highlighting)
 
 readonly PKGS_AUR=(
-    nvidia-xrun
-    polybar
-    gvfs-mtp selinux-python
-    arc-gtk-theme capitaine-cursors
-    franz
-    paper-icon-theme-git
-    ttf-dejavu ttf-font-awesome
-    Whatsie-bin spotify grive-git
-    smplayer-skins smplayer-themes)
+    arc-gtk-theme capitaine-cursors franz grive-git gvfs-mtp nvidia-xrun
+#   paper-icon-theme-git
+    polybar-git selinux-python smplayer-skins smplayer-themes spotify ttf-dejavu ttf-font-awesome)
 
 function install_pkgs_pacman(){
     for i in "${PKGS_PACMAN[@]}"; do
@@ -87,4 +73,4 @@ install_pkgs_pacman
 install_yay
 install_pkgs_aur
 config_system
-#oh-my-zsh
+oh-my-zsh
