@@ -1,4 +1,3 @@
 # github.com/mamutal91
-# pywal
 
-rofi.theme: /usr/share/rofi/themes/Arc-Dark.rasi
+rofi.theme: /home/mamutal91/.config/rofi/dark.rasi
