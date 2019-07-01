@@ -24,7 +24,7 @@ readonly PKGS_PACMAN=(
 readonly PKGS_AUR=(
     arc-gtk-theme capitaine-cursors franz grive-git gvfs-mtp nvidia-xrun
 #   paper-icon-theme-git
-    polybar-git selinux-python smplayer-skins smplayer-themes spotify ttf-dejavu ttf-font-awesome)
+    polybar-git smplayer-skins smplayer-themes spotify ttf-dejavu ttf-font-awesome)
 
 function install_pkgs_pacman(){
     for i in "${PKGS_PACMAN[@]}"; do
