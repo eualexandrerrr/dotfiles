@@ -3,4 +3,4 @@
 
 dir=$HOME/.local/share/wallpapers
 
-feh --bg-fill $dir/falcon.jpg
+feh --bg-fill $dir/keyboard.jpg
