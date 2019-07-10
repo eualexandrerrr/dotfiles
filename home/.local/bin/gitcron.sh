@@ -4,7 +4,7 @@
 export iconsnotify="/usr/share/icons/Paper/32x32/apps"
 
 dir="/media/storage/github/"
-readonly repos=('archlinux' 'buildroid' 'mamutal91.github.io' 'strojects')
+readonly repos=('archlinux' 'buildroid' 'mamutal91.github.io')
 
 app=git.png
 icon=$iconsnotify/$app
