@@ -133,7 +133,7 @@ reverse-scroll = false
 fuzzy-match = true
 
 ws-icon-0 = 1; terminal
-ws-icon-1 = 2; browser
+ws-icon-1 = 2; browser
 ws-icon-2 = 3; chats
 ws-icon-3 = 4; media
 ws-icon-4 = 5; codes

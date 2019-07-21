@@ -7,11 +7,11 @@
 # xdg-mime query default video/mp4
 
 # Web
-xdg-mime default firefox.desktop 'x-scheme-handler/about'
-xdg-mime default firefox.desktop 'x-scheme-handler/htm'
-xdg-mime default firefox.desktop 'x-scheme-handler/html'
-xdg-mime default firefox.desktop 'x-scheme-handler/http'
-xdg-mime default firefox.desktop 'x-scheme-handler/https'
+xdg-mime default google-chrome.desktop 'x-scheme-handler/about'
+xdg-mime default google-chrome.desktop 'x-scheme-handler/htm'
+xdg-mime default google-chrome.desktop 'x-scheme-handler/html'
+xdg-mime default google-chrome.desktop 'x-scheme-handler/http'
+xdg-mime default google-chrome.desktop 'x-scheme-handler/https'
 
 # Images
 xdg-mime default gpicview.desktop image/jpg
