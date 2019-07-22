@@ -5,12 +5,14 @@ function stows(){
     cd $HOME/.dotfiles
     stow compton
     stow dunst
+    stow files
     stow gpicview
     stow home
     stow i3
     stow neofetch
     stow polybar
     stow rofi
+    stow scripts
     stow termite
 }
 
@@ -31,11 +33,11 @@ function first_boot() {
   rm -rf .crontab .nanorc .nvidia-xinitrc .Xresources .zlogin .zshrc
 }
 
-#first_boot
+first_boot
 
 [[ $USER == "mamutal91" ]] && mamutal91 || stows
 
-canberra-gtk-play --file=$HOME/.local/share/sounds/completed.wav
+canberra-gtk-play --file=$HOME/.config/files/sounds/completed.wav
 i3-msg restart
 sleep 1s
 $HOME/.config/polybar/launch.sh

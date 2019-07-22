@@ -38,5 +38,5 @@ echo "Removendo pacotes não utilizados"
     sudo pacman -Rncs $(pacman -Qdtq) --noconfirm
     yay -Rncs $(yay -Qdtq) --noconfirm
 
-canberra-gtk-play --file=$HOME/.local/share/sounds/completed.wav
+canberra-gtk-play --file=$HOME/.config/files/sounds/completed.wav
 DISPLAY=:0 dbus-launch notify-send -i $icon "Pacotes atualizados com sucesso."
