@@ -10,7 +10,7 @@ font pango:Source Sans Pro 10
 
 # Fefine names for workspaces
 set $ws1 "1: terminal"
-set $ws2 "2: browser"
+set $ws2 "2: browser"
 set $ws3 "3: chats"
 set $ws4 "4: media"
 set $ws5 "5: codes"
@@ -115,7 +115,7 @@ bindsym $ctrl+$shift+K exec --no-startup-id $HOME/.config/scripts/screencast.sh
 # Application shortcuts
 bindsym $mod+Return exec --no-startup-id termite &; workspace $ws1
 bindsym $mod+e exec --no-startup-id thunar &; workspace $ws7
-bindsym $mod+F2 exec --no-startup-id google-chrome-stable &; workspace $ws2
+bindsym $mod+F2 exec --no-startup-id firefox &; workspace $ws2
 bindsym $mod+F3 exec --no-startup-id telegram-desktop &; workspace $ws3
 bindsym $mod+F4 exec --no-startup-id whatsapp-nativefier &; workspace $ws3
 
@@ -142,7 +142,7 @@ for_window [class="Termite"] focus
 for_window [class="Wicd-client.py"] move to workspace $ws1, floating enable, resize set 800 px 400 px, focus
 for_window [title="git-dotfiles"] move to workspace $ws5, floating enable, resize set 600 px 300 px, focus
 
-for_window [class="Google-chrome"] move to workspace $ws2, focus
+for_window [class="Firefox"] move to workspace $ws2, focus
 for_window [title="Biblioteca"] floating enable, resize set 800 px 540 px, focus
 
 for_window [title="WhatsApp"] move to workspace $ws3, floating enable, resize set 1100 px 800 px, focus
@@ -167,7 +167,7 @@ for_window [class="Wine|csgo_linux64"] move to workspace $ws9, focus
 
 # Workspaces
 assign [class="^Termite|Wicd-client.py"] $ws1
-assign [class="^Google-chrome"] $ws2
+assign [class="^Firefox"] $ws2
 assign [class="^TelegramDesktop|Franz"] $ws3
 assign [class="^Spotify|smplayer|Steam"] $ws4
 assign [class="^Atom"] $ws5
