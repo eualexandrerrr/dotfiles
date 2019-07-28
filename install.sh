@@ -1,8 +1,11 @@
 #!/bin/bash
 # github.com/mamutal91
 
-function stows(){
+function install(){
+    rm -rf $HOME/.dotfiles && cp -rf /media/storage/GitHub/dotfiles $HOME/.dotfiles
     cd $HOME/.dotfiles
+
+    sudo stow bbswitch -t /etc
     stow compton
     stow dunst
     stow files
@@ -14,12 +17,6 @@ function stows(){
     stow rofi
     stow scripts
     stow termite
-}
-
-function mamutal91(){
-    rm -rf $HOME/.dotfiles && cp -rf /media/storage/GitHub/dotfiles $HOME/.dotfiles
-    stows
-    sudo stow bbswitch -t /etc
     sudo stow X11 -t /etc/X11
 
     sudo rm -rf /etc/systemd/logind.conf && sudo cp -rf systemd/logind.conf /etc/systemd
@@ -33,9 +30,9 @@ function first_boot() {
   rm -rf .crontab .nanorc .nvidia-xinitrc .Xresources .zlogin .zshrc
 }
 
-first_boot
+#first_boot
 
-[[ $USER == "mamutal91" ]] && mamutal91 || stows
+install
 
 canberra-gtk-play --file=$HOME/.config/files/sounds/completed.wav
 i3-msg restart
