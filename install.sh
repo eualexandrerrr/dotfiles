@@ -5,6 +5,7 @@ function install(){
     rm -rf $HOME/.dotfiles && cp -rf /media/storage/GitHub/dotfiles $HOME/.dotfiles
     cd $HOME/.dotfiles
 
+    stow alacritty
     sudo stow bbswitch -t /etc
     stow compton
     stow dunst
@@ -16,7 +17,6 @@ function install(){
     stow polybar
     stow rofi
     stow scripts
-    stow termite
     sudo stow X11 -t /etc/X11
 
     sudo rm -rf /etc/systemd/logind.conf && sudo cp -rf systemd/logind.conf /etc/systemd
@@ -24,7 +24,7 @@ function install(){
 
 function first_boot() {
   cd /home/mamutal91/.config
-  rm -rf compton dunst gpicview i3 neofetch polybar rofi termite
+  rm -rf compton dunst gpicview i3 neofetch polybar rofi alacritty
   cd /etc/X11 && sudo rm -rf *
   cd /home/mamutal91/
   rm -rf .crontab .nanorc .nvidia-xinitrc .Xresources .zlogin .zshrc

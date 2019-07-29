@@ -113,19 +113,17 @@ bindsym $ctrl+K exec --no-startup-id $HOME/.config/scripts/screencast.sh -start
 bindsym $ctrl+$shift+K exec --no-startup-id $HOME/.config/scripts/screencast.sh
 
 # Application shortcuts
-bindsym $mod+Return exec --no-startup-id termite &; workspace $ws1
+bindsym $mod+Return exec --no-startup-id alacritty &; workspace $ws1
 bindsym $mod+e exec --no-startup-id thunar &; workspace $ws7
 bindsym $mod+F2 exec --no-startup-id firefox &; workspace $ws2
 bindsym $mod+F3 exec --no-startup-id telegram-desktop &; workspace $ws3
 bindsym $mod+F4 exec --no-startup-id whatsapp-nativefier &; workspace $ws3
 
 # System shortcuts
-bindsym F7 exec --no-startup-id termite -e $HOME/.config/scripts/gitcron.sh
-bindsym F8 exec --no-startup-id $HOME/.config/polybar/launch.sh
-bindsym F9 exec --no-startup-id termite -e $HOME/.config/scripts/pgks.sh
-bindsym F10 exec --no-startup-id termite -t git-dotfiles -e $HOME/.config/scripts/gitcron-dotfiles.sh &; workspace $ws5
+bindsym F9 exec --no-startup-id alacritty -e $HOME/.config/scripts/pgks.sh; workspace $ws1
+bindsym F10 exec --no-startup-id alacritty -t git-dotfiles -e $HOME/.config/scripts/gitcron-dotfiles.sh &; workspace $ws5
 bindsym F11 exec --no-startup-id $HOME/.dotfiles/install.sh
-bindsym F12 exec --no-startup-id termite -e $HOME/.config/scripts/pacman.sh
+bindsym F12 exec --no-startup-id alacritty -e $HOME/.config/scripts/pacman.sh; workspace $ws1
 
 # Rules
 # xprop |awk '/^WM_CLASS/{sub(/.* =/, "instance:"); sub(/,/, "\nclass:"); print} /^WM_NAME/{sub(/.* =/, "title:"); print}'
