@@ -15,7 +15,7 @@ readonly PKGS_PACMAN=(
     lib32-libvdpau lib32-nvidia-utils lib32-opencl-nvidia lib32-virtualgl libreoffice-fresh libreoffice-fresh-pt-br \
     linux-headers lxappearance maim mesa mpd mpv neofetch ntp numlockx \
     nvidia nvidia-settings nvidia-utils opencl-nvidia \
-    openssh pinta python-setuptools qbittorrent reflector rofi scrot smplayer steam stow telegram-desktop \
+    openssh pinta pulseaudio pulseeffects python-setuptools qbittorrent reflector rofi scrot smplayer steam stow telegram-desktop \
     terminus-font thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman ttf-liberation \
     unrar unzip wget winetricks wireless_tools \
     xclip xf86-video-intel xorg-server xorg-xbacklight xorg-xinit xorg-xprop xorg-xrandr \
