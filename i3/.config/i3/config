@@ -22,12 +22,11 @@ set $ws9 "9: games"
 # Use $mod+Mouse to drag floating windows to their wanted position
 floating_modifier $mod
 
-# Audio control
-bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q set Master 5%+ unmute
-bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q set Master 5%- unmute
-bindsym XF86AudioMute exec --no-startup-id amixer -q set Master toggle
+# Audio/Brightness Control
+bindsym XF86AudioRaiseVolume exec --no-startup-id "pactl set-sink-mute @DEFAULT_SINK@ false; pactl set-sink-volume @DEFAULT_SINK@ +5%"
+bindsym XF86AudioLowerVolume exec --no-startup-id "pactl set-sink-mute @DEFAULT_SINK@ false; pactl set-sink-volume @DEFAULT_SINK@ -5%"
+bindsym XF86AudioMute exec --no-startup-id "pactl set-sink-mute 0 toggle"
 
-# Brightness control
 bindsym XF86MonBrightnessUp exec  --no-startup-id echo $((`cat /sys/class/backlight/intel_backlight/brightness` + 10)) | sudo tee /sys/class/backlight/intel_backlight/brightness
 bindsym XF86MonBrightnessDown exec  --no-startup-id echo $((`cat /sys/class/backlight/intel_backlight/brightness` - 10)) | sudo tee /sys/class/backlight/intel_backlight/brightness
 
@@ -106,6 +105,7 @@ exec --no-startup-id dunst
 exec --no-startup-id numlockx on
 exec --no-startup-id pulseeffects --gapplication-service &>/dev/null
 exec --no-startup-id sudo timedatectl set-ntp true && sudo hwclock --systohc
+exec --no-startup-id "pactl set-sink-mute @DEFAULT_SINK@ false; pactl set-sink-volume @DEFAULT_SINK@ 50%"
 exec --no-startup-id xidlehook --not-when-fullscreen --not-when-audio --timer normal 10 '$HOME/.config/scripts/i3lock.sh -t -ef -n' ''
 
 # Screenshot & Screencast

@@ -288,7 +288,7 @@ bar-foreground-5 = #FF0080
 bar-foreground-6 = #DF013A
 
 [module/volume]
-type = internal/alsa
+type = internal/pulseaudio
 interval = 5
 use-ui-max = false
 sink = alsa_output.pci-0000_00_1f.3.analog-stereo
