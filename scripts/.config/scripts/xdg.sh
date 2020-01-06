@@ -14,15 +14,15 @@ xdg-mime default firefox.desktop 'x-scheme-handler/http'
 xdg-mime default firefox.desktop 'x-scheme-handler/https'
 
 # Images
+xdg-mime default gpicview.desktop image/gif
 xdg-mime default gpicview.desktop image/jpg
 xdg-mime default gpicview.desktop image/jpeg
 xdg-mime default gpicview.desktop image/png
-xdg-mime default gpicview.desktop image/gif
 
 # Videos
 xdg-mime default smplayer.desktop video/x-matroska
-xdg-mime default smplayer.desktop video/mp4
 xdg-mime default smplayer.desktop video/x-msvideo
+xdg-mime default smplayer.desktop video/mp4
 
 # Text
 xdg-mime default atom.desktop text/plain
