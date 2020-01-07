@@ -8,7 +8,7 @@ app=git.png
 icon=$iconsnotify/$app
 
 function gitcron(){
-    for i in "${repos[@]}"; do
+  for i in "${repos[@]}"; do
 			cd $dir/$i
 			status=$(git add . -n)
 			if [ ! -z "$status" ]; then
