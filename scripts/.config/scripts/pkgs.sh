@@ -29,7 +29,7 @@ readonly PKGS_PACMAN=(
   telegram-desktop terminus-font thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman ttf-liberation
   unrar unzip
   wget winetricks wireless_tools
-  xclip xf86-video-intel xorg-server xorg-xbacklight xorg-xinit xorg-xprop xorg-xrandr zsh zsh-syntax-highlighting)
+  xclip xf86-video-intel xorg-server xorg-xbacklight xorg-xinit xorg-xprop xorg-xrandr zsh)
 
 readonly PKGS_AUR=(
   capitaine-cursors
@@ -41,7 +41,7 @@ readonly PKGS_AUR=(
   ttf-dejavu ttf-font-awesome ttf-wps-fonts
   wps-office wps-office-extension-portuguese-brazilian-dictionary wps-office-mui-pt-br
   xidlehook
-  zuki-themes)
+  zuki-themes zsh-syntax-highlighting-git)
 
 function install_pkgs_pacman(){
   for i in "${PKGS_PACMAN[@]}"; do
