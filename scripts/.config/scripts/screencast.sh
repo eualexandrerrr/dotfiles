@@ -6,7 +6,7 @@ icon=$iconsnotify/$app
 
 variable=${1}
 
-local="$HOME/Videos"
+local="$HOME/Vídeos"
 file=$local/$(date "+%d-%m-%Y_%H-%M-%S")
 
 [ ! -d $local ] && mkdir -p $local
