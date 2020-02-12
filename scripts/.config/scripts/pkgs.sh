@@ -19,7 +19,7 @@ readonly PKGS_PACMAN=(
   jsoncpp
   lib32-libvdpau lib32-nvidia-utils lib32-opencl-nvidia lib32-virtualgl lxappearance
   maim mesa mpd mpv
-  neofetch ntfs-3g ntp
+  neofetch ntfs-3g
   numlockx nvidia nvidia-settings nvidia-utils
   opencl-nvidia openssh
   pinta pulseaudio pulseaudio-bluetooth pulseeffects python-setuptools
@@ -84,7 +84,6 @@ function config_system(){
   sudo systemctl enable dhcpcd
   sudo systemctl enable NetworkManager
   sudo systemctl enable cronie
-  sudo systemctl enable ntpd
   sudo systemctl enable bumblebeed.service
   sudo systemctl enable bluetooth
   sudo chown -R $USER:$USER /home/$USER

@@ -16,8 +16,8 @@ function gitcron(){
 				m="Autocommit Git-Cron: $c"
 				DISPLAY=:0 dbus-launch notify-send -i $icon "Git-Cron Commits" "$(basename $i)"
 				git add .
-				git commit -m "$m" -s --author="Alexandre Rangel <mamutal91@gmail.com>" --date "$(date)"
-				git push
+				git commit -m "$m" --author "Alexandre Rangel <mamutal91@gmail.com>" --date "$(date '+%Y-%m-%d %H:%M:%S')"
+				git push --force
 				DISPLAY=:0 dbus-launch notify-send -i $icon "Git-Cron" "$(basename $i) atualizado."
 			fi
 done
