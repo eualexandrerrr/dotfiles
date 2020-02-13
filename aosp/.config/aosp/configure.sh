@@ -1,6 +1,7 @@
 #!/bin/bash
 # github.com/mamutal91
 
+mkdir -p /media/storage/.ccache
 mkdir -p $aospbuilding/.pull_rebase
 
 readonly PKGS_PACMAN=(
