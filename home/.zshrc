@@ -8,6 +8,8 @@ plugins=(git archlinux extract web-search)
 source $ZSH/oh-my-zsh.sh
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
+source $HOME/.config/scripts/aospbuilding.sh
+
 export TERM="xterm-256color"
 export EDITOR="nano"
 export BROWSER=firefox
@@ -19,12 +21,3 @@ export LC_ALL=$IDIOMA
 export LC_CTYPE=$IDIOMA
 
 export icons_path="/home/mamutal91/.config/files/icons"
-
-function push () {
-  git push ssh://git@github.com/mamutal91/${1} HEAD:refs/heads/ten --force
-  git push ssh://git@github.com/aosp-forking/${1} HEAD:refs/heads/ten --force
-}
-
-function p () {
-  git cherry-pick ${1}
-}
