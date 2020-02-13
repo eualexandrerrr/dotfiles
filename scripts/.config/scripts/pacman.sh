@@ -4,6 +4,8 @@
 app=pacman.png
 icon=$iconsnotify/$app
 
+sleep 1
+
 echo "Atualizando Pacman e AUR"
   sudo pacman -Syyu
   yay -Syyu
