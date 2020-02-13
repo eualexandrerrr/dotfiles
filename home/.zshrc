@@ -12,7 +12,7 @@ source $HOME/.config/scripts/aospbuilding.sh
 
 export TERM="xterm-256color"
 export EDITOR="nano"
-export BROWSER=firefox
+export BROWSER="firefox"
 
 export IDIOMA="pt_BR.UTF-8"
 export LANG=$IDIOMA
