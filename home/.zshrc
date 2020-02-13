@@ -10,12 +10,14 @@ source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 export TERM="xterm-256color"
 export EDITOR="nano"
-export LANG="pt_BR.UTF-8"
-export LC_ALL="pt_BR.UTF-8"
-export LANGUAGE="pt_BR.UTF-8"
-export LC_CTYPE="pt_BR.UTF-8"
-
 export BROWSER=firefox
+
+export IDIOMA="pt_BR.UTF-8"
+export LANG=$IDIOMA
+export LANGUAGE=$IDIOMA
+export LC_ALL=$IDIOMA
+export LC_CTYPE=$IDIOMA
+
 export icons_path="/home/mamutal91/.config/files/icons"
 
 function push () {
