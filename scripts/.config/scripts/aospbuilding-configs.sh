@@ -1,6 +1,8 @@
 #!/bin/bash
 # github.com/mamutal91
 
+mkdir -p $aospbuilding/.pull_rebase
+
 readonly PKGS_PACMAN=(
   repo lib32-gcc-libs git gnupg flex bison gperf sdl wxgtk2 squashfs-tools curl ncurses zlib schedtool
   perl-switch zip unzip libxslt python2-virtualenv bc rsync lib32-zlib lib32-ncurses lib32-readline lzop pngcrush imagemagick)
