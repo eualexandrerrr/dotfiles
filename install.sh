@@ -46,7 +46,7 @@ function X11(){
 function first_boot() {
   echo "Removing default configs..."
   cd /home/mamutal91/.config
-  rm -rf alacritty compton dunst files gpicview i3 neofetch polybar rofi scripts smplayer
+  rm -rf alacritty aosp compton dunst files gpicview i3 neofetch polybar rofi scripts smplayer
   cd /etc/X11 && sudo rm -rf *
   cd /home/mamutal91/
   rm -rf .crontab .nanorc .nvidia-xinitrc .Xresources .zlogin .zshrc
