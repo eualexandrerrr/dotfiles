@@ -11,6 +11,7 @@ function stows(){
     cd $HOME/.dotfiles
 
     stow alacritty
+    stow aosp
     stow compton
     stow dunst
     stow files
