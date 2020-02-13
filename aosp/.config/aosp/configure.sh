@@ -2,7 +2,7 @@
 # github.com/mamutal91
 
 mkdir -p /media/storage/.ccache
-mkdir -p $aosp/.pull_rebase
+mkdir -p $aosp_dir/.pull_rebase
 
 readonly PKGS_PACMAN=(
   repo lib32-gcc-libs git gnupg flex bison gperf sdl wxgtk2 squashfs-tools curl ncurses zlib schedtool

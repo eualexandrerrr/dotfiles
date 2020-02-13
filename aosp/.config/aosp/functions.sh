@@ -11,13 +11,18 @@ export KBUILD_BUILD_HOST=MaMuT
 export SELINUX_IGNORE_NEVERALLOWS=true
 export CUSTOM_BUILD_TYPE=OFFICIAL
 
-export aosp="/media/storage/aosp"
+export aosp_dir="/media/storage/aosp"
 
 export branch="ten"
 export los="lineage-17.1"
 
+function aosp () {
+  cd $aosp_dir
+  virtualenv2 --system-site-packages venv && source venv/bin/activate
+}
+
 function tree () {
-  cd $aosp
+  cd $aosp_dir
   rm -rf device/xiaomi/beryllium
   rm -rf device/xiaomi/sdm845-common
   git clone ssh://git@github.com/mamutal91/device_xiaomi_beryllium -b $branch device/xiaomi/beryllium
@@ -26,7 +31,7 @@ function tree () {
 
 function tree_pull () {
   pwd_tree_pull=$(pwd)
-  cd $aosp/.pull_rebase
+  cd $aosp_dir/.pull_rebase
   rm -rf device_xiaomi_beryllium device_xiaomi_sdm845-common
 
   git clone ssh://git@github.com/mamutal91/device_xiaomi_beryllium -b $branch
@@ -42,14 +47,14 @@ function tree_pull () {
 }
 
 function tree_kernel () {
-  cd $aosp
+  cd $aosp_dir
   rm -rf kernel/xiaomi
   git clone https://github.com/AOSiP-Devices/kernel_xiaomi_sdm845 -b ten kernel/xiaomi/sdm845
 }
 
 function tree_vendor () {
   pwd_tree_vendor=$(pwd)
-  cd $aosp
+  cd $aosp_dir
   rm -rf vendor/xiaomi
   git clone https://github.com/AOSiP-Devices/proprietary_vendor_xiaomi -b ten vendor/xiaomi
   cd vendor/xiaomi
@@ -90,11 +95,11 @@ function p () {
 
 function opengapps () {
   pwd_opengapps=$(pwd)
-  cd $aosp/vendor/opengapps/build && git lfs fetch --all && git lfs pull
-  cd $aosp/vendor/opengapps/sources/all && git lfs fetch --all && git lfs pull
-  cd $aosp/vendor/opengapps/sources/arm && git lfs fetch --all && git lfs pull
-  cd $aosp/vendor/opengapps/sources/arm64 && git lfs fetch --all && git lfs pull
-  cd $aosp/vendor/opengapps/sources/x86 && git lfs fetch --all && git lfs pull
-  cd $aosp/vendor/opengapps/sources/x86_64 && git lfs fetch --all && git lfs pull
+  cd $aosp_dir/vendor/opengapps/build && git lfs fetch --all && git lfs pull
+  cd $aosp_dir/vendor/opengapps/sources/all && git lfs fetch --all && git lfs pull
+  cd $aosp_dir/vendor/opengapps/sources/arm && git lfs fetch --all && git lfs pull
+  cd $aosp_dir/vendor/opengapps/sources/arm64 && git lfs fetch --all && git lfs pull
+  cd $aosp_dir/vendor/opengapps/sources/x86 && git lfs fetch --all && git lfs pull
+  cd $aosp_dir/vendor/opengapps/sources/x86_64 && git lfs fetch --all && git lfs pull
   cd $pwd_opengapps
 }
