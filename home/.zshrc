@@ -16,7 +16,7 @@ export LANGUAGE="pt_BR.UTF-8"
 export LC_CTYPE="pt_BR.UTF-8"
 
 export BROWSER=firefox
-export iconsnotify="/home/mamutal91/.config/files/icons"
+export icons_path="/home/mamutal91/.config/files/icons"
 
 function push () {
   git push ssh://git@github.com/mamutal91/${1} HEAD:refs/heads/ten --force

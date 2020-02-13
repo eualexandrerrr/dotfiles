@@ -5,7 +5,7 @@
 # -u = Fullscreen
 
 app=screenshot.png
-icon=$iconsnotify/$app
+icon=$icons_path/$app
 
 var=${1}
 msg=${2}

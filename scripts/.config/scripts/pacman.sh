@@ -2,7 +2,7 @@
 # github.com/mamutal91
 
 app=pacman.png
-icon=$iconsnotify/$app
+icon=$icons_path/$app
 
 sleep 1
 
