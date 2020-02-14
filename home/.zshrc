@@ -3,7 +3,7 @@ export ZSH="/home/mamutal91/.oh-my-zsh"
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="robbyrussell"
 
-plugins=(git archlinux extract web-search)
+plugins=(git archlinux extract)
 
 source $ZSH/oh-my-zsh.sh
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
