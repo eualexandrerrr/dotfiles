@@ -21,3 +21,7 @@ export LC_ALL=$IDIOMA
 export LC_CTYPE=$IDIOMA
 
 export icons_path="/home/mamutal91/.config/files/icons"
+
+function storage () {
+  cd /media/storage
+}
