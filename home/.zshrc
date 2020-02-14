@@ -8,8 +8,6 @@ plugins=(git archlinux extract web-search)
 source $ZSH/oh-my-zsh.sh
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-source $HOME/.config/aosp/functions.sh
-
 export TERM="xterm-256color"
 export EDITOR="nano"
 export BROWSER="firefox"
