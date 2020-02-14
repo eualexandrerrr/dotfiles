@@ -86,7 +86,7 @@ function pull () {
 
 function push () {
   git push ssh://git@github.com/mamutal91/${1} HEAD:refs/heads/${2} --force
-  git push ssh://git@github.com/aosp-forking/${1} HEAD:refs/heads/${2} --force
+#  git push ssh://git@github.com/aosp-forking/${1} HEAD:refs/heads/${2} --force
 }
 
 function p () {
