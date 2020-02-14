@@ -62,10 +62,6 @@ function tree_vendor () {
   cd $pwd_tree_vendor
 }
 
-function up () {
-  cp -rf ${1} /var/www/mamutal91/
-}
-
 function upsf () {
   scp ${1} mamutal91@frs.sourceforge.net:/home/frs/project/aosp-forking/beryllium
 }
