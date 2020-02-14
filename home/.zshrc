@@ -25,3 +25,10 @@ export icons_path="/home/mamutal91/.config/files/icons"
 function storage () {
   cd /media/storage
 }
+
+function pkgs () {
+  $HOME/.dotfiles/install.sh
+  $HOME/.config/scripts/pkgs.sh
+  $HOME/.config/aosp/configure.sh
+  $HOME/.config/scripts/pacman.sh
+}
