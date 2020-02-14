@@ -5,11 +5,25 @@ mkdir -p /media/storage/.ccache
 mkdir -p $aosp_dir/.pull_rebase
 
 readonly PKGS_PACMAN=(
-  ccache maven gradle repo lib32-gcc-libs git gnupg flex bison gperf sdl wxgtk2 squashfs-tools curl ncurses zlib schedtool
-  perl-switch zip unzip libxslt python2-virtualenv bc rsync lib32-zlib lib32-ncurses lib32-readline lzop pngcrush imagemagick)
+  bc bison
+  ccache curl
+  flex
+  git-lfs gnupg gperf gradle
+  imagemagick
+  lib32-gcc-libs lib32-ncurses lib32-readline lib32-zlib libxslt lzop
+  maven
+  ncurses
+  perl-switch pngcrush python2-virtualenv
+  repo rsync
+  schedtool sdl squashfs-tools
+  unzip
+  wxgtk2
+  zip zlib)
 
 readonly PKGS_AUR=(
-  ncurses5-compat-libs lib32-ncurses5-compat-libs xml2 lineageos-devel)
+  lib32-ncurses5-compat-libs lineageos-devel
+  ncurses5-compat-libs
+  xml2)
 
 function install_pkgs_pacman(){
   for i in "${PKGS_PACMAN[@]}"; do
