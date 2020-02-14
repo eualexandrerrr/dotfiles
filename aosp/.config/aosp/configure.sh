@@ -5,7 +5,7 @@ mkdir -p /media/storage/.ccache
 mkdir -p $aosp_dir/.pull_rebase
 
 readonly PKGS_PACMAN=(
-  ccache repo lib32-gcc-libs git gnupg flex bison gperf sdl wxgtk2 squashfs-tools curl ncurses zlib schedtool
+  ccache maven gradle repo lib32-gcc-libs git gnupg flex bison gperf sdl wxgtk2 squashfs-tools curl ncurses zlib schedtool
   perl-switch zip unzip libxslt python2-virtualenv bc rsync lib32-zlib lib32-ncurses lib32-readline lzop pngcrush imagemagick)
 
 readonly PKGS_AUR=(
