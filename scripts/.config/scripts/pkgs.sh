@@ -43,19 +43,19 @@ readonly PKGS_AUR=(
   xidlehook
   zafiro-icon-theme zuki-themes zsh-syntax-highlighting-git)
 
-function install_pkgs_pacman(){
+function install-pkgs-pacman(){
   for i in "${PKGS_PACMAN[@]}"; do
     sudo pacman -S ${i} --needed --noconfirm
   done
 }
 
-function install_pkgs_aur(){
+function install-pkgs-aur(){
   for i in "${PKGS_AUR[@]}"; do
     yay -S ${i} --needed --noconfirm
   done
 }
 
-function install_yay(){
+function install-yay(){
   git clone https://aur.archlinux.org/yay.git /home/mamutal91/yay
   cd "/home/mamutal91/yay"
   makepkg -si --noconfirm
@@ -76,7 +76,7 @@ function oh-my-zsh(){
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 }
 
-function config_system(){
+function config-system(){
   USER=mamutal91
   git config --global user.email "mamutal91@gmail.com"
   git config --global user.name "Alexandre Rangel"
@@ -96,8 +96,8 @@ gpg --keyserver hkps://keyserver.ubuntu.com --recv-keys 931FF8E79F0876134EDDBDCC
 gpg --keyserver hkps://keyserver.ubuntu.com --recv-keys 2EBF997C15BDA244B6EBF5D84773BD5E130D1D45
 
 #winetricks
-install_pkgs_pacman
-install_yay
-install_pkgs_aur
-config_system
+install-pkgs-pacman
+install-yay
+install-pkgs-aur
+config-system
 oh-my-zsh
