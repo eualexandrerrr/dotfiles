@@ -5,7 +5,7 @@ dir="/media/storage/GitHub/"
 readonly repos=('zsh-history')
 
 cd $HOM
-cp -rf .zsh_history /media/storage/GitHub/zsh-history
+cp -rf .zsh_history /media/storage/GitHub/zsh-history/mamutal91
 
 app=git.png
 icon=$icons_path/$app
