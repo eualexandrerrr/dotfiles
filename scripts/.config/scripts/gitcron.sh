@@ -2,7 +2,7 @@
 # github.com/mamutal91
 
 dir="/media/storage/GitHub/"
-readonly repos=('archlinux-building' 'archlinux' 'mamutal91.github.io')
+readonly repos=('archlinux' 'mamutal91.github.io')
 
 app=git.png
 icon=$icons_path/$app
