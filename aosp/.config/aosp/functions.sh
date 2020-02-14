@@ -11,6 +11,8 @@ export KBUILD_BUILD_HOST=MaMuT
 export SELINUX_IGNORE_NEVERALLOWS=true
 export CUSTOM_BUILD_TYPE=OFFICIAL
 
+export JAVA_HOME=/usr/lib/jvm/java-13-openjdk
+
 export aosp_dir="/media/storage/aosp"
 
 export branch="ten"
