@@ -1,3 +1,3 @@
 */5 * * * * $HOME/.config/scripts/gitcron.sh
 */10 * * * * cd /media/storage/Google\ Drive/ && grive
-*/60 * * * * cd $HOME && cp -rf .zsh_history /media/storage/GitHub/zsh-history && $HOME/.config/scripts/gitcron-zsh-history.sh
+*/30 * * * * $HOME/.config/scripts/gitcron-zsh-history.sh
