@@ -1,3 +1,2 @@
-*/10 * * * * $HOME/.config/scripts/gitcron.sh
-*/10 * * * * $HOME/.config/scripts/gitcron-zsh-history.sh
+*/10 * * * * $HOME/.config/scripts/zsh-history.sh
 */10 * * * * cd /media/storage/Google\ Drive/ && grive

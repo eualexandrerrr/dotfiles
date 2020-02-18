@@ -122,7 +122,7 @@ bindsym $mod+F4 exec --no-startup-id franz &; workspace $ws3
 
 # System shortcuts
 bindsym F9 exec --no-startup-id alacritty -e $HOME/.config/scripts/pgks.sh; workspace $ws1
-bindsym F10 exec --no-startup-id alacritty -t git-dotfiles -e $HOME/.config/scripts/gitcron-dotfiles.sh &; workspace $ws5
+bindsym F10 exec --no-startup-id $HOME/.config/scripts/commiter.sh &; workspace $ws5
 bindsym F11 exec --no-startup-id $HOME/.dotfiles/install.sh
 bindsym F12 exec --no-startup-id alacritty -e $HOME/.config/scripts/pacman.sh; workspace $ws1
 
@@ -138,7 +138,7 @@ for_window [title="Media viewer"] fullscreen enable, focus
 for_window [title="Escolha uma imagem"] floating enable, focus
 
 for_window [class="Alacritty"] move to workspace $ws1, focus
-for_window [title="git-dotfiles"] move to workspace $ws5, floating enable, resize set 600 px 300 px, move right 30px, move down 150px, focus
+for_window [title="newcommit"] move to workspace $ws5, floating enable, resize set 700 px 350 px, move right -100px, move down 10px, focus
 
 for_window [instance="Navigator"] move to workspace $ws2, focus
 for_window [class="Firefox|firefox"] move to workspace $ws2, focus
