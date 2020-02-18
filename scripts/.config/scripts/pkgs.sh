@@ -35,6 +35,7 @@ readonly PKGS_AUR=(
   capitaine-cursors
   franz
   grive-git
+  jekyll
   namebench nvidia-xrun
   polybar
   smplayer-skins smplayer-themes spotify
