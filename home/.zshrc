@@ -24,7 +24,3 @@ export icons_path="/home/mamutal91/.config/files/icons"
 function p () {
   git cherry-pick ${1}
 }
-
-function storage () {
-  cd /media/storage
-}
