@@ -36,7 +36,7 @@ readonly PKGS_AUR=(
   franz
   grive-git
   namebench nvidia-xrun
-  polybar
+  polybar python-ruamel-yaml
   smplayer-skins smplayer-themes spotify
   ttf-dejavu ttf-font-awesome ttf-wps-fonts
   wps-office wps-office-extension-portuguese-brazilian-dictionary wps-office-mui-pt-br
