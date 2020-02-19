@@ -11,6 +11,7 @@ source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 export TERM="xterm-256color"
 export EDITOR="nano"
 export BROWSER="firefox"
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk
 
 export IDIOMA="pt_BR.UTF-8"
 export LANG=$IDIOMA

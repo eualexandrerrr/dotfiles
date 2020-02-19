@@ -35,6 +35,7 @@ readonly PKGS_AUR=(
   capitaine-cursors
   franz
   grive-git
+  jre8-openjdk
   namebench nvidia-xrun
   polybar python-ruamel-yaml
   smplayer-skins smplayer-themes spotify
