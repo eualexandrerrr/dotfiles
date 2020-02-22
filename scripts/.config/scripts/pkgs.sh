@@ -44,19 +44,19 @@ readonly PKGS_AUR=(
   xidlehook
   zafiro-icon-theme zuki-themes zsh-syntax-highlighting-git)
 
-function install-pkgs-pacman(){
+function install-pkgs-pacman() {
   for i in "${PKGS_PACMAN[@]}"; do
     sudo pacman -S ${i} --needed --noconfirm
   done
 }
 
-function install-pkgs-aur(){
+function install-pkgs-aur() {
   for i in "${PKGS_AUR[@]}"; do
     yay -S ${i} --needed --noconfirm
   done
 }
 
-function install-yay(){
+function install-yay() {
   git clone https://aur.archlinux.org/yay.git /home/mamutal91/yay
   cd "/home/mamutal91/yay"
   makepkg -si --noconfirm
@@ -64,20 +64,20 @@ function install-yay(){
   rm -rf yay
 }
 
-function winetricks(){
+function winetricks() {
   winetricks --force directx9 vcrun2005 vcrun2008 vcrun2010 vcrun2012 vcrun2013 vcrun2015 dotnet40 dotnet452 vb6 xact xna31 xna40 msl31 openal corefonts
 }
 
-function winetricks_gpro(){
+function winetricks_gpro() {
   WINEARCH=win32 WINEPREFIX=~/.wine32 winetricks dotnet40
 }
 
-function oh-my-zsh(){
+function oh-my-zsh() {
   rm -rf $HOME/.oh-my-zsh
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 }
 
-function config-system(){
+function config-system() {
   USER=mamutal91
   git config --global user.email "mamutal91@gmail.com"
   git config --global user.name "Alexandre Rangel"

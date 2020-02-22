@@ -7,7 +7,7 @@ readonly repos=('archlinux' 'mamutal91.github.io' 'ubuntu')
 app=git.png
 icon=$icons_path/$app
 
-function gitcron(){
+function gitcron() {
   for i in "${repos[@]}"; do
 			cd $dir/$i
 			status=$(git add . -n)

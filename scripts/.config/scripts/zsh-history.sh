@@ -10,7 +10,7 @@ cp -rf .zsh_history /media/storage/GitHub/zsh-history/mamutal91
 app=git.png
 icon=$icons_path/$app
 
-function gitcron(){
+function gitcron() {
   for i in "${repos[@]}"; do
 			cd $dir/$i
 			status=$(git add . -n)

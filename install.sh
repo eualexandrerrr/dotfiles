@@ -5,7 +5,7 @@ echo "Initializing configurations..."
 echo "stow's..."
 echo "Removing actual .dotfiles and copying /media/storage/GitHub/dotfiles from /home/mamutal91/.dotfiles"
 
-function stows(){
+function stows() {
     rm -rf $HOME/.dotfiles && cp -rf /media/storage/GitHub/dotfiles $HOME/.dotfiles
     rm -rf $HOME/.zshrc
     cd $HOME/.dotfiles
@@ -25,7 +25,7 @@ function stows(){
     sudo stow bbswitch -t /etc
 }
 
-function systemd(){
+function systemd() {
   echo "systemd's..."
   sudo rm -rf /etc/systemd/logind.conf
   sudo cp -rf $HOME/.dotfiles/systemd/logind.conf /etc/systemd
@@ -35,7 +35,7 @@ function systemd(){
   sudo cp -rf $HOME/.dotfiles/systemd/override.conf /etc/systemd/system/getty@tty1.service.d/
 }
 
-function X11(){
+function X11() {
     echo "X11..."
     sudo rm -rf /etc/X11/nvidia-xorg.conf.d
     sudo rm -rf /etc/X11/xorg.conf.d
