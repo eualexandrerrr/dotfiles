@@ -5,7 +5,6 @@ configuration {
 }
 
 * {
-    lines: 15;
     columns: 1;
     background-color: #2F343F;
     border-color: #2F343F;
@@ -18,7 +17,6 @@ configuration {
     border-radius: 4px;
     padding: 5;
     width: 30%;
-    height: 50%;
 }
 
 #mainbox {
