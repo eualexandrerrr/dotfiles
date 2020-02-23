@@ -5,7 +5,7 @@
 # sudo reflector -c Brazil --save /etc/pacman.d/mirrorlist
 # sudo reflector -l 10 --sort rate --save /etc/pacman.d/mirrorlist
 
-sudo pacman -Syu
+sudo pacman -Syyu
 
 readonly PKGS_PACMAN=(
   alacritty alsa alsa-firmware alsa-utils android-tools archlinux-keyring atom
@@ -77,6 +77,22 @@ function oh-my-zsh() {
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 }
 
+function atom-packages() {
+  # My favorites packages https://atom.io/packages/
+  # Check the package name in the GitHub repository, in the file `package.json` for install
+  pwd_atom_packages=$(pwd)
+  rm -rf $HOME/.atom_tmp && mkdir $HOME/.atom_tmp && cd $HOME/.atom_tmp
+  git clone https://github.com/Glavin001/atom-beautify
+  git clone https://github.com/bhaskardabhi/atom-translator
+  git clone https://github.com/denieler/save-workspace-atom-plugin
+  git clone https://github.com/file-icons/atom
+  git clone https://github.com/h3imdall/ftp-remote-edit
+  git clone https://github.com/taylon/language-i3wm
+  apm link
+  apm install atom-beautify atom-translator save-workspace file-icons ftp-remote-edit language-i3wm
+  cd $pwd_atom_packages
+}
+
 function config-system() {
   USER=mamutal91
   git config --global user.email "mamutal91@gmail.com"
@@ -100,5 +116,6 @@ gpg --keyserver hkps://keyserver.ubuntu.com --recv-keys 2EBF997C15BDA244B6EBF5D8
 install-pkgs-pacman
 install-yay
 install-pkgs-aur
+atom-packages
 config-system
 oh-my-zsh
