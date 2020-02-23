@@ -21,4 +21,4 @@ echo "Atualizando pacotes do Atom"
   apm upgrade
 
 canberra-gtk-play --file=$HOME/.config/files/sounds/completed.wav
-DISPLAY=:0 dbus-launch notify-send -i $icon "pacman" "Pacotes atualizados com sucesso."
+DISPLAY=:0 dbus-launch notify-send -i $icon "archlinux" "Pacotes atualizados com sucesso."

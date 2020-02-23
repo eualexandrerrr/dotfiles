@@ -124,7 +124,7 @@ bindsym $mod+F4 exec --no-startup-id franz &; workspace $ws3
 bindsym F9 exec --no-startup-id alacritty -e $HOME/.config/scripts/pgks.sh; workspace $ws1
 bindsym F10 exec --no-startup-id $HOME/.config/scripts/commiter.sh &; workspace $ws5
 bindsym F11 exec --no-startup-id $HOME/.dotfiles/install.sh
-bindsym F12 exec --no-startup-id alacritty -e $HOME/.config/scripts/pacman.sh; workspace $ws1
+bindsym F12 exec --no-startup-id alacritty -e $HOME/.config/scripts/update.sh; workspace $ws1
 
 # Rules
 # xprop |awk '/^WM_CLASS/{sub(/.* =/, "instance:"); sub(/,/, "\nclass:"); print} /^WM_NAME/{sub(/.* =/, "title:"); print}'
