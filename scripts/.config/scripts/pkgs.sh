@@ -68,10 +68,6 @@ function winetricks() {
   winetricks --force directx9 vcrun2005 vcrun2008 vcrun2010 vcrun2012 vcrun2013 vcrun2015 dotnet40 dotnet452 vb6 xact xna31 xna40 msl31 openal corefonts
 }
 
-function winetricks_gpro() {
-  WINEARCH=win32 WINEPREFIX=~/.wine32 winetricks dotnet40
-}
-
 function oh-my-zsh() {
   rm -rf $HOME/.oh-my-zsh
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
