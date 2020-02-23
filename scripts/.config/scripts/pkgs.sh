@@ -85,7 +85,8 @@ function atom-packages() {
   git clone https://github.com/Glavin001/atom-beautify
   git clone https://github.com/h3imdall/ftp-remote-edit
   git clone https://github.com/taylon/language-i3wm
-  apm install pigments atom-beautify atom-translator save-workspace file-icons ftp-remote-edit language-i3wm
+  git clone https://github.com/thomaslindstrom/color-picker
+  apm install pigments atom-beautify atom-translator save-workspace file-icons ftp-remote-edit language-i3wm color-picker
   cd $pwd_atom_packages
 }
 
