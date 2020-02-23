@@ -78,14 +78,14 @@ function atom-packages() {
   # Check the package name in the GitHub repository, in the file `package.json` for install
   pwd_atom_packages=$(pwd)
   rm -rf $HOME/.atom_tmp && mkdir $HOME/.atom_tmp && cd $HOME/.atom_tmp
-  git clone https://github.com/Glavin001/atom-beautify
+  git clone https://github.com/abe33/atom-pigments
   git clone https://github.com/bhaskardabhi/atom-translator
   git clone https://github.com/denieler/save-workspace-atom-plugin
   git clone https://github.com/file-icons/atom
+  git clone https://github.com/Glavin001/atom-beautify
   git clone https://github.com/h3imdall/ftp-remote-edit
   git clone https://github.com/taylon/language-i3wm
-  apm link
-  apm install atom-beautify atom-translator save-workspace file-icons ftp-remote-edit language-i3wm
+  apm install pigments atom-beautify atom-translator save-workspace file-icons ftp-remote-edit language-i3wm
   cd $pwd_atom_packages
 }
 
