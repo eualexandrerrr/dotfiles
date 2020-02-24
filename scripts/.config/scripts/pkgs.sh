@@ -42,7 +42,7 @@ readonly PKGS_AUR=(
   ttf-dejavu ttf-font-awesome ttf-wps-fonts
   wps-office wps-office-extension-portuguese-brazilian-dictionary wps-office-mui-pt-br
   xidlehook
-  zafiro-icon-theme zuki-themes zsh-syntax-highlighting-git)
+  zafiro-icon-theme zuki-themes zsh-syntax-highlighting)
 
 function install-pkgs-pacman() {
   for i in "${PKGS_PACMAN[@]}"; do

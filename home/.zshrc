@@ -6,7 +6,7 @@ ZSH_THEME="robbyrussell"
 plugins=(git archlinux extract)
 
 source $ZSH/oh-my-zsh.sh
-source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 export TERM="xterm-256color"
 export EDITOR="nano"
