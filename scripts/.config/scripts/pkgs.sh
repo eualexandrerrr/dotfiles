@@ -57,11 +57,10 @@ function install-pkgs-aur() {
 }
 
 function install-yay() {
-  git clone https://aur.archlinux.org/yay.git /home/mamutal91/yay
-  cd "/home/mamutal91/yay"
+  git clone https://aur.archlinux.org/yay.git $HOME/yay
+  cd "$HOME/yay"
   makepkg -si --noconfirm
-  cd ..
-  rm -rf yay
+  rm -rf $HOME/yay
 }
 
 # Dependencies for GTA V on SteamPlay (Proton)
