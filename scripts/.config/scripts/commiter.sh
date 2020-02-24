@@ -10,7 +10,7 @@ repo3=" vps"
 
 repos="$repo0\n$repo1\n$repo2\n$repo3"
 
-chosen="$(echo -e "$repos" | rofi -lines 4 -dmenu -p "  Commiter")"
+chosen="$(echo -e "$repos" | rofi -lines 4 -width 20% -dmenu -p "  Commiter")"
 case $chosen in
     $repo0)
         alacritty -t newcommit --working-directory $dir/dotfiles;;
