@@ -27,8 +27,8 @@ git clone https://aur.archlinux.org/yay.git ~/yay && cd "~/yay" && makepkg -si -
 source ~/.config/setup/packages.sh
 
 # Install my packages
-sudo pacman -S $PACKAGE --needed --noconfirm
-yay -S $AUR --needed --noconfirm
+sudo pacman -S $PACKAGE --needed --noconfirm --color always
+yay -S $AUR --needed --noconfirm --color always
 
 # Enable systemd services
 for SERVICE in \
