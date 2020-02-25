@@ -18,7 +18,7 @@ chmod +x /home/$USER
 gpg --keyserver hkps://keyserver.ubuntu.com --recv-keys 931FF8E79F0876134EDDBDCCA87FF9DF48BF1C90
 gpg --keyserver hkps://keyserver.ubuntu.com --recv-keys 2EBF997C15BDA244B6EBF5D84773BD5E130D1D45
 
-sudo pacman -Syyu
+sudo pacman -Syyu --color auto
 
 # Install YAY AUR Manager
 git clone https://aur.archlinux.org/yay.git ~/yay && cd "~/yay" && makepkg -si --noconfirm && rm -rf ~/yay
@@ -27,8 +27,8 @@ git clone https://aur.archlinux.org/yay.git ~/yay && cd "~/yay" && makepkg -si -
 source ~/.config/setup/packages.sh
 
 # Install my packages
-sudo pacman -S $PACKAGE --needed --noconfirm --color always
-yay -S $AUR --needed --noconfirm --color always
+sudo pacman -S $PACKAGE --needed --noconfirm --color auto
+yay -S $AUR --needed --noconfirm --color auto
 
 # Enable systemd services
 for SERVICE in \
