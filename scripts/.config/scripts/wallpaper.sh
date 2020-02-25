@@ -1,6 +1,6 @@
 #!/bin/bash
 # github.com/mamutal91
 
-dir=$HOME/.config/files/wallpapers
+dir=~/.config/files/wallpapers
 
 feh --bg-fill $dir/keyboard.jpg

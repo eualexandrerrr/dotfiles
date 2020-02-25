@@ -95,11 +95,11 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # Startup
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh
-exec_always --no-startup-id $HOME/.config/scripts/battery.sh
-exec_always --no-startup-id $HOME/.config/scripts/wallpaper.sh
-exec_always --no-startup-id $HOME/.config/scripts/xdg-mime.sh
-exec_always --no-startup-id xrdb -merge $HOME/.Xresources
+exec_always --no-startup-id ~/.config/polybar/launch.sh
+exec_always --no-startup-id ~/.config/scripts/battery.sh
+exec_always --no-startup-id ~/.config/scripts/wallpaper.sh
+exec_always --no-startup-id ~/.config/scripts/xdg-mime.sh
+exec_always --no-startup-id xrdb -merge ~/.Xresources
 exec --no-startup-id compton -C
 exec --no-startup-id dunst
 exec --no-startup-id numlockx on
@@ -107,11 +107,11 @@ exec --no-startup-id pulseeffects --gapplication-service &>/dev/null
 exec --no-startup-id sudo timedatectl set-ntp true && sudo hwclock --systohc
 exec --no-startup-id sudo hwclock --systohc --utc && sudo timedatectl set-ntp true
 exec --no-startup-id "pactl set-sink-mute @DEFAULT_SINK@ false; pactl set-sink-volume @DEFAULT_SINK@ 50%"
-exec --no-startup-id xidlehook --not-when-audio --not-when-fullscreen --timer 600 '$HOME/.config/scripts/i3lock.sh -t -ef -n' ''
+exec --no-startup-id xidlehook --not-when-audio --not-when-fullscreen --timer 600 '~/.config/scripts/i3lock.sh -t -ef -n' ''
 
 # Screenshot
-bindsym Insert exec --no-startup-id $HOME/.config/scripts/screenshot.sh -s Recorte
-bindsym $ctrl+Insert exec --no-startup-id $HOME/.config/scripts/screenshot.sh -u Fullscreen
+bindsym Insert exec --no-startup-id ~/.config/scripts/screenshot.sh -s Recorte
+bindsym $ctrl+Insert exec --no-startup-id ~/.config/scripts/screenshot.sh -u Fullscreen
 
 # Application shortcuts
 bindsym $mod+Return exec --no-startup-id alacritty &; workspace $ws1
@@ -121,10 +121,10 @@ bindsym $mod+F3 exec --no-startup-id telegram-desktop &; workspace $ws3
 bindsym $mod+F4 exec --no-startup-id franz &; workspace $ws3
 
 # System shortcuts
-bindsym F9 exec --no-startup-id alacritty -e $HOME/.config/scripts/pgks.sh; workspace $ws1
-bindsym F10 exec --no-startup-id $HOME/.config/scripts/commiter.sh &; workspace $ws5
-bindsym F11 exec --no-startup-id $HOME/.dotfiles/install.sh
-bindsym F12 exec --no-startup-id alacritty -e $HOME/.config/scripts/update.sh; workspace $ws1
+bindsym F9 exec --no-startup-id alacritty -e ~/.config/scripts/pgks.sh; workspace $ws1
+bindsym F10 exec --no-startup-id ~/.config/scripts/commiter.sh &; workspace $ws5
+bindsym F11 exec --no-startup-id ~/.dotfiles/install.sh
+bindsym F12 exec --no-startup-id alacritty -e ~/.config/scripts/update.sh; workspace $ws1
 
 # Rules
 # xprop |awk '/^WM_CLASS/{sub(/.* =/, "instance:"); sub(/,/, "\nclass:"); print} /^WM_NAME/{sub(/.* =/, "title:"); print}'
