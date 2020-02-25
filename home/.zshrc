@@ -17,7 +17,7 @@ export LANGUAGE=$IDIOMA
 export LC_ALL=$IDIOMA
 export LC_CTYPE=$IDIOMA
 
-export icons_path="/home/mamutal91/.config/files/icons"
+export icons_path=~/.config/files/icons
 
 function p () {
   git cherry-pick ${1}
