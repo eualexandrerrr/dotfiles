@@ -1,12 +1,9 @@
 ZSH=/usr/share/oh-my-zsh/
 # More themes https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="robbyrussell"
-
-ENABLE_CORRECTION="true"
-COMPLETION_WAITING_DOTS = "true"
-
 source $ZSH/oh-my-zsh.sh
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
 plugins=(git archlinux extract)
 
 export TERM="xterm-256color"
