@@ -7,14 +7,14 @@ icon=$icons_path/$app
 sleep 1
 
 echo "Atualizando Pacman e AUR"
-  sudo pacman -Syyu
-  yay -Syyu
+  sudo pacman -Syyu --color auto
+  yay -Syyu --color auto
 
 echo "Removendo pacotes não utilizados"
-  sudo pacman -Qdtq --noconfirm
-  yay -Qdtq --noconfirm
-  sudo pacman -Rncs $(pacman -Qdtq) --noconfirm
-  yay -Rncs $(yay -Qdtq) --noconfirm
+  sudo pacman -Qdtq --noconfirm --color auto
+  yay -Qdtq --noconfirm --color auto
+  sudo pacman -Rncs $(pacman -Qdtq) --noconfirm --color auto
+  yay -Rncs $(yay -Qdtq) --noconfirm --color auto
 
 canberra-gtk-play --file=~/.config/files/sounds/completed.wav
 DISPLAY=:0 dbus-launch notify-send -i $icon "archlinux" "Pacotes atualizados com sucesso."
