@@ -5,14 +5,12 @@
 # sudo reflector -c Brazil --save /etc/pacman.d/mirrorlist
 # sudo reflector -l 10 --sort rate --save /etc/pacman.d/mirrorlist
 
-# Config my system
-USER=mamutal91
+# Git
 git config --global user.email "mamutal91@gmail.com"
 git config --global user.name "Alexandre Rangel"
-sudo ln -sf /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime
-sudo chown -R $USER:$USER /home/$USER
+
+# bumblebee
 sudo gpasswd -a $USER bumblebee
-chmod +x /home/$USER
 
 # GPG keys import for SPOTIFY
 gpg --keyserver hkps://keyserver.ubuntu.com --recv-keys 931FF8E79F0876134EDDBDCCA87FF9DF48BF1C90
