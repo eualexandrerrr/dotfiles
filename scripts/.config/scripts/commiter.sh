@@ -5,7 +5,7 @@ dir=/media/storage/GitHub
 
 repo0=" dotfiles"
 repo1=" archlinux"
-repo2="龜 mamutal91.github.io"
+repo2=" mamutal91.github.io"
 repo3=" vps"
 
 repos="$repo0\n$repo1\n$repo2\n$repo3"
