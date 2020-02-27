@@ -6,7 +6,7 @@ PACKAGE='
   bbswitch bluez bluez-libs bluez-tools bluez-utils bumblebee
   compton cronie
   dunst dhcpcd
-  feh ffmpeg filezilla firefox firefox-i18n-pt-br
+  feh ffmpeg filezilla
   galculator git gparted gpicview gvfs gvfs-mtp
   i3-gaps i3lock
   imagemagick
@@ -29,7 +29,7 @@ PACKAGE='
 AUR='
   capitaine-cursors
   franz
-  grive-git
+  google-chrome grive-git
   jre8-openjdk
   namebench nvidia-xrun
   oh-my-zsh-git

@@ -8,7 +8,7 @@ plugins=(git archlinux extract)
 
 export TERM="xterm-256color"
 export EDITOR="nano"
-export BROWSER="firefox"
+export BROWSER="/usr/bin/google-chrome-stable"
 export JAVA_HOME=/usr/lib/jvm/java-8-openjdk
 
 export IDIOMA="pt_BR.UTF-8"
