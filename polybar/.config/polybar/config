@@ -75,7 +75,7 @@ font-4 = "Font Awesome 5 Brands:pixelsize=9;1"
 
 modules-left = window
 modules-center = i3
-modules-right = video git bluetooth-jbl root storage battery date hour
+modules-right = video bluetooth-jbl root storage battery date hour
 
 cursor-click = pointer
 cursor-scroll = ns-resize
@@ -421,13 +421,6 @@ label-connected-foreground = ${colors.cinza}
 
 ramp-signal-0 = 
 ramp-signal-0-foreground = ${colors.icones-modulos}
-
-[module/git]
-type = custom/text
-content = " "
-content-foreground = ${colors.laranja}
-click-left = ~/.config/scripts/commiter.sh
-click-right = ~/.config/scripts/commiter.sh
 
 [module/bluetooth-jbl]
 type = custom/text
