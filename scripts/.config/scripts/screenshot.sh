@@ -10,7 +10,7 @@ icon=$icons_path/$app
 var=${1}
 msg=${2}
 
-local="~/Images"
+local=~/Images
 [ ! -d $local ] && mkdir -p $local
 
 name=$(date "+%d-%m-%Y_%H-%M-%S").png
