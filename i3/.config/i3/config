@@ -139,7 +139,10 @@ for_window [title="Media viewer"] fullscreen enable, focus
 for_window [title="Escolha uma imagem"] floating enable, focus
 
 for_window [class="URxvt"] move to workspace $ws1, focus
-for_window [title="newcommit"] move to workspace $ws5, floating enable, resize set 800 px 350 px, move right -100px, move down 10px, focus
+for_window [title="mamutal91@archlinux: /media/storage/GitHub/dotfiles"] move to workspace $ws5, floating enable, resize set 800 px 350 px, move right -100px, move down 10px, focus
+for_window [title="mamutal91@archlinux: /media/storage/GitHub/archlinux"] move to workspace $ws5, floating enable, resize set 800 px 350 px, move right -100px, move down 10px, focus
+for_window [title="mamutal91@archlinux: /media/storage/GitHub/mamutal91.github.io"] move to workspace $ws5, floating enable, resize set 800 px 350 px, move right -100px, move down 10px, focus
+for_window [title="mamutal91@archlinux: /media/storage/GitHub/vps"] move to workspace $ws5, floating enable, resize set 800 px 350 px, move right -100px, move down 10px, focus
 
 for_window [instance="Navigator"] move to workspace $ws2, focus
 for_window [class="Google-chrome|google-chrome-stable"] move to workspace $ws2, focus
