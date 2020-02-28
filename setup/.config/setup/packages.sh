@@ -2,7 +2,7 @@
 # github.com/mamutal91
 
 PACKAGE='
-  alacritty alsa alsa-firmware alsa-utils android-tools archlinux-keyring atom
+  alsa alsa-firmware alsa-utils android-tools archlinux-keyring atom
   bbswitch bluez bluez-libs bluez-tools bluez-utils bumblebee
   compton cronie
   dunst dhcpcd
