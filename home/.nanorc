@@ -15,8 +15,7 @@ set afterends
 set breaklonglines
 set casesensitive
 set constantshow
-set linenumbers
-set mouse
+#set linenumbers
 set nonewlines
 set showcursor
 set smarthome
