@@ -6,7 +6,7 @@ set $alt Mod1
 set $ctrl Control
 set $shift Shift
 
-# Fefine names for workspaces
+# Define names for workspaces
 set $ws1 "1: terminal"
 set $ws2 "2: browser"
 set $ws3 "3: chats"
