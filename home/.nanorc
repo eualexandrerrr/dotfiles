@@ -42,4 +42,4 @@ set stripecolor ,blue
 set numbercolor cyan
 set keycolor cyan
 set functioncolor green
-include "/usr/share/nano/*.nanorc"
+include "/usr/share/nano-syntax-highlighting/*.nanorc"

@@ -13,8 +13,7 @@ PACKAGE='
   jsoncpp
   lib32-libvdpau lib32-nvidia-utils lib32-opencl-nvidia lib32-virtualgl lxappearance
   maim mesa mpd mpv
-  neofetch ntfs-3g
-  numlockx nvidia nvidia-settings nvidia-utils
+  nano-syntax-highlighting neofetch ntfs-3g numlockx nvidia nvidia-settings nvidia-utils
   opencl-nvidia openssh
   pinta pulseaudio pulseaudio-bluetooth pulseeffects python-setuptools
   qbittorrent qt5-connectivity
