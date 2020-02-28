@@ -124,6 +124,17 @@ bindsym F10 exec --no-startup-id $HOME/.config/scripts/commiter.sh &; workspace 
 bindsym F11 exec --no-startup-id $HOME/.dotfiles/install.sh
 bindsym F12 exec --no-startup-id urxvt -e sh -c "~/.config/scripts/update.sh"; workspace $ws1
 
+# Workspaces
+assign [class="^URxvt"] $ws1
+assign [class="^Google-chrome"] $ws2
+assign [class="^TelegramDesktop"] $ws3
+assign [class="^Spotify|smplayer|Steam"] $ws4
+assign [class="^Atom"] $ws5
+assign [class="^Wpspdf|Wpp|Wps|Et"] $ws6
+assign [class="^Lxappearance|qBittorrent|Filezilla|Thunar"] $ws7
+assign [class="^Pinta|Gpicview|feh"] $ws8
+assign [class="^Wine|csgo_linux64"] $ws9
+
 # Rules
 # xprop |awk '/^WM_CLASS/{sub(/.* =/, "instance:"); sub(/,/, "\nclass:"); print} /^WM_NAME/{sub(/.* =/, "title:"); print}'
 
@@ -164,14 +175,3 @@ for_window [class="Pinta"] move to workspace $ws8, focus
 for_window [class="Gpicview|feh"] move to workspace $ws8, focus
 
 for_window [class="Wine|csgo_linux64"] move to workspace $ws9, focus
-
-# Workspaces
-assign [class="^URxvt"] $ws1
-assign [class="^Google-chrome"] $ws2
-assign [class="^TelegramDesktop"] $ws3
-assign [class="^Spotify|smplayer|Steam"] $ws4
-assign [class="^Atom"] $ws5
-assign [class="^Wpspdf|Wpp|Wps|Et"] $ws6
-assign [class="^Lxappearance|qBittorrent|Filezilla|Thunar"] $ws7
-assign [class="^Pinta|Gpicview|feh"] $ws8
-assign [class="^Wine|csgo_linux64"] $ws9
