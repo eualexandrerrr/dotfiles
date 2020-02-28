@@ -17,7 +17,7 @@ PACKAGE='
   opencl-nvidia openssh
   peek pinta pulseaudio pulseaudio-bluetooth pulseeffects python-setuptools
   qbittorrent qt5-connectivity
-  reflector rofi
+  reflector rofi rxvt-unicode
   sbc scrot smplayer steam stow
   telegram-desktop terminus-font thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman ttf-liberation
   unrar unzip

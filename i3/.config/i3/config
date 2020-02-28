@@ -99,6 +99,7 @@ exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 exec_always --no-startup-id $HOME/.config/scripts/battery.sh
 exec_always --no-startup-id $HOME/.config/scripts/wallpaper.sh
 exec_always --no-startup-id $HOME/.config/scripts/xdg-mime.sh
+exec_always --no-startup-id xrdb -merge $HOME/.Xdefaults
 exec_always --no-startup-id xrdb -merge $HOME/.Xresources
 exec --no-startup-id compton -C
 exec --no-startup-id dunst
@@ -114,17 +115,17 @@ bindsym Insert exec --no-startup-id $HOME/.config/scripts/screenshot.sh -s Recor
 bindsym $ctrl+Insert exec --no-startup-id $HOME/.config/scripts/screenshot.sh -u Fullscreen
 
 # Application shortcuts
-bindsym $mod+Return exec --no-startup-id alacritty &; workspace $ws1
+bindsym $mod+Return exec --no-startup-id urxvt &; workspace $ws1
 bindsym $mod+e exec --no-startup-id thunar &; workspace $ws7
 bindsym $mod+F2 exec --no-startup-id google-chrome-stable &; workspace $ws2
 bindsym $mod+F3 exec --no-startup-id telegram-desktop &; workspace $ws3
 bindsym $mod+F4 exec --no-startup-id franz &; workspace $ws3
 
 # System shortcuts
-bindsym F9 exec --no-startup-id alacritty -e $HOME/.config/scripts/pgks.sh; workspace $ws1
+bindsym F9 exec --no-startup-id urxvt -e sh -c "~/.config/setup/setup.sh"; zsh"; workspace $ws1
 bindsym F10 exec --no-startup-id $HOME/.config/scripts/commiter.sh &; workspace $ws5
 bindsym F11 exec --no-startup-id $HOME/.dotfiles/install.sh
-bindsym F12 exec --no-startup-id alacritty -e $HOME/.config/scripts/update.sh; workspace $ws1
+bindsym F12 exec --no-startup-id urxvt -e sh -c "~/.config/scripts/update.sh"; workspace $ws1
 
 # Rules
 # xprop |awk '/^WM_CLASS/{sub(/.* =/, "instance:"); sub(/,/, "\nclass:"); print} /^WM_NAME/{sub(/.* =/, "title:"); print}'
@@ -137,7 +138,7 @@ for_window [title="Open Folder*"] floating enable, resize set 700 px 500 px, mov
 for_window [title="Media viewer"] fullscreen enable, focus
 for_window [title="Escolha uma imagem"] floating enable, focus
 
-for_window [class="Alacritty"] move to workspace $ws1, focus
+for_window [class="URxvt"] move to workspace $ws1, focus
 for_window [title="newcommit"] move to workspace $ws5, floating enable, resize set 800 px 350 px, move right -100px, move down 10px, focus
 
 for_window [instance="Navigator"] move to workspace $ws2, focus
@@ -165,7 +166,7 @@ for_window [class="Gpicview|feh"] move to workspace $ws8, focus
 for_window [class="Wine|csgo_linux64"] move to workspace $ws9, focus
 
 # Workspaces
-assign [class="^Alacritty"] $ws1
+assign [class="^URxvt"] $ws1
 assign [class="^Google-chrome"] $ws2
 assign [class="^TelegramDesktop"] $ws3
 assign [class="^Spotify|smplayer|Steam"] $ws4

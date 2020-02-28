@@ -1,0 +1,22 @@
+! Background transparency
+urxvt*depth: 32
+urxvt*background: rgba:0000/0000/0200/c800
+
+! Font
+URxvt.font: xft: xos4 Terminus: size = 13
+
+! Copy and paste
+URxvt.clipboard.autocopy: true
+URxvt.keysym.Control-Shift-V: eval:paste_clipboard
+URxvt.keysym.Control-Shift-C: eval:selection_to_clipboard
+
+! Clickable URLs
+URxvt.perl-ext-common: default,matcher
+URxvt.url-launcher: /usr/bin/xdg-open
+URxvt.matcher.button: 1
+URxvt.matcher.rend.0: Uline Bold fg5
+URxvt.colorUL: #4682B4
+
+! Scrollbar
+URxvt.scrollBar: false
+URxvt.scrollBar_right: false

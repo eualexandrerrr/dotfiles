@@ -12,7 +12,7 @@ Search on the correct way for your distribution.
 
 ## Arch
 ```
-sudo pacman -S i3-gaps i3lock compton dunst rofi mpd maim scrot feh python-pywal python-setuptools plasma-browser-integration alacritty terminus-font
+sudo pacman -S i3-gaps i3lock compton dunst rofi mpd maim scrot feh python-pywal python-setuptools plasma-browser-integration terminus-font
 ```
 
 ```
