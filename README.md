@@ -28,14 +28,14 @@ For example if you need my `i3` config clone the repo then inside the repo use:
 This will symlink the necessary files.
 
 ```
-git clone https://github.com/mamutal91/dotfiles.git ~/.dotfiles
-cd ~/.dotfiles
+git clone https://github.com/mamutal91/dotfiles.git $HOME/.dotfiles
+cd $HOME/.dotfiles
 stow i3
 ```
 
 **Or clone the repository in the same way as above, and run the script**
 ```
-cd ~/.dotfiles
+cd $HOME/.dotfiles
 ./install.sh
 ```
 

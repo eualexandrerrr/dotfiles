@@ -19,10 +19,10 @@ gpg --keyserver hkps://keyserver.ubuntu.com --recv-keys 2EBF997C15BDA244B6EBF5D8
 sudo pacman -Syyu --color auto
 
 # Install YAY AUR Manager
-git clone https://aur.archlinux.org/yay.git ~/yay && cd "~/yay" && makepkg -si --noconfirm && rm -rf ~/yay
+git clone https://aur.archlinux.org/yay.git $HOME/yay && cd "$HOME/yay" && makepkg -si --noconfirm && rm -rf $HOME/yay
 
 # Load packages
-source ~/.config/setup/packages.sh
+source $HOME/.config/setup/packages.sh
 
 # Install my packages
 sudo pacman -S $PACKAGE --needed --noconfirm --color auto

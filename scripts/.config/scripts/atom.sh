@@ -6,7 +6,7 @@
 
 pwd_atom_packages=$(pwd)
 
-rm -rf ~/.tmp && mkdir ~/.tmp && cd ~/.tmp
+rm -rf $HOME/.tmp && mkdir $HOME/.tmp && cd $HOME/.tmp
 
 for PACKAGE in \
     abe33/atom-pigments \

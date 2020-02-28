@@ -223,7 +223,7 @@ format-padding = 1
 format-foreground = ${colors.fontes}
 format-underline = ${colors.transparente}
 type = custom/script
-exec = ~/.config/scripts/spotify.sh "%artist% - %title%"
+exec = $HOME/.config/scripts/spotify.sh "%artist% - %title%"
 tail = true
 label-maxlen = 100
 
@@ -426,8 +426,8 @@ ramp-signal-0-foreground = ${colors.icones-modulos}
 type = custom/text
 content = " JBL"
 content-foreground = ${colors.azul}
-click-left = ~/.config/scripts/bluetooth-jbl.sh on &
-click-right = ~/.config/scripts/bluetooth-jbl.sh off &
+click-left = $HOME/.config/scripts/bluetooth-jbl.sh on &
+click-right = $HOME/.config/scripts/bluetooth-jbl.sh off &
 
 [settings]
 pseudo-transparency = true

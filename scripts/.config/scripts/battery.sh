@@ -13,7 +13,7 @@ do
   if [ "$STATUS" = "Discharging" ]; then
     if [ "$LEVEL" -le 15 ]; then
       DISPLAY=:0 dbus-launch notify-send -i $icon "Bateria está abaixo de 15%" "Precisa carregar! Por favor plugue-o na tomada!"
-      canberra-gtk-play --file=~/.config/files/sounds/battery.wav
+      canberra-gtk-play --file=$HOME/.config/files/sounds/battery.wav
     fi
   else
     echo "Charging..."
