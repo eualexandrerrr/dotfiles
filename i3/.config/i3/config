@@ -120,7 +120,6 @@ bindsym $mod+F3 exec --no-startup-id telegram-desktop &; workspace $ws3
 bindsym $mod+F4 exec --no-startup-id franz &; workspace $ws3
 
 # System shortcuts
-bindsym F9 exec --no-startup-id urxvt -e sh -c "~/.config/setup/setup.sh"; zsh"; workspace $ws1
 bindsym F10 exec --no-startup-id $HOME/.config/scripts/commiter.sh &; workspace $ws5
 bindsym F11 exec --no-startup-id $HOME/.dotfiles/install.sh
 bindsym F12 exec --no-startup-id urxvt -e sh -c "~/.config/scripts/update.sh"; workspace $ws1
