@@ -15,7 +15,7 @@ PACKAGE='
   maim mesa mpd mpv
   neofetch ntfs-3g numlockx nvidia nvidia-settings nvidia-utils
   opencl-nvidia openssh
-  pinta pulseaudio pulseaudio-bluetooth pulseeffects python-setuptools
+  peek pinta pulseaudio pulseaudio-bluetooth pulseeffects python-setuptools
   qbittorrent qt5-connectivity
   reflector rofi
   sbc scrot smplayer steam stow
