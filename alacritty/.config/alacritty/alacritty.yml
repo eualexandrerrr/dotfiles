@@ -1,0 +1,37 @@
+# Configuration for Alacritty, the GPU enhanced terminal emulator.
+# Default: https://github.com/alacritty/alacritty/blob/master/alacritty.yml
+
+env:
+  TERM: alacritty
+
+window:
+  padding:
+    x: 5
+    y: 5
+
+  title: Alacritty
+
+font:
+  normal:
+    family: xos4 Terminus
+  size: 7.5
+
+colors:
+  primary:
+    background: '0x000000'
+
+background_opacity: 0.7
+
+dynamic_title: true
+
+live_config_reload: true
+
+key_bindings:
+  - { key: V,        mods: Control, action: Paste                             }
+  - { key: C,        mods: Control, action: Copy                              }
+  - { key: L,         mods: Control, action: ClearLogNotice                   }
+  - { key: L,         mods: Control, chars: "\x0c"                            }
+  - { key: PageUp,    mods: Shift,   action: ScrollPageUp,   mode: ~Alt       }
+  - { key: PageDown,  mods: Shift,   action: ScrollPageDown, mode: ~Alt       }
+  - { key: Home,      mods: Shift,   action: ScrollToTop,    mode: ~Alt       }
+  - { key: End,       mods: Shift,   action: ScrollToBottom, mode: ~Alt       }

@@ -10,6 +10,7 @@ rm -rf $HOME/.zshrc
 cd $HOME/.dotfiles
 
 for STOW in \
+    alacritty \
     compton \
     dunst \
     files \
@@ -48,10 +49,10 @@ function X11() {
 function first_boot() {
   echo "Removing default configs..."
   cd $HOME/.config
-  rm -rf compton dunst files gpicview i3 neofetch polybar rofi scripts smplayer vim
+  rm -rf alacritty compton dunst files gpicview i3 neofetch polybar rofi scripts smplayer vim
   cd /etc/X11 && sudo rm -rf *
   cd $HOME
-  rm -rf .crontab .nanorc .nvidia-xinitrc .Xdefaults .Xresources .zlogin .zshrc
+  rm -rf .crontab .nanorc .nvidia-xinitrc .Xresources .zlogin .zshrc
 }
 
 #first_boot

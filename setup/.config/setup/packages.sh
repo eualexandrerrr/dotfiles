@@ -2,7 +2,7 @@
 # github.com/mamutal91
 
 PACKAGE='
-  alsa alsa-firmware alsa-utils android-tools archlinux-keyring atom
+  alacritty alsa alsa-firmware alsa-utils android-tools archlinux-keyring atom
   bbswitch bluez bluez-libs bluez-tools bluez-utils bumblebee
   compton cronie
   dunst dhcpcd
@@ -17,7 +17,7 @@ PACKAGE='
   opencl-nvidia openssh
   peek pinta pulseaudio pulseaudio-bluetooth pulseeffects python-setuptools
   qbittorrent qt5-connectivity
-  reflector rofi rxvt-unicode
+  reflector rofi
   sbc scrot smplayer steam stow
   telegram-desktop terminus-font thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman ttf-liberation
   unrar unzip
