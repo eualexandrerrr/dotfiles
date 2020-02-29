@@ -6,7 +6,7 @@ source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 
 plugins=(git archlinux extract)
 
-export EDITOR="nano"
+export EDITOR="vim"
 export BROWSER="/usr/bin/google-chrome-stable"
 export JAVA_HOME=/usr/lib/jvm/java-8-openjdk
 
