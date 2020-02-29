@@ -31,7 +31,7 @@ AUR='
   franz
   grive-git
   jre8-openjdk
-  nvidia-xrun
+  noto-fonts-emoji-blob nvidia-xrun
   oh-my-zsh-git
   polybar python-ruamel-yaml
   spotify
