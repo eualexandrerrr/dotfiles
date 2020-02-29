@@ -21,3 +21,6 @@ export icons_path=$HOME/.config/files/icons
 function p () {
   git cherry-pick ${1}
 }
+
+alias pacman='sudo pacman'
+alias vim='sudo vim'
