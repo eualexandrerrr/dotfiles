@@ -15,7 +15,7 @@ PACKAGE='
   maim mesa mpd mpv
   neofetch ntfs-3g numlockx nvidia nvidia-settings nvidia-utils
   opencl-nvidia openssh
-  peek pinta pulseaudio pulseaudio-bluetooth pulseeffects python-setuptools
+  papirus-icon-theme peek pinta pulseaudio pulseaudio-bluetooth pulseeffects python-setuptools
   qbittorrent qt5-connectivity
   reflector rofi
   sbc scrot steam stow
@@ -38,5 +38,5 @@ AUR='
   ttf-dejavu ttf-font-awesome ttf-wps-fonts
   wps-office wps-office-extension-portuguese-brazilian-dictionary wps-office-mui-pt-br
   xidlehook
-  zafiro-icon-theme zuki-themes zsh-syntax-highlighting
+  zsh-syntax-highlighting
 '
