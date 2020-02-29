@@ -31,7 +31,7 @@ AUR='
   franz
   google-chrome grive-git
   jre8-openjdk
-  namebench nvidia-xrun
+  nvidia-xrun
   oh-my-zsh-git
   polybar python-ruamel-yaml
   spotify
