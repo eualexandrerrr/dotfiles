@@ -4,7 +4,7 @@
 PACKAGE='
   alacritty alsa alsa-firmware alsa-utils android-tools archlinux-keyring atom
   bbswitch bluez bluez-libs bluez-tools bluez-utils bumblebee
-  compton cronie
+  compton cronie chromium
   dunst dhcpcd
   feh ffmpeg filezilla
   galculator git gparted gpicview gvfs gvfs-mtp
@@ -29,7 +29,7 @@ PACKAGE='
 AUR='
   capitaine-cursors
   franz
-  google-chrome grive-git
+  grive-git
   jre8-openjdk
   nvidia-xrun
   oh-my-zsh-git

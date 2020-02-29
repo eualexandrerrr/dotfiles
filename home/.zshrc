@@ -8,7 +8,7 @@ source $ZSH/oh-my-zsh.sh
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 export EDITOR="vim"
-export BROWSER="/usr/bin/google-chrome-stable"
+export BROWSER="/usr/bin/chromium"
 export JAVA_HOME="/usr/lib/jvm/java-8-openjdk"
 
 export icons=$HOME/.config/files/icons
