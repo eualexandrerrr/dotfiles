@@ -18,7 +18,7 @@ PACKAGE='
   peek pinta pulseaudio pulseaudio-bluetooth pulseeffects python-setuptools
   qbittorrent qt5-connectivity
   reflector rofi
-  sbc scrot smplayer steam stow
+  sbc scrot steam stow
   telegram-desktop terminus-font thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman ttf-liberation
   unrar unzip
   vim
@@ -34,7 +34,7 @@ AUR='
   namebench nvidia-xrun
   oh-my-zsh-git
   polybar python-ruamel-yaml
-  smplayer-skins smplayer-themes spotify
+  spotify
   ttf-dejavu ttf-font-awesome ttf-wps-fonts
   wps-office wps-office-extension-portuguese-brazilian-dictionary wps-office-mui-pt-br
   xidlehook

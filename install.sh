@@ -22,7 +22,6 @@ for STOW in \
     rofi \
     scripts \
     setup \
-    smplayer \
     vim
 do
     stow $STOW
@@ -49,7 +48,7 @@ function X11() {
 function first_boot() {
   echo "Removing default configs..."
   cd $HOME/.config
-  rm -rf alacritty compton dunst files gpicview i3 neofetch polybar rofi scripts smplayer vim
+  rm -rf alacritty compton dunst files gpicview i3 neofetch polybar rofi scripts setup vim
   cd /etc/X11 && sudo rm -rf *
   cd $HOME
   rm -rf .crontab .nvidia-xinitrc .vimrc .Xresources .zlogin .zshrc
