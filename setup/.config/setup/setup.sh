@@ -16,7 +16,7 @@ sudo gpasswd -a $USER bumblebee
 gpg --keyserver hkps://keyserver.ubuntu.com --recv-keys 931FF8E79F0876134EDDBDCCA87FF9DF48BF1C90
 gpg --keyserver hkps://keyserver.ubuntu.com --recv-keys 2EBF997C15BDA244B6EBF5D84773BD5E130D1D45
 
-sudo pacman -Syyu --color auto
+sudo pacman -Syyu
 
 # Install YAY AUR Manager
 git clone https://aur.archlinux.org/yay.git $HOME/yay && cd "$HOME/yay" && makepkg -si --noconfirm && rm -rf $HOME/yay
@@ -25,8 +25,8 @@ git clone https://aur.archlinux.org/yay.git $HOME/yay && cd "$HOME/yay" && makep
 source $HOME/.config/setup/packages.sh
 
 # Install my packages
-sudo pacman -S $PACKAGE --needed --noconfirm --color auto
-yay -S $AUR --needed --noconfirm --color auto
+sudo pacman -S $PACKAGE --needed --noconfirm
+yay -S $AUR --needed --noconfirm
 
 # Enable systemd services
 for SERVICE in \
