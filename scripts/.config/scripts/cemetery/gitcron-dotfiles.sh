@@ -2,7 +2,7 @@
 # github.com/mamutal91
 
 app=git.png
-icon=$icons_path/$app
+icon=$icons/$app
 
 dotfiles() {
 	if [ -d $1 ]; then

@@ -2,7 +2,7 @@
 # github.com/mamutal91
 
 app=bluetooth-jbl.png
-icon=$icons_path/$app
+icon=$icons/$app
 
 var=${1}
 

@@ -7,7 +7,7 @@ readonly repos=('zsh-history')
 cp -rf $HOME/.zsh_history /media/storage/GitHub/zsh-history/mamutal91
 
 app=git.png
-icon=$icons_path/$app
+icon=$icons/$app
 
 function gitcron() {
   for i in "${repos[@]}"; do

@@ -5,7 +5,7 @@ dir="/media/storage/GitHub/"
 readonly repos=('archlinux' 'mamutal91.github.io' 'ubuntu')
 
 app=git.png
-icon=$icons_path/$app
+icon=$icons/$app
 
 function gitcron() {
   for i in "${repos[@]}"; do

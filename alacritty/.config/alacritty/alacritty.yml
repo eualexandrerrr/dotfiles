@@ -27,8 +27,8 @@ dynamic_title: true
 live_config_reload: true
 
 key_bindings:
-  - { key: V,        mods: Control, action: Paste                             }
-  - { key: C,        mods: Control, action: Copy                              }
+  - { key: V,        mods: Control|Shift, action: Paste                             }
+  - { key: C,        mods: Control|Shift, action: Copy                              }
   - { key: L,         mods: Control, action: ClearLogNotice                   }
   - { key: L,         mods: Control, chars: "\x0c"                            }
   - { key: PageUp,    mods: Shift,   action: ScrollPageUp,   mode: ~Alt       }

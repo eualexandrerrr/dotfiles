@@ -2,7 +2,7 @@
 # github.com/mamutal91
 
 app=battery.png
-icon=$icons_path/$app
+icon=$icons/$app
 bat="/sys/class/power_supply/BAT1"
 
 while sleep 180

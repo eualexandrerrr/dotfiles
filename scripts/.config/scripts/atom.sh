@@ -9,13 +9,14 @@ pwd_atom_packages=$(pwd)
 rm -rf $HOME/.tmp && mkdir $HOME/.tmp && cd $HOME/.tmp
 
 for PACKAGE in \
+    Glavin001/atom-beautify \
+    Overload119/indent-sort \
     abe33/atom-pigments \
     bhaskardabhi/atom-translator \
     denieler/save-workspace-atom-plugin \
     file-icons/atom \
-    Glavin001/atom-beautify \
     h3imdall/ftp-remote-edit \
-    rgbkrk/atom-script \
+    lee-dohm/set-syntax \
     taylon/language-i3wm \
     thomaslindstrom/color-picker
 do
@@ -23,14 +24,16 @@ do
 done
 
 PACKAGE='
-  pigments
   atom-beautify
   atom-translator
-  save-workspace
+  color-picker
   file-icons
   ftp-remote-edit
+  indent-sort
   language-i3wm
-  color-picker script
+  pigments
+  save-workspace
+  set-syntax
 '
 apm install $PACKAGE
 
