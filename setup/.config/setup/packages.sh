@@ -38,5 +38,5 @@ AUR='
   ttf-dejavu ttf-font-awesome ttf-wps-fonts
   wps-office wps-office-extension-portuguese-brazilian-dictionary wps-office-mui-pt-br
   xidlehook
-  zsh-syntax-highlighting
+  zuki-themes zsh-syntax-highlighting
 '
