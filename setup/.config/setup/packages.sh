@@ -28,7 +28,7 @@ PACKAGE='
 
 AUR='
   capitaine-cursors
-  franz
+  ferdi
   grive-git
   jre8-openjdk
   noto-fonts-emoji-blob nvidia-xrun

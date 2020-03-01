@@ -116,7 +116,7 @@ bindsym $mod+Return exec --no-startup-id alacritty &; workspace $ws1
 bindsym $mod+e exec --no-startup-id thunar &; workspace $ws7
 bindsym $mod+F2 exec --no-startup-id chromium &; workspace $ws2
 bindsym $mod+F3 exec --no-startup-id telegram-desktop &; workspace $ws3
-bindsym $mod+F4 exec --no-startup-id franz &; workspace $ws3
+bindsym $mod+F4 exec --no-startup-id ferdi &; workspace $ws3
 
 # System shortcuts
 bindsym F10 exec --no-startup-id $HOME/.config/scripts/commiter.sh &; workspace $ws5
@@ -152,7 +152,7 @@ for_window [instance="Navigator"] move to workspace $ws2, focus
 for_window [class="Chromium|chromium"] move to workspace $ws2, focus
 for_window [title="Biblioteca"] floating enable, resize set 800 px 540 px, focus
 
-for_window [title="Franz"] move to workspace $ws3, floating enable, resize set 1100 px 800 px, focus
+for_window [title="Ferdi"] move to workspace $ws3, floating enable, resize set 1100 px 800 px, focus
 for_window [class="TelegramDesktop"] move to workspace $ws3, floating enable, resize set 930 px 810 px, focus
 
 for_window [class="Spotify|smplayer|Steam"] move to workspace $ws4, focus
