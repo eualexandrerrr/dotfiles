@@ -13,8 +13,9 @@ export JAVA_HOME="/usr/lib/jvm/java-8-openjdk"
 
 export icons=$HOME/.config/files/icons
 
+alias nano="sudo vim"
 alias pacman="sudo pacman"
-alias vim="sudo vim"
 alias systemctl="sudo systemctl"
+alias vim="sudo vim"
 
 alias p="git cherry-pick ${1}"
