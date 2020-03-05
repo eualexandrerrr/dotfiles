@@ -21,8 +21,7 @@ for STOW in \
     polybar \
     rofi \
     scripts \
-    setup \
-    vim
+    setup
 do
     stow $STOW
 done
@@ -48,10 +47,9 @@ function X11() {
 function first_boot() {
   echo "Removing default configs..."
   cd $HOME/.config
-  rm -rf alacritty compton dunst files gpicview i3 neofetch polybar rofi scripts setup vim
+  rm -rf alacritty compton dunst files gpicview i3 neofetch polybar rofi scripts setup
+  rm -rf .crontab .nanorc .nvidia-xinitrc .Xresources .zlogin .zshrc
   cd /etc/X11 && sudo rm -rf *
-  cd $HOME
-  rm -rf .crontab .nvidia-xinitrc .vimrc .Xresources .zlogin .zshrc
 }
 
 #first_boot

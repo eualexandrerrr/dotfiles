@@ -1,0 +1,124 @@
+## Sample initialization file for GNU nano.
+##
+## This file should not be in DOS or Mac format, and characters
+## specially interpreted by the shell should not be escaped here.
+##
+## To make sure an option is disabled, use "unset <option>".
+##
+## For the options that take parameters, the default value is given.
+## Other options are unset by default.
+##
+## Inside string parameters, quotes should not be escaped.  The last
+## double quote on the line will be seen as the closing quote.
+
+## Make the 'nextword' function (Ctrl+Right) stop at word ends
+## instead of at beginnings.
+# set afterends
+
+## When soft line wrapping is enabled, make it wrap lines at blanks
+## (tabs and spaces) instead of always at the edge of the screen.
+# set atblanks
+
+## Automatically indent a newly created line to the same number of
+## tabs and/or spaces as the preceding line -- or as the next line
+## if the preceding line is the beginning of a paragraph.
+# set autoindent
+
+## Automatically hard-wrap the current line when it becomes overlong.
+set breaklonglines
+
+## Do case-sensitive searches by default.
+set casesensitive
+
+## Constantly display the cursor position in the status bar.  Note that
+## this overrides "quickblank".
+set constantshow
+
+## Use cut-from-cursor-to-end-of-line by default.
+set cutfromcursor
+
+## Do not use the line below the title bar, leaving it entirely blank.
+set emptyline
+
+## Enable mouse support, if available for your system.  When enabled,
+## mouse clicks can be used to place the cursor, set the mark (with a
+## double click), and execute shortcuts.  The mouse will work in the X
+## Window System, and on the console when gpm is running.
+set mouse
+
+## Don't automatically add a newline when a file does not end with one.
+set nonewlines
+
+## Put the cursor on the highlighted item in the file browser, and show
+## the cursor in the help viewer; useful for people who use a braille
+## display and people with poor vision.
+set showcursor
+
+## Paint the interface elements of nano.  These are examples;
+## by default there are no colors, except for errorcolor.
+set titlecolor brightwhite,blue
+set statuscolor brightwhite,green
+set errorcolor brightwhite,red
+set selectedcolor brightwhite,magenta
+set stripecolor ,yellow
+set numbercolor cyan
+set keycolor cyan
+set functioncolor green
+## In root's .nanorc you might want to use:
+set titlecolor brightwhite,magenta
+set statuscolor brightwhite,magenta
+set errorcolor brightwhite,red
+set selectedcolor brightwhite,cyan
+set stripecolor ,yellow
+set numbercolor magenta
+set keycolor brightmagenta
+set functioncolor magenta
+
+## To include all existing syntax definitions, you can do:
+include "/usr/share/nano-syntax-highlighting/*.nanorc"
+
+## Key bindings.
+## See nanorc(5) (section REBINDING KEYS) for more details on this.
+
+## The <Ctrl+Delete> keystroke deletes the word to the right of the cursor.
+## On some terminals the <Ctrl+Backspace> keystroke produces ^H, which is
+## the ASCII character for backspace, so it is bound by default to the
+## backspace function.  The <Backspace> key itself produces a different
+## keycode, which is hard-bound to the backspace function.  So, if you
+## normally use <Backspace> for backspacing and not ^H, you can make
+## <Ctrl+Backspace> delete the word to the left of the cursor with:
+# bind ^H chopwordleft main
+
+## If you would like nano to have keybindings that are more "usual",
+## such as ^O for Open, ^F for Find, ^H for Help, and ^Q for Quit,
+## then uncomment these:
+bind ^Q exit all
+bind ^S savefile main
+bind ^W writeout main
+bind ^O insert main
+bind ^H help all
+bind ^H exit help
+bind ^F whereis all
+bind ^G findnext all
+bind ^B wherewas all
+bind ^D findprevious all
+bind ^R replace main
+bind M-X flipnewbuffer all
+bind ^C copy main
+bind ^V paste all
+bind ^P curpos main
+bind ^A mark main
+unbind ^K main
+unbind ^U all
+unbind ^N main
+unbind ^Y all
+unbind M-J main
+unbind M-T main
+bind ^T gotoline main
+bind ^T gotodir browser
+bind ^Y speller main
+bind M-U undo main
+bind M-R redo main
+bind ^U undo main
+bind ^E redo main
+set multibuffer

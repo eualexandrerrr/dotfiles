@@ -7,15 +7,14 @@ ZSH=/usr/share/oh-my-zsh
 source $ZSH/oh-my-zsh.sh
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-export EDITOR="vim"
+export EDITOR="nano"
 export BROWSER="/usr/bin/chromium"
 export JAVA_HOME="/usr/lib/jvm/java-8-openjdk"
 
 export icons=$HOME/.config/files/icons
 
-alias nano="sudo vim"
+alias nano="sudo nano"
 alias pacman="sudo pacman"
 alias systemctl="sudo systemctl"
-alias vim="sudo vim"
-
+alias xclip=" xclip -sel clip < ${1}"
 alias p="git cherry-pick ${1}"

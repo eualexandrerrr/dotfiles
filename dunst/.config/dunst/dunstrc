@@ -70,4 +70,4 @@ foreground = "#ffffff"
 background = "#202020"
 timeout = 8
 
-# vim: ft=cfg
+nano: ft=cfg
