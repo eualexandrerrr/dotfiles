@@ -19,8 +19,8 @@ xdg-mime default atom.desktop text/x-shellscript
 xdg-mime default atom.desktop text/plain
 
 # Web
-xdg-mime default chromium.desktop 'x-scheme-handler/about'
-xdg-mime default chromium.desktop 'x-scheme-handler/htm'
-xdg-mime default chromium.desktop 'x-scheme-handler/html'
-xdg-mime default chromium.desktop 'x-scheme-handler/http'
-xdg-mime default chromium.desktop 'x-scheme-handler/https'
+xdg-mime default Google-chrome.desktop 'x-scheme-handler/about'
+xdg-mime default Google-chrome.desktop 'x-scheme-handler/htm'
+xdg-mime default Google-chrome.desktop 'x-scheme-handler/html'
+xdg-mime default Google-chrome.desktop 'x-scheme-handler/http'
+xdg-mime default Google-chrome.desktop 'x-scheme-handler/https'
