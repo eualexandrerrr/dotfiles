@@ -9,7 +9,7 @@
 git config --global user.email "mamutal91@gmail.com"
 git config --global user.name "Alexandre Rangel"
 
-# bumblebee
+# Groups
 sudo gpasswd -a $USER bumblebee
 
 # GPG keys import for SPOTIFY
