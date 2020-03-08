@@ -146,7 +146,7 @@ for_window [title="Media viewer"] fullscreen enable, focus
 for_window [title="Escolha uma imagem"] floating enable, focus
 
 for_window [class="Alacritty"] move to workspace $ws1, focus
-for_window [title="newcommit"] move to workspace $ws5, floating enable, resize set 800 px 350 px, move right -100px, move down 10px, focus
+for_window [title="newcommit"] move to workspace $ws5, floating enable, resize set 800 px 350 px, move right -100px, move down 300px, focus
 
 for_window [instance="Navigator"] move to workspace $ws2, focus
 for_window [class="Google-chrome"] move to workspace $ws2, focus
