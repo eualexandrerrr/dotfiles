@@ -109,11 +109,9 @@ exec --no-startup-id sudo hwclock --systohc --utc && sudo timedatectl set-ntp tr
 exec --no-startup-id "pactl set-sink-mute @DEFAULT_SINK@ false; pactl set-sink-volume @DEFAULT_SINK@ 50%"
 exec --no-startup-id xidlehook --not-when-audio --not-when-fullscreen --timer 600 '$HOME/.config/scripts/i3lock.sh -t -ef -n' ''
 
-# Screenshot & Screencast
+# Screenshot
 bindsym Insert exec --no-startup-id $HOME/.config/scripts/screenshot.sh -s Recorte
 bindsym $ctrl+Insert exec --no-startup-id $HOME/.config/scripts/screenshot.sh -u Fullscreen
-bindsym $ctrl+K exec --no-startup-id $HOME/.config/scripts/screencast.sh -start
-bindsym $ctrl+$shift+K exec --no-startup-id $HOME/.config/scripts/screencast.sh
 
 # Application shortcuts
 bindsym $mod+Return exec --no-startup-id alacritty &; workspace $ws1
