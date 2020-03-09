@@ -4,7 +4,13 @@
 app=bluetooth-jbl.png
 icon=$iconsnotify/$app
 
-bluetoothctl power on
-bluetoothctl connect 78:44:05:BE:8A:7E
+var=${1}
 
-DISPLAY=:0 dbus-launch notify-send -i $icon "BLUETOOTH" "Conectando headset JBL"
+if [ $var != "on" ]; then
+  bluetoothctl power off
+  DISPLAY=:0 dbus-launch notify-send -i $icon "BLUETOOTH" "Desconectando..."
+else
+  bluetoothctl power on
+  bluetoothctl connect 78:44:05:BE:8A:7E
+  DISPLAY=:0 dbus-launch notify-send -i $icon "BLUETOOTH" "Conectando headset JBL"
+fi

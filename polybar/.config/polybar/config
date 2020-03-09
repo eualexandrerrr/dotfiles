@@ -426,8 +426,8 @@ ramp-signal-0-foreground = ${colors.icones-modulos}
 type = custom/text
 content = " JBL"
 content-foreground = ${colors.azul}
-click-left = ~/.config/scripts/bluetooth-jbl.sh &
-click-right = ~/.config/scripts/bluetooth-off.sh &
+click-left = ~/.config/scripts/bluetooth-jbl.sh on &
+click-right = ~/.config/scripts/bluetooth-jbl.sh off &
 
 [settings]
 pseudo-transparency = true
