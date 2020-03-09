@@ -36,12 +36,12 @@ readonly PKGS_AUR=(
   franz
   grive-git
   namebench nvidia-xrun
-  paper-icon-theme-git polybar
+  polybar
   smplayer-skins smplayer-themes spotify
   ttf-dejavu ttf-font-awesome ttf-wps-fonts
   wps-office wps-office-extension-portuguese-brazilian-dictionary wps-office-mui-pt-br
   xidlehook
-  zuki-themes zsh-syntax-highlighting-git)
+  zafiro-icon-theme zuki-themes zsh-syntax-highlighting-git)
 
 function install_pkgs_pacman(){
   for i in "${PKGS_PACMAN[@]}"; do
