@@ -6,25 +6,6 @@ rm -rf $HOME/.dotfiles && cp -rf /media/storage/GitHub/dotfiles $HOME/.dotfiles
 rm -rf $HOME/.zshrc
 cd $HOME/.dotfiles
 
-for STOW in \
-    alacritty \
-    compton \
-    dunst \
-    files \
-    gpicview \
-    home \
-    i3 \
-    neofetch \
-    polybar \
-    rofi \
-    scripts \
-    setup
-do
-    stow $STOW
-done
-
-sudo stow bbswitch -t /etc
-
 function system() {
   # SYSTEMD
   sudo rm -rf /etc/systemd/logind.conf
@@ -47,7 +28,25 @@ function boot() {
   cd /etc/X11 && sudo rm -rf *
 }
 
+# Uncomment only if first boot
 #boot
+
+cd $HOME/.dotfiles
+stow alacritty
+stow compton
+stow dunst
+stow files
+stow gpicview
+stow home
+stow i3
+stow neofetch
+stow polybar
+stow rofi
+stow scripts
+stow setup
+
+sudo stow bbswitch -t /etc
+
 system
 
 canberra-gtk-play --file=$HOME/.config/files/sounds/completed.wav

@@ -1,7 +1,7 @@
 #!/bin/bash
 # github.com/mamutal91
 
-PACKAGE='
+readonly PACKAGES=(
   alacritty alsa alsa-firmware alsa-utils android-tools archlinux-keyring atom
   bbswitch bluez bluez-libs bluez-tools bluez-utils bumblebee
   compton cronie
@@ -23,9 +23,9 @@ PACKAGE='
   unrar unzip
   wget winetricks wireless_tools
   xclip xf86-video-intel xorg-server xorg-xbacklight xorg-xinit xorg-xprop xorg-xrandr zsh
-'
+)
 
-AUR='
+readonly AUR=(
   capitaine-cursors
   ferdi-bin
   google-chrome grive-git
@@ -38,4 +38,4 @@ AUR='
   wps-office wps-office-extension-portuguese-brazilian-dictionary wps-office-mui-pt-br
   xidlehook
   zuki-themes zsh-syntax-highlighting
-'
+)
