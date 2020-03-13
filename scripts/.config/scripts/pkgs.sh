@@ -91,6 +91,10 @@ function config_system(){
   chmod +x /home/$USER
 }
 
+# GPG keys import for SPOTIFY
+gpg --keyserver hkps://keyserver.ubuntu.com --recv-keys 931FF8E79F0876134EDDBDCCA87FF9DF48BF1C90
+gpg --keyserver hkps://keyserver.ubuntu.com --recv-keys 2EBF997C15BDA244B6EBF5D84773BD5E130D1D45
+
 #winetricks
 install_pkgs_pacman
 install_yay
