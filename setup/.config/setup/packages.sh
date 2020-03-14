@@ -22,7 +22,8 @@ readonly PACKAGES=(
   telegram-desktop terminus-font thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman ttf-liberation
   unrar unzip
   wget winetricks wireless_tools
-  xclip xf86-video-intel xorg-server xorg-xbacklight xorg-xinit xorg-xprop xorg-xrandr zsh
+  xclip xf86-video-intel xorg-server xorg-xbacklight xorg-xinit xorg-xprop xorg-xrandr
+  zsh
 )
 
 readonly AUR=(
