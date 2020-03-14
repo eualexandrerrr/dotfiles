@@ -34,7 +34,6 @@ readonly AUR=(
   noto-fonts-emoji-blob nvidia-xrun
   oh-my-zsh-git
   polybar python-ruamel-yaml
-  spotify
   ttf-dejavu ttf-font-awesome ttf-wps-fonts
   wps-office wps-office-extension-portuguese-brazilian-dictionary wps-office-mui-pt-br
   xidlehook
