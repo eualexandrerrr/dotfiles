@@ -39,7 +39,11 @@ do
 done
 
 # Groups
-sudo gpasswd -a $USER bumblebee
+for GROUP in \
+    bumblebeed
+do
+    sudo gpasswd -a mamutal91 $GROUP
+done
 
 # Install oh-my-zsh
 ./usr/share/oh-my-zsh/tools/install.sh
