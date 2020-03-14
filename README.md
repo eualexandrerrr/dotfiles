@@ -56,8 +56,8 @@ cd $HOME/.dotfiles
 ## Screenshots
 
 ### i3-gaps
-![screenshot](https://raw.githubusercontent.com/mamutal91/dotfiles/master/files/.config/files/screenshots/i3-gaps.png)
+![screenshot](https://raw.githubusercontent.com/mamutal91/dotfiles/master/files/.config/files/screenshots/i3-gaps.jpg)
 ### i3-lock
 ![screenshot](https://raw.githubusercontent.com/mamutal91/dotfiles/master/files/.config/files/screenshots/i3lock.png)
 ### neofetch
-![screenshot](https://raw.githubusercontent.com/mamutal91/dotfiles/master/files/.config/files/screenshots/neofetch.png)
+![screenshot](https://raw.githubusercontent.com/mamutal91/dotfiles/master/files/.config/files/screenshots/neofetch.jpg)
