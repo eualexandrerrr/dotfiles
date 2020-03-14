@@ -6,7 +6,6 @@
 
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/mamutal91/dotfiles)
 ![GitHub repo size](https://img.shields.io/github/repo-size/mamutal91/dotfiles)
-![GitHub commit activity](https://img.shields.io/github/commit-activity/m/mamutal91/dotfiles)
 ![GitHub contributors](https://img.shields.io/github/contributors/mamutal91/dotfiles)
 ![GitHub last commit](https://img.shields.io/github/last-commit/mamutal91/dotfiles)
 ![GitHub language count](https://img.shields.io/github/languages/count/mamutal91/dotfiles)
