@@ -23,9 +23,12 @@ These settings are personal, for my use, and my PC ... surely you will not have 
 
 Search on the correct way for your distribution.
 
+The complete list of packages I use are here:
+https://github.com/mamutal91/dotfiles/blob/master/setup/.config/setup/packages.sh
+
 ## Arch
 ```
-sudo pacman -S i3-gaps i3lock compton dunst rofi mpd maim scrot feh python-pywal python-setuptools plasma-browser-integration terminus-font
+sudo pacman -S alacritty compton dunst i3-gaps rofi feh terminus-font
 ```
 
 ```
