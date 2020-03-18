@@ -2,8 +2,7 @@
 # github.com/mamutal91
 # https://www.youtube.com/channel/UCbTjvrgkddVv4iwC9P2jZFw
 
-app=pacman.png
-icon=$icons/$app
+NOTIFY_ICON=/usr/share/icons/Papirus/32x32/apps/ 
 
 sleep 1
 

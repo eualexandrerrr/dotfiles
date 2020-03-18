@@ -1,20 +1,12 @@
 ![dotfiles](https://dotfiles.github.io/images/dotfiles-logo.png)
+
 <p align="center">
-  <br><br>
-  <img src="https://i.imgur.com/pVGr7tX.png">
+  <img src="https://img.shields.io/badge/Maintained%3F-Yes-blueviolet?style=flat-square">
+  <img src="https://img.shields.io/github/license/adi1090x/polybar-themes?style=flat-square">
+  <img src="https://img.shields.io/github/stars/adi1090x/polybar-themes?color=red&style=flat-square">
+  <img src="https://img.shields.io/github/forks/adi1090x/polybar-themes?style=flat-square">
+  <img src="https://img.shields.io/github/issues/adi1090x/polybar-themes?style=flat-square">
 </p>
-
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/mamutal91/dotfiles)
-![GitHub repo size](https://img.shields.io/github/repo-size/mamutal91/dotfiles)
-![GitHub contributors](https://img.shields.io/github/contributors/mamutal91/dotfiles)
-![GitHub last commit](https://img.shields.io/github/last-commit/mamutal91/dotfiles)
-![GitHub language count](https://img.shields.io/github/languages/count/mamutal91/dotfiles)
-![GitHub top language](https://img.shields.io/github/languages/top/mamutal91/dotfiles)
-
-![GitHub followers](https://img.shields.io/github/followers/mamutal91?style=social)
-![GitHub forks](https://img.shields.io/github/forks/mamutal91/dotfiles?style=social)
-![GitHub stars](https://img.shields.io/github/stars/mamutal91/dotfiles?style=social)
-![GitHub watchers](https://img.shields.io/github/watchers/mamutal91/dotfiles?style=social)
 
 
 **Hey**, these are the dotfiles that I use.

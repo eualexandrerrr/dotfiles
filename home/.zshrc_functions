@@ -11,6 +11,7 @@ alias xclip=" xclip -sel clip < ${1}"
 alias p="git cherry-pick ${1}"
 alias cable="systemctl disable dhcpcd && systemctl enable NetworkManager && systemctl start NetworkManager && nmcli radio wifi off"
 alias wifi="systemctl disable dhcpcd && nmcli radio wifi off"
+alias gihub="cd /media/storage/GitHub"
 
 # VPS CONTABO: Specific functions for my CONTABO VPS. Some service for my laptop
 
