@@ -1,22 +1,20 @@
 #!/bin/bash
 # github.com/mamutal91
 
-# Mirrors
-# sudo reflector -c Brazil --save /etc/pacman.d/mirrorlist
-# sudo reflector -l 10 --sort rate --save /etc/pacman.d/mirrorlist
+# Best mirrors
+sudo reflector -c Brazil --save /etc/pacman.d/mirrorlist
 
 # Git
 git config --global user.email "mamutal91@gmail.com"
 git config --global user.name "Alexandre Rangel"
 
-sudo pacman -Syyu
+sudo pacman -Syyu --noconfirm
 
 # Install YAY AUR Manager
 git clone https://aur.archlinux.org/yay.git $HOME/yay && cd "$HOME/yay" && makepkg -si --noconfirm && rm -rf $HOME/yay
 
 # Load packages
 source $HOME/.dotfiles/setup/.config/setup/packages.sh
-
 
 # Install my packages
 for i in "${PACKAGES[@]}"; do
