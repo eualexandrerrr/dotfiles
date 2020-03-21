@@ -7,13 +7,14 @@
 alias nano="sudo nano"
 alias pacman="sudo pacman"
 alias systemctl="sudo systemctl"
-alias xclip=" xclip -sel clip < ${1}"
 alias p="git cherry-pick ${1}"
 alias cable="systemctl disable dhcpcd && systemctl enable NetworkManager && systemctl start NetworkManager && nmcli radio wifi off"
 alias wifi="systemctl disable dhcpcd && nmcli radio wifi off"
-alias gihub="cd /media/storage/GitHub"
 
 # VPS CONTABO: Specific functions for my CONTABO VPS. Some service for my laptop
+
+alias bp="cd $HOME/aosp && repo sync -c -v -j$(nproc --all) --force-sync && opengapps && make -j$(nproc --all) bacon 2>&1 | tee log.txt"
+alias b="cd $HOME/aosp && make -j$(nproc --all) bacon 2>&1 | tee log.txt"
 
 function push () {
   git push ssh://git@github.com/mamutal91/${1} HEAD:refs/heads/${2} --force
@@ -74,19 +75,13 @@ function opengapps () {
   cd $pwd_opengapps
 }
 
-function af () {
-  rm -rf $HOME/aosp && mkdir $HOME/aosp && cd $HOME/aosp
-  repo init -u ssh://git@github.com/mamutal91/manifest -b ten
-  tree && tree_kernel && tree_vendor
-  bp
-}
-
 function scripts () {
   pwd_scripts=$(pwd)
   rm -rf $HOME/.zshrc && cd $HOME && wget https://raw.githubusercontent.com/mamutal91/vps/master/.zshrc && source $HOME/.zshrc
   rm -rf $HOME/.update.sh && wget https://raw.githubusercontent.com/mamutal91/vps/master/update.sh && mv update.sh .update.sh && chmod +x .update.sh
   rm -rf $HOME/.setup.sh && wget https://raw.githubusercontent.com/mamutal91/vps/master/setup.sh && mv setup.sh .setup.sh && chmod +x .setup.sh
   rm -rf $HOME/.mysetup.sh && wget https://raw.githubusercontent.com/mamutal91/vps/master/mysetup.sh && mv mysetup.sh .mysetup.sh && chmod +x .mysetup.sh
+  rm -rf $HOME/.zsh_functions && wget https://raw.githubusercontent.com/mamutal91/dotfiles/master/home/.zsh_functions
   clear
   cd $pwd_scripts
 }
