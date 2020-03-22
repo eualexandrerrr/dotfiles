@@ -1,2 +1,0 @@
-*/10 * * * * $HOME/.config/scripts/zsh-history.sh
-*/10 * * * * cd /media/storage/Google\ Drive/ && grive

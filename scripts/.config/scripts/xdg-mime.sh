@@ -1,5 +1,6 @@
 #!/bin/bash
 # github.com/mamutal91
+# https://www.youtube.com/channel/UCbTjvrgkddVv4iwC9P2jZFw
 
 # Query filetype:
 # Para descobrir o formato do arquivo

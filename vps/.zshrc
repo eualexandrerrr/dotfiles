@@ -2,19 +2,38 @@
 # github.com/mamutal91
 # https://www.youtube.com/channel/UCbTjvrgkddVv4iwC9P2jZFw
 
-# Whole systems. This will work for my dotifles and my Contabo VPS server
+# Themes https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+ZSH_THEME="robbyrussell"
+ZSH=/usr/share/oh-my-zsh
+source $ZSH/oh-my-zsh.sh
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-alias nano="sudo nano"
-alias pacman="sudo pacman"
-alias systemctl="sudo systemctl"
-alias p="git cherry-pick ${1}"
-alias cable="systemctl disable dhcpcd && systemctl enable NetworkManager && systemctl start NetworkManager && nmcli radio wifi off"
-alias wifi="systemctl disable dhcpcd && nmcli radio wifi off"
+export TERM="xterm-256color"
+export EDITOR="nano"
+export BROWSER="/usr/bin/google-chrome-stable"
+export JAVA_HOME="/usr/lib/jvm/java-8-openjdk"
 
-# VPS CONTABO: Specific functions for my CONTABO VPS. Some service for my laptop
+export IDIOMA="en_US.UTF-8"
+export LANGUAGE=$IDIOMA
+export LC_ALL=$IDIOMA
+export LC_CTYPE=$IDIOMA
+export LANG=$IDIOMA
 
-alias bp="cd $HOME/aosp && repo sync -c -v -j$(nproc --all) --force-sync && opengapps && make -j$(nproc --all) bacon 2>&1 | tee log.txt"
-alias b="cd $HOME/aosp && make -j$(nproc --all) bacon 2>&1 | tee log.txt"
+export PATH=$HOME/.bin:$PATH
+export USE_CCACHE=1
+export CCACHE_DIR="$HOME/.ccache"
+export CCACHE_EXEC="$(which ccache)"
+
+export SELINUX_IGNORE_NEVERALLOWS=true
+export CUSTOM_BUILD_TYPE=OFFICIAL
+export OPENGAPPS_TYPE=ALPHA
+
+export aosp=$HOME/aosp
+export branch="ten"
+export los="lineage-17.1"
+
+alias bp="cd $HOME/aosp && repo sync -c -v -j$(nproc --all) --force-sync && opengapps && . build/envsetup.sh && lunch aosp_beryllium-userdebug && make -j$(nproc --all) bacon 2>&1 | tee log.txt"
+alias b="cd $HOME/aosp && . build/envsetup.sh && lunch aosp_beryllium-userdebug && make -j$(nproc --all) bacon 2>&1 | tee log.txt"
 
 function push () {
   git push ssh://git@github.com/mamutal91/${1} HEAD:refs/heads/${2} --force
@@ -77,10 +96,10 @@ function opengapps () {
 
 function scripts () {
   pwd_scripts=$(pwd)
-  rm -rf $HOME/.zshrc && cd $HOME && wget https://raw.githubusercontent.com/mamutal91/vps/master/.zshrc && source $HOME/.zshrc
-  rm -rf $HOME/.update.sh && wget https://raw.githubusercontent.com/mamutal91/vps/master/update.sh && mv update.sh .update.sh && chmod +x .update.sh
-  rm -rf $HOME/.setup.sh && wget https://raw.githubusercontent.com/mamutal91/vps/master/setup.sh && mv setup.sh .setup.sh && chmod +x .setup.sh
-  rm -rf $HOME/.mysetup.sh && wget https://raw.githubusercontent.com/mamutal91/vps/master/mysetup.sh && mv mysetup.sh .mysetup.sh && chmod +x .mysetup.sh
+  rm -rf $HOME/.zshrc && cd $HOME && wget https://raw.githubusercontent.com/mamutal91/dotfiles/master/vps/.zshrc && source $HOME/.zshrc
+  rm -rf $HOME/.update.sh && wget https://raw.githubusercontent.com/mamutal91/dotfiles/master/vps/update.sh && mv update.sh .update.sh && chmod +x .update.sh
+  rm -rf $HOME/.setup.sh && wget https://raw.githubusercontent.com/mamutal91/dotfiles/master/vps/setup.sh && mv setup.sh .setup.sh && chmod +x .setup.sh
+  rm -rf $HOME/.mysetup.sh && wget https://raw.githubusercontent.com/mamutal91/dotfiles/master/vps/mysetup.sh && mv mysetup.sh .mysetup.sh && chmod +x .mysetup.sh
   rm -rf $HOME/.zsh_functions && wget https://raw.githubusercontent.com/mamutal91/dotfiles/master/home/.zsh_functions
   clear
   cd $pwd_scripts

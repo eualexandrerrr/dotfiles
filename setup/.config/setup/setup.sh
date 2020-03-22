@@ -1,5 +1,6 @@
 #!/bin/bash
 # github.com/mamutal91
+# https://www.youtube.com/channel/UCbTjvrgkddVv4iwC9P2jZFw
 
 # Best mirrors
 sudo reflector -c Brazil --save /etc/pacman.d/mirrorlist
@@ -49,6 +50,7 @@ do
 done
 
 # Install oh-my-zsh
+rm -rf $HOME/.oh-my-zsh
 /usr/share/oh-my-zsh/tools/install.sh
 
 # Dependencies for GTA V on SteamPlay (Proton)

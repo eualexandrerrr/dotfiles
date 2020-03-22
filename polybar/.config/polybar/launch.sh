@@ -1,3 +1,7 @@
+#!/bin/bash
+# github.com/mamutal91
+# https://www.youtube.com/channel/UCbTjvrgkddVv4iwC9P2jZFw
+
 killall -q polybar
 
 while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
