@@ -1,4 +1,4 @@
-#!/bin/bash
+files/#!/bin/bash
 # github.com/mamutal91
 # https://www.youtube.com/channel/UCbTjvrgkddVv4iwC9P2jZFw
 
@@ -31,20 +31,20 @@ git clone https://github.com/mamutal91/dotfiles $HOME/.dotfiles
 
 echo "Config sudoers"
 rm -rf /etc/sudoers
-mv configs/sudoers /etc/
+mv files/sudoers /etc/
 
 echo "Config mkinitcpio"
 rm -rf /etc/mkinitcpio.conf
-mv configs/mkinitcpio.conf /etc/
+mv files/mkinitcpio.conf /etc/
 mkinitcpio -p linux
 
 lsblk -fo +partuuid
 
 echo "Config grub"
 UUID=$(blkid /dev/sda2 | awk -F '"' '{print $2}')
-sed -i "s/SEU_ID_AQUI/$UUID/g" configs/grub
+sed -i "s/SEU_ID_AQUI/$UUID/g" files/grub
 rm -rf /etc/default/grub
-mv configs/grub /etc/default
+mv files/grub /etc/default
 
 pacman -Sy networkmanager --noconfirm
 systemctl enable NetworkManager
