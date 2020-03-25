@@ -17,10 +17,10 @@ function boot() {
 
 rm -rf $HOME/.zshrc
 cd $HOME/.dotfiles
+
 stow alacritty
 stow compton
 stow dunst
-sudo stow -t /etc etc
 stow files
 stow gpicview
 stow home
@@ -31,11 +31,8 @@ stow rofi
 stow scripts
 stow setup
 
-# Autologin
-sudo rm -rf /etc/systemd/getty@tty1.service.d
-sudo mkdir -p /etc/systemd/getty@tty1.service.d
-sudo rm -rf /etc/systemd/getty@tty1.service.d/override.conf
-sudo cp -rf $HOME/.dotfiles/etc/autologin/override.conf /etc/systemd/getty@tty1.service.d/override.conf
+# Remove files from the system, and copy mine!
+source $HOME/.dotfiles/setup/.config/setup/etc.sh
 
 # End
 canberra-gtk-play --file=$HOME/.config/files/sounds/completed.wav

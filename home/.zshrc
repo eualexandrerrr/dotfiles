@@ -3,8 +3,10 @@
 # https://www.youtube.com/channel/UCbTjvrgkddVv4iwC9P2jZFw
 
 # Themes https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+
+export ZSH="/home/mamutal91/.oh-my-zsh"
 ZSH_THEME="robbyrussell"
-ZSH=/usr/share/oh-my-zsh
+plugins=(git)
 source $ZSH/oh-my-zsh.sh
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
@@ -19,3 +21,4 @@ alias pacman="sudo pacman"
 alias systemctl="sudo systemctl"
 alias p="git cherry-pick ${1}"
 alias rm="sudo rm"
+alias pkill="sudo pkill"

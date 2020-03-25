@@ -33,10 +33,9 @@ readonly AUR=(
   google-chrome grive-git
   jre8-openjdk
   noto-fonts-emoji-blob nvidia-xrun
-  oh-my-zsh-git
   polybar python-ruamel-yaml
   termsyn-font ttf-dejavu ttf-font-awesome ttf-wps-fonts
-  siji-git
+  siji-git spotify
   wps-office wps-office-extension-portuguese-brazilian-dictionary wps-office-mui-pt-br
   xidlehook
   zuki-themes zsh-syntax-highlighting

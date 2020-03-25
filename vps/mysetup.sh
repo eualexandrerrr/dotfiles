@@ -31,7 +31,7 @@ PACKAGES='
 sudo pacman -Syy $PACKAGES --noconfirm --needed --color auto
 
 AUR='
-  oh-my-zsh-git zsh-syntax-highlighting
+  zsh-syntax-highlighting
   '
 yay -S $AUR --needed --noconfirm --color auto
 
@@ -41,4 +41,4 @@ cd $HOME/.mamutal91 && rm -rf h5*.zip
 wget https://release.larsjung.de/h5ai/h5ai-0.29.2.zip && unzip h5*.zip
 
 # Install oh-my-zsh
-/usr/share/oh-my-zsh/tools/install.sh
+# rm -rf $HOME/.oh-my-zsh && sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
