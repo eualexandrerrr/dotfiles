@@ -40,7 +40,3 @@ readonly AUR=(
   xidlehook
   zuki-themes zsh-syntax-highlighting
 )
-
-readonly AUR_POLYBAR=(
-   termsyn-font siji-git ttf-ionicons
-)

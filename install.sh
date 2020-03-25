@@ -21,21 +21,19 @@ cd $HOME/.dotfiles
 stow alacritty
 stow compton
 stow dunst
-stow files
 stow gpicview
 stow home
 stow i3
 stow neofetch
+stow odyssey
 stow polybar
 stow rofi
-stow scripts
-stow setup
 
 # Remove files from the system, and copy mine!
-source $HOME/.dotfiles/setup/.config/setup/etc.sh
+source $HOME/.dotfiles/odyssey/.config/setup/etc.sh
 
 # End
 canberra-gtk-play --file=$HOME/.config/files/sounds/completed.wav
 i3-msg restart
 sleep 1s
-$HOME/.config/polybar/launch.sh
+$HOME/.config/scripts/polybar-launch.sh

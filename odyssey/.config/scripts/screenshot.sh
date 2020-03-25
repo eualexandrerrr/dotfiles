@@ -5,7 +5,7 @@
 # -s = Recorte
 # -u = Fullscreen
 
-NOTIFY_ICON=/usr/share/icons/Papirus/32x32/apps/ 
+icon="$icons/screenshot.jpg"
 
 var=${1}
 msg=${2}
