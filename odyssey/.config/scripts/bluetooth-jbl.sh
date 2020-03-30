@@ -2,7 +2,7 @@
 # github.com/mamutal91
 # https://www.youtube.com/channel/UCbTjvrgkddVv4iwC9P2jZFw
 
-NOTIFY_ICON=/usr/share/icons/Papirus/32x32/apps/ 
+icon="$HOME/.config/files/icons/bluetooth-jbl.png"
 
 var=${1}
 

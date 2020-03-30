@@ -2,6 +2,8 @@
 # github.com/mamutal91
 # https://www.youtube.com/channel/UCbTjvrgkddVv4iwC9P2jZFw
 
+icon="$HOME/.config/files/icons/battery.png"
+
 bat="/sys/class/power_supply/BAT1"
 
 while sleep 180

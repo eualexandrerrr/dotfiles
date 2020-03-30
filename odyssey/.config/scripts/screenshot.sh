@@ -5,7 +5,7 @@
 # -s = Recorte
 # -u = Fullscreen
 
-icon="$icons/screenshot.jpg"
+icon="$HOME/.config/files/icons/screenshot.png"
 
 var=${1}
 msg=${2}
