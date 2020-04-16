@@ -21,6 +21,9 @@ done
 # Start git lfs
 git-lfs install
 
+# Set java default
+sudo archlinux-java set java-8-openjdk/jre
+
 # Config repo and others
 rm -rf $HOME/.bin && mkdir $HOME/.bin
 curl http://commondatastorage.googleapis.com/git-repo-downloads/repo > $HOME/.bin/repo
