@@ -15,5 +15,5 @@ readonly PACKAGES=(
 )
 
 readonly AUR=(
-  aosp-devellineageos-devel
+  aosp-devel lineageos-devel
 )
