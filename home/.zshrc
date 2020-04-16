@@ -9,6 +9,7 @@ ZSH_THEME="robbyrussell"
 plugins=(git)
 source $ZSH/oh-my-zsh.sh
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source $HOME/.config/aosp/zsh
 
 export TERM="xterm-256color"
 export EDITOR="nano"
