@@ -2,9 +2,6 @@
 # github.com/mamutal91
 # https://www.youtube.com/channel/UCbTjvrgkddVv4iwC9P2jZFw
 
-# Best mirrors
-sudo reflector -c Brazil --save /etc/pacman.d/mirrorlist
-
 # Git
 git config --global user.email "mamutal91@gmail.com"
 git config --global user.name "Alexandre Rangel"
@@ -15,7 +12,7 @@ sudo pacman -Syyu --noconfirm
 git clone https://aur.archlinux.org/yay.git $HOME/yay && cd "$HOME/yay" && makepkg -si --noconfirm && rm -rf $HOME/yay
 
 # Load packages
-source $HOME/.dotfiles/setup/.config/setup/packages.sh
+source $HOME/.dotfiles/odyssey/.config/setup/packages.sh
 
 # Install my packages
 for i in "${PACKAGES[@]}"; do

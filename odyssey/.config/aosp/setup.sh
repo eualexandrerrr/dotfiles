@@ -4,7 +4,9 @@
 
 # Based on https://wiki.archlinux.org/index.php/Android#Building
 
-sudo pacman -Syyu
+# Create folders
+mkdir -p $HOME/.ccache
+mkdir -p $HOME/.pull_rebase
 
 # Load packages
 source $HOME/.dotfiles/odyssey/.config/aosp/packages.sh

@@ -18,7 +18,7 @@ readonly PACKAGES=(
   opencl-nvidia openssh
   papirus-icon-theme peek pinta pulseaudio pulseaudio-bluetooth pulseeffects python-setuptools
   qbittorrent qt5-connectivity
-  reflector rofi
+  rofi
   sbc scrot steam stow
   telegram-desktop terminus-font thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman ttf-liberation
   unrar unzip
