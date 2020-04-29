@@ -39,6 +39,7 @@ alias bp="cd $aosp && repo sync -c -j$(nproc --all) --no-clone-bundle --no-tags 
 alias b="cd $aosp && . build/envsetup.sh && lunch aosp_beryllium-userdebug && make -j$(nproc --all) bacon 2>&1 | tee log.txt"
 
 alias up="sudo mv ${1} /var/www/html"
+alias sf="scp ${1} mamutal91@frs.sourceforge.net:/home/frs/project/aosp-forking/beryllium"
 
 function update () {
   sudo apt-get update
