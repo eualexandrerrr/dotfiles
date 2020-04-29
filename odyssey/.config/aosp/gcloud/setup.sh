@@ -7,7 +7,10 @@ mkdir -p $HOME/.ccache
 mkdir -p $HOME/.pull_rebase
 
 # Install git-lfs
-sudo apt-get install git-lfs zsh zsh-syntax-highlighting
+sudo apt-get install git-lfs nginx zsh zsh-syntax-highlighting
+
+# Enable nginx
+sudo systemctl enable nginx && sudo systemctl start nginx
 
 # akhilnarang scripts
 cd $HOME
