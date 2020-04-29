@@ -2,14 +2,18 @@
 # github.com/mamutal91
 # https://www.youtube.com/channel/UCbTjvrgkddVv4iwC9P2jZFw
 
+# Permissions
+sudo chown -R mamutal91:mamutal91 /home/mamutal91
+sudo chmod +x /home/mamutal91
+
 # Git
-git config --global user.email "mamutal91@gmail.com"
-git config --global user.name "Alexandre Rangel"
+git config --global user.email "mamutal91@gmail.com" && git config --global user.name "Alexandre Rangel"
 
 sudo pacman -Syyu --noconfirm
 
-# Install YAY AUR Manager
+# Install YAY and PACAUR AUR Manager
 git clone https://aur.archlinux.org/yay.git $HOME/yay && cd "$HOME/yay" && makepkg -si --noconfirm && rm -rf $HOME/yay
+# curl -o PKGBUILD https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=pacaur && makepkg PKGBUILD -f && sudo pacman -U pacaur*.tar.xz --noconfirm
 
 # Load packages
 source $HOME/.dotfiles/odyssey/.config/setup/packages.sh
@@ -46,5 +50,7 @@ do
     sudo gpasswd -a mamutal91 $GROUPS
 done
 
+source $HOME/.dotfiles/odyssey/.config/setup/etc.sh
+
 # Install oh-my-zsh
-# rm -rf $HOME/.oh-my-zsh && sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+rm -rf $HOME/.oh-my-zsh && rm -rf $HOME/.zshrc && sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"

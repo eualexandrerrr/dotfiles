@@ -2,6 +2,26 @@
 # github.com/mamutal91
 # https://www.youtube.com/channel/UCbTjvrgkddVv4iwC9P2jZFw
 
+# Themes https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+
+export ZSH="$HOME/.oh-my-zsh"
+ZSH_THEME="robbyrussell"
+plugins=(git)
+source $ZSH/oh-my-zsh.sh
+source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+export TERM="xterm-256color"
+export EDITOR="nano"
+export BROWSER="/usr/bin/google-chrome-stable"
+export JAVA_HOME="/usr/lib/jvm/java-8-openjdk"
+
+alias nano="sudo nano"
+alias pacman="sudo pacman"
+alias systemctl="sudo systemctl"
+alias p="git cherry-pick ${1}"
+alias rm="sudo rm"
+alias pkill="sudo pkill"
+
 export PATH=$HOME/.bin:$PATH
 export USE_CCACHE=1
 export CCACHE_DIR="$HOME/.ccache"
@@ -11,12 +31,20 @@ export SELINUX_IGNORE_NEVERALLOWS=true
 export CUSTOM_BUILD_TYPE=OFFICIAL
 export OPENGAPPS_TYPE=ALPHA
 
-export aosp="/media/storage/aosp-forking"
+export aosp="$HOME/aosp"
 export branch="ten"
 export los="lineage-17.1"
 
 alias bp="cd $aosp && repo sync -c -j$(nproc --all) --no-clone-bundle --no-tags --force-sync && opengapps && . build/envsetup.sh && lunch aosp_beryllium-userdebug && make -j$(nproc --all) bacon 2>&1 | tee log.txt"
 alias b="cd $aosp && . build/envsetup.sh && lunch aosp_beryllium-userdebug && make -j$(nproc --all) bacon 2>&1 | tee log.txt"
+
+alias up="sudo mv ${1} /var/www/html"
+
+function update () {
+  sudo apt-get update
+  sudo apt-get upgrade -y
+  sudo apt-get autoremove -y
+}
 
 function push () {
   git push ssh://git@github.com/mamutal91/${1} HEAD:refs/heads/${2} --force
@@ -75,4 +103,12 @@ function opengapps () {
   cd $aosp/vendor/opengapps/sources/x86 && git lfs fetch --all && git lfs pull && echo && pwd
   cd $aosp/vendor/opengapps/sources/x86_64 && git lfs fetch --all && git lfs pull && echo && pwd
   cd $pwd_opengapps
+}
+
+function scripts () {
+  scripts=$(pwd)
+  cd $HOME
+  rm -rf $HOME/.zshrc && wget https://raw.githubusercontent.com/mamutal91/dotfiles/master/odyssey/.config/aosp/gcloud/.zshrc && source $HOME/.zshrc
+  rm -rf setup.sh && wget https://raw.githubusercontent.com/mamutal91/dotfiles/master/odyssey/.config/aosp/gcloud/setup.sh
+  cd $scripts
 }

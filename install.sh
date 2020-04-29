@@ -7,7 +7,7 @@ rm -rf $HOME/.dotfiles && cp -rf /media/storage/GitHub/dotfiles $HOME/.dotfiles
 
 function boot() {
   cd $HOME/.config
-  rm -rf alacritty compton dunst files gpicview i3 neofetch polybar rofi scripts setup
+  rm -rf alacritty compton dunst files gpicview i3 neofetch polybar rofi scripts setup .ssh
   rm -rf .crontab .nanorc .nvidia-xinitrc .Xresources .zlogin .zshrc .zshrc_functions
   cd /etc/X11 && sudo rm -rf *
 }

@@ -8,6 +8,10 @@
 mkdir -p $HOME/.ccache
 mkdir -p $HOME/.pull_rebase
 
+# PGP keys need importing required by: ncurses5-compat-libs lib32-ncurses5-compat-libs
+gpg --keyserver pgpkeys.mit.edu --recv-key C52048C0C0748FEE227D47A2702353E0F7E48EDB
+gpg --keyserver pgp.mit.edu --recv-keys 79BE3E4300411886
+
 # Load packages
 source $HOME/.dotfiles/odyssey/.config/aosp/packages.sh
 
@@ -17,7 +21,7 @@ for i in "${PACKAGES[@]}"; do
 done
 
 for i in "${AUR[@]}"; do
-  yay -S ${i} --needed --noconfirm
+  yay --skippgpcheck -S ${i} --needed --noconfirm
 done
 
 # Start git lfs
