@@ -48,16 +48,20 @@ function update () {
 }
 
 function push () {
-  git push ssh://git@github.com/mamutal91/${1} HEAD:refs/heads/${2} --force
-  git push ssh://git@github.com/aosp-forking/${1} HEAD:refs/heads/${2} --force
+  git push https://github.com/aosp-forking/${1} HEAD:refs/heads/${2} --force
+#  git push ssh://git@github.com/mamutal91/${1} HEAD:refs/heads/${2} --force
+}
+
+function clone () {
+  git clone https://github.com/aosp-forking/${1} -b ${2} && cd ${1}
 }
 
 function tree () {
   cd $aosp
   rm -rf device/xiaomi/beryllium
   rm -rf device/xiaomi/sdm845-common
-  git clone ssh://git@github.com/mamutal91/device_xiaomi_beryllium -b $branch device/xiaomi/beryllium
-  git clone ssh://git@github.com/mamutal91/device_xiaomi_sdm845-common -b $branch device/xiaomi/sdm845-common
+  git clone https://github.com/mamutal91/device_xiaomi_beryllium -b $branch device/xiaomi/beryllium
+  git clone https://github.com/mamutal91/device_xiaomi_sdm845-common -b $branch device/xiaomi/sdm845-common
 }
 
 function tree_pull () {

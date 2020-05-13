@@ -29,7 +29,7 @@ readonly PACKAGES=(
 
 readonly AUR=(
   capitaine-cursors
-  ferdi-bin
+  ferdi
   google-chrome grive-git
   jre8-openjdk
   noto-fonts-emoji-blob nvidia-xrun
