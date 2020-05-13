@@ -53,4 +53,4 @@ done
 source $HOME/.dotfiles/odyssey/.config/setup/etc.sh
 
 # Install oh-my-zsh
-rm -rf $HOME/.oh-my-zsh && rm -rf $HOME/.zshrc && sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+# rm -rf $HOME/.oh-my-zsh && rm -rf $HOME/.zshrc && sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
