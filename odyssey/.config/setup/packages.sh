@@ -29,6 +29,7 @@ readonly PACKAGES=(
 
 readonly AUR=(
   capitaine-cursors
+  etcher
   ferdi
   google-chrome grive-git
   jre8-openjdk
