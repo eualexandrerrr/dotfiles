@@ -1,6 +1,6 @@
 #!/bin/bash
 # github.com/mamutal91
-# https://www.youtube.com/channel/UCbTjvrgkddVv4iwC9P2jZFw
+
 
 # Permissions
 sudo chown -R mamutal91:mamutal91 /home/mamutal91

@@ -1,6 +1,6 @@
 #!/bin/bash
 # github.com/mamutal91
-# https://www.youtube.com/channel/UCbTjvrgkddVv4iwC9P2jZFw
+
 
 # My favorites packages https://atom.io/packages/
 # Check the package name in the GitHub repository, in the file `package.json` for install

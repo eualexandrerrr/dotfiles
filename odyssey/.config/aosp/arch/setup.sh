@@ -1,6 +1,6 @@
 #!/bin/bash
 # github.com/mamutal91
-# https://www.youtube.com/channel/UCbTjvrgkddVv4iwC9P2jZFw
+
 
 # Based on https://wiki.archlinux.org/index.php/Android#Building
 

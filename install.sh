@@ -1,6 +1,6 @@
 #!/bin/bash
 # github.com/mamutal91
-# https://www.youtube.com/channel/UCbTjvrgkddVv4iwC9P2jZFw
+
 
 # This replaces a folder at home with a folder that makes changes to my dotfiles
 rm -rf $HOME/.dotfiles && cp -rf /media/storage/GitHub/dotfiles $HOME/.dotfiles

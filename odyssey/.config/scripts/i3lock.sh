@@ -1,6 +1,6 @@
 #!/bin/bash
 # github.com/mamutal91
-# https://www.youtube.com/channel/UCbTjvrgkddVv4iwC9P2jZFw
+
 
 scr='/tmp/screenshot.png'
 icon="$HOME/.config/files/i3lock/i3lock.png"

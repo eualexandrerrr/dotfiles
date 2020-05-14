@@ -1,7 +1,5 @@
 #!/bin/bash
 # github.com/mamutal91
-# https://www.youtube.com/channel/UCbTjvrgkddVv4iwC9P2jZFw
-
 # Themes https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 
 export ZSH="$HOME/.oh-my-zsh"
