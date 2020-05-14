@@ -1,13 +1,12 @@
 #!/bin/bash
 # github.com/mamutal91
 
-
 # Create folders
 mkdir -p $HOME/.ccache
 mkdir -p $HOME/.pull_rebase
 
 # Install git-lfs
-sudo apt-get install git-lfs nginx zsh zsh-syntax-highlighting
+sudo apt-get install nginx zsh zsh-syntax-highlighting -y
 
 # Enable nginx
 sudo systemctl enable nginx && sudo systemctl start nginx
