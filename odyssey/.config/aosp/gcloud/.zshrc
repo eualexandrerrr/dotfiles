@@ -47,7 +47,7 @@ function update () {
 
 function push () {
   git push https://github.com/aosp-forking/${1} HEAD:refs/heads/${2} --force
-#  git push ssh://git@github.com/mamutal91/${1} HEAD:refs/heads/${2} --force
+  git push https://github.com/mamutal91/${1} HEAD:refs/heads/${2} --force
 }
 
 function clone () {
@@ -67,12 +67,12 @@ function tree_pull () {
   rm -rf $HOME/.pull_rebase && mkdir $HOME/.pull_rebase && cd $HOME/.pull_rebase
   rm -rf device_xiaomi_beryllium device_xiaomi_sdm845-common
 
-  git clone ssh://git@github.com/mamutal91/device_xiaomi_beryllium -b $branch
+  git clone https://github.com/mamutal91/device_xiaomi_beryllium -b $branch
   cd device_xiaomi_beryllium
   git pull --rebase https://github.com/AOSiP-Devices/device_xiaomi_beryllium -t ten && git rebase
   echo && echo "Pushing..." && echo && git push && echo && echo && cd ..
 
-  git clone ssh://git@github.com/mamutal91/device_xiaomi_sdm845-common -b $branch
+  git clone https://github.com/mamutal91/device_xiaomi_sdm845-common -b $branch
   cd device_xiaomi_sdm845-common
   git pull --rebase https://github.com/AOSiP-Devices/device_xiaomi_sdm845-common -t ten && git rebase
   echo && echo "Pushing..." && echo && git push && echo && echo && cd ..
