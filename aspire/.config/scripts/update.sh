@@ -1,7 +1,6 @@
 #!/bin/bash
 # github.com/mamutal91
 
-
 icon="$HOME/.config/files/icons/pacman.png"
 
 sleep 1

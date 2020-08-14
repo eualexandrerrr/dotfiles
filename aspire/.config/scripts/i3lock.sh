@@ -1,7 +1,6 @@
 #!/bin/bash
 # github.com/mamutal91
 
-
 scr='/tmp/screenshot.png'
 icon="$HOME/.config/files/i3lock/i3lock.png"
 font="$HOME/.config/files/fonts/OpenSans.ttf"

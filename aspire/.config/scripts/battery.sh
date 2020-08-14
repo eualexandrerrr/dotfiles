@@ -1,7 +1,6 @@
 #!/bin/bash
 # github.com/mamutal91
 
-
 icon="$HOME/.config/files/icons/battery.png"
 
 bat="/sys/class/power_supply/BAT1"

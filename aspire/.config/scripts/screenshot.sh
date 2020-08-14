@@ -1,7 +1,6 @@
 #!/bin/bash
 # github.com/mamutal91
 
-
 # -s = Recorte
 # -u = Fullscreen
 

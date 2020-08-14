@@ -1,7 +1,6 @@
 #!/bin/bash
 # github.com/mamutal91
 
-
 # Permissions
 sudo chown -R mamutal91:mamutal91 /home/mamutal91
 sudo chmod +x /home/mamutal91
@@ -13,10 +12,9 @@ sudo pacman -Syyu --noconfirm
 
 # Install YAY and PACAUR AUR Manager
 git clone https://aur.archlinux.org/yay.git $HOME/yay && cd "$HOME/yay" && makepkg -si --noconfirm && rm -rf $HOME/yay
-# curl -o PKGBUILD https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=pacaur && makepkg PKGBUILD -f && sudo pacman -U pacaur*.tar.xz --noconfirm
 
 # Load packages
-source $HOME/.dotfiles/odyssey/.config/setup/packages.sh
+source $HOME/.dotfiles/aspire/.config/setup/packages.sh
 
 # Install my packages
 for i in "${PACKAGES[@]}"; do
@@ -50,7 +48,7 @@ do
     sudo gpasswd -a mamutal91 $GROUPS
 done
 
-source $HOME/.dotfiles/odyssey/.config/setup/etc.sh
+source $HOME/.dotfiles/aspire/.config/setup/etc.sh
 
 # Install oh-my-zsh
 # rm -rf $HOME/.oh-my-zsh && rm -rf $HOME/.zshrc && sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"

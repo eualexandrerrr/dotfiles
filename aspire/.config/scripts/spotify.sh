@@ -1,7 +1,6 @@
 #!/bin/bash
 # github.com/mamutal91
 
-
 main() {
   if ! pgrep -x spotify >/dev/null; then
     echo ""; exit

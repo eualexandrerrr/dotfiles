@@ -13,7 +13,7 @@ gpg --keyserver pgpkeys.mit.edu --recv-key C52048C0C0748FEE227D47A2702353E0F7E48
 gpg --keyserver pgp.mit.edu --recv-keys 79BE3E4300411886
 
 # Load packages
-source $HOME/.dotfiles/odyssey/.config/aosp/packages.sh
+source $HOME/.dotfiles/aspire/.config/aosp/packages.sh
 
 # Install my packages
 for i in "${PACKAGES[@]}"; do

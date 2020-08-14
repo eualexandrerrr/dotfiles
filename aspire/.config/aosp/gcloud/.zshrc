@@ -35,6 +35,16 @@ function update () {
   sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get autoremove -y
 }
 
+function clone () {
+  cd $HOME && rm -rf android_${1}
+  git clone https://github.com/LineageOS/android_${1} -b lineage-17.1
+  cd android_${1}
+}
+
+function fetch () {
+  git fetch https://github.com/LineageOS/android_${1} lineage-17.1
+}
+
 function push () {
   git push https://github.com/aosp-forking/${1} HEAD:refs/heads/${2} --force && git push https://github.com/mamutal91/${1} HEAD:refs/heads/${2} --force
 }
@@ -72,6 +82,14 @@ function tree_pull () {
   cd $pwd_tree_pull
 }
 
+function clone () {
+  git clone https://github.com/LineageOS/android_${1} -b lineage-17.1
+}
+
+function fetch () {
+  git fetch https://github.com/LineageOS/android_${1} lineage-17.1
+}
+
 function opengapps () {
   pwd_opengapps=$(pwd)
   cd $aosp/vendor/opengapps/build && git lfs fetch --all && git lfs pull && echo && pwd
@@ -86,8 +104,8 @@ function opengapps () {
 function scripts () {
   scripts=$(pwd)
   cd $HOME
-  rm -rf $HOME/.zshrc && wget https://raw.githubusercontent.com/mamutal91/dotfiles/master/odyssey/.config/aosp/gcloud/.zshrc && source $HOME/.zshrc
+  rm -rf $HOME/.zshrc && wget https://raw.githubusercontent.com/mamutal91/dotfiles/master/aspire/.config/aosp/gcloud/.zshrc && source $HOME/.zshrc
   rm -rf $HOME/.zsh_history && https://raw.githubusercontent.com/mamutal91/zsh-history/master/.zsh_history && source $HOME/.zsh_history
-  rm -rf setup.sh && wget https://raw.githubusercontent.com/mamutal91/dotfiles/master/odyssey/.config/aosp/gcloud/setup.sh
+  rm -rf setup.sh && wget https://raw.githubusercontent.com/mamutal91/dotfiles/master/aspire/.config/aosp/gcloud/setup.sh
   cd $scripts
 }

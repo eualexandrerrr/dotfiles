@@ -16,7 +16,7 @@ These settings are personal, for my use, and my PC ... surely you will not have 
 Search on the correct way for your distribution.
 
 The complete list of packages I use are here:
-https://github.com/mamutal91/dotfiles/blob/master/odyssey/.config/setup/packages.sh
+https://github.com/mamutal91/dotfiles/blob/master/aspire/.config/setup/packages.sh
 
 ## Arch
 ```

@@ -1,7 +1,6 @@
 #!/bin/bash
 # github.com/mamutal91
 
-
 dir=/media/storage/GitHub
 
 repo0=" dotfiles"

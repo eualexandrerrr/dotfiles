@@ -1,6 +1,6 @@
 [global]
-#font = Cantarell Light 12
-font = Iosevka 12
+#font = Cantarell Light 10
+font = Iosevka 8
 markup = yes
 plain_text = no
 format = "<b>%s</b>\n%b"

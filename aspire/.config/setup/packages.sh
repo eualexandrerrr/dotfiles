@@ -1,10 +1,9 @@
 #!/bin/bash
 # github.com/mamutal91
 
-
 readonly PACKAGES=(
   alacritty alsa alsa-firmware alsa-utils android-tools archlinux-keyring atom
-  bbswitch bluez bluez-libs bluez-tools bluez-utils bumblebee
+  bluez bluez-libs bluez-tools bluez-utils bumblebee
   compton cronie
   dunst dhcpcd
   feh ffmpeg filezilla
@@ -12,29 +11,29 @@ readonly PACKAGES=(
   i3-gaps i3lock
   imagemagick
   jsoncpp
-  lib32-libvdpau lib32-nvidia-utils lib32-opencl-nvidia lib32-virtualgl lxappearance
+  lxappearance
   maim mesa mpd mpv
-  nano nano-syntax-highlighting neofetch ntfs-3g numlockx nvidia nvidia-settings nvidia-utils
-  opencl-nvidia openssh
+  nano nano-syntax-highlighting neofetch ntfs-3g numlockx
+  openssh
   papirus-icon-theme peek pinta pulseaudio pulseaudio-bluetooth pulseeffects python-setuptools
-  qbittorrent qt5-connectivity
+  qbittorrent
   rofi
   sbc scrot steam stow
   telegram-desktop terminus-font thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman ttf-liberation
   unrar unzip
-  wget winetricks wireless_tools
+  wget wireless_tools
   xclip xf86-video-intel xorg-server xorg-xbacklight xorg-xinit xorg-xprop xorg-xrandr
-  zsh
+  zsh zsh-autosuggestions zsh-completions zsh-lovers
 )
 
 readonly AUR=(
   capitaine-cursors
   etcher
-  ferdi
   google-chrome grive-git
   jre8-openjdk
-  noto-fonts-emoji-blob nvidia-xrun
-  polybar python-ruamel-yaml
+  noto-fonts-emoji-blob
+  oh-my-zsh-git
+  polybar python-ruamel-yam
   termsyn-font ttf-dejavu ttf-font-awesome ttf-wps-fonts
   siji-git spotify
   wps-office wps-office-extension-portuguese-brazilian-dictionary wps-office-mui-pt-br

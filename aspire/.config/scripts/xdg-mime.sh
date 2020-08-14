@@ -1,7 +1,6 @@
 #!/bin/bash
 # github.com/mamutal91
 
-
 # Query filetype:
 # Para descobrir o formato do arquivo
 # xdg-mime query filetype file.txt

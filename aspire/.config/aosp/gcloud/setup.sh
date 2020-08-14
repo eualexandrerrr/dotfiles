@@ -30,8 +30,8 @@ curl http://commondatastorage.googleapis.com/git-repo-downloads/repo > $HOME/.bi
 ln -s /bin/python3.8 $HOME/.bin/python
 chmod a+x $HOME/.bin/repo
 
-rm -rf $HOME/.zshrc && cd $HOME && wget https://raw.githubusercontent.com/mamutal91/dotfiles/master/odyssey/.config/aosp/gcloud/.zshrc
+rm -rf $HOME/.zshrc && cd $HOME && wget https://raw.githubusercontent.com/mamutal91/dotfiles/master/aspire/.config/aosp/gcloud/.zshrc
 
 # oh-my-zsh
 # rm -rf $HOME/.oh-my-zsh && rm -rf $HOME/.zshrc && sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-# sh -c "$(curl -fsSL https://raw.githubusercontent.com/mamutal91/dotfiles/master/odyssey/.config/aosp/gcloud/setup.sh)"
+# sh -c "$(curl -fsSL https://raw.githubusercontent.com/mamutal91/dotfiles/master/aspire/.config/aosp/gcloud/setup.sh)"

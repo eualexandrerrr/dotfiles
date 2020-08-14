@@ -1,11 +1,6 @@
 #!/bin/bash
 # github.com/mamutal91
 
-
-# bbswitch
-sudo rm -rf /etc/bbswitch
-sudo cp -rf $HOME/.dotfiles/etc/bbswitch /etc
-
 # systemd
 sudo rm -rf /etc/systemd/system/getty@tty1.service.d
 sudo mkdir -p /etc/systemd/system/getty@tty1.service.d
