@@ -46,15 +46,14 @@ function fetch () {
 }
 
 function push () {
-  git push https://github.com/aosp-forking/${1} HEAD:refs/heads/${2} --force && git push https://github.com/mamutal91/${1} HEAD:refs/heads/${2} --force
+  git push https://github.com/aosp-forking/${1} HEAD:refs/heads/${2} --force
 }
 
 function tree () {
   cd $aosp
   rm -rf device/xiaomi/beryllium device/xiaomi/sdm845-common
-  git clone https://github.com/mamutal91/device_xiaomi_beryllium -b ${1} device/xiaomi/beryllium
-  git clone https://github.com/mamutal91/device_xiaomi_sdm845-common -b ${1} device/xiaomi/sdm845-common
-  echo "${1} # ten or ten-los"
+  git clone https://github.com/mamutal91/device_xiaomi_beryllium -b ten device/xiaomi/beryllium
+  git clone https://github.com/mamutal91/device_xiaomi_sdm845-common -b ten device/xiaomi/sdm845-common
 }
 
 function treex () {
@@ -66,28 +65,6 @@ function treex () {
   cd vendor/xiaomi
   rm -rf dipper jasmine_sprout mido msm8953-common perseus platina phoenix raphael sdm660-common wayne wayne-common whyred
   cd $pwd_treex
-}
-
-function tree_pull () {
-  pwd_tree_pull=$(pwd)
-  rm -rf $HOME/.pull_rebase && mkdir $HOME/.pull_rebase && cd $HOME/.pull_rebase &&   rm -rf device_xiaomi_beryllium device_xiaomi_sdm845-common
-
-  git clone https://github.com/mamutal91/device_xiaomi_beryllium -b $branch && cd device_xiaomi_beryllium
-  git pull --rebase https://github.com/AOSiP-Devices/device_xiaomi_beryllium -t $ten && git rebase
-  echo && echo "Pushing..." && echo && git push && echo && echo && cd ..
-
-  git clone https://github.com/mamutal91/device_xiaomi_sdm845-common -b $branch && cd device_xiaomi_sdm845-common
-  git pull --rebase https://github.com/AOSiP-Devices/device_xiaomi_sdm845-common -t $ten && git rebase
-  echo && echo "Pushing..." && echo && git push && echo && echo && cd ..
-  cd $pwd_tree_pull
-}
-
-function clone () {
-  git clone https://github.com/LineageOS/android_${1} -b lineage-17.1
-}
-
-function fetch () {
-  git fetch https://github.com/LineageOS/android_${1} lineage-17.1
 }
 
 function opengapps () {
