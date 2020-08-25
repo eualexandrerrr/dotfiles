@@ -100,7 +100,6 @@ exec_always --no-startup-id $HOME/.config/scripts/xdg-mime.sh
 exec_always --no-startup-id xrdb -merge $HOME/.Xresources
 exec --no-startup-id compton -C
 exec --no-startup-id dunst
-exec --no-startup-id numlockx on
 exec --no-startup-id pulseeffects --gapplication-service &>/dev/null
 exec --no-startup-id sudo timedatectl set-ntp true && sudo hwclock --systohc
 exec --no-startup-id sudo hwclock --systohc --utc && sudo timedatectl set-ntp true
