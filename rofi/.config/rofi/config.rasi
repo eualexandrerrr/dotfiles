@@ -2,6 +2,7 @@ configuration {
     display-drun:                   "Apps";
     display-window:                 "Window";
     show-icons:true;
+    font: "SF Pro Text 9";
 }
 
 * {
@@ -9,7 +10,7 @@ configuration {
     background-color: #2F343F;
     border-color: #2F343F;
     text-color: #EFEFEF;
-    font: "SF Pro Text 11";
+    font: "SF Pro Text 9";
 }
 
 #window {
