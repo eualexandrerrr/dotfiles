@@ -244,7 +244,8 @@ label-foreground = #F7819F
 
 [module/brightness]
 type = internal/backlight
-card = intel_backlight
+card = amdgpu_bl0
+enable-scroll = true
 format = <label> <bar>
 
 format-prefix = " "
@@ -392,7 +393,7 @@ ramp-signal-5-foreground = #96DE72
 
 [module/ethernet]
 type = internal/network
-interface = enp4s0
+interface = enp2s0
 interval = 1.0
 
 format-connected = <label-connected> <ramp-signal>
