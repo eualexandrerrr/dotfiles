@@ -23,7 +23,7 @@ export CUSTOM_BUILD_TYPE=OFFICIAL
 export OPENGAPPS_TYPE=ALPHA
 
 export aosp="$HOME/aosp"
-export branch="ten-los"
+export branch="ten"
 export los="lineage-17.1"
 
 alias bp="cd $aosp && repo sync -c -j$(nproc --all) --no-clone-bundle --no-tags --force-sync && opengapps && . build/envsetup.sh && lunch aosp_beryllium-userdebug && make -j$(nproc --all) bacon 2>&1 | tee log.txt"
@@ -33,16 +33,6 @@ alias p="git cherry-pick ${1}"
 
 function update () {
   sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get autoremove -y
-}
-
-function clone () {
-  cd $HOME && rm -rf android_${1}
-  git clone https://github.com/LineageOS/android_${1} -b lineage-17.1
-  cd android_${1}
-}
-
-function fetch () {
-  git fetch https://github.com/LineageOS/android_${1} lineage-17.1
 }
 
 function push () {
