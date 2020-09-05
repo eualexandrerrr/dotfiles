@@ -50,8 +50,8 @@ function treex () {
   cd $aosp
   pwd_treex=$(pwd)
   rm -rf kernel/xiaomi vendor/xiaomi
-  git clone https://github.com/AOSiP-Devices/kernel_xiaomi_sdm845 -b ten kernel/xiaomi/sdm845
-  git clone https://github.com/AOSiP-Devices/proprietary_vendor_xiaomi -b ten vendor/xiaomi
+  git clone https://github.com/mamutal91/kernel_xiaomi_sdm845 -b ten kernel/xiaomi/sdm845
+  git clone https://github.com/mamutal91/vendor_xiaomi -b ten vendor/xiaomi
   cd vendor/xiaomi
   rm -rf dipper jasmine_sprout mido msm8953-common perseus platina phoenix raphael sdm660-common wayne wayne-common whyred
   cd $pwd_treex
@@ -73,6 +73,6 @@ function scripts () {
   cd $HOME
   rm -rf $HOME/.zshrc && wget https://raw.githubusercontent.com/mamutal91/dotfiles/master/aspire/.config/aosp/gcloud/.zshrc && source $HOME/.zshrc
   rm -rf $HOME/.zsh_history && https://raw.githubusercontent.com/mamutal91/zsh-history/master/.zsh_history && source $HOME/.zsh_history
-  rm -rf setup.sh && wget https://raw.githubusercontent.com/mamutal91/dotfiles/master/aspire/.config/aosp/gcloud/setup.sh
+  rm -rf setup.sh && wget https://raw.githubusercontent.com/mamutal91/dotfiles/master/aspire/.config/aosp/gcloud/setup.sh && chmod +x setup.sh
   cd $scripts
 }
