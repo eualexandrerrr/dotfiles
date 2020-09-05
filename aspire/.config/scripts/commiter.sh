@@ -1,7 +1,7 @@
 #!/bin/bash
 # github.com/mamutal91
 
-dir=/media/storage/GitHub
+dir=/media/storage/GITHUB
 
 repo0=" dotfiles"
 repo1=" mamutal91.github.io"
