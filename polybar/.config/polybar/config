@@ -56,7 +56,7 @@ font-4 = "Font Awesome 5 Brands:pixelsize=7;1"
 
 modules-left = window
 modules-center = i3
-modules-right = video bluetooth-jbl root battery date hour
+modules-right = video bluetooth-jbl root storage battery date hour
 
 cursor-click = pointer
 cursor-scroll = ns-resize
