@@ -27,6 +27,12 @@ alias p="git cherry-pick ${1}"
 alias rm="sudo rm"
 alias pkill="sudo pkill"
 
+# Push for my projection aosp-forking
+function push () {
+  echo '*** > push for branch ELEVEN'
+  git push https://github.com/aosp-forking/${1} HEAD:refs/heads/eleven --force
+}
+
 # gCloud
 function ss () {
   cat ~/.ssh/gcloud.pub | ssh mamutal91@${1} "mkdir -p ~/.ssh && cat >> /media/storage/GitHub/dotfiles/home/.ssh/authorized_keys"

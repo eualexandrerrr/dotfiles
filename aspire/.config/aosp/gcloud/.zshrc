@@ -23,8 +23,8 @@ export CUSTOM_BUILD_TYPE=OFFICIAL
 export OPENGAPPS_TYPE=ALPHA
 
 export aosp="$HOME/aosp"
-export branch="ten"
-export los="lineage-17.1"
+export branch="eleven"
+export los="lineage-18.0"
 
 alias bp="cd $aosp && repo sync -c -j$(nproc --all) --no-clone-bundle --no-tags --force-sync && opengapps && . build/envsetup.sh && lunch aosp_beryllium-userdebug && make -j$(nproc --all) bacon 2>&1 | tee log.txt"
 alias b="cd $aosp && . build/envsetup.sh && lunch aosp_beryllium-userdebug && make -j$(nproc --all) bacon 2>&1 | tee log.txt"
@@ -36,7 +36,13 @@ function update () {
 }
 
 function push () {
-  git push https://github.com/aosp-forking/${1} HEAD:refs/heads/${2} --force
+  echo '*** > push for branch ELEVEN'
+  git push https://github.com/aosp-forking/${1} HEAD:refs/heads/eleven --force
+}
+
+function los () {
+  git clone https://github.com/LineageOS/android_${1} -b lineage-18.0
+  cd android_${1}
 }
 
 function tree () {
