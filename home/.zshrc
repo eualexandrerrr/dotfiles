@@ -27,10 +27,23 @@ alias p="git cherry-pick ${1}"
 alias rm="sudo rm"
 alias pkill="sudo pkill"
 
-# Push for my projection aosp-forking
+# Functions for git
 function push () {
-  echo '*** > push for branch ELEVEN'
+  echo "*********************************"
+  echo "*** pushing for branch ELEVEN ***"
   git push https://github.com/aosp-forking/${1} HEAD:refs/heads/eleven --force
+}
+
+function commitm () {
+  git add . && git commit --author "Alexandre Rangel <mamutal91@gmail.com>" && git push -f
+}
+
+function commit () {
+  git add . && git commit --author "${1}" && git push -f
+}
+
+function amend () {
+  git add . && git commit --amend && git push -f
 }
 
 # gCloud

@@ -1,16 +1,5 @@
 #!/bin/bash
 # github.com/mamutal91
-# Themes https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-
-export ZSH="$HOME/.oh-my-zsh"
-ZSH_THEME="robbyrussell"
-plugins=(git)
-source $ZSH/oh-my-zsh.sh
-source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-export TERM="xterm-256color"
-export EDITOR="nano"
-export JAVA_HOME="/usr/lib/jvm/java-8-openjdk"
 
 export PATH=$HOME/.bin:$PATH
 export USE_CCACHE=1
