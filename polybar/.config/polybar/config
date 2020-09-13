@@ -48,11 +48,10 @@ overline-size = 2
 module-margin-left = 1
 module-margin-right = 1
 
-font-0 = xos4 Terminus:size=2
-font-1 = OpenSans:size=4;0
-font-2 = "Font Awesome 5 Free:style=Regular:pixelsize=7;1"
-font-3 = "Font Awesome 5 Free:style=Solid:pixelsize=7;1"
-font-4 = "Font Awesome 5 Brands:pixelsize=7;1"
+font-0 = "xos4 Terminus:size=1"
+font-1 = "Font Awesome 5 Free:style=Regular:pixelsize=7;1"
+font-2 = "Font Awesome 5 Free:style=Solid:pixelsize=7;1"
+font-3 = "Font Awesome 5 Brands:pixelsize=7;1"
 
 modules-left = window
 modules-center = i3
@@ -96,7 +95,7 @@ font-3 = "Font Awesome 5 Free:style=Solid:pixelsize=7;1"
 font-4 = "Font Awesome 5 Brands:pixelsize=7;1"
 
 modules-left = memory cpu kernel
-modules-center = spotify
+modules-center =
 modules-right = ethernet wireless brightness volume
 
 cursor-click = pointer
@@ -162,7 +161,7 @@ type = internal/fs
 mount-0 = /
 interval = 10
 fixed-values = true
-format-mounted-prefix = " root "
+format-mounted-prefix = " "
 format-mounted-prefix-foreground = #219A54
 format-mounted-underline = ${colors.transparency}
 format-mounted = <label-mounted>
@@ -174,7 +173,7 @@ type = internal/fs
 mount-0 = /media/storage
 interval = 10
 fixed-values = true
-format-mounted-prefix = " storage "
+format-mounted-prefix = " "
 format-mounted-prefix-foreground = #8a2be2
 format-mounted-underline = ${colors.transparency}
 format-mounted = <label-mounted>
@@ -189,18 +188,6 @@ format-prefix-foreground = #AAB5E6
 exec = uname -r
 tail = false
 format-foreground = ${colors.font}
-
-[module/spotify]
-interval = 1
-format-prefix = " "
-format-prefix-foreground = #00D965
-format-padding = 1
-format-foreground = ${colors.font}
-format-underline = ${colors.transparency}
-type = custom/script
-exec = $HOME/.config/scripts/spotify.sh "%artist% - %title%"
-tail = true
-label-maxlen = 100
 
 [module/cpu]
 type = internal/cpu
@@ -407,7 +394,7 @@ click-right = $HOME/.config/scripts/bluetooth-jbl.sh off &
 
 [module/git]
 type = custom/text
-content = " Git"
+content = " git"
 content-foreground = #5dade2
 click-left = $HOME/.config/scripts/commiter.sh &
 click-right = $HOME/.config/scripts/commiter.sh &
