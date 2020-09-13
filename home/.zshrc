@@ -47,7 +47,6 @@ function amend () {
 }
 
 function blog () {
-  cd /media/storage/GITHUB/mamutal91.github.io
   ./_scripts/sh/create_pages.sh
 }
 
