@@ -285,7 +285,7 @@ bar-volume-foreground-6 = #DF013A
 [module/date]
 type = internal/date
 interval = 1
-date = %a, %d-%m-%Y
+date = %a, %d/%m/%Y
 date-alt = %A, %d de %B de %G%
 time = %H:%M
 format =  <label>
