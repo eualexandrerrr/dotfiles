@@ -46,6 +46,11 @@ function amend () {
   git add . && git commit --amend && git push -f
 }
 
+function blog () {
+  cd /media/storage/GITHUB/mamutal91.github.io
+  ./_scripts/sh/create_pages.sh
+}
+
 # gCloud
 function ss () {
   cat ~/.ssh/gcloud.pub | ssh mamutal91@${1} "mkdir -p ~/.ssh && cat >> /media/storage/GitHub/dotfiles/home/.ssh/authorized_keys"

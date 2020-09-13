@@ -1,8 +1,0 @@
-#!/bin/bash
-# github.com/mamutal91
-
-
-# VIDEO
-export video=" Nvidia GTX 1050"
-
-exec i3
