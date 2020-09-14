@@ -49,9 +49,3 @@ function amend () {
 function blog () {
   ./_scripts/sh/create_pages.sh
 }
-
-# gCloud
-function ss () {
-  cat ~/.ssh/gcloud.pub | ssh mamutal91@${1} "mkdir -p ~/.ssh && cat >> /media/storage/GitHub/dotfiles/home/.ssh/authorized_keys"
-  ssh -i ~/.ssh/gcloud mamutal91@${1}
-}
