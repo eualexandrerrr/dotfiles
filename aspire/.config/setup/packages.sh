@@ -33,7 +33,7 @@ readonly AUR=(
   jre8-openjdk
   noto-fonts-emoji-blob
   oh-my-zsh-git
-  polybar python-ruamel-yam
+  pinta polybar python-ruamel-yam
   termsyn-font ttf-dejavu ttf-font-awesome ttf-wps-fonts
   siji-git spotify
   wps-office wps-office-extension-portuguese-brazilian-dictionary wps-office-mui-pt-br
