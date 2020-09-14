@@ -20,9 +20,9 @@ sudo systemctl enable nginx && sudo systemctl start nginx
 
 # akhilnarang scripts
 cd $HOME
-
-bash setup/android_build_env.sh
-cd .. && rm -rf scripts
+git clone https://github.com/akhilnarang/scripts
+bash scripts/setup/android_build_env.sh
+rm -rf scripts
 
 # Config repo and others
 rm -rf $HOME/.bin && mkdir $HOME/.bin
