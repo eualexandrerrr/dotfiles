@@ -107,8 +107,8 @@ exec --no-startup-id "pactl set-sink-mute @DEFAULT_SINK@ false; pactl set-sink-v
 exec --no-startup-id xidlehook --not-when-audio --not-when-fullscreen --timer 600 '$HOME/.config/scripts/i3lock.sh -t -ef -n' ''
 
 # Screenshot
-bindsym Insert exec --no-startup-id $HOME/.config/scripts/screenshot.sh -s Recorte
-bindsym $ctrl+Insert exec --no-startup-id $HOME/.config/scripts/screenshot.sh -u Fullscreen
+bindsym Print exec --no-startup-id $HOME/.config/scripts/screenshot.sh -s Recorte
+bindsym $ctrl+Print exec --no-startup-id $HOME/.config/scripts/screenshot.sh -u Fullscreen
 
 # Application shortcuts
 bindsym $mod+Return exec --no-startup-id alacritty &; workspace $ws1
