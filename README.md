@@ -50,8 +50,10 @@ cd $HOME/.dotfiles
 ## Screenshots
 
 ### i3-gaps
-![screenshot](https://raw.githubusercontent.com/mamutal91/dotfiles/master/files/.config/files/screenshots/i3-gaps.jpg)
+![screenshot](https://raw.githubusercontent.com/mamutal91/dotfiles/master/aspire/.config/files/screenshots/i3-gaps.jpg)
+
 ### i3-lock
-![screenshot](https://raw.githubusercontent.com/mamutal91/dotfiles/master/files/.config/files/screenshots/i3-lock.jpg)
+![screenshot](https://raw.githubusercontent.com/mamutal91/dotfiles/master/aspire/.config/files/screenshots/i3-lock.jpg)
+
 ### neofetch
-![screenshot](https://raw.githubusercontent.com/mamutal91/dotfiles/master/files/.config/files/screenshots/neofetch.jpg)
+![screenshot](https://raw.githubusercontent.com/mamutal91/dotfiles/master/aspire/.config/files/screenshots/neofetch.jpg)
