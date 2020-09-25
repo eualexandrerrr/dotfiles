@@ -630,7 +630,7 @@ mouse:
 #
 # If the same trigger is assigned to multiple actions, all of them are executed
 # in the order they were defined in.
-#key_bindings:
+key_bindings:
   #- { key: Paste,                                action: Paste          }
   #- { key: Copy,                                 action: Copy           }
   #- { key: L,         mods: Control,             action: ClearLogNotice }
@@ -690,8 +690,8 @@ mouse:
   #- { key: N,      mods: Shift,         mode: Vi, action: SearchPrevious          }
 
   # (Windows, Linux, and BSD only)
-  #- { key: V,        mods: Control|Shift,           action: Paste            }
-  #- { key: C,        mods: Control|Shift,           action: Copy             }
+  - { key: V,        mods: Control,           action: Paste            }
+  - { key: C,        mods: Control,           action: Copy             }
   #- { key: F,        mods: Control|Shift,           action: SearchForward    }
   #- { key: B,        mods: Control|Shift,           action: SearchBackward   }
   #- { key: C,        mods: Control|Shift, mode: Vi, action: ClearSelection   }
@@ -724,12 +724,12 @@ mouse:
   #- { key: F,      mods: Command,            action: SearchForward    }
   #- { key: B,      mods: Command,            action: SearchBackward   }
 
-#debug:
+debug:
   # Display the time it takes to redraw each frame.
-  #render_timer: false
+  render_timer: false
 
   # Keep the log file after quitting Alacritty.
-  #persistent_logging: false
+  persistent_logging: false
 
   # Log level
   #
@@ -740,7 +740,7 @@ mouse:
   #   - Info
   #   - Debug
   #   - Trace
-  #log_level: Warn
+  log_level: Warn
 
   # Print all received window events.
-  print_events: false
+  print_events: true
