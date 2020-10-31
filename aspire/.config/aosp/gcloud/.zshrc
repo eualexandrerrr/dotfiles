@@ -89,7 +89,7 @@ function scripts () {
   scripts=$(pwd)
   cd $HOME
   rm -rf $HOME/.zshrc && wget https://raw.githubusercontent.com/mamutal91/dotfiles/master/aspire/.config/aosp/gcloud/.zshrc && source $HOME/.zshrc
-  rm -rf $HOME/.zsh_history && https://raw.githubusercontent.com/mamutal91/zsh-history/master/.zsh_history && source $HOME/.zsh_history
+#  rm -rf $HOME/.zsh_history && https://raw.githubusercontent.com/mamutal91/zsh-history/master/.zsh_history && source $HOME/.zsh_history
   rm -rf setup.sh && wget https://raw.githubusercontent.com/mamutal91/dotfiles/master/aspire/.config/aosp/gcloud/setup.sh && chmod +x setup.sh
   cd $scripts
 }
