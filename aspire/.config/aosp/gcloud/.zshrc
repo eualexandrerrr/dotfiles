@@ -53,11 +53,6 @@ function amend () {
   git add . && git commit --amend && git push -f
 }
 
-function los () {
-  git clone https://github.com/LineageOS/android_${1} -b lineage-18.0
-  cd android_${1}
-}
-
 # Tree for beryllium
 function tree () {
   cd $aosp
