@@ -73,6 +73,27 @@ function treex () {
   cd $pwd_treex
 }
 
+function hal () {
+  pwd_hal=$(pwd)
+  cd $aosp/hardware/qcom/sdm845 && rm -rf Android.mk
+  wget https://raw.githubusercontent.com/LineageOS/android_hardware_qcom-caf_common/lineage-17.1/os_pickup.mk
+  mv os_pickup.mk Android.mk && chmod +x Android.mk
+  cd $aosp
+
+  rm -rf hardware/qcom-caf/sdm845 && mkdir -p hardware/qcom-caf/sdm845
+  cd hardware/qcom-caf/sdm845
+  wget https://raw.githubusercontent.com/LineageOS/android_hardware_qcom-caf_common/lineage-17.1/os_pickup.mk && mv os_pickup.mk Android.mk
+  wget https://raw.githubusercontent.com/LineageOS/android_hardware_qcom-caf_common/lineage-17.1/os_pickup.bp && mv os_pickup.bp Android.bp
+  chmod +x Android.bp Android.mk && cd $aosp
+
+  rm -rf hardware/qcom-caf/sdm845
+  mkdir -p hardware/qcom-caf/sdm845
+  git clone https://github.com/LineageOS/android_hardware_qcom_audio -b lineage-17.1-caf-sdm845 hardware/qcom-caf/sdm845/audio
+  git clone https://github.com/jjpprrrr/hardware_qcom-caf_sdm845_media hardware/qcom-caf/sdm845/media
+  git clone https://github.com/jjpprrrr/hardware_qcom-caf_sdm845_display hardware/qcom-caf/sdm845/display
+  cd $pwd_hal
+}
+
 # Sync Opengapps
 function opengapps () {
   pwd_opengapps=$(pwd)
