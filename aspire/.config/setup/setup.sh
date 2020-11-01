@@ -21,10 +21,6 @@ for i in "${PACKAGES[@]}"; do
   sudo pacman -S ${i} --needed --noconfirm
 done
 
-# Spotify
-gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 931FF8E79F0876134EDDBDCCA87FF9DF48BF1C90
-gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 2EBF997C15BDA244B6EBF5D84773BD5E130D1D45
-
 for i in "${AUR[@]}"; do
   yay -S ${i} --needed --noconfirm
 done

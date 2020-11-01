@@ -35,7 +35,7 @@ readonly AUR=(
   oh-my-zsh-git
   pinta polybar python-ruamel-yam
   termsyn-font ttf-dejavu ttf-font-awesome ttf-wps-fonts ttf-ms-fonts
-  siji-git spotify
+  siji-git
   wps-office wps-office-extension-portuguese-brazilian-dictionary wps-office-fonts wps-office-mui-pt-br
   xidlehook
   zuki-themes zsh-syntax-highlighting
