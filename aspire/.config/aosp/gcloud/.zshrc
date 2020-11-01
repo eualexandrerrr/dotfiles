@@ -57,16 +57,17 @@ function amend () {
 function tree () {
   cd $aosp
   rm -rf device/xiaomi/beryllium device/xiaomi/sdm845-common
-  git clone https://github.com/mamutal91/device_xiaomi_beryllium -b $branch device/xiaomi/beryllium
-  git clone https://github.com/mamutal91/device_xiaomi_sdm845-common -b $branch device/xiaomi/sdm845-common
+  git clone ssh://git@github.com/mamutal91/device_xiaomi_beryllium -b $branch device/xiaomi/beryllium
+  git clone ssh://git@github.com/mamutal91/device_xiaomi_sdm845-common -b $branch device/xiaomi/sdm845-common
 }
 
 function treex () {
   cd $aosp
   pwd_treex=$(pwd)
-  rm -rf kernel/xiaomi vendor/xiaomi
-  git clone https://github.com/mamutal91/kernel_xiaomi_sdm845 -b $branch kernel/xiaomi/sdm845
-  git clone https://github.com/mamutal91/vendor_xiaomi -b $branch vendor/xiaomi
+  rm -rf kernel/xiaomi vendor/xiaomi hardware/xiaomi
+  git clone ssh://git@github.com/mamutal91/kernel_xiaomi_sdm845 -b $branch kernel/xiaomi/sdm845
+  git clone ssh://git@github.com/mamutal91/vendor_xiaomi -b $branch vendor/xiaomi
+  git clone https://github.com/LineageOS/android_hardware_xiaomi -b lineage-18.0 hardware/xiaomi
   cd vendor/xiaomi
   rm -rf dipper jasmine_sprout mido msm8953-common perseus platina phoenix raphael sdm660-common wayne wayne-common whyred
   cd $pwd_treex
