@@ -29,14 +29,14 @@ readonly PACKAGES=(
 readonly AUR=(
   capitaine-cursors
   etcher
-  google-chrome grive-git
+  google-chrome
   jre8-openjdk
   noto-fonts-emoji-blob
   oh-my-zsh-git
   pinta polybar python-ruamel-yam
-  termsyn-font ttf-dejavu ttf-font-awesome ttf-wps-fonts
+  termsyn-font ttf-dejavu ttf-font-awesome ttf-wps-fonts ttf-ms-fonts
   siji-git spotify
-  wps-office wps-office-extension-portuguese-brazilian-dictionary wps-office-mui-pt-br
+  wps-office wps-office-extension-portuguese-brazilian-dictionary wps-office-fonts wps-office-mui-pt-br
   xidlehook
   zuki-themes zsh-syntax-highlighting
 )
