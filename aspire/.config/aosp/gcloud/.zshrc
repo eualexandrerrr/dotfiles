@@ -38,19 +38,19 @@ function update () {
 function push () {
   echo "*********************************"
   echo "*** pushing for branch ELEVEN ***"
-  git push https://github.com/aosp-forking/${1} HEAD:refs/heads/eleven --force
+  git push ssh://git@github.com/aosp-forking/${1} HEAD:refs/heads/eleven --force
 }
 
 function commitm () {
-  git add . && git commit --author "Alexandre Rangel <mamutal91@gmail.com>" && git push -f
+  git add . && git commit --author "Alexandre Rangel <mamutal91@gmail.com>"
 }
 
 function commit () {
-  git add . && git commit --author "${1}" && git push -f
+  git add . && git commit --author "${1}"
 }
 
 function amend () {
-  git add . && git commit --amend && git push -f
+  git add . && git commit --amend
 }
 
 # Tree for beryllium
