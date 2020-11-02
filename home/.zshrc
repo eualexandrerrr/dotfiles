@@ -17,7 +17,7 @@ source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 
 export TERM="xterm-256color"
 export EDITOR="nano"
-export BROWSER="/usr/bin/google-chrome-stable"
+export BROWSER="/usr/bin/google-chrome-beta"
 export JAVA_HOME="/usr/lib/jvm/java-8-openjdk"
 
 alias nano="sudo nano"
