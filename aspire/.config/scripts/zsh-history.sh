@@ -1,10 +1,10 @@
 #!/bin/bash
 # github.com/mamutal91
 
-dir="/media/storage/GITHUB/"
+dir="/media/storage/github/"
 readonly repos=('zsh-history')
 
-cp -rf $HOME/.zsh_history /media/storage/GITHUB/zsh-history/
+cp -rf $HOME/.zsh_history /media/storage/github/zsh-history/
 
 function gitcron() {
   for i in "${repos[@]}"; do
