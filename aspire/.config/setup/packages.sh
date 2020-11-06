@@ -18,7 +18,7 @@ readonly PACKAGES=(
   papirus-icon-theme peek pinta pulseaudio pulseaudio-bluetooth pulseeffects python-setuptools
   qbittorrent
   rofi
-  sbc scrot steam stow
+  sbc scrot stow
   telegram-desktop terminus-font thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman ttf-liberation
   unrar unzip
   wget wireless_tools
