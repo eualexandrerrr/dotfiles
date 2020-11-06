@@ -15,7 +15,7 @@ set $ws5 "5: codes"
 set $ws6 "6: office"
 set $ws7 "7: pc"
 set $ws8 "8: art"
-set $ws9 "9: games"
+set $ws9 "9:] tools"
 
 # Use $mod+Mouse to drag floating windows to their wanted position
 floating_modifier $mod
@@ -125,12 +125,11 @@ bindsym F12 exec --no-startup-id alacritty -e $HOME/.config/scripts/update.sh; w
 assign [class="^Alacritty"] $ws1
 assign [class="^Google-chrome"] $ws2
 assign [class="^TelegramDesktop"] $ws3
-assign [class="^Spotify|Steam"] $ws4
+assign [class="^Spotify"] $ws4
 assign [class="^Atom"] $ws5
 assign [class="^Wpspdf|Wpp|Wps|Et"] $ws6
-assign [class="^Lxappearance|qBittorrent|Filezilla|Thunar"] $ws7
+assign [class="^Lxappearance|qBittorrent|Thunar"] $ws7
 assign [class="^Pinta|Gpicview|feh"] $ws8
-assign [class="^Wine|csgo_linux64"] $ws9
 
 # Rules
 # xprop |awk '/^WM_CLASS/{sub(/.* =/, "instance:"); sub(/,/, "\nclass:"); print} /^WM_NAME/{sub(/.* =/, "title:"); print}'
@@ -147,8 +146,8 @@ for_window [class="Alacritty"] move to workspace $ws1, focus
 for_window [title="newcommit"] move to workspace $ws5, floating enable, resize set 600 px 250 px, move right -100px, move down 200px, focus
 
 for_window [instance="Navigator"] move to workspace $ws2, focus
+for_window [instance="VirtualBox*"] move to workspace $ws9, focus
 for_window [class="Google-chrome"] move to workspace $ws2, focus
-for_window [title="Biblioteca"] floating enable, resize set 800 px 540 px, focus
 
 for_window [class="TelegramDesktop"] move to workspace $ws3, floating enable, resize set 800 px 650 px, focus
 
@@ -157,10 +156,7 @@ for_window [class="Electron"] move to workspace $ws5, floating enable, focus
 
 for_window [class="Wpspdf|Wpp|Wps|Et"] move to workspace $ws6, focus
 for_window [class="Lxappearance|Thunar|qbittorrent"] move to workspace $ws7, floating enable, focus
-for_window [class="Filezilla"] move to workspace $ws7, focus
 for_window [class="Galculator"] floating enable, resize set 380 px 440 px, move position center, focus
 
 for_window [class="Pinta"] move to workspace $ws8, focus
 for_window [class="Gpicview|feh"] move to workspace $ws8, focus
-
-for_window [class="Wine|csgo_linux64"] move to workspace $ws9, focus
