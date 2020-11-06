@@ -21,6 +21,7 @@ readonly PACKAGES=(
   sbc scrot stow
   telegram-desktop terminus-font thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman ttf-liberation
   unrar unzip
+  virtualbox
   wget wireless_tools
   xclip xorg-server xorg-xbacklight xorg-xinit xorg-xprop xorg-xrandr
   zsh zsh-autosuggestions zsh-completions zsh-lovers
@@ -34,8 +35,9 @@ readonly AUR=(
   noto-fonts-emoji-blob
   oh-my-zsh-git
   pinta polybar python-ruamel-yaml
-  termsyn-font ttf-dejavu ttf-font-awesome ttf-wps-fonts ttf-ms-fonts
   siji-git
+  termsyn-font ttf-dejavu ttf-font-awesome ttf-wps-fonts ttf-ms-fonts
+  virtualbox-ext-oracle
   wps-office wps-office-extension-portuguese-brazilian-dictionary wps-office-fonts wps-office-mui-pt-br
   xidlehook
   zuki-themes zsh-syntax-highlighting
