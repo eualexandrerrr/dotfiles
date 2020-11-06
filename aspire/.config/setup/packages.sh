@@ -22,7 +22,7 @@ readonly PACKAGES=(
   telegram-desktop terminus-font thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman ttf-liberation
   unrar unzip
   wget wireless_tools
-  xclip xf86-video-intel xorg-server xorg-xbacklight xorg-xinit xorg-xprop xorg-xrandr
+  xclip xorg-server xorg-xbacklight xorg-xinit xorg-xprop xorg-xrandr
   zsh zsh-autosuggestions zsh-completions zsh-lovers
 )
 
