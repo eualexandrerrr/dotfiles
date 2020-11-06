@@ -6,7 +6,7 @@ readonly PACKAGES=(
   bluez bluez-libs bluez-tools bluez-utils bumblebee
   compton cronie
   dunst dhcpcd
-  feh ffmpeg filezilla
+  feh ffmpeg
   galculator git gparted gpicview gvfs gvfs-mtp
   i3-gaps i3lock
   imagemagick
