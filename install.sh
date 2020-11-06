@@ -3,7 +3,7 @@
 
 function boot() {
   cd $HOME/.config
-  rm -rf alacritty compton dunst files gpicview i3 neofetch polybar rofi scripts setup .ssh
+  rm -rf alacritty compton dunst files gpicview i3 neofetch polybar rofi scripts setup
   rm -rf .crontab .nanorc .bashrc .nvidia-xinitrc .Xresources .zlogin .zshrc
   cd /etc/X11 && sudo rm -rf *
 }
