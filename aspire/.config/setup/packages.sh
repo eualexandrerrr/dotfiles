@@ -16,10 +16,9 @@ readonly PACKAGES=(
   nano nano-syntax-highlighting neofetch ntfs-3g numlockx
   openssh
   papirus-icon-theme peek pinta pulseaudio pulseaudio-bluetooth pulseeffects python-setuptools
-  qbittorrent
   rofi
   sbc scrot stow
-  telegram-desktop terminus-font thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman ttf-liberation
+  telegram-desktop terminus-font thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman ttf-liberation transmission-gtk
   unrar unzip
   virtualbox
   wget wireless_tools
