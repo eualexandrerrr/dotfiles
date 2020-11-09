@@ -3,13 +3,13 @@
 
 function boot() {
   cd $HOME/.config
-  rm -rf aosp alacritty compton dunst files gpicview i3 neofetch polybar rofi scripts setup
+  rm -rf alacritty compton dunst files gpicview i3 neofetch polybar rofi scripts setup
   rm -rf .crontab .bashrc .nvidia-xinitrc .Xresources .zlogin .zshrc
   cd /etc/X11 && sudo rm -rf *
 }
 
 # Uncomment only if first boot
-# boot
+#boot
 
 rm -rf $HOME/.zshrc
 cd $HOME/.dotfiles
