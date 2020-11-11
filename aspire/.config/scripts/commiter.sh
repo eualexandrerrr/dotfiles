@@ -25,6 +25,6 @@ case $chosen in
     $repo4)
         alacritty -t newcommit --working-directory $dir/aosp;;
     $repo5)
-        alacritty -t newcommit --working-directory /media/storage/aosp-forking/manifest;;
+        alacritty -t newcommit --working-directory /media/storage/camalleonandroid/manifest;;
 
 esac

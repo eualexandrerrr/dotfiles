@@ -31,7 +31,7 @@ alias pkill="sudo pkill"
 function push () {
   echo "*********************************"
   echo "*** pushing for branch ELEVEN ***"
-  git push https://github.com/aosp-forking/${1} HEAD:refs/heads/eleven --force
+  git push https://github.com/CamalleonAndroid/${1} HEAD:refs/heads/eleven --force
 }
 
 function commitm () {
