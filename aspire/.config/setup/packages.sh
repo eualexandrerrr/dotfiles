@@ -20,7 +20,7 @@ readonly PACKAGES=(
   sbc scrot stow
   telegram-desktop terminus-font thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman ttf-liberation transmission-gtk
   unrar unzip
-  wget wireless_tools
+  wget
   xclip xorg-server xorg-xbacklight xorg-xinit xorg-xprop xorg-xrandr
   zsh zsh-autosuggestions zsh-completions zsh-lovers
 )

@@ -321,7 +321,7 @@ animation-charging-framerate = 220
 
 [module/wireless]
 type = internal/network
-interface = wlp3s0
+interface = wlan0
 interval = 1.0
 
 format-connected = <label-connected> <ramp-signal>
