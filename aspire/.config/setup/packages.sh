@@ -11,7 +11,7 @@ readonly PACKAGES=(
   i3-gaps i3lock
   imagemagick
   jsoncpp
-  lxappearance
+  lib32-gnutls lxappearance
   maim mesa mpd mpv
   nano nano-syntax-highlighting neofetch ntfs-3g numlockx
   openssh
@@ -20,7 +20,7 @@ readonly PACKAGES=(
   sbc scrot stow
   telegram-desktop terminus-font thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman ttf-liberation transmission-gtk
   unrar unzip
-  wget
+  wget wine
   xclip xorg-server xorg-xbacklight xorg-xinit xorg-xprop xorg-xrandr
   zsh zsh-autosuggestions zsh-completions zsh-lovers
 )
