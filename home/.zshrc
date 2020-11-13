@@ -35,11 +35,11 @@ function push () {
   git push https://github.com/CamalleonAndroid/${1} HEAD:refs/heads/eleven --force
 }
 
-function commitm () {
+function cm () {
   git add . && git commit --author "Alexandre Rangel <mamutal91@gmail.com>" && git push -f
 }
 
-function commit () {
+function c () {
   git add . && git commit --author "${1}" && git push -f
 }
 
