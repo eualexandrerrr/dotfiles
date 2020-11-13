@@ -2,8 +2,7 @@
 # github.com/mamutal91
 
 # Permissions
-sudo chown -R mamutal91:mamutal91 /home/mamutal91
-sudo chmod +x /home/mamutal91
+sudo chown -R mamutal91:mamutal91 /home/mamutal91 && sudo chmod +x /home/mamutal91
 
 # Git
 git config --global user.email "mamutal91@gmail.com" && git config --global user.name "Alexandre Rangel"
