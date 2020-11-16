@@ -1,8 +1,8 @@
 configuration {
-    display-drun:                   "Apps";
+    display-drun:                   "Applications";
     display-window:                 "Window";
     show-icons:true;
-    font: "SF Pro Text 9";
+    font: "SF Pro Text 8";
 }
 
 * {
@@ -10,16 +10,16 @@ configuration {
     background-color: #2F343F;
     border-color: #2F343F;
     text-color: #EFEFEF;
-    font: "SF Pro Text 9";
+    font: "SF Pro Text 8";
 }
 
-#window {
+window {
     border: 0;
     border-radius: 4px;
     padding: 5;
 }
 
-#mainbox {
+mainbox {
     background-color: #00000000;
     children: [inputbar, listview];
     spacing: 10px;
@@ -29,8 +29,7 @@ configuration {
     border-color: @base0D;
 }
 
-
-#listview {
+listview {
     background-color: #00000000;
     fixed-height: 0;
     border: 0px;
@@ -39,38 +38,39 @@ configuration {
     padding: 10px 10px 0px;
 }
 
-#element {
+element {
     background-color: #00000000;
     border: 0;
     border-radius: 15px;
     padding: 3 0  3 4 ;
 }
 
-#element selected {
+element selected {
     background-color: #00a0e6;
     text-color: #EFEFEF;
 }
 
-
-#inputbar {
+inputbar {
     children:   [ prompt,textbox-prompt-colon,entry,case-indicator ];
     background-color: #00000000;
 }
 
-#case-indicator {
-    background-color: #00000000;
-    spacing:    0;
-}
-#entry {
-    background-color: #00000000;
-    spacing:    0;
-}
-#prompt {
+case-indicator {
     background-color: #00000000;
     spacing:    0;
 }
 
-#textbox-prompt-colon {
+entry {
+    background-color: #00000000;
+    spacing:    0;
+}
+
+prompt {
+    background-color: #00000000;
+    spacing:    0;
+}
+
+textbox-prompt-colon {
     background-color: #00000000;
     expand:     false;
     str:        ":";
