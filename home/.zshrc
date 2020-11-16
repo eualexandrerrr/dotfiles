@@ -29,7 +29,7 @@ alias rm="sudo rm"
 alias pkill="sudo pkill"
 
 alias github="cd /media/storage/github && clear && ls -1"
-alias aosp="cd /media/storage/AOSPly && clear && ls -1"
+alias aosp="cd /media/storage/PurityAndroid && clear && ls -1"
 
 # Functions for git
 function push () {

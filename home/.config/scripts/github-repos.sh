@@ -15,5 +15,5 @@ do
     git clone ssh://git@github.com/mamutal91/$github /media/storage/github/$github
 done
 
-# AOSPly manifest
-mkdir -p /media/storage/AOSPly && rm -rf /media/storage/AOSPly/manifest && git clone ssh://git@github.com/AOSPly/manifest /media/storage/AOSPly/manifest
+# PurityAndroid manifest
+mkdir -p /media/storage/PurityAndroid && rm -rf /media/storage/PurityAndroid/manifest && git clone ssh://git@github.com/PurityAndroid/manifest /media/storage/PurityAndroid/manifest
