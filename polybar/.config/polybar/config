@@ -19,7 +19,12 @@ color14 = ${xrdb:color14}
 color15 = ${xrdb:color15}
 
 transparency = #00000000
-font = #b8b8b8
+font = #737373
+icon = #b8b8b8
+
+########################################################
+# bar up
+########################################################
 
 [bar/up]
 monitor = ${env:MONITOR:}
@@ -61,6 +66,10 @@ modules-right = root storage battery date hour
 cursor-click = pointer
 cursor-scroll = ns-resize
 
+########################################################
+# bar down
+########################################################
+
 [bar/down]
 monitor = ${env:MONITOR:}
 monitor-strict = false
@@ -101,6 +110,10 @@ modules-right = ethernet wireless brightness volume
 
 cursor-click = pointer
 cursor-scroll = ns-resize
+
+########################################################
+# Modules
+########################################################
 
 [module/i3]
 type = internal/i3
@@ -163,11 +176,11 @@ mount-0 = /
 interval = 10
 fixed-values = true
 format-mounted-prefix = " "
-format-mounted-prefix-foreground = #b8b8b8
+format-mounted-prefix-foreground = ${colors.icon}
 format-mounted-underline = ${colors.transparency}
 format-mounted = <label-mounted>
 label-mounted = %used%
-label-mounted-foreground = #b8b8b8
+label-mounted-foreground = ${colors.font}
 
 [module/storage]
 type = internal/fs
@@ -175,17 +188,17 @@ mount-0 = /media/storage
 interval = 10
 fixed-values = true
 format-mounted-prefix = " "
-format-mounted-prefix-foreground = #b8b8b8
+format-mounted-prefix-foreground = ${colors.icon}
 format-mounted-underline = ${colors.transparency}
 format-mounted = <label-mounted>
 label-mounted = %used%
-label-mounted-foreground = #b8b8b8
+label-mounted-foreground = ${colors.font}
 
 [module/kernel]
 type = custom/script
 interval = 1
-format-prefix = " Kernel "
-format-prefix-foreground = #b8b8b8
+format-prefix = " "
+format-prefix-foreground = ${colors.icon}
 exec = uname -r
 tail = false
 format-foreground = ${colors.font}
@@ -194,10 +207,10 @@ format-foreground = ${colors.font}
 type = internal/cpu
 interval = 0.5
 format = <label> <ramp-coreload>
-format-prefix = " CPU "
-format-prefix-foreground = #b8b8b8
+format-prefix = " "
+format-prefix-foreground = ${colors.icon}
 label = %percentage%%
-label-foreground = #b8b8b8
+label-foreground = ${colors.font}
 
 ramp-coreload-0 = ▁
 ramp-coreload-0-foreground = #F5A9BC
@@ -219,10 +232,10 @@ ramp-coreload-7-foreground = #8A0829
 [module/memory]
 type = internal/memory
 format = <label>
-format-prefix = " RAM "
-format-prefix-foreground = #B40431
+format-prefix = " "
+format-prefix-foreground = ${colors.icon}
 label = %mb_used%
-label-foreground = #F7819F
+label-foreground = ${colors.font}
 
 [module/brightness]
 type = internal/backlight
@@ -231,7 +244,7 @@ enable-scroll = true
 format = <label>
 
 format-prefix = " "
-format-prefix-foreground = #AAB5E6
+format-prefix-foreground = ${colors.icon}
 
 label = %percentage%%
 label-foreground = ${colors.font}
@@ -243,7 +256,7 @@ use-ui-max = false
 sink = alsa_output.pci-0000_00_1f.3.analog-stereo
 
 format-volume-prefix = " "
-format-volume-prefix-foreground = #AAB5E6
+format-volume-prefix-foreground = ${colors.icon}
 
 format-volume = <label-volume>
 
@@ -251,7 +264,7 @@ label-volume = %percentage%%
 label-volume-foreground = ${colors.font}
 
 label-muted =  MUTE ───────
-label-muted-foreground = #AAB5E6
+label-muted-foreground = ${colors.icon}
 
 [module/date]
 type = internal/date
@@ -261,7 +274,7 @@ date-alt = %A, %d de %B de %G%
 time = %H:%M
 format =  <label>
 format-underline = ${colors.transparency}
-format-foreground = #b8b8b8
+format-foreground = ${colors.icon}
 label = %date%
 label-foreground = ${colors.font}
 
@@ -271,7 +284,7 @@ interval = 1
 time = %R
 format =  <label>
 format-underline = ${colors.transparency}
-format-foreground = #b8b8b8
+format-foreground = ${colors.icon}
 label = %time%
 label-foreground = ${colors.font}
 
