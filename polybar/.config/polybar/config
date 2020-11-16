@@ -43,7 +43,7 @@ icon = #6192A8
 # for i3 workspaces
 i3iconfocused = #6192A8
 i3iconunfocused = #6192A8
-i3line = #133c61
+i3line = #c0392b
 
 ########################################################
 # bar up
@@ -179,7 +179,7 @@ label-unfocused-padding = 1
 
 label-urgent = %icon%
 label-urgent-foreground = #c0392b
-label-urgent-background = #c0392b
+label-urgent-background = ${colors.transparency}
 label-urgent-padding = 1
 
 [module/window]
