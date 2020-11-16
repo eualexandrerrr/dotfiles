@@ -55,7 +55,7 @@ font-3 = "Font Awesome 5 Brands:pixelsize=7;1"
 
 modules-left = window
 modules-center = i3
-modules-right = git bluetooth-jbl root storage battery date hour
+modules-right = root storage battery date hour
 
 cursor-click = pointer
 cursor-scroll = ns-resize
@@ -354,20 +354,6 @@ label-connected-foreground = #8a8a8a
 
 ramp-signal-0 = 
 ramp-signal-0-foreground = #AAB5E6
-
-[module/bluetooth-jbl]
-type = custom/text
-content = " JBL"
-content-foreground = #5dade2
-click-left = $HOME/.config/scripts/bluetooth-jbl.sh on &
-click-right = $HOME/.config/scripts/bluetooth-jbl.sh off &
-
-[module/git]
-type = custom/text
-content = " git"
-content-foreground = #5dade2
-click-left = $HOME/.config/scripts/commiter.sh &
-click-right = $HOME/.config/scripts/commiter.sh &
 
 [settings]
 pseudo-transparency = true
