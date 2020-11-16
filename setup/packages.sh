@@ -7,7 +7,7 @@ readonly PACKAGES=(
   cronie
   dunst dhcpcd
   feh ffmpeg filezilla
-  galculator git gparted gpicview gvfs gvfs-mtp
+  git gparted gpicview gvfs gvfs-mtp
   i3lock
   imagemagick
   jsoncpp

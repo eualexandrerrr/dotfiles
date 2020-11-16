@@ -170,4 +170,4 @@ for_window [class="Pinta|Gpicview|fireworks.exe"] move to workspace $ws8, focus
 # empty
 
 # all workspaces
-for_window [class="Galculator"] floating enable, resize set 380 px 440 px, move position center, focus
+# empty
