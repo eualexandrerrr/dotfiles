@@ -9,8 +9,8 @@ set $shift Shift
 # Define names for workspaces
 set $ws1 "1: terminal"
 set $ws2 "2: browser"
-set $ws3 "3: telegram"
-set $ws4 "4: codes"
+set $ws3 "3: codes"
+set $ws4 "4: telegram"
 set $ws5 "5: media"
 set $ws6 "6: ofice"
 set $ws7 "7: pc"
@@ -120,7 +120,7 @@ bindsym $ctrl+Print exec --no-startup-id $HOME/.config/scripts/screenshot.sh -u 
 bindsym $mod+Return exec --no-startup-id alacritty &; workspace $ws1
 bindsym $mod+e exec --no-startup-id thunar &; workspace $ws7
 bindsym $mod+F2 exec --no-startup-id google-chrome-beta &; workspace $ws2
-bindsym $mod+F3 exec --no-startup-id telegram-desktop &; workspace $ws3
+bindsym $mod+F3 exec --no-startup-id telegram-desktop &; workspace $ws4
 
 # System shortcuts
 bindsym F10 exec --no-startup-id $HOME/.config/scripts/commiter.sh &; workspace $ws6
@@ -146,13 +146,13 @@ for_window [class="Alacritty"] move to workspace $ws1, focus
 # Workspace 2 [browser]
 for_window [class="Google-chrome-beta"] move to workspace $ws2, focus
 
-# Workspace 3 [telegram]
-for_window [class="TelegramDesktop"] move to workspace $ws3, focus
+# Workspace 3 [codes]
+for_window [class="Atom"] move to workspace $ws3, focus
+for_window [class="Electron"] move to workspace $ws3, floating enable, focus
+for_window [title="newcommit"] move to workspace $ws3, floating enable, resize set 600 px 250 px, move right -100px, move down 200px, focus
 
-# Workspace 4 [codes]
-for_window [class="Atom"] move to workspace $ws4, focus
-for_window [class="Electron"] move to workspace $ws4, floating enable, focus
-for_window [title="newcommit"] move to workspace $ws4, floating enable, resize set 600 px 250 px, move right -100px, move down 200px, focus
+# Workspace 4 [telegram]
+for_window [class="TelegramDesktop"] move to workspace $ws4, focus
 
 # Workspace 5 [media]
 for_window [class="Spotify"] move to workspace $ws5, focus
