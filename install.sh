@@ -4,7 +4,8 @@
 function boot() {
   cd $HOME/.config
   rm -rf alacritty dunst files gpicview i3 neofetch polybar picom rofi scripts setup
-  rm -rf .crontab .bashrc .nvidia-xinitrc .Xresources .zlogin .zshrc
+  rm -rf .crontab .bashrc .Xresources .zlogin .zshrc
+  rm -rf $HOME/.ssh/gcloud* $HOME/.ssh/id_rsa*
   cd /etc/X11 && sudo rm -rf *
 }
 
