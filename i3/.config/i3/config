@@ -144,7 +144,7 @@ for_window [instance="Navigator"] move to workspace $ws2, focus
 for_window [class="Alacritty"] move to workspace $ws1, focus
 
 # Workspace 2 [browser]
-for_window [class="Google-chrome"] move to workspace $ws2, focus
+for_window [class="Google-chrome-beta"] move to workspace $ws2, focus
 
 # Workspace 3 [telegram]
 for_window [class="TelegramDesktop"] move to workspace $ws3, focus
