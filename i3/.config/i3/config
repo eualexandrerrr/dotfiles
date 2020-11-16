@@ -167,7 +167,7 @@ for_window [class="Lxappearance|Thunar|Transmission-gtk"] move to workspace $ws7
 for_window [class="Pinta|Gpicview|fireworks.exe"] move to workspace $ws8, focus
 
 # Workspace 9 [empty]
-# empty
+for_window [class="Chromium"] move to workspace $ws9, focus
 
 # all workspaces
 # empty

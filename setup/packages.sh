@@ -4,7 +4,7 @@
 readonly PACKAGES=(
   alacritty alsa alsa-firmware alsa-utils android-tools archlinux-keyring atom
   bluez bluez-libs bluez-tools bluez-utils bumblebee
-  cronie
+  cronie chromium
   dunst dhcpcd
   feh ffmpeg filezilla
   git gparted gpicview gvfs gvfs-mtp
