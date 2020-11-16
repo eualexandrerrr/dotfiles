@@ -17,8 +17,9 @@ color12 = ${xrdb:color12}
 color13 = ${xrdb:color13}
 color14 = ${xrdb:color14}
 color15 = ${xrdb:color15}
+
 transparency = #00000000
-font = #D3D3D3
+font = #b8b8b8
 
 [bar/up]
 monitor = ${env:MONITOR:}
@@ -162,11 +163,11 @@ mount-0 = /
 interval = 10
 fixed-values = true
 format-mounted-prefix = " "
-format-mounted-prefix-foreground = #219A54
+format-mounted-prefix-foreground = #b8b8b8
 format-mounted-underline = ${colors.transparency}
 format-mounted = <label-mounted>
 label-mounted = %used%
-label-mounted-foreground = #58d68d
+label-mounted-foreground = #b8b8b8
 
 [module/storage]
 type = internal/fs
@@ -174,17 +175,17 @@ mount-0 = /media/storage
 interval = 10
 fixed-values = true
 format-mounted-prefix = " "
-format-mounted-prefix-foreground = #8a2be2
+format-mounted-prefix-foreground = #b8b8b8
 format-mounted-underline = ${colors.transparency}
 format-mounted = <label-mounted>
 label-mounted = %used%
-label-mounted-foreground = #C88CFF
+label-mounted-foreground = #b8b8b8
 
 [module/kernel]
 type = custom/script
 interval = 1
 format-prefix = " Kernel "
-format-prefix-foreground = #AAB5E6
+format-prefix-foreground = #b8b8b8
 exec = uname -r
 tail = false
 format-foreground = ${colors.font}
@@ -194,9 +195,9 @@ type = internal/cpu
 interval = 0.5
 format = <label> <ramp-coreload>
 format-prefix = " CPU "
-format-prefix-foreground = #FF8000
+format-prefix-foreground = #b8b8b8
 label = %percentage%%
-label-foreground = #F5A9BC
+label-foreground = #b8b8b8
 
 ramp-coreload-0 = ▁
 ramp-coreload-0-foreground = #F5A9BC
@@ -260,7 +261,7 @@ date-alt = %A, %d de %B de %G%
 time = %H:%M
 format =  <label>
 format-underline = ${colors.transparency}
-format-foreground = #f1c40f
+format-foreground = #b8b8b8
 label = %date%
 label-foreground = ${colors.font}
 
@@ -270,7 +271,7 @@ interval = 1
 time = %R
 format =  <label>
 format-underline = ${colors.transparency}
-format-foreground = #cd1076
+format-foreground = #b8b8b8
 label = %time%
 label-foreground = ${colors.font}
 
@@ -289,7 +290,7 @@ format-discharging = <ramp-capacity> <label-discharging>
 format-charging-underline = ${colors.transparency}
 format-discharging-underline = ${colors.transparency}
 
-format-charging-foreground = #58d68d
+format-charging-foreground = #b8b8b8
 format-discharging-foreground = #c0392b
 format-full-foreground = #AAB5E6
 
