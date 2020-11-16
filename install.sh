@@ -26,7 +26,7 @@ stow polybar
 stow rofi
 
 # Remove files from the system, and copy mine!
-source $HOME/.dotfiles/aspire/.config/setup/etc.sh
+source $HOME/.dotfiles/setup/etc.sh
 
 canberra-gtk-play --file=$HOME/.config/files/sounds/completed.wav
 i3-msg restart

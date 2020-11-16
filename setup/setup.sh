@@ -13,7 +13,7 @@ sudo pacman -Syyu --noconfirm
 git clone https://aur.archlinux.org/yay.git $HOME/yay && cd "$HOME/yay" && makepkg -si --noconfirm && rm -rf $HOME/yay
 
 # Load packages
-source $HOME/.dotfiles/aspire/.config/setup/packages.sh
+source $HOME/.dotfiles/setup/packages.sh
 
 # GPG Key Spotify
 curl -sS https://download.spotify.com/debian/pubkey_0D811D58.gpg | gpg --import -
@@ -46,7 +46,7 @@ do
     sudo gpasswd -a mamutal91 $GROUPS
 done
 
-source $HOME/.dotfiles/aspire/.config/setup/etc.sh
+source $HOME/.dotfiles/setup/etc.sh
 
 # Install oh-my-zsh
 # rm -rf $HOME/.oh-my-zsh && rm -rf $HOME/.zshrc && sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
