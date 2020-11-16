@@ -158,7 +158,7 @@ for_window [class="Google-chrome"] move to workspace $ws2, focus
 
 # Workspace 3
 for_window [class="TelegramDesktop"] move to workspace $ws3, floating enable, resize set 800 px 650 px, focus
-for_window [class="Whatsapp-for-linux"] move to workspace $ws3, floating enable, resize set 800 px 650 px, focus
+for_window [class="Whatsapp-for-linux"] move to workspace $ws3, floating enable, resize set 650 px 600 px, focus
 
 # Workspace 4
 for_window [class="Spotify"] move to workspace $ws4, focus
