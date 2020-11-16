@@ -15,6 +15,9 @@ git clone https://aur.archlinux.org/yay.git $HOME/yay && cd "$HOME/yay" && makep
 # Load packages
 source $HOME/.dotfiles/aspire/.config/setup/packages.sh
 
+# GPG Key Spotify
+curl -sS https://download.spotify.com/debian/pubkey_0D811D58.gpg | gpg --import -
+
 # Install my packages
 for i in "${PACKAGES[@]}"; do
   sudo pacman -S ${i} --needed --noconfirm

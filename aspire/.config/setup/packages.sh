@@ -33,7 +33,7 @@ readonly AUR=(
   noto-fonts-emoji-blob
   oh-my-zsh-git
   pinta polybar python-ruamel-yaml
-  siji-git
+  siji-git spotify
   termsyn-font ttf-dejavu ttf-font-awesome ttf-wps-fonts ttf-ms-fonts
   whatsapp-for-linux wps-office wps-office-extension-portuguese-brazilian-dictionary wps-office-fonts wps-office-mui-pt-br
   xidlehook
