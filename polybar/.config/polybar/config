@@ -54,10 +54,11 @@ overline-size = 2
 module-margin-left = 1
 module-margin-right = 1
 
-font-0 = "xos4 Terminus:size=8"
-font-1 = "Font Awesome 5 Free:style=Regular:pixelsize=7;1"
-font-2 = "Font Awesome 5 Free:style=Solid:pixelsize=7;1"
-font-3 = "Font Awesome 5 Brands:pixelsize=7;1"
+font-0 = "xos4 Terminus:size=10"
+font-1 = "Font Awesome 5 Free:style=Regular:pixelsize=8"
+font-2 = "Font Awesome 5 Free:style=Solid:pixelsize=8"
+font-3 = "Font Awesome 5 Brands:pixelsize=8"
+font-4 = "Font Awesome 5 Free:style=Regular:pixelsize=15"
 
 modules-left = window
 modules-center = i3
@@ -99,13 +100,13 @@ module-margin-left = 1
 module-margin-right = 1
 
 font-0 = "xos4 Terminus:size=8"
-font-1 = "OpenSans:size=10;0"
-font-2 = "Font Awesome 5 Free:style=Regular:pixelsize=7;1"
-font-3 = "Font Awesome 5 Free:style=Solid:pixelsize=7;1"
-font-4 = "Font Awesome 5 Brands:pixelsize=7;1"
+font-1 = "Font Awesome 5 Free:style=Regular:pixelsize=8"
+font-2 = "Font Awesome 5 Free:style=Solid:pixelsize=8"
+font-3 = "Font Awesome 5 Brands:pixelsize=8"
+font-4 = "Font Awesome 5 Free:style=Regular:pixelsize=15"
 
 modules-left = memory cpu kernel
-modules-center =
+modules-center = spotify
 modules-right = ethernet wireless brightness volume
 
 cursor-click = pointer
@@ -126,15 +127,18 @@ wrapping-scroll = true
 reverse-scroll = false
 fuzzy-match = true
 
-ws-icon-0 = 1; terminal
-ws-icon-1 = 2; browser
-ws-icon-2 = 3; codes
-ws-icon-3 = 4; telegram
-ws-icon-4 = 5; media
-ws-icon-5 = 6; office
-ws-icon-6 = 7; pc
-ws-icon-7 = 8; art
-ws-icon-8 = 9; empty
+label-font = 4
+
+ws-icon-default = 
+ws-icon-0 = 1;
+ws-icon-1 = 2;
+ws-icon-2 = 3;
+ws-icon-3 = 4;
+ws-icon-4 = 5;
+ws-icon-5 = 6;
+ws-icon-6 = 7;
+ws-icon-7 = 8;
+ws-icon-8 = 9;
 
 format = <label-state> <label-mode>
 
@@ -368,6 +372,18 @@ label-connected-foreground = #8a8a8a
 
 ramp-signal-0 = 
 ramp-signal-0-foreground = #AAB5E6
+
+[module/spotify]
+interval = 1
+format-prefix = " "
+format-prefix-foreground = #00D965
+format-padding = 1
+format-foreground = ${colors.font}
+format-underline = ${colors.transparency}
+type = custom/script
+exec = $HOME/.config/scripts/spotify.sh "%artist%  %title%"
+tail = true
+label-maxlen = 100
 
 [settings]
 pseudo-transparency = true
