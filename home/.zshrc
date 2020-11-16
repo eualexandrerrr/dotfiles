@@ -3,7 +3,7 @@
 # Themes https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 
 ZSH=/usr/share/oh-my-zsh/
-ZSH_THEME="robbyrussell"
+ZSH_THEME="agnoster"
 plugins=(git)
 
 ZSH_CACHE_DIR=$HOME/.cache/oh-my-zsh
