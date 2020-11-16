@@ -36,7 +36,7 @@ readonly AUR=(
   picom-ibhagwan-git pinta polybar python-ruamel-yaml
   siji-git spotify
   termsyn-font ttf-dejavu ttf-font-awesome ttf-wps-fonts ttf-ms-fonts
-  whatsapp-for-linux wps-office wps-office-extension-portuguese-brazilian-dictionary wps-office-fonts wps-office-mui-pt-br
+  wps-office wps-office-extension-portuguese-brazilian-dictionary wps-office-fonts wps-office-mui-pt-br
   xidlehook
   zuki-themes zsh-syntax-highlighting
 )
