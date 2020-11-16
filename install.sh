@@ -3,18 +3,19 @@
 
 function boot() {
   cd $HOME/.config
-  rm -rf alacritty dunst files gpicview i3 neofetch polybar picom rofi scripts setup
-  rm -rf .bashrc .Xresources .zlogin .zshrc
-  rm -rf $HOME/.ssh/gcloud* $HOME/.ssh/id_rsa*
+  rm -rf alacritty dunst files gpicview i3 neofetch polybar picom rofi scripts
   cd /etc/X11 && sudo rm -rf *
 }
 
 # Uncomment only if first boot
 #boot
 
-rm -rf $HOME/.zshrc
-cd $HOME/.dotfiles
+pwd_dell_files=$(pwd)
+cd $HOME
+  rm -rf .bashrc .xinyesitrc .Xresources .zlogin .zshrc
+cd $pwd_dell_files
 
+cd $HOME/.dotfiles
 stow alacritty
 stow aspire
 stow dunst
