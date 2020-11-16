@@ -37,7 +37,7 @@ color14 = ${xrdb:color14}
 color15 = ${xrdb:color15}
 
 transparency = #00000000
-font = #6192A8
+font = #808080
 icon = #6192A8
 
 ########################################################
