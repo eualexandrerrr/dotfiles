@@ -23,7 +23,7 @@ case $chosen in
     $repo2)
         alacritty -t newcommit --working-directory $dir/archlinux;;
     $repo3)
-        alacritty -t newcommit --working-directory $dir/mamutal91;;
+        alacritty -t newcommit --working-directory $dir/readme;;
     $repo4)
         alacritty -t newcommit --working-directory $dir/aosp-build;;
     $repo5)
