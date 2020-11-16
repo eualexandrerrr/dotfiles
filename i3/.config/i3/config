@@ -143,17 +143,18 @@ assign [class="^Pinta|Gpicview|feh"] $ws8
 
 for_window [class=".*"] border pixel 0, focus
 
+# Titles, windows, instances
 for_window [window_role="pop-up|bubble|task_dialog|Preferences"] floating enable, move position center, focus
 for_window [window_type="dialog|menu"] floating enable, move position center, focus
 for_window [title="Open Folder*"] floating enable, resize set 700 px 500 px, move position center, focus
 for_window [title="Media viewer"] fullscreen enable, focus
 for_window [title="Escolha uma imagem"] floating enable, focus
+for_window [instance="Navigator"] move to workspace $ws2, focus
 
 # Workspace 1
 for_window [class="Alacritty"] move to workspace $ws1, focus
 
 # Workspace 2
-for_window [instance="Navigator"] move to workspace $ws2, focus
 for_window [class="Google-chrome"] move to workspace $ws2, focus
 
 # Workspace 3
