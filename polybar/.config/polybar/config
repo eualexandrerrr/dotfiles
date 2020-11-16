@@ -129,12 +129,12 @@ fuzzy-match = true
 ws-icon-0 = 1; terminal
 ws-icon-1 = 2; browser
 ws-icon-2 = 3; telegram
-ws-icon-3 = 4; whatsapp
-ws-icon-4 = 5; media
-ws-icon-5 = 6; codes
-ws-icon-6 = 7; office
-ws-icon-7 = 8; pc
-ws-icon-8 = 9; art
+ws-icon-3 = 4; codes
+ws-icon-4 = 5; media
+ws-icon-5 = 6; office
+ws-icon-6 = 7; pc
+ws-icon-7 = 8; art
+ws-icon-8 = 9; empty
 
 format = <label-state> <label-mode>
 
