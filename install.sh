@@ -32,5 +32,5 @@ source $HOME/.dotfiles/setup/etc.sh
 
 canberra-gtk-play --file=$HOME/.config/files/sounds/completed.wav
 i3-msg restart
-sleep 5s
+sleep 1
 $HOME/.config/scripts/polybar-launch.sh

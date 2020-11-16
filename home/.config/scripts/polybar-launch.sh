@@ -11,6 +11,7 @@ if type "xrandr"; then
     MONITOR=$m polybar --reload down &
   done
 else
+  sleep 3
   polybar --reload up &
   polybar --reload down &
 fi
