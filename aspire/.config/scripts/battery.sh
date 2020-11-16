@@ -5,13 +5,13 @@ icon="$HOME/.config/files/icons/battery.png"
 
 bat="/sys/class/power_supply/BAT1"
 
-while sleep 180
+while sleep 240
 do
   LEVEL=$(cat "$bat"/capacity)
   STATUS=$(cat "$bat"/status)
 
   if [ "$STATUS" = "Discharging" ]; then
-    if [ "$LEVEL" -le 15 ]; then
+    if [ "$LEVEL" -le 10 ]; then
       notify-send -i $icon "Bateria está abaixo de 15%" "Precisa carregar! Por favor plugue-o na tomada!"
       canberra-gtk-play --file=$HOME/.config/files/sounds/battery.wav
     fi
