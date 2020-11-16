@@ -35,7 +35,7 @@ readonly AUR=(
   pinta polybar python-ruamel-yaml
   siji-git
   termsyn-font ttf-dejavu ttf-font-awesome ttf-wps-fonts ttf-ms-fonts
-  wps-office wps-office-extension-portuguese-brazilian-dictionary wps-office-fonts wps-office-mui-pt-br
+  whatsapp-for-linux wps-office wps-office-extension-portuguese-brazilian-dictionary wps-office-fonts wps-office-mui-pt-br
   xidlehook
   zuki-themes zsh-syntax-highlighting
 )
