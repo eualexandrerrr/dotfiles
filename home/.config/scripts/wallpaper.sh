@@ -3,4 +3,4 @@
 
 dir=$HOME/.config/files/wallpapers
 
-feh --bg-fill $dir/programming.jpg
+feh --bg-fill $dir/smartphone.png
