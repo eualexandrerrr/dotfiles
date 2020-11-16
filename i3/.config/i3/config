@@ -121,6 +121,8 @@ bindsym $mod+Return exec --no-startup-id alacritty &; workspace $ws1
 bindsym $mod+e exec --no-startup-id thunar &; workspace $ws7
 bindsym $mod+F2 exec --no-startup-id google-chrome-beta &; workspace $ws2
 bindsym $mod+F3 exec --no-startup-id telegram-desktop &; workspace $ws4
+bindsym $mod+F4 exec --no-startup-id atom &; workspace $ws5
+bindsym $mod+F5 exec --no-startup-id chromium &; workspace $ws9
 
 # System shortcuts
 bindsym F10 exec --no-startup-id $HOME/.config/scripts/commiter.sh &; workspace $ws6
