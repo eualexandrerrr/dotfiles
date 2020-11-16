@@ -4,7 +4,7 @@
 readonly PACKAGES=(
   alacritty alsa alsa-firmware alsa-utils android-tools archlinux-keyring atom
   bluez bluez-libs bluez-tools bluez-utils bumblebee
-  compton cronie
+  cronie
   dunst dhcpcd
   feh ffmpeg filezilla
   galculator git gparted gpicview gvfs gvfs-mtp
@@ -33,7 +33,7 @@ readonly AUR=(
   jre8-openjdk
   noto-fonts-emoji-blob
   oh-my-zsh-git
-  pinta polybar python-ruamel-yaml
+  picom-ibhagwan-git pinta polybar python-ruamel-yaml
   siji-git spotify
   termsyn-font ttf-dejavu ttf-font-awesome ttf-wps-fonts ttf-ms-fonts
   whatsapp-for-linux wps-office wps-office-extension-portuguese-brazilian-dictionary wps-office-fonts wps-office-mui-pt-br

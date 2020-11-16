@@ -3,7 +3,7 @@
 
 function boot() {
   cd $HOME/.config
-  rm -rf alacritty compton dunst files gpicview i3 neofetch polybar rofi scripts setup
+  rm -rf alacritty dunst files gpicview i3 neofetch polybar picom rofi scripts setup
   rm -rf .crontab .bashrc .nvidia-xinitrc .Xresources .zlogin .zshrc
   cd /etc/X11 && sudo rm -rf *
 }
@@ -15,13 +15,13 @@ rm -rf $HOME/.zshrc
 cd $HOME/.dotfiles
 
 stow alacritty
-stow compton
+stow aspire
 stow dunst
 stow gpicview
 stow home
 stow i3
 stow neofetch
-stow aspire
+stow picom
 stow polybar
 stow rofi
 

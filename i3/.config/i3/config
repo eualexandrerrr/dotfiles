@@ -103,7 +103,7 @@ exec_always --no-startup-id $HOME/.config/scripts/battery.sh
 exec_always --no-startup-id $HOME/.config/scripts/wallpaper.sh
 exec_always --no-startup-id $HOME/.config/scripts/xdg-mime.sh
 exec_always --no-startup-id xrdb -merge $HOME/.Xresources
-exec --no-startup-id compton -C
+exec --no-startup-id picom -b --config $HOME/.config/picom/picom.conf
 exec --no-startup-id dunst
 exec --no-startup-id pulseeffects --gapplication-service &>/dev/null
 exec --no-startup-id sudo timedatectl set-ntp true && sudo hwclock --systohc
