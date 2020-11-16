@@ -77,7 +77,7 @@ bindsym $mod+$shift+r restart
 
 # i3-gaps
 gaps inner 10
-gaps outer 0
+gaps outer 5
 hide_edge_borders smart
 focus_on_window_activation focus
 
