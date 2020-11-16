@@ -9,7 +9,7 @@ icon="$HOME/.config/files/icons/screenshot.png"
 var=${1}
 msg=${2}
 
-local=$HOME/Images
+local=$HOME/Images/Screenshots
 [ ! -d $local ] && mkdir -p $local
 
 name=$(date "+%d-%m-%Y_%H-%M-%S").png
