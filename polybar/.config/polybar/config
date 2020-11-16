@@ -1,3 +1,21 @@
+;==========================================================
+;
+;
+;   ██████╗  ██████╗ ██╗  ██╗   ██╗██████╗  █████╗ ██████╗
+;   ██╔══██╗██╔═══██╗██║  ╚██╗ ██╔╝██╔══██╗██╔══██╗██╔══██╗
+;   ██████╔╝██║   ██║██║   ╚████╔╝ ██████╔╝███████║██████╔╝
+;   ██╔═══╝ ██║   ██║██║    ╚██╔╝  ██╔══██╗██╔══██║██╔══██╗
+;   ██║     ╚██████╔╝███████╗██║   ██████╔╝██║  ██║██║  ██║
+;   ╚═╝      ╚═════╝ ╚══════╝╚═╝   ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
+;
+;
+;   To learn more about how to configure Polybar
+;   go to https://github.com/polybar/polybar
+;
+;   The README contains a lot of information
+;
+;==========================================================
+
 [colors]
 background = ${xrdb:background}
 foreground = ${xrdb:foreground}
@@ -19,8 +37,8 @@ color14 = ${xrdb:color14}
 color15 = ${xrdb:color15}
 
 transparency = #00000000
-font = #737373
-icon = #b8b8b8
+font = #476B7F
+icon = #6192A8
 
 ########################################################
 # bar up
@@ -308,7 +326,7 @@ format-charging-underline = ${colors.transparency}
 format-discharging-underline = ${colors.transparency}
 
 format-charging-foreground = #b8b8b8
-format-discharging-foreground = #c0392b
+format-discharging-foreground = ${colors.icon}
 format-full-foreground = #AAB5E6
 
 label-charging = %percentage%%
