@@ -9,7 +9,7 @@ set $shift Shift
 # Define names for workspaces
 set $ws1 "1: terminal"
 set $ws2 "2: browser"
-set $ws3 "3: codes"
+set $ws3 "3: atom"
 set $ws4 "4: telegram"
 set $ws5 "5: media"
 set $ws6 "6: ofice"
@@ -146,7 +146,7 @@ for_window [class="Alacritty"] move to workspace $ws1, focus
 # Workspace 2 [browser]
 for_window [class="Google-chrome-beta"] move to workspace $ws2, focus
 
-# Workspace 3 [codes]
+# Workspace 3 [atom]
 for_window [class="Atom"] move to workspace $ws3, focus
 for_window [class="Electron"] move to workspace $ws3, floating enable, focus
 for_window [title="newcommit"] move to workspace $ws3, floating enable, resize set 600 px 250 px, move right -100px, move down 200px, focus
