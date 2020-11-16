@@ -174,5 +174,4 @@ for_window [class="Lxappearance|Thunar|Transmission-gtk"] move to workspace $ws7
 for_window [class="Galculator"] floating enable, resize set 380 px 440 px, move position center, focus
 
 # Workspace 8
-for_window [class="Pinta"] move to workspace $ws8, focus
-for_window [class="Gpicview|feh"] move to workspace $ws8, focus
+for_window [class="Pinta|Gpicview|fireworks.exe"] move to workspace $ws8, focus
