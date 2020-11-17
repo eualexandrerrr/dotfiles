@@ -33,9 +33,13 @@ alias aosp="cd /media/storage/PurityAndroid && clear && ls -1"
 
 # Functions for git
 function push () {
-  echo "*********************************"
-  echo "*** pushing for branch ELEVEN ***"
-  git push https://github.com/CamalleonAndroid/${1} HEAD:refs/heads/eleven --force
+  echo "> Pushing for branch @PurityAndroid - *${2}*"
+  git push ssh://git@github.com/PurityAndroid/${1} HEAD:refs/heads/${2} --force
+}
+
+function pushm () {
+  echo "> Pushing for branch @mamutal91 - *${2}*"
+  git push ssh://git@github.com/mamutal91/${1} HEAD:refs/heads/${2} --force
 }
 
 function cm () {
