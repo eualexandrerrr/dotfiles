@@ -13,22 +13,22 @@ app="maim"
 #params="-u"
 params=""
 data=$(date +%Y-%m-%d_%H-%M-%S)
-nome="ss-${data}"
-extensao=".png"
-atraso=10
+name="ss-${data}"
+ext=".png"
+delay=10
 icon="$HOME/.config/files/icons/screenshot.png"
 tipo="image/png"
-lixeira="${HOME}/.local/share/Trash"
-borda="10"
+trash="${HOME}/.local/share/Trash"
+border="10"
 
 [ ! -d $dir ] && mkdir -p $dir
-[ ! -d $lixeira ] && mkdir -p $lixeira
+[ ! -d $trash ] && mkdir -p $trash
 
 if [ "$1" == "-c" ]; then
-	icone="${HOME}/.local/share/icons/elementary/user-trash.png"
+	icon="${HOME}/.local/share/icons/elementary/user-trash.png"
 	listagem=(${dir}*)
 	if [ ${#listagem[@]} -gt 0 ]; then
-		mv ${dir}* ${lixeira}/files/
+		mv ${dir}* ${trash}/files/
 		msg="Pasta de screenshots limpa!"
 		export DISPLAY=:0 ; canberra-gtk-play -i trash-empty 2>&1
 	else
@@ -36,28 +36,28 @@ if [ "$1" == "-c" ]; then
 	fi
 	exit 0
 elif [ "$1" == "-w" ]; then
-	[ "$app" == "maim" ] && params="$params -i $(xdotool getactivewindow) -p $borda" || params="$params -w"
-	arquivo="${nome}-window${extensao}"
-	$app $params ${dir}${arquivo}
+	[ "$app" == "maim" ] && params="$params -i $(xdotool getactivewindow) -p $border" || params="$params -w"
+	file="${name}-window${ext}"
+	$app $params ${dir}${file}
 elif [ "$1" == "-s" ]; then
 	params="$params -s"
-	arquivo="${nome}-sel${extensao}"
-	$app -d 2 $params ${dir}${arquivo}
+	file="${name}-sel${ext}"
+	$app -d 2 $params ${dir}${file}
 elif [ "$1" == "-d" ]; then
-	params="$params -d $atraso"
-	arquivo="${nome}-delay${extensao}"
-	$app $params ${dir}${arquivo}
+	params="$params -d $delay"
+	file="${name}-delay${ext}"
+	$app $params ${dir}${file}
 elif [ "$1" == "-e" ]; then
-	arquivo="${nome}-edit${extensao}"
-	$app $params ${dir}${arquivo}
-	viewnior ${dir}${arquivo}
+	file="${name}-edit${ext}"
+	$app $params ${dir}${file}
+	viewnior ${dir}${file}
 else
-	arquivo="${nome}${extensao}"
-	$app $params ${dir}${arquivo}
+	file="${name}${ext}"
+	$app $params ${dir}${file}
 fi
 
-if [ ! -z $arquivo ]; then
-	xclip -selection c -t $tipo -i $dir$arquivo
+if [ ! -z $file ]; then
+	xclip -selection c -t $tipo -i $dir$file
 fi
 
 notify-send -i $icon "Captura de tela" "$msg $name"
