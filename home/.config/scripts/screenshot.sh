@@ -4,9 +4,6 @@
 # -s = Recorte
 # -u = Fullscreen
 
-local=$HOME/Images/Screenshots
-[ ! -d $local ] && mkdir -p $local
-
 dir="${HOME}/Images/Screenshots/"
 
 app="maim"
