@@ -12,7 +12,7 @@
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
 # use super/alt/control key
-set $super Mod4 #mod
+set $super Mod4
 set $alt Mod1
 set $ctrl Control
 set $shift Shift
@@ -105,7 +105,6 @@ bindsym $super+r mode "resize"
 exec_always --no-startup-id $HOME/.config/scripts/polybar-launch.sh
 exec_always --no-startup-id $HOME/.config/scripts/battery.sh
 exec_always --no-startup-id $HOME/.config/scripts/wallpaper.sh
-exec_always --no-startup-id $HOME/.config/scripts/xdg-mime.sh
 exec_always --no-startup-id xrdb -merge $HOME/.Xresources
 exec --no-startup-id picom -b --config $HOME/.config/picom/picom.conf
 exec --no-startup-id dunst

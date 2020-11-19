@@ -12,12 +12,11 @@ function boot() {
 
 pwd_dell_files=$(pwd)
 cd $HOME
-  rm -rf .bashrc .xinyesitrc .Xresources .zlogin .zshrc
+  rm -rf .bashrc .xinitrc .Xresources .zlogin .zshrc
 cd $pwd_dell_files
 
 cd $HOME/.dotfiles
 stow alacritty
-stow aspire
 stow dunst
 stow gpicview
 stow home
