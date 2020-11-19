@@ -31,14 +31,6 @@ set $ws9 "9: empty"
 # Use $mod+Mouse to drag floating windows to their wanted position
 floating_modifier $mod
 
-# Audio/Brightness Control
-bindsym XF86AudioRaiseVolume exec --no-startup-id "pactl set-sink-mute @DEFAULT_SINK@ false; pactl set-sink-volume @DEFAULT_SINK@ +1%"
-bindsym XF86AudioLowerVolume exec --no-startup-id "pactl set-sink-mute @DEFAULT_SINK@ false; pactl set-sink-volume @DEFAULT_SINK@ -1%"
-bindsym XF86AudioMute exec --no-startup-id "pactl set-sink-mute 0 toggle"
-
-bindsym XF86MonBrightnessUp exec  --no-startup-id echo $((`cat /sys/class/backlight/amdgpu_bl0/brightness` + 5)) | sudo tee /sys/class/backlight/amdgpu_bl0/brightness
-bindsym XF86MonBrightnessDown exec  --no-startup-id echo $((`cat /sys/class/backlight/amdgpu_bl0/brightness` - 5)) | sudo tee /sys/class/backlight/amdgpu_bl0/brightness
-
 # Close window
 bindsym $mod+w kill
 
@@ -108,7 +100,9 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
+####################
 # Startup
+####################
 exec_always --no-startup-id $HOME/.config/scripts/polybar-launch.sh
 exec_always --no-startup-id $HOME/.config/scripts/battery.sh
 exec_always --no-startup-id $HOME/.config/scripts/wallpaper.sh
@@ -122,6 +116,18 @@ exec --no-startup-id sudo hwclock --systohc --utc && sudo timedatectl set-ntp tr
 exec --no-startup-id "pactl set-sink-mute @DEFAULT_SINK@ false; pactl set-sink-volume @DEFAULT_SINK@ 50%"
 exec --no-startup-id xidlehook --not-when-audio --not-when-fullscreen --timer 600 '$HOME/.config/scripts/i3lock.sh -t -ef -n' ''
 exec --no-startup-id xinput --set-prop 13 'libinput Accel Speed' 0.7
+
+####################
+# Shortcuts
+####################
+
+# Audio/Brightness Control
+bindsym XF86AudioRaiseVolume exec --no-startup-id "pactl set-sink-mute @DEFAULT_SINK@ false; pactl set-sink-volume @DEFAULT_SINK@ +1%"
+bindsym XF86AudioLowerVolume exec --no-startup-id "pactl set-sink-mute @DEFAULT_SINK@ false; pactl set-sink-volume @DEFAULT_SINK@ -1%"
+bindsym XF86AudioMute exec --no-startup-id "pactl set-sink-mute 0 toggle"
+
+bindsym XF86MonBrightnessUp exec  --no-startup-id echo $((`cat /sys/class/backlight/amdgpu_bl0/brightness` + 5)) | sudo tee /sys/class/backlight/amdgpu_bl0/brightness
+bindsym XF86MonBrightnessDown exec  --no-startup-id echo $((`cat /sys/class/backlight/amdgpu_bl0/brightness` - 5)) | sudo tee /sys/class/backlight/amdgpu_bl0/brightness
 
 # Screenshot
 bindsym Print exec --no-startup-id $HOME/.config/scripts/screenshot.sh -s Recorte
@@ -143,7 +149,9 @@ bindsym F10 exec --no-startup-id $HOME/.config/scripts/commiter.sh &; workspace 
 bindsym F11 exec --no-startup-id $HOME/.dotfiles/install.sh
 bindsym F12 exec --no-startup-id alacritty -e $HOME/.config/scripts/update.sh; workspace $ws1
 
+####################
 # Rules
+####################
 # xprop |awk '/^WM_CLASS/{sub(/.* =/, "instance:"); sub(/,/, "\nclass:"); print} /^WM_NAME/{sub(/.* =/, "title:"); print}'
 
 for_window [class=".*"] border pixel 0, focus
