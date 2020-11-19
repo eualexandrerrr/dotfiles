@@ -35,10 +35,10 @@ floating_modifier $mod
 bindsym $mod+w kill
 
 # Move windows
-bindsym $mod+$shift+Left move left
-bindsym $mod+$shift+Down move down
-bindsym $mod+$shift+Up move up
-bindsym $mod+$shift+Right move right
+bindsym $ctrl+$shift+Left move left
+bindsym $ctrl+$shift+Down move down
+bindsym $ctrl+$shift+Up move up
+bindsym $ctrl+$shift+Right move right
 
 # Enter fullscreen mode with window focused
 bindsym $mod+f fullscreen toggle
@@ -70,6 +70,12 @@ bindsym $ctrl+$shift+9 move container to workspace $ws9; workspace $ws9
 
 # Next workspaces
 bindsym $mod+Tab workspace next
+
+# split in horizontal orientation
+bindsym $ctrl+$shift+h split h
+
+# split in vertical orientation
+bindsym $ctrl+$shift+v split v
 
 # i3-gaps
 gaps inner 10
