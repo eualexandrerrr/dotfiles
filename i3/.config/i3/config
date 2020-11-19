@@ -1,6 +1,6 @@
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
-# use win/alt/control key
+# use super/alt/control key
 set $mod Mod4
 set $alt Mod1
 set $ctrl Control
