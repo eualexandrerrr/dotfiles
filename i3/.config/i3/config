@@ -71,9 +71,6 @@ bindsym $ctrl+$shift+9 move container to workspace $ws9; workspace $ws9
 # Next workspaces
 bindsym $mod+Tab workspace next
 
-# Restart i3
-bindsym $mod+$shift+r restart
-
 # i3-gaps
 gaps inner 10
 gaps outer 5
