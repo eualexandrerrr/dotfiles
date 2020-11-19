@@ -8,7 +8,7 @@ repo1="mamutal91.github.io"
 repo2="archlinux"
 repo3="readme (mamutal91)"
 repo4="aosp-build"
-repo5="PurityAndroid/manifest"
+repo5="DroidROM/manifest"
 repo6="device_xiaomi_beryllium"
 repo7="device_xiaomi_sdm845-common"
 
@@ -27,7 +27,7 @@ case $chosen in
     $repo4)
         alacritty -t newcommit --working-directory $dir/aosp-build;;
     $repo5)
-        alacritty -t newcommit --working-directory /media/storage/PurityAndroid/manifest;;
+        alacritty -t newcommit --working-directory /media/storage/DroidROM/manifest;;
     $repo6)
         alacritty -t newcommit --working-directory $dir/device_xiaomi_beryllium;;
     $repo7)

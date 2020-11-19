@@ -17,5 +17,5 @@ done
 
 mv /media/storage/github/mamutal91 /media/storage/github/readme
 
-# PurityAndroid manifest
-mkdir -p /media/storage/PurityAndroid && rm -rf /media/storage/PurityAndroid/manifest && git clone ssh://git@github.com/PurityAndroid/manifest /media/storage/PurityAndroid/manifest
+# DroidROM manifest
+mkdir -p /media/storage/DroidROM && rm -rf /media/storage/DroidROM/manifest && git clone ssh://git@github.com/DroidROM/manifest /media/storage/DroidROM/manifest

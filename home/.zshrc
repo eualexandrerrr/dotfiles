@@ -29,12 +29,12 @@ alias rm="sudo rm"
 alias pkill="sudo pkill"
 
 alias github="cd /media/storage/github && clear && ls -1"
-alias aosp="cd /media/storage/PurityAndroid && clear && ls -1"
+alias aosp="cd /media/storage/DroidROM && clear && ls -1"
 
 # Functions for git
 function push () {
-  echo "> Pushing for branch @PurityAndroid - *${2}*"
-  git push ssh://git@github.com/PurityAndroid/${1} HEAD:refs/heads/${2} --force
+  echo "> Pushing for branch @DroidROM - *${2}*"
+  git push ssh://git@github.com/DroidROM/${1} HEAD:refs/heads/${2} --force
 }
 
 function pushm () {
@@ -43,8 +43,8 @@ function pushm () {
 }
 
 function clone () {
-  echo "> Cloning @PurityAndroid/${1} - *${2}*"
-  git clone ssh://git@github.com/PurityAndroid/${1} -b ${2}
+  echo "> Cloning @DroidROM/${1} - *${2}*"
+  git clone ssh://git@github.com/DroidROM/${1} -b ${2}
 }
 
 function clonem () {
