@@ -72,10 +72,10 @@ bindsym $ctrl+$shift+9 move container to workspace $ws9; workspace $ws9
 bindsym $super+Tab workspace next
 
 # split in horizontal orientation
-bindsym $ctrl+$shift+h split h
+#bindsym $ctrl+$shift+h split h
 
 # split in vertical orientation
-bindsym $ctrl+$shift+v split v
+#bindsym $ctrl+$shift+v split v
 
 # i3-gaps
 gaps inner 10
