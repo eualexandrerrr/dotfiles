@@ -113,7 +113,7 @@ exec --no-startup-id sudo timedatectl set-ntp true && sudo hwclock --systohc
 exec --no-startup-id sudo hwclock --systohc --utc && sudo timedatectl set-ntp true
 exec --no-startup-id "pactl set-sink-mute @DEFAULT_SINK@ false; pactl set-sink-volume @DEFAULT_SINK@ 50%"
 exec --no-startup-id xidlehook --not-when-audio --not-when-fullscreen --timer 600 '$HOME/.config/scripts/i3lock.sh -t -ef -n' ''
-exec --no-startup-id xinput --set-prop 13 'libinput Accel Speed' 0.7
+exec --no-startup-id xinput --set-prop 13 'libinput Accel Speed' 0.8
 
 ####################
 # Shortcuts

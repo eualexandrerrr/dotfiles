@@ -68,3 +68,7 @@ function blog () {
   cd /media/storage/github/mamutal91.github.io
   ./tools/init.sh && git push -fz
 }
+
+function los () {
+  google-chrome-beta https://github.com/LineageOS/android_${1}/tree/${2}
+}
