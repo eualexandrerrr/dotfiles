@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # github.com/mamutal91
 
 # My favorites packages https://atom.io/packages/

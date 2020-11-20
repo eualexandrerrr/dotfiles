@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # github.com/mamutal91
 
 dir=/media/storage/github

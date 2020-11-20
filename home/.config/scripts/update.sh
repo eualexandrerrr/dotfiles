@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # github.com/mamutal91
 
 icon="$HOME/.config/files/icons/pacman.png"
