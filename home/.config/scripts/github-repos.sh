@@ -4,6 +4,7 @@
 rm -rf /media/storage/github && mkdir -p /media/storage/github
 
 for github in \
+    android \
     aosp-build \
     archlinux \
     mamutal91 \
