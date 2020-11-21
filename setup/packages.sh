@@ -28,7 +28,7 @@ readonly PACKAGES=(
 readonly AUR=(
   capitaine-cursors
   etcher
-  google-chrome-beta
+  github-cli google-chrome-beta
   i3-gaps-rounded-git
   jre8-openjdk
   noto-fonts-emoji-blob
