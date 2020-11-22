@@ -27,7 +27,7 @@ alias p="git cherry-pick ${1}"
 alias rm="sudo rm"
 alias pkill="sudo pkill"
 
-alias github="cd /media/storage/github && clear && ls -1"
+alias github="cd /media/storage/GitHub && clear && ls -1"
 alias aosp="cd /media/storage/DroidROM && clear && ls -1"
 
 # Functions for git
