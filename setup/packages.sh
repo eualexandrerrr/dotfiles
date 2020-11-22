@@ -4,7 +4,7 @@
 readonly PACKAGES=(
   alacritty alsa alsa-firmware alsa-utils android-tools archlinux-keyring atom
   bluez bluez-libs bluez-tools bluez-utils bumblebee
-  cronie chromium
+  cronie
   dunst dhcpcd
   feh ffmpeg filezilla
   git gparted gpicview gvfs gvfs-mtp
@@ -31,7 +31,6 @@ readonly AUR=(
   github-cli google-chrome-beta
   i3-gaps-rounded-git
   jre8-openjdk
-  noto-fonts-emoji-blob
   oh-my-zsh-git
   picom-ibhagwan-git pinta polybar python-ruamel-yaml
   siji-git spotify
