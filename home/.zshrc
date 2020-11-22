@@ -64,7 +64,7 @@ function amend () {
 }
 
 function blog () {
-  cd /media/storage/github/mamutal91.github.io
+  cd /media/storage/GitHub/mamutal91.github.io
   ./tools/init.sh && git push -fz
 }
 

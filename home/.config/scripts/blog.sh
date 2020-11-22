@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # github.com/mamutal91
 
-dir="/media/storage/github/"
+dir="/media/storage/GitHub/"
 readonly repos=('mamutal91.github.io')
 
 function gitcron() {

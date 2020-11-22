@@ -4,16 +4,11 @@
 function boot() {
   cd $HOME/.config
   rm -rf alacritty dunst files gpicview i3 neofetch polybar picom rofi scripts
+  rm -rf .bashrc .xinitrc .Xresources .zlogin .zshrc
   cd /etc/X11 && sudo rm -rf *
 }
 
-# Uncomment only if first boot
-#boot
-
-pwd_dell_files=$(pwd)
-cd $HOME
-  rm -rf .bashrc .xinitrc .Xresources .zlogin .zshrc
-cd $pwd_dell_files
+if [ "${1}" == "boot" ]; then boot; fi
 
 cd $HOME/.dotfiles
 for DOTFILES in \
@@ -37,3 +32,4 @@ play $HOME/.config/files/sounds/completed.wav
 i3-msg restart
 sleep 1
 $HOME/.config/scripts/polybar-launch.sh
+exit 0
