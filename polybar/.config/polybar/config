@@ -364,7 +364,7 @@ interval = 1.0
 
 format-connected = <ramp-signal> <label-connected>
 format-packetloss = <animation-packetloss>
-label-connected = %upspeed%  %downspeed% %essid%
+label-connected = %essid% %upspeed%  %downspeed%
 label-connected-foreground = #8a8a8a
 
 ramp-signal-0 = 
