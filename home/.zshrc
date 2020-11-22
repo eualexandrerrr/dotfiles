@@ -19,7 +19,6 @@ export LS_COLORS="$LS_COLORS:ow=1;34:tw=1;34:"
 export TERM="xterm-256color"
 export EDITOR="nano"
 export BROWSER="/usr/bin/google-chrome-beta"
-export JAVA_HOME="/usr/lib/jvm/java-8-openjdk"
 
 alias nano="sudo nano"
 alias pacman="sudo pacman"

@@ -30,7 +30,6 @@ readonly AUR=(
   etcher
   github-cli google-chrome-beta
   i3-gaps-rounded-git
-  jre8-openjdk
   oh-my-zsh-git
   picom-ibhagwan-git pinta polybar python-ruamel-yaml
   siji-git spotify
