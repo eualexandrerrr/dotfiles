@@ -267,7 +267,7 @@ card = amdgpu_bl0
 enable-scroll = true
 format = <label>
 
-format-prefix = " "
+format-prefix = " "
 format-prefix-foreground = ${colors.icon}
 
 label = %percentage%%
@@ -362,9 +362,9 @@ type = internal/network
 interface = wlan0
 interval = 1.0
 
-format-connected = <label-connected> <ramp-signal>
+format-connected = <ramp-signal> <label-connected>
 format-packetloss = <animation-packetloss>
-label-connected = %upspeed%   %downspeed%  %essid%
+label-connected = %upspeed%  %downspeed% %essid%
 label-connected-foreground = #8a8a8a
 
 ramp-signal-0 = 
