@@ -58,5 +58,5 @@ if [ ! -z $file ]; then
 fi
 
 notify-send -i $icon "Captura de tela" "$msg $name"
-canberra-gtk-play --file=$HOME/.config/files/sounds/screenshot.wav
+play $HOME/.config/files/sounds/screenshot.wav
 exit 0

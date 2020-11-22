@@ -16,20 +16,24 @@ cd $HOME
 cd $pwd_dell_files
 
 cd $HOME/.dotfiles
-stow alacritty
-stow dunst
-stow gpicview
-stow home
-stow i3
-stow neofetch
-stow picom
-stow polybar
-stow rofi
+for DOTFILES in \
+  alacritty \
+  dunst \
+  gpicview \
+  home \
+  i3 \
+  neofetch \
+  picom \
+  polybar \
+  rofi
+do
+    stow $DOTFILES
+done
 
 # Remove files from the system, and copy mine!
 source $HOME/.dotfiles/setup/etc.sh
 
-canberra-gtk-play --file=$HOME/.config/files/sounds/completed.wav
+play $HOME/.config/files/sounds/completed.wav
 i3-msg restart
 sleep 1
 $HOME/.config/scripts/polybar-launch.sh

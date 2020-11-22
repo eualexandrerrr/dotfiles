@@ -17,7 +17,7 @@ readonly PACKAGES=(
   openssh
   papirus-icon-theme peek pinta pulseaudio pulseaudio-bluetooth pulseeffects python-setuptools
   rofi
-  sbc scrot stow
+  sbc scrot stow sox
   telegram-desktop terminus-font thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman ttf-liberation transmission-gtk
   unrar unzip
   wget wine

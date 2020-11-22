@@ -13,7 +13,7 @@ do
   if [ "$STATUS" = "Discharging" ]; then
     if [ "$LEVEL" -le 10 ]; then
       notify-send -i $icon "Bateria está abaixo de 15%" "Precisa carregar! Por favor plugue-o na tomada!"
-      canberra-gtk-play --file=$HOME/.config/files/sounds/battery.wav
+      play $HOME/.config/files/sounds/battery.wav
     fi
   else
     echo "Charging..."
