@@ -9,8 +9,6 @@
 #
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
-# Please see https://i3wm.org/docs/userguide.html for a complete reference!
-
 # use super/alt/control key
 set $super Mod4
 set $alt Mod1
