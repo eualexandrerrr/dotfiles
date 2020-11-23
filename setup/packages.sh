@@ -8,7 +8,7 @@ readonly PACKAGES=(
   dunst dhcpcd
   feh ffmpeg filezilla
   git gparted gpicview gvfs gvfs-mtp
-  i3lock
+  i3-wm i3lock
   imagemagick
   jsoncpp
   lib32-gnutls lxappearance
@@ -29,7 +29,6 @@ readonly AUR=(
   capitaine-cursors
   etcher
   github-cli google-chrome-beta
-  i3-gaps-rounded-git
   oh-my-zsh-git
   picom-ibhagwan-git pinta polybar python-ruamel-yaml
   siji-git spotify
