@@ -22,7 +22,7 @@ for DOTFILES in \
   polybar \
   rofi
 do
-    stow $DOTFILES
+    stow $DOTFILES || echo "Error on gnu/stow"
 done
 
 # Remove files from the system, and copy mine!
