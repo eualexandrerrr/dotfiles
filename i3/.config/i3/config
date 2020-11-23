@@ -77,6 +77,17 @@ bindsym $super+Tab workspace next
 # split in vertical orientation
 #bindsym $ctrl+$shift+v split v
 
+# i3-gaps
+gaps inner 10
+gaps outer 5
+hide_edge_borders smart
+focus_on_window_activation focus
+
+# i3-radius
+new_window pixel 0
+default_border pixel 0
+border_radius 6
+
 # Rezise
 mode "resize" {
         bindsym Left resize shrink width 20 px or 20 ppt
