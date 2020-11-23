@@ -22,7 +22,7 @@ readonly PACKAGES=(
   unrar unzip
   wget wine
   xclip xorg-server xorg-xbacklight xorg-xinit xorg-xprop xorg-xrandr
-  zsh zsh-autosuggestions zsh-completions zsh-lovers
+  zsh
 )
 
 readonly AUR=(
