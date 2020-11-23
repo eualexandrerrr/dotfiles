@@ -1,12 +1,8 @@
 #!/usr/bin/env bash
 # github.com/mamutal91
 
-
 dir="/media/storage/GitHub/"
-readonly repos=('archlinux' 'mamutal91.github.io' 'ubuntu')
-
-app=git.png
-icon=$icons/$app
+readonly repos=('manual-custom-rom')
 
 function gitcron() {
   for i in "${repos[@]}"; do

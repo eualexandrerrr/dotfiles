@@ -1,10 +1,6 @@
 #!/usr/bin/env bash
 # github.com/mamutal91
 
-
-app=git.png
-icon=$icons/$app
-
 dotfiles() {
 	if [ -d $1 ]; then
 		if [ ! -f $1/.noup ]; then
