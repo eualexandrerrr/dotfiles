@@ -9,6 +9,7 @@ for github in \
     archlinux \
     mamutal91 \
     mamutal91.github.io \
+    manutal-custom-rom \
     zsh-history \
     device_xiaomi_beryllium \
     device_xiaomi_sdm845-common
