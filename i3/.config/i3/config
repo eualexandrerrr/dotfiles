@@ -79,7 +79,7 @@ bindsym $super+Tab workspace next
 
 # i3-gaps
 gaps inner 10
-gaps outer 5
+gaps outer 0
 hide_edge_borders smart
 focus_on_window_activation focus
 
