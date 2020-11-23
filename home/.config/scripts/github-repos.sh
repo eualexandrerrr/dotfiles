@@ -6,10 +6,10 @@ rm -rf /media/storage/GitHub && mkdir -p /media/storage/GitHub
 for github in \
     android \
     aosp-build \
-    archlinux \
+    archlinux-installer \
     mamutal91 \
     mamutal91.github.io \
-    manutal-custom-rom \
+    manual-custom-rom \
     zsh-history \
     device_xiaomi_beryllium \
     device_xiaomi_sdm845-common

@@ -6,7 +6,7 @@ dir=/media/storage/GitHub
 repo0="dotfiles"
 repo1="mamutal91.github.io"
 repo2="android"
-repo3="archlinux"
+repo3="archlinux-installer"
 repo4="readme (mamutal91)"
 repo5="device_xiaomi_beryllium"
 repo6="device_xiaomi_sdm845-common"
@@ -23,7 +23,7 @@ case $chosen in
     $repo2)
         alacritty -t newcommit --working-directory $dir/android;;
     $repo3)
-        alacritty -t newcommit --working-directory $dir/archlinux;;
+        alacritty -t newcommit --working-directory $dir/archlinux-installer;;
     $repo4)
         alacritty -t newcommit --working-directory $dir/readme;;
     $repo5)
