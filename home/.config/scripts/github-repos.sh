@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # github.com/mamutal91
 
-rm -rf /media/storage/github && mkdir -p /media/storage/github
+rm -rf /media/storage/GitHub && mkdir -p /media/storage/GitHub
 
 for github in \
     android \
