@@ -3,7 +3,7 @@
 
 readonly PACKAGES=(
   alacritty alsa alsa-firmware alsa-utils android-tools archlinux-keyring atom
-  bluez bluez-libs bluez-tools bluez-utils bumblebee
+  bashtop bluez bluez-libs bluez-tools bluez-utils bumblebee
   cronie
   dunst dhcpcd
   feh ffmpeg filezilla
