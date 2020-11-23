@@ -10,7 +10,6 @@ for github in \
     mamutal91 \
     mamutal91.github.io \
     manual-custom-rom \
-    manual-custom-rom \
     zsh-history \
     dFel6QtiOq8FYbikw3GGg4MtxvvU6kk7 \
     device_xiaomi_beryllium \
