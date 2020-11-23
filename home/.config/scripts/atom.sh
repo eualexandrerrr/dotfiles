@@ -18,7 +18,8 @@ for PACKAGE in \
     h3imdall/ftp-remote-edit \
     lee-dohm/set-syntax \
     taylon/language-i3wm \
-    thomaslindstrom/color-picker
+    thomaslindstrom/color-picker \
+    zhuochun/md-writer
 do
     git clone https://github.com/$PACKAGE
 done
@@ -31,10 +32,11 @@ PACKAGE='
   ftp-remote-edit
   indent-sort
   language-i3wm
+  markdown-writer
   pigments
   save-workspace
   set-syntax
-'
+  '
 apm install $PACKAGE
 
 cd $pwd_atom_packages
