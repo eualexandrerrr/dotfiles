@@ -104,6 +104,7 @@ exec_always --no-startup-id $HOME/.config/scripts/polybar-launch.sh
 exec_always --no-startup-id $HOME/.config/scripts/battery.sh
 exec_always --no-startup-id $HOME/.config/scripts/wallpaper.sh
 exec_always --no-startup-id xrdb -merge $HOME/.Xresources
+exec_always --no-startup-id sudo mount /dev/sda3 /media/storage
 exec --no-startup-id picom -b --config $HOME/.config/picom/picom.conf
 exec --no-startup-id dunst
 exec --no-startup-id pulseeffects --gapplication-service &>/dev/null
