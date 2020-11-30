@@ -28,12 +28,12 @@ alias rm="sudo rm"
 alias pkill="sudo pkill"
 
 alias github="cd /media/storage/GitHub && clear && ls -1"
-alias aosp="cd /media/storage/DroidROM && clear && ls -1"
+alias aosp="cd /media/storage/AOSPK && clear && ls -1"
 
 # Functions for git
 function push () {
-  echo "> Pushing for branch @DroidROM - *${2}*"
-  git push ssh://git@github.com/DroidROM/${1} HEAD:refs/heads/${2} --force
+  echo "> Pushing for branch @AOSPK - *${2}*"
+  git push ssh://git@github.com/AOSPK/${1} HEAD:refs/heads/${2} --force
 }
 
 function pushm () {
@@ -42,8 +42,8 @@ function pushm () {
 }
 
 function clone () {
-  echo "> Cloning @DroidROM/${1} - *${2}*"
-  git clone ssh://git@github.com/DroidROM/${1} -b ${2}
+  echo "> Cloning @AOSPK/${1} - *${2}*"
+  git clone ssh://git@github.com/AOSPK/${1} -b ${2}
 }
 
 function clonem () {

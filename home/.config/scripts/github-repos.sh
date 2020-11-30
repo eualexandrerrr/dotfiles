@@ -20,5 +20,5 @@ done
 
 mv /media/storage/GitHub/mamutal91 /media/storage/GitHub/readme
 
-# DroidROM manifest
-mkdir -p /media/storage/DroidROM && rm -rf /media/storage/DroidROM/manifest && git clone ssh://git@github.com/DroidROM/manifest /media/storage/DroidROM/manifest
+# AOSPK manifest
+mkdir -p /media/storage/AOSPK && rm -rf /media/storage/AOSPK/manifest && git clone ssh://git@github.com/AOSPK/manifest /media/storage/AOSPK/manifest

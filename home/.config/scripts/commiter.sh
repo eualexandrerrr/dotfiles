@@ -10,7 +10,7 @@ repo3="archlinux-installer"
 repo4="readme (mamutal91)"
 repo5="device_xiaomi_beryllium"
 repo6="device_xiaomi_sdm845-common"
-repo7="DroidROM/manifest"
+repo7="AOSPK/manifest"
 
 repos="$repo0\n$repo1\n$repo2\n$repo3\n$repo4\n$repo5\n$repo6\n$repo7"
 
@@ -31,7 +31,7 @@ case $chosen in
     $repo6)
         alacritty -t newcommit --working-directory $dir/device_xiaomi_sdm845-common;;
     $repo7)
-        alacritty -t newcommit --working-directory /media/storage/DroidROM/manifest;;
+        alacritty -t newcommit --working-directory /media/storage/AOSPK/manifest;;
 
 esac
 exit 0;

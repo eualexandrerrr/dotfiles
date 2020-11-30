@@ -4,7 +4,7 @@
 function boot() {
   cd $HOME/.config
   rm -rf alacritty dunst files gpicview i3 neofetch polybar picom rofi scripts
-  rm -rf .bashrc .xinitrc .Xresources .zlogin .zshrc
+  rm -rf .bashrc .xinitrc .Xresources .zlogin .zshrc .config/mime*
   cd /etc/X11 && sudo rm -rf *
 }
 

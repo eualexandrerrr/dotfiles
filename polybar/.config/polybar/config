@@ -57,7 +57,7 @@ height = 30
 radius = 10
 fixed-center = true
 bottom = false
-locale = en_US.UTF-8
+locale = pt_BR.UTF-8
 
 background = ${colors.transparency}
 foreground = ${colors.transparency}
@@ -102,7 +102,7 @@ height = 27
 radius = 7.0
 fixed-center = true
 bottom = true
-locale = en_US.UTF-8
+locale = pt_BR.UTF-8
 
 background = ${colors.transparency}
 foreground = ${colors.transparency}
