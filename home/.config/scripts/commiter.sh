@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 # github.com/mamutal91
 
+# Autocommit
+# iWantToSpeak
+# manual-custom-rom
+
 dir=/media/storage/GitHub
 
 repo0="dotfiles"
