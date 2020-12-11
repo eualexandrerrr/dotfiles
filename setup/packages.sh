@@ -13,7 +13,7 @@ readonly PACKAGES=(
   jsoncpp
   lib32-gnutls lxappearance
   maim mesa mpd mpv
-  nano nano-syntax-highlighting neofetch ntfs-3g numlockx
+  nano nano-syntax-highlighting neofetch ntfs-3g numlockx noto-fonts-emoji
   openssh
   papirus-icon-theme peek pinta pulseaudio pulseaudio-bluetooth pulseeffects python-setuptools
   rofi
