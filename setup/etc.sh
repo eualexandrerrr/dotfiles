@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # github.com/mamutal91
 
+cd /etc/X11 && sudo rm -rf *
+
 # systemd
 sudo rm -rf /etc/systemd/system/getty@tty1.service.d
 sudo mkdir -p /etc/systemd/system/getty@tty1.service.d
