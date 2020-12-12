@@ -164,7 +164,7 @@ format = <label-state> <label-mode>
 
 label-mode = %mode%
 label-mode-padding = 1
-label-mode-background = #
+label-mode-background = ${colors.transparency}
 
 label-focused = %icon%
 label-focused-foreground = ${colors.i3iconfocused}
@@ -178,7 +178,7 @@ label-unfocused-underline = ${colors.transparency}
 label-unfocused-padding = 1
 
 label-urgent = %icon%
-label-urgent-foreground = #c0392b
+label-urgent-foreground = ${colors.i3line}
 label-urgent-background = ${colors.transparency}
 label-urgent-padding = 1
 
