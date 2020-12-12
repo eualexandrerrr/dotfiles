@@ -15,3 +15,5 @@ else
   polybar --reload up &
   polybar --reload down &
 fi
+
+exit 0
