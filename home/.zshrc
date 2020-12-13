@@ -36,21 +36,6 @@ function push () {
   git push ssh://git@github.com/AOSPK/${1} HEAD:refs/heads/${2} --force
 }
 
-function pushm () {
-  echo "> Pushing for branch @mamutal91 - *${2}*"
-  git push ssh://git@github.com/mamutal91/${1} HEAD:refs/heads/${2} --force
-}
-
-function clone () {
-  echo "> Cloning @AOSPK/${1} - *${2}*"
-  git clone ssh://git@github.com/AOSPK/${1} -b ${2}
-}
-
-function clonem () {
-  echo "> Cloning @mamutal91/${1} - *${2}*"
-  git clone ssh://git@github.com/mamutal91/${1} -b ${2}
-}
-
 function cm () {
   git add . && git commit --author "Alexandre Rangel <mamutal91@gmail.com>" && git push -f
 }
@@ -61,13 +46,4 @@ function c () {
 
 function amend () {
   git add . && git commit --amend && git push -f
-}
-
-function blog () {
-  cd /media/storage/GitHub/mamutal91.github.io
-  ./tools/init.sh && git push -fz
-}
-
-function los () {
-  google-chrome-beta https://github.com/LineageOS/android_${1}/tree/${2}
 }
