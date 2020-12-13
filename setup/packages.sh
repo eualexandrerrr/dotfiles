@@ -18,7 +18,7 @@ readonly PACKAGES=(
   papirus-icon-theme peek pinta pulseaudio pulseaudio-bluetooth pulseeffects python-setuptools
   rofi
   sbc scrot stow sox
-  telegram-desktop terminus-font thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman ttf-liberation transmission-gtk
+  terminus-font thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman ttf-liberation transmission-gtk
   unrar unzip
   wget wine
   xclip xorg-xinput xorg-server xorg-xbacklight xorg-xinit xorg-xprop xorg-xrandr
@@ -30,6 +30,7 @@ readonly AUR=(
   etcher
   github-cli google-chrome-beta
   i3-gaps-rounded-git
+  kotatogram-desktop-bin
   oh-my-zsh-git
   picom-ibhagwan-git pinta polybar python-ruamel-yaml
   siji-git spotify
