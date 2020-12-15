@@ -33,6 +33,7 @@ readonly AUR=(
   kotatogram-desktop-bin
   oh-my-zsh-git
   picom-ibhagwan-git pinta polybar python-ruamel-yaml
+  selinux-python
   siji-git spotify
   termsyn-font ttf-dejavu ttf-font-awesome ttf-wps-fonts ttf-ms-fonts
   wps-office wps-office-extension-portuguese-brazilian-dictionary wps-office-fonts wps-office-mui-pt-br
