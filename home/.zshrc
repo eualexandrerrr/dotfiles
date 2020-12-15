@@ -32,7 +32,7 @@ alias aospk="cd /media/storage/AOSPK && clear && ls -1"
 
 # Functions for git
 function push () {
-  echo "> Pushing for branch @AOSPK - *${2}*"
+  echo "github.com/AOSPK/${1} - ${2}"
   git push ssh://git@github.com/AOSPK/${1} HEAD:refs/heads/${2} --force
 }
 
