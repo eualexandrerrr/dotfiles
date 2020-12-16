@@ -16,6 +16,7 @@ cd $HOME/.dotfiles
 for DOTFILES in \
   alacritty \
   dunst \
+  exchange \
   gpicview \
   home \
   i3 \
