@@ -6,17 +6,17 @@ function p () {
 
 # Functions for git
 function push () {
-  echo "> Pushing for branch @AOSPK - *${2}*" && echo
-  git push ssh://git@github.com/AOSPK/${1} HEAD:refs/heads/${2} --force
+  echo "Pushing github.com/AOSPK/${1} - ${2}" && echo
+  git push ssh://git@github.com/AOSPK/${1} HEAD:refs/heads/${2} ${3}
 }
 
 function clone () {
-  echo "> Cloning @AOSPK/${1} - *${2}*" && echo
+  echo "Cloning github.com/AOSPK/${1} - ${2}" && echo
   git clone ssh://git@github.com/AOSPK/${1} -b ${2}
 }
 
 function los () {
-  echo "> Cloning @LineageOS/android_${1} - *${2}*" && echo
+  echo "Cloning github.com/LineageOS/android_${1} - ${2}" && echo
   rm -rf ${1} && git clone https://github.com/LineageOS/android_${1} -b ${2} ${1} && cd ${1}
 }
 
