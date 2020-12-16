@@ -4,8 +4,34 @@ function p () {
   git cherry-pick ${1}
 }
 
+if [[ $HOST = "aspire" ]]; then
+  function cm () {
+    git add . && git commit --author "Alexandre Rangel <mamutal91@gmail.com>"
+  }
+  function c () {
+    git add . && git commit --author "${1}"
+  }
+  function amend () {
+    git add . && git commit --amend && echo vai
+  }
+else
+  function cm () {
+    git add . && git commit --author "Alexandre Rangel <mamutal91@gmail.com>" && git push -f
+  }
+  function c () {
+    git add . && git commit --author "${1}" && git push -f
+  }
+  function amend () {
+    git add . && git commit --amend && git push -f
+  }
+fi
+
 # Functions for git
 function push () {
+  if [ "${3}" = true ];
+  then
+    FORCE="&& git push -f"
+  fi
   echo "Pushing github.com/AOSPK/${1} - ${2}" && echo
   git push ssh://git@github.com/AOSPK/${1} HEAD:refs/heads/${2} ${3}
 }
@@ -18,18 +44,6 @@ function clone () {
 function los () {
   echo "Cloning github.com/LineageOS/android_${1} - ${2}" && echo
   rm -rf ${1} && git clone https://github.com/LineageOS/android_${1} -b ${2} ${1} && cd ${1}
-}
-
-function cm () {
-  git add . && git commit --author "Alexandre Rangel <mamutal91@gmail.com>"
-}
-
-function c () {
-  git add . && git commit --author "${1}"
-}
-
-function amend () {
-  git add . && git commit --amend
 }
 
 function up() {

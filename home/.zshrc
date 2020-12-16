@@ -28,19 +28,8 @@ alias systemctl="sudo systemctl"
 alias p="git cherry-pick ${1}"
 alias rm="sudo rm"
 alias pkill="sudo pkill"
+alias chmod="sudo chmod"
 
 alias github="cd /media/storage/GitHub && clear && ls -1"
 alias aospk="cd /media/storage/AOSPK && clear && ls -1"
 alias x="cd /home/rom/AOSPK"
-
-function cm () {
-  git add . && git commit --author "Alexandre Rangel <mamutal91@gmail.com>" && git push -f
-}
-
-function c () {
-  git add . && git commit --author "${1}" && git push -f
-}
-
-function amend () {
-  git add . && git commit --amend && git push -f
-}
