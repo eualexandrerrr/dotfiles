@@ -4,7 +4,8 @@
 function boot() {
   cd $HOME/.config
   rm -rf alacritty dunst files gpicview i3 neofetch polybar picom rofi scripts
-  rm -rf .bashrc .xinitrc .Xresources .zlogin .zshrc .config/mimeapps.list
+  rm -rf .bashrc .xinitrc .Xresources .zlogin .zshrc
+  sudo rm -rf .config/mimeapps.list
 }
 
 if [ "${1}" == "boot" ]; then boot; fi || echo "Error: boot"
@@ -21,7 +22,7 @@ for DOTFILES in \
   polybar \
   rofi
 do
-    stow $DOTFILES || echo "Error on gnu/stow" || echo "Error: stow"
+    stow $DOTFILES || echo "Error on gnu/stow"
 done
 
 # Remove files from the system, and copy mine!

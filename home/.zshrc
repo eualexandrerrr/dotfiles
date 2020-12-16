@@ -20,6 +20,8 @@ export TERM="xterm-256color"
 export EDITOR="nano"
 export BROWSER="/usr/bin/google-chrome-beta"
 
+source $HOME/.cmds.sh
+
 alias nano="sudo nano"
 alias pacman="sudo pacman"
 alias systemctl="sudo systemctl"
@@ -29,12 +31,7 @@ alias pkill="sudo pkill"
 
 alias github="cd /media/storage/GitHub && clear && ls -1"
 alias aospk="cd /media/storage/AOSPK && clear && ls -1"
-
-# Functions for git
-function push () {
-  echo "github.com/AOSPK/${1} - ${2}"
-  git push ssh://git@github.com/AOSPK/${1} HEAD:refs/heads/${2} --force
-}
+alias x="cd /home/rom/AOSPK"
 
 function cm () {
   git add . && git commit --author "Alexandre Rangel <mamutal91@gmail.com>" && git push -f
