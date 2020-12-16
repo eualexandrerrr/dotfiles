@@ -2,7 +2,7 @@
 # github.com/mamutal91
 
 dir="/media/storage/GitHub/"
-readonly repos=('mamutal91.github.io' 'manual-custom-rom')
+readonly repos=('mamutal91.github.io' 'manual-custom-rom' 'scripts')
 
 function gitcron() {
   for i in "${repos[@]}"; do
