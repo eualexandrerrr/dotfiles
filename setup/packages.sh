@@ -31,6 +31,7 @@ readonly AUR=(
   github-cli google-chrome-beta
   i3-gaps-rounded-git
   kotatogram-desktop-bin
+  nano-syntax-highlighting-git
   oh-my-zsh-git
   picom-ibhagwan-git pinta polybar python-ruamel-yaml
   selinux-python

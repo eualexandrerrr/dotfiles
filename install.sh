@@ -7,7 +7,7 @@ function boot() {
   cd $HOME/.config
   rm -rf alacritty dunst files gpicview i3 neofetch polybar picom rofi scripts mimeapps.list
   cd $HOME
-  rm -rf .bashrc .xinitrc .Xresources .zlogin .zshrc .cmds.sh
+  rm -rf .bashrc .xinitrc .Xresources .zlogin .zshrc .cmds.sh .nanorc
 }
 
 if [ "${1}" == "boot" ]; then boot; fi || echo "Error: boot"
