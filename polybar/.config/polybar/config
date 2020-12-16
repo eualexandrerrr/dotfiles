@@ -128,7 +128,7 @@ font-2 = "Font Awesome 5 Free:style=Solid:pixelsize=8"
 font-3 = "Font Awesome 5 Brands:pixelsize=8"
 font-4 = "Font Awesome 5 Free:style=Regular:pixelsize=15"
 
-modules-left = memory cpu kernel
+modules-left = memory cpu kernel arch-updates
 modules-center = spotify
 modules-right = ethernet wireless brightness volume
 
@@ -404,6 +404,15 @@ type = custom/script
 exec = $HOME/.config/scripts/spotify.sh "%artist%  %title%"
 tail = true
 label-maxlen = 100
+
+[module/arch-updates]
+type = custom/script
+exec = "checkupdates | wc -l"
+format = <label>
+format-prefix = " pacman "
+format-prefix-foreground = ${colors.icon}
+format-foreground = ${colors.font}
+interval = 5
 
 [settings]
 pseudo-transparency = true
