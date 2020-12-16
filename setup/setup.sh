@@ -10,7 +10,9 @@ git config --global user.email "mamutal91@gmail.com" && git config --global user
 sudo pacman -Syyu --noconfirm
 
 # Install YAY and PACAUR AUR Manager
+pwd=$(pwd)
 git clone https://aur.archlinux.org/yay.git $HOME/yay && cd "$HOME/yay" && makepkg -si --noconfirm && rm -rf $HOME/yay
+cd $pwd
 
 # Load packages
 source $HOME/.dotfiles/setup/packages.sh
