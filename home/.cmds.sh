@@ -4,17 +4,7 @@ function p () {
   git cherry-pick ${1}
 }
 
-if [[ $HOST = "aspire" ]]; then
-  function cm () {
-    git add . && git commit --author "Alexandre Rangel <mamutal91@gmail.com>"
-  }
-  function c () {
-    git add . && git commit --author "${1}"
-  }
-  function amend () {
-    git add . && git commit --amend && echo vai
-  }
-else
+if [ $HOST = "aspire" ]; then
   function cm () {
     git add . && git commit --author "Alexandre Rangel <mamutal91@gmail.com>" && git push -f
   }
@@ -23,6 +13,16 @@ else
   }
   function amend () {
     git add . && git commit --amend && git push -f
+  }
+else
+  function cm () {
+    git add . && git commit --author "Alexandre Rangel <mamutal91@gmail.com>"
+  }
+  function c () {
+    git add . && git commit --author "${1}"
+  }
+  function amend () {
+    git add . && git commit --amend
   }
 fi
 
@@ -76,12 +76,4 @@ function vendor () {
 }
 
 function www () {
-}
-
-# Update scripts
-function cmds () {
-  pwd=$(pwd)
-  cd $HOME
-  rm -rf $HOME/.cmds.sh && wget https://raw.githubusercontent.com/mamutal91/dotfiles/master/home/.cmds.sh && chmod +x $HOME/.cmds.sh && source $HOME/.zshrc
-  cd $pwd
 }
