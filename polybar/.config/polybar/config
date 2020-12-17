@@ -45,10 +45,7 @@ i3iconfocused = #6192A8
 i3iconunfocused = #6192A8
 i3line = #c0392b
 
-########################################################
 # bar up
-########################################################
-
 [bar/up]
 monitor = ${env:MONITOR:}
 monitor-strict = false
@@ -90,10 +87,7 @@ modules-right = root storage date hour battery
 cursor-click = pointer
 cursor-scroll = ns-resize
 
-########################################################
 # bar down
-########################################################
-
 [bar/down]
 monitor = ${env:MONITOR:}
 monitor-strict = false
@@ -135,10 +129,7 @@ modules-right = ethernet wireless brightness volume
 cursor-click = pointer
 cursor-scroll = ns-resize
 
-########################################################
 # Modules
-########################################################
-
 [module/i3]
 type = internal/i3
 pin-workspaces = true

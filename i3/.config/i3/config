@@ -97,9 +97,7 @@ mode "resize" {
 }
 bindsym $super+r mode "resize"
 
-####################
 # Startup
-####################
 exec_always --no-startup-id $HOME/.config/scripts/polybar-launch.sh
 exec_always --no-startup-id $HOME/.config/scripts/battery.sh
 exec_always --no-startup-id $HOME/.config/scripts/wallpaper.sh
@@ -114,10 +112,7 @@ exec --no-startup-id "pactl set-sink-mute @DEFAULT_SINK@ false; pactl set-sink-v
 exec --no-startup-id xidlehook --not-when-audio --not-when-fullscreen --timer 600 '$HOME/.config/scripts/i3lock.sh -t -ef -n' ''
 exec --no-startup-id xinput --set-prop 13 'libinput Accel Speed' 0.7
 
-####################
 # Shortcuts
-####################
-
 # Start Rofi menu
 bindsym $super+d exec --no-startup-id rofi -show drun -display-run -show-icons -width 30 "Arch Linux -"
 
@@ -147,9 +142,7 @@ bindsym $super+F4 exec --no-startup-id atom &; workspace $ws3
 bindsym F10 exec --no-startup-id $HOME/.config/scripts/commiter.sh &
 bindsym F11 exec --no-startup-id i3-msg restart
 
-####################
-# Rules
-####################
+# Get rules
 # xprop |awk '/^WM_CLASS/{sub(/.* =/, "instance:"); sub(/,/, "\nclass:"); print} /^WM_NAME/{sub(/.* =/, "title:"); print}'
 
 for_window [class=".*"] border pixel 0, focus
