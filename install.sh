@@ -16,14 +16,14 @@ cd $HOME/.dotfiles
 for DOTFILES in \
   alacritty \
   dunst \
-  exchange \
   gpicview \
   home \
   i3 \
   neofetch \
   picom \
   polybar \
-  rofi
+  rofi \
+  scripts
 do
     stow $DOTFILES || echo "Error on gnu/stow"
 done
