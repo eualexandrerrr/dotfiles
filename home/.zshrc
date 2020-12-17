@@ -29,6 +29,7 @@ alias chmod="sudo chmod"
 alias github="cd /media/storage/GitHub && clear && ls -1"
 alias aospk="cd /media/storage/AOSPK && clear && ls -1"
 alias x="cd /home/rom/AOSPK"
+alias buildbot="cd /home/buildbot"
 
 source $HOME/.cmds.sh
 
