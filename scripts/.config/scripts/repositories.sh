@@ -7,8 +7,7 @@ for github in \
     mamutal91.github.io \
     archlinux-installer \
     buildbot \
-    scripts \
-    manual-custom-rom \
+    custom-rom \
     iWantToSpeak \
     zsh-history \
     device_xiaomi_beryllium \
