@@ -5,57 +5,16 @@
 # -u = Fullscreen
 
 dir="${HOME}/Images/Screenshots/"
-
-app="maim"
-#params="-u"
-params=""
-data=$(date +%Y-%m-%d_%H-%M-%S)
-name="ss-${data}"
-ext=".png"
-delay=10
 icon="$HOME/.config/files/icons/screenshot.png"
-tipo="image/png"
-trash="${HOME}/.local/share/Trash"
-border="10"
 
-[ ! -d $dir ] && mkdir -p $dir
-[ ! -d $trash ] && mkdir -p $trash
+params=${1}
+date=$(date +%Y-%m-%d_%H-%M-%S)
+name="ss-${date}"
+file="$name.png"
 
-if [ "$1" == "-c" ]; then
-	icon="${HOME}/.local/share/icons/elementary/user-trash.png"
-	listagem=(${dir}*)
-	if [ ${#listagem[@]} -gt 0 ]; then
-		mv ${dir}* ${trash}/files/
-		msg="Pasta de screenshots limpa!"
-		export DISPLAY=:0 ; canberra-gtk-play -i trash-empty 2>&1
-	else
-		msg="Pasta de screenshots já está vazia!"
-	fi
-	exit 0
-elif [ "$1" == "-w" ]; then
-	[ "$app" == "maim" ] && params="$params -i $(xdotool getactivewindow) -p $border" || params="$params -w"
-	file="${name}-window${ext}"
-	$app $params ${dir}${file}
-elif [ "$1" == "-s" ]; then
-	params="$params -s"
-	file="${name}-sel${ext}"
-	$app -d 2 $params ${dir}${file}
-elif [ "$1" == "-d" ]; then
-	params="$params -d $delay"
-	file="${name}-delay${ext}"
-	$app $params ${dir}${file}
-elif [ "$1" == "-e" ]; then
-	file="${name}-edit${ext}"
-	$app $params ${dir}${file}
-	viewnior ${dir}${file}
-else
-	file="${name}${ext}"
-	$app $params ${dir}${file}
-fi
+maim $params $dir$file
 
-if [ ! -z $file ]; then
-	xclip -selection c -t $tipo -i $dir$file
-fi
+xclip -selection c -t image/png -i $dir$file
 
 notify-send -i $icon "Captura de tela" "$msg $name"
 play $HOME/.config/files/sounds/screenshot.wav
