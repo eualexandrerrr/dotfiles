@@ -2,7 +2,7 @@
 # github.com/mamutal91
 
 list_descendants () {
-  local children=$(ps -o pid= --ppid "$1")
+  local children=$(ps -o pid= --ppid "${1}")
 
   for pid in $children
   do
@@ -19,8 +19,8 @@ date=$(date +%Y-%m-%d_%H-%M-%S)
 icon="${HOME}/.config/files/icons/screencast.png"
 resolution=$(xrandr | grep '*' | awk 'NR==1{print $1}')
 
-APPS=("ffmpeg" "xrandr" "pacmd")
-for APP in ${APPS[@]}
+apps=("ffmpeg" "xrandr" "pacmd")
+for APP in ${apps[@]}
 do
     command -v $APP >/dev/null 2>&1 || { echo >&2 "O aplicativo $APP não está instalado. Abortando."; exit 1; }
 done

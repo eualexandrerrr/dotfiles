@@ -8,7 +8,7 @@ pwd_atom_packages=$(pwd)
 
 rm -rf $HOME/.tmp && mkdir $HOME/.tmp && cd $HOME/.tmp
 
-for PACKAGE in \
+for package in \
     Glavin001/atom-beautify \
     Overload119/indent-sort \
     abe33/atom-pigments \
@@ -21,10 +21,10 @@ for PACKAGE in \
     thomaslindstrom/color-picker \
     zhuochun/md-writer
 do
-    git clone https://github.com/$PACKAGE
+    git clone https://github.com/$package
 done
 
-PACKAGE='
+package='
   atom-beautify
   atom-translator
   color-picker
@@ -37,6 +37,6 @@ PACKAGE='
   save-workspace
   set-syntax
   '
-apm install $PACKAGE
+apm install $package
 
 cd $pwd_atom_packages

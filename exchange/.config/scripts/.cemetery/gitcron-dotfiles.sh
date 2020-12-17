@@ -2,8 +2,8 @@
 # github.com/mamutal91
 
 dotfiles() {
-	if [ -d $1 ]; then
-		if [ ! -f $1/.noup ]; then
+	if [ -d ${1} ]; then
+		if [ ! -f ${1}/.noup ]; then
 			cd /media/storage/GitHub/dotfiles
 			status=$(git add . -n)
 			if [ ! -z "$status" ]; then
