@@ -19,7 +19,6 @@ export TERM="xterm-256color"
 export EDITOR="nano"
 export BROWSER="/usr/bin/google-chrome-beta"
 
-alias nano="sudo nano"
 alias pacman="sudo pacman"
 alias systemctl="sudo systemctl"
 alias rm="sudo rm"
