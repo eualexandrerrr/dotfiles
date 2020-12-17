@@ -413,6 +413,7 @@ format-prefix = " pacman "
 format-prefix-foreground = ${colors.icon}
 format-foreground = ${colors.font}
 interval = 5
+click-left = alacritty -e $HOME/.config/scripts/pacman-update.sh
 
 [settings]
 pseudo-transparency = true
