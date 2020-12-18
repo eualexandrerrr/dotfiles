@@ -32,12 +32,11 @@ readonly AUR=(
   i3-gaps-rounded-git
   layan-gtk-theme-git
   kotatogram-desktop-bin
-  nano-syntax-highlighting-git nerd-fonts-git
-  oh-my-zsh-git
+  nano-syntax-highlighting-git
   papirus-icon-theme-git picom-ibhagwan-git pinta polybar python-ruamel-yaml
   selinux-python
   siji-git spotify
-  ttf-dejavu ttf-wps-fonts ttf-ms-fonts
+  ttf-font-awesome ttf-dejavu ttf-wps-fonts ttf-ms-fonts
   wps-office wps-office-extension-portuguese-brazilian-dictionary wps-office-fonts wps-office-mui-pt-br
   xidlehook
   zsh-syntax-highlighting

@@ -3,11 +3,18 @@
 
 clear
 
+function polybar() {
+  cd $HOME/.dotfiles/polybar/.config/polybar
+  rm -rf colors.conf
+  cp -rf colors.save colors.conf
+}
+
 function boot() {
   cd $HOME/.config
   rm -rf alacritty dunst files gpicview i3 neofetch polybar picom rofi scripts mimeapps.list
   cd $HOME
   rm -rf .bashrc .xinitrc .Xresources .zlogin .zshrc .cmds.sh .nanorc
+  polybar
 }
 
 if [ "${1}" == "boot" ]; then boot; fi || echo "Error: boot"
