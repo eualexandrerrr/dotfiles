@@ -14,3 +14,8 @@ sudo cp -rf $HOME/.dotfiles/etc/systemd/logind.conf /etc/systemd/
 # X11
 sudo rm -rf /etc/X11
 sudo cp -rf $HOME/.dotfiles/etc/X11 /etc
+
+# modprobe.d
+sudo rm -rf /etc/modprobe.d/ath10k_pci.conf
+sudo mkdir -p /etc/modprobe.d/
+sudo cp -rf $HOME/.dotfiles/etc/modprobe.d/ath10k_pci.conf /etc/modprobe.d/
