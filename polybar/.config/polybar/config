@@ -63,7 +63,7 @@ font-4 = "Font Awesome 5 Free:style=Regular:pixelsize=15"
 
 modules-left = window
 modules-center = i3
-modules-right = root storage calendar battery
+modules-right = calendar battery
 
 cursor-click = pointer
 cursor-scroll = ns-resize
@@ -165,30 +165,6 @@ label = %title%
 label-maxlen = 50
 label-empty = Sem janelas
 label-empty-foreground = ${colors.font}
-
-[module/root]
-type = internal/fs
-mount-0 = /
-interval = 10
-fixed-values = true
-format-mounted-prefix = " "
-format-mounted-prefix-foreground = ${colors.icon}
-format-mounted-underline = ${colors.transparency}
-format-mounted = <label-mounted>
-label-mounted = %used%
-label-mounted-foreground = ${colors.font}
-
-[module/storage]
-type = internal/fs
-mount-0 = /media/storage
-interval = 10
-fixed-values = true
-format-mounted-prefix = " "
-format-mounted-prefix-foreground = ${colors.icon}
-format-mounted-underline = ${colors.transparency}
-format-mounted = <label-mounted>
-label-mounted = %used%
-label-mounted-foreground = ${colors.font}
 
 [module/kernel]
 type = custom/script
