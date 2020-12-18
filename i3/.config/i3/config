@@ -12,7 +12,7 @@
 # use super/alt/control key
 set $super Mod4
 set $alt Mod1
-set $ctrl Control
+set $control Control
 set $shift Shift
 
 # Define names for workspaces
@@ -33,16 +33,16 @@ floating_modifier $super
 bindsym $super+w kill
 
 # Move windows
-bindsym $ctrl+$shift+Left move left
-bindsym $ctrl+$shift+Down move down
-bindsym $ctrl+$shift+Up move up
-bindsym $ctrl+$shift+Right move right
+bindsym $control+$shift+Left move left
+bindsym $control+$shift+Down move down
+bindsym $control+$shift+Up move up
+bindsym $control+$shift+Right move right
 
 # Enter fullscreen mode with window focused
 bindsym $super+f fullscreen toggle
 
 # Floating window
-bindsym $ctrl+$shift+space floating toggle
+bindsym $control+$shift+space floating toggle
 
 # Workspaces
 bindsym $super+1 workspace $ws1
@@ -56,24 +56,24 @@ bindsym $super+8 workspace $ws8
 bindsym $super+9 workspace $ws9
 
 # Move to workspace
-bindsym $ctrl+$shift+1 move container to workspace $ws1; workspace $ws1
-bindsym $ctrl+$shift+2 move container to workspace $ws2; workspace $ws2
-bindsym $ctrl+$shift+3 move container to workspace $ws3; workspace $ws3
-bindsym $ctrl+$shift+4 move container to workspace $ws4; workspace $ws4
-bindsym $ctrl+$shift+5 move container to workspace $ws5; workspace $ws5
-bindsym $ctrl+$shift+6 move container to workspace $ws6; workspace $ws6
-bindsym $ctrl+$shift+7 move container to workspace $ws7; workspace $ws7
-bindsym $ctrl+$shift+8 move container to workspace $ws8; workspace $ws8
-bindsym $ctrl+$shift+9 move container to workspace $ws9; workspace $ws9
+bindsym $control+$shift+1 move container to workspace $ws1; workspace $ws1
+bindsym $control+$shift+2 move container to workspace $ws2; workspace $ws2
+bindsym $control+$shift+3 move container to workspace $ws3; workspace $ws3
+bindsym $control+$shift+4 move container to workspace $ws4; workspace $ws4
+bindsym $control+$shift+5 move container to workspace $ws5; workspace $ws5
+bindsym $control+$shift+6 move container to workspace $ws6; workspace $ws6
+bindsym $control+$shift+7 move container to workspace $ws7; workspace $ws7
+bindsym $control+$shift+8 move container to workspace $ws8; workspace $ws8
+bindsym $control+$shift+9 move container to workspace $ws9; workspace $ws9
 
 # Next workspaces
 bindsym $super+Tab workspace next
 
 # split in horizontal orientation
-#bindsym $ctrl+$shift+h split h
+#bindsym $control+$shift+h split h
 
 # split in vertical orientation
-#bindsym $ctrl+$shift+v split v
+#bindsym $control+$shift+v split v
 
 # i3-gaps
 gaps inner 10
@@ -126,10 +126,10 @@ bindsym XF86MonBrightnessDown exec  --no-startup-id echo $((`cat /sys/class/back
 
 # Screenshot
 bindsym Print exec --no-startup-id $HOME/.config/scripts/screenshot.sh -s Recorte
-bindsym $ctrl+Print exec --no-startup-id $HOME/.config/scripts/screenshot.sh -u Fullscreen
+bindsym $control+Print exec --no-startup-id $HOME/.config/scripts/screenshot.sh -u Fullscreen
 
 # Screencast
-bindsym $ctrl+K exec --no-startup-id $HOME/.config/scripts/screencast.sh
+bindsym $control+K exec --no-startup-id $HOME/.config/scripts/screencast.sh
 
 # Application shortcuts
 bindsym $super+Return exec --no-startup-id alacritty &; workspace $ws1
