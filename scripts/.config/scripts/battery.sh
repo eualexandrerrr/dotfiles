@@ -11,16 +11,14 @@ do
   status=$(cat "$bat"/status)
 
   if [ "$status" = "Discharging" ]; then
-    if [ "$level" -le 10 ]; then
+    if [ "$level" -le 15 ]; then
       notify-send -i $icon --urgency=low "Bateria está abaixo de 15%" "Por favor plugue-o na tomada!"
       play $HOME/.config/files/sounds/battery.wav
     fi
   else
     echo "Charging..."
-    if [ "$level" -eq 98 ]; then
-      notify-send -i $icon "Bateria está carrega!" "Pode remover da tomada!"
-    elif [ "$level" -ge 80 ]; then
-      notify-send -i $icon "Bateria está carregando acima de 80%" "Por favor tire-o da tomada!"
+    if [ "$level" -eq 80 ]; then
+      notify-send -i $icon "Bateria está 80% carregada!" "Pode remover da tomada!"
     fi
   fi
 done
