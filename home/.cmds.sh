@@ -114,3 +114,12 @@ function hals () {
   home/buildbot/scripts/hal/limp.sh pn5xx
   home/buildbot/scripts/hal/limp.sh sn100x
 }
+
+function www() {
+  cd $HOME && rm -rf www
+  git clone ssh://git@github.com/AOSPK/www
+  sudo rm -rf /home/www
+  sudo mv www ..
+  cd /home/www
+  sudo npm i && sudo npm run build
+}
