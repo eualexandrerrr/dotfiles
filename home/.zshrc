@@ -19,13 +19,16 @@ export TERM="xterm-256color"
 export EDITOR="nano"
 export BROWSER="/usr/bin/google-chrome-beta"
 
+# sudo easy
 alias chmod="sudo chmod"
 alias mv="sudo mv"
 alias pacman="sudo pacman"
 alias pkill="sudo pkill"
 alias rm="sudo rm"
 alias systemctl="sudo systemctl"
+alias sed="sudo sed"
 
+# paths
 alias github="cd /media/storage/GitHub && clear && ls -1"
 alias aospk="cd /media/storage/AOSPK && clear && ls -1"
 alias x="cd /home/rom/AOSPK"
