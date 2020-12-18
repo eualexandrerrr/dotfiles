@@ -129,7 +129,7 @@ bindsym Print exec --no-startup-id $HOME/.config/scripts/screenshot.sh -s Recort
 bindsym $control+Print exec --no-startup-id $HOME/.config/scripts/screenshot.sh -u Fullscreen
 
 # Screencast
-bindsym $control+K exec --no-startup-id $HOME/.config/scripts/screencast.sh
+bindsym $control+$shift+K exec --no-startup-id $HOME/.config/scripts/screencast.sh
 
 # Application shortcuts
 bindsym $super+Return exec --no-startup-id alacritty &; workspace $ws1
