@@ -24,7 +24,7 @@
     show_indicators = yes
     icon_position = left
     max_icon_size = 0
-    icon_path = /usr/share/icons/Papirus-Dark/24x24/status/:/usr/share/icons/Papirus-Dark/24x24/devices/
+    icon_path = /usr/share/icons/Papirus-Dark/32x32/status/:/usr/share/icons/Papirus-Dark/32x32/devices/
     history_length = 10
     dmenu = /usr/bin/dmenu -p dunst:
     browser = /usr/bin/google-chrome-beta -new-tab
