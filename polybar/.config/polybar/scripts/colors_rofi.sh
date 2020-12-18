@@ -13,10 +13,10 @@ BACKGROUND_ALT="#F5F5F5"
 HIGHLIGHT_BACKGROUND="#E7E7E7"
 HIGHLIGHT_FOREGROUND="#CC6666"
 
-SDIR="$HOME/.config/polybar/scripts"
+sdir="$HOME/.config/polybar/scripts"
 
 # Launch Rofi
-MENU="$(rofi -no-lazy-grab -sep "|" -dmenu -i -p 'Style :' \
+menu="$(rofi -no-lazy-grab -sep "|" -dmenu -i -p 'Style :' \
 -hide-scrollbar true \
 -bw 0 \
 -lines 5 \
@@ -34,25 +34,25 @@ MENU="$(rofi -no-lazy-grab -sep "|" -dmenu -i -p 'Style :' \
 -color-active "$BACKGROUND,$MAGENTA,$BACKGROUND_ALT,$HIGHLIGHT_BACKGROUND,$HIGHLIGHT_FOREGROUND" \
 -color-urgent "$BACKGROUND,$YELLOW,$BACKGROUND_ALT,$HIGHLIGHT_BACKGROUND,$HIGHLIGHT_FOREGROUND" \
 <<< "♥ amber|♥ blue|♥ blue-grey|♥ brown|♥ cyan|♥ deep-orange|♥ deep-purple|♥ green|♥ grey|♥ indigo|♥ blue-light|♥ green-light|♥ lime|♥ orange|♥ pink|♥ purple|♥ red|♥ teal|♥ yellow")"
-            case "$MENU" in
+            case "$menu" in
 				## Colors
-				*amber) $SDIR/colors.sh -amber ;;
-				*blue) $SDIR/colors.sh -blue ;;
-				*blue-grey) $SDIR/colors.sh -blue-grey ;;
-				*brown) $SDIR/colors.sh -brown ;;
-				*cyan) $SDIR/colors.sh -cyan ;;
-				*deep-orange) $SDIR/colors.sh -deep-orange ;;
-				*deep-purple) $SDIR/colors.sh -deep-purple ;;
-				*green) $SDIR/colors.sh -green ;;
-				*grey) $SDIR/colors.sh -grey ;;
-				*indigo) $SDIR/colors.sh -indigo ;;
-				*blue-light) $SDIR/colors.sh -light-blue ;;
-				*green-light) $SDIR/colors.sh -light-green ;;
-				*lime) $SDIR/colors.sh -lime ;;
-				*orange) $SDIR/colors.sh -orange ;;
-				*pink) $SDIR/colors.sh -pink ;;
-				*purple) $SDIR/colors.sh -purple ;;
-				*red) $SDIR/colors.sh -red ;;
-				*teal) $SDIR/colors.sh -teal ;;
-				*yellow) $SDIR/colors.sh -yellow
+				*amber) $sdir/colors.sh -amber ;;
+				*blue) $sdir/colors.sh -blue ;;
+				*blue-grey) $sdir/colors.sh -blue-grey ;;
+				*brown) $sdir/colors.sh -brown ;;
+				*cyan) $sdir/colors.sh -cyan ;;
+				*deep-orange) $sdir/colors.sh -deep-orange ;;
+				*deep-purple) $sdir/colors.sh -deep-purple ;;
+				*green) $sdir/colors.sh -green ;;
+				*grey) $sdir/colors.sh -grey ;;
+				*indigo) $sdir/colors.sh -indigo ;;
+				*blue-light) $sdir/colors.sh -light-blue ;;
+				*green-light) $sdir/colors.sh -light-green ;;
+				*lime) $sdir/colors.sh -lime ;;
+				*orange) $sdir/colors.sh -orange ;;
+				*pink) $sdir/colors.sh -pink ;;
+				*purple) $sdir/colors.sh -purple ;;
+				*red) $sdir/colors.sh -red ;;
+				*teal) $sdir/colors.sh -teal ;;
+				*yellow) $sdir/colors.sh -yellow
             esac
