@@ -9,6 +9,7 @@ pwd_atom_packages=$(pwd)
 rm -rf $HOME/.tmp && mkdir $HOME/.tmp && cd $HOME/.tmp
 
 for package in \
+    atom-material/atom-material-syntax \
     Glavin001/atom-beautify \
     Overload119/indent-sort \
     abe33/atom-pigments \
@@ -25,6 +26,7 @@ do
 done
 
 package='
+  atom-material-syntax
   atom-beautify
   atom-translator
   color-picker
