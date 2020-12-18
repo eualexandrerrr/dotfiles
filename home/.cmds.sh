@@ -116,10 +116,12 @@ function hals () {
 }
 
 function www() {
+  pwd=$(pwd)
   cd $HOME && rm -rf www
   git clone ssh://git@github.com/AOSPK/www
   sudo rm -rf /home/www
   sudo mv www ..
   cd /home/www
   sudo npm i && sudo npm run build
+  cd $pwd
 }
