@@ -18,7 +18,7 @@ list_descendants () {
 PRESET="ultrafast"
 ext="mp4"
 date=$(date +%Y-%m-%d_%H-%M-%S)
-resolution=$(xrandr | grep '*' | awk 'NR==1{print $1}')
+resolution=$(xrandr | grep '*' | awk 'NR==1{print ${1}}')
 
 apps=("ffmpeg" "xrandr" "pacmd")
 for APP in ${apps[@]}

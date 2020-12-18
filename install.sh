@@ -31,8 +31,7 @@ done
 # Remove files from the system, and copy mine!
 source $HOME/.dotfiles/setup/etc.sh || echo "Error: etc"
 
-$HOME/.dotfiles/scripts/.config/scripts/polybar-launch.sh
+$HOME/.dotfiles/polybar/.config/polybar/launch.sh || echo "Error: polybar"
 play $HOME/.config/files/sounds/completed.wav
 i3-msg restart
-sleep 1
 exit 0
