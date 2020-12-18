@@ -26,8 +26,8 @@ i3iconfocused = #6192A8
 i3iconunfocused = #6192A8
 i3line = #c0392b
 
-# bar up
-[bar/up]
+# bar main
+[bar/main]
 monitor = ${env:MONITOR:}
 monitor-strict = false
 width = 100%
@@ -135,24 +135,25 @@ ws-icon-8 = 9; empty
 format = <label-state> <label-mode>
 
 label-mode = %mode%
-label-mode-padding = 1
-label-mode-background = ${colors.transparency}
+label-active = %name%
+label-active-foreground = ${color.fg-alt}
+label-active-background = ${color.shade6}
 
-label-focused = %icon%
-label-focused-foreground = ${colors.i3iconfocused}
-label-focused-background = ${colors.transparency}
-label-focused-underline = ${colors.i3line}
-label-focused-padding = 1
-
-label-unfocused = %icon%
-label-unfocused-foreground = ${colors.i3iconunfocused}
-label-unfocused-underline = ${colors.transparency}
-label-unfocused-padding = 1
+label-occupied = %icon%
+label-occupied-underline = ${color.fg}
 
 label-urgent = %icon%
-label-urgent-foreground = ${colors.i3line}
-label-urgent-background = ${colors.transparency}
-label-urgent-padding = 1
+label-urgent-foreground = ${color.bg}
+label-urgent-background = ${color.bg}
+
+label-empty = %name%
+label-empty-background = ${color.bg}
+label-empty-foreground = ${color.fg}
+
+label-active-padding = 2
+label-urgent-padding = 2
+label-occupied-padding = 2
+label-empty-padding = 2
 
 [module/window]
 type = internal/xwindow
@@ -314,11 +315,11 @@ format-full-prefix-foreground = #AAB5E6
 label-full = 100%
 label-full-foreground = ${colors.font}
 
-ramp-capacity-0 = 
+ramp-capacity-0 = 
 ramp-capacity-1 = 
-ramp-capacity-2 = 
-ramp-capacity-3 = 
-ramp-capacity-4 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = ﴅ
 
 bar-capacity-width = 20
 
