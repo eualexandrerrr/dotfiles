@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # github.com/mamutal91
 
-icon="$HOME/.config/files/icons/battery.png"
+icon="${iconpath}/battery.svg"
 
 bat="/sys/class/power_supply/BAT1"
 
@@ -17,10 +17,10 @@ do
     fi
   else
     echo "Charging..."
-#    if [ "$level" -eq 98 ]; then
-#      notify-send -i $icon "Bateria está carrega!" "Pode remover da tomada!"
-#    elif [ "$level" -ge 80 ]; then
-#      notify-send -i $icon "Bateria está carregando acima de 80%" "Por favor tire-o da tomada!"
-#    fi
+    if [ "$level" -eq 98 ]; then
+      notify-send -i $icon "Bateria está carrega!" "Pode remover da tomada!"
+    elif [ "$level" -ge 80 ]; then
+      notify-send -i $icon "Bateria está carregando acima de 80%" "Por favor tire-o da tomada!"
+    fi
   fi
 done

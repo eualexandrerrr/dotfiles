@@ -4,8 +4,7 @@
 # -s = Recorte
 # -u = Fullscreen
 
-dir="${HOME}/Images/Screenshots/"
-icon="$HOME/.config/files/icons/screenshot.png"
+icon="${iconpath}/blueman-camera.svg"
 
 params=${1}
 date=$(date +%Y-%m-%d_%H-%M-%S)
@@ -18,4 +17,5 @@ xclip -selection c -t image/png -i $dir$file
 
 notify-send -i $icon "Captura de tela" "$msg $name"
 play $HOME/.config/files/sounds/screenshot.wav
+echo $icon
 exit 0

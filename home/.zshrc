@@ -19,6 +19,8 @@ export TERM="xterm-256color"
 export EDITOR="nano"
 export BROWSER="/usr/bin/google-chrome-beta"
 
+export iconpath="/usr/share/icons/Papirus-Dark/32x32/devices"
+
 # sudo easy
 alias chmod="sudo chmod"
 alias mv="sudo mv"

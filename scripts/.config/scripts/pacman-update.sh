@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # github.com/mamutal91
 
-icon="$HOME/.config/files/icons/pacman.png"
+icon="${iconpath}/modem.svg"
 
 sleep 1
 

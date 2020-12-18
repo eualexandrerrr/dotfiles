@@ -1,6 +1,6 @@
 [global]
     monitor = 0
-    geometry = "350x20-1160+50"
+    geometry = "350x20-20+50"
     #corner_radius = 20
     alignment = left
     indicate_hidden = yes

@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # github.com/mamutal91
 
+icon="${iconpath}/camera-web.svg"
+
 list_descendants () {
   local children=$(ps -o pid= --ppid "${1}")
 
@@ -16,7 +18,6 @@ list_descendants () {
 PRESET="ultrafast"
 ext="mp4"
 date=$(date +%Y-%m-%d_%H-%M-%S)
-icon="${HOME}/.config/files/icons/screencast.png"
 resolution=$(xrandr | grep '*' | awk 'NR==1{print $1}')
 
 apps=("ffmpeg" "xrandr" "pacmd")
