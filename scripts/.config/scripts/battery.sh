@@ -12,7 +12,7 @@ do
 
   if [ "$status" = "Discharging" ]; then
     if [ "$level" -le 10 ]; then
-      notify-send -i $icon "Bateria está abaixo de 15%" "Por favor plugue-o na tomada!"
+      notify-send -i $icon --urgency=low "Bateria está abaixo de 15%" "Por favor plugue-o na tomada!"
       play $HOME/.config/files/sounds/battery.wav
     fi
   else

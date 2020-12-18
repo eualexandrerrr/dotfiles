@@ -38,7 +38,7 @@
     context = ctrl+shift+period
 
 [urgency_low]
-    background = "#171717"
+    background = "#5d1a1a"
     foreground = "#FFFFFF"
     timeout = 2
 
