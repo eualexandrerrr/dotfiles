@@ -30,6 +30,7 @@ readonly AUR=(
   etcher
   github-cli google-chrome-beta
   i3-gaps-rounded-git
+  layan-gtk-theme-git
   kotatogram-desktop-bin
   nano-syntax-highlighting-git
   oh-my-zsh-git
