@@ -15,7 +15,7 @@ readonly PACKAGES=(
   maim mesa mpd mpv
   nano nano-syntax-highlighting neofetch ntfs-3g numlockx noto-fonts-emoji
   openssh
-  papirus-icon-theme peek pinta pulseaudio pulseaudio-bluetooth pulseeffects python-setuptools
+  peek pinta pulseaudio pulseaudio-bluetooth pulseeffects python-setuptools
   rofi
   sbc scrot stow sox
   terminus-font thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman ttf-liberation transmission-gtk
@@ -39,5 +39,5 @@ readonly AUR=(
   termsyn-font ttf-dejavu ttf-font-awesome ttf-wps-fonts ttf-ms-fonts
   wps-office wps-office-extension-portuguese-brazilian-dictionary wps-office-fonts wps-office-mui-pt-br
   xidlehook
-  zuki-themes zsh-syntax-highlighting
+  zsh-syntax-highlighting
 )
