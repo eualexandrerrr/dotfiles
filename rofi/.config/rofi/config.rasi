@@ -1,16 +1,16 @@
 configuration {
-    display-drun:                   "Applications";
+    display-drun:                   "drun";
     display-window:                 "Window";
     show-icons:true;
-    font: "SF Pro Text 8";
+    font: "xos4 Terminus 8";
 }
 
 * {
     columns: 1;
-    background-color: #2F343F;
-    border-color: #2F343F;
+    background-color: #171717;
+    border-color: #171717;
     text-color: #EFEFEF;
-    font: "SF Pro Text 8";
+    font: "xos4 Terminus 8";
 }
 
 window {

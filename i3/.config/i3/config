@@ -114,7 +114,7 @@ exec --no-startup-id xinput --set-prop 13 'libinput Accel Speed' 0.7
 
 # Shortcuts
 # Start Rofi menu
-bindsym $super+d exec --no-startup-id rofi -show drun -display-run -show-icons -width 30 "Arch Linux -"
+bindsym $super+d exec --no-startup-id rofi -show drun -display-run -show-icons -width 30 "drun -"
 
 # Audio/Brightness Control
 bindsym XF86AudioRaiseVolume exec --no-startup-id "pactl set-sink-mute @DEFAULT_SINK@ false; pactl set-sink-volume @DEFAULT_SINK@ +1%"
