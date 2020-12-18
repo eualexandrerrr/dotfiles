@@ -34,7 +34,7 @@ readonly AUR=(
   kotatogram-desktop-bin
   nano-syntax-highlighting-git
   oh-my-zsh-git
-  picom-ibhagwan-git pinta polybar python-ruamel-yaml
+  papirus-icon-theme-git picom-ibhagwan-git pinta polybar python-ruamel-yaml
   selinux-python
   siji-git spotify
   ttf-dejavu ttf-font-awesome ttf-wps-fonts ttf-ms-fonts
