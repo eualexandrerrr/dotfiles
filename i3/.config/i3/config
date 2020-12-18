@@ -98,7 +98,7 @@ mode "resize" {
 bindsym $super+r mode "resize"
 
 # Startup
-exec_always --no-startup-id $HOME/.config/scripts/polybar-launch.sh
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 exec_always --no-startup-id $HOME/.config/scripts/battery.sh
 exec_always --no-startup-id $HOME/.config/scripts/wallpaper.sh
 exec_always --no-startup-id xrdb -merge $HOME/.Xresources
