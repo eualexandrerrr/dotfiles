@@ -56,10 +56,10 @@ module-margin-left = 1
 module-margin-right = 1
 
 font-0 = "xos4 Terminus:size=10"
-font-1 = "Font Awesome 5 Free:style=Regular:pixelsize=8"
-font-2 = "Font Awesome 5 Free:style=Solid:pixelsize=8"
-font-3 = "Font Awesome 5 Brands:pixelsize=8"
-font-4 = "Font Awesome 5 Free:style=Regular:pixelsize=15"
+font-1 = "Symbols Nerd Font:style=Regular:pixelsize=8"
+font-2 = "Symbols Nerd Font:style=Solid:pixelsize=8"
+font-3 = "Symbols Nerd Font:pixelsize=8"
+font-4 = "Symbols Nerd Font:style=Regular:pixelsize=15"
 
 modules-left = window
 modules-center = i3
@@ -156,7 +156,7 @@ label-urgent-padding = 1
 
 [module/window]
 type = internal/xwindow
-format-prefix = "  "
+format-prefix = "  "
 format-prefix-foreground = ${colors.foreground}
 format = <label>
 format-background = ${colors.transparency}

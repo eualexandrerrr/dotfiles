@@ -18,7 +18,7 @@ readonly PACKAGES=(
   peek pinta pulseaudio pulseaudio-bluetooth pulseeffects python-setuptools
   rofi
   sbc scrot stow sox
-  terminus-font thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman transmission-gtk
+  terminus-font thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman transmission-gtk ttf-liberation
   unrar unzip
   wget wine
   xclip xorg-xinput xorg-server xorg-xbacklight xorg-xinit xorg-xprop xorg-xrandr
@@ -32,12 +32,12 @@ readonly AUR=(
   i3-gaps-rounded-git
   layan-gtk-theme-git
   kotatogram-desktop-bin
-  nano-syntax-highlighting-git
+  nano-syntax-highlighting-git nerd-fonts-git
   oh-my-zsh-git
   papirus-icon-theme-git picom-ibhagwan-git pinta polybar python-ruamel-yaml
   selinux-python
   siji-git spotify
-  ttf-dejavu ttf-font-awesome ttf-wps-fonts ttf-ms-fonts
+  ttf-dejavu ttf-wps-fonts ttf-ms-fonts
   wps-office wps-office-extension-portuguese-brazilian-dictionary wps-office-fonts wps-office-mui-pt-br
   xidlehook
   zsh-syntax-highlighting
