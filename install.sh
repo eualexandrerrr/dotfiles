@@ -36,7 +36,10 @@ do
 done
 
 # Remove files from the system, and copy mine!
-source $HOME/.dotfiles/setup/etc.sh || echo "Error: etc"
+if [ "$USER" = "mamutal91" ];
+then
+  source $HOME/.dotfiles/setup/etc.sh || echo "Error: etc"
+fi
 
 $HOME/.dotfiles/polybar/.config/polybar/launch.sh || echo "Error: polybar"
 play $HOME/.config/files/sounds/completed.wav

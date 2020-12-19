@@ -36,13 +36,15 @@ alias aospk="cd /media/storage/AOSPK && clear && ls -1"
 alias x="cd /home/rom/AOSPK"
 alias buildbot="cd /home/buildbot"
 
-source $HOME/.cmds.sh
-
-function cmds () {
-  pwd=$(pwd)
-  cd $HOME
-  rm -rf $HOME/.cmds.sh && wget https://raw.githubusercontent.com/mamutal91/dotfiles/master/home/.cmds.sh && chmod +x $HOME/.cmds.sh && source $HOME/.zshrc
-  rm -rf $HOME/.zshrc && wget https://raw.githubusercontent.com/mamutal91/dotfiles/master/home/.zshrc && source $HOME/.zshrc
-  cd $HOME && sudo rm -rf /home/buildbot $HOME/buildbot && git clone https://github.com/mamutal91/buildbot && sudo mv buildbot /home/
-  cd $pwd
-}
+if [ "$USER" = "mamutal91" ];
+then
+  source $HOME/.cmds.sh
+  function cmds () {
+    pwd=$(pwd)
+    cd $HOME
+    rm -rf $HOME/.cmds.sh && wget https://raw.githubusercontent.com/mamutal91/dotfiles/master/home/.cmds.sh && chmod +x $HOME/.cmds.sh && source $HOME/.zshrc
+    rm -rf $HOME/.zshrc && wget https://raw.githubusercontent.com/mamutal91/dotfiles/master/home/.zshrc && source $HOME/.zshrc
+    cd $HOME && sudo rm -rf /home/buildbot $HOME/buildbot && git clone https://github.com/mamutal91/buildbot && sudo mv buildbot /home/
+    cd $pwd
+  }
+fi
