@@ -1,2 +1,2 @@
-*/1 * * * * $HOME/.config/scripts/gitcron.sh
-*/10 * * * * $HOME/.config/scripts/iWantToSpeak.sh
+*/1 * * * * $HOME/.local/bin/gitcron.sh
+*/10 * * * * $HOME/.local/bin/iWantToSpeak.sh

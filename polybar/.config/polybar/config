@@ -362,7 +362,7 @@ format-padding = 1
 format-foreground = ${colors.font}
 format-underline = ${colors.transparency}
 type = custom/script
-exec = $HOME/.config/scripts/spotify.sh "%artist%  %title%"
+exec = $HOME/.local/bin/spotify.sh "%artist%  %title%"
 tail = true
 label-maxlen = 100
 
@@ -374,7 +374,7 @@ format-prefix = " "
 format-prefix-foreground = ${colors.icon}
 format-foreground = ${colors.font}
 interval = 5
-click-left = alacritty -e $HOME/.config/scripts/pacman-update.sh
+click-left = alacritty -e $HOME/.local/bin/pacman-update.sh
 
 [settings]
 pseudo-transparency = true

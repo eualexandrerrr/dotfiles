@@ -99,8 +99,8 @@ bindsym $super+r mode "resize"
 
 # Startup
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
-exec_always --no-startup-id $HOME/.config/scripts/battery.sh
-exec_always --no-startup-id $HOME/.config/scripts/wallpaper.sh
+exec_always --no-startup-id $HOME/.local/bin/battery.sh
+exec_always --no-startup-id $HOME/.local/bin/wallpaper.sh
 exec_always --no-startup-id xrdb -merge $HOME/.Xresources
 exec_always --no-startup-id sudo mount /dev/sda3 /media/storage
 exec --no-startup-id picom -b --config $HOME/.config/picom/picom.conf
@@ -109,7 +109,7 @@ exec --no-startup-id pulseeffects --gapplication-service &>/dev/null
 exec --no-startup-id sudo timedatectl set-ntp true && sudo hwclock --systohc
 exec --no-startup-id sudo hwclock --systohc --utc && sudo timedatectl set-ntp true
 exec --no-startup-id "pactl set-sink-mute @DEFAULT_SINK@ false; pactl set-sink-volume @DEFAULT_SINK@ 50%"
-exec --no-startup-id xidlehook --not-when-audio --not-when-fullscreen --timer 600 '$HOME/.config/scripts/i3lock.sh -t -ef -n' ''
+exec --no-startup-id xidlehook --not-when-audio --not-when-fullscreen --timer 600 '$HOME/.local/bin/i3lock.sh -t -ef -n' ''
 exec --no-startup-id xinput --set-prop 13 'libinput Accel Speed' 0.7
 
 # Shortcuts
@@ -125,11 +125,11 @@ bindsym XF86MonBrightnessUp exec  --no-startup-id echo $((`cat /sys/class/backli
 bindsym XF86MonBrightnessDown exec  --no-startup-id echo $((`cat /sys/class/backlight/amdgpu_bl0/brightness` - 5)) | sudo tee /sys/class/backlight/amdgpu_bl0/brightness
 
 # Screenshot
-bindsym Print exec --no-startup-id $HOME/.config/scripts/screenshot.sh -s Recorte
-bindsym $control+Print exec --no-startup-id $HOME/.config/scripts/screenshot.sh -u Fullscreen
+bindsym Print exec --no-startup-id $HOME/.local/bin/screenshot.sh -s Recorte
+bindsym $control+Print exec --no-startup-id $HOME/.local/bin/screenshot.sh -u Fullscreen
 
 # Screencast
-bindsym $control+$shift+K exec --no-startup-id $HOME/.config/scripts/screencast.sh
+bindsym $control+$shift+K exec --no-startup-id $HOME/.local/bin/screencast.sh
 
 # Application shortcuts
 bindsym $super+Return exec --no-startup-id alacritty &; workspace $ws1
@@ -139,7 +139,7 @@ bindsym $super+F3 exec --no-startup-id kotatogram-desktop &; workspace $ws4
 bindsym $super+F4 exec --no-startup-id atom &; workspace $ws3
 
 # System shortcuts
-bindsym F10 exec --no-startup-id $HOME/.config/scripts/commiter.sh &
+bindsym F10 exec --no-startup-id $HOME/.local/bin/commiter.sh &
 bindsym F11 exec --no-startup-id $HOME/.dotfiles/install.sh
 
 # Get rules

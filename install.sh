@@ -42,6 +42,6 @@ then
 fi
 
 $HOME/.dotfiles/polybar/.config/polybar/launch.sh || echo "Error: polybar"
-play $HOME/.config/files/sounds/completed.wav
+play $HOME/.local/share/sounds/completed.wav
 i3-msg restart
 exit 0

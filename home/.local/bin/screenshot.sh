@@ -16,6 +16,6 @@ maim $params $dir$file
 xclip -selection c -t image/png -i $dir$file
 
 notify-send -i $icon "Captura de tela" "$msg $name"
-play $HOME/.config/files/sounds/screenshot.wav
+play $HOME/.local/share/sounds/screenshot.wav
 echo $icon
 exit 0

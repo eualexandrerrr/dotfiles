@@ -2,9 +2,9 @@
 # github.com/mamutal91
 
 scr='/tmp/screenshot.png'
-icon="$HOME/.config/files/i3lock/i3lock.png"
+icon="$HOME/.local/share/i3lock/i3lock.png"
 
-[ ! -d $HOME/.config/files/i3lock/ ] && mkdir -p $HOME/.config/files/i3lock/
+[ ! -d $HOME/.local/share/i3lock/ ] && mkdir -p $HOME/.local/share/i3lock/
 
 gradientColor='#282a36'
 
