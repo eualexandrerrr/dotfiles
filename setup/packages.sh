@@ -4,40 +4,32 @@
 readonly PACKAGES=(
   alacritty alsa alsa-firmware alsa-utils android-tools archlinux-keyring atom
   bluez bluez-libs bluez-tools bluez-utils
-  cronie
-  dunst dhcpcd
-  feh ffmpeg fortune-mod filezilla
-  git gparted gpicview gvfs gvfs-mtp
-  i3lock
+  cronie chromium
+  ffmpeg
+  git gpicview gvfs gvfs-mtp
   imagemagick
-  jsoncpp
   lib32-gnutls lxappearance
-  maim mesa mpd mpv
-  nano nano-syntax-highlighting neofetch ntfs-3g numlockx noto-fonts-emoji
+  mesa mpd mpv mako wofi
+  nano nano-syntax-highlighting neofetch ntfs-3g noto-fonts-emoji
   openssh
+  telegram-desktop
   peek pinta pulseaudio pulseaudio-bluetooth pulseeffects python-setuptools
-  rofi
-  sbc scrot stow
+  sbc stow sox
   terminus-font thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman transmission-gtk ttf-liberation
   unrar unzip
-  wget wine
-  xclip xorg-xinput xorg-server xorg-xbacklight xorg-xinit xorg-xprop xorg-xrandr
+  wget wine wayland
   zsh
+  sway waybar
 )
 
 readonly AUR=(
   capitaine-cursors
-  etcher
-  google-chrome-beta
-  i3-gaps-rounded-git
   layan-gtk-theme-git
-  kotatogram-desktop-bin
   nano-syntax-highlighting-git
-  papirus-icon-theme-git picom-ibhagwan-git pinta polybar python-ruamel-yaml
+  papirus-icon-theme-git pinta python-ruamel-yaml
   selinux-python
+  oh-my-zsh-git xorg-xwayland-git
   spotify
-  ttf-font-awesome ttf-dejavu ttf-wps-fonts ttf-ms-fonts
-  wps-office wps-office-extension-portuguese-brazilian-dictionary wps-office-fonts wps-office-mui-pt-br
-  xidlehook
+  ttf-font-awesome ttf-dejavu ttf-wps-fonts
   zsh-syntax-highlighting
 )

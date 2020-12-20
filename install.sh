@@ -3,18 +3,11 @@
 
 clear
 
-function polybar() {
-  cd $HOME/.dotfiles/polybar/.config/polybar
-  rm -rf colors.conf
-  cp -rf colors.save colors.conf
-}
-
 function boot() {
   cd $HOME/.config
-  rm -rf alacritty dunst files gpicview i3 neofetch polybar picom rofi scripts mimeapps.list
+  rm -rf alacritty gpicview mako neofetch sway waybar wofi mimeapps.list
   cd $HOME
   rm -rf .bashrc .xinitrc .Xresources .zlogin .zshrc .cmds.sh .nanorc
-  polybar
 }
 
 if [ "${1}" == "boot" ]; then boot; fi || echo "Error: boot"
@@ -22,15 +15,13 @@ if [ "${1}" == "boot" ]; then boot; fi || echo "Error: boot"
 cd $HOME/.dotfiles
 for DOTFILES in \
   alacritty \
-  dunst \
   gpicview \
   home \
-  i3 \
+  mako \
   neofetch \
-  picom \
-  polybar \
-  rofi \
-  scripts
+  sway \
+  waybar \
+  wofi
 do
     stow $DOTFILES || echo "Error on gnu/stow"
 done
@@ -41,7 +32,6 @@ then
   source $HOME/.dotfiles/setup/etc.sh || echo "Error: etc"
 fi
 
-$HOME/.dotfiles/polybar/.config/polybar/launch.sh || echo "Error: polybar"
-play $HOME/.local/share/sounds/completed.wav
-i3-msg restart
+play $HOME/.bin/sounds/completed.wav
+swaymsg reload
 exit 0
