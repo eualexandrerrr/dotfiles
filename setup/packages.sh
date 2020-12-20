@@ -3,7 +3,7 @@
 
 readonly PACKAGES=(
   alacritty alsa alsa-firmware alsa-utils android-tools archlinux-keyring atom
-  bashtop bluez bluez-libs bluez-tools bluez-utils bumblebee
+  bluez bluez-libs bluez-tools bluez-utils
   cronie
   dunst dhcpcd
   feh ffmpeg fortune-mod filezilla
@@ -17,7 +17,7 @@ readonly PACKAGES=(
   openssh
   peek pinta pulseaudio pulseaudio-bluetooth pulseeffects python-setuptools
   rofi
-  sbc scrot stow sox
+  sbc scrot stow
   terminus-font thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman transmission-gtk ttf-liberation
   unrar unzip
   wget wine
@@ -28,14 +28,14 @@ readonly PACKAGES=(
 readonly AUR=(
   capitaine-cursors
   etcher
-  github-cli google-chrome-beta
+  google-chrome-beta
   i3-gaps-rounded-git
   layan-gtk-theme-git
   kotatogram-desktop-bin
   nano-syntax-highlighting-git
   papirus-icon-theme-git picom-ibhagwan-git pinta polybar python-ruamel-yaml
   selinux-python
-  siji-git spotify
+  spotify
   ttf-font-awesome ttf-dejavu ttf-wps-fonts ttf-ms-fonts
   wps-office wps-office-extension-portuguese-brazilian-dictionary wps-office-fonts wps-office-mui-pt-br
   xidlehook
