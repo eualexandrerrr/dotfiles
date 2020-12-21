@@ -20,7 +20,8 @@ for package in \
     lee-dohm/set-syntax \
     taylon/language-i3wm \
     thomaslindstrom/color-picker \
-    zhuochun/md-writer
+    zhuochun/md-writer \
+    KunihikoKido/atom-flatten-json
 do
     git clone https://github.com/$package
 done
@@ -38,6 +39,7 @@ package='
   pigments
   save-workspace
   set-syntax
+  flatten-json
   '
 apm install $package
 
