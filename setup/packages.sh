@@ -19,7 +19,7 @@ readonly PACKAGES=(
   unrar unzip
   wget wine wayland
   zsh
-  sway waybar
+  sway waybar qt5ct
 )
 
 readonly AUR=(

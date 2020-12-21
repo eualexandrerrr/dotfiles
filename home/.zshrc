@@ -19,6 +19,7 @@ export TERM="xterm-256color"
 export EDITOR="nano"
 export BROWSER="/usr/bin/google-chrome-beta"
 export GDK_BACKEND=x11
+export QT_QPA_PLATFORMTHEME=qt5ct
 export iconpath="/usr/share/icons/Papirus-Dark/32x32/devices"
 
 # sudo easy
