@@ -17,7 +17,14 @@
         "custom/pacman-package-count"
     ],
     "modules-center": ["sway/workspaces"],
-    "modules-right": ["network", "cpu", "battery", "battery#bat2", "clock", "tray"],
+    "modules-right": [
+        "network",
+        "cpu",
+        "battery",
+        "battery#bat2",
+        "clock",
+        "tray"
+    ],
     "sway/mode": {
         "format": "<span style=\"italic\">{}</span>"
     },
@@ -33,7 +40,7 @@
         "spacing": 10
     },
     "clock": {
-        // "timezone": "America/New_York",
+        // "timezone": "America/Sao_Paulo",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
         "format-alt": "{:%Y-%m-%d}"
     },

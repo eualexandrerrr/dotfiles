@@ -2,11 +2,10 @@
   border: none;
   border-radius: 0;
   /* `otf-font-awesome` is required to be installed for icons */
-  font-family: "IBM Plex Mono", "Font Awesome 5 Free", Roboto, Helvetica, Arial,
-    sans-serif;
-  font-size: 13px;
+  font-family: "xos4 Terminus", "Font Awesome 5 Free";
+  font-size: 10px;
   min-height: 0;
-  font-weight: bold;
+  font-weight: normal;
 }
 
 window#waybar {
