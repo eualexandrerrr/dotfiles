@@ -24,7 +24,7 @@ function p () {
   git cherry-pick ${1}
 }
 
-if [ $HOST = "aspire" ]; then
+if [ $HOST = "kickapoo" ]; then
   function cm () {
     git add . && git commit --author "Alexandre Rangel <mamutal91@gmail.com>" && git push -f
   }
