@@ -13,7 +13,6 @@ for package in \
     Glavin001/atom-beautify \
     Overload119/indent-sort \
     abe33/atom-pigments \
-    bhaskardabhi/atom-translator \
     denieler/save-workspace-atom-plugin \
     file-icons/atom \
     h3imdall/ftp-remote-edit \
@@ -29,7 +28,6 @@ done
 package='
   atom-material-syntax
   atom-beautify
-  atom-translator
   color-picker
   file-icons
   ftp-remote-edit
