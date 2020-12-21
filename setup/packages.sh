@@ -8,7 +8,7 @@ readonly PACKAGES=(
   ffmpeg
   git gpicview gvfs gvfs-mtp
   imagemagick
-  lib32-gnutls lxappearance
+  lib32-gnutls
   mesa mpd mpv mako wofi
   nano nano-syntax-highlighting neofetch ntfs-3g noto-fonts-emoji
   openssh
