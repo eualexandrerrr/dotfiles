@@ -6,9 +6,6 @@ sudo rm -rf /etc/systemd/system/getty@tty1.service.d
 sudo mkdir -p /etc/systemd/system/getty@tty1.service.d
 sudo cp -rf $HOME/.dotfiles/etc/systemd/system/getty@tty1.service.d/override.conf /etc/systemd/system/getty@tty1.service.d/
 
-sudo rm -rf /etc/systemd/logind.conf
-sudo cp -rf $HOME/.dotfiles/etc/systemd/logind.conf /etc/systemd/
-
 # modprobe.d
 sudo rm -rf /etc/modprobe.d/ath10k_pci.conf
 sudo mkdir -p /etc/modprobe.d/
