@@ -149,7 +149,7 @@ bindsym $control+$shift+K exec --no-startup-id ~/.bin/scripts/screencast.sh
 # Application shortcuts
 bindsym $super+Return exec --no-startup-id alacritty &; workspace $ws1
 bindsym $super+e exec --no-startup-id thunar &; workspace $ws7
-bindsym $super+F2 exec --no-startup-id chromium --enable-features=UseOzonePlatform --ozone-platform=wayland &; workspace $ws2
+bindsym $super+F2 exec --no-startup-id chromium &; workspace $ws2
 bindsym $super+F3 exec --no-startup-id telegram-desktop &; workspace $ws4
 
 # System shortcuts
