@@ -140,8 +140,8 @@ bindsym XF86MonBrightnessUp exec  --no-startup-id echo $((`cat /sys/class/backli
 bindsym XF86MonBrightnessDown exec  --no-startup-id echo $((`cat /sys/class/backlight/amdgpu_bl0/brightness` - 5)) | sudo tee /sys/class/backlight/amdgpu_bl0/brightness
 
 # Screenshot
-bindsym Print exec --no-startup-id ~/.bin/scripts/screenshot.sh -s Recorte
-bindsym $control+Print exec --no-startup-id ~/.bin/scripts/screenshot.sh -u Fullscreen
+bindsym Print exec --no-startup-id grim -g "$(slurp -d)" - | wl-copy
+bindsym $control+Print exec --no-startup-id grim - | wl-copy
 
 # Screencast
 bindsym $control+$shift+K exec --no-startup-id ~/.bin/scripts/screencast.sh

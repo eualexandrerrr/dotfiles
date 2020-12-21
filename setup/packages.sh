@@ -20,6 +20,7 @@ readonly PACKAGES=(
   wget wine wayland
   zsh
   sway waybar
+  grim slurp wl-clipboard
 )
 
 readonly AUR=(
