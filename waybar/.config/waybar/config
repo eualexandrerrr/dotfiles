@@ -17,20 +17,17 @@
         "battery",
         "clock"
     ],
-    "sway/mode": {
-        "format": "<span style=\"italic\">{}</span>"
-    },
     "clock": {
         "timezone": "America/Sao_Paulo",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><big>{calendar}</big></tt>",
         "format-alt": "{:%d-%m-%Y}"
     },
     "cpu": {
-        "format": " {usage}%",
+        "format": "  {usage}%",
         "tooltip": true
     },
     "memory": {
-        "format": " {}%"
+        "format": "  {}%"
     },
     "backlight#value": {
         // "device": "acpi_video1",
@@ -43,18 +40,18 @@
             "critical": 15
         },
         "format": "{icon} {capacity}%",
-        "format-charging": "{capacity}% ",
-        "format-plugged": "{capacity}% ",
+        "format-charging": "  {capacity}%",
+        "format-plugged": "  {capacity}%",
         "format-alt": "{icon} {time}",
         "format-full": "",
         "format-icons": ["", "", "", "", ""]
     },
     "network": {
         // "interface": "wlan0*", // (Optional) To force the use of this interface
-        "format-wifi": " {essid}",
+        "format-wifi": "  {essid}",
         "format-ethernet": "",
         "format-linked": "(No IP) ",
-        "format-disconnected": " Disconnected",
+        "format-disconnected": "  Disconnected",
         "format-alt": "{ifname}: {ipaddr}/{cidr}",
         "interval": 20,
         "signal": 1

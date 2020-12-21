@@ -61,7 +61,7 @@ window#waybar.hidden {
 #idle_inhibitor,
 #mpd,
 #custom-pacman-package-count {
-  padding: 0.3rem 0.5rem;
+  padding: 0rem 0.4rem;
   color: #b6b5b5;
   margin: 0px 0;
   background: #282a36;
@@ -131,12 +131,4 @@ label:focus {
 
 #custom-media.custom-vlc {
   background-color: #ffa000;
-}
-
-#temperature {
-  /*background-color: #003366;*/
-}
-
-#temperature.critical {
-  background-color: #eb4d4b;
 }
