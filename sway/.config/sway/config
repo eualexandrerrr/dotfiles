@@ -14,15 +14,15 @@ set $control Control
 set $shift Shift
 
 # Define names for workspaces
-set $ws1 "1: terminal"
-set $ws2 "2: browser"
-set $ws3 "3: atom"
-set $ws4 "4: telegram"
-set $ws5 "5: media"
-set $ws6 "6: ofice"
-set $ws7 "7: pc"
-set $ws8 "8: art"
-set $ws9 "9: empty"
+set $ws1 " terminal"
+set $ws2 " browser"
+set $ws3 " atom"
+set $ws4 " telegram"
+set $ws5 " media"
+set $ws6 " ofice"
+set $ws7 " manager"
+set $ws8 " art"
+set $ws9 " empty"
 
 # Use $super+Mouse to drag floating windows to their wanted position
 floating_modifier $super

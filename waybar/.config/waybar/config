@@ -60,7 +60,7 @@
         "signal": 1
     },
     "pulseaudio": {
-        // "scroll-step": 1, // %, can be a float
+        "scroll-step": 1, // %, can be a float
         "format": "{icon}  {volume}",
         "format-bluetooth": "{icon}  {volume}",
         "format-bluetooth-muted": "  {icon}",
@@ -92,6 +92,7 @@
   "custom/pacman-package-count": {
       "format": " {}",
       "exec": "echo `pacman -Syyu | wc -l`",
-      "interval": 3600
+      "interval": 3600,
+      "on-click": "alacritty ~/.bin/scripts/pacman-update.sh"
   }
 }

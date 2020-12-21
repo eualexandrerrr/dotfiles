@@ -5,7 +5,7 @@ icon="${iconpath}/battery.svg"
 
 bat="/sys/class/power_supply/BAT1"
 
-while sleep 240
+while sleep 3000
 do
   level=$(cat "$bat"/capacity)
   status=$(cat "$bat"/status)
