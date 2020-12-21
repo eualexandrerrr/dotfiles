@@ -7,7 +7,7 @@ sudo chown -R mamutal91:mamutal91 /home/mamutal91 && sudo chmod +x /home/mamutal
 # Git
 git config --global user.email "mamutal91@gmail.com" && git config --global user.name "Alexandre Rangel"
 
-sudo pacman -Syyu --noconfirm
+sudo pacman -Sy --noconfirm
 
 # Install YAY and PACAUR AUR Manager
 pwd=$(pwd)
@@ -20,12 +20,8 @@ source $HOME/.dotfiles/setup/packages.sh
 # GPG Key Spotify
 curl -sS https://download.spotify.com/debian/pubkey_0D811D58.gpg | gpg --import -
 
-# Install my packages
+# Install packages
 for i in "${PACKAGES[@]}"; do
-  sudo pacman -S ${i} --needed --noconfirm
-done
-
-for i in "${AUR[@]}"; do
   yay -S ${i} --needed --noconfirm
 done
 

@@ -2,35 +2,60 @@
 # github.com/mamutal91
 
 readonly PACKAGES=(
-  alacritty alsa alsa-firmware alsa-utils android-tools archlinux-keyring atom
-  bluez bluez-libs bluez-tools bluez-utils
-  cronie chromium
-  ffmpeg
-  git gpicview gvfs gvfs-mtp
-  imagemagick
-  lib32-gnutls
-  mesa mpd mpv mako wofi
-  nano nano-syntax-highlighting neofetch ntfs-3g noto-fonts-emoji
-  openssh
-  telegram-desktop
-  peek pinta pulseaudio pulseaudio-bluetooth pulseeffects python-setuptools
-  sbc stow sox
-  terminus-font thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman transmission-gtk ttf-liberation
-  unrar unzip
-  wget wine wayland
-  zsh
-  sway waybar
-  grim slurp wl-clipboard
-)
+  # audio
+  alsa alsa-firmware alsa-utils
+  pulseaudio pulseaudio-bluetooth pulseeffects
+  sox
 
-readonly AUR=(
+  # archlinux
+  archlinux-keyring
+
+  # apps
+  alacritty atom
+  chromium cronie
+  git gpicview
+  mako
+  nano nano-syntax-highlighting neofetch
+  peek pinta
+  stow sway
+  telegram-desktop
+  thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman transmission-gtk
+  waybar wayland wofi
+  zsh
+  oh-my-zsh-git xorg-xwayland-git
+  zsh-syntax-highlighting
+  spotify
+
+  # bluetooth
+  bluez bluez-libs bluez-tools bluez-utils
+
+  # tools for android/mobile
+  android-tools
+  gvfs gvfs-mtp
+  ntfs-3g
+  selinux-python
+
+  # screenshots/cast
+  ffmpeg
+  grim
+  imagemagick
+  slurp
+  wl-clipboard
+
+  # drivers and dependencies
+  mesa mpd mpv
+  openssh
+  python-ruamel-yaml python-setuptools
+  sbc
+  unrar unzip
+  wget
+
+  # fonts
+  noto-fonts-emoji
+  terminus-font ttf-liberation ttf-font-awesome ttf-dejavu ttf-wps-fonts
+
+  # themes
   capitaine-cursors
   layan-gtk-theme-git
-  nano-syntax-highlighting-git
-  papirus-icon-theme-git pinta python-ruamel-yaml
-  selinux-python
-  oh-my-zsh-git xorg-xwayland-git
-  spotify
-  ttf-font-awesome ttf-dejavu ttf-wps-fonts
-  zsh-syntax-highlighting
+  papirus-icon-theme-git
 )
