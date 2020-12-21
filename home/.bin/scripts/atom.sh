@@ -4,7 +4,7 @@
 # My favorites packages https://atom.io/packages/
 # Check the package name in the GitHub repository, in the file `package.json` for install
 
-pwd_atom_packages=$(pwd)
+pwd=$(pwd)
 
 rm -rf $HOME/.tmp && mkdir $HOME/.tmp && cd $HOME/.tmp
 
@@ -41,4 +41,4 @@ package='
   '
 apm install $package
 
-cd $pwd_atom_packages
+cd $pwd
