@@ -112,7 +112,7 @@ bindsym $super+r mode "resize"
 
 # Startup
 exec_always --no-startup-id ~/.bin/scripts/battery.sh
-exec_always --no-startup-id ~/.bin/scripts/wallpaper.sh
+exec_always --no-startup-id swaybg -i ~/.bin/wallpapers/smartphone.png
 exec_always --no-startup-id xrdb -merge $HOME/.Xresources
 
 exec_always --no-startup-id sudo mount /dev/sda3 /media/storage
