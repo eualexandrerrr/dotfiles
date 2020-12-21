@@ -1,7 +1,6 @@
 * {
   border: none;
   border-radius: 0;
-  /* `otf-font-awesome` is required to be installed for icons */
   font-family: "xos4 Terminus", "Font Awesome 5 Free";
   font-size: 10px;
   min-height: 0;
@@ -11,9 +10,9 @@
 window#waybar {
   background-color: transparent;
   border-bottom: none;
-  color: #ffffff;
+  color: #b6b5b5;
   transition-property: background-color;
-  transition-duration: 0.5s;
+  transition-duration: 0.1s;
 }
 
 window#waybar.hidden {
@@ -21,15 +20,14 @@ window#waybar.hidden {
 }
 
 #workspaces button {
-  padding: 0.5rem 0.9rem;
+  padding: 0.3rem 0.5rem;
   margin: 0px 0;
   background: #282a36;
 }
 
-/* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
 #workspaces button:hover {
   background: rgba(0, 1, 51, 0.6);
-  color: #ffffff;
+  color: #b6b5b5;
   box-shadow: inherit;
 }
 
@@ -45,7 +43,7 @@ window#waybar.hidden {
 #mode {
   background-color: #000133;
   color: #ffa000;
-  /* border-bottom: 3px solid #ffffff; */
+  /* border-bottom: 3px solid #b6b5b5; */
 }
 
 #clock,
@@ -57,17 +55,12 @@ window#waybar.hidden {
 #network,
 #pulseaudio,
 #custom-media,
-#tray,
 #mode,
 #idle_inhibitor,
 #mpd,
-#custom-logo,
-#custom-emailicon,
-#custom-unreademail,
-#custom-pacman-package-count,
-#custom-icon-cube {
-  padding: 0.5rem 0.9rem;
-  color: #ffffff;
+#custom-pacman-package-count {
+  padding: 0.3rem 0.5rem;
+  color: #b6b5b5;
   margin: 0px 0;
   background: #282a36;
 }
@@ -82,20 +75,20 @@ window#waybar.hidden {
 }
 
 #battery.charging {
-  /*color: #ffffff;*/
+  /*color: #b6b5b5;*/
   /*background-color: #26a65b;*/
 }
 
 @keyframes blink {
   to {
-    background-color: #ffffff;
+    background-color: #b6b5b5;
     color: #000000;
   }
 }
 
 #battery.critical:not(.charging) {
   background-color: #f53c3c;
-  color: #ffffff;
+  color: #b6b5b5;
   animation-name: blink;
   animation-duration: 0.5s;
   animation-timing-function: linear;
@@ -116,31 +109,12 @@ label:focus {
   /*background-color: #08457e;*/
 }
 
-#backlight.icon {
-  background: #50fa7b;
-  color: #282a36;
-}
-
 #backlight.value {
   min-width: 20px;
 }
 
-#network {
-  color: #50fa7b;
-}
-
 #network.disconnected {
   color: #ff0000;
-}
-
-#pulseaudio.icon {
-  background: #50fa7b;
-  color: #000;
-}
-
-#pulseaudio.muted.icon {
-  background-color: gray;
-  /*color: #2a5c45;*/
 }
 
 #custom-media {
@@ -163,26 +137,4 @@ label:focus {
 
 #temperature.critical {
   background-color: #eb4d4b;
-}
-
-#tray {
-  /*font-size: 22px;*/
-  /*background-color: #000133;*/
-}
-
-#custom-logo {
-  background: deeppink;
-  font-size: 1.15em;
-  color: #282a36;
-}
-
-#custom-emailicon,
-#custom-icon-cube {
-  background: #50fa7b;
-  color: #282a36;
-}
-
-#custom-unreademail {
-  background: #282a36;
-  min-width: 15px;
 }
