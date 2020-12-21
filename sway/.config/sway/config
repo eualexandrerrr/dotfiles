@@ -1,17 +1,10 @@
+# Profile config
+include ~/.config/sway/profile.conf
+
+# Start bar
 exec waybar
 
-input "type:keyboard" {
-    xkb_layout br
-}
-
-input 1267:12586:ELAN0504:01_04F3:312A_Touchpad {
-    left_handed disabled
-    tap enabled
-    natural_scroll enabled
-    dwt enabled
-    pointer_accel 0.7 # set mouse sensitivity (between -1 and 1)
-}
-
+# Font
 font pango:xos4 Terminus, 10
 
 # use super/alt/control key
