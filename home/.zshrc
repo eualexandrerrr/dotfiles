@@ -18,6 +18,7 @@ export LS_COLORS="$LS_COLORS:ow=1;34:tw=1;34:"
 export TERM="xterm-256color"
 export EDITOR="nano"
 export BROWSER="/usr/bin/chromium"
+export QT_QPA_PLATFORMTHEME="qt5ct"
 export iconpath="/usr/share/icons/Papirus-Dark/32x32/devices"
 
 # sudo easy

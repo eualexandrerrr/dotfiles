@@ -5,7 +5,7 @@ include ~/.config/sway/profile.conf
 exec waybar
 
 # Font
-font pango:xos4 Terminus, 10
+font pango:Open Sans, 10
 
 # use super/alt/control key
 set $super Mod4
