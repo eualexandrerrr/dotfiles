@@ -7,7 +7,7 @@ function boot() {
   cd $HOME/.config
   rm -rf alacritty gpicview gtk* mako neofetch sway waybar wofi mimeapps.list
   cd $HOME
-  rm -rf .bashrc .Xresources .zlogin .zshrc .cmds.sh .nanorc
+  rm -rf .bashrc .bash_profile .Xresources .zshrc .cmds.sh .nanorc
 }
 
 if [ "${1}" == "boot" ]; then boot; fi || echo "Error: boot"
