@@ -22,6 +22,10 @@ curl -sS https://download.spotify.com/debian/pubkey_0D811D58.gpg | gpg --import 
 
 # Install packages
 for i in "${PACKAGES[@]}"; do
+  sudo pacman -S ${i} --needed --noconfirm
+done
+
+for i in "${AUR[@]}"; do
   yay -S ${i} --needed --noconfirm
 done
 

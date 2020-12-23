@@ -21,8 +21,6 @@ readonly PACKAGES=(
   telegram-desktop
   thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman transmission-gtk
   waybar wayland wofi
-  zsh
-  oh-my-zsh-git xorg-xwayland-git
   zsh-syntax-highlighting
   spotify
 
@@ -45,17 +43,30 @@ readonly PACKAGES=(
   # drivers and dependencies
   mesa mpd mpv
   openssh
-  python-ruamel-yaml python-setuptools
+  python-setuptools
   sbc
   unrar unzip
   wget
 
   # fonts
   noto-fonts-emoji
-  terminus-font ttf-liberation ttf-font-awesome ttf-dejavu ttf-wps-fonts
+  terminus-font ttf-liberation
+)
 
+readonly AUR=(
   # themes
   capitaine-cursors
   layan-gtk-theme-git
   papirus-icon-theme-git
+
+  # apps
+  oh-my-zsh-git
+  spotify
+  zsh-syntax-highlighting
+
+  # dependencies
+  python-ruamel-yaml
+  selinux-python
+  ttf-font-awesome ttf-dejavu
+  xorg-xwayland-git
 )
