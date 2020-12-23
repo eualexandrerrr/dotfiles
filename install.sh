@@ -5,7 +5,7 @@ clear
 
 function boot() {
   cd $HOME/.config
-  rm -rf alacritty gpicview mako neofetch sway waybar wofi mimeapps.list
+  rm -rf alacritty gpicview gtk* mako neofetch sway waybar wofi mimeapps.list
   cd $HOME
   rm -rf .bashrc .Xresources .zlogin .zshrc .cmds.sh .nanorc
 }
@@ -16,6 +16,7 @@ cd $HOME/.dotfiles
 for DOTFILES in \
   alacritty \
   gpicview \
+  gtk \
   home \
   mako \
   neofetch \
