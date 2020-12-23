@@ -1,95 +1,157 @@
 {
-    "layer": "top",
-    "position": "top", // (top|bottom|left|right)
-    "height": 10,
-    "width": 1280,
-    "modules-left": [
-        "sway/mode",
-        "pulseaudio",
-        "backlight#value",
-        "custom/pacman-package-count"
-    ],
-    "modules-center": ["sway/workspaces"],
-    "modules-right": [
-        "network",
-        "cpu",
-        "memory",
-        "battery",
-        "clock"
-    ],
-    "clock": {
-        "timezone": "America/Sao_Paulo",
-        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><big>{calendar}</big></tt>",
-        "format-alt": "{:%d-%m-%Y}"
-    },
-    "cpu": {
-        "format": "  {usage}%",
-        "tooltip": true
-    },
-    "memory": {
-        "format": "  {}%"
-    },
-    "backlight#value": {
-        // "device": "acpi_video1",
-        "format": "  {percent}%"
-    },
-    "battery": {
-        "states": {
-            // "good": 95,
-            "warning": 30,
-            "critical": 15
-        },
-        "format": "{icon} {capacity}%",
-        "format-charging": "  {capacity}%",
-        "format-plugged": "  {capacity}%",
-        "format-alt": "{icon} {time}",
-        "format-full": "",
-        "format-icons": ["", "", "", "", ""]
-    },
-    "network": {
-        // "interface": "wlan0*", // (Optional) To force the use of this interface
-        "format-wifi": "  {essid}",
-        "format-ethernet": "",
-        "format-linked": "(No IP) ",
-        "format-disconnected": "  Disconnected",
-        "format-alt": "{ifname}: {ipaddr}/{cidr}",
-        "interval": 20,
-        "signal": 1
-    },
-    "pulseaudio": {
-        "scroll-step": 1, // %, can be a float
-        "format": "{icon}  {volume}",
-        "format-bluetooth": "{icon}  {volume}",
-        "format-bluetooth-muted": "  {icon}",
-        "format-muted": "  {volume}",
-        "format-source-muted": "",
-        "on-click": "pactl set-sink-mute 0 toggle",
-        "format-icons": {
-            "headphone": "",
-            "hands-free": "",
-            "headset": "",
-            "phone": "",
-            "portable": "",
-            "car": "",
-            "default": ["", "", ""]
-        },
-    },
-    "custom/media": {
-        "format": "{icon} {}",
-        "return-type": "json",
-        "max-length": 40,
-        "format-icons": {
-            "spotify": "",
-            "default": "🎜"
-        },
-        "escape": true,
-        "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null" // Script in resources folder
-        // "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
+  // "layer": "top", // Waybar at top layer
+  // "position": "bottom", // Waybar position (top|bottom|left|right)
+  // "height": 20, // Waybar height (to be removed for auto height)
+  // "width": 1388, // Waybar width
+  // Bar
+  "modules-left": [
+    "custom/github",
+    "custom/gerrit",
+    "custom/youtube",
+    "custom/mail",
+    "custom/keep",
+    "sway/workspaces"
+  ],
+  "modules-center": ["sway/window"],
+  "modules-right": [
+    "pulseaudio",
+    "disk",
+    "cpu",
+    "memory",
+    "temperature",
+    "network",
+    "battery",
+    "backlight",
+    "custom/pacman",
+    "custom/recorder",
+    "clock",
+    "custom/power"
+  ],
+  // Modules
+  "sway/workspaces": {
+    "disable-scroll": true,
+    "all-outputs": true,
+    "format": "{icon}",
+    "icon-size": 15
   },
-  "custom/pacman-package-count": {
-      "format": " {}",
-      "exec": "echo `pacman -Syyu | wc -l`",
-      "interval": 3600,
-      "on-click": "alacritty -e ~/.bin/scripts/pacman-update.sh"
+  "sway/window": {
+      "format": "{}",
+      "max-length": 30
+  },
+  "custom/recorder": {
+    "return-type": "json",
+    "format": "壘",
+    "interval": 1,
+    "exec-if": "pgrep wf-recorder",
+    "exec": "echo '{\"class\": \"recording\"}'",
+    "on-click": "fish -c recording",
+    "tooltip": false,
+  },
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": {
+      "activated": "XXXXXXXX",
+      "deactivated": "XXXXXXXXX"
+    }
+  },
+  "clock": {
+    // "timezone": "America/Sao_Paulo",
+    "format": "{:%I:%M %p}",
+    "format-alt": "{:%d-%m-%Y}",
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+  },
+  "cpu": {
+    "format": "{usage}  ",
+    "on-click": "alacritty -e htop",
+    "tooltip": false
+  },
+  "memory": {
+    "format": "{}  "
+  },
+  "temperature": {
+    "thermal-zone": 2,
+    "hwmon-path": "/sys/class/hwmon/hwmon0/temp1_input",
+    "critical-threshold": 80,
+    "format-critical": "{temperatureC}°C {icon}",
+    "format": "{temperatureC}  {icon}",
+    "interval": 60,
+    "format-icons": ["", "", ""]
+  },
+  "backlight": {
+    "interval": 5,
+    "format": "{icon}",
+    "format-alt": "{percent}% {icon}",
+    "format-click": "click-right",
+    "format-icons": ["🌕", "🌔", "🌓", "🌒", "🌑"],
+    "on-scroll-down": "brightnessctl -c backlight set +5%",
+    "on-scroll-up": "brightnessctl -c backlight set 5%-"
+  },
+  "battery": {
+      "bat": "BAT1",
+      "interval": 60,
+      "states": {
+          "warning": 30,
+          "critical": 15
+      },
+      "format": "{capacity}% {icon}",
+      "format-icons": ["", "", "", "", ""],
+      "max-length": 25
+  },
+  "network": {
+    "interface": "wlan0", // (Optional) To force the use of this interface
+    "format-wifi": "  {essid}",
+    "format-ethernet": "{ifname}: {ipaddr}/{cidr} ",
+    "format-linked": "{ifname} (No IP) ",
+    "format-disconnected": "Disconnected ⚠",
+    "format-alt": "{ifname}: {ipaddr}/{cidr}",
+    "interval": 60,
+    "on-click-middle": "exec alacritty -e nmtui"
+  },
+  "pulseaudio": {
+    "scroll-step": 1, // %, can be a float
+    "format": "{icon}  {volume}",
+    "format-bluetooth": "{icon}  {volume}",
+    "format-bluetooth-muted": "  {icon}",
+    "format-muted": "  {volume}",
+    "format-source-muted": "",
+    "on-click": "pactl set-sink-mute 0 toggle",
+    "format-icons": {
+      "headphone": "",
+      "hands-free": "",
+      "headset": "",
+      "phone": "",
+      "portable": "",
+      "car": "",
+      "default": ["", "", ""]
+    },
+  },
+  "custom/pacman": {
+    "format": "{}  ",
+    "interval": 3600, // every hour
+    // "restart-interval": 3600,
+    "exec": "checkupdates | wc -l", // # of updates
+    "exec-if": "exit 0", // always run; consider advanced run conditions
+    "on-click": "alacritty -e ~/.bin/scripts/pacman.update.sh", // update system
+    "signal": 8,
+  },
+  "disk": {
+    "interval": 30,
+    "format": "{free}",
+    "path": "/media/storage",
+  },
+  "custom/github": {
+    "format": "",
+    "on-click": "xdg-open https://github.com",
+    "tooltip": false
+  },
+  "custom/gerrit": {
+    "format": "",
+    "on-click": "xdg-open https://review.lineageos.org/q/status:merged+branch:lineage-18.1",
+    "tooltip": false
+  },
+  "custom/keep": {
+    "format": "",
+    "on-click": "xdg-open https://keep.google.com/",
+    "tooltip": false
   }
 }

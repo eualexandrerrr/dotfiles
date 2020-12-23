@@ -14,6 +14,7 @@ readonly PACKAGES=(
   alacritty atom
   chromium cronie
   git gpicview
+  htop
   mako
   nano nano-syntax-highlighting neofetch
   peek pinta
