@@ -6,8 +6,8 @@ icon="${iconpath}/modem.svg"
 sleep 1
 
 echo "Atualizando Pacman e AUR"
-  sudo pacman -Syyu
-  yay -Syyu
+  sudo pacman -Syu
+  yay -Syu
 
 echo "Removendo pacotes não utilizados"
   sudo pacman -Qdtq --noconfirm
