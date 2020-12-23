@@ -13,6 +13,7 @@ readonly PACKAGES=(
   # apps
   alacritty atom
   chromium cronie
+  dconf-editor
   git gpicview
   htop
   mako
@@ -56,8 +57,8 @@ readonly PACKAGES=(
 
 readonly AUR=(
   # themes
+  ant-dracula-gtk-theme
   capitaine-cursors
-  layan-gtk-theme-git
   papirus-icon-theme-git
 
   # apps
