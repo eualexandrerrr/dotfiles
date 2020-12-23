@@ -90,6 +90,6 @@
       "format": " {}",
       "exec": "echo `pacman -Syyu | wc -l`",
       "interval": 3600,
-      "on-click": "alacritty ~/.bin/scripts/pacman-update.sh"
+      "on-click": "alacritty -e ~/.bin/scripts/pacman-update.sh"
   }
 }
