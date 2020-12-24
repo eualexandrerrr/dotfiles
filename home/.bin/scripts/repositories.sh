@@ -5,7 +5,7 @@ rm -rf /media/storage/GitHub && mkdir -p /media/storage/GitHub
 
 for github in \
     mamutal91.github.io \
-    archlinux-installer \
+    myarch \
     buildbot \
     custom-rom \
     iWantToSpeak \

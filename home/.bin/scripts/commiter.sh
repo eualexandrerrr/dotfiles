@@ -10,7 +10,7 @@ aospk=/media/storage/AOSPK
 
 repo0="dotfiles"
 repo1="mamutal91.github.io"
-repo2="archlinux-installer"
+repo2="myarch"
 repo3="buildbot"
 repo4="readme"
 repo5="device_xiaomi_beryllium"
@@ -28,7 +28,7 @@ case $chosen in
     $repo1)
         alacritty -t newcommit --working-directory $github/mamutal91.github.io;;
     $repo2)
-        alacritty -t newcommit --working-directory $github/archlinux-installer;;
+        alacritty -t newcommit --working-directory $github/myarch;;
     $repo3)
         alacritty -t newcommit --working-directory $github/buildbot;;
     $repo4)
