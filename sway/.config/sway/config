@@ -6,6 +6,7 @@
 
 # Configs
 include ~/.config/sway/profile.conf
+include ~/.config/sway/rules.conf
 set $term alacritty
 exec waybar
 
@@ -143,46 +144,3 @@ bindsym $super+F3 exec --no-startup-id telegram-desktop &; workspace $ws4
 # System shortcuts
 bindsym F10 exec --no-startup-id ~/.bin/scripts/commiter.sh &
 bindsym F11 exec --no-startup-id ~/.dotfiles/install.sh
-
-# Get rules
-# xprop |awk '/^WM_CLASS/{sub(/.* =/, "instance:"); sub(/,/, "\nclass:"); print} /^WM_NAME/{sub(/.* =/, "title:"); print}'
-
-for_window [class=".*"] border pixel 0, focus
-
-# Titles, windows, instances
-for_window [window_role="pop-up|bubble|task_dialog|Preferences"] floating enable, move position center, focus
-for_window [title="Open Folder*"] floating enable, resize set 700 px 500 px, move position center, focus
-for_window [title="Media viewer"] fullscreen enable, focus
-for_window [title="Escolha uma imagem"] floating enable, focus
-for_window [instance="Navigator"] move to workspace $ws2, focus
-
-# Workspace 1 [terminal]
-for_window [class="Alacritty"] move to workspace $ws1, focus
-
-# Workspace 2 [browser]
-for_window [class="Chromium"] move to workspace $ws2, focus
-
-# Workspace 3 [atom]
-for_window [class="Atom"] move to workspace $ws3, focus
-for_window [class="Electron"] move to workspace $ws3, floating enable, focus
-for_window [title="newcommit"] move to workspace $ws3, floating enable, resize set 600 px 250 px, move right -300px, move down 0px, focus
-
-# Workspace 4 [telegram]
-for_window [class="TelegramDesktop"] move to workspace $ws4, focus
-
-# Workspace 5 [media]
-for_window [class="Spotify"] move to workspace $ws5, focus
-
-# Workspace 6 [office]
-for_window [class="Wpspdf|Wpp|Wps|Et"] move to workspace $ws6, focus
-
-# Workspace 7 [pc]
-for_window [class="Lxappearance|Thunar|Transmission-gtk"] move to workspace $ws7, floating enable, focus
-
-# Workspace 8 [art]
-for_window [class="Pinta|Gpicview|fireworks.exe"] move to workspace $ws8, focus
-
-# Workspace 9 [empty]
-
-# all workspaces
-# empty

@@ -20,6 +20,10 @@ BOL_MAG=$END$BOL$(tput setaf 5)     #  magenta
 BOL_CYA=$END$BOL$(tput setaf 6)     #  cyan
 BOL_WHI=$END$BOL$(tput setaf 7)     #  white
 
+function appid() {
+  swaymsg -t get_tree | grep "${1}"
+}
+
 function p () {
   git cherry-pick ${1}
 }
@@ -45,6 +49,9 @@ else
     git add . && git commit --amend
   }
 fi
+
+#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*#*
+# CUSTOM ROM FUNCTIONS
 
 # Tree for beryllium
 function tree () {
