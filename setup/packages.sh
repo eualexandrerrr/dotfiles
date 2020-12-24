@@ -65,6 +65,7 @@ readonly AUR=(
   # apps
   oh-my-zsh-git
   spotify
+  translate-shell-git
   zsh-syntax-highlighting
 
   # dependencies
