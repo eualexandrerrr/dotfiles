@@ -6,7 +6,6 @@
 
 # Configs
 include ~/.config/sway/profile.conf
-include ~/.config/sway/rules.conf
 set $term alacritty
 exec waybar
 
@@ -145,3 +144,6 @@ bindsym $super+F3 exec --no-startup-id telegram-desktop &; workspace $ws4
 # System shortcuts
 bindsym F10 exec --no-startup-id ~/.bin/scripts/commiter.sh &
 bindsym F11 exec --no-startup-id ~/.dotfiles/install.sh
+
+# Rules
+include ~/.config/sway/rules.conf

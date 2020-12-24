@@ -30,7 +30,7 @@ function p () {
 
 if [ $HOST = "kickapoo" ]; then
   function cm () {
-    git add . && git commit --author "Alexandre Rangel <mamutal91@gmail.com>" && git push -f
+    ~/.bin/scripts/translate.sh
   }
   function c () {
     git add . && git commit --author "${1}" && git push -f
