@@ -1,7 +1,12 @@
-# Profile config
-include ~/.config/sway/profile.conf
+# Default config for sway
+#
+# Copy this to ~/.config/sway/config and edit it to your liking.
+#
+# Read `man 5 sway` for a complete reference.
 
-# Start bar
+# Configs
+include ~/.config/sway/profile.conf
+set $term alacritty
 exec waybar
 
 # Font
