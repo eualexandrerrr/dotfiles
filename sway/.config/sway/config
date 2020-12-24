@@ -113,7 +113,7 @@ exec --no-startup-id "pactl set-sink-mute @DEFAULT_SINK@ false; pactl set-sink-v
 
 # Shortcuts
 # Start Rofi menu
-bindsym $super+d exec --no-startup-id wofi -show
+bindsym $super+d exec --no-startup-id wofi -I -p " Apps"
 
 # Audio/Brightness Control
 bindsym XF86AudioRaiseVolume exec --no-startup-id "pactl set-sink-mute @DEFAULT_SINK@ false; pactl set-sink-volume @DEFAULT_SINK@ +1%"

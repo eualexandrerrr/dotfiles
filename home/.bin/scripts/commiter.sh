@@ -20,7 +20,7 @@ repo8="AOSPK/docs"
 
 repos="$repo0\n$repo1\n$repo2\n$repo3\n$repo4\n$repo5\n$repo6\n$repo7\n$repo8"
 
-chosen="$(echo -e "$repos" | wofi -lines 9 -width 20% -dmenu -p "  Commiter")"
+chosen="$(echo -e "$repos" | wofi --lines 9 --dmenu -p "  Commiter")"
 case $chosen in
     $repo0)
         alacritty -t newcommit --working-directory /home/mamutal91/.dotfiles;;
