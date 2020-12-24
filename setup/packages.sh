@@ -16,6 +16,7 @@ readonly PACKAGES=(
   dconf-editor
   git gpicview
   htop
+  lxappearance
   mako
   nano nano-syntax-highlighting neofetch
   peek pinta
