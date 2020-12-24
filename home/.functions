@@ -28,9 +28,16 @@ function p () {
   git cherry-pick ${1}
 }
 
+function translate () {
+  typing="$HOME/.tmp/.translate_typing.txt"
+  rm -rf $typing && nano $typing
+  msg=$(trans -b :en -i $typing)
+}
+
 if [ $HOST = "kickapoo" ]; then
   function cm () {
-    ~/.bin/scripts/translate.sh
+    translate
+    git add . && git commit --message $msg --author "Alexandre Rangel <mamutal91@gmail.com>" && git push -f
   }
   function c () {
     git add . && git commit --author "${1}" && git push -f
