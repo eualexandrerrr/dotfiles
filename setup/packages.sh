@@ -14,6 +14,7 @@ readonly PACKAGES=(
   alacritty atom
   chromium cronie
   dconf-editor
+  fortune-mod
   git gpicview
   htop
   lxappearance
