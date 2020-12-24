@@ -82,9 +82,9 @@ mode "resize" {
         bindsym Up resize shrink height 20 px or 20 ppt
         bindsym Right resize grow width 20 px or 20 ppt
 
-        bindsym $super+r mode "default"
+        bindsym $control+$shift+r mode "default"
 }
-bindsym $super+r mode "resize"
+bindsym $control+$shift+r mode "resize"
 
 # Startup
 exec_always --no-startup-id ~/.bin/scripts/battery.sh
