@@ -104,7 +104,6 @@ exec_always import-gsettings \
     cursor-theme:gtk-cursor-theme-name \
     font-name:gtk-font-name
 
-exec_always --no-startup-id sudo mount /dev/sda3 /media/storage
 exec --no-startup-id mako
 exec --no-startup-id pulseeffects --gapplication-service &>/dev/null
 exec --no-startup-id sudo timedatectl set-ntp true && sudo hwclock --systohc
