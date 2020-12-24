@@ -53,7 +53,7 @@
     }
   },
   "clock": {
-    // "timezone": "America/Sao_Paulo",
+    "timezone": "America/Sao_Paulo",
     "format": "{:%H:%M}",
     "format-alt": "{:%d-%m-%Y}",
     "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
