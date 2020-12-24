@@ -17,11 +17,10 @@ repo5="device_xiaomi_beryllium"
 repo6="device_xiaomi_sdm845-common"
 repo7="AOSPK/manifest"
 repo8="AOSPK/docs"
-repo9="AOSPK/tentacles"
 
-repos="$repo0\n$repo1\n$repo2\n$repo3\n$repo4\n$repo5\n$repo6\n$repo7\n$repo8\n$repo9"
+repos="$repo0\n$repo1\n$repo2\n$repo3\n$repo4\n$repo5\n$repo6\n$repo7\n$repo8"
 
-chosen="$(echo -e "$repos" | wofi -lines 10 -width 20% -dmenu -p "  Commiter")"
+chosen="$(echo -e "$repos" | wofi -lines 9 -width 20% -dmenu -p "  Commiter")"
 case $chosen in
     $repo0)
         alacritty -t newcommit --working-directory /home/mamutal91/.dotfiles;;
@@ -41,7 +40,5 @@ case $chosen in
         alacritty -t newcommit --working-directory $aospk/manifest;;
     $repo8)
         alacritty -t newcommit --working-directory $aospk/docs;;
-    $repo9)
-        alacritty -t newcommit --working-directory $aospk/tentacles;;
 esac
 exit 0;
