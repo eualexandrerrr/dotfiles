@@ -126,7 +126,7 @@
     },
   },
   "custom/pacman": {
-    "format": "{}  ",
+    "format": "  {}",
     "interval": 3600, // every hour
     // "restart-interval": 3600,
     "exec": "checkupdates | wc -l", // # of updates
