@@ -10,6 +10,7 @@
 #
 # If there is already a running instance, user will be prompted to end it.
 
+dir="$HOME/Videos/Screencasts/"
 
 killrecording() {
 	recpid="$(cat /tmp/recordingpid)"
@@ -22,26 +23,24 @@ killrecording() {
 	}
 
 screencast() { \
-	wf-recorder -c libx264rgb -f "$HOME/screencast-$(date '+%y%m%d-%H%M-%S').mkv" &
+	wf-recorder -c libx264rgb -f "$dir/screencast-$(date '+%y%m%d-%H%M-%S').mkv" &
 	echo $! > /tmp/recordingpid
 }
 
 video() { \
-	wf-recorder -a -c libx264rgb -f "$HOME/video-$(date '+%y%m%d-%H%M-%S').mkv" &
+	wf-recorder -a -c libx264rgb -f "$dir/video-$(date '+%y%m%d-%H%M-%S').mkv" &
 	echo $! > /tmp/recordingpid
 	}
 
 window() { \
-	wf-recorder -a -c libx264rgb -g "$(slurp)" -f "$HOME/window-$(date '+%y%m%d-%H%M-%S').mkv" &
+	wf-recorder -a -c libx264rgb -g "$(slurp)" -f "$dir/window-$(date '+%y%m%d-%H%M-%S').mkv" &
 	echo $! > /tmp/recordingpid
 }
 
 vaapi() { \
-	wf-recorder -a -c h264_vaapi -d /dev/dri/renderD128 -f "$HOME/video-$(date '+%y%m%d-%H%M-%S').mkv" &
+	wf-recorder -a -c h264_vaapi -d /dev/dri/renderD128 -f "$dir/video-$(date '+%y%m%d-%H%M-%S').mkv" &
 	echo $! > /tmp/recordingpid
 	}
-
-
 
 askrecording() { \
   choice="$(printf "screencast\\nvideo\\nvaapi\\nwindow" | wofi --lines 9 --dmenu -p " ICONE Screencast")"
