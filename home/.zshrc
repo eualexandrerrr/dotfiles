@@ -37,11 +37,11 @@ alias buildbot="cd /home/buildbot"
 
 if [ "$USER" = "mamutal91" ];
 then
-  source $HOME/.cmds.sh
+  source $HOME/.functions
   function cmds () {
     pwd=$(pwd)
     cd $HOME
-    rm -rf $HOME/.cmds.sh && wget https://raw.githubusercontent.com/mamutal91/dotfiles/master/home/.cmds.sh && chmod +x $HOME/.cmds.sh && source $HOME/.zshrc
+    rm -rf $HOME/functions && wget https://raw.githubusercontent.com/mamutal91/dotfiles/master/home/functions && chmod +x $HOME/functions && source $HOME/.zshrc
     rm -rf $HOME/.zshrc && wget https://raw.githubusercontent.com/mamutal91/dotfiles/master/home/.zshrc && source $HOME/.zshrc
     cd $HOME && sudo rm -rf /home/buildbot $HOME/buildbot && git clone https://github.com/mamutal91/buildbot && sudo mv buildbot /home/
     cd $pwd
