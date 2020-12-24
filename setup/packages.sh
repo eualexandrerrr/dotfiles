@@ -37,7 +37,6 @@ readonly PACKAGES=(
   selinux-python
 
   # screenshots/cast
-  ffmpeg
   grim
   imagemagick
   slurp
@@ -72,5 +71,6 @@ readonly AUR=(
   python-ruamel-yaml
   selinux-python
   ttf-font-awesome ttf-dejavu
+  wf-recorder-git
   xorg-xwayland-git
 )
