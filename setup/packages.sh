@@ -20,7 +20,7 @@ readonly PACKAGES=(
   lxappearance
   mako
   nano nano-syntax-highlighting neofetch
-  peek pinta
+  pinta
   stow sway
   telegram-desktop
   thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman transmission-gtk
