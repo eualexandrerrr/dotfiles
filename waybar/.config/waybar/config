@@ -58,7 +58,7 @@
     "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
   },
   "cpu": {
-    "format": "{usage}  ",
+    "format": " {usage}",
     "on-click": "alacritty -e htop",
     "tooltip": false
   },
