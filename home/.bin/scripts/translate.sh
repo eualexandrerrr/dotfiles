@@ -7,6 +7,6 @@ result="$HOME/.tmp/.translate_result.txt"
 rm -rf $typing $result
 nano $typing
 
-trans -b :en -i $typing > $result
-msg=$result
+msg=$(trans -b :en -i $typing)
+
 git add . && git commit --message $msg --author "Alexandre Rangel <mamutal91@gmail.com>" && git push -f
