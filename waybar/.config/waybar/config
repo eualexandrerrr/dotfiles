@@ -58,7 +58,7 @@
     "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
   },
   "cpu": {
-    "format": " {usage}",
+    "format": "  {usage}",
     "on-click": "alacritty -e htop",
     "tooltip": false
   },
@@ -76,10 +76,8 @@
   },
   "backlight": {
     "interval": 5,
-    "format": "{icon}",
-    "format-alt": "{percent}% {icon}",
-    "format-click": "click-right",
-    "format-icons": ["🌕", "🌔", "🌓", "🌒", "🌑"],
+    "format": "{icon}  {percent}%",
+    "format-icons": [""],
     "on-scroll-down": "brightnessctl -c backlight set +5%",
     "on-scroll-up": "brightnessctl -c backlight set 5%-"
   },
