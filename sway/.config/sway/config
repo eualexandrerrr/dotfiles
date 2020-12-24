@@ -89,7 +89,13 @@ bindsym $control+$shift+r mode "resize"
 # Startup
 exec_always --no-startup-id ~/.bin/scripts/battery.sh
 exec_always --no-startup-id swaybg -i ~/.bin/wallpapers/smartphone.png
+exec --no-startup-id mako
+exec --no-startup-id pulseeffects --gapplication-service &>/dev/null
+exec --no-startup-id sudo timedatectl set-ntp true && sudo hwclock --systohc
+exec --no-startup-id sudo hwclock --systohc --utc && sudo timedatectl set-ntp true
+exec --no-startup-id "pactl set-sink-mute @DEFAULT_SINK@ false; pactl set-sink-volume @DEFAULT_SINK@ 50%"
 
+# GTK theme
 set $gnome-schema org.gnome.desktop.interface
 exec_always {
     gsettings set $gnome-schema gtk-theme 'Ant-Dracula'
@@ -103,12 +109,6 @@ exec_always import-gsettings \
     icon-theme:gtk-icon-theme-name \
     cursor-theme:gtk-cursor-theme-name \
     font-name:gtk-font-name
-
-exec --no-startup-id mako
-exec --no-startup-id pulseeffects --gapplication-service &>/dev/null
-exec --no-startup-id sudo timedatectl set-ntp true && sudo hwclock --systohc
-exec --no-startup-id sudo hwclock --systohc --utc && sudo timedatectl set-ntp true
-exec --no-startup-id "pactl set-sink-mute @DEFAULT_SINK@ false; pactl set-sink-volume @DEFAULT_SINK@ 50%"
 
 # Shortcuts
 # Start Rofi menu
