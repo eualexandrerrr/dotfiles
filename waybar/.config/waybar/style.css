@@ -77,14 +77,11 @@ window#waybar.empty {
 	margin-right: 5px;
 }
 /* WIDGETS */
-#cpu, #custom-pacman, #memory, #backlight, #disk, #network, #pulseaudio, #temperature, #battery {
+#cpu, #custom-pacman, #memory, #backlight, #network, #pulseaudio, #temperature, #battery {
   font-size: 10px;
 	background-color: #2e3440;
 	padding: 0px 5px 0px 10px;
 	margin: 2px 0px 2px 0px;
-}
-#disk {
-	color:#b48ead;
 }
 #memory {
 	color:#d08770;

@@ -15,7 +15,6 @@
   "modules-center": ["sway/window"],
   "modules-right": [
     "pulseaudio",
-    "disk",
     "cpu",
     "memory",
     "temperature",
@@ -131,11 +130,6 @@
     "exec-if": "exit 0", // always run; consider advanced run conditions
     "on-click": "alacritty -e ~/.bin/scripts/pacman.update.sh", // update system
     "signal": 8,
-  },
-  "disk": {
-    "interval": 30,
-    "format": "{free}",
-    "path": "/media/storage",
   },
   "custom/github": {
     "format": "",
