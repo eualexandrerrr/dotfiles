@@ -20,12 +20,10 @@
     "memory",
     "temperature",
     "network",
-    "battery",
     "backlight",
     "custom/pacman",
-    "custom/recorder",
+    "battery",
     "clock",
-    "custom/power"
   ],
   // Modules
   "sway/workspaces": {

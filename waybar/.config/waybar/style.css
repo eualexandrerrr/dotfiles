@@ -97,7 +97,6 @@ window#waybar.empty {
 }
 #custom-pacman {
 	color: #ebcb8b;
-	border-radius: 0px 10px 10px 0px;
 	font-weight: 600;
 }
 #pulseaudio {
@@ -116,7 +115,8 @@ window#waybar.empty {
 }
 #battery {
 	color: #8fbcbb;
-	padding: 0px 0px 0px 8px;
+	padding: 0px 10px 0px 10px;
+	border-radius: 0px 10px 10px 0px;
 }
 #battery.charging {
 	color: #8fbcbb;
