@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
 # github.com/mamutal91
 
-# Permissions
-sudo chown -R mamutal91:mamutal91 /home/mamutal91 && sudo chmod +x /home/mamutal91
-
 # Git
 git config --global user.email "mamutal91@gmail.com" && git config --global user.name "Alexandre Rangel"
 
@@ -34,18 +31,10 @@ for SERVICES in \
     dhcpcd \
     NetworkManager \
     cronie \
-    bumblebeed.service \
     bluetooth
 do
     sudo systemctl enable $SERVICES
     sudo systemctl start $SERVICES
-done
-
-# Groups
-for GROUPS in \
-    bumblebeed
-do
-    sudo gpasswd -a mamutal91 $GROUPS
 done
 
 source $HOME/.dotfiles/setup/etc.sh
