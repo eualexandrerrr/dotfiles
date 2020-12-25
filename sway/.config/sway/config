@@ -5,7 +5,7 @@
 # Read `man 5 sway` for a complete reference.
 
 # Configs
-include ~/.config/sway/profile.conf
+include ~/.config/sway/profiles.conf
 set $term alacritty
 exec waybar
 
