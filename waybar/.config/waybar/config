@@ -128,7 +128,7 @@
   "custom/pacman": {
     "format": "  {}",
     "interval": 3600, // every hour
-    restart-interval": 3600,
+    "restart-interval": 3600,
     "exec": "checkupdates | wc -l", // # of updates
     "exec-if": "exit 0", // always run; consider advanced run conditions
     "on-click": "alacritty -e ~/.bin/scripts/pacman.update.sh", // update system
