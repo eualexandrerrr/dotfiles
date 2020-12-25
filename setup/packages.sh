@@ -23,7 +23,6 @@ readonly PACKAGES=(
   pinta
   reflector
   stow sway
-  telegram-desktop
   thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman transmission-gtk
   waybar wayland wofi
   zsh-syntax-highlighting
@@ -65,6 +64,7 @@ readonly AUR=(
 
   # apps
   oh-my-zsh-git
+  kotatogram-desktop-bin
   spotify
   translate-shell-git
   zsh-syntax-highlighting

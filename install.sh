@@ -10,8 +10,6 @@ do
   echo "$DOTFILES stowed."
 done
 
-stow --adopt -t ~/.vim vim
-
 # etc
 if [ "$USER" = "mamutal91" ];
 then
