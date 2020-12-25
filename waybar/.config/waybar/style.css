@@ -7,26 +7,22 @@
 window#waybar {
 	background-color: transparent;
 	color: #d8dee9;
+	opacity: 0.8;
 }
 #workspaces, #tags {
 	background-color: #2e3440;
-	padding: 1px 0px 1px 5px;
-	font-size: 10px;
   margin-right: 0px;
 	border-radius: 10px;
 }
 #workspaces button, #tags button {
   background-color: transparent;
-	font-size: 10px;
-	margin: 0;
-	color: #ffffff;
+	color: #d8dee9;
 }
 #window {
 	color: #d8dee9;
 	margin: 0px;
   font-size: 10px;
 	border-radius: 10px;
-	padding: 0px 0px 0px 6px;
 }
 @keyframes fadeIn {
   from {opacity: 0;}
@@ -41,10 +37,7 @@ window#waybar.empty {
 	color: #5e81ac;
 }
 #workspaces button.focused, #tags button.focused {
-	color: #81a1c1;
-}
-#tags button.focused {
-  font-weight: 600;
+	color: #d08770;
 }
 #workspaces button.urgent {
 	color:  #BF616A;
@@ -56,23 +49,20 @@ window#waybar.empty {
 /* BROWSER BOOKMARKS */
 #custom-name, #custom-github, #custom-gerrit, #custom-keep {
 	background-color: #3B4252;
-	font-size: 14px;
+	font-size: 12px;
   margin-left: 0;
   margin-right: 0;
-	padding: 0px 6px 0px 8px ;
+	padding: 0px 5px 0px 8px ;
 }
 #custom-github {
 	border-radius: 10px 0px 0px 10px;
-	color: #d08770;
+	color: #ffffff;
 }
 #custom-gerrit {
-	color: #ebcb8b;
-}
-#custom-library {
-	color: #c57078;
+	color: #84bcbc;
 }
 #custom-keep {
-	color: #a3be8c;
+	color: #f5b70c;
 	border-radius: 0px 10px 10px 0px;
 	margin-right: 5px;
 }
@@ -80,7 +70,7 @@ window#waybar.empty {
 #cpu, #custom-pacman, #memory, #backlight, #network, #pulseaudio, #temperature, #battery {
   font-size: 10px;
 	background-color: #2e3440;
-	padding: 0px 5px 0px 10px;
+	padding: 0px 2px 0px 10px;
 	margin: 2px 0px 2px 0px;
 }
 #memory {
@@ -112,7 +102,7 @@ window#waybar.empty {
 }
 #battery {
 	color: #8fbcbb;
-	padding: 0px 10px 0px 10px;
+	padding: 0px 10px 0px 6px;
 	border-radius: 0px 10px 10px 0px;
 }
 #battery.charging {
@@ -138,7 +128,7 @@ label:focus {
 }
 #clock, #custom-power {
 	background-color: #3b4252;
-	padding: 4px 4px 4px 4px;
+	padding: 6px 6px 6px 6px;
 	margin: 2px 0px 2px 0px;
 }
 #clock {
