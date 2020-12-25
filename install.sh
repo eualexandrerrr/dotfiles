@@ -13,7 +13,7 @@ done
 # etc
 if [ "$USER" = "mamutal91" ];
 then
-  ~/.dotfiles/setup/etc.sh
+  ~/.dotfiles/setup/etc.sh || echo "Error configure etc"
   echo "/etc configured."
 fi
 

@@ -5,24 +5,23 @@
 # Check the package name in the GitHub repository, in the file `package.json` for install
 
 packages='
-  atom-material-syntax
   atom-beautify
+  atom-material-syntax
+  brazilian-shellscript-snippets-atom
   color-picker
   file-icons
+  flatten-json
+  fonts
   ftp-remote-edit
+  highlight-selected
   indent-sort
-  language-swaywm
   language-i3wm
+  language-shellscript
+  language-swaywm
+  linter-spell-shellscript
   markdown-writer
   pigments
   save-workspace
   set-syntax
-  flatten-json
-  fonts
-  highlight-selected
-  linter-spell-shellscript
-  language-shellscript
-  language-unix-shell
-  brazilian-shellscript-snippets-atom
   '
 apm install $packages
