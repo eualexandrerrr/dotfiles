@@ -12,8 +12,8 @@ readonly PACKAGES=(
 
   # apps
   alacritty atom
-  cronie
-  firefox firefox-i18n-pt-br fortune-mod
+  cronie chromium
+  fortune-mod
   git gpicview
   htop
   lxappearance
