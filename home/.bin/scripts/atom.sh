@@ -19,5 +19,6 @@ packages='
   set-syntax
   flatten-json
   fonts
+  highlight-selected
   '
 apm install $packages
