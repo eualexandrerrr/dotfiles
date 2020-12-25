@@ -29,7 +29,8 @@ done
 # Remove files from the system, and copy mine!
 if [ "$USER" = "mamutal91" ];
 then
-  source $HOME/.dotfiles/setup/etc.sh || echo "Error: etc"
+  sudo stow -t /etc etc
+#  source $HOME/.dotfiles/setup/etc.sh || echo "Error: etc"
 fi
 
 play $HOME/.bin/sounds/completed.wav
