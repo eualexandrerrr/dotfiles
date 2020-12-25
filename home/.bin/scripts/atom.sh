@@ -7,7 +7,7 @@
 packages='
   atom-beautify
   atom-material-syntax
-  brazilian-shellscript-snippets-atom
+  mamutal91-shellscript-snippets-atom
   color-picker
   file-icons
   flatten-json
