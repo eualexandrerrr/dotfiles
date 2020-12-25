@@ -20,5 +20,9 @@ packages='
   flatten-json
   fonts
   highlight-selected
+  linter-spell-shellscript
+  language-shellscript
+  language-unix-shell
+  brazilian-shellscript-snippets-atom
   '
 apm install $packages
