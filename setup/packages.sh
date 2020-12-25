@@ -13,7 +13,6 @@ readonly PACKAGES=(
   # apps
   alacritty atom
   cronie
-  dconf-editor
   firefox firefox-i18n-pt-br fortune-mod
   git gpicview
   htop
