@@ -53,6 +53,7 @@ window#waybar.empty {
   margin-left: 0;
   margin-right: 0;
 	padding: 0px 5px 0px 8px ;
+	opacity: 0.8;
 }
 #custom-github {
 	border-radius: 10px 0px 0px 10px;
@@ -126,14 +127,12 @@ window#waybar.empty {
 label:focus {
 	background-color: #000000;
 }
-#clock, #custom-power {
-	background-color: #3b4252;
-	padding: 6px 6px 6px 6px;
-	margin: 2px 0px 2px 0px;
-}
 #clock {
+	background-color: #3b4252;
 	border-radius: 10px 10px 10px 10px;
+	padding: 6px 6px 6px 6px;
 	font-size: 10px;
 	margin-left: 10px;
 	margin-right: 2px;
+	opacity: 0.8;
 }
