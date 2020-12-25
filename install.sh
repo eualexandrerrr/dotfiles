@@ -13,8 +13,8 @@ done
 # etc
 if [ "$USER" = "mamutal91" ];
 then
-  sudo stow --adopt -t /etc etc || echo "Error on gnu/stow (/etc)"
-  echo "/etc stowed."
+  ~/.dotfiles/setup/etc.sh
+  echo "/etc configured."
 fi
 
 play $HOME/.bin/sounds/completed.wav
