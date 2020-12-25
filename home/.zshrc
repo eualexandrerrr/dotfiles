@@ -17,7 +17,7 @@ source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 export LS_COLORS="$LS_COLORS:ow=1;34:tw=1;34:"
 export TERM="xterm-256color"
 export EDITOR="nano"
-export BROWSER="/usr/bin/chromium"
+export BROWSER="/usr/bin/firefox"
 export iconpath="/usr/share/icons/Papirus-Dark/32x32/devices"
 
 if [ "$USER" = "mamutal91" ];
