@@ -18,5 +18,6 @@ packages='
   save-workspace
   set-syntax
   flatten-json
+  fonts
   '
 apm install $packages
