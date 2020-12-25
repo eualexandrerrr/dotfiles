@@ -18,6 +18,6 @@ then
 fi
 
 play $HOME/.bin/sounds/completed.wav
-pkill waybar && exec waybar
 swaymsg reload
+pkill waybar && exec waybar
 exit 0
