@@ -21,6 +21,7 @@ readonly PACKAGES=(
   mako
   nano nano-syntax-highlighting neofetch
   pinta
+  reflector
   stow sway
   telegram-desktop
   thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman transmission-gtk
