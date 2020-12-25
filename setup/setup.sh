@@ -1,8 +1,13 @@
 #!/usr/bin/env bash
 # github.com/mamutal91
 
-# Git
-git config --global user.email "mamutal91@gmail.com" && git config --global user.name "Alexandre Rangel"
+function personalconfig() {
+  pwd=$(pwd) && cd $HOME
+  git config --global user.email "mamutal91@gmail.com"
+  git config --global user.name "Alexandre Rangel"
+  rm -rf $HOME/.zsh_history && wget https://raw.githubusercontent.com/mamutal91/zsh-history/master/.zsh_history
+  cd $pwd
+}
 
 sudo pacman -Sy --noconfirm
 
@@ -39,5 +44,6 @@ done
 
 source $HOME/.dotfiles/setup/etc.sh
 
-# Install oh-my-zsh
-rm -rf $HOME/.zsh_history && wget https://raw.githubusercontent.com/mamutal91/zsh-history/master/.zsh_history
+if [[ $USER = "mamutal91" ]]; then
+  personalconfig
+fi

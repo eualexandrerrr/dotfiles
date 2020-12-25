@@ -20,24 +20,25 @@ export EDITOR="nano"
 export BROWSER="/usr/bin/chromium"
 export iconpath="/usr/share/icons/Papirus-Dark/32x32/devices"
 
-# sudo easy
-alias chmod="sudo chmod"
-alias mv="sudo mv"
-alias pacman="sudo pacman"
-alias pkill="sudo pkill"
-alias rm="sudo rm"
-alias systemctl="sudo systemctl"
-alias sed="sudo sed"
-
-# paths
-alias github="cd /media/storage/GitHub && clear && ls -1"
-alias aospk="cd /media/storage/AOSPK && clear && ls -1"
-alias x="cd /home/rom/AOSPK"
-alias buildbot="cd /home/buildbot"
-
 if [ "$USER" = "mamutal91" ];
 then
+  # sudo easy
+  alias chmod="sudo chmod"
+  alias mv="sudo mv"
+  alias pacman="sudo pacman"
+  alias pkill="sudo pkill"
+  alias rm="sudo rm"
+  alias systemctl="sudo systemctl"
+  alias sed="sudo sed"
+
+  # paths
+  alias github="cd /media/storage/GitHub && clear && ls -1"
+  alias aospk="cd /media/storage/AOSPK && clear && ls -1"
+  alias x="cd /home/rom/AOSPK"
+  alias buildbot="cd /home/buildbot"
+
   source $HOME/.functions
+
   function cmds () {
     pwd=$(pwd)
     cd $HOME
