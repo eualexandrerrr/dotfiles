@@ -4,11 +4,13 @@
 clear
 
 cd ~/.dotfiles
-for DOTFILES in $(find . -maxdepth 1  -not -name "etc" ! -name ".*" ! -name "setup" -type d -printf '%f\n')
+for DOTFILES in $(find . -maxdepth 1  -not -name "etc" ! -name ".*" ! -name "setup" ! -name "vim" -type d -printf '%f\n')
 do
   stow --adopt $DOTFILES || echo "Error on gnu/stow"
   echo "$DOTFILES stowed."
 done
+
+stow --adopt -t ~/.vim vim
 
 # etc
 if [ "$USER" = "mamutal91" ];
@@ -19,5 +21,4 @@ fi
 
 play $HOME/.bin/sounds/completed.wav
 swaymsg reload
-pkill waybar && exec waybar
 exit 0

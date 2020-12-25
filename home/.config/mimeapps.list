@@ -6,14 +6,14 @@ image/png=gpicview.desktop
 
 text/x-shellscript=atom.desktop
 text/plain=atom.desktop
-text/html=google-chrome-beta.desktop
+text/html=firefox.desktop
 
-x-scheme-handler/about=google-chrome-beta.desktop
-x-scheme-handler/htm=google-chrome-beta.desktop
-x-scheme-handler/html=google-chrome-beta.desktop
-x-scheme-handler/http=google-chrome-beta.desktop
-x-scheme-handler/https=google-chrome-beta.desktop
-x-scheme-handler/unknown=google-chrome-beta.desktop
+x-scheme-handler/about=firefox.desktop
+x-scheme-handler/htm=firefox.desktop
+x-scheme-handler/html=firefox.desktop
+x-scheme-handler/http=firefox.desktop
+x-scheme-handler/https=firefox.desktop
+x-scheme-handler/unknown=firefox.desktop
 
 application/wps-office.pptx=wps-office-wpp.desktop
 application/wps-office.ppt=wps-office-wpp.desktop

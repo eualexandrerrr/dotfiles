@@ -7,7 +7,6 @@
 # Configs
 include ~/.config/sway/profiles.conf
 set $term alacritty
-exec waybar
 
 # Font
 font pango:Open Sans, 10
@@ -94,7 +93,7 @@ bindsym $control+$shift+r mode "resize"
 # Startup
 exec_always --no-startup-id ~/.bin/scripts/battery.sh
 exec_always --no-startup-id swaybg -i ~/.bin/wallpapers/smartphone.png
-exec_always 'sleep 5; swaymsg for_window [instance=chromium] focus_on_window_activation focus'
+exec_always 'sleep 5; swaymsg for_window [instance=firefox] focus_on_window_activation focus'
 exec --no-startup-id mako
 exec --no-startup-id pulseeffects --gapplication-service &>/dev/null
 exec --no-startup-id sudo timedatectl set-ntp true && sudo hwclock --systohc
@@ -135,7 +134,7 @@ bindsym $control+Print exec --no-startup-id grim - | wl-copy
 # Application shortcuts
 bindsym $super+Return exec --no-startup-id alacritty &; workspace $ws1
 bindsym $super+e exec --no-startup-id thunar &; workspace $ws7
-bindsym $super+F2 exec --no-startup-id chromium &; workspace $ws2
+bindsym $super+F2 exec --no-startup-id firefox &; workspace $ws2
 bindsym $super+F3 exec --no-startup-id telegram-desktop &; workspace $ws4
 
 # System shortcuts

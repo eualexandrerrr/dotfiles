@@ -12,9 +12,9 @@ readonly PACKAGES=(
 
   # apps
   alacritty atom
-  chromium cronie
+  cronie
   dconf-editor
-  fortune-mod
+  firefox firefox-i18n-pt-br fortune-mod
   git gpicview
   htop
   lxappearance
