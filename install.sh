@@ -3,37 +3,21 @@
 
 clear
 
-function boot() {
-  cd $HOME/.config
-  rm -rf alacritty gpicview mako neofetch sway waybar wofi mimeapps.list
-  cd $HOME
-  rm -rf .bashrc .bash_profile .zshrc .functions .nanorc
-}
-
-if [ "${1}" == "boot" ]; then boot; fi || echo "Error: boot"
-
-cd $HOME/.dotfiles
-for DOTFILES in \
-  alacritty \
-  gpicview \
-  home \
-  mako \
-  neofetch \
-  sway \
-  waybar \
-  wofi
+cd ~/.dotfiles
+for DOTFILES in $(find . -maxdepth 1  -not -name "etc" ! -name ".*" ! -name "setup" -type d -printf '%f\n')
 do
-    stow $DOTFILES || echo "Error on gnu/stow"
+  stow --adopt $DOTFILES || echo "Error on gnu/stow"
+  echo "$DOTFILES stowed."
 done
 
-# Remove files from the system, and copy mine!
+# etc
 if [ "$USER" = "mamutal91" ];
 then
-  sudo stow -t /etc etc
-#  source $HOME/.dotfiles/setup/etc.sh || echo "Error: etc"
+  sudo stow --adopt -t /etc etc || echo "Error on gnu/stow (/etc)"
+  echo "/etc stowed."
 fi
 
 play $HOME/.bin/sounds/completed.wav
-swaymsg reload
 pkill waybar && exec waybar
+swaymsg reload
 exit 0
