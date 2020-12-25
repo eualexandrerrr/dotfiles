@@ -29,7 +29,7 @@ function p () {
 }
 
 function translate () {
-  typing="$HOME/.tmp/.translate_typing.txt"
+  typing="/tmp/.translate_typing.txt"
   rm -rf $typing && nano $typing
   msg=$(trans -b :en -i $typing)
 }
