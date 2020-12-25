@@ -21,7 +21,7 @@ font:
     style: Italic
   bold_italic:
     style: Bold Italic
-  size: 9.0
+  size: 9
 
 background_opacity: 0.6
 

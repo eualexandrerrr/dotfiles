@@ -9,7 +9,7 @@ include ~/.config/sway/profiles.conf
 set $term alacritty
 
 # Font
-font pango:Open Sans, 10
+font pango: DejaVu Sans, 10
 
 # use super/alt/control key
 set $super Mod4
