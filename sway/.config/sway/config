@@ -5,7 +5,7 @@
 # Read `man 5 sway` for a complete reference.
 
 # Configs
-include ~/.config/sway/profiles.conf
+include $HOME/.config/sway/profiles.conf
 set $term alacritty
 
 # Font
@@ -91,8 +91,8 @@ mode "resize" {
 bindsym $control+$shift+r mode "resize"
 
 # Startup
-exec_always --no-startup-id ~/.bin/scripts/battery.sh
-exec_always --no-startup-id swaybg -i ~/.bin/wallpapers/smartphone.png
+exec_always --no-startup-id $HOME/.bin/scripts/battery.sh
+exec_always --no-startup-id swaybg -i $HOME/.bin/wallpapers/smartphone.png
 exec_always 'sleep 5; swaymsg for_window [instance=firefox] focus_on_window_activation focus'
 exec --no-startup-id mako
 exec --no-startup-id pulseeffects --gapplication-service &>/dev/null
@@ -138,8 +138,8 @@ bindsym $super+F2 exec --no-startup-id firefox &; workspace $ws2
 bindsym $super+F3 exec --no-startup-id kotatogram-desktop &; workspace $ws4
 
 # System shortcuts
-bindsym F10 exec --no-startup-id ~/.bin/scripts/commiter.sh &
-bindsym F11 exec --no-startup-id ~/.dotfiles/install.sh
+bindsym F10 exec --no-startup-id $HOME/.bin/scripts/commiter.sh &
+bindsym F11 exec --no-startup-id $HOME/.dotfiles/install.sh
 
 # Rules
-include ~/.config/sway/rules.conf
+include $HOME/.config/sway/rules.conf

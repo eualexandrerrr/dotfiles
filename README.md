@@ -1,4 +1,4 @@
-# ~/.dotfiles
+# $HOME/.dotfiles
 
 ![screenshot](https://raw.githubusercontent.com/mamutal91/dotfiles/master/screenshot.png)
 
@@ -15,6 +15,7 @@
 
 ```
 $ git clone https://github.com/mamutal91/dotfiles ~/.dotfiles
-$ ~/.dotfiles/setup/setup.sh
-$ ~/.dotfiles/install.sh boot
+$ cd ~/.dotfiles
+$ ./setup/setup.sh
+$ ./install.sh
 ```

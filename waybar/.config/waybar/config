@@ -131,7 +131,7 @@
     "restart-interval": 3600,
     "exec": "checkupdates | wc -l", // # of updates
     "exec-if": "exit 0", // always run; consider advanced run conditions
-    "on-click": "alacritty -e ~/.bin/scripts/pacman.update.sh", // update system
+    "on-click": "alacritty -e $HOME/.bin/scripts/pacman.update.sh", // update system
     "signal": 8,
   },
   "custom/github": {

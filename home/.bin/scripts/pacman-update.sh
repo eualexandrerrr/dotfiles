@@ -15,5 +15,5 @@ echo "Removendo pacotes não utilizados"
   sudo pacman -Rncs $(pacman -Qdtq) --noconfirm
   yay -Rncs $(yay -Qdtq) --noconfirm
 
-play ~/.bin/sounds/completed.wav
+play $HOME/.bin/sounds/completed.wav
 notify-send -i $icon "archlinux" "Pacotes atualizados com sucesso."

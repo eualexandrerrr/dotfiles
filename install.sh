@@ -3,7 +3,7 @@
 
 clear
 
-cd ~/.dotfiles
+cd $HOME/.dotfiles
 for DOTFILES in $(find . -maxdepth 1  -not -name "etc" ! -name ".*" ! -name "setup" ! -name "vim" -type d -printf '%f\n')
 do
   stow --adopt $DOTFILES || echo "Error on gnu/stow"
@@ -13,7 +13,7 @@ done
 # etc
 if [ "$USER" = "mamutal91" ];
 then
-  ~/.dotfiles/setup/etc.sh || echo "Error configure etc"
+  $HOME/.dotfiles/setup/etc.sh || echo "Error configure etc"
   echo "/etc configured."
 fi
 
