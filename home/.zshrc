@@ -41,6 +41,7 @@ then
   source $HOME/.bin/functions/aospk.sh
   source $HOME/.bin/functions/colors.sh
   source $HOME/.bin/functions/git.sh
+  source $HOME/.bin/functions/personal.sh
 
   function vm () {
     pwd=$(pwd)
