@@ -38,9 +38,11 @@ then
   alias x="cd /home/rom/AOSPK"
   alias buildbot="cd /home/buildbot"
 
-  source $HOME/.functions
+  source $HOME/.bin/functions/aospk.sh
+  source $HOME/.bin/functions/colors.sh
+  source $HOME/.bin/functions/git.sh
 
-  function cmds () {
+  function vm () {
     pwd=$(pwd)
     cd $HOME
     rm -rf $HOME/functions && wget https://raw.githubusercontent.com/mamutal91/dotfiles/master/home/functions && chmod +x $HOME/functions && source $HOME/.zshrc
