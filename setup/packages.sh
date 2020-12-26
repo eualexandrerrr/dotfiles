@@ -21,7 +21,7 @@ readonly PACKAGES=(
   nano nano-syntax-highlighting neofetch
   pinta
   reflector
-  stow sway
+  stow sway swaybg
   thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman transmission-gtk
   waybar wayland wofi
   zsh-syntax-highlighting
@@ -64,7 +64,7 @@ readonly AUR=(
   # apps
   oh-my-zsh-git
   kotatogram-desktop-bin
-  spotify
+  spotify swaylock-effects-git
   translate-shell-git
   zsh-syntax-highlighting
 
