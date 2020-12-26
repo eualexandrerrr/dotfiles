@@ -1,36 +1,28 @@
-# Base16 Default Dark - alacritty color config
-# Chris Kempson (http://chriskempson.com)
+# Colors (One Dark)
 colors:
   # Default colors
   primary:
-    background: '0x181818'
-    foreground: '0xd8d8d8'
-
-  # Colors the cursor will use if `custom_cursor_colors` is true
-  cursor:
-    text: '0x181818'
-    cursor: '0xd8d8d8'
+    background: '0x1e2127'
+    foreground: '0xa8a8a8'
 
   # Normal colors
   normal:
-    black:   '0x181818'
-    red:     '0xab4642'
-    green:   '0xa1b56c'
-    yellow:  '0xf7ca88'
-    blue:    '0x7cafc2'
-    magenta: '0xba8baf'
-    cyan:    '0x86c1b9'
-    white:   '0xd8d8d8'
+    black:   '0x6f6f6f'
+    red:     '0xe06c75'
+    green:   '0x98c379'
+    yellow:  '0xd19a66'
+    blue:    '0x61afef'
+    magenta: '0xc678dd'
+    cyan:    '0xa8a8a8'
+    white:   '0xabb2bf'
 
   # Bright colors
   bright:
-    black:   '0x585858'
-    red:     '0xdc9656'
-    green:   '0x282828'
-    yellow:  '0x383838'
-    blue:    '0xb8b8b8'
-    magenta: '0xe8e8e8'
-    cyan:    '0xa16946'
-    white:   '0xf8f8f8'
-
-draw_bold_text_with_bright_colors: false
+    black:   '0x6f6f6f'
+    red:     '0xe06c75'
+    green:   '0x98c379'
+    yellow:  '0xd19a66'
+    blue:    '0x61afef'
+    magenta: '0xc678dd'
+    cyan:    '0xa8a8a8'
+    white:   '0xffffff'
