@@ -11,17 +11,13 @@ packages='
   color-picker
   file-icons
   flatten-json
-  fonts
   ftp-remote-edit
   highlight-selected
   indent-sort
   language-i3wm
-  language-shellscript
-  language-swaywm
-  linter-spell-shellscript
+#  language-swaywm
   markdown-writer
   pigments
   save-workspace
-  set-syntax
   '
 apm install $packages

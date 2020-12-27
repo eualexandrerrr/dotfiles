@@ -10,7 +10,7 @@ function translate () {
   msg=$(trans -b :en -i $typing)
 }
 
-if [ $HOST = "kickapoo" ]; then
+if [ $HOST = "odin" ]; then
   function cm () {
     translate
     git add . && git commit --message $msg --author "Alexandre Rangel <mamutal91@gmail.com>" && git push -f
