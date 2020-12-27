@@ -13,7 +13,7 @@ sudo pacman -Sy --noconfirm
 
 # Install YAY and PACAUR AUR Manager
 pwd=$(pwd)
-git clone https://aur.archlinux.org/yay.git $HOME/yay && cd "$HOME/yay" && makepkg -si --noconfirm && rm -rf $HOME/yay
+rm -rf $HOME/yay && git clone https://aur.archlinux.org/yay.git $HOME/yay && cd "$HOME/yay" && makepkg -si --noconfirm && rm -rf $HOME/yay
 cd $pwd
 
 # Load packages
