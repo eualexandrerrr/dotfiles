@@ -92,7 +92,7 @@ bindsym $control+$shift+r mode "resize"
 
 # Startup
 exec_always --no-startup-id $HOME/.bin/scripts/battery.sh
-exec_always --no-startup-id swaybg -i $HOME/.bin/wallpapers/smartphone.png
+exec_always --no-startup-id swaybg -i $HOME/.bin/wallpapers/space.jpg
 exec_always 'sleep 5; swaymsg for_window [instance=firefox] focus_on_window_activation focus'
 exec --no-startup-id mako
 exec --no-startup-id pulseeffects --gapplication-service &>/dev/null
