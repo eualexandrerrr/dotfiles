@@ -21,7 +21,7 @@ export BROWSER="/usr/bin/firefox"
 export iconpath="/usr/share/icons/Papirus-Dark/32x32/devices"
 
 export MOZ_ENABLE_WAYLAND=1
-export GDK_SCALE=2
+export GDK_SCALE=0.8
 
 # sudo easy
 alias chmod="sudo chmod"
