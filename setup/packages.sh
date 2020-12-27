@@ -12,7 +12,7 @@ readonly PACKAGES=(
   # apps
   alacritty atom
   cronie
-  firefox firefox-i18n-pt-br fortune-mod
+  firefox firefox-i18n-pt-br
   git gpicview gimp gimp-help-pt_br
   htop
   lxappearance
