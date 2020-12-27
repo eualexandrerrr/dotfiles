@@ -13,7 +13,7 @@ readonly PACKAGES=(
   alacritty atom
   cronie
   firefox firefox-i18n-pt-br fortune-mod
-  git gpicview
+  git gpicview gimp gimp-help-pt_br
   htop
   lxappearance
   mako
