@@ -11,7 +11,7 @@ do
 done
 
 # etc
-if [ "$USER" = "mamutal91" ];
+if [ "$HOSTNAME" = "odin" ];
 then
   $HOME/.dotfiles/setup/etc.sh || echo "Error configure etc"
   echo "/etc configured."
