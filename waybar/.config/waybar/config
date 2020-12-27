@@ -12,7 +12,7 @@
     "custom/keep",
     "sway/workspaces"
   ],
-  "modules-center": ["sway/window"],
+  "modules-center": ["sway/window", "spotify"],
   "modules-right": [
     "pulseaudio",
     "backlight",
@@ -124,6 +124,10 @@
       "car": "",
       "default": ["", "", ""]
     },
+  },
+  "spotify": {
+    "format": "SPOTIFY  {}",
+    "exec": "bash $HOME/.bin/scripts/spotify.sh 2> /dev/null"
   },
   "custom/pacman": {
     "format": "  {}",
