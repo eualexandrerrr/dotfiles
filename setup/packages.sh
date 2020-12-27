@@ -25,7 +25,6 @@ readonly PACKAGES=(
   thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman transmission-gtk
   waybar wayland wofi
   zsh-syntax-highlighting
-  spotify
 
   # bluetooth
   bluez bluez-libs bluez-tools bluez-utils
