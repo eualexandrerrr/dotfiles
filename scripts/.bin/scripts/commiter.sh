@@ -15,11 +15,10 @@ repo5="readme"
 repo6="device_xiaomi_beryllium"
 repo7="device_xiaomi_sdm845-common"
 repo8="AOSPK/manifest"
-repo9="AOSPK/docs"
 
 repos="$repo1\n$repo2\n$repo3\n$repo4\n$repo5\n$repo6\n$repo7\n$repo8\n$repo9"
 
-chosen="$(echo -e "$repos" | wofi --lines 9 --sort-order=DEFAULT --dmenu -p "  Commiter")"
+chosen="$(echo -e "$repos" | wofi --lines 8 --sort-order=DEFAULT --dmenu -p "  Commiter")"
 case $chosen in
     $repo1)
         alacritty -t newcommit --working-directory /home/mamutal91/.dotfiles;;
@@ -37,7 +36,5 @@ case $chosen in
         alacritty -t newcommit --working-directory $github/device_xiaomi_sdm845-common;;
     $repo8)
         alacritty -t newcommit --working-directory $aospk/manifest;;
-    $repo9)
-        alacritty -t newcommit --working-directory $aospk/docs;;
 esac
 exit 0;
