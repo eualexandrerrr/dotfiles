@@ -20,6 +20,8 @@ export EDITOR="nano"
 export BROWSER="/usr/bin/firefox"
 export iconpath="/usr/share/icons/Papirus-Dark/32x32/devices"
 
+export MOZ_ENABLE_WAYLAND=1
+
 # sudo easy
 alias chmod="sudo chmod"
 alias mv="sudo mv"
