@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-# github.com/mamutal91
 
 # usage: import-gsettings <gsettings key>:<settings.ini key> <gsettings key>:<settings.ini key> ...
 

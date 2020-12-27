@@ -1,4 +1,4 @@
-# github.com/mamutal91
+#!/usr/bin/env bash
 
 # Themes https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 

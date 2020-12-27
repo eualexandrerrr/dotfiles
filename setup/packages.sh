@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-# github.com/mamutal91
 
 readonly PACKAGES=(
   # audio

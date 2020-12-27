@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-# github.com/mamutal91
 
 # systemd
 sudo rm -rf /etc/systemd/system/getty@tty1.service.d

@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-# github.com/mamutal91
 
 function personalconfig() {
   pwd=$(pwd) && cd $HOME

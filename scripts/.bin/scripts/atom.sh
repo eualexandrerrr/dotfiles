@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-# github.com/mamutal91
 
 # My favorites packages https://atom.io/packages/
 # Check the package name in the GitHub repository, in the file `package.json` for install

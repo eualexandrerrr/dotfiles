@@ -1,3 +1,3 @@
-# github.com/mamutal91
+#!/usr/bin/env bash
 
 exec zsh

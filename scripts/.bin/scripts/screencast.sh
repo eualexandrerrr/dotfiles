@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-# github.com/mamutal91
 
 dir="$HOME/Videos/Screencasts/"
 if [ ! -d "$dir" ]; then

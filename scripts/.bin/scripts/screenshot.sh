@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-# github.com/mamutal91
 
 dir="$HOME/Images/Screenshots/"
 if [ ! -d "$dir" ]; then

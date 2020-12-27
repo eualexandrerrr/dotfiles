@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-# github.com/mamutal91
 
 rm -rf /media/storage/GitHub && mkdir -p /media/storage/GitHub
 
