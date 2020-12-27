@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 dir="/media/storage/GitHub"
-readonly repos=('mamutal91.github.io' 'custom-rom')
+readonly repos=('custom-rom')
 
 # gitcron
 function gitcron() {
