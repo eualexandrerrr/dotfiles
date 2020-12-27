@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 # Autocommit
-# iWantToSpeak
 # manual-custom-rom
 
 github=/media/storage/GitHub

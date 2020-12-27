@@ -7,7 +7,6 @@ for github in \
     myarch \
     buildbot \
     custom-rom \
-    iWantToSpeak \
     zsh-history \
     device_xiaomi_beryllium \
     device_xiaomi_sdm845-common
