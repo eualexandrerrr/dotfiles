@@ -45,5 +45,6 @@ done
 source $HOME/.dotfiles/setup/etc.sh
 
 if [[ $USER = "mamutal91" ]]; then
+  echo "Set personal configs"
   personalconfig
 fi
