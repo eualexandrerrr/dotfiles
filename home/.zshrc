@@ -46,9 +46,6 @@ source $HOME/.bin/functions/personal.sh
 
 function vm () {
   pwd=$(pwd)
-  cd $HOME
-  rm -rf $HOME/functions && wget https://raw.githubusercontent.com/mamutal91/dotfiles/master/home/functions && chmod +x $HOME/functions && source $HOME/.zshrc
-  rm -rf $HOME/.zshrc && wget https://raw.githubusercontent.com/mamutal91/dotfiles/master/home/.zshrc && source $HOME/.zshrc
   cd $HOME && sudo rm -rf /home/buildbot $HOME/buildbot && git clone https://github.com/mamutal91/buildbot && sudo mv buildbot /home/
   cd $pwd
 }
