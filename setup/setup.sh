@@ -33,8 +33,6 @@ done
 
 # Enable systemd services
 for SERVICES in \
-    dhcpcd \
-    NetworkManager \
     cronie \
     bluetooth
 do
