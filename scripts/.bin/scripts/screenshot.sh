@@ -2,7 +2,7 @@
 # github.com/mamutal91
 
 dir="$HOME/Images/Screenshots/"
-if [ ! -d "$caminho" ]; then
+if [ ! -d "$dir" ]; then
 	mkdir -p $dir
 fi
 
