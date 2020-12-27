@@ -10,12 +10,3 @@ function sshgithub() {
   cat $HOME/.ssh/id_rsa.pub | wl-copy
   xdg-open https://github.com/settings/ssh/new
 }
-
-function dotfiles() {
-  pwd=$(pwd)
-  cd $HOME
-  rm -rf .dotfiles && git clone ssh://git@github.com/mamutal91/dotfiles .dotfiles
-  ./.dotfiles/install.sh
-  source .zshrc
-  cd $pwd
-}

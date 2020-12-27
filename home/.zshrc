@@ -44,6 +44,15 @@ source $HOME/.bin/functions/colors.sh
 source $HOME/.bin/functions/git.sh
 source $HOME/.bin/functions/personal.sh
 
+function dotfiles() {
+  pwd=$(pwd)
+  cd $HOME
+  rm -rf .dotfiles && git clone ssh://git@github.com/mamutal91/dotfiles .dotfiles
+  ./.dotfiles/install.sh
+  source .zshrc
+  cd $pwd
+}
+
 function vm () {
   pwd=$(pwd)
   cd $HOME && sudo rm -rf /home/buildbot $HOME/buildbot && git clone https://github.com/mamutal91/buildbot && sudo mv buildbot /home/
