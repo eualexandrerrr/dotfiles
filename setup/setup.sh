@@ -10,9 +10,9 @@ function personalconfig() {
 
 sudo pacman -Sy --noconfirm
 
-# Install YAY and PACAUR AUR Manager
+# Install YAY AUR Manager
 pwd=$(pwd)
-rm -rf $HOME/yay && git clone https://aur.archlinux.org/yay.git $HOME/yay && cd "$HOME/yay" && makepkg -si --noconfirm && rm -rf $HOME/yay
+rm -rf $HOME/yay-bin && git clone https://aur.archlinux.org/yay-bin.git $HOME/yay-bin && cd yay-bin && makepkg --sirc --noconfirm && rm -rf $HOME/yay-bin
 cd $pwd
 
 # Load packages
