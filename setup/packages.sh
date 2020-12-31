@@ -31,7 +31,6 @@ readonly PACKAGES=(
   android-tools
   gvfs gvfs-mtp
   ntfs-3g
-  selinux-python
 
   # screenshots/cast
   grim
