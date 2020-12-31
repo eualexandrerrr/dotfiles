@@ -11,8 +11,7 @@ readonly PACKAGES=(
 
   # apps
   alacritty atom
-  cronie
-  firefox firefox-i18n-pt-br
+  cronie chromium
   git gpicview gimp gimp-help-pt_br
   htop
   lxappearance
