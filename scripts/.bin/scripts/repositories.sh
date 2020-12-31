@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-rm -rf /media/storage/GitHub && mkdir -p /media/storage/GitHub
+rm -rf $HOME/GitHub && mkdir -p $HOME/GitHub
+rm -rf $HOME/AOSPK && mkdir -p $HOME/AOSPK
 
 for github in \
     mamutal91.github.io \
@@ -11,11 +12,11 @@ for github in \
     device_xiaomi_beryllium \
     device_xiaomi_sdm845-common
 do
-  git clone ssh://git@github.com/mamutal91/$github /media/storage/GitHub/$github
+  git clone ssh://git@github.com/mamutal91/$github $HOME/GitHub/$github
 done
 
 # Readme
-git clone ssh://git@github.com/mamutal91/mamutal91 /media/storage/GitHub/readme
+git clone ssh://git@github.com/mamutal91/mamutal91 $HOME/GitHub/readme
 
 # AOSPK manifest
-rm -rf /media/storage/AOSPK/manifest && git clone ssh://git@github.com/AOSPK/manifest /media/storage/AOSPK/manifest
+rm -rf $HOME/AOSPK/manifest && git clone ssh://git@github.com/AOSPK/manifest $HOME/AOSPK/manifest

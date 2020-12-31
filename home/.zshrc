@@ -34,8 +34,8 @@ alias sed="sudo sed"
 
 # paths
 alias dot="cd /home/mamutal91/.dotfiles && clear && ls -1"
-alias github="cd /media/storage/GitHub && clear && ls -1"
-alias aospk="cd /media/storage/AOSPK && clear && ls -1"
+alias github="cd $HOME/GitHub && clear && ls -1"
+alias aospk="cd $HOME/AOSPK && clear && ls -1"
 alias x="cd /home/rom/AOSPK"
 alias buildbot="cd /home/buildbot"
 

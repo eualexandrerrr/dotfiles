@@ -28,5 +28,5 @@ Comece escrever aqui
 "
 }
 
-mkdir -p /media/storage/GitHub/mamutal91.github.io/_posts/$folder
-create > /media/storage/GitHub/mamutal91.github.io/_posts/$folder/$date-$folder.md
+mkdir -p $HOME/GitHub/mamutal91.github.io/_posts/$folder
+create > $HOME/GitHub/mamutal91.github.io/_posts/$folder/$date-$folder.md

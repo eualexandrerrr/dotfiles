@@ -3,8 +3,8 @@
 # Autocommit
 # manual-custom-rom
 
-github=/media/storage/GitHub
-aospk=/media/storage/AOSPK
+github=$HOME/GitHub
+aospk=$HOME/AOSPK
 
 repo1="dotfiles"
 repo2="mamutal91.github.io"
@@ -20,7 +20,7 @@ repos="$repo1\n$repo2\n$repo3\n$repo4\n$repo5\n$repo6\n$repo7\n$repo8\n$repo9"
 chosen="$(echo -e "$repos" | wofi --lines 8 --sort-order=DEFAULT --dmenu -p "  Commiter")"
 case $chosen in
     $repo1)
-        alacritty -t newcommit --working-directory /home/mamutal91/.dotfiles;;
+        alacritty -t newcommit --working-directory $HOME/.dotfiles;;
     $repo2)
         alacritty -t newcommit --working-directory $github/mamutal91.github.io;;
     $repo3)

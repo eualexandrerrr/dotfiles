@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-dir="/media/storage/GitHub"
-cp -rf $HOME/.zsh_history /media/storage/GitHub/zsh-history/
+dir="$HOME/GitHub"
+cp -rf $HOME/.zsh_history $HOME/GitHub/zsh-history/
 
 readonly repos=('zsh-history' 'custom-rom')
 
