@@ -88,7 +88,7 @@
   },
   "battery": {
       "bat": "BAT1",
-      "interval": 60,
+      "interval": 1,
       "states": {
           "warning": 30,
           "critical": 15
@@ -104,7 +104,7 @@
     "format-linked": "{ifname} (No IP) ",
     "format-disconnected": "Disconnected ⚠",
     "format-alt": "{ifname}: {ipaddr}/{cidr}",
-    "interval": 60,
+    "interval": 1,
     "on-click-middle": "exec alacritty -e nmtui"
   },
   "pulseaudio": {
