@@ -1,11 +1,13 @@
 #!/usr/bin/env bash
 
 function s() {
+  x
   repo init -u ssh://git@github.com/AOSPK/manifest -b eleven
   repo sync -c -j$(nproc --all) --no-clone-bundle --no-tags --force-sync
 }
 
 function b() {
+  x
   mkdir /home/ccache/AOSPK &>/dev/null
   export CCACHE_EXEC=$(which ccache)
   export USE_CCACHE=1
