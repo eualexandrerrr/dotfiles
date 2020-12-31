@@ -25,7 +25,6 @@ export BROWSER="/usr/bin/chromium"
 export EDITOR="nano"
 export LS_COLORS="$LS_COLORS:ow=1;34:tw=1;34:"
 export TERM="xterm-256color"
-export ZSH=$HOME/.oh-my-zsh
 export iconpath="/usr/share/icons/Papirus-Dark/32x32/devices"
 
 # sudo easy
