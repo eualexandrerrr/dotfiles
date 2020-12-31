@@ -22,6 +22,7 @@ export iconpath="/usr/share/icons/Papirus-Dark/32x32/devices"
 
 export MOZ_ENABLE_WAYLAND=1
 export GDK_SCALE=0.8
+export GDK_DPI_SCALE=0.5
 
 # sudo easy
 alias chmod="sudo chmod"
