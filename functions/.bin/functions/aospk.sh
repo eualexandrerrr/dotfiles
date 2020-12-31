@@ -13,6 +13,9 @@ function b() {
   export USE_CCACHE=1
   export CCACHE_DIR=/home/ccache/AOSPK
   ccache -M 300G &>/dev/null
+  if [[ ${1} = "clean" ]]; then
+    make installclean
+  fi
   . build/envsetup.sh
   lunch aosp_beryllium-userdebug
   make -j$(nproc --all) bacon 2>&1 | tee log.txt
