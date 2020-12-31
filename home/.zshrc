@@ -2,9 +2,16 @@
 
 # Themes https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 
-ZSH=/usr/share/oh-my-zsh/
+ZSH="/usr/share/oh-my-zsh/"
 ZSH_THEME="robbyrussell"
-plugins=(git)
+CASE_SENSITIVE="true"
+ENABLE_CORRECTION="true"
+COMPLETION_WAITING_DOTS="true"
+DISABLE_UNTRACKED_FILES_DIRTY="true"
+HIST_STAMPS="dd/mm/yyyy"
+plugins=(
+  git
+)
 
 ZSH_CACHE_DIR=$HOME/.cache/oh-my-zsh
 if [[ ! -d $ZSH_CACHE_DIR ]]; then
@@ -14,15 +21,12 @@ fi
 source $ZSH/oh-my-zsh.sh
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
+export BROWSER="/usr/bin/chromium"
+export EDITOR="nano"
 export LS_COLORS="$LS_COLORS:ow=1;34:tw=1;34:"
 export TERM="xterm-256color"
-export EDITOR="nano"
-export BROWSER="/usr/bin/chromium"
+export ZSH=$HOME/.oh-my-zsh
 export iconpath="/usr/share/icons/Papirus-Dark/32x32/devices"
-
-export MOZ_ENABLE_WAYLAND=1
-export GDK_SCALE=0.8
-export GDK_DPI_SCALE=0.5
 
 # sudo easy
 alias chmod="sudo chmod"
