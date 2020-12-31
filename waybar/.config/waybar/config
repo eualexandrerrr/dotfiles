@@ -10,6 +10,7 @@
     "custom/youtube",
     "custom/mail",
     "custom/keep",
+    "custom/bluetooth",
     "sway/workspaces"
   ],
   "modules-center": ["sway/window", "spotify"],
@@ -151,6 +152,11 @@
   "custom/keep": {
     "format": "",
     "on-click": "xdg-open https://keep.google.com/",
+    "tooltip": false
+  },
+  "custom/bluetooth": {
+    "format": "",
+    "on-click": "$HOME/.bin/scripts/bluetooth.sh",
     "tooltip": false
   }
 }

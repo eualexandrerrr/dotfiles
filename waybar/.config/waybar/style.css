@@ -47,7 +47,7 @@ window#waybar.empty {
   font-weight: 600;
 }
 /* BROWSER BOOKMARKS */
-#custom-name, #custom-github, #custom-gerrit, #custom-keep {
+#custom-name, #custom-github, #custom-gerrit, #custom-keep, #custom-bluetooth {
 	background-color: #3B4252;
 	font-size: 12px;
   margin-left: 0;
@@ -64,6 +64,9 @@ window#waybar.empty {
 }
 #custom-keep {
 	color: #f5b70c;
+}
+#custom-bluetooth {
+	color: #5598d5;
 	border-radius: 0px 10px 10px 0px;
 	margin-right: 5px;
 }
