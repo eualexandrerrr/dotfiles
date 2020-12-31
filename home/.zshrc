@@ -38,7 +38,7 @@ alias systemctl="sudo systemctl"
 alias sed="sudo sed"
 
 # paths
-alias dot="cd /home/mamutal91/.dotfiles && clear && ls -1"
+alias dot="cd $HOME/.dotfiles && clear && ls -1"
 alias github="cd $HOME/GitHub && clear && ls -1"
 alias x="cd $HOME/AOSPK"
 alias buildbot="cd /home/buildbot"
