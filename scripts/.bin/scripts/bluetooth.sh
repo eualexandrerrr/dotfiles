@@ -19,7 +19,7 @@ devices="$scan\n$bt1\n$bt2"
 chosen="$(echo -e "$devices" | wofi --lines 3 --sort-order=DEFAULT --dmenu -p "  Bluetooth")"
 case $chosen in
     $scan)
-      bluetoothctl scan on;;
+      bluetoothctl scan on &>/dev/null;;
     $bt1)
       bt "F1:32:33:23:43:4C";;
     $bt2)
