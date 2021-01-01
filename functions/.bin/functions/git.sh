@@ -5,7 +5,7 @@ function p () {
 }
 
 function translate () {
-  typing="/tmp/.translate_typing.txt"
+  typing=$(mktemp)
   rm -rf $typing && nano $typing
   msg=$(trans -b :en -i $typing)
 }
