@@ -23,7 +23,7 @@ font:
     style: Bold Italic
   size: 9
 
-background_opacity: 0.6
+background_opacity: 0.7
 
 mouse:
   double_click: { threshold: 300 }
