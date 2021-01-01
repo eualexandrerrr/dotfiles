@@ -11,7 +11,7 @@ function b() {
   mkdir /home/ccache/AOSPK &>/dev/null
   export CCACHE_EXEC=$(which ccache)
   export USE_CCACHE=1
-  export CCACHE_DIR=/home/ccache/AOSPK
+  export CCACHE_DIR=$HOME/.ccache
   ccache -M 300G &>/dev/null
   if [[ ${1} = "clean" ]]; then
     make installclean
