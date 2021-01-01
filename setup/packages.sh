@@ -11,7 +11,7 @@ readonly PACKAGES=(
 
   # apps
   alacritty atom
-  cronie chromium
+  cronie
   git gpicview gimp gimp-help-pt_br
   htop
   lxappearance
@@ -58,6 +58,7 @@ readonly AUR=(
   papirus-icon-theme-git
 
   # apps
+  google-chrome-beta
   oh-my-zsh-git
   kotatogram-desktop-bin
   spotify swaylock-effects-git

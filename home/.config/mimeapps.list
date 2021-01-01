@@ -7,14 +7,14 @@ image/svg+xml=gpicview.desktop
 
 text/x-shellscript=atom.desktop
 text/plain=atom.desktop
-text/html=chromium.desktop
+text/html=google-chrome-beta.desktop
 
-x-scheme-handler/about=chromium.desktop
-x-scheme-handler/htm=chromium.desktop
-x-scheme-handler/html=chromium.desktop
-x-scheme-handler/http=chromium.desktop
-x-scheme-handler/https=chromium.desktop
-x-scheme-handler/unknown=chromium.desktop
+x-scheme-handler/about=google-chrome-beta.desktop
+x-scheme-handler/htm=google-chrome-beta.desktop
+x-scheme-handler/html=google-chrome-beta.desktop
+x-scheme-handler/http=google-chrome-beta.desktop
+x-scheme-handler/https=google-chrome-beta.desktop
+x-scheme-handler/unknown=google-chrome-beta.desktop
 
 application/wps-office.pptx=wps-office-wpp.desktop
 application/wps-office.ppt=wps-office-wpp.desktop
