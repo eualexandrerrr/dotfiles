@@ -12,7 +12,7 @@ function bt() {
 
 scan="Scan devices"
 bt1="JBL"
-bt2="KD"
+bt2="KD-750"
 
 devices="$scan\n$bt1\n$bt2"
 
