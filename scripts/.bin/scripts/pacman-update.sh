@@ -2,13 +2,16 @@
 
 icon="${iconpath}/modem.svg"
 
+END=$(tput sgr0)
+GRE=$END$(tput setaf 2)
+
 sleep 1
 
-echo "Updating Pacman and AUR"
+echo "${GRE}Updating Pacman and AUR${END}"
   sudo pacman -Syu
   yay -Syu
 
-echo "Removing unused packages"
+echo "${GRE}Removing unused packages${END}"
   sudo pacman -Qdtq --noconfirm
   yay -Qdtq --noconfirm
   sudo pacman -Rncs $(pacman -Qdtq) --noconfirm
