@@ -48,7 +48,7 @@ readonly PACKAGES=(
 
   # fonts
   noto-fonts-emoji
-  terminus-font ttf-liberation
+  terminus-font ttf-liberation ttf-wps-fonts
 )
 
 readonly AUR=(
@@ -62,6 +62,7 @@ readonly AUR=(
   kotatogram-desktop-bin
   spotify swaylock-effects-git
   translate-shell-git
+  wps-office
   zsh-syntax-highlighting
 
   # dependencies

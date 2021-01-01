@@ -3,14 +3,15 @@ image/gif=gpicview.desktop
 image/jpeg=gpicview.desktop
 image/jpg=gpicview.desktop
 image/png=gpicview.desktop
+image/svg=gpicview.desktop
 
 text/x-shellscript=atom.desktop
 text/plain=atom.desktop
 text/html=chromium.desktop
 
 x-scheme-handler/about=chromium.desktop
-x-scheme-handler/htm=firefox.desktop
-x-scheme-handler/html=firefox.desktop
+x-scheme-handler/htm=chromium.desktop
+x-scheme-handler/html=chromium.desktop
 x-scheme-handler/http=chromium.desktop
 x-scheme-handler/https=chromium.desktop
 x-scheme-handler/unknown=chromium.desktop
