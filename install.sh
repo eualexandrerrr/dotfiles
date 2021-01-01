@@ -5,7 +5,7 @@ clear
 rm -rf $HOME/.bash_profile .bashrc
 
 cd $HOME/.dotfiles
-for DOTFILES in $(find . -maxdepth 1  -not -name "etc" ! -name ".*" ! -name "setup" ! -name "vim" -type d -printf '%f\n')
+for DOTFILES in $(find . -maxdepth 1  -not -name "etc" ! -name ".*" ! -name "setup" -type d -printf '%f\n')
 do
   stow --adopt $DOTFILES || echo "Error on gnu/stow"
   echo "$DOTFILES stowed."
