@@ -3,7 +3,7 @@ image/gif=gpicview.desktop
 image/jpeg=gpicview.desktop
 image/jpg=gpicview.desktop
 image/png=gpicview.desktop
-image/svg=gpicview.desktop
+image/svg+xml=gpicview.desktop
 
 text/x-shellscript=atom.desktop
 text/plain=atom.desktop
