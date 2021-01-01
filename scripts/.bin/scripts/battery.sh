@@ -14,10 +14,4 @@ do
       notify-send -i $icon --urgency=low "Bateria está abaixo de 15%" "Por favor plugue-o na tomada!"
       play $HOME/.bin/sounds/battery.wav
     fi
-  else
-    echo "Charging..."
-    if [ "$level" -eq 80 ]; then
-      notify-send -i $icon "Bateria está 80% carregada!" "Pode remover da tomada!"
-    fi
-  fi
-done
+  done
