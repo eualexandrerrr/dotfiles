@@ -35,7 +35,6 @@ alias systemctl="sudo systemctl"
 alias sed="sudo sed"
 
 # paths
-alias dot="cd $HOME/.dotfiles && clear && ls -1"
 alias github="cd $HOME/GitHub && clear && ls -1"
 alias x="cd $HOME/AOSPK"
 alias buildbot="cd /home/buildbot"
@@ -45,12 +44,15 @@ source $HOME/.bin/functions/colors.sh
 source $HOME/.bin/functions/git.sh
 source $HOME/.bin/functions/personal.sh
 
-function dotfiles() {
+function dot() {
   pwd=$(pwd)
   cd $HOME
   rm -rf .dotfiles && git clone ssh://git@github.com/mamutal91/dotfiles .dotfiles
   ./.dotfiles/install.sh
   source .zshrc
+  if [[ $HOSTNAME = "vmi491171.contaboserver.net" ]]; then
+    buildbot
+  fi
   cd $pwd
 }
 
