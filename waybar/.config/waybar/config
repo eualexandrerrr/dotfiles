@@ -39,7 +39,7 @@
   "custom/recorder": {
     "return-type": "json",
     "format": "壘",
-    "interval": 1,
+    "interval": 30,
     "exec-if": "pgrep wf-recorder",
     "exec": "echo '{\"class\": \"recording\"}'",
     "on-click": "fish -c recording",
@@ -59,7 +59,7 @@
     "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
   },
   "cpu": {
-    "interval": 10,
+    "interval": 30,
     "format": "  {usage}%",
     "max-length": 10,
     "on-click": "alacritty -e htop",
@@ -77,11 +77,11 @@
     "critical-threshold": 80,
     "format-critical": "{icon}  {temperatureC}°C",
     "format": "{icon}  {temperatureC}",
-    "interval": 60,
+    "interval": 30,
     "format-icons": ["", "", ""]
   },
   "backlight": {
-    "interval": 5,
+    "interval": 30,
     "format": "{icon}  {percent}%",
     "format-icons": [""],
     "on-scroll-down": "brightnessctl -c backlight set +5%",
@@ -89,7 +89,7 @@
   },
   "battery": {
       "bat": "BAT1",
-      "interval": 1,
+      "interval": 30,
       "states": {
           "warning": 30,
           "critical": 15
@@ -105,7 +105,7 @@
     "format-linked": "{ifname} (No IP) ",
     "format-disconnected": "Disconnected ⚠",
     "format-alt": "{ifname}: {ipaddr}/{cidr}",
-    "interval": 1,
+    "interval": 30,
     "on-click-middle": "exec alacritty -e nmtui"
   },
   "pulseaudio": {
@@ -132,8 +132,8 @@
   },
   "custom/pacman": {
     "format": "  {}",
-    "interval": 3600, // every hour
-    "restart-interval": 3600,
+    "interval": 30, // every hour
+    "restart-interval": 30,
     "exec": "checkupdates | wc -l", // # of updates
     "exec-if": "exit 0", // always run; consider advanced run conditions
     "on-click": "alacritty -e $HOME/.bin/scripts/pacman.update.sh", // update system
