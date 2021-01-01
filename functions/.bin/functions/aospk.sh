@@ -1,31 +1,5 @@
 #!/usr/bin/env bash
 
-function s() {
-  x
-  repo init -u ssh://git@github.com/AOSPK/manifest -b eleven
-  repo sync -c -j$(nproc --all) --no-clone-bundle --no-tags --force-sync
-}
-
-function b() {
-  x
-  mkdir /home/ccache/AOSPK &>/dev/null
-  export CCACHE_EXEC=$(which ccache)
-  export USE_CCACHE=1
-  export CCACHE_DIR=$HOME/.ccache
-  export CUSTOM_BUILD_TYPE=OFFICIAL
-  ccache -M 300G &>/dev/null
-  if [[ ${1} = "clean" ]]; then
-    make installclean
-  fi
-  . build/envsetup.sh
-  lunch aosp_beryllium-userdebug
-  make -j$(nproc --all) bacon 2>&1 | tee log.txt
-}
-
-function bp() {
-  s && b
-}
-
 function tree () {
   rm -rf device/xiaomi/beryllium device/xiaomi/sdm845-common hardware/xiaomi
   git clone ssh://git@github.com/mamutal91/device_xiaomi_beryllium -b eleven device/xiaomi/beryllium

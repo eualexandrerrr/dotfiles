@@ -35,9 +35,9 @@ alias systemctl="sudo systemctl"
 alias sed="sudo sed"
 
 # paths
-alias github="cd $HOME/GitHub && clear && ls -1"
-alias x="cd $HOME/AOSPK"
-alias buildbot="cd /home/buildbot"
+alias hub="cd $HOME/GitHub && clear && ls -1"
+alias aospk="cd $HOME/AOSPK"
+alias x="cd /home/rom/AOSPK"
 
 source $HOME/.bin/functions/aospk.sh
 source $HOME/.bin/functions/colors.sh
@@ -50,14 +50,13 @@ function dot() {
   rm -rf .dotfiles && git clone ssh://git@github.com/mamutal91/dotfiles .dotfiles
   ./.dotfiles/install.sh
   source .zshrc
-  if [[ $HOSTNAME = "vmi491171.contaboserver.net" ]]; then
-    buildbot
-  fi
   cd $pwd
 }
 
-function vm () {
+function bot() {
   pwd=$(pwd)
-  cd $HOME && sudo rm -rf /home/buildbot $HOME/buildbot && git clone https://github.com/mamutal91/buildbot && sudo mv buildbot /home/
+  cd $HOME
+  echo "buildbot cloned."
+  sudo rm -rf /home/buildbot $HOME/buildbot && git clone https://github.com/mamutal91/buildbot && sudo mv buildbot /home/
   cd $pwd
 }
