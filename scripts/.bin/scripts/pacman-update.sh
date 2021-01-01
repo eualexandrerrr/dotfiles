@@ -16,4 +16,4 @@ echo "${GRE}Removing unused packages${END}"
   yay -Rncs $(yay -Qdtq) --noconfirm
 
 play $HOME/.bin/sounds/completed.wav
-notify-send -i $icon "archlinux" "Successfully updated packages."
+notify-send -i $icon "ArchLinux" "Successfully updated packages."
