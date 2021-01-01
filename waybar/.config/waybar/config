@@ -33,8 +33,8 @@
     "icon-size": 15
   },
   "sway/window": {
-      "format": "{}",
-      "max-length": 30
+    "format": "{}",
+    "max-length": 30
   },
   "custom/recorder": {
     "return-type": "json",
@@ -81,15 +81,15 @@
     "on-scroll-up": "brightnessctl -c backlight set 5%-"
   },
   "battery": {
-      "bat": "BAT1",
-      "interval": 30,
-      "states": {
-          "warning": 30,
-          "critical": 15
-      },
-      "format": "{icon}  {capacity}%",
-      "format-icons": ["", "", "", "", ""],
-      "max-length": 25
+    "bat": "BAT1",
+    "interval": 30,
+    "states": {
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{icon}  {capacity}%",
+    "format-icons": ["", "", "", "", ""],
+    "max-length": 25
   },
   "network": {
     "interface": "wlan0", // (Optional) To force the use of this interface
@@ -129,22 +129,27 @@
     "exec": "checkupdates | wc -l", // # of updates
     "exec-if": "exit 0", // always run; consider advanced run conditions
     "on-click": "alacritty -e $HOME/.bin/scripts/pacman.update.sh", // update system
-    "signal": 8
+    "signal": 8,
+    "tooltip": false
   },
   "custom/github": {
     "format": "",
-    "on-click": "xdg-open https://github.com"
+    "on-click": "xdg-open https://github.com",
+    "tooltip": false
   },
   "custom/gerrit": {
     "format": "",
-    "on-click": "xdg-open https://review.lineageos.org/q/status:merged+branch:lineage-18.1"
+    "on-click": "xdg-open https://review.lineageos.org/q/status:merged+branch:lineage-18.1",
+    "tooltip": false
   },
   "custom/keep": {
     "format": "",
-    "on-click": "xdg-open https://keep.google.com/"
+    "on-click": "xdg-open https://keep.google.com/",
+    "tooltip": false
   },
   "custom/bluetooth": {
     "format": "",
-    "on-click": "$HOME/.bin/scripts/bluetooth.sh"
+    "on-click": "$HOME/.bin/scripts/bluetooth.sh",
+    "tooltip": false
   }
 }
