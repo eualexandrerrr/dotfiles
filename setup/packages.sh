@@ -49,10 +49,6 @@ readonly PACKAGES=(
   # fonts
   noto-fonts-emoji
   terminus-font ttf-liberation
-
-  # wine
-  lib32-gnutls
-  wine
 )
 
 readonly AUR=(
@@ -62,7 +58,7 @@ readonly AUR=(
   papirus-icon-theme-git
 
   # apps
-  google-chrome-beta
+  google-chrome-beta gravit-designer-electron
   oh-my-zsh-git
   kotatogram-desktop-bin
   spotify swaylock-effects-git
