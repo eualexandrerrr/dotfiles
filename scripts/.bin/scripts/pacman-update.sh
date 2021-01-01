@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 
-icon="${iconpath}/modem.svg"
+source $HOME/.bin/functions/colors.sh
 
-END=$(tput sgr0)
-GRE=$END$(tput setaf 2)
+icon="${iconpath}/modem.svg"
 
 echo "${GRE}Updating Pacman and AUR${END}"
   sudo pacman -Syu
