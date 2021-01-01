@@ -1,8 +1,8 @@
 {
-  // "layer": "top", // Waybar at top layer
-  // "position": "bottom", // Waybar position (top|bottom|left|right)
-  // "height": 20, // Waybar height (to be removed for auto height)
-  // "width": 1388, // Waybar width
+  "layer": "top", // Waybar at top layer
+  "position": "top", // Waybar position (top|bottom|left|right)
+  "height": 10, // Waybar height (to be removed for auto height)
+  "width": 1200, // Waybar width
   // Bar
   "modules-left": [
     "custom/github",
@@ -111,8 +111,8 @@
   "pulseaudio": {
     "scroll-step": 1, // %, can be a float
     "format": "{icon}  {volume}",
-    "format-bluetooth": "{icon}  {volume}",
-    "format-bluetooth-muted": "  {icon}",
+    "format-bluetooth": "{icon}   {volume}",
+    "format-bluetooth-muted": "  {icon} ",
     "format-muted": "  {volume}",
     "format-source-muted": "",
     "on-click": "pactl set-sink-mute 0 toggle",
