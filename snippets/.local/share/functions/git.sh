@@ -4,15 +4,15 @@ function p () {
   git cherry-pick ${1}
 }
 
-function continue() {
+function pc() {
   git add . && git cherry-pick --continue
 }
 
-function abort() {
+function pa() {
   git add . && git cherry-pick --abort
 }
 
-function rebase() {
+function gr() {
   git add . && git commit --amend && git rebase --continue
 }
 
