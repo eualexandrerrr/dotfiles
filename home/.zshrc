@@ -40,7 +40,6 @@ alias aospk="cd $HOME/AOSPK"
 alias x="cd /home/rom/AOSPK"
 
 source $HOME/.local/share/functions/aospk.sh
-source $HOME/.local/share/functions/colors.sh
 source $HOME/.local/share/functions/git.sh
 source $HOME/.local/share/functions/personal.sh
 

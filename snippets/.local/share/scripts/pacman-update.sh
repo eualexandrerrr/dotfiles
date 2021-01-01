@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-source $HOME/.local/share/functions/colors.sh
+source $HOME/.colors
 
 icon="${iconpath}/modem.svg"
 
