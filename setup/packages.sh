@@ -12,7 +12,7 @@ readonly PACKAGES=(
   # apps
   alacritty atom
   cronie
-  git gpicview gimp gimp-help-pt_br
+  git gpicview
   htop
   lxappearance
   mako
@@ -49,6 +49,10 @@ readonly PACKAGES=(
   # fonts
   noto-fonts-emoji
   terminus-font ttf-liberation
+
+  # wine
+  lib32-gnutls
+  wine
 )
 
 readonly AUR=(
