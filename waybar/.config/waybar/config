@@ -129,26 +129,22 @@
     "exec": "checkupdates | wc -l", // # of updates
     "exec-if": "exit 0", // always run; consider advanced run conditions
     "on-click": "alacritty -e $HOME/.bin/scripts/pacman.update.sh", // update system
-    "signal": 8,
+    "signal": 8
   },
   "custom/github": {
     "format": "",
-    "on-click": "xdg-open https://github.com",
-    "tooltip": false
+    "on-click": "xdg-open https://github.com"
   },
   "custom/gerrit": {
     "format": "",
-    "on-click": "xdg-open https://review.lineageos.org/q/status:merged+branch:lineage-18.1",
-    "tooltip": false
+    "on-click": "xdg-open https://review.lineageos.org/q/status:merged+branch:lineage-18.1"
   },
   "custom/keep": {
     "format": "",
-    "on-click": "xdg-open https://keep.google.com/",
-    "tooltip": false
+    "on-click": "xdg-open https://keep.google.com/"
   },
   "custom/bluetooth": {
-    "format": "",
-    "on-click": "$HOME/.bin/scripts/bluetooth.sh",
-    "tooltip": false
+    "format": "",
+    "on-click": "$HOME/.bin/scripts/bluetooth.sh"
   }
 }

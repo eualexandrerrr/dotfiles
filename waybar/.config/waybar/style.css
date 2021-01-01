@@ -69,6 +69,7 @@ window#waybar.empty {
 	color: #5598d5;
 	border-radius: 0px 10px 10px 0px;
 	margin-right: 5px;
+	padding-right: 8px;
 }
 /* WIDGETS */
 #cpu, #custom-pacman, #memory, #backlight, #network, #pulseaudio, #temperature, #battery {
