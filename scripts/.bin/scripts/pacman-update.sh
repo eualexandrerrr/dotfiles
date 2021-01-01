@@ -5,8 +5,6 @@ icon="${iconpath}/modem.svg"
 END=$(tput sgr0)
 GRE=$END$(tput setaf 2)
 
-sleep 1
-
 echo "${GRE}Updating Pacman and AUR${END}"
   sudo pacman -Syu
   yay -Syu
