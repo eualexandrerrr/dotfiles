@@ -12,6 +12,7 @@ function b() {
   export CCACHE_EXEC=$(which ccache)
   export USE_CCACHE=1
   export CCACHE_DIR=$HOME/.ccache
+  export CUSTOM_BUILD_TYPE=OFFICIAL
   ccache -M 300G &>/dev/null
   if [[ ${1} = "clean" ]]; then
     make installclean
