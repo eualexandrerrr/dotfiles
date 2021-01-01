@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-source $HOME/.bin/functions/colors.sh
+source $HOME/.local/share/functions/colors.sh
 
 icon="${iconpath}/modem.svg"
 
@@ -14,5 +14,5 @@ echo "${GRE}Removing unused packages${END}"
   sudo pacman -Rncs $(pacman -Qdtq) --noconfirm
   yay -Rncs $(yay -Qdtq) --noconfirm
 
-play $HOME/.bin/sounds/completed.wav
+play $HOME/.local/share/sounds/completed.wav
 notify-send -i $icon "ArchLinux" "Successfully updated packages."

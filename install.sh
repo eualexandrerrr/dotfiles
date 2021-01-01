@@ -18,6 +18,6 @@ then
   echo "/etc/ configured."
 fi
 
-play $HOME/.bin/sounds/completed.wav
+play $HOME/.local/share/sounds/completed.wav
 swaymsg reload
 exit 0
