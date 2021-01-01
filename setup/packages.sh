@@ -48,7 +48,7 @@ readonly PACKAGES=(
 
   # fonts
   noto-fonts-emoji
-  terminus-font ttf-liberation ttf-wps-fonts
+  terminus-font ttf-liberation
 )
 
 readonly AUR=(
@@ -72,4 +72,7 @@ readonly AUR=(
   ttf-font-awesome ttf-dejavu
   wf-recorder-git
   xorg-xwayland-git
+
+  # fonts
+  ttf-wps-fonts
 )
