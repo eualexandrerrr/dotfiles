@@ -95,11 +95,10 @@
     "interface": "wlan0", // (Optional) To force the use of this interface
     "format-wifi": "  {essid}",
     "format-ethernet": "{ifname}: {ipaddr}/{cidr} ",
-    "format-linked": "{ifname} (No IP) ",
+    "format-linked": "  Disconnected",
     "format-disconnected": "Disconnected ⚠",
     "format-alt": "{ifname}: {ipaddr}/{cidr}",
-    "interval": 30,
-    "on-click-middle": "exec alacritty -e nmtui"
+    "interval": 30
   },
   "pulseaudio": {
     "scroll-step": 1, // %, can be a float
