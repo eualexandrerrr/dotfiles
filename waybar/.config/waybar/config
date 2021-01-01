@@ -45,13 +45,6 @@
     "on-click": "fish -c recording",
     "tooltip": false,
   },
-  "idle_inhibitor": {
-    "format": "{icon}",
-    "format-icons": {
-      "activated": "XXXXXXXX",
-      "deactivated": "XXXXXXXXX"
-    }
-  },
   "clock": {
     "timezone": "America/Sao_Paulo",
     "format": "{:%H:%M}",

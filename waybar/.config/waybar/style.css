@@ -37,7 +37,7 @@ window#waybar.empty {
 	color: #5e81ac;
 }
 #workspaces button.focused, #tags button.focused {
-	color: #d08770;
+	color: #8510d8;
 }
 #workspaces button.urgent {
 	color:  #BF616A;
