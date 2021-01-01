@@ -15,7 +15,7 @@ done
 if [ "$HOSTNAME" = "odin" ];
 then
   $HOME/.dotfiles/setup/etc.sh || echo "Error configure etc"
-  echo "/etc configured."
+  echo "/etc/ configured."
 fi
 
 play $HOME/.bin/sounds/completed.wav
