@@ -114,12 +114,10 @@
   },
   "custom/pacman": {
     "format": "  {}",
-    "interval": 30, // every hour
+    "interval": 30,
     "restart-interval": 30,
-    "exec": "checkupdates | wc -l", // # of updates
-    "exec-if": "exit 0", // always run; consider advanced run conditions
-    "on-click": "alacritty -e $HOME/.scripts/pacman.update.sh", // update system
-    "signal": 8,
+    "exec": "checkupdates | wc -l",
+    "exec-if": "exit 0",
     "tooltip": false
   },
   "custom/github": {
