@@ -9,7 +9,7 @@ function gitcron() {
   for i in "${repos[@]}"; do
 			cd $dir/$i
 			status=$(git add . -n)
-			if [ ! -z "$status" ]; then
+			if [[ ! -z "$status" ]]; then
 				c=$(echo $(git add . -n | tr '\r\n' ' '))
 				m="Autocommit Git-Cron: $c"
 				git add .

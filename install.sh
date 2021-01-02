@@ -13,7 +13,7 @@ do
 done
 
 # etc
-if [ "$HOSTNAME" = "odin" ];
+if [[ "$HOSTNAME" = "odin" ]];
 then
   $HOME/.dotfiles/setup/etc.sh || echo "Error configure etc"
   echo "${RED}/etc/ ${GRE}configured.${END}"

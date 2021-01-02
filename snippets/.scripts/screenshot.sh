@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 dir="$HOME/Images/Screenshots/"
-if [ ! -d "$dir" ]; then
+if [[ ! -d "$dir" ]]; then
 	mkdir -p $dir
 fi
 

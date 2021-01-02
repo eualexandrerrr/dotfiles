@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 dir="$HOME/Videos/Screencasts/"
-if [ ! -d "$dir" ]; then
+if [[ ! -d "$dir" ]]; then
 	mkdir -p $dir
 fi
 

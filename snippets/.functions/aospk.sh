@@ -18,7 +18,7 @@ function vendor () {
 }
 
 function push () {
-  if [ "${3}" = true ];
+  if [[ "${3}" = true ]];
   then
     FORCE="&& git push -f"
   fi
