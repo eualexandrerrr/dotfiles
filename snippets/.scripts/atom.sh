@@ -14,6 +14,7 @@ packages='
   highlight-selected
   indent-sort
   language-i3wm
+  language-swaywm
   markdown-writer
   pigments
   save-workspace

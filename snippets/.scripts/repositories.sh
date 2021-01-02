@@ -9,6 +9,8 @@ for github in \
     buildbot \
     custom-rom \
     zsh-history \
+    language-swaywm \
+    shellscript-atom-snippets \
     device_xiaomi_beryllium \
     device_xiaomi_sdm845-common
 do

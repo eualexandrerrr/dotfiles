@@ -13,11 +13,13 @@ repo4="buildbot"
 repo5="readme"
 repo6="device_xiaomi_beryllium"
 repo7="device_xiaomi_sdm845-common"
-repo8="AOSPK/manifest"
+repo8="language-swaywm"
+repo9="shellscript-atom-snippets"
+repo10="AOSPK/manifest"
 
-repos="$repo1\n$repo2\n$repo3\n$repo4\n$repo5\n$repo6\n$repo7\n$repo8\n$repo9"
+repos="$repo1\n$repo2\n$repo3\n$repo4\n$repo5\n$repo6\n$repo7\n$repo8\n$repo9\n$repo10"
 
-chosen="$(echo -e "$repos" | wofi --lines 8 --sort-order=DEFAULT --dmenu -p "  Commiter")"
+chosen="$(echo -e "$repos" | wofi --lines 10 --sort-order=DEFAULT --dmenu -p "  Commiter")"
 case $chosen in
     $repo1)
         alacritty -t newcommit --working-directory $HOME/.dotfiles;;
@@ -34,6 +36,10 @@ case $chosen in
     $repo7)
         alacritty -t newcommit --working-directory $github/device_xiaomi_sdm845-common;;
     $repo8)
+        alacritty -t newcommit --working-directory $github/language-swaywm;;
+    $repo9)
+        alacritty -t newcommit --working-directory $github/shellscript-atom-snippets;;
+    $repo10)
         alacritty -t newcommit --working-directory $aospk/manifest;;
 esac
 exit 0;
