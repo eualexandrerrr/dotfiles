@@ -2,7 +2,7 @@
 
 readonly PACKAGES=(
   # audio
-  alsa alsa-firmware alsa-utils
+#  alsa alsa-firmware alsa-utils
   pulseaudio pulseaudio-bluetooth pulseeffects
   sox
 
