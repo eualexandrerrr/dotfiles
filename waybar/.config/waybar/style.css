@@ -60,13 +60,13 @@ window#waybar.empty {
 	color: #ffffff;
 }
 #custom-gerrit {
-	color: #84bcbc;
+	color: #2bd96c;
 }
 #custom-keep {
-	color: #f5b70c;
+	color: #ffd04e;
 }
 #custom-bluetooth {
-	color: #5598d5;
+	color: #5db2ff;
 	border-radius: 0px 10px 10px 0px;
 	margin-right: 5px;
 	padding-right: 8px;
