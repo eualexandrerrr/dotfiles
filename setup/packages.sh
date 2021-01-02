@@ -22,6 +22,7 @@ readonly PACKAGES=(
   stow sway swaybg
   telegram-desktop thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman transmission-gtk
   waybar wayland wofi
+  xorg-server-xwayland
   zsh-syntax-highlighting
 
   # bluetooth
@@ -71,7 +72,6 @@ readonly AUR=(
   selinux-python
   ttf-font-awesome ttf-dejavu
   wf-recorder-git
-  xorg-xwayland-git
 
   # fonts
   ttf-wps-fonts
