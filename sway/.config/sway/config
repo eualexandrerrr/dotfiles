@@ -94,6 +94,7 @@ bindsym $control+$shift+r mode "resize"
 exec_always --no-startup-id $HOME/.scripts/battery.sh
 exec_always --no-startup-id swaybg -i $HOME/.wallpapers/space.jpg
 exec_always --no-startup-id pulseaudio --start
+exec_always --no-startup-id bluetoothctl power off
 exec_always 'sleep 5; swaymsg for_window [instance=google-chrome-beta] focus_on_window_activation focus'
 exec --no-startup-id mako
 exec --no-startup-id pulseeffects --gapplication-service &>/dev/null
