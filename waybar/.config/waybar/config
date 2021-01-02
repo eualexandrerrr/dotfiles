@@ -67,8 +67,8 @@
     "interval": 30,
     "format": "{icon}  {percent}%",
     "format-icons": [""],
-    "on-scroll-down": "brightnessctl -c backlight set +5%",
-    "on-scroll-up": "brightnessctl -c backlight set 5%-"
+    "on-scroll-down": "echo $((`cat /sys/class/backlight/amdgpu_bl0/brightness` - 5)) | sudo tee /sys/class/backlight/amdgpu_bl0/brightness",
+    "on-scroll-up": "echo $((`cat /sys/class/backlight/amdgpu_bl0/brightness` + 5)) | sudo tee /sys/class/backlight/amdgpu_bl0/brightness"
   },
   "battery": {
     "bat": "BAT1",
