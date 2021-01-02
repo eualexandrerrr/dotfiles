@@ -6,15 +6,16 @@
 packages='
   atom-beautify
   atom-material-syntax
-  mamutal91-shellscript-snippets-atom
   color-picker
   file-icons
   flatten-json
+  fonts
   ftp-remote-edit
   highlight-selected
   indent-sort
   language-i3wm
   language-swaywm
+  mamutal91-shellscript-snippets-atom
   markdown-writer
   pigments
   save-workspace
