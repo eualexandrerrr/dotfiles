@@ -9,7 +9,6 @@ packages='
   color-picker
   file-icons
   flatten-json
-  fonts
   ftp-remote-edit
   highlight-selected
   indent-sort
