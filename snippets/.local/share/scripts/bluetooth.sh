@@ -6,8 +6,6 @@ bluetoothctl power on
 bluetoothctl agent on
 bluetoothctl default-agent
 
-device="F1:32:33:23:43:4C"
-
 function bt() {
   bluetoothctl connect ${1}
 }
