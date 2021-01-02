@@ -101,12 +101,12 @@ window#waybar.empty {
 	color: #4c566a;
 }
 #battery {
-	color: #8fbcbb;
+	color: #5faa6f;
 	padding: 0px 10px 0px 6px;
 	border-radius: 0px 10px 10px 0px;
 }
 #battery.charging {
-	color: #8fbcbb;
+	color: #5faa6f;
 }
 @keyframes blink {
 	to {
@@ -116,7 +116,7 @@ window#waybar.empty {
 }
 #battery.critical:not(.charging) {
 	background-color: #f53c3c;
-	color: #ffffff;
+	color: #edc519;
 	animation-name: blink;
 	animation-duration: 0.5s;
 	animation-timing-function: linear;
