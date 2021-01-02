@@ -3,10 +3,12 @@
 	font-size: 10px;
 	margin: 1.0px;
 	font-family: Terminus;
+	font-style: normal;
 }
 window#waybar {
 	background-color: transparent;
 	color: #d8dee9;
+	font-size: 12px;
 	opacity: 0.8;
 }
 #workspaces, #tags {
@@ -30,7 +32,7 @@ window#waybar {
   to {opacity: 1;}
 }
 window#waybar.empty {
-	/* background-color: #2e3440; */ 
+	/* background-color: #2e3440; */
 }
 /* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
 #workspaces button:hover, #tags button:hover {

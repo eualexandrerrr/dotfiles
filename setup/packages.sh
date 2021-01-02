@@ -74,5 +74,5 @@ readonly AUR=(
   wf-recorder-git
 
   # fonts
-  ttf-iosevka-term-ss07 ttf-wps-fonts
+  ttf-wps-fonts
 )
