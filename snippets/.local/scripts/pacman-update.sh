@@ -14,5 +14,5 @@ echo "${GRE}Removing unused packages${END}"
   sudo pacman -Rncs $(pacman -Qdtq) --noconfirm
   yay -Rncs $(yay -Qdtq) --noconfirm
 
-play $HOME/.local/share/sounds/completed.wav
+play $HOME/.local/sounds/completed.wav
 notify-send -i $icon "ArchLinux" "Successfully updated packages."

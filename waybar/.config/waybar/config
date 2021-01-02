@@ -120,7 +120,7 @@
   },
   "spotify": {
     "format": "SPOTIFY  {}",
-    "exec": "bash $HOME/.local/share/scripts/spotify.sh 2> /dev/null"
+    "exec": "bash $HOME/.local/scripts/spotify.sh 2> /dev/null"
   },
   "custom/pacman": {
     "format": "  {}",
@@ -128,7 +128,7 @@
     "restart-interval": 30,
     "exec": "checkupdates | wc -l", // # of updates
     "exec-if": "exit 0", // always run; consider advanced run conditions
-    "on-click": "alacritty -e $HOME/.local/share/scripts/pacman.update.sh", // update system
+    "on-click": "alacritty -e $HOME/.local/scripts/pacman.update.sh", // update system
     "signal": 8,
     "tooltip": false
   },
@@ -149,7 +149,7 @@
   },
   "custom/bluetooth": {
     "format": "",
-    "on-click": "$HOME/.local/share/scripts/bluetooth.sh",
+    "on-click": "$HOME/.local/scripts/bluetooth.sh",
     "tooltip": false
   }
 }

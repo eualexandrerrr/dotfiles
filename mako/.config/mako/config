@@ -5,7 +5,7 @@ text-color=#e5e9f0
 padding=10
 margin=10
 progress-color=over #eceff480
-icon-path=/usr/share/icons/Papirus-Dark
+icon-path=/usr/icons/Papirus-Dark
 max-icon-size=50
 
 border-size=3

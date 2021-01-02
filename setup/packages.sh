@@ -20,7 +20,7 @@ readonly PACKAGES=(
   pinta
   reflector
   stow sway swaybg
-  thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman transmission-gtk
+  telegram-desktop thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman transmission-gtk
   waybar wayland wofi
   zsh-syntax-highlighting
 
@@ -60,7 +60,6 @@ readonly AUR=(
   # apps
   google-chrome-beta gravit-designer-electron
   oh-my-zsh-git
-  kotatogram-desktop-bin
   spotify swaylock-effects-git
   translate-shell-git
   wps-office
