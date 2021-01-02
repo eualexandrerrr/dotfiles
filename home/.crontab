@@ -1,1 +1,1 @@
-*/10 * * * * $HOME/.local/scripts/gitcron.sh
+*/10 * * * * $HOME/.scripts/gitcron.sh

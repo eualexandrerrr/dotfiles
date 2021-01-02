@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 function blog () {
-  $HOME/.local/scripts/blog.sh
+  $HOME/.scripts/blog.sh
 }
 
 function sshgithub() {
