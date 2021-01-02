@@ -47,7 +47,7 @@ window#waybar.empty {
   font-weight: 600;
 }
 /* BROWSER BOOKMARKS */
-#custom-name, #custom-github, #custom-gerrit, #custom-keep, #custom-bluetooth {
+#custom-github, #custom-gerrit, #custom-keep, #custom-bluetooth {
 	background-color: #3B4252;
 	font-size: 12px;
   margin-left: 0;
