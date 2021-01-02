@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 
-source $HOME/.colors
-
+iconpath="/usr/share/icons/Papirus-Dark/32x32/devices"
 icon="${iconpath}/modem.svg"
+
+source $HOME/.colors
 
 echo "${GRE}Updating Pacman and AUR${END}"
   sudo pacman -Syu

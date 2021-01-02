@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+iconpath="/usr/share/icons/Papirus-Dark/32x32/devices"
 icon="${iconpath}/battery.svg"
 
 bat="/sys/class/power_supply/BAT1"
