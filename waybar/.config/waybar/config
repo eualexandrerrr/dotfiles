@@ -19,7 +19,6 @@
     "backlight",
     "cpu",
     "memory",
-    "temperature",
     "network",
     "custom/pacman",
     "battery",
@@ -63,15 +62,6 @@
     "format": "  {used:0.1f}G",
     "on-click": "alacritty -e htop",
     "tooltip": false
-  },
-  "temperature": {
-    "thermal-zone": 2,
-    "hwmon-path": "/sys/class/hwmon/hwmon0/temp1_input",
-    "critical-threshold": 80,
-    "format-critical": "{icon}  {temperatureC}°C",
-    "format": "{icon}  {temperatureC}",
-    "interval": 30,
-    "format-icons": ["", "", ""]
   },
   "backlight": {
     "interval": 30,

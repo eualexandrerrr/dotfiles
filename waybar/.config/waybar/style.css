@@ -73,7 +73,7 @@ window#waybar.empty {
 	padding-right: 8px;
 }
 /* WIDGETS */
-#cpu, #custom-pacman, #memory, #backlight, #network, #pulseaudio, #temperature, #battery {
+#cpu, #custom-pacman, #memory, #backlight, #network, #pulseaudio, #battery {
   font-size: 10px;
 	background-color: #2e3440;
 	padding: 0px 2px 0px 10px;
@@ -99,12 +99,6 @@ window#waybar.empty {
 #pulseaudio.muted {
 	border-radius: 10px 0px 0px 10px;
 	color: #4c566a;
-}
-#temperature{
-	color: #88c0d0;
-}
-#temperature.critical {
-	color: #eb4d4b;
 }
 #battery {
 	color: #8fbcbb;
