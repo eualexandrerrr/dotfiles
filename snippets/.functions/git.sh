@@ -36,7 +36,7 @@ if [ $HOST = "odin" ]; then
 else
   function cm () {
     translate
-    git add . && git commit --author "Alexandre Rangel <mamutal91@gmail.com>"
+    git add . && git commit --message $msg --author "Alexandre Rangel <mamutal91@gmail.com>"
   }
   function c () {
     git add . && git commit --author "${1}"
