@@ -132,6 +132,9 @@ bindsym XF86MonBrightnessDown exec  --no-startup-id echo $((`cat /sys/class/back
 bindsym Print exec --no-startup-id $HOME/.scripts/screenshot.sh window
 bindsym $control+Print exec --no-startup-id $HOME/.scripts/screenshot.sh
 
+# Screencast
+bindsym $control+k exec --no-startup-id $HOME/.scripts/screencast.sh
+
 # Application shortcuts
 bindsym $super+Return exec --no-startup-id alacritty &; workspace $ws1
 bindsym $super+e exec --no-startup-id thunar &; workspace $ws7
