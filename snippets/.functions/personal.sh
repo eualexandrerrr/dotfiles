@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+function gerrit () {
+  xdg-open https://review.lineageos.org/q/project:LineageOS/android_${1}+status:merged+branch:lineage-18.1
+}
+
 function blog () {
   $HOME/.scripts/blog.sh
 }
