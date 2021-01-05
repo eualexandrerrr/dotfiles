@@ -8,8 +8,6 @@ function personalconfig() {
   cd $pwd
 }
 
-sudo pacman -Sy --noconfirm
-
 # Install YAY AUR Manager
 pwd=$(pwd)
 rm -rf $HOME/yay && git clone https://aur.archlinux.org/yay.git $HOME/yay && cd yay && makepkg -si --noconfirm && rm -rf $HOME/yay
@@ -23,11 +21,11 @@ curl -sS https://download.spotify.com/debian/pubkey_0D811D58.gpg | gpg --import 
 
 # Install packages
 for i in "${PACKAGES[@]}"; do
-  sudo pacman -S ${i} --needed --noconfirm
+  sudo pacman -Sy ${i} --needed --noconfirm
 done
 
 for i in "${AUR[@]}"; do
-  yay -S ${i} --needed --noconfirm
+  yay -Sy ${i} --needed --noconfirm
 done
 
 # Enable systemd services
