@@ -2,8 +2,8 @@
 
 readonly PACKAGES=(
   # audio
-#  alsa alsa-firmware alsa-utils
-  pulseaudio pulseaudio-bluetooth pulseeffects
+  alsa alsa-firmware alsa-utils alsa-plugins
+  pulseaudio pulseaudio-bluetooth pulseeffects pavucontrol
   sox
 
   # archlinux
