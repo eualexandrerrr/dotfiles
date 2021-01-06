@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-function gerrit () {
+function xdg () {
   xdg-open https://review.lineageos.org/q/project:LineageOS/android_${1}+status:merged+branch:lineage-18.1
 }
 
