@@ -18,3 +18,9 @@ function sshgithub() {
   cat $HOME/.ssh/id_ed25519.pub | wl-copy
   xdg-open https://github.com/settings/ssh/new
 }
+
+function createuser() {
+  sudo useradd -m -G wheel -s /bin/bash ${1}
+  sudo mkdir -p /home/${1}
+  sudo passwd ${1}
+}
