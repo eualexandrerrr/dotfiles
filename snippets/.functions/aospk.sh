@@ -65,6 +65,8 @@ function hals () {
 
   /home/buildbot/scripts/hal/limp.sh pn5xx
   /home/buildbot/scripts/hal/limp.sh sn100x
+
+  /home/buildbot/scripts/hal/caf.sh  
 }
 
 function www() {
