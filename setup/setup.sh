@@ -43,3 +43,5 @@ if [[ $USER = "mamutal91" ]]; then
   echo "Set personal configs"
   personalconfig
 fi
+
+chsh -s $(which zsh)
