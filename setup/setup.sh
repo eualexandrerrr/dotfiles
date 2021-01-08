@@ -10,7 +10,7 @@ function personalconfig() {
 
 # Install YAY AUR Manager
 pwd=$(pwd)
-rm -rf $HOME/yay && git clone https://aur.archlinux.org/yay.git $HOME/yay && cd yay && makepkg -si --noconfirm && rm -rf $HOME/yay
+rm -rf $HOME/yay && git clone https://aur.archlinux.org/yay.git $HOME/yay && cd $HOME/yay && makepkg -si --noconfirm && rm -rf $HOME/yay
 cd $pwd
 
 # Load packages
