@@ -28,7 +28,7 @@ function push () {
 
 function clone () {
   echo "${BOL_BLU}Cloning github.com/AOSPK/${1} - ${2}${END}"
-  git clone ssh://git@github.com/AOSPK/${1} -b ${2}
+  git clone ssh://git@github.com/AOSPK/${1} -b ${2} && cd ${1}
 }
 
 function los () {
@@ -66,7 +66,7 @@ function hals () {
   /home/buildbot/scripts/hal/limp.sh pn5xx
   /home/buildbot/scripts/hal/limp.sh sn100x
 
-  /home/buildbot/scripts/hal/caf.sh  
+  /home/buildbot/scripts/hal/caf.sh
 }
 
 function www() {
