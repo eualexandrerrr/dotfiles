@@ -1,7 +1,12 @@
 #!/usr/bin/env bash
 
-function xdg () {
+function g () {
   xdg-open https://review.lineageos.org/q/project:LineageOS/android_${1}+status:merged+branch:lineage-18.1
+}
+
+function h () {
+  xdg-open https://github.com/LineageOS/android_${1}/commits/lineage-18.1
+  xdg-open https://github.com/AOSPK/${1}/commits/eleven
 }
 
 function blog () {
