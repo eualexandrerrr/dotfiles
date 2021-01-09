@@ -1,5 +1,17 @@
 #!/usr/bin/env bash
 
+function s() {
+  repo sync -c -j$(nproc --all) --no-clone-bundle --current-branch --no-tags --force-sync
+}
+
+function b() {
+  . build/envsetup.sh & lunch aosp_beyllium-userdebug && make bacon -j$(nproc --all)
+}
+
+function bp() {
+  s && b
+}
+
 function tree () {
   rm -rf device/xiaomi/beryllium device/xiaomi/sdm845-common hardware/xiaomi
   git clone ssh://git@github.com/mamutal91/device_xiaomi_beryllium -b eleven device/xiaomi/beryllium
