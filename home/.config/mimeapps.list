@@ -38,6 +38,7 @@ application/wps-office.wpss=wps-office-wps.desktop
 application/wps-office.wpso=wps-office-wps.desktop
 application/wps-office.wpt=wps-office-wps.desktop
 x-scheme-handler/tg=userapp-Telegram Desktop-B8IWW0.desktop
+x-scheme-handler/mailto=google-chrome-beta.desktop
 
 [Added Associations]
 application/wps-office.potx=wps-office-wpp.desktop;
