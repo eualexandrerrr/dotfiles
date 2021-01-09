@@ -19,7 +19,7 @@ function gr() {
 function translate () {
   typing=$(mktemp)
   rm -rf $typing && nano $typing
-  msg=$(trans -b :en -i $typing)
+  msg=$(trans -b :en -no-auto -i $typing)
 }
 
 if [ $HOST = "odin" ]; then
