@@ -5,7 +5,7 @@ function s() {
 }
 
 function b() {
-  . build/envsetup.sh & lunch aosp_beyllium-userdebug && make bacon -j$(nproc --all)
+  . build/envsetup.sh & lunch aosp_beyllium-userdebug && make bacon -j$(nproc --all) | tee log.txt
 }
 
 function bp() {
