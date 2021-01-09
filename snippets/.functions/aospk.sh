@@ -5,6 +5,7 @@ function s() {
 }
 
 function b() {
+  export CUSTOM_BUILD_TYPE=OFFICIAL
   . build/envsetup.sh && lunch aosp_beryllium-userdebug && make bacon -j$(nproc --all) | tee log.txt
 }
 
