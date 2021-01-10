@@ -13,6 +13,15 @@ function bp() {
   s && b
 }
 
+function gerrit() {
+  xdg-open https://review.lineageos.org/q/project:LineageOS/android_${1}+status:merged+branch:lineage-18.1
+}
+
+function github() {
+  xdg-open https://github.com/LineageOS/android_${1}/commits/lineage-18.1
+  xdg-open https://github.com/AOSPK/${1}/commits/eleven
+}
+
 function tree() {
   rm -rf device/xiaomi/beryllium device/xiaomi/sdm845-common hardware/xiaomi
   git clone ssh://git@github.com/mamutal91/device_xiaomi_beryllium -b eleven device/xiaomi/beryllium
