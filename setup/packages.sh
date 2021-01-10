@@ -60,7 +60,6 @@ readonly AUR=(
 
   # apps
   google-chrome-beta
-# gravit-designer-electron
   oh-my-zsh-git
   spotify swaylock-effects-git
   translate-shell-git
