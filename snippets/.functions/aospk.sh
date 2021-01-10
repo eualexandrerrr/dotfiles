@@ -6,6 +6,10 @@ function s() {
 
 function b() {
   export CUSTOM_BUILD_TYPE=OFFICIAL
+  export CC=clang
+  export CCACHE_EXEC=$(which ccache)
+  export USE_CCACHE=1
+  ccache -M 200G
   . build/envsetup.sh && lunch aosp_beryllium-userdebug && make bacon -j$(nproc --all) | tee log.txt
 }
 
