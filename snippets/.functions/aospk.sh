@@ -9,6 +9,7 @@ function b() {
   export CC=clang++
   export CCACHE_EXEC=$(which ccache)
   export USE_CCACHE=1
+  export CCACHE_DIR=$HOME/.ccache
   ccache -M 200G
   . build/envsetup.sh && lunch aosp_beryllium-userdebug && make bacon -j$(nproc --all) | tee log.txt
 }
