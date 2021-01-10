@@ -13,24 +13,24 @@ function bp() {
   s && b
 }
 
-function tree () {
+function tree() {
   rm -rf device/xiaomi/beryllium device/xiaomi/sdm845-common hardware/xiaomi
   git clone ssh://git@github.com/mamutal91/device_xiaomi_beryllium -b eleven device/xiaomi/beryllium
   git clone ssh://git@github.com/mamutal91/device_xiaomi_sdm845-common -b eleven device/xiaomi/sdm845-common
   git clone https://github.com/LineageOS/android_hardware_xiaomi -b lineage-18.1 hardware/xiaomi
 }
 
-function kernel () {
+function kernel() {
   rm -rf kernel/xiaomi
   git clone ssh://git@github.com/mamutal91/kernel_xiaomi_sdm845 -b eleven kernel/xiaomi/sdm845
 }
 
-function vendor () {
+function vendor() {
   rm -rf vendor/xiaomi
   git clone ssh://git@github.com/mamutal91/vendor_xiaomi -b eleven vendor/xiaomi
 }
 
-function push () {
+function push() {
   if [[ "${3}" = true ]];
   then
     FORCE="&& git push -f"
@@ -39,17 +39,17 @@ function push () {
   git push ssh://git@github.com/AOSPK/${1} HEAD:refs/heads/${2} ${3}
 }
 
-function clone () {
+function clone() {
   echo "${BOL_BLU}Cloning github.com/AOSPK/${1} - ${2}${END}"
   git clone ssh://git@github.com/AOSPK/${1} -b ${2} && cd ${1}
 }
 
-function los () {
+function los() {
   echo "Cloning github.com/LineageOS/android_${1} - ${2}"
   rm -rf ${1} && git clone https://github.com/LineageOS/android_${1} -b ${2} ${1} && cd ${1}
 }
 
-upstream () {
+upstream() {
   cd $HOME && rm -rf ${1}
   echo "${BOL_CYA}Cloning LineageOS/android_${1} -b ${2}${END}"
   git clone https://github.com/LineageOS/android_${1} -b ${2} ${1}
@@ -57,7 +57,7 @@ upstream () {
   rm -rf $HOME/${1}
 }
 
-function up () {
+function up() {
   upstream ${1} lineage-18.1 eleven
   upstream ${1} lineage-17.1 ten
   upstream ${1} lineage-16.0 pie
@@ -65,7 +65,7 @@ function up () {
   upstream ${1} cm-14.1 nougat
 }
 
-function hals () {
+function hals() {
   /home/buildbot/scripts/hal/hal.sh apq8084
   /home/buildbot/scripts/hal/hal.sh msm8960
   /home/buildbot/scripts/hal/hal.sh msm8916

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-function p () {
+function p() {
   git cherry-pick ${1}
 }
 
@@ -16,32 +16,32 @@ function gr() {
   git add . && git commit --amend && git rebase --continue
 }
 
-function translate () {
+function translate() {
   typing=$(mktemp)
   rm -rf $typing && nano $typing
   msg=$(trans -b :en -no-auto -i $typing)
 }
 
 if [ $HOST = "odin" ]; then
-  function cm () {
+  function cm() {
     translate
     git add . && git commit --message $msg --author "Alexandre Rangel <mamutal91@gmail.com>" && git push -f
   }
-  function c () {
+  function c() {
     git add . && git commit --author "${1}" && git push -f
   }
-  function amend () {
+  function amend() {
     git add . && git commit --amend && git push -f
   }
 else
-  function cm () {
+  function cm() {
     translate
     git add . && git commit --message $msg --author "Alexandre Rangel <mamutal91@gmail.com>"
   }
-  function c () {
+  function c() {
     git add . && git commit --author "${1}"
   }
-  function amend () {
+  function amend() {
     git add . && git commit --amend
   }
 fi
