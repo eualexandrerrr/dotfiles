@@ -6,7 +6,7 @@ function s() {
 
 function b() {
   export CUSTOM_BUILD_TYPE=OFFICIAL
-  export CC=clang
+  export CC=clang++
   export CCACHE_EXEC=$(which ccache)
   export USE_CCACHE=1
   ccache -M 200G
