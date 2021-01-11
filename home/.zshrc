@@ -42,6 +42,7 @@ function dot() {
   pwd=$(pwd)
   cd $HOME
   rm -rf .dotfiles && git clone ssh://git@github.com/mamutal91/dotfiles .dotfiles
+  ./.dotfiles/install.sh
   source .zshrc
   cd $pwd
 }
