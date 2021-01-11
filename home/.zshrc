@@ -20,13 +20,6 @@ export EDITOR="nano"
 export LS_COLORS="$LS_COLORS:ow=1;34:tw=1;34:"
 export TERM="xterm-256color"
 
-# Android build
-export LANG=C
-export PATH=~/bin:$PATH
-export PATH=$PATH:/home/Android/Sdk/tools/
-export PATH=$PATH:/home/Android/Sdk/platform-tools/
-export JAVA_HOME=/usr/lib/jvm/java-15-openjdk
-
 # sudo easy
 alias chmod="sudo chmod"
 alias mv="sudo mv"
