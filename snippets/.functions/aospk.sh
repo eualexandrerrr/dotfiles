@@ -5,14 +5,25 @@ function s() {
 }
 
 function b() {
-  export CUSTOM_BUILD_TYPE=OFFICIAL
-  export LC_ALL=C
-  export CCACHE_EXEC=$(which ccache)
-  export USE_CCACHE=1
-  export CCACHE_DIR=$HOME/.ccache
-  ln -s /usr/bin/python2 ~/bin/python
-  ccache -M 200G
-  . build/envsetup.sh && lunch aosp_beryllium-userdebug && make bacon -j$(nproc --all) | tee log.txt
+  BUILDING=$(cat BUILDING)
+  if [ $BUILDING = "TRUE" ]; then
+    echo "TEM GENTE COMPILANDO !!!"
+  else
+    echo "INICIANDO BUILD..."
+    echo TRUE > BUILDING
+    TASK=${1}
+    DEVICE=${2}
+    export CUSTOM_BUILD_TYPE=OFFICIAL
+    export LC_ALL=C
+    export CCACHE_EXEC=$(which ccache)
+    export USE_CCACHE=1
+    export CCACHE_DIR=$HOME/.ccache
+    sudo rm -rf /home/mamutal91/bin/python && sudo ln -s /usr/bin/python2 /home/mamutal91/bin/python
+    ccache -M 200G
+    . build/envsetup.sh && lunch aosp_$DEVICE-userdebug && make $TASK -j$(nproc --all) | tee $DEVICE.log
+    wait
+    echo FALSE > BUILDING
+  fi
 }
 
 function bp() {
