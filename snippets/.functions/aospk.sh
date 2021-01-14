@@ -102,9 +102,9 @@ function www() {
   pwd=$(pwd)
   cd $HOME && rm -rf www
   git clone ssh://git@github.com/AOSPK/www
-  sudo rm -rf /home/www
-  sudo mv www ..
-  cd /home/www
+  sudo rm -rf /mnt/www
+  sudo mv www /mnt
+  cd /mnt/www
   sudo npm i && sudo npm run build
   cd $pwd
 }
