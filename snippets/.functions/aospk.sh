@@ -12,7 +12,7 @@ function b() {
   export CCACHE_DIR=$HOME/.ccache
 #  sudo rm -rf ~/bin/python && sudo ln -s /usr/bin/python2 ~/bin/python
   ccache -M 200G
-  . build/envsetup.sh && lunch aosp_beryllium-userdebug && echo TRUE > BUILDING && make bacon -j$(nproc --all) | tee log.txt
+  . build/envsetup.sh && lunch aosp_beryllium-userdebug && make bacon -j$(nproc --all) | tee log.txt
 }
 
 function bp() {
