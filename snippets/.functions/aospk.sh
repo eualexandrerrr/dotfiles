@@ -37,8 +37,7 @@ function tree() {
 
 function kernel() {
   rm -rf kernel/xiaomi/sdm845
-#  git clone ssh://git@github.com/mamutal91/kernel_xiaomi_sdm845 -b eleven kernel/xiaomi/sdm845
-  git clone https://github.com/LineageOS/android_kernel_xiaomi_sdm845 -b lineage-18.1 kernel/xiaomi/sdm845
+  git clone ssh://git@github.com/mamutal91/kernel_xiaomi_sdm845 -b eleven kernel/xiaomi/sdm845
 }
 
 function vendor() {
