@@ -86,20 +86,20 @@ function up() {
 }
 
 function hals() {
-  /home/buildbot/scripts/hal/hal.sh apq8084
-  /home/buildbot/scripts/hal/hal.sh msm8960
-  /home/buildbot/scripts/hal/hal.sh msm8916
-  /home/buildbot/scripts/hal/hal.sh msm8974
-  /home/buildbot/scripts/hal/hal.sh msm8996
-  /home/buildbot/scripts/hal/hal.sh msm8998
-  /home/buildbot/scripts/hal/hal.sh sdm845
-  /home/buildbot/scripts/hal/hal.sh sm8150
-  /home/buildbot/scripts/hal/hal.sh sm8250
+  /mnt/buildbot/scripts/hal/hal.sh apq8084
+  /mnt/buildbot/scripts/hal/hal.sh msm8960
+  /mnt/buildbot/scripts/hal/hal.sh msm8916
+  /mnt/buildbot/scripts/hal/hal.sh msm8974
+  /mnt/buildbot/scripts/hal/hal.sh msm8996
+  /mnt/buildbot/scripts/hal/hal.sh msm8998
+  /mnt/buildbot/scripts/hal/hal.sh sdm845
+  /mnt/buildbot/scripts/hal/hal.sh sm8150
+  /mnt/buildbot/scripts/hal/hal.sh sm8250
 
-  /home/buildbot/scripts/hal/limp.sh pn5xx
-  /home/buildbot/scripts/hal/limp.sh sn100x
+  /mnt/buildbot/scripts/hal/limp.sh pn5xx
+  /mnt/buildbot/scripts/hal/limp.sh sn100x
 
-  /home/buildbot/scripts/hal/caf.sh
+  /mnt/buildbot/scripts/hal/caf.sh
 }
 
 function www() {
