@@ -1,16 +1,15 @@
 #!/usr/bin/env bash
 
 function s() {
+  repo init -u https://github.com/AOSPK/manifest -b eleven
   repo sync -c -j$(nproc --all) --no-clone-bundle --current-branch --no-tags --force-sync
 }
 
 function b() {
   export CUSTOM_BUILD_TYPE=OFFICIAL
-  export LC_ALL=C
   export CCACHE_EXEC=$(which ccache)
   export USE_CCACHE=1
-  export CCACHE_DIR=$HOME/.ccache
-#  sudo rm -rf ~/bin/python && sudo ln -s /usr/bin/python2 ~/bin/python
+  export CCACHE_DIR=/mnt/mamutal91/rom/.ccache
   ccache -M 200G
   . build/envsetup.sh && lunch aosp_beryllium-userdebug && make bacon -j$(nproc --all) | tee log.txt
 }

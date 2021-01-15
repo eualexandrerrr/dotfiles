@@ -32,7 +32,8 @@ alias sed="sudo sed"
 
 # paths
 alias hub="cd $HOME/GitHub && clear && ls -1"
-alias x="cd $HOME/AOSPK"
+alias aospk="cd $HOME/AOSPK"
+alias x="cd $HOME/rom/AOSPK"
 
 source $HOME/.functions/aospk.sh
 source $HOME/.functions/git.sh
