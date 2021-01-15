@@ -18,6 +18,12 @@ function bp() {
   s && b
 }
 
+function down() {
+  cd out/target/product/beryllium
+  sudo cp -rf ${1} /mnt/mamutal91.me
+  echo "https://mamutal91.me/${1}"
+}
+
 function gerrit() {
   xdg-open https://review.lineageos.org/q/project:LineageOS/android_${1}+status:merged+branch:lineage-18.1
 }
