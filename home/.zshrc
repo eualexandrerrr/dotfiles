@@ -33,7 +33,7 @@ alias sed="sudo sed"
 # paths
 alias hub="cd $HOME/GitHub && clear && ls -1"
 alias aospk="cd $HOME/AOSPK"
-alias x="cd $HOME/rom/AOSPK"
+alias x="cd /mnt/roms/jobs/AOSPK"
 
 source $HOME/.functions/aospk.sh
 source $HOME/.functions/git.sh
@@ -52,6 +52,7 @@ function bot() {
   pwd=$(pwd)
   cd $HOME
   echo "buildbot cloned."
-  sudo rm -rf /mnt/buildbot && git clone https://github.com/mamutal91/buildbot && sudo mv buildbot /mnt
+  sudo rm -rf /mnt/roms/buildbot
+  git clone https://github.com/mamutal91/buildbot && sudo mv buildbot /mnt/roms
   cd $pwd
 }

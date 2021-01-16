@@ -9,7 +9,7 @@ function b() {
   export CUSTOM_BUILD_TYPE=OFFICIAL
   export CCACHE_EXEC=$(which ccache)
   export USE_CCACHE=1
-  export CCACHE_DIR=/mnt/mamutal91/rom/.ccache
+  export CCACHE_DIR=/mnt/roms/.ccache
   ccache -M 200G
   . build/envsetup.sh && lunch aosp_beryllium-userdebug && make bacon -j$(nproc --all) | tee log.txt
 }
@@ -86,29 +86,29 @@ function up() {
 }
 
 function hals() {
-  /mnt/buildbot/scripts/hal/hal.sh apq8084
-  /mnt/buildbot/scripts/hal/hal.sh msm8960
-  /mnt/buildbot/scripts/hal/hal.sh msm8916
-  /mnt/buildbot/scripts/hal/hal.sh msm8974
-  /mnt/buildbot/scripts/hal/hal.sh msm8996
-  /mnt/buildbot/scripts/hal/hal.sh msm8998
-  /mnt/buildbot/scripts/hal/hal.sh sdm845
-  /mnt/buildbot/scripts/hal/hal.sh sm8150
-  /mnt/buildbot/scripts/hal/hal.sh sm8250
+  /mnt/roms/buildbot/scripts/hal/hal.sh apq8084
+  /mnt/roms/buildbot/scripts/hal/hal.sh msm8960
+  /mnt/roms/buildbot/scripts/hal/hal.sh msm8916
+  /mnt/roms/buildbot/scripts/hal/hal.sh msm8974
+  /mnt/roms/buildbot/scripts/hal/hal.sh msm8996
+  /mnt/roms/buildbot/scripts/hal/hal.sh msm8998
+  /mnt/roms/buildbot/scripts/hal/hal.sh sdm845
+  /mnt/roms/buildbot/scripts/hal/hal.sh sm8150
+  /mnt/roms/buildbot/scripts/hal/hal.sh sm8250
 
-  /mnt/buildbot/scripts/hal/limp.sh pn5xx
-  /mnt/buildbot/scripts/hal/limp.sh sn100x
+  /mnt/roms/buildbot/scripts/hal/limp.sh pn5xx
+  /mnt/roms/buildbot/scripts/hal/limp.sh sn100x
 
-  /mnt/buildbot/scripts/hal/caf.sh
+  /mnt/roms/buildbot/scripts/hal/caf.sh
 }
 
 function www() {
   pwd=$(pwd)
   cd $HOME && rm -rf www
   git clone ssh://git@github.com/AOSPK/www
-  sudo rm -rf /mnt/www
-  sudo mv www /mnt
-  cd /mnt/www
+  sudo rm -rf /mnt/roms/www
+  sudo mv www /mnt/roms
+  cd /mnt/roms/www
   sudo npm i && sudo npm run build
   cd $pwd
 }
