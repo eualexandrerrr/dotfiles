@@ -1,23 +1,5 @@
 #!/usr/bin/env bash
 
-function s() {
-  repo init -u https://github.com/AOSPK/manifest -b eleven
-  repo sync -c -j$(nproc --all) --no-clone-bundle --current-branch --no-tags --force-sync
-}
-
-function b() {
-  export CUSTOM_BUILD_TYPE=OFFICIAL
-  export CCACHE_EXEC=$(which ccache)
-  export USE_CCACHE=1
-  export CCACHE_DIR=/mnt/roms/.ccache
-  ccache -M 200G
-  . build/envsetup.sh && lunch aosp_beryllium-userdebug && make bacon -j$(nproc --all) | tee log.txt
-}
-
-function bp() {
-  s && b
-}
-
 function down() {
   cd /mnt/roms/download/AOSPK && rm -rf *.zip
   cd /mnt/roms/download/AOSPK/json && rm -rf *.json
