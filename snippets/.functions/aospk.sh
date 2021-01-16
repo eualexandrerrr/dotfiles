@@ -19,9 +19,8 @@ function bp() {
 }
 
 function down() {
-  cd out/target/product/beryllium
-  sudo cp -rf ${1} /mnt/mamutal91.me
-  echo "https://mamutal91.me/${1}"
+  cd /mnt/roms/download/AOSPK && rm -rf *.zip
+  cd /mnt/roms/download/AOSPK/json && rm -rf *.json
 }
 
 function gerrit() {
