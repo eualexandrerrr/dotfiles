@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 
 function down() {
+  pwd=$(pwd)
   cd /mnt/roms/download/AOSPK && rm -rf *.zip
   cd /mnt/roms/download/AOSPK/json && rm -rf *.json
+  cd $pwd
 }
 
 function gerrit() {
