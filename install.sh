@@ -2,7 +2,7 @@
 
 clear
 
-source $HOME/.colors
+source $HOME/.colors &>/dev/null
 rm -rf $HOME/.bash_profile .bashrc
 
 cd $HOME/.dotfiles
@@ -19,6 +19,6 @@ then
   echo "${RED}/etc/ ${GRE}configured.${END}"
 fi
 
-play $HOME/.sounds/completed.wav
+play $HOME/.sounds/completed.wav &>/dev/null
 swaymsg reload
 exit 0

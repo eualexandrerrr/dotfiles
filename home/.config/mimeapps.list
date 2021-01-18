@@ -37,7 +37,7 @@ application/wps-office.wps=wps-office-wps.desktop
 application/wps-office.wpss=wps-office-wps.desktop
 application/wps-office.wpso=wps-office-wps.desktop
 application/wps-office.wpt=wps-office-wps.desktop
-x-scheme-handler/tg=userapp-Telegram Desktop-B8IWW0.desktop
+x-scheme-handler/tg=userapp-Telegram Desktop-4R2NX0.desktop
 x-scheme-handler/mailto=google-chrome-beta.desktop
 
 [Added Associations]
@@ -52,4 +52,4 @@ application/wps-office.docx=wps-office-wps.desktop;
 application/wps-office.dotx=wps-office-wps.desktop;
 application/wps-office.wpss=wps-office-wps.desktop;
 application/wps-office.wpso=wps-office-wps.desktop;
-x-scheme-handler/tg=userapp-Telegram Desktop-0MNHW0.desktop;userapp-Telegram Desktop-PYNRW0.desktop;userapp-Telegram Desktop-B8IWW0.desktop;
+x-scheme-handler/tg=userapp-Telegram Desktop-0MNHW0.desktop;userapp-Telegram Desktop-PYNRW0.desktop;userapp-Telegram Desktop-B8IWW0.desktop;userapp-Telegram Desktop-4R2NX0.desktop;
