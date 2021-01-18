@@ -31,7 +31,8 @@ done
 # Enable systemd services
 for SERVICES in \
     cronie \
-    bluetooth
+    bluetooth \
+    getty@ttyN.service
 do
     sudo systemctl enable $SERVICES
     sudo systemctl start $SERVICES
