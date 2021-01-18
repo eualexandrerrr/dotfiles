@@ -21,5 +21,5 @@ then
 fi
 
 play $HOME/.sounds/completed.wav &>/dev/null
-swaymsg reload
+swaymsg reload &>/dev/null
 exit 0
