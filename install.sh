@@ -13,7 +13,7 @@ do
 done
 
 # etc
-HOSTNAME=(cat /etc/hostaname)
+HOSTNAME=$(cat /etc/hostname)
 if [[ "$HOSTNAME" = "odin" ]];
 then
   $HOME/.dotfiles/setup/etc.sh || echo "Error configure etc"
