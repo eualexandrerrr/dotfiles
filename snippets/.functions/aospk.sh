@@ -43,10 +43,19 @@ function vendor() {
 function push() {
   if [[ "${3}" = true ]];
   then
-    FORCE="&& git push -f"
+    FORCE=" -f"
   fi
   echo "${BOL_GRE}Pushing github.com/AOSPK/${1} - ${2}${END}"
   git push ssh://git@github.com/AOSPK/${1} HEAD:refs/heads/${2} ${3}
+}
+
+function pushtree() {
+  if [[ "${3}" = true ]];
+  then
+    FORCE=" -f"
+  fi
+  echo "${BOL_GRE}Pushing github.com/AOSPK-WIP/${1} - ${2}${END}"
+  git push ssh://git@github.com/AOSPK-WIP/${1} HEAD:refs/heads/${2} ${3}
 }
 
 function clone() {
