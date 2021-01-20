@@ -2,8 +2,8 @@
 
 function down() {
   pwd=$(pwd)
-  cd /mnt/roms/download/AOSPK && rm -rf *.zip
-  cd /mnt/roms/download/AOSPK/json && rm -rf *.json
+  rm -rf /mnt/roms/downloadaospk/builds/*/*.zip &>/dev/null
+  rm -rf /mnt/roms/downloadaospk/builds/*/json/*.json &>/dev/null
   cd $pwd
 }
 
