@@ -16,8 +16,9 @@ repo7="device_xiaomi_sdm845-common"
 repo8="language-swaywm"
 repo9="shellscript-atom-snippets"
 repo10="AOSPK/manifest"
+repo11="AOSPK/site"
 
-repos="$repo1\n$repo2\n$repo3\n$repo4\n$repo5\n$repo6\n$repo7\n$repo8\n$repo9\n$repo10"
+repos="$repo1\n$repo2\n$repo3\n$repo4\n$repo5\n$repo6\n$repo7\n$repo8\n$repo9\n$repo10\n$repo11"
 
 chosen="$(echo -e "$repos" | wofi --lines 10 --sort-order=DEFAULT --dmenu -p "  Commiter")"
 case $chosen in
@@ -41,5 +42,7 @@ case $chosen in
         alacritty -t newcommit --working-directory $github/shellscript-atom-snippets;;
     $repo10)
         alacritty -t newcommit --working-directory $aospk/manifest;;
+    $repo11)
+        alacritty -t newcommit --working-directory $aospk/site;;
 esac
 exit 0;
