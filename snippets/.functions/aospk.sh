@@ -25,14 +25,13 @@ function tree() {
 
 function kernel() {
   if [ -z "${1}" ]; then
-    rm -rf kernel/xiaomi/sdm845 rm -rf prebuilts/clang/host/linux-x86/clang-12
+    rm -rf kernel/xiaomi/sdm845
     git clone ssh://git@github.com/mamutal91/kernel_xiaomi_sdm845 -b eleven kernel/xiaomi/sdm845
-    git clone https://github.com/kdrag0n/proton-clang -b master prebuilts/clang/host/linux-x86/clang-12
   else
-    cd $HOME
-    git clone ssh://git@github.com/PainKiller3/kernel_xiaomi_sdm845 -b eleven kernel_xiaomi_sdm845 && cd kernel_xiaomi_sdm845
+    pwd=$(pwd) && cd $HOME
+    git clone https://github.com/LineageOS/android_kernel_xiaomi_sdm845 -b lineage-18.1 kernel_xiaomi_sdm845 && cd kernel_xiaomi_sdm845
     git push ssh://git@github.com/mamutal91/kernel_xiaomi_sdm845 HEAD:refs/heads/eleven --force
-    rm -rf $HOME/kernel_xiaomi_sdm845
+    cd $pwd && rm -rf $HOME/kernel_xiaomi_sdm845
   fi
 }
 
