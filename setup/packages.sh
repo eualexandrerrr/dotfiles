@@ -50,10 +50,6 @@ readonly PACKAGES=(
   # fonts
   noto-fonts-emoji
   terminus-font ttf-liberation
-
-  # wine
-  lib32-gnutls
-  wine
 )
 
 readonly AUR=(
