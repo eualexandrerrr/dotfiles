@@ -101,13 +101,22 @@ function hals() {
   /mnt/roms/buildbot/scripts/hal/caf.sh
 }
 
+function site() {
+  pwd=$(pwd)
+  cd $HOME && rm -rf test
+  git clone ssh://git@github.com/AOSPK/www -b site test
+  sudo rm -rf /mnt/roms/sites/test
+  sudo mv test /mnt/roms/sites
+  cd $pwd
+}
+
 function www() {
   pwd=$(pwd)
   cd $HOME && rm -rf www
-  git clone ssh://git@github.com/AOSPK/www
-  sudo rm -rf /mnt/roms/www
-  sudo mv www /mnt/roms
-  cd /mnt/roms/www
+  git clone ssh://git@github.com/AOSPK/www -b downloadcenter downloadcenter
+  sudo rm -rf /mnt/roms/sites/downloadcenter
+  sudo mv downloadcenter /mnt/roms/sites
+  cd /mnt/roms/sites/downloadcenter
   sudo npm i && sudo npm run build
   cd $pwd
 }
