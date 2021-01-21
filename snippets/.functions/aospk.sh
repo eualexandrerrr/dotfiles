@@ -25,8 +25,8 @@ function tree() {
 
 function upkernel() {
   cd $HOME
-  git clone ssh://git@github.com/LineageOS/android_kernel_xiaomi_sdm845 -b lineage-18.1 kernel_xiaomi_sdm845 && cd kernel_xiaomi_sdm845
-  git push git push ssh://git@github.com/mamutal91/kernel_xiaomi_sdm845 HEAD:refs/heads/eleven --force
+  git clone ssh://git@github.com/PainKiller3/kernel_xiaomi_sdm845 -b eleven kernel_xiaomi_sdm845 && cd kernel_xiaomi_sdm845
+  git push ssh://git@github.com/mamutal91/kernel_xiaomi_sdm845 HEAD:refs/heads/eleven --force
   rm -rf $HOME/kernel_xiaomi_sdm845
 }
 
