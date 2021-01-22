@@ -89,6 +89,7 @@ function hals() {
   /mnt/roms/buildbot/scripts/hal/hal.sh msm8960
   /mnt/roms/buildbot/scripts/hal/hal.sh msm8916
   /mnt/roms/buildbot/scripts/hal/hal.sh msm8974
+  /mnt/roms/buildbot/scripts/hal/hal.sh msm8994
   /mnt/roms/buildbot/scripts/hal/hal.sh msm8996
   /mnt/roms/buildbot/scripts/hal/hal.sh msm8998
   /mnt/roms/buildbot/scripts/hal/hal.sh sdm845
