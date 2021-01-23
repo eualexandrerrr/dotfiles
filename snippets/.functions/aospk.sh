@@ -59,8 +59,8 @@ function pushtree() {
 }
 
 function clone() {
-  echo "${BOL_BLU}Cloning github.com/AOSPK/${1} - ${2}${END}"
-  git clone ssh://git@github.com/AOSPK/${1} -b ${2} && cd ${1}
+  echo "${BOL_BLU}Cloning github.com/AOSPK/${1} - ${2} ${3}${END}"
+  git clone ssh://git@github.com/AOSPK/${1} -b ${2} ${3}
 }
 
 function los() {
