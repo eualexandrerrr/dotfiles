@@ -11,9 +11,9 @@ fi
 date=$(date +"%m%d%Y-%H%M")
 
 if [[ ${1} = "window" ]]; then
-	grim -g "$(slurp -d)" - | wl-copy
+	grim "$dir/window-$date.png" -g "$(slurp -d)" - | wl-copy
 	notify-send -i $icon "Screenshot" "Cropped capture."
 else
-	grim - | wl-copy
+	grim "$dir/full-$date.png" - | wl-copy
 	notify-send -i $icon "Screenshot" "Fullscreen capture."
 fi
