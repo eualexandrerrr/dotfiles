@@ -31,7 +31,7 @@ alias systemctl="sudo systemctl"
 alias sed="sudo sed"
 
 # paths
-alias hub="cd $HOME/GitHub && clear && ls -1"
+alias g="cd $HOME/GitHub && clear && ls -1"
 alias aospk="cd $HOME/AOSPK"
 alias x="cd /mnt/roms/jobs/AOSPK"
 
