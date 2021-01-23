@@ -8,12 +8,16 @@ if [[ ! -d "$dir" ]]; then
 	mkdir -p $dir
 fi
 
-date=$(date +"%m%d%Y-%H%M")
+date=$(date +"%Y%m%d-%H%M")
 
 if [[ ${1} = "window" ]]; then
-	grim "$dir/window-$date.png" -g "$(slurp -d)" - | wl-copy
+	img="$dir/window-$date.png"
+	grim -g "$(slurp -d)" "$img"
+	wl-copy < $img
 	notify-send -i $icon "Screenshot" "Cropped capture."
 else
-	grim "$dir/full-$date.png" - | wl-copy
+	img="$dir/full-$date.png"
+	grim "$img"
+	wl-copy < $img
 	notify-send -i $icon "Screenshot" "Fullscreen capture."
 fi
