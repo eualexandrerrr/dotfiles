@@ -49,23 +49,9 @@ function push() {
   git push ssh://git@github.com/AOSPK/${1} HEAD:refs/heads/${2} ${3}
 }
 
-function pushtree() {
-  if [[ "${3}" = true ]];
-  then
-    FORCE=" -f"
-  fi
-  echo "${BOL_GRE}Pushing github.com/AOSPK-WIP/${1} - ${2}${END}"
-  git push ssh://git@github.com/AOSPK-WIP/${1} HEAD:refs/heads/${2} ${3}
-}
-
 function clone() {
   echo "${BOL_BLU}Cloning github.com/AOSPK/${1} - ${2} ${3}${END}"
   git clone ssh://git@github.com/AOSPK/${1} -b ${2} ${3}
-}
-
-function los() {
-  echo "Cloning github.com/LineageOS/android_${1} - ${2}"
-  rm -rf ${1} && git clone https://github.com/LineageOS/android_${1} -b ${2} ${1} && cd ${1}
 }
 
 upstream() {
