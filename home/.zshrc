@@ -35,9 +35,8 @@ alias g="cd $HOME/GitHub && clear && ls -1"
 alias aospk="cd $HOME/AOSPK"
 alias x="cd /mnt/roms/jobs/AOSPK"
 
-source $HOME/.functions/aospk.sh
-source $HOME/.functions/git.sh
-source $HOME/.functions/personal.sh
+source $HOME/.config/functions.sh
+source $HOME/.config/aospk/functions.sh
 
 function dot() {
   pwd=$(pwd)

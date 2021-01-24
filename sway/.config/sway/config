@@ -91,8 +91,8 @@ mode "resize" {
 bindsym $control+$shift+r mode "resize"
 
 # Startup
-exec_always --no-startup-id $HOME/.scripts/battery.sh
-exec_always --no-startup-id swaybg -i $HOME/.wallpapers/space.jpg
+exec_always --no-startup-id $HOME/.config/scripts/battery.sh
+exec_always --no-startup-id swaybg -i $HOME/.config/wallpapers/space.jpg
 exec_always --no-startup-id bluetoothctl power off
 exec --no-startup-id mako
 exec --no-startup-id pulseeffects --gapplication-service &>/dev/null
@@ -128,11 +128,11 @@ bindsym XF86MonBrightnessUp exec  --no-startup-id echo $((`cat /sys/class/backli
 bindsym XF86MonBrightnessDown exec  --no-startup-id echo $((`cat /sys/class/backlight/amdgpu_bl0/brightness` - 5)) | sudo tee /sys/class/backlight/amdgpu_bl0/brightness
 
 # Screenshot
-bindsym Print exec --no-startup-id $HOME/.scripts/screenshot.sh window
-bindsym $control+Print exec --no-startup-id $HOME/.scripts/screenshot.sh
+bindsym Print exec --no-startup-id $HOME/.config/scripts/screenshot.sh window
+bindsym $control+Print exec --no-startup-id $HOME/.config/scripts/screenshot.sh
 
 # Screencast
-bindsym $control+$shift+k exec --no-startup-id $HOME/.scripts/screencast.sh
+bindsym $control+$shift+k exec --no-startup-id $HOME/.config/scripts/screencast.sh
 
 # Application shortcuts
 bindsym $super+Return exec --no-startup-id alacritty &; workspace $ws1
@@ -141,7 +141,7 @@ bindsym $super+F2 exec --no-startup-id google-chrome-beta &; workspace $ws2
 bindsym $super+F3 exec --no-startup-id telegram-desktop &; workspace $ws4
 
 # System shortcuts
-bindsym F10 exec --no-startup-id $HOME/.scripts/commiter.sh &
+bindsym F10 exec --no-startup-id $HOME/.config/scripts/commiter.sh &
 bindsym F11 exec --no-startup-id $HOME/.dotfiles/install.sh
 
 # Rules

@@ -20,6 +20,6 @@ then
   echo "${RED}/etc/ ${GRE}configured.${END}"
 fi
 
-play $HOME/.sounds/completed.wav &>/dev/null
+play $HOME/.config/sounds/completed.wav &>/dev/null
 swaymsg reload &>/dev/null
 exit 0

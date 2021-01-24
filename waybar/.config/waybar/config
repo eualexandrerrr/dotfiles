@@ -110,7 +110,7 @@
   },
   "spotify": {
     "format": "SPOTIFY  {}",
-    "exec": "bash $HOME/.scripts/spotify.sh 2> /dev/null"
+    "exec": "bash $HOME/.config/scripts/spotify.sh 2> /dev/null"
   },
   "custom/pacman": {
     "format": "  {}",
@@ -137,7 +137,7 @@
   },
   "custom/bluetooth": {
     "format": "",
-    "on-click": "$HOME/.scripts/bluetooth.sh",
+    "on-click": "$HOME/.config/scripts/bluetooth.sh",
     "tooltip": false
   }
 }
