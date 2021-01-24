@@ -10,6 +10,11 @@ scrolling:
   history: 10000
   multiplier: 3
 
+window:
+  padding:
+    x: 5
+    y: 5
+
 font:
   normal:
     family: xos4 Terminus
