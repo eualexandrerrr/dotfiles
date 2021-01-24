@@ -47,7 +47,7 @@ function dot() {
   cd $pwd
 }
 
-function bot() {
+function infra() {
   pwd=$(pwd)
   cd $HOME
   echo "infra cloned."
