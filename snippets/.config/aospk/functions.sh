@@ -70,6 +70,11 @@ function up() {
   upstream ${1} cm-14.1 nougat
 }
 
+function gapps() {
+  rm -rf ${1}
+  cp -rf ${1} ${2}
+}
+
 function hals() {
   /mnt/roms/infra/scripts/hal/hal.sh apq8084
   /mnt/roms/infra/scripts/hal/hal.sh msm8960
