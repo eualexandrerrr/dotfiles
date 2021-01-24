@@ -50,8 +50,8 @@ function dot() {
 function bot() {
   pwd=$(pwd)
   cd $HOME
-  echo "buildbot cloned."
-  sudo rm -rf /mnt/roms/buildbot
-  git clone https://github.com/mamutal91/buildbot && sudo mv buildbot /mnt/roms
+  echo "infra cloned."
+  sudo rm -rf /mnt/roms/infra
+  git clone https://github.com/mamutal91/infra && sudo mv infra /mnt/roms
   cd $pwd
 }

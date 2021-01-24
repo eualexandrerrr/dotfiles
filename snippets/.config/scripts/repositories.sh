@@ -6,7 +6,7 @@ rm -rf $HOME/AOSPK && mkdir -p $HOME/AOSPK
 for github in \
     mamutal91.github.io \
     myarch \
-    buildbot \
+    infra \
     custom-rom \
     zsh-history \
     language-swaywm \

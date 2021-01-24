@@ -9,7 +9,7 @@ aospk=$HOME/AOSPK
 repo1="dotfiles"
 repo2="mamutal91.github.io"
 repo3="myarch"
-repo4="buildbot"
+repo4="infra"
 repo5="readme"
 repo6="device_xiaomi_beryllium"
 repo7="device_xiaomi_sdm845-common"
@@ -29,7 +29,7 @@ case $chosen in
     $repo3)
         alacritty -t newcommit --working-directory $github/myarch;;
     $repo4)
-        alacritty -t newcommit --working-directory $github/buildbot;;
+        alacritty -t newcommit --working-directory $github/infra;;
     $repo5)
         alacritty -t newcommit --working-directory $github/readme;;
     $repo6)

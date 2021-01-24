@@ -71,21 +71,21 @@ function up() {
 }
 
 function hals() {
-  /mnt/roms/buildbot/scripts/hal/hal.sh apq8084
-  /mnt/roms/buildbot/scripts/hal/hal.sh msm8960
-  /mnt/roms/buildbot/scripts/hal/hal.sh msm8916
-  /mnt/roms/buildbot/scripts/hal/hal.sh msm8974
-  /mnt/roms/buildbot/scripts/hal/hal.sh msm8994
-  /mnt/roms/buildbot/scripts/hal/hal.sh msm8996
-  /mnt/roms/buildbot/scripts/hal/hal.sh msm8998
-  /mnt/roms/buildbot/scripts/hal/hal.sh sdm845
-  /mnt/roms/buildbot/scripts/hal/hal.sh sm8150
-  /mnt/roms/buildbot/scripts/hal/hal.sh sm8250
+  /mnt/roms/infra/scripts/hal/hal.sh apq8084
+  /mnt/roms/infra/scripts/hal/hal.sh msm8960
+  /mnt/roms/infra/scripts/hal/hal.sh msm8916
+  /mnt/roms/infra/scripts/hal/hal.sh msm8974
+  /mnt/roms/infra/scripts/hal/hal.sh msm8994
+  /mnt/roms/infra/scripts/hal/hal.sh msm8996
+  /mnt/roms/infra/scripts/hal/hal.sh msm8998
+  /mnt/roms/infra/scripts/hal/hal.sh sdm845
+  /mnt/roms/infra/scripts/hal/hal.sh sm8150
+  /mnt/roms/infra/scripts/hal/hal.sh sm8250
 
-  /mnt/roms/buildbot/scripts/hal/limp.sh pn5xx
-  /mnt/roms/buildbot/scripts/hal/limp.sh sn100x
+  /mnt/roms/infra/scripts/hal/limp.sh pn5xx
+  /mnt/roms/infra/scripts/hal/limp.sh sn100x
 
-  /mnt/roms/buildbot/scripts/hal/caf.sh
+  /mnt/roms/infra/scripts/hal/caf.sh
 }
 
 function site() {
