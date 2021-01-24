@@ -99,8 +99,8 @@ function site() {
 
 function www() {
   pwd=$(pwd)
-  cd $HOME && rm -rf www
-  git clone ssh://git@github.com/AOSPK/www -b downloadcenter downloadcenter
+  cd $HOME && rm -rf downloadcenter
+  git clone ssh://git@github.com/AOSPK/downloadcenter -b master downloadcenter
   sudo rm -rf /mnt/roms/sites/downloadcenter
   sudo mv downloadcenter /mnt/roms/sites
   cd /mnt/roms/sites/downloadcenter
