@@ -4,6 +4,7 @@ function personalconfig() {
   pwd=$(pwd) && cd $HOME
   git config --global user.email "mamutal91@gmail.com"
   git config --global user.name "Alexandre Rangel"
+  git config --global http.postBuffer 524288000
   rm -rf $HOME/.zsh_history && wget https://raw.githubusercontent.com/mamutal91/zsh-history/master/.zsh_history
   [ ! -d $HOME/{Images,Videos} ] && mkdir -p $HOME/{Images,Videos}
   cd $pwd
