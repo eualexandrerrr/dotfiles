@@ -3,22 +3,27 @@
 rm -rf $HOME/GitHub && mkdir -p $HOME/GitHub
 rm -rf $HOME/AOSPK && mkdir -p $HOME/AOSPK
 
-for github in \
-    mamutal91.github.io \
-    myarch \
-    infra \
-    custom-rom \
-    zsh-history \
-    language-swaywm \
-    shellscript-atom-snippets \
-    device_xiaomi_beryllium \
-    device_xiaomi_sdm845-common
-do
-  git clone ssh://git@github.com/mamutal91/$github $HOME/GitHub/$github
+readonly aospk=(
+    manifest
+    docs
+    official_devices
+)
+
+for i in "${aospk[@]}"; do
+  git clone ssh://git@github.com/AOSPK/${i} $HOME/AOSPK/${i}
 done
 
-# Readme
-git clone ssh://git@github.com/mamutal91/mamutal91 $HOME/GitHub/readme
+readonly mamutal91=(
+    mamutal91.github.io
+    mamutal91
+    myarch
+    infra
+    custom-rom
+    zsh-history
+    language-swaywm
+    shellscript-atom-snippets
+    device_xiaomi_beryllium
+    device_xiaomi_sdm845-common
+)
 
-# AOSPK manifest
-rm -rf $HOME/AOSPK/manifest && git clone ssh://git@github.com/AOSPK/manifest $HOME/AOSPK/manifest
+cd $HOME/GitHub && mv mamutal91 readme
