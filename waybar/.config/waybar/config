@@ -2,7 +2,7 @@
   "layer": "top", // Waybar at top layer
   "position": "top", // Waybar position (top|bottom|left|right)
   "height": 10, // Waybar height (to be removed for auto height)
-  "width": 1200, // Waybar width
+  "width": 1920, // Waybar width
   // Bar
   "modules-left": [
     "custom/github",
