@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-rm -rf $HOME/GitHub && mkdir -p $HOME/GitHub
 rm -rf $HOME/AOSPK && mkdir -p $HOME/AOSPK
+rm -rf $HOME/GitHub && mkdir -p $HOME/GitHub
 
 readonly aospk=(
     manifest
@@ -26,4 +26,9 @@ readonly mamutal91=(
     device_xiaomi_sdm845-common
 )
 
-cd $HOME/GitHub && mv mamutal91 readme
+for i in "${mamutal91[@]}"; do
+  git clone ssh://git@github.com/mamutal91/${i} $HOME/GitHub/${i}
+done
+
+cd $HOME/GitHub
+mv mamutal91 readme
