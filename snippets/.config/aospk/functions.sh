@@ -78,6 +78,7 @@ function gapps() {
 function hals() {
   $HOME/.config/aospk/hal/hal.sh apq8084
   $HOME/.config/aospk/hal/hal.sh msm8960
+  $HOME/.config/aospk/hal/hal.sh msm8952
   $HOME/.config/aospk/hal/hal.sh msm8916
   $HOME/.config/aospk/hal/hal.sh msm8974
   $HOME/.config/aospk/hal/hal.sh msm8994
