@@ -32,3 +32,5 @@ done
 
 cd $HOME/GitHub
 mv mamutal91 readme
+
+git clone ssh://git@github.com/BuildersBR/buildersbr $HOME/GitHub/buildersbr

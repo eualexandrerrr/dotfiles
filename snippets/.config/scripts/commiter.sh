@@ -17,10 +17,11 @@ repo8="language-swaywm"
 repo9="shellscript-atom-snippets"
 repo10="AOSPK/manifest"
 repo11="AOSPK/vendor_google_gms"
+repo12="BuildersBR/buildersbr"
 
-repos="$repo1\n$repo2\n$repo3\n$repo4\n$repo5\n$repo6\n$repo7\n$repo8\n$repo9\n$repo10\n$repo11"
+repos="$repo1\n$repo2\n$repo3\n$repo4\n$repo5\n$repo6\n$repo7\n$repo8\n$repo9\n$repo10\n$repo11\n$repo12"
 
-chosen="$(echo -e "$repos" | wofi --lines 11 --sort-order=DEFAULT --dmenu -p "  Commiter")"
+chosen="$(echo -e "$repos" | wofi --lines 12 --sort-order=DEFAULT --dmenu -p "  Commiter")"
 case $chosen in
     $repo1)
         alacritty -t newcommit --working-directory $HOME/.dotfiles;;
@@ -44,5 +45,7 @@ case $chosen in
         alacritty -t newcommit --working-directory $aospk/manifest;;
     $repo11)
         alacritty -t newcommit --working-directory $aospk/vendor_google_gms;;
+    $repo12)
+        alacritty -t newcommit --working-directory $github/buildersbr;;
 esac
 exit 0;
