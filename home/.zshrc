@@ -52,6 +52,16 @@ function infra() {
   cd $HOME
   echo "infra cloned."
   sudo rm -rf /mnt/roms/infra
-  git clone https://github.com/mamutal91/infra && sudo mv infra /mnt/roms
+  git clone ssh://git@github.com/mamutal91/infra && sudo mv infra /mnt/roms
+  cd $pwd
+}
+
+
+function builders() {
+  pwd=$(pwd)
+  cd $HOME
+  echo "buildersbr cloned."
+  sudo rm -rf /mnt/roms/buildersbr
+  git clone ssh://git@github.com/BuildersBR/buildersbr && sudo mv buildersbr /mnt/roms
   cd $pwd
 }
