@@ -19,6 +19,8 @@ window#waybar {
 #workspaces button, #tags button {
   background-color: transparent;
 	color: #d8dee9;
+	padding-left: 10px;
+	padding-right: 10px;
 }
 #window {
 	color: #d8dee9;
@@ -50,8 +52,9 @@ window#waybar.empty {
 /* BROWSER BOOKMARKS */
 #custom-github, #custom-gerrit, #custom-keep, #custom-bluetooth {
 	background-color: #2e3440;
-	font-size: 12px;
-	padding: 0px 5px 0px 8px ;
+	font-size: 11px;
+	padding-left: 6px;
+	padding-right: 6px;
 	opacity: 0.8;
 }
 #custom-github {
@@ -68,14 +71,15 @@ window#waybar.empty {
 #custom-bluetooth {
 	color: #5db2ff;
 	border-radius: 0px 10px 10px 0px;
-	margin-right: 5px;
-	padding-right: 8px;
+	margin-right: 6px;
+	padding-right: 6px;
 }
 /* WIDGETS */
 #cpu, #custom-pacman, #memory, #backlight, #network, #pulseaudio, #battery {
   font-size: 10px;
 	background-color: #2e3440;
-	padding: 0px 2px 0px 10px;
+	padding-left: 6px;
+	padding-right: 6px;
 }
 #memory {
 	color:#d08770;
@@ -100,7 +104,8 @@ window#waybar.empty {
 }
 #battery {
 	color: #5faa6f;
-	padding: 0px 10px 0px 6px;
+	padding-left: 6px;
+	padding-right: 6px;
 	border-radius: 0px 10px 10px 0px;
 }
 #battery.charging {
