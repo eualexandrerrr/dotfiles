@@ -4,17 +4,16 @@
 	margin-top: 2px;
 	font-family: Terminus;
 	font-style: normal;
+	opacity: 0.9;
 }
 window#waybar {
 	background-color: transparent;
 	color: #d8dee9;
 	font-size: 12px;
-	opacity: 0.8;
 }
 #workspaces, #tags {
 	background-color: #2e3440;
 	border-radius: 10px;
-	opacity: 0.7;
 }
 #workspaces button, #tags button {
   background-color: transparent;
@@ -55,7 +54,6 @@ window#waybar.empty {
 	font-size: 11px;
 	padding-left: 6px;
 	padding-right: 6px;
-	opacity: 0.8;
 }
 #custom-github {
 	border-radius: 10px 0px 0px 10px;
@@ -89,6 +87,7 @@ window#waybar.empty {
 }
 #network {
   color: #9da98d;
+	border-radius: 0px 10px 10px 0px;
 }
 #custom-pacman {
 	color: #88c0d0;
@@ -103,13 +102,16 @@ window#waybar.empty {
 	color: #4c566a;
 }
 #battery {
-	color: #5faa6f;
-	padding-left: 6px;
-	padding-right: 6px;
-	border-radius: 0px 10px 10px 0px;
+	background-color: #2e3440;
+	color: #FFFFFF;
+	border-radius: 10px 10px 10px 10px;
+	padding: 6px 6px 6px 6px;
+	font-size: 10px;
+	margin-left: 8px;
 }
+
 #battery.charging {
-	color: #5faa6f;
+	color: #000000;
 }
 @keyframes blink {
 	to {
@@ -127,7 +129,7 @@ window#waybar.empty {
 	animation-direction: alternate;
 }
 label:focus {
-	background-color: #000000;
+	background-color: #2e3440;
 }
 #clock {
 	background-color: #50fa7b;
@@ -135,7 +137,6 @@ label:focus {
 	border-radius: 10px 10px 10px 10px;
 	padding: 6px 6px 6px 6px;
 	font-size: 10px;
-	margin-left: 10px;
+	margin-left: 8px;
 	margin-right: 10px;
-	opacity: 0.8;
 }
