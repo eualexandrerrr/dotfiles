@@ -1,7 +1,7 @@
 * {
 	border: none;
-	font-size: 11px;
-	margin: 1.0px;
+	font-size: 12px;
+	margin-top: 2px;
 	font-family: Terminus;
 	font-style: normal;
 }
@@ -13,7 +13,6 @@ window#waybar {
 }
 #workspaces, #tags {
 	background-color: #2e3440;
-  margin-right: 0px;
 	border-radius: 10px;
 	opacity: 0.7;
 }
@@ -23,7 +22,6 @@ window#waybar {
 }
 #window {
 	color: #d8dee9;
-	margin: 0px;
   font-size: 10px;
 	border-radius: 10px;
 }
@@ -53,14 +51,13 @@ window#waybar.empty {
 #custom-github, #custom-gerrit, #custom-keep, #custom-bluetooth {
 	background-color: #2e3440;
 	font-size: 12px;
-  margin-left: 0;
-  margin-right: 0;
 	padding: 0px 5px 0px 8px ;
 	opacity: 0.8;
 }
 #custom-github {
 	border-radius: 10px 0px 0px 10px;
 	color: #ffffff;
+	margin-left: 10px;
 }
 #custom-gerrit {
 	color: #2bd96c;
@@ -79,7 +76,6 @@ window#waybar.empty {
   font-size: 10px;
 	background-color: #2e3440;
 	padding: 0px 2px 0px 10px;
-	margin: 2px 0px 2px 0px;
 }
 #memory {
 	color:#d08770;
@@ -135,6 +131,6 @@ label:focus {
 	padding: 6px 6px 6px 6px;
 	font-size: 10px;
 	margin-left: 10px;
-	margin-right: 2px;
+	margin-right: 10px;
 	opacity: 0.8;
 }
