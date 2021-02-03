@@ -129,7 +129,8 @@ label:focus {
 	background-color: #000000;
 }
 #clock {
-	background-color: #3b4252;
+	background-color: #50fa7b;
+	color: #000000;
 	border-radius: 10px 10px 10px 10px;
 	padding: 6px 6px 6px 6px;
 	font-size: 10px;
