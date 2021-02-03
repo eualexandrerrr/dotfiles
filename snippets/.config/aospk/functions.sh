@@ -51,7 +51,7 @@ function push() {
 
 function clone() {
   echo "${BOL_BLU}Cloning github.com/AOSPK/${1} - ${2} ${3}${END}"
-  git clone ssh://git@github.com/AOSPK/${1} -b ${2} ${3}
+  git clone ssh://git@github.com/AOSPK/${1} -b ${2} ${3} && cd ${1}
 }
 
 upstream() {
