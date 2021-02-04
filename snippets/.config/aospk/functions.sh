@@ -31,6 +31,7 @@ function kernel() {
     pwd=$(pwd) && cd $HOME
     git clone https://github.com/LineageOS/android_kernel_xiaomi_sdm845 -b lineage-18.1 kernel_xiaomi_sdm845 && cd kernel_xiaomi_sdm845
     git push ssh://git@github.com/mamutal91/kernel_xiaomi_sdm845 HEAD:refs/heads/eleven --force
+    git push ssh://git@github.com/AOSPK-Devices/kernel_xiaomi_sdm845 HEAD:refs/heads/eleven --force
     cd $pwd && rm -rf $HOME/kernel_xiaomi_sdm845
   fi
 }
