@@ -12,6 +12,7 @@ readonly PACKAGES=(
   # apps
   alacritty atom
   cronie
+  filezilla
   git gpicview
   htop
   lxappearance
