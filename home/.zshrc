@@ -20,6 +20,7 @@ export BROWSER="/usr/bin/google-chrome-beta"
 export EDITOR="nano"
 export LS_COLORS="$LS_COLORS:ow=1;34:tw=1;34:"
 export TERM="xterm-256color"
+export WLR_NO_HARDWARE_CURSORS=1
 
 # sudo easy
 alias chmod="sudo chmod"
