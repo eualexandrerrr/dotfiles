@@ -27,18 +27,18 @@ function translate() {
 if [ $HOST = "odin" ]; then
   function cm() {
     translate
-    git add . && git commit --message $msg --author "Alexandre Rangel <mamutal91@gmail.com>" && git push -f
+    git add . && git commit --message $msg --signoff --author "Alexandre Rangel <mamutal91@gmail.com>" && git push -f
   }
   function c() {
     git add . && git commit --author "${1}" && git push -f
   }
   function amend() {
-    git add . && git commit --amend && git push -f
+    git add . && git commit --signoff --amend && git push -f
   }
 else
   function cm() {
     translate
-    git add . && git commit --message $msg --author "Alexandre Rangel <mamutal91@gmail.com>"
+    git add . && git commit --message $msg --signoff --author "Alexandre Rangel <mamutal91@gmail.com>"
   }
   function c() {
     git add . && git commit --author "${1}"
