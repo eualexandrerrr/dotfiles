@@ -64,7 +64,6 @@ readonly AUR=(
   oh-my-zsh-git
   spotify swaylock-effects-git
   translate-shell-git
-  wps-office
   zsh-syntax-highlighting
 
   # dependencies
@@ -72,7 +71,4 @@ readonly AUR=(
   selinux-python
   ttf-font-awesome ttf-dejavu
   wf-recorder-git
-
-  # fonts
-  ttf-wps-fonts
 )
