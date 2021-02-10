@@ -1,6 +1,6 @@
 * {
 	border: none;
-	font-size: 12px;
+	font-size: 11px;
 	margin-top: 2px;
 	font-family: Terminus;
 	font-style: normal;
@@ -9,7 +9,6 @@
 window#waybar {
 	background-color: transparent;
 	color: #d8dee9;
-	font-size: 12px;
 }
 #workspaces, #tags {
 	background-color: #2e3440;
@@ -23,7 +22,6 @@ window#waybar {
 }
 #window {
 	color: #d8dee9;
-  font-size: 10px;
 	border-radius: 10px;
 }
 @keyframes fadeIn {
@@ -51,7 +49,6 @@ window#waybar.empty {
 /* BROWSER BOOKMARKS */
 #custom-github, #custom-gerrit, #custom-keep, #custom-bluetooth {
 	background-color: #2e3440;
-	font-size: 11px;
 	padding-left: 6px;
 	padding-right: 6px;
 }
@@ -74,28 +71,27 @@ window#waybar.empty {
 }
 /* WIDGETS */
 #cpu, #custom-pacman, #memory, #backlight, #network, #pulseaudio, #battery {
-  font-size: 10px;
 	background-color: #2e3440;
 	padding-left: 6px;
 	padding-right: 6px;
 }
-#memory {
-	color:#d08770;
+#pulseaudio {
+	color: #8fbcbb;
+	border-radius: 10px 0px 0px 10px;
 }
 #cpu {
 	color:#c57078;
 }
-#network {
-  color: #9da98d;
-	border-radius: 0px 10px 10px 0px;
+#memory {
+	color:#d08770;
 }
 #custom-pacman {
 	color: #88c0d0;
 	font-weight: 600;
 }
-#pulseaudio {
-	color: #8fbcbb;
-	border-radius: 10px 0px 0px 10px;
+#network {
+  color: #9da98d;
+	border-radius: 0px 10px 10px 0px;
 }
 #pulseaudio.muted {
 	border-radius: 10px 0px 0px 10px;
@@ -106,7 +102,6 @@ window#waybar.empty {
 	color: #FFFFFF;
 	border-radius: 10px 10px 10px 10px;
 	padding: 6px 6px 6px 6px;
-	font-size: 10px;
 	margin-left: 8px;
 }
 
@@ -136,7 +131,6 @@ label:focus {
 	color: #000000;
 	border-radius: 10px 10px 10px 10px;
 	padding: 6px 6px 6px 6px;
-	font-size: 10px;
 	margin-left: 8px;
 	margin-right: 10px;
 }
