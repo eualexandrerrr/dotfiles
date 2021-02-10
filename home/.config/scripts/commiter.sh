@@ -10,17 +10,14 @@ repo1="dotfiles"
 repo2="mamutal91.github.io"
 repo3="myarch"
 repo4="infra"
-repo5="readme"
-repo6="device_xiaomi_beryllium"
-repo7="device_xiaomi_sdm845-common"
-repo8="language-swaywm"
-repo9="shellscript-atom-snippets"
-repo10="AOSPK/manifest"
-repo11="BuildersBR/buildersbr"
+repo5="language-swaywm"
+repo6="shellscript-atom-snippets"
+repo7="AOSPK/manifest"
+repo8="BuildersBR/buildersbr"
 
-repos="$repo1\n$repo2\n$repo3\n$repo4\n$repo5\n$repo6\n$repo7\n$repo8\n$repo9\n$repo10\n$repo11"
+repos="$repo1\n$repo2\n$repo3\n$repo4\n$repo5\n$repo6\n$repo7\n$repo8"
 
-chosen="$(echo -e "$repos" | wofi --lines 12 --sort-order=DEFAULT --dmenu -p "  Commiter")"
+chosen="$(echo -e "$repos" | wofi --lines 8 --sort-order=DEFAULT --dmenu -p "  Commiter")"
 case $chosen in
     $repo1)
         alacritty -t newcommit --working-directory $HOME/.dotfiles;;
@@ -31,18 +28,12 @@ case $chosen in
     $repo4)
         alacritty -t newcommit --working-directory $github/infra;;
     $repo5)
-        alacritty -t newcommit --working-directory $github/readme;;
-    $repo6)
-        alacritty -t newcommit --working-directory $github/device_xiaomi_beryllium;;
-    $repo7)
-        alacritty -t newcommit --working-directory $github/device_xiaomi_sdm845-common;;
-    $repo8)
         alacritty -t newcommit --working-directory $github/language-swaywm;;
-    $repo9)
+    $repo6)
         alacritty -t newcommit --working-directory $github/shellscript-atom-snippets;;
-    $repo10)
+    $repo7)
         alacritty -t newcommit --working-directory $aospk/manifest;;
-    $repo11)
+    $repo8)
         alacritty -t newcommit --working-directory $github/buildersbr;;
 esac
 exit 0;

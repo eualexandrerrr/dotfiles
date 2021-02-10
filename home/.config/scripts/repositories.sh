@@ -15,22 +15,16 @@ done
 
 readonly mamutal91=(
     mamutal91.github.io
-    mamutal91
     myarch
     infra
     custom-rom
     zsh-history
     language-swaywm
     shellscript-atom-snippets
-    device_xiaomi_beryllium
-    device_xiaomi_sdm845-common
 )
 
 for i in "${mamutal91[@]}"; do
   git clone ssh://git@github.com/mamutal91/${i} $HOME/GitHub/${i}
 done
-
-cd $HOME/GitHub
-mv mamutal91 readme
 
 git clone ssh://git@github.com/BuildersBR/buildersbr $HOME/GitHub/buildersbr
