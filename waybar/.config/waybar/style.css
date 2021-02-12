@@ -70,7 +70,7 @@ window#waybar.empty {
 	padding-right: 6px;
 }
 /* WIDGETS */
-#cpu, #custom-pacman, #memory, #backlight, #network, #pulseaudio, #battery {
+#cpu, #memory, #backlight, #network, #pulseaudio, #battery {
 	background-color: #2e3440;
 	padding-left: 6px;
 	padding-right: 6px;
@@ -84,10 +84,6 @@ window#waybar.empty {
 }
 #memory {
 	color:#d08770;
-}
-#custom-pacman {
-	color: #88c0d0;
-	font-weight: 600;
 }
 #network {
   color: #9da98d;

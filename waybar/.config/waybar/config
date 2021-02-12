@@ -19,7 +19,6 @@
     "backlight",
     "cpu",
     "memory",
-    "custom/pacman",
     "network",
     "battery",
     "clock",
@@ -102,14 +101,6 @@
   "spotify": {
     "format": "SPOTIFY  {}",
     "exec": "bash $HOME/.config/scripts/spotify.sh 2> /dev/null"
-  },
-  "custom/pacman": {
-    "format": "  {}",
-    "interval": 30,
-    "restart-interval": 30,
-    "exec": "checkupdates | wc -l",
-    "exec-if": "exit 0",
-    "tooltip": false
   },
   "custom/github": {
     "format": "",
