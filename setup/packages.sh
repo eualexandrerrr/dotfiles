@@ -17,7 +17,7 @@ readonly PACKAGES=(
   htop
   lxappearance
   mako
-  nano nano-syntax-highlighting neofetch
+  nano nano-syntax-highlighting
   krita
   reflector
   stow sway swaybg
