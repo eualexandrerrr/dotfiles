@@ -74,9 +74,9 @@
   },
   "network": {
     "interface": "wlan0", // (Optional) To force the use of this interface
-    "format-wifi": " {essid}",
+    "format-wifi": " {essid}",
     "format-ethernet": "{ifname}: {ipaddr}/{cidr} ",
-    "format-linked": "  Disconnected",
+    "format-linked": " Disconnected",
     "format-disconnected": " No network",
     "format-alt": "{ifname}: {ipaddr}/{cidr}",
     "interval": 1
