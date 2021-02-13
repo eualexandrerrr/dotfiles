@@ -12,7 +12,7 @@ function gerrit() {
 }
 
 function push() {
-  if [[ "${1}" = "vendor_gapps" ]]; then
+  if [[ "${1}" = "vendor_google_gms" ]]; then
     GITHOST=gitlab
   else
     GITHOST=github
@@ -27,7 +27,7 @@ function push() {
 }
 
 function clone() {
-  if [[ "${1}" = "vendor_gapps" ]]; then
+  if [[ "${1}" = "vendor_google_gms" ]]; then
     GITHOST=gitlab
   else
     GITHOST=github
@@ -39,6 +39,10 @@ function clone() {
   fi
   echo "${BOL_BLU}Cloning ${GITHOST}.com/${ORG}/${GRE_BLU}${1}${END} - ${2} ${3}${END}"
   git clone ssh://git@${GITHOST}.com/${ORG}/${1} -b ${2} ${3} && cd ${1}
+}
+
+function f() {
+  git fetch https://github.com/${1} ${2}
 }
 
 upstream() {
