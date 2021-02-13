@@ -103,7 +103,6 @@
     "format": " {}",
     "max-length": 40,
     "exec": "$HOME/.config/scripts/spotify.sh",
-    "exec": "$HOME/.config/scripts/spotify.sh", // Script in resources folder
     "exec-if": "pgrep spotify"
   },
   "custom/github": {
