@@ -11,9 +11,10 @@
     "custom/mail",
     "custom/keep",
     "custom/bluetooth",
-    "sway/workspaces"
+    "sway/workspaces",
+    "custom/spotify"
   ],
-  "modules-center": ["sway/window", "spotify"],
+  "modules-center": ["sway/window"],
   "modules-right": [
     "pulseaudio",
     "backlight",
@@ -98,9 +99,12 @@
       "default": ["", "", ""]
     },
   },
-  "spotify": {
-    "format": "SPOTIFY  {}",
-    "exec": "bash $HOME/.config/scripts/spotify.sh 2> /dev/null"
+  "custom/spotify": {
+    "format": " {}",
+    "max-length": 40,
+    "exec": "$HOME/.config/scripts/spotify.sh",
+    "exec": "$HOME/.config/scripts/spotify.sh", // Script in resources folder
+    "exec-if": "pgrep spotify"
   },
   "custom/github": {
     "format": "",

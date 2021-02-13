@@ -69,6 +69,9 @@ window#waybar.empty {
 	margin-right: 6px;
 	padding-right: 6px;
 }
+#custom-spotify {
+	padding-left: 5px;
+}
 /* WIDGETS */
 #cpu, #memory, #backlight, #network, #pulseaudio, #battery {
 	background-color: #2e3440;
