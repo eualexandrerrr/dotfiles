@@ -12,22 +12,33 @@ function gerrit() {
 }
 
 function push() {
-  if [[ "${3}" = true ]];
-  then
-    FORCE=" -f"
-  fi
-  if [[ "${2}" = "vendor_gapps" ]]; then
-    echo "${BOL_GRE}Pushing gitlab.com/AOSPK/${1} - ${2}${END}"
-    git push ssh://git@gitlab.com/AOSPK/${1} HEAD:refs/heads/${2} ${3}
+  if [[ "${1}" = "vendor_gapps" ]]; then
+    GITHOST=gitlab
   else
-    echo "${BOL_GRE}Pushing github.com/AOSPK/${1} - ${2}${END}"
-    git push ssh://git@github.com/AOSPK/${1} HEAD:refs/heads/${2} ${3}
+    GITHOST=github
   fi
+  if [[ ${4} = "wip" ]]; then
+    ORG=AOSPK-WIP
+  else
+    ORG=AOSPK
+  fi
+  echo "${BOL_BLU}Pushing ${GITHOST}.com/$ORG/${GRE_BLU}${1}${END} - ${2} ${3}${END}"
+  git push ssh://git@${GITHOST}.com/${ORG}/${1} HEAD:refs/heads/${2} ${3}
 }
 
 function clone() {
-  echo "${BOL_BLU}Cloning github.com/AOSPK/${1} - ${2} ${3}${END}"
-  git clone ssh://git@github.com/AOSPK/${1} -b ${2} ${3} && cd ${1}
+  if [[ "${1}" = "vendor_gapps" ]]; then
+    GITHOST=gitlab
+  else
+    GITHOST=github
+  fi
+  if [[ ${4} = "wip" ]]; then
+    ORG=AOSPK-WIP
+  else
+    ORG=AOSPK
+  fi
+  echo "${BOL_BLU}Cloning ${GITHOST}.com/${ORG}/${GRE_BLU}${1}${END} - ${2} ${3}${END}"
+  git clone ssh://git@${GITHOST}.com/${ORG}/${1} -b ${2} ${3} && cd ${1}
 }
 
 upstream() {
