@@ -103,9 +103,5 @@ function www() {
   sudo mv downloadcenter /mnt/roms/sites
   cd /mnt/roms/sites/downloadcenter
   sudo npm i && sudo npm run build
-  cd $HOME && rm -rf www
-  git clone ssh://git@github.com/AOSPK/www
-  sudo rm -rf /mnt/roms/sites/www
-  sudo mv www /mnt/roms/sites
   cd $pwd
 }
