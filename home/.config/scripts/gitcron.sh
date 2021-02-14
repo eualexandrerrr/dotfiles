@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-dir="$HOME/GitHub"
+dir="$HOME/"
 cp -rf $HOME/.zsh_history $HOME/GitHub/zsh-history/
 
-readonly repos=('zsh-history' 'custom-rom')
+readonly repos=('GitHub/zsh-history' 'GitHub/custom-rom' 'AOSPK/design')
 
 function gitcron() {
   for i in "${repos[@]}"; do
