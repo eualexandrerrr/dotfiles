@@ -12,18 +12,21 @@ function gerrit() {
 }
 
 function push() {
-  if [[ "${1}" = "vendor_google_gms" ]]; then
-    GITHOST=gitlab
-  else
-    GITHOST=github
-  fi
   if [[ ${4} = "wip" ]]; then
     ORG=AOSPK-WIP
   else
     ORG=AOSPK
   fi
-  echo "${BOL_BLU}Pushing ${GITHOST}.com/$ORG/${GRE_BLU}${1}${END} - ${2} ${3}${END}"
-  git push ssh://git@${GITHOST}.com/${ORG}/${1} HEAD:refs/heads/${2} ${3}
+  if [[ "${1}" = "vendor_google_gms" ]]; then
+    GITHOST=gitlab
+  else
+    GITHOST=github
+  fi
+  REPO=${1}
+  BRANCH=${2}
+  FORCE=${3}
+  echo "${BOL_BLU}Pushing ${GITHOST}.com/$ORG/${GRE_BLU}${REPO}${END} - ${BRANCH} ${FORCE}${END}"
+  git push ssh://git@${GITHOST}.com/${ORG}/${REPO} HEAD:refs/heads/${BRANCH} ${FORCE}
 }
 
 function clone() {
@@ -38,7 +41,7 @@ function clone() {
     ORG=AOSPK
   fi
   echo "${BOL_BLU}Cloning ${GITHOST}.com/${ORG}/${GRE_BLU}${1}${END} - ${2} ${3}${END}"
-  git clone ssh://git@${GITHOST}.com/${ORG}/${1} -b ${2} ${3} && cd ${1}
+  git clone ssh://git@${GITHOST}.com/${ORG}/${1} -b ${2} ${3} && cd ${3}
 }
 
 function f() {
