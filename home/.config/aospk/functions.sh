@@ -12,8 +12,10 @@ function gerrit() {
 }
 
 function push() {
-  if [[ ${4} = "wip" ]]; then
+  if [[ ${4} = "wip" && ${1} != device_xiaomi_lmi ]]; then
     ORG=AOSPK-WIP
+  elif [[ ${4} != "wip" && ${1} == device_xiaomi_lmi ]];then
+    ORG=AOSPK-Devices
   else
     ORG=AOSPK
   fi
