@@ -79,22 +79,22 @@ window#waybar.empty {
 	padding-right: 6px;
 }
 #pulseaudio {
-	color: #8fbcbb;
+	color: #b8b8b8;
 	border-radius: 10px 0px 0px 10px;
 }
 #cpu {
-	color:#c57078;
+	color: #b8b8b8;
 }
 #memory {
-	color:#d08770;
+	color: #b8b8b8;
 }
 #network {
-  color: #9da98d;
+  color: #b8b8b8;
 	border-radius: 0px 10px 10px 0px;
 }
 #pulseaudio.muted {
 	border-radius: 10px 0px 0px 10px;
-	color: #4c566a;
+	color: #b8b8b8;
 }
 #battery {
 	background-color: #2e3440;
