@@ -8,7 +8,10 @@ function down() {
 }
 
 function gerrit() {
-  xdg-open https://review.lineageos.org/q/project:LineageOS/android_${1}+status:merged+branch:lineage-18.1
+  GERRIT_DIR=/mnt/roms/sites/gerrit
+  clear
+  sudo java -jar $GERRIT_DIR/bin/gerrit.war reindex -d $GERRIT_DIR
+  sudo bash $GERRIT_DIR/bin/gerrit.sh restart
 }
 
 function push() {
