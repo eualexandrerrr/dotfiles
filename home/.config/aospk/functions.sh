@@ -7,30 +7,23 @@ function down() {
   cd $pwd
 }
 
-function gerrit() {
-  GERRIT_DIR=/mnt/roms/sites/gerrit
-  clear
-  sudo java -jar $GERRIT_DIR/bin/gerrit.war reindex -d $GERRIT_DIR
-  sudo bash $GERRIT_DIR/bin/gerrit.sh restart
-}
+function p() {
+  REPO=$(pwd | sed "s/\/mnt\/roms\/jobs\/Kraken\///; s/\//_/g")
+  GITHOST=github
+  ORG=AOSPK
+  BRANCH=eleven
+  FORCE=${1}
 
-function push() {
-  if [[ ${4} = "wip" && ${1} != device_xiaomi_lmi ]]; then
+  if [[ ${1} = "wip" ]]; then
     ORG=AOSPK-WIP
-  elif [[ ${4} != "wip" && ${1} == device_xiaomi_lmi ]];then
-    ORG=AOSPK-Devices
-  else
-    ORG=AOSPK
+    FORCE=${2}
   fi
-  if [[ "${1}" = "vendor_google_gms" ]]; then
+
+  if [[ $REPO = "vendor_google_gms" ]]; then
     GITHOST=gitlab
-  else
-    GITHOST=github
   fi
-  REPO=${1}
-  BRANCH=${2}
-  FORCE=${3}
-  echo "${BOL_BLU}Pushing ${GITHOST}.com/$ORG/${GRE_BLU}${REPO}${END} - ${BRANCH} ${FORCE}${END}"
+
+  echo "${BOL_BLU}Pushing to ${GITHOST}.com/${GRE}${ORG}${END}/${BLU}${REPO}${END} - ${BRANCH} ${RED}${FORCE}${END}"
   git push ssh://git@${GITHOST}.com/${ORG}/${REPO} HEAD:refs/heads/${BRANCH} ${FORCE}
 }
 

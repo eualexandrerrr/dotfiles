@@ -2,22 +2,6 @@
 
 source $HOME/.colors &>/dev/null
 
-function p() {
-  git cherry-pick ${1}
-}
-
-function pc() {
-  git add . && git cherry-pick --continue
-}
-
-function pa() {
-  git add . && git cherry-pick --abort
-}
-
-function gr() {
-  git add . && git commit --amend && git rebase --continue
-}
-
 function translate() {
   typing=$(mktemp)
   rm -rf $typing && nano $typing
