@@ -13,8 +13,7 @@ do
 done
 
 # etc
-HOSTNAME=$(cat /etc/hostname)
-if [[ "$HOSTNAME" = "odin" ]];
+if [[ "$USERNAME" = "mamutal91" ]];
 then
   $HOME/.dotfiles/setup/etc.sh || echo "Error configure etc"
   echo "${RED}/etc/ ${GRE}configured.${END}"
