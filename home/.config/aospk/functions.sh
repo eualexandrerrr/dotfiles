@@ -10,14 +10,9 @@ function down() {
 function push() {
   REPO=$(pwd | sed "s/\/mnt\/roms\/jobs\/Kraken\///; s/\//_/g")
   GITHOST=github
-  ORG=AOSPK
+  ORG=AOSPK-WIP
   BRANCH=eleven
   FORCE=${1}
-
-  if [[ ${1} = "wip" ]]; then
-    ORG=AOSPK-WIP
-    FORCE=${2}
-  fi
 
   if [[ $REPO = "vendor_google_gms" ]]; then
     GITHOST=gitlab
