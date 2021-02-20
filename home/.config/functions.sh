@@ -2,6 +2,10 @@
 
 source $HOME/.colors &>/dev/null
 
+function p() {
+  git cherry-pick ${1}
+}
+
 function translate() {
   typing=$(mktemp)
   rm -rf $typing && nano $typing

@@ -7,7 +7,7 @@ function down() {
   cd $pwd
 }
 
-function p() {
+function push() {
   REPO=$(pwd | sed "s/\/mnt\/roms\/jobs\/Kraken\///; s/\//_/g")
   GITHOST=github
   ORG=AOSPK
