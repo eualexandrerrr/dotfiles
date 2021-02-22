@@ -82,7 +82,7 @@ upstream() {
   cd $HOME && rm -rf ${1}
   echo "${BOL_CYA}Cloning LineageOS/android_${1} -b ${2}${END}"
   git clone https://github.com/LineageOS/android_${1} -b ${2} ${1}
-  cd ${1} && push ${1} ${3}
+  cd ${1} && git push ssh://git@github.com/AOSPK/${1} HEAD:refs/heads/${3} --force
   rm -rf $HOME/${1}
 }
 
