@@ -45,6 +45,39 @@ echo "[
 ]" > aosp.dependencies
 
 git add . && git commit --message "lmi: $bringup" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>"
+
+mkdir -p overlay-kraken/frameworks/base/packages/SystemUI/res/values
+
+echo "<?xml version=\"1.0\" encoding=\"utf-8\"?>
+<!--
+/*
+** Copyright 2021 The Kraken Project
+**
+** Licensed under the Apache License, Version 2.0 (the \"License\");
+** you may not use this file except in compliance with the License.
+** You may obtain a copy of the License at
+**
+**     http://www.apache.org/licenses/LICENSE-2.0
+**
+** Unless required by applicable law or agreed to in writing, software
+** distributed under the License is distributed on an \"AS IS\" BASIS,
+** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+** See the License for the specific language governing permissions and
+** limitations under the License.
+*/
+-->
+
+<!-- These resources are around just to allow their values to be customized
+     for different hardware and product builds. -->
+<resources>
+    <!-- Biometric Prompt -->
+    <dimen name=\"biometric_dialog_fod_margin\">150dp</dimen>
+</resources>" | tee overlay-kraken/frameworks/base/packages/SystemUI/res/values/custom_config.xml
+
+msg="lmi: overlay: Adjust biometric prompt layout
+
+Signed-off-by: Mesquita <mesquita@aospa.co>"
+git add . && git commit --message "$msg" --author "Mesquita <mesquita@aospa.co>"
 git push ssh://git@github.com/AOSPK-Devices/device_xiaomi_lmi HEAD:refs/heads/eleven --force
 
 cd ../android_device_xiaomi_sm8250-common
