@@ -9,24 +9,28 @@ myGitUser="mamutal91"
 githost=github
 
 getRepo() {
-  repo=$(git remote -v | grep AOSPK | awk '{print $2}' | uniq)
-  echo "$repo" | grep -q "AOSPK-Next" && orgRepo=AOSPK-Next || orgRepo=AOSPK
-  repo=$(git remote -v | grep AOSPK | awk '{print $2}' | uniq | sed -e "s|ssh://git@github.com/${orgRepo}/||")
+#  repo=$(git remote -v | grep AOSPK | awk '{print $2}' | uniq)
+#  echo "$repo" | grep -q "AOSPK-Next" && orgRepo=AOSPK-Next || orgRepo=AOSPK
+#  repo=$(git remote -v | grep AOSPK | awk '{print $2}' | uniq | sed -e "s|ssh://git@github.com/${orgRepo}/||")
+  repo=$(cat .git/config | grep url | cut -d "/" -f5)
+  echo -e "${BOL_GRE} * $repo ${END}"
 }
 
 mc() {
-  lastCommit=$(git log --format="%H" -n 1)
-  for i in $(git diff-tree --no-commit-id --name-only -r $lastCommit); do
-    cat ${i} | grep 'ARROW\|arrow\|ARROW_\|com.arrow' ${i} &> /dev/null
-    if [[ $? -eq 0 ]]; then
-      echo -e "${BOL_GRE}\nChanges:${END}"
-      haveArrowString=true
-      echo -e "${BOL_RED}  * DETECTED:    ${i}${END}"
-      ag --color-line-number=30 -i arrow ${i}
-      echo
-    fi
-  done
-  [[ $haveArrowString == true ]] && echo -e "\n${BOL_MAG}-----------------------------------------\n"
+  if echo $PWD | grep "/mnt/nvme/Kraken" &> /dev/null; then
+    lastCommit=$(git log --format="%H" -n 1)
+    for i in $(git diff-tree --no-commit-id --name-only -r $lastCommit); do
+      cat ${i} | grep 'ARROW\|arrow\|ARROW_\|com.arrow' ${i} &> /dev/null
+      if [[ $? -eq 0 ]]; then
+        echo -e "${BOL_GRE}\nChanges:${END}"
+        haveArrowString=true
+        echo -e "${BOL_RED}  * DETECTED:    ${i}${END}"
+        ag --color-line-number=30 -i arrow ${i}
+        echo
+      fi
+    done
+    [[ $haveArrowString == true ]] && echo -e "\n${BOL_MAG}-----------------------------------------\n"
+  fi
 }
 
 mmc() {
@@ -56,7 +60,14 @@ mmc() {
   echo -e "\n${BOL_RED}-----------------------------------------\n"
 }
 
+gitBlacklist() {
+  getRepo
+  [[ $repo == manifest ]] && echo "${BOL_RED}Blacklist detected, no push!!!${END}" && export noPush=true
+  [[ $repo == official_devices ]] && echo "${BOL_RED}Blacklist detected, no push!!!${END}" && export noPush=true
+}
+
 gitRules() {
+  gitBlacklist
   [[ $repo == .dotfiles ]] && dot && exit
   [[ $repo == docker-files ]] && dockerfiles && exit
   [[ $repo == shellscript-atom-snippets ]] && export ATOM_ACCESS_TOKEN=${atomToken} && apm publish minor && sleep 5 && apm update mamutal91-shellscript-snippets-atom --no-confirm
@@ -79,11 +90,6 @@ gitRules() {
   [[ $repo == hardware_qcom_bootctrl ]] && branchBase="${branchBase}-caf" && branch="${branch}-caf"
 
   [[ $repo == vendor_gapps ]] && githost=gitlab && org=AOSPK
-}
-
-gitBlacklist() {
-  [[ $repo == manifest ]] && echo "${BOL_RED}Blacklist detected, no push!!!${END}" && return 0
-  [[ $repo == official_devices ]] && echo "${BOL_RED}Blacklist detected, no push!!!${END}" && return 0
 }
 
 st()  {
@@ -172,19 +178,17 @@ gitadd() {
 }
 
 gitpush() {
-  repo=${PWD##*/}
-  pwd=$(pwd | cut -c-19)
-
-  if [[ $pwd == /mnt/nvme/Kraken ]]; then
+  gitBlacklist
+  if echo $PWD | grep "/mnt/nvme/Kraken" &> /dev/null; then
     echo "\n${BOL_RED}No push!${END}\n"
   else
     if [[ ${1} == force ]]; then
+      [[ $noPush == true ]] && return 0
       echo -e "\n${BOL_YEL}Pushing with ${BOL_RED}force!${END}\n"
-      gitBlacklist
       git push -f
     else
+      [[ $noPush == true ]] && return 0
       echo -e "\n${BOL_YEL}Pushing!${END}\n"
-      gitBlacklist
       git push
     fi
   fi
@@ -193,7 +197,8 @@ gitpush() {
 
 cm() {
   if [[ ! -d .git ]]; then
-    echo -e "${BOL_RED}You are not in a .git repository\n${RED}$(pwd)${END}"
+    echo -e "${BOL_RED}You are not in a .git repository \n${YEL} # $PWD${END}"
+    return 0
   else
     if [[ $(git status --porcelain) ]]; then
       repo=${PWD##*/}
@@ -213,14 +218,17 @@ cm() {
 amend() {
   author=$(echo ${1} | awk '{ print $1 }' | cut -c1)
   if [[ ! -d .git ]]; then
-    echo "${BOL_RED}You are not in a .git repository${END}"
+    echo -e "${BOL_RED}You are not in a .git repository \n${YEL} # $PWD${END}"
+    return 0
   else
     if [[ ${author} == "'" ]]; then
-      gitadd && git commit --amend --date "$(date)" --author "${1}" && gitpush force
+      gitadd && git commit --amend --date "$(date)" --author "${1}"
+      gitpush force
     else
       lastAuthorName=$(git log -1 --pretty=format:'%an')
       lastAuthorEmail=$(git log -1 --pretty=format:'%ae')
-      gitadd && git commit --amend --date "$(date)" --author "${lastAuthorName} <${lastAuthorEmail}>" && gitpush force
+      gitadd && git commit --amend --date "$(date)" --author "${lastAuthorName} <${lastAuthorEmail}>"
+      gitpush force
     fi
   fi
   mc
@@ -248,10 +256,12 @@ push() {
 
   getRepo
   gitRules
+  gitBlacklist
 
   pushGitHub() {
     if [[ ! -d .git ]]; then
-      echo -e "${BOL_RED}You are not in a .git repository: ${YEL}$(pwd)${END}\n"
+      echo -e "${BOL_RED}You are not in a .git repository \n${YEL} # $PWD${END}"
+      return 0
     else
       echo -e " ${BOL_BLU}\nPushing to ${BOL_YEL}${org}/${MAG}${repo}${END}\n"
       echo -e " ${MAG}PROJECT : ${YEL}$org"
@@ -304,9 +314,9 @@ push() {
     usage
   else
     if [[ ! -d .git ]]; then
-      echo -e "${BOL_RED}You are not in a .git repository: ${YEL}$(pwd)${END}\n"
+      echo -e "${BOL_RED}You are not in a .git repository \n${YEL} # $PWD${END}"
+      return 0
     else
-
       echo -e " ${BOL_BLU}\nPushing to ${BOL_YEL}${gerrit}/${MAG}${repo}${END}\n"
       echo -e " ${MAG}PROJECT : ${YEL}$gerrit"
       echo -e " ${MAG}REPO    : ${BLU}$repo"
