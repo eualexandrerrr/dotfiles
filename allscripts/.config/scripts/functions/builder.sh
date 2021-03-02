@@ -8,7 +8,7 @@ codename=lmi
 buildtype=userdebug
 
 argsC() {
-  echo -e "${BOL_RED}SELINUX_IGNORE_NEVERALLOWS=true${END}\n" && export SELINUX_IGNORE_NEVERALLOWS=true
+#  echo -e "${BOL_RED}SELINUX_IGNORE_NEVERALLOWS=true${END}\n" && export SELINUX_IGNORE_NEVERALLOWS=true
 }
 
 ccacheC() {
@@ -30,10 +30,10 @@ s() {
   repo sync -c --no-clone-bundle --current-branch --no-tags --force-sync -j$(nproc --all)
   if [[ $? -eq 0 ]]; then
     echo "${BOL_GRE}Repo Sync success${END}"
-    dunstify -i $iconSuccess "Kraken Builder" "Sync success"
+    dunstify -i $iconSuccess "Builder" "Sync success"
   else
     echo "${BOL_RED}Repo Sync failure${END}"
-    dunstify -i $iconFail "Kraken Builder" "Sync failure"
+    dunstify -i $iconFail "Builder" "Sync failure"
   fi
   nbfc set -s 50
 }
@@ -92,10 +92,10 @@ b() {
     if [[ $? -eq 0 ]]; then
       echo "${BOL_GRE}Build success${END}"
       moveBuild &> /dev/null
-      dunstify -i $iconSuccess "Kraken Builder" "Build success"
+      dunstify -i $iconSuccess "Builder" "Build success"
     else
       echo "${BOL_RED}Build failure${END}"
-      dunstify -i $iconFail "Kraken Builder" "Build failure"
+      dunstify -i $iconFail "Builder" "Build failure"
     fi
   }
 
