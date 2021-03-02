@@ -31,13 +31,12 @@ bash $HOME/.dotfiles/setup/scripts/etc.sh
 # Copy my tokens
 if [[ $USER == mamutal91 ]]; then
   if [[ $(cat /etc/hostname) == vmi635066.contaboserver.net ]]; then
-    git clone ssh://git@github.com/mamutal91/mytokens $HOME
-    cp -rf $HOME/mytokens $HOME
+    rm -rf $HOME/.mytokens
+    git clone ssh://git@github.com/mamutal91/mytokens $HOME/.mytokens
   else
     cp -rf $HOME/GitHub/mytokens $HOME
+    mv $HOME/mytokens $HOME/.mytokens
   fi
-  rm -rf $HOME/.mytokens
-  mv $HOME/mytokens $HOME/.mytokens
 fi
 
 # Restart sway
