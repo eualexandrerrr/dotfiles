@@ -9,9 +9,6 @@ myGitUser="mamutal91"
 githost=github
 
 getRepo() {
-#  repo=$(git remote -v | grep AOSPK | awk '{print $2}' | uniq)
-#  echo "$repo" | grep -q "AOSPK-Next" && orgRepo=AOSPK-Next || orgRepo=AOSPK
-#  repo=$(git remote -v | grep AOSPK | awk '{print $2}' | uniq | sed -e "s|ssh://git@github.com/${orgRepo}/||")
   repo=$(cat .git/config | grep url | cut -d "/" -f5)
 }
 
@@ -375,13 +372,15 @@ upstream() {
     branchBase=lineage-19.0
   fi
 
-  echo -e "\n${BOL_BLU}Cloning ${BOL_MAG}${orgBaseName}/${BOL_RED}${repo} ${BOL_BLU}branch ${BOL_YEL}${branchBase} ${BOL_BLU}to ${BOL_YEL}${branch}${END}\n"
   if [[ ${4} == "aosp" ]]; then
     echo "${BOL_RED}Forget everything above, I'm cloning it is straight from AOSP${END}"
     repoAOSP=$(echo $repo | sed "s/_/\//g")
     [[ $repoAOSP == hardware/libhardware/legacy ]] && repoAOSP="hardware/libhardware_legacy"
-    git clone https://android.googlesource.com/platform/${repoAOSP} -b android-12.0.0_r2 ${repo}
+    tagAOSP=android-12.0.0_r13
+    echo -e "${BOL_RED}\n### ${BOL_YEL} ${tagAOSP}\n${END}"
+    git clone https://android.googlesource.com/platform/${repoAOSP} -b ${tagAOSP} ${repo} &> /dev/null
   else
+    echo -e "\n${BOL_BLU}Cloning ${BOL_MAG}${orgBaseName}/${BOL_RED}${repo} ${BOL_BLU}branch ${BOL_YEL}${branchBase}"
     git clone https://github.com/${orgBase}${repo} -b ${branchBase} ${repo} --single-branch
   fi
   cd ${repo}
@@ -390,12 +389,20 @@ upstream() {
   repo=$(echo $repo | sed -e "s/vendor_custom/vendor_aosp/g")
   gitRules
 
-  if wget https://github.com/$org/$repo --no-check-certificate -o /dev/null; then
-    echo Repo already exist
+  if git ls-remote ssh://git@github.com/${org}/${repo} &> /dev/null; then
+    echo "${BOL_BLU}* Repo already exist ${CYA}(${org}/${repo})${END}"
   else
-    gh repo create ${org}/${repo} --public --confirm
+    echo "${BOL_YEL}* Creating ${CYA}(AOSPK-Next/${repo})${END}"
+    gh repo create ${org}/${repo} --public
   fi
-  gh repo create AOSPK-Next/${repo} --private --confirm
+
+  if git ls-remote ssh://git@github.com/AOSPK-Next/${repo} &> /dev/null; then
+    echo "${BOL_BLU}* Repo already exist ${CYA}(AOSPK-Next/${repo})${END}"
+  else
+    echo "${BOL_YEL}* Creating ${CYA}(AOSPK-Next/${repo})${END}"
+    gh repo create AOSPK-Next/${repo} --private
+  fi
+
   git push ssh://git@${githost}.com/${org}/${repo} HEAD:refs/heads/${branch} --force
   git push ssh://git@${githost}.com/AOSPK-Next/${repo} HEAD:refs/heads/${branch} --force
   gh api -XPATCH "repos/${org}/${repo}" -f default_branch="${branch}" &> /dev/null
