@@ -30,7 +30,7 @@ if [[ $(cat /etc/hostname) == vmi635066.contaboserver.net ]]; then
   pwd=$(pwd)
   sudo rm -rf /home/mamutal91/.gerrit
   git clone ssh://git@github.com/AOSPK/gerrit -b backup /home/mamutal91/.gerrit
-  cp -rf /mnt/roms/sites/docker/gerrit /home/mamutal91/.gerrit
+  sudo cp -rf /mnt/roms/sites/docker/gerrit /home/mamutal91/.gerrit
   cd /home/mamutal91/.gerrit
   git config --global user.email "bot@aospk.org" && git config --global user.name "Kraken Project Bot"
   git add . && git commit -m "${m}" --signoff --author "Kraken Project Bot <bot@aospk.org>" --date "$(date)" && git push -f
