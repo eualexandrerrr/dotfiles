@@ -5,7 +5,7 @@ source $HOME/.Xcolors &> /dev/null
 
 source $HOME/.dotfiles/allscripts/.config/scripts/kraken/builderFunctions.sh
 
-[ $(cat /etc/hostname) = mamutal91-v2 ] && HOME=/home/mamutal91
+[ $(cat /etc/hostname) = vmi635066.contaboserver.net ] && HOME=/home/mamutal91
 
 gerrit() {
   ssh mamutal91@75.119.145.181 "cd /mnt/roms/sites/docker/docker-files/gerrit && sudo ./repl.sh"
@@ -152,7 +152,7 @@ up() {
 }
 
 hals() {
-  if [[ $(cat /etc/hostname) == mamutal91-v2 ]]; then
+  if [[ $(cat /etc/hostname) == vmi635066.contaboserver.net ]]; then
     pwd=$(pwd)
     branch=(
       apq8084
@@ -186,7 +186,7 @@ hals() {
 }
 
 www() {
-  if [[ $(cat /etc/hostname) == mamutal91-v2 ]]; then
+  if [[ $(cat /etc/hostname) == vmi635066.contaboserver.net ]]; then
     cd $HOME && rm -rf downloadcenter
     git clone ssh://git@github.com/AOSPK/downloadcenter -b master downloadcenter
     sudo rm -rf /mnt/roms/sites/downloadcenter

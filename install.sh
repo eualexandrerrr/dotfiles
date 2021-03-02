@@ -30,7 +30,7 @@ bash $HOME/.dotfiles/setup/scripts/etc.sh
 
 # Copy my tokens
 if [[ $USER == mamutal91 ]]; then
-  if [[ $(cat /etc/hostname) == mamutal91-v2 ]]; then
+  if [[ $(cat /etc/hostname) == vmi635066.contaboserver.net ]]; then
     git clone ssh://git@github.com/mamutal91/mytokens $HOME
     cp -rf $HOME/mytokens $HOME
   else
