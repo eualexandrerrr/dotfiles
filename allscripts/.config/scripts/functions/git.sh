@@ -13,7 +13,6 @@ getRepo() {
 #  echo "$repo" | grep -q "AOSPK-Next" && orgRepo=AOSPK-Next || orgRepo=AOSPK
 #  repo=$(git remote -v | grep AOSPK | awk '{print $2}' | uniq | sed -e "s|ssh://git@github.com/${orgRepo}/||")
   repo=$(cat .git/config | grep url | cut -d "/" -f5)
-  echo -e "${BOL_GRE} * $repo ${END}"
 }
 
 mc() {
