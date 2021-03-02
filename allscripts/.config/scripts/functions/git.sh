@@ -380,7 +380,7 @@ upstream() {
     echo -e "${BOL_RED}\n### ${BOL_YEL} ${tagAOSP}\n${END}"
     git clone https://android.googlesource.com/platform/${repoAOSP} -b ${tagAOSP} ${repo} &> /dev/null
   else
-    echo -e "\n${BOL_BLU}Cloning ${BOL_MAG}${orgBaseName}/${BOL_RED}${repo} ${BOL_BLU}branch ${BOL_YEL}${branchBase}"
+    echo -e "\n${BOL_BLU}Cloning ${BOL_MAG}${orgBaseName}/${BOL_RED}${repo} ${BOL_BLU}branch ${BOL_YEL}${branchBase}${END}\n"
     git clone https://github.com/${orgBase}${repo} -b ${branchBase} ${repo} --single-branch
   fi
   cd ${repo}
