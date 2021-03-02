@@ -7,6 +7,10 @@ rom="/mnt/nvme/Kraken"
 codename=lmi
 buildtype=userdebug
 
+argsC() {
+  echo -e "${BOL_RED}SELINUX_IGNORE_NEVERALLOWS=true${END}\n" && export SELINUX_IGNORE_NEVERALLOWS=true
+}
+
 ccacheC() {
   export USE_CCACHE=1
   export CCACHE_EXEC=/usr/bin/ccache
@@ -80,6 +84,7 @@ b() {
   echo -e "${BOL_YEL}Cores  : ${BOL_CYA}${cores}${END}"
   echo -e "${BOL_YEL}Pwd    : ${BOL_CYA}$PWD${END}"
   echo -e "\n"
+  argsC
   lunchC
   makeC() {
     [[ -z $task ]] && task=bacon

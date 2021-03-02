@@ -61,13 +61,11 @@ mmc() {
 }
 
 gitBlacklist() {
-  getRepo
   [[ $repo == manifest ]] && echo "${BOL_RED}Blacklist detected, no push!!!${END}" && export noPush=true
   [[ $repo == official_devices ]] && echo "${BOL_RED}Blacklist detected, no push!!!${END}" && export noPush=true
 }
 
 gitRules() {
-  gitBlacklist
   [[ $repo == .dotfiles ]] && dot && exit
   [[ $repo == docker-files ]] && dockerfiles && exit
   [[ $repo == shellscript-atom-snippets ]] && export ATOM_ACCESS_TOKEN=${atomToken} && apm publish minor && sleep 5 && apm update mamutal91-shellscript-snippets-atom --no-confirm
@@ -98,10 +96,13 @@ st()  {
 }
 
 f() {
+  getRepo
   gitRules
   if [[ -z ${1} ]]; then
-    repo=$(pwd | cut -c21-300)
     repo=$(echo $repo | sed "s:/:_:g")
+    repo=$(echo $repo | sed -e "s/custom/arrow/g")
+    repo=$(echo $repo | sed -e "s/Custom/Arrow/g")
+    repo=$(echo $repo | sed -e "s/vendor_aosp/vendor_custom/g")
     git fetch https://github.com/ArrowOS/android_${repo} arrow-12.0
   else
     org=$(echo ${1} | cut -c1-5)
@@ -216,6 +217,7 @@ cm() {
 }
 
 amend() {
+  getRepo
   author=$(echo ${1} | awk '{ print $1 }' | cut -c1)
   if [[ ! -d .git ]]; then
     echo -e "${BOL_RED}You are not in a .git repository \n${YEL} # $PWD${END}"
