@@ -24,7 +24,7 @@ function push() {
   FORCE=${1}
   TOPIC=${2}
 
-  if [[ $REPO = "vendor_gapps" ]]; then
+  if [[ $REPO = "vendor_gapps" || $REPO = "vendor_google_gms" ]]; then
     GITHOST=gitlab
     ORG=AOSPK
   fi
