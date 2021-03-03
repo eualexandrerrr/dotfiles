@@ -87,7 +87,7 @@ push() {
 }
 
 m() {
-  tag=android-11.0.0_r39
+  tag=android-11.0.0_r40
   echo $tag
   git add . && git commit --amend --no-edit
   sleep 2
@@ -116,10 +116,10 @@ m() {
 
   sed -i '/haggertk/d' /tmp/COMMIT_EDITMSG
 
-  #  sudo sed -i '1d' /tmp/COMMIT_EDITMSG
-  #  sed -i "s/haggertk/AOSPK-DEV/g" /tmp/COMMIT_EDITMSG
-  #  sed -i "s/android_//g" /tmp/COMMIT_EDITMSG
-  #  sed -i "s/lineage-18.1/eleven/g" /tmp/COMMIT_EDITMSG
+  sudo sed -i '1d' /tmp/COMMIT_EDITMSG
+  sed -i "s/haggertk/AOSPK-DEV/g" /tmp/COMMIT_EDITMSG
+  sed -i "s/android_//g" /tmp/COMMIT_EDITMSG
+  sed -i "s/lineage-18.1/eleven/g" /tmp/COMMIT_EDITMSG
   cat /tmp/COMMIT_EDITMSG >> /tmp/NEW_COMMITMSG
 
   echo -e "\n\nCONTEÚDO:\n$(cat /tmp/NEW_COMMITMSG)"
