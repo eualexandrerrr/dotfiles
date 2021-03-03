@@ -30,8 +30,8 @@ pwd=$(pwd)
 cp -rf $HOME/GitHub/mytokens $HOME && rm -rf $HOME/.mytokens && mv $HOME/mytokens $HOME/.mytokens
 cd $HOME/GitHub/mytokens/.ssh
 mkdir -p $HOME/.ssh
-cp -rf id_rsa* $HOME/.ssh
-sudo chmod 600 $HOME/.ssh/id_rsa*
+cp -rf * $HOME/.ssh
+sudo chmod 600 $HOME/.ssh/*
 cd $pwd
 
 # Clone my important repos
