@@ -23,6 +23,7 @@ export STUDIO_JDK=/usr/lib/jvm/java-11-openjdk
 export PATH="/usr/share/:$PATH"
 
 # Aliases
+alias reboot="sudo shutdown -r now"
 alias pacman="sudo pacman"
 alias pacman-key="sudo pacman-key"
 alias pkill="sudo pkill"

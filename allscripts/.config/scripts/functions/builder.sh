@@ -4,7 +4,7 @@ source $HOME/.Xcolors &> /dev/null
 source $HOME/.myTokens/tokens.sh &> /dev/null
 
 rom="/mnt/nvme/Kraken"
-codename=lmi
+codename=surya
 buildtype=userdebug
 
 argsC() {
