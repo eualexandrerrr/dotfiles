@@ -16,7 +16,7 @@ function down() {
 }
 
 function push() {
-  REPO=$(pwd | sed "s/\/mnt\/roms\/jobs\/Kraken\///; s/\//_/g")
+  REPO=$(pwd | sed "s/\/mnt\/dev\/Kraken\///; s/\//_/g")
   echo $REPO
   GITHOST=github
   ORG=AOSPK-WIP
