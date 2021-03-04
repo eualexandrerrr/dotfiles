@@ -4,7 +4,7 @@ source $HOME/.Xcolors &> /dev/null
 source $HOME/.myTokens/tokens.sh &> /dev/null
 
 rom="/mnt/nvme/Kraken"
-codename=surya
+codename=lmi
 buildtype=userdebug
 
 argsC() {
@@ -57,14 +57,11 @@ apkAndimg() {
 }
 
 moveBuild() {
-  pwd=$(pwd)
   pathBuilds=/mnt/nvme/Builds
   mkdir -p $pathBuilds
-  cd /mnt/nvme/Kraken/out/target/product/lmi
-  mv Kraken-12-*-*.zip $pathBuilds
-  apkAndimg &> /dev/null
-  rm -rf /mnt/nvme/Kraken/out/target/product/lmi/{*.md5sum,*.json}
-  cd $pwd
+  mv /mnt/nvme/Kraken/out/target/product/*/Kraken-12-*-*.zip $pathBuilds
+  [[ $codename == lmi ]] && apkAndimg &> /dev/null
+  rm -rf /mnt/nvme/Kraken/out/target/product/*/{*.md5sum,*.json}
 }
 
 b() {
@@ -99,11 +96,7 @@ b() {
     fi
   }
 
-  if [[ $task == "overlays" ]]; then
-    makeBuild=false
-    echo building overlays
-    bash vendor/aosp/build/tools/overlays.sh
-  elif [[ $task == "changelog" ]]; then
+  if [[ $task == "changelog" ]]; then
     makeBuild=false
     echo generate changelogs
     bash vendor/aosp/build/tools/changelog
@@ -113,6 +106,9 @@ b() {
   elif [[ $task == "recovery" ]]; then
     makeBuild=true
     task=recoveryimage
+  elif [[ $task == "bootimage" ]]; then
+    makeBuild=true
+    task=bootimage
   else
     makeBuild=true
     task=bacon
