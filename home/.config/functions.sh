@@ -55,7 +55,7 @@ else
 fi
 
 function update() {
-  $HOME/.config/scripts/pacman-update.sh
+  $HOME/.config/scripts/update.sh
 }
 
 function sshconfig() {
