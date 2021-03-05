@@ -7,7 +7,9 @@ source $HOME/.colors
 
 HOSTNAME=$(cat /etc/hostname)
 
-if [[ $HOSTNAME = odin ]]; then
+if [[ $HOSTNAME = mamutal91 || $HOSTNAME = buildersbr.ninja ]]; then
+  sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y
+else
   echo "${GRE}Updating Pacman and AUR${END}"
     sudo pacman -Syu
     yay -Syu
@@ -20,6 +22,4 @@ if [[ $HOSTNAME = odin ]]; then
 
   play $HOME/.config/sounds/completed.wav &>/dev/null
   notify-send -i $icon "ArchLinux" "Successfully updated packages."
-else
-  sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y  
 fi
