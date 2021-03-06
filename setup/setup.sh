@@ -3,6 +3,8 @@
 source $HOME/.Xcolors &> /dev/null
 source $HOME/.mytokens/.myTokens &> /dev/null
 
+HOST=$(cat /etc/hostname)
+
 clear
 
 if [[ ! -d $HOME/.dotfiles ]]; then
