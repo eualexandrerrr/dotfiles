@@ -151,11 +151,11 @@ echo "[
 git add . && git commit --message "sm8250-common: $bringup" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>"
 
 # FaceUnlock
-pwd=$(pwd)
+pwd_faceunlock=$(pwd)
 mkdir -p overlay/packages/apps/FaceUnlockService/app/src/main/res/values
 cd overlay/packages/apps/FaceUnlockService/app/src/main/res/values
 wget https://raw.githubusercontent.com/PixelExperience-Devices/device_xiaomi_raphael/eleven/overlay/packages/apps/FaceUnlockService/app/src/main/res/values/config.xml
-cd $pwd
+cd $pwd_faceunlock
 
 msg="sm8250-common: overlay: FaceUnlockService: Define delay for our popup camera
 
