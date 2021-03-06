@@ -28,16 +28,8 @@ bash $HOME/.dotfiles/polybar/.config/polybar/scripts/easy-menu-generator.sh
 echo "${RED}/etc/ ${GRE}configured.${END}"
 bash $HOME/.dotfiles/setup/scripts/etc.sh
 
-# Copy my tokens
-if [[ $USER == mamutal91 ]]; then
-  if [[ $(cat /etc/hostname) == vmi635066.contaboserver.net ]]; then
-    rm -rf $HOME/.mytokens
-    git clone ssh://git@github.com/mamutal91/mytokens $HOME/.mytokens
-  else
-    cp -rf $HOME/GitHub/mytokens $HOME
-    mv $HOME/mytokens $HOME/.mytokens
-  fi
-fi
+# Clone my tokens
+[[ ! -d $HOME/.mytokens ]] && git clone ssh://git@github.com/mamutal91/mytokens $HOME/.mytokens
 
 # Restart sway
 i3-msg reload &> /dev/null
