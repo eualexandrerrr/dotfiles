@@ -23,7 +23,7 @@ function push() {
   FORCE=${1}
   TOPIC=${2}
 
-  if [[ $REPO = "vendor_google_gms" ]]; then
+  if [[ $REPO = "vendor_google_gms" || $REPO = "vendor_gapps" ]]; then
     GITHOST=gitlab
     ORG=AOSPK
   fi
@@ -65,7 +65,7 @@ function push() {
 }
 
 function clone() {
-  if [[ "${1}" = "vendor_google_gms" ]]; then
+  if [[ "${1}" = "vendor_google_gms" || "${1}" = "vendor_gapps" ]]; then
     GITHOST=gitlab
   else
     GITHOST=github
