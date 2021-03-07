@@ -64,21 +64,6 @@ function push() {
   fi
 }
 
-function clone() {
-  if [[ "${1}" = "vendor_google_gms" || "${1}" = "vendor_gapps" ]]; then
-    GITHOST=gitlab
-  else
-    GITHOST=github
-  fi
-  if [[ ${4} = "wip" ]]; then
-    ORG=AOSPK-WIP
-  else
-    ORG=AOSPK
-  fi
-  echo "${BOL_BLU}Cloning ${GITHOST}.com/${ORG}/${GRE_BLU}${1}${END} - ${2} ${3}${END}"
-  git clone ssh://git@${GITHOST}.com/${ORG}/${1} -b ${2} ${3} && cd ${3}
-}
-
 upstream() {
   cd $HOME && rm -rf ${1}
   echo "${BOL_CYA}Cloning LineageOS/android_${1} -b ${2}${END}"
