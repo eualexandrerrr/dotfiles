@@ -34,6 +34,7 @@ alias sed="sudo sed"
 # paths
 alias aospk="cd $HOME/AOSPK"
 alias x="cd /mnt/roms/jobs/Kraken"
+alias b="cd /mnt/builds/eleven"
 
 source $HOME/.config/functions.sh
 source $HOME/.config/kraken/functions.sh
