@@ -29,9 +29,9 @@ if [[ $HOST = mamutal91 ]]; then
   for i in "${kraken[@]}"; do
   	sudo rm -rf /home/mamutal91/.${i}
     git clone ssh://git@github.com/AOSPK/gerrit -b backup $HOME/.gerrit
-    git clone ssh://git@github.com/AOSPK/jenkins -b backup $HOME/.jenkins
+    git clone ssh://git@github.com/AOSPK/jenkins -b master $HOME/.jenkins
     if [[ ${i} = gerrit ]]; then
-      sudo cp -rf /mnt/roms/sites/docker/${i}/* /home/mamutal91/.${i}
+      sudo cp -rf /mnt/roms/sites/docker/${i}/${i} /home/mamutal91/.${i}
     fi
     if [[ ${i} = jenkins ]]; then
       sudo cp -rf /var/lib/jenkins/* /home/mamutal91/.${i}
