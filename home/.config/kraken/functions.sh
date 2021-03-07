@@ -16,12 +16,7 @@ function down() {
 }
 
 function push() {
-  pwd=$(pwd)
-  if [[ $pwd = "/mnt/roms/jobs/Kraken" ]]; then
-    REPO=$(pwd | sed "s/\/mnt\/roms\/jobs\/Kraken\///; s/\//_/g")
-  else
-    REPO=$(pwd | sed "s/\/home\/mamutal91\///; s/\//_/g")
-  fi
+  REPO=$(pwd | sed "s/\/mnt\/roms\/jobs\/Kraken\///; s/\//_/g")
   echo $REPO
   GITHOST=github
   ORG=AOSPK-WIP
