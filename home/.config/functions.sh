@@ -28,42 +28,34 @@ function translate() {
 if [ $HOST = "odin" ]; then
   function cm() {
     translate
-    git add . && git commit --message $msg --signoff --author "Alexandre Rangel <mamutal91@gmail.com>" && git push -f
+    git add . && git commit --message $msg --signoff --author "Alexandre Rangel <mamutal91@gmail.com>" --date "$(date)" && git push -f
   }
   function c() {
-    git add . && git commit --author "${1}" && git push -f
+    git add . && git commit --author "${1}" --date "$(date)" && git push -f
   }
   function amend() {
-    git add . && git commit --signoff --amend && git push -f
+    git add . && git commit --signoff --amend --date "$(date)" && git push -f
   }
 else
   function cm() {
     translate
-    git add . && git commit --message $msg --signoff --author "Alexandre Rangel <mamutal91@gmail.com>"
+    git add . && git commit --message $msg --signoff --author "Alexandre Rangel <mamutal91@gmail.com>" --date "$(date)"
   }
   function c() {
-    git add . && git commit --author "${1}"
+    git add . && git commit --author "${1}" --date "$(date)"
   }
   function amend() {
     pwd=$(pwd)
     if [[ $pwd = "/home/mamutal91/jenkins" ]]; then
-      sudo git add . && sudo git commit --amend && sudo git push -f
+      sudo git add . && sudo git commit --amend --date "$(date)" && sudo git push -f
     else
-      git add . && git commit --amend
+      git add . && git commit --amend --date "$(date)"
     fi
   }
 fi
 
 function update() {
   $HOME/.config/scripts/pacman-update.sh
-}
-
-function wifi() {
-  interface=$(cat /proc/net/wireless | perl -ne '/(\w+):/ && print $1')
-  iwctl station $interface scan && sleep 3
-  iwctl station $interface get-networks
-  echo "${BLU}Which network do you want to connect to?${END} "; read wifi
-  iwctl station $interface connect "${wifi}"
 }
 
 function sshconfig() {

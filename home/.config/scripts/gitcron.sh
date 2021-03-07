@@ -16,7 +16,7 @@ if [[ $HOST = odin ]]; then
   		c=$(echo $(git add . -n | tr '\r\n' ' '))
   		m="Autocommit Git-Cron: ${c}"
   		git add .
-  		git commit -m "${m}" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>"
+  		git commit -m "${m}" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>" --date "$(date)"
   		git push
   	fi
   done
@@ -42,7 +42,7 @@ if [[ $HOST = mamutal91 ]]; then
   		c=$(echo $(sudo git add . -n | tr '\r\n' ' '))
   		m="Autocommit Git-Cron: ${c}"
   		sudo git add .
-      sudo git commit -m "${m}" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>"
+      sudo git commit -m "${m}" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>" --date "$(date)"
   		sudo git push -f
   	fi
   done
