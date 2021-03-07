@@ -16,7 +16,13 @@ function down() {
 }
 
 function push() {
-  REPO=$(pwd | sed "s/\/mnt\/roms\/jobs\/Kraken\///; s/\//_/g")
+  pwd=$(pwd)
+  if [[ $pwd = "/mnt/roms/jobs/Kraken" ]]; then
+    REPO=$(pwd | sed "s/\/mnt\/roms\/jobs\/Kraken\///; s/\//_/g")
+  else
+    REPO=$(pwd | sed "s/\/home\/mamutal91\///; s/\//_/g")
+  fi
+  echo $REPO
   GITHOST=github
   ORG=AOSPK-WIP
   BRANCH=eleven
@@ -27,7 +33,6 @@ function push() {
     GITHOST=gitlab
     ORG=AOSPK
   fi
-
   if [[ $REPO = "build_make" ]]; then
     REPO=build
   fi
