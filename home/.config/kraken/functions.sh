@@ -104,11 +104,11 @@ function hals() {
 
 function www() {
   pwd=$(pwd)
-  cd $HOME && rm -rf downloadcenter
-  git clone ssh://git@github.com/AOSPK/downloadcenter -b master downloadcenter
-  sudo rm -rf /mnt/roms/sites/downloadcenter
-  sudo mv downloadcenter /mnt/roms/sites
-  cd /mnt/roms/sites/downloadcenter
+  cd $HOME && rm -rf www
+  git clone ssh://git@github.com/AOSPK/www -b master www
+  sudo rm -rf /mnt/roms/sites/www
+  sudo mv www /mnt/roms/sites
+  cd /mnt/roms/sites/www
   sudo npm i && sudo npm run build
   cd $pwd
 }
