@@ -33,6 +33,10 @@ function push() {
     GITHOST=gitlab
     ORG=AOSPK
   fi
+  if [[ $REPO = "www" ]]; then
+    ORG=AOSPK
+    BRANCH=master
+  fi
   if [[ $REPO = "build_make" ]]; then
     REPO=build
   fi
@@ -108,12 +112,11 @@ function hals() {
 }
 
 function www() {
-  pwd=$(pwd)
   cd $HOME && rm -rf www
   git clone ssh://git@github.com/AOSPK/www -b master www
   sudo rm -rf /mnt/roms/sites/www
-  sudo mv www /mnt/roms/sites
+  sudo cp -rf www /mnt/roms/sites
   cd /mnt/roms/sites/www
   sudo npm i && sudo npm run build
-  cd $pwd
+  cd $HOME
 }
