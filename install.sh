@@ -23,15 +23,22 @@ GTK_ICON=$(grep 'set $icon' $SWAY | awk '{ print $3 }')
 GTK_CURSOR=$(grep 'set $cursor' $SWAY | awk '{ print $3 }')
 GTK_FONT=$(grep 'set $font' $SWAY | awk '{ print $3 }')
 
-THEME="gtk-theme-name=$GTK_THEME\n
+THEME_GTK2="gtk-theme-name=\"${GTK_THEME}\"\n
+gtk-icon-theme-name=\"$GTK_ICON\"\n
+gtk-cursor-theme-name=\"$GTK_CURSOR\"\n
+gtk-font-name=\"$GTK_FONT\""
+
+THEME_GTK3="gtk-theme-name=$GTK_THEME\n
 gtk-icon-theme-name=$GTK_ICON\n
 gtk-cursor-theme-name=$GTK_CURSOR\n
-gtk-font-name=$GTK_FONT\n"
+gtk-font-name=$GTK_FONT"
 
 mkdir -p $HOME/.config/gtk-3.0
+echo -e $THEME_GTK2 > $HOME/.gtkrc-2.0
 echo -e "[Settings]\n" > $HOME/.config/gtk-3.0/settings.ini
-echo -e $THEME > $HOME/.gtkrc-2.0
-echo -e $THEME >> $HOME/.config/gtk-3.0/settings.ini
+echo -e $THEME_GTK3 >> $HOME/.config/gtk-3.0/settings.ini
+sed -i 's/^ //' $HOME/.gtkrc-2.0
+sed -i 's/^ //' $HOME/.config/gtk-3.0/settings.ini
 
 # Settings to use on my /root
 if [[ $USER = mamutal91 ]]; then
