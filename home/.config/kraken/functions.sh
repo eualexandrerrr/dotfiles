@@ -9,10 +9,6 @@ function treeseba() {
   git clone https://github.com/xiaomi-sm8250-devs/android_device_xiaomi_lmi -b lineage-18.1
   git clone https://github.com/xiaomi-sm8250-devs/android_device_xiaomi_lmi-kernel -b lineage-18.1
   git clone https://github.com/xiaomi-sm8250-devs/android_device_xiaomi_sm8250-common -b lineage-18.1
-  git clone https://git.rip/xiaomi-sm8250-devs/android_vendor_xiaomi -b lineage-18.1
-
-  mv android_vendor_xiaomi vendor_xiaomi_lmi
-  cp -rf vendor_xiaomi_lmi vendor_xiaomi_sm8250-common
 
   cd $HOME/android_device_xiaomi_lmi
   git push ssh://git@github.com/AOSPK-Devices/device_xiaomi_lmi HEAD:refs/heads/eleven --force
@@ -22,6 +18,10 @@ function treeseba() {
 
   cd $HOME/android_device_xiaomi_sm8250-common
   git push ssh://git@github.com/AOSPK-Devices/device_xiaomi_sm8250-common HEAD:refs/heads/eleven --force
+
+  git clone https://git.rip/xiaomi-sm8250-devs/android_vendor_xiaomi -b lineage-18.1
+  mv android_vendor_xiaomi vendor_xiaomi_lmi
+  cp -rf vendor_xiaomi_lmi vendor_xiaomi_sm8250-common
 
   cd $HOME/vendor_xiaomi_lmi
   git filter-branch --prune-empty --subdirectory-filter lmi lineage-18.1
