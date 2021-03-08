@@ -52,6 +52,21 @@ function push() {
   if [[ $REPO = "build_make" ]]; then
     REPO=build
   fi
+  if [[ $REPO = "vendor_qcom_opensource_commonsys-intf_bluetooth" ]]; then
+    REPO=vendor_qcom_opensource_bluetooth-commonsys-intf
+  fi
+  if [[ $REPO = "vendor_qcom_opensource_commonsys-intf_display" ]]; then
+    REPO=vendor_qcom_opensource_display-commonsys-intf
+  fi
+  if [[ $REPO = "vendor_qcom_opensource_commonsys_bluetooth_ext" ]]; then
+    REPO=vendor_qcom_opensource_bluetooth_ext
+  fi
+  if [[ $REPO = "vendor_qcom_opensource_commonsys_packages_apps_Bluetooth" ]]; then
+    REPO=vendor_qcom_opensource_packages_apps_Bluetooth
+  fi
+  if [[ $REPO = "vendor_qcom_opensource_commonsys_system_bt" ]]; then
+    REPO=vendor_qcom_opensource_system_bt
+  fi
 
   if [[ ${1} = "gerrit" ]]; then
     echo "${BOL_BLU}Pushing to gerrit.aospk.org/${GRE}${ORG}${END}/${BLU}${REPO}${END} - ${BRANCH} ${RED}${FORCE}${END}"
