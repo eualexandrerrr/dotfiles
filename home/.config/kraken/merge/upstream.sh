@@ -17,7 +17,7 @@ AOSPK="eleven"
 LOS_CAF="lineage-18.1-caf"
 AOSPK_CAF="eleven-caf"
 
-tmp=/tmp/aospk-upstream
+tmp=/tmp/kraken-upstream
 mkdir -p $tmp
 cd $tmp
 

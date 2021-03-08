@@ -4,7 +4,7 @@
 # manual-custom-rom
 
 github=$HOME/GitHub
-aospk=$HOME/AOSPK
+kraken=$HOME/AOSPK
 
 repo1="dotfiles"
 repo2="mamutal91.github.io"
@@ -34,11 +34,11 @@ case $chosen in
     $repo6)
         alacritty -t newcommit --working-directory $github/shellscript-atom-snippets;;
     $repo7)
-        alacritty -t newcommit --working-directory $aospk/manifest;;
+        alacritty -t newcommit --working-directory $kraken/manifest;;
     $repo8)
-        alacritty -t newcommit --working-directory $aospk/device_xiaomi_lmi;;
+        alacritty -t newcommit --working-directory $kraken/device_xiaomi_lmi;;
     $repo9)
-        alacritty -t newcommit --working-directory $aospk/device_xiaomi_sm8250-common;;
+        alacritty -t newcommit --working-directory $kraken/device_xiaomi_sm8250-common;;
     $repo10)
         alacritty -t newcommit --working-directory $github/buildersbr;;
 esac

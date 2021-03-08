@@ -95,22 +95,22 @@ function up() {
 }
 
 function hals() {
-  $HOME/.config/aospk/hal/hal.sh apq8084
-  $HOME/.config/aospk/hal/hal.sh msm8960
-  $HOME/.config/aospk/hal/hal.sh msm8952
-  $HOME/.config/aospk/hal/hal.sh msm8916
-  $HOME/.config/aospk/hal/hal.sh msm8974
-  $HOME/.config/aospk/hal/hal.sh msm8994
-  $HOME/.config/aospk/hal/hal.sh msm8996
-  $HOME/.config/aospk/hal/hal.sh msm8998
-  $HOME/.config/aospk/hal/hal.sh sdm845
-  $HOME/.config/aospk/hal/hal.sh sm8150
-  $HOME/.config/aospk/hal/hal.sh sm8250
+  $HOME/.config/kraken/hal/hal.sh apq8084
+  $HOME/.config/kraken/hal/hal.sh msm8960
+  $HOME/.config/kraken/hal/hal.sh msm8952
+  $HOME/.config/kraken/hal/hal.sh msm8916
+  $HOME/.config/kraken/hal/hal.sh msm8974
+  $HOME/.config/kraken/hal/hal.sh msm8994
+  $HOME/.config/kraken/hal/hal.sh msm8996
+  $HOME/.config/kraken/hal/hal.sh msm8998
+  $HOME/.config/kraken/hal/hal.sh sdm845
+  $HOME/.config/kraken/hal/hal.sh sm8150
+  $HOME/.config/kraken/hal/hal.sh sm8250
 
-  $HOME/.config/aospk/hal/limp.sh pn5xx
-  $HOME/.config/aospk/hal/limp.sh sn100x
+  $HOME/.config/kraken/hal/limp.sh pn5xx
+  $HOME/.config/kraken/hal/limp.sh sn100x
 
-  $HOME/.config/aospk/hal/caf.sh
+  $HOME/.config/kraken/hal/caf.sh
 }
 
 function www() {

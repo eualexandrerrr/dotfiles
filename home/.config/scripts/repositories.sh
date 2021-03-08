@@ -3,13 +3,13 @@
 rm -rf $HOME/AOSPK && mkdir -p $HOME/AOSPK
 rm -rf $HOME/GitHub && mkdir -p $HOME/GitHub
 
-readonly aospk=(
+readonly kraken=(
     manifest
     docs
     official_devices
 )
 
-for i in "${aospk[@]}"; do
+for i in "${kraken[@]}"; do
   git clone ssh://git@github.com/AOSPK/${i} $HOME/AOSPK/${i}
 done
 

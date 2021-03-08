@@ -36,7 +36,7 @@ alias aospk="cd $HOME/AOSPK"
 alias x="cd /mnt/roms/jobs/Kraken"
 
 source $HOME/.config/functions.sh
-source $HOME/.config/aospk/functions.sh
+source $HOME/.config/kraken/functions.sh
 
 function fetch() {
   ./.dotfiles/home/.config/scripts/fetch.sh gnu

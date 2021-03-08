@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
 
 readonly REPOS_HAL=(
-    hardware_qcom_bootctrl
-    hardware_qcom_bt
-    hardware_qcom_wlan
+    hardware_qcom_audio
+    hardware_qcom_display
+    hardware_qcom_media
 )
 
-LOS_HAL="lineage-18.1-caf"
-AOSPK_HAL="eleven-caf"
+LOS_HAL="lineage-18.1-caf-${1}"
+AOSPK_HAL="eleven-caf-${1}"
 
-tmp="/tmp/aospk-hals"
+tmp="/tmp/kraken-hals"
 mkdir -p $tmp
 cd $tmp
 

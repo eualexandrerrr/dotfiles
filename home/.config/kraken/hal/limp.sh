@@ -1,20 +1,23 @@
 #!/usr/bin/env bash
 
+# pn5xx
+# sn100x
+
 readonly REPOS_HAL=(
-    hardware_qcom_audio
-    hardware_qcom_display
-    hardware_qcom_media
+    vendor_nxp_opensource_halimpl
+    vendor_nxp_opensource_hidlimpl
 )
 
-LOS_HAL="lineage-18.1-caf-${1}"
-AOSPK_HAL="eleven-caf-${1}"
+LOS_HAL="lineage-18.1-${1}"
+AOSPK_HAL="eleven-${1}"
 
-tmp="/tmp/aospk-hals"
+tmp="/tmp/kraken-limp"
 mkdir -p $tmp
 cd $tmp
 
 for i in "${REPOS_HAL[@]}"; do
   echo "${BOL_CYA}BRANCH - $LOS_HAL > $AOSPK_HAL${END}"
+  echo "${BOL_CYA}${i}${END}"
   git clone https://github.com/LineageOS/android_${i} -b $LOS_HAL ${i}
   cd ${i} && echo
   git push ssh://git@github.com/AOSPK/${i} HEAD:refs/heads/$AOSPK_HAL --force
