@@ -48,6 +48,7 @@ function push() {
 
   if [[ $REPO = "vendor_google_gms" ]]; then
     GITHOST=gitlab
+    ORG=AOSPK
   fi
   if [[ $REPO = "build_make" ]]; then
     REPO=build
