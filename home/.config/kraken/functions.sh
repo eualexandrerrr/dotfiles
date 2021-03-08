@@ -49,6 +49,9 @@ function push() {
   if [[ $REPO = "vendor_google_gms" ]]; then
     GITHOST=gitlab
   fi
+  if [[ $REPO = "build_make" ]]; then
+    REPO=build
+  fi
 
   if [[ ${1} = "gerrit" ]]; then
     echo "${BOL_BLU}Pushing to gerrit.aospk.org/${GRE}${ORG}${END}/${BLU}${REPO}${END} - ${BRANCH} ${RED}${FORCE}${END}"
