@@ -4,20 +4,22 @@ source $HOME/.Xcolors &> /dev/null
 
 icon="$HOME/.config/assets/icons/pacman.png"
 
-echo "${GRE}Updating Pacman and AUR${END}"
+clear
+
+echo -e "${BOL_GRE}Updating packages${END}"
 sudo pacman -Syu
 yay -Syu
 
-echo "${GRE}Removing unused packages${END}"
-sudo pacman -Qdtq --noconfirm
-yay -Qdtq --noconfirm
-sudo pacman -Rncs $(pacman -Qdtq) --noconfirm
-yay -Rncs $(yay -Qdtq) --noconfirm
+if sudo pacman -Qdtq; then
+  echo -e "${BOL_RED}Removing unused packages${END}"
+  sudo pacman -Rncs $(sudo pacman -Qdtq) --noconfirm
+  yay -Rncs $(yay -Qdtq) --noconfirm
+else
+  echo -e "${BOL_BLU}There are no unused packages to remove${END}"
+fi
+
+echo -e "${BOL_RED}Removing /tmp files...${END}"
+sudo rm -rf /tmp/* &> /dev/null
 
 play $HOME/.config/assets/sounds/completed.wav &> /dev/null
 dunstify -i $icon "ArchLinux" "Successfully updated packages."
-
-echo "${RED}Removing temp files...${END}"
-sudo rm -rf /tmp/* &> /dev/null
-
-echo -e "\n${GRE}Updating my apt hosts${END}"
