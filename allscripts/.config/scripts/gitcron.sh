@@ -25,7 +25,7 @@ if [[ $(cat /etc/hostname) == odin ]]; then
 fi
 
 # Kraken
-if [[ $(cat /etc/hostname) == buildersbr ]]; then
+if [[ $(cat /etc/hostname) == archlinux-latest-64-minimal ]]; then
   m="Autocommit Git-Cron"
   pwd=$(pwd)
   sudo rm -rf /home/mamutal91/.gerrit

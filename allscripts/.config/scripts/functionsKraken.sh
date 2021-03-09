@@ -1,18 +1,36 @@
 #!/usr/bin/env bash
 
 source $HOME/.Xcolors &> /dev/null
-
-
 source $HOME/.dotfiles/allscripts/.config/scripts/kraken/builderFunctions.sh
 
-[ $(cat /etc/hostname) = buildersbr ] && HOME=/home/mamutal91
+tree() {
+  cd /mnt/roms/jobs/KrakenDev
+  rm -rf device/xiaomi vendor/xiaomi kernel/xiaomi hardware/xiaomi
+  git clone ssh://git@github.com/AOSPK-Devices/device_xiaomi_lmi --single-branch -b twelve device/xiaomi/lmi
+  git clone ssh://git@github.com/AOSPK-Devices/device_xiaomi_sm8250-common --single-branch -b twelve device/xiaomi/sm8250-common
+  git clone ssh://git@github.com/AOSPK-Devices/kernel_xiaomi_sm8250 --single-branch -b twelve kernel/xiaomi/sm8250
+  git clone ssh://git@github.com/TheBootloops/vendor_xiaomi_lmi --single-branch -b twelve vendor/xiaomi/lmi
+  git clone ssh://git@github.com/TheBootloops/vendor_xiaomi_sm8250-common --single-branch -b twelve vendor/xiaomi/sm8250-common
+  git clone ssh://git@github.com/AOSPK/hardware_xiaomi --single-branch -b twelve hardware/xiaomi
+
+#  git clone ssh://git@github.com/AOSPK-Devices/device_xiaomi_ysl --single-branch -b twelve device/xiaomi/ysl
+#  git clone ssh://git@github.com/AOSPK-Devices/device_xiaomi_msm8953-common --single-branch -b twelve device/xiaomi/msm8953-common
+#  git clone https://github.com/NOtreallydust/kernel_xiaomi_ysl-1 --single-branch -b eleven kernel/xiaomi/msm8953
+#  git clone ssh://git@github.com/TheBootloops/vendor_xiaomi_msm8953-common --single-branch -b twelve vendor/xiaomi/ysl-temp
+#  cd /mnt/roms/jobs/KrakenDev/vendor/xiaomi/ysl-temp
+#  mv msm8953-common ..
+#  mv ysl ..
+#  cd ..
+#  rm -rf ysl-temp
+  cd /mnt/roms/jobs/KrakenDev
+}
 
 gerrit() {
-  ssh mamutal91@145.40.75.153 "cd /mnt/roms/sites/docker/docker-files/gerrit && sudo ./repl.sh"
+  ssh mamutal91@88.99.4.77 "cd /mnt/roms/sites/docker/docker-files/gerrit && sudo ./repl.sh"
 }
 
 down() {
-  ssh mamutal91@145.40.75.153 "rm -rf /mnt/roms/jobs/Kraken && rm -rf device/xiaomi kernel/xiaomi vendor/xiaomi &> /dev/null"
+  ssh mamutal91@88.99.4.77 "rm -rf /mnt/roms/jobs/Kraken && rm -rf device/xiaomi kernel/xiaomi vendor/xiaomi &> /dev/null"
   }
 
 push() {
@@ -22,8 +40,8 @@ push() {
     repo=$(basename "$(pwd)")
   fi
   githost=github
-  org=AOSPK-DEV
-  branch=eleven
+  org=AOSPK-Next
+  branch=twelve
 
   [ $repo = build_make ] && repo=build
   [ $repo = packages_apps_PermissionController ] && repo=packages_apps_PackageInstaller
@@ -41,8 +59,6 @@ push() {
   [ $repo = vendor_xiaomi_sm8250-common ] && org=AOSPK-Devices
 
   [ $repo = official_devices ] && branch=master
-  [ $repo = www ] && branch=master
-  [ $repo = downloadcenter ] && branch=master
 
   # To Gerrit
   if [[ ${1} == gerrit ]]; then
@@ -73,78 +89,55 @@ push() {
           git push ssh://mamutal91@gerrit.aospk.org:29418/${repo} $gerritPush
         fi
       fi
-
-      [ $repo = manifest ] && echo ${BOL_RED}Pushing manifest to ORG DEV${END} && git push ssh://git@github.com/AOSPK-DEV/manifest HEAD:refs/heads/eleven --force
+#      [ $repo = manifest ] && echo ${BOL_RED}Pushing manifest to ORG DEV${END} && git push ssh://git@github.com/AOSPK-Next/manifest HEAD:refs/heads/twelve --force
     fi
   fi
 
   # To GitHub/GitLab
   if [[ ${1} == -f ]]; then
     echo "${BOL_BLU}Pushing to ${BOL_YEL}${githost}.com/${BOL_RED}${org}/${MAG}${repo}${END} ${CYA}${branch}${END}"
-    gh repo create AOSPK-DEV/${repo} --private --confirm &> /dev/null
+    gh repo create AOSPK-Next/${repo} --private --confirm &> /dev/null
+    git push ssh://git@${githost}.com/AOSPK/${repo} HEAD:refs/heads/${branch} --force # REMOVERRRRRRRR APOS BRINGUP <<<<<<<<<<
     git push ssh://git@${githost}.com/${org}/${repo} HEAD:refs/heads/${branch} --force
   fi
-}
-
-m() {
-  tag=android-11.0.0_r43
-  echo $tag
-  git add . && git commit --amend --no-edit
-  sleep 2
-
-  pwd=$(pwd)
-  cd .git
-  sudo rm -rf /tmp/COMMIT_EDITMSG
-  sudo cp -rf COMMIT_EDITMSG /tmp/
-  cd $pwd
-
-  pathRepo=$(pwd | cut -c26-)
-  [[ $pathRepo == build/make ]] && pathRepo=build
-  [[ $pathRepo == packages/apps/PermissionController ]] && pathRepo=packages_apps_PackageInstaller
-  [[ $pathRepo == vendor/qcom/opensource/commonsys-intf/bluetooth ]] && pathRepo=vendor_qcom_opensource_bluetooth-commonsys-intf
-  [[ $pathRepo == vendor/qcom/opensource/commonsys-intf/display ]] && pathRepo=vendor_qcom_opensource_display-commonsys-intf
-  [[ $pathRepo == vendor/qcom/opensource/commonsys/bluetooth/ext ]] && pathRepo=vendor_qcom_opensource_bluetooth_ext
-  [[ $pathRepo == vendor/qcom/opensource/commonsys/packages/apps/Bluetooth ]] && pathRepo=vendor_qcom_opensource_packages_apps_Bluetooth
-  [[ $pathRepo == vendor/qcom/opensource/commonsys/system/bt ]] && pathRepo=vendor_qcom_opensource_system_bt
-
-  msgMerge="Merge tag '${tag}' of https://android.googlesource.com/platform/${pathRepo} into HEAD"
-
-  echo $msgMerge > /tmp/NEW_COMMITMSG
-  cat /tmp/NEW_COMMITMSG
-
-  # Insere uma linha antes da linha que possui uma palavra específica, no caso insere uma linha com o conteúdo "Nova linha", antes das linhas que possuem a palavra Podemos
-
-  sed -i '/haggertk/d' /tmp/COMMIT_EDITMSG
-
-  sudo sed -i '1d' /tmp/COMMIT_EDITMSG
-  sed -i "s/haggertk/AOSPK-DEV/g" /tmp/COMMIT_EDITMSG
-  sed -i "s/android_//g" /tmp/COMMIT_EDITMSG
-  sed -i "s/lineage-18.1/eleven/g" /tmp/COMMIT_EDITMSG
-  cat /tmp/COMMIT_EDITMSG >> /tmp/NEW_COMMITMSG
-
-  echo -e "\n\nCONTEÚDO:\n$(cat /tmp/NEW_COMMITMSG)"
-
-  msg=$(cat /tmp/NEW_COMMITMSG)
-
-  git add . && git commit --message "${msg}" --amend --author "Alexandre Rangel <mamutal91@gmail.com>" --date "$(date)"
-  push gerrit -v ${tag}
-  sleep 3 && clear
+  gh api -XPATCH "repos/AOSPK/${repo}" -f default_branch="${branch}" &> /dev/null
+  gh api -XPATCH "repos/AOSPK-Next/${repo}" -f default_branch="${branch}" &> /dev/null
 }
 
 upstream() {
+  repo=${1}
+  orgBase=ArrowOS
+  [[ ${4} != "-f" ]] && branchBase=${2} || branchBase=arrow-11.0
+  [[ ${4} == "-l" ]] && orgBase=LineageOS && branchBase=lineage-18.1
+  branchKraken=${3}
+  [[ $repo == hardware_qcom_wlan ]] && branchBase="${branchBase}-caf" && branchKraken="${branchKraken}-caf"
+  [[ $repo == hardware_qcom_bt ]] && branchBase="${branchBase}-caf" && branchKraken="${branchKraken}-caf"
+  [[ $repo == hardware_qcom_bootctrl ]] && branchBase="${branchBase}-caf" && branchKraken="${branchKraken}-caf"
   workingDir=$(mktemp -d) && cd $workingDir
-  [ ${2} = lineage-18.1 ] && branch=eleven
-  git clone https://github.com/LineageOS/android_${1} -b ${2} ${1}
-  cd ${1}
-  gh repo create AOSPK/${1} --public --confirm
-  gh repo create AOSPK-DEV/${1} --private --confirm
-  git push ssh://git@github.com/AOSPK/${1} HEAD:refs/heads/${branch} --force
-  git push ssh://git@github.com/AOSPK-DEV/${1} HEAD:refs/heads/${branch} --force
+  echo -e "\n${BOL_BLU}Cloning ${BOL_RED}${repo} ${BOL_BLU}branch ${BOL_YEL}${branchBase} ${BOL_BLU}to ${BOL_YEL}${branchKraken}${END}\n"
+  if [[ ${4} == "aosp" ]]; then
+    echo "${BOL_RED}Forget everything above, I'm cloning it is straight from AOSP${END}"
+    repoAOSP=$(echo $repo | sed "s/_/\//g")
+    [[ $repoAOSP == hardware/libhardware/legacy ]] && repoAOSP="hardware/libhardware_legacy"
+    git clone https://android.googlesource.com/platform/${repoAOSP} -b android-12.0.0_r2 ${repo}
+  else
+    git clone https://github.com/${orgBase}/android_${repo} -b ${branchBase} ${repo}
+  fi
+  cd ${repo}
+  repo=$(echo $repo | sed -e "s/arrow/custom/g")
+  repo=$(echo $repo | sed -e "s/Arrow/Custom/g")
+  gh repo create AOSPK/${repo} --public --confirm
+  gh repo create AOSPK-Next/${repo} --private --confirm
+  git push ssh://git@github.com/AOSPK/${repo} HEAD:refs/heads/${branchKraken} --force
+  git push ssh://git@github.com/AOSPK-Next/${repo} HEAD:refs/heads/${branchKraken} --force
+  gh api -XPATCH "repos/AOSPK/${repo}" -f default_branch="${branchKraken}" &> /dev/null
+  gh api -XPATCH "repos/AOSPK-Next/${repo}" -f default_branch="${branchKraken}" &> /dev/null
   rm -rf $workingDir
 }
 
 up() {
-  upstream ${1} lineage-18.1 eleven
+  upstream ${1} arrow-12.0 twelve ${2}
+  # upstream ${1} lineage-18.1 eleven
   #  upstream ${1} lineage-17.1 ten
   #  upstream ${1} lineage-16.0 pie
   #  upstream ${1} lineage-15.1 oreo-mr1
@@ -152,7 +145,6 @@ up() {
 }
 
 hals() {
-  if [[ $(cat /etc/hostname) == buildersbr ]]; then
     pwd=$(pwd)
     branch=(
       apq8084
@@ -168,33 +160,9 @@ hals() {
       sm8250
       sm8350
     )
-
     for i in "${branch[@]}"; do
-      $HOME/.config/scripts/kraken/hal/hal.sh ${i}
+      $HOME/.dotfiles/allscripts/.config/scripts/kraken/hal/hal.sh ${i}
     done
-
-    $HOME/.config/scripts/kraken/hal/caf.sh
-    $HOME/.config/scripts/kraken/hal/chromium.sh
-    $HOME/.config/scripts/kraken/hal/faceunlock.sh
-    $HOME/.config/scripts/kraken/hal/sepolicy.sh
-    $HOME/.config/scripts/kraken/hal/fixes.sh
-
+    $HOME/.dotfiles/allscripts/.config/scripts/kraken/hal/devicesettings-custom.sh
     cd $pwd
-  else
-    ssh mamutal91@145.40.75.153 "source $HOME/.zshrc && hals"
-  fi
-}
-
-www() {
-  if [[ $(cat /etc/hostname) == buildersbr ]]; then
-    cd $HOME && rm -rf downloadcenter
-    git clone ssh://git@github.com/AOSPK/downloadcenter -b master downloadcenter
-    sudo rm -rf /mnt/roms/sites/downloadcenter
-    sudo cp -rf downloadcenter /mnt/roms/sites
-    cd /mnt/roms/sites/downloadcenter
-    sudo npm i && sudo npm run build
-    cd $HOME
-  else
-    ssh mamutal91@145.40.75.153 "source $HOME/.zshrc && www"
-  fi
 }

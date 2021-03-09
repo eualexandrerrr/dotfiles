@@ -11,13 +11,13 @@ branch=${1}
 
 echo ${BOL_RED}Branch ${branch}${END}
 
-orgRebase=LineageOS
+orgRebase=ArrowOS
 
 [ $orgRebase = xiaomi-sm8250-devs ] && orgRebaseVendor=xiaomi-sm8250-devs && repoVendor=android
-#[ $orgRebase = LineageOS ] && orgRebaseVendor=the-muppets && repoVendor=proprietary
-[ $orgRebase = LineageOS ] && orgRebaseVendor=SebaUbuntu && repoVendor=android
+#[ $orgRebase = ArrowOS ] && orgRebaseVendor=the-muppets && repoVendor=proprietary
+[ $orgRebase = ArrowOS ] && orgRebaseVendor=SebaUbuntu && repoVendor=android
 
-branchLOS=lineage-18.1
+branchLOS=arrow-12.0
 
 bringup="Initial changes for Kraken"
 
@@ -52,7 +52,7 @@ tree() {
   },
   {
     \"remote\": \"github\",
-    \"repository\": \"LineageOS/android_hardware_xiaomi\",
+    \"repository\": \"ArrowOS/android_hardware_xiaomi\",
     \"target_path\": \"hardware/xiaomi\",
     \"branch\": \"${branchLOS}\"
   }
@@ -94,7 +94,7 @@ tree() {
   mkdir -p parts/res/values-pt-rBR
   echo '<?xml version="1.0" encoding="utf-8"?>
 <!--
-     Copyright (C) 2018 The LineageOS Project
+     Copyright (C) 2018 The ArrowOS Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -178,7 +178,7 @@ tree() {
   pwd_faceunlock=$(pwd)
   mkdir -p overlay/packages/apps/FaceUnlockService/app/src/main/res/values
   cd overlay/packages/apps/FaceUnlockService/app/src/main/res/values
-  wget https://raw.githubusercontent.com/PixelExperience-Devices/device_xiaomi_raphael/eleven/overlay/packages/apps/FaceUnlockService/app/src/main/res/values/config.xml
+  wget https://raw.githubusercontent.com/PixelExperience-Devices/device_xiaomi_raphael/twelve/overlay/packages/apps/FaceUnlockService/app/src/main/res/values/config.xml
   cd $pwd_faceunlock
 
   msg="sm8250-common: overlay: FaceUnlockService: Define delay for our popup camera

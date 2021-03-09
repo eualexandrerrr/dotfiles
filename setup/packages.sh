@@ -14,6 +14,8 @@ dependencies=(
 
   terminus-font noto-fonts-emoji ttf-dejavu ttf-liberation ttf-icomoon-feather ttf-font-awesome
 
+  translate-shell-git
+
   xorg-server xorg-xrandr xorg-xbacklight xorg-xinit xorg-xprop xorg-server-devel xorg-xsetroot xclip xsel xautolock xidlehook xorg-xdpyinfo xorg-xinput xgetres
 )
 
@@ -26,7 +28,7 @@ mypackages=(
   steam wine winetricks lib32-gnutls
 
   atom discord diff-so-fancy filezilla git htop jdk-openjdk jq krita man man-pages-pt_br github-cli-git lutris vkd3d lib32-vkd3d
-  rsync shfmt tree transmission-gtk zip translate-shell-git
+  rsync shfmt tree transmission-gtk zip
 
   android-tools hfsprogs gvfs gvfs-mtp btrfs-progs dosfstools exfat-utils f2fs-tools e2fsprogs jfsutils nilfs-utils ntfs-3g reiserfsprogs udftools xfsprogs ntfs-3g
 

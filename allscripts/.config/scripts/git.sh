@@ -116,14 +116,14 @@ cm() {
       echo "${BOL_RED}There are no local changes!!! leaving...${END}" && break &> /dev/null
     fi
   fi
-
 }
 
 amend() {
+  author=$(echo ${1} | awk '{ print $1 }' | cut -c1)
   if [[ ! -d .git ]]; then
     echo "${BOL_RED}You are not in a .git repository${END}"
   else
-    if [[ ${1} ]]; then
+    if [[ ${author} == "'" ]]; then
       gitadd && git commit --amend --date "$(date)" --author "${1}" && gitpush force
     else
       lastAuthorName=$(git log -1 --pretty=format:'%an')
@@ -131,4 +131,40 @@ amend() {
       gitadd && git commit --amend --date "$(date)" --author "${lastAuthorName} <${lastAuthorEmail}>" && gitpush force
     fi
   fi
+}
+
+m() {
+  echo -e "${BOL_RED}Replacing Strings from ${BOL_BLU}Arrow ${BOL_RED}to ${BOL_YEL}Kraken${END}\n"
+  pwd=$(pwd)
+  lastCommit=$(git log --format="%H" -n 1)
+  filesModded=$(git diff-tree --no-commit-id --name-only -r $lastCommit)
+  for f in $filesModded; do
+    if [[ $f == "core/Makefile" ]]; then
+      dirname=core
+      basename=Makefile
+    elif [[ $f == "envsetup.sh" ]]; then
+      dirname=$(pwd)
+      basename=envsetup.sh
+    else
+      dirname=${f%/*}
+      basename=${f##*/}
+    fi
+    cd $dirname
+    replaceSed() {
+    sed -i "s:vendor/arrow:vendor/aosp:g" ${basename}
+    sed -i "s:device/arrow:device/custom:g" ${basename}
+    sed -i "s:hardware/arrow:hardware/custom:g" ${basename}
+    sed -i "s:ARROW_:KRAKEN_:g" ${basename}
+    sed -i "s:ARROW:KRAKEN:g" ${basename}
+    sed -i "s:arrow_:aosp_:g" ${basename}
+    sed -i "s:arrow:kraken:g" ${basename}
+    sed -i "s:ro.arrow:ro.kraken:g" ${basename}
+    sed -i "s:ArrowPrebuilts:CustomPrebuilts:g" ${basename}
+    sed -i "s:BoardConfigArrow.mk:BoardConfigKraken.mk:g" ${basename}
+    }
+    replaceSed
+    cd $pwd
+  done
+  git add . && git commit --amend --no-edit
+  echo -e "\n${BOL_RED}FINISHED!${END}"
 }

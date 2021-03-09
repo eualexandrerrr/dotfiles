@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Copyright (C) 2017 The LineageOS Project
+# Copyright (C) 2017 The ArrowOS Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -52,7 +52,7 @@ BRANCH=$(git -C ${TOP}/.repo/manifests.git config --get branch.default.merge | s
 STAGINGBRANCH="staging/${BRANCH}_${OPERATION}-${NEWTAG}"
 STAGINGBRANCH="staging/${BRANCH}_${OPERATION}-${NEWTAG}"
 
-# Build list of LineageOS forked repos
+# Build list of ArrowOS forked repos
 PROJECTPATHS=$(grep "remote=\"aospk/" "${MANIFEST}" | sed -n 's/.*path="\([^"]\+\)".*/\1/p')
 
 echo -e "#### Old tag = ${OLDTAG} \n#### Branch = ${BRANCH} \n#### Staging branch = ${STAGINGBRANCH}"
@@ -165,7 +165,7 @@ workingDir=/mnt/roms/jobs/KrakenDev
 
 # The tag you want to merge in goes here
 branchAOSP=android-11.0.0_r39
-branchKraken=eleven
+branchKraken=twelve
 
 # Google source url
 REPO=https://android.googlesource.com/platform
@@ -309,10 +309,10 @@ for i in ${upstream[@]}
 do
     merge $i
     repoKraken=$(pwd | sed "s/\/mnt\/roms\/jobs\/KrakenDev\///; s/\//_/g")
-    echo -e "${RED}Pushing to org AOSPK-DEV ${GRE}${repoKraken}${END}"
+    echo -e "${RED}Pushing to org AOSPK-Next ${GRE}${repoKraken}${END}"
     git remote add old https://github.com/AOSPK/${repoName} &>/dev/null
     git fetch --unshallow old &>/dev/null
-    git push ssh://git@github.com/AOSPK-DEV/${repoKraken} HEAD:refs/heads/${branchKraken}
+    git push ssh://git@github.com/AOSPK-Next/${repoKraken} HEAD:refs/heads/${branchKraken}
     echo
 done
 

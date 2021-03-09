@@ -22,7 +22,7 @@ s() {
   sudo rm -rf vendor/{xiaomi,samsung,motorola,oneplus} &> /dev/null
   sudo rm -rf hardware/{xiaomi,samsung,motorola,oneplus} &> /dev/null
   sudo rm -rf hardware/qcom-caf/*-* &> /dev/null
-  repo init -u ssh://git@github.com/AOSPK-DEV/manifest -b eleven
+  repo init -u ssh://git@github.com/AOSPK-Next/manifest -b twelve
   repo sync -c -j1 --no-clone-bundle --current-branch --no-tags --force-sync
 }
 

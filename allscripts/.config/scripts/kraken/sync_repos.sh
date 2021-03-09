@@ -15,16 +15,16 @@ replace() {
 }
 
 remote=aospk
-branch=eleven
+branch=twelve
 
 workingDir=/mnt/roms/jobs/Kraken
 orgDeOrigem=AOSPK
-orgDeDestino=AOSPK-DEV
+orgDeDestino=AOSPK-Next
 
 cd $workingDir
 echo -e '[Repo] $ Syncing...'
 
-repo init -u git://github.com/AOSPK/manifest -b eleven >> /dev/null
+repo init -u git://github.com/AOSPK/manifest -b twelve >> /dev/null
 repo sync -c -j$(nproc --all) --no-clone-bundle --current-branch --no-tags --force-sync >> /dev/null
 
 go() {
@@ -52,7 +52,7 @@ go() {
     echo
     echo $repoName
     gh repo create AOSPK/${repoName} --public --confirm &> /dev/null
-    gh repo create AOSPK-DEV/${repoName} --private --confirm &> /dev/null
+    gh repo create AOSPK-Next/${repoName} --private --confirm &> /dev/null
     git remote add old https://github.com/${orgDeOrigem}/${repoName} &> /dev/null
     git fetch --unshallow old &> /dev/null
     git push ssh://git@github.com/${orgDeDestino}/${repoName} HEAD:refs/heads/${branch} --force

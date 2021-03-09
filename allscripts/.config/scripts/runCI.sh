@@ -5,15 +5,15 @@ source $HOME/.mytokens/.myTokens &> /dev/null
 
 if [[ ! -f $HOME/.jenkins-cli.jar ]]; then
   cd $HOME
-  wget https://ci.aospk.org/jnlpJars/jenkins-cli.jar
+  wget http://88.99.4.77:8090/jnlpJars/jenkins-cli.jar
   mv jenkins-cli.jar .jenkins-cli.jar
 fi
 
-cli="java -jar $HOME/.jenkins-cli.jar -s http://145.40.75.153:8090 -auth ${myUserCI}:${ciKrakenToken} -webSocket"
+cli="java -jar $HOME/.jenkins-cli.jar -s http://88.99.4.77:8090 -auth ${myUserCI}:${ciKrakenToken} -webSocket"
 
 JOB=KrakenDev
 codename=lmi
-codenameRandom=vayu
+codenameRandom=ysl
 
 build="$cli build $JOB -p codename=${codename}"
 buildRandom="$cli build $JOB -p codename=${codenameRandom}"
@@ -36,7 +36,6 @@ if [[ ${1} == package ]]; then
   echo "  3) SystemUI"
   echo "  4) Settings"
   echo "  5) Launcher3QuickStep"
-  echo "  6) CustomParts"
   package="$cli build $JOB -p build=true -p sync=false -p mka_clean=false -p mka_installclean=false -p publish_build=false"
   read n
   case $n in
@@ -45,7 +44,6 @@ if [[ ${1} == package ]]; then
     3) $stop $JOB && $package -p task=SystemUI && package=SystemUI ;;
     4) $stop $JOB && $package -p task=Settings && package=Settings ;;
     5) $stop $JOB && $package -p task=Launcher3QuickStep && package=Launcher3QuickStep ;;
-    6) $stop $JOB && $package -p task=CustomParts && package=CustomParts ;;
     *) echo "Invalid option" ;;
   esac
   echo -e "Building package ${YEL}${package}...${RED}"

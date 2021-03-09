@@ -8,8 +8,8 @@ repos=(
     hardware_qcom_wlan
 )
 
-branchLOS="lineage-18.1-caf"
-branchKK="eleven-caf"
+branchLOS="arrow-12.0-caf"
+branchKK="twelve-caf"
 
 tmp="/tmp/kraken-hals"
 rm -rf $tmp && mkdir -p $tmp
@@ -17,7 +17,7 @@ cd $tmp
 
 for i in "${repos[@]}"; do
   rm -rf ${i}
-  losURL="https://github.com/LineageOS/android_${i}"
+  losURL="https://github.com/ArrowOS/android_${i}"
   krakenURL="ssh://git@github.com/AOSPK/${i}"
   echo "-------------------------------------------------------------------------"
   echo "${BLU}Clonando $losURL -b $branchLOS em ${i}${END}"
@@ -30,6 +30,6 @@ for i in "${repos[@]}"; do
 done
 
 if [[ ${i} = hardware_qcom_bootctrl || ${i} = hardware_qcom_bt || ${i} = hardware_qcom_wlan ]]; then
-  branchLOS="lineage-18.1-caf"
-  branchKK="eleven-caf"
+  branchLOS="arrow-12.0-caf"
+  branchKK="twelve-caf"
 fi

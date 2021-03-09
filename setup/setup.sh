@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+[[ $USERNAME == mamutal91 ]] && HOST=odin
+
 source $HOME/.Xcolors &> /dev/null
 source $HOME/.mytokens/.myTokens &> /dev/null
 

@@ -15,7 +15,7 @@ replace() {
 }
 
 remote=aospk
-branch=eleven
+branch=twelve
 
 go() {
   cd /mnt/roms/jobs/Kraken
@@ -26,7 +26,7 @@ go() {
     replace
     echo -e "${RED}Changing default branch: ${GRE}${repoName}${END}"
     gh api -XPATCH "repos/AOSPK/${repoName}" -f default_branch="${branch}" &> /dev/null
-    gh api -XPATCH "repos/AOSPK-DEV/${repoName}" -f default_branch="${branch}" &> /dev/null
+    gh api -XPATCH "repos/AOSPK-Next/${repoName}" -f default_branch="${branch}" &> /dev/null
   done
 }
 

@@ -3,23 +3,13 @@
 
 source $HOME/.mytokens/.myTokens &> /dev/null
 
-pwd=$(pwd)
+gh repo create AOSPK/frameworks_base --private --confirm &> /dev/null
 
-curl \
-  -X DELETE \
-  -H "Accept: application/vnd.github.v3+json" \
-  -H "Authorization: token ${githubToken}" \
-   https://api.github.com/repos/AOSPK-DEV/frameworks_base
-
-gh repo create AOSPK-DEV/frameworks_base --private --confirm &> /dev/null
-
-cd /mnt/roms/jobs/Kraken/frameworks/base
-
-git remote add push ssh://git@github.com/AOSPK-DEV/frameworks_base
+git remote add push ssh://git@github.com/AOSPK/frameworks_base
 
 REMOTE=push
 BRANCH=$(git rev-parse --abbrev-ref HEAD)
-NEWBRANCH=eleven
+NEWBRANCH=twelve
 BATCH_SIZE=20000
 
 # check if the branch exists on the remote
@@ -42,5 +32,3 @@ for i in $(seq $n -$BATCH_SIZE 1); do
 done
 # push the final partial batch
 git push $REMOTE HEAD:refs/heads/$NEWBRANCH
-
-cd $pwd
