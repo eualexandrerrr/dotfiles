@@ -24,7 +24,7 @@ echo "${RED}/etc/ ${GRE}configured.${END}"
 # Settings to use on my /root
 if [[ $USER = mamutal91 ]]; then
   sudo cp -rf /home/mamutal91/.ssh /root
-  sudo cp -rf /home/mamutal91/.dotfiles/home/.nanorc /root
+  sudo cp -rf /home/mamutal91/.dotfiles/home/.nanorc /root &>/dev/null
 fi
 
 # Restart sway
