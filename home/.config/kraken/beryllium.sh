@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+pwd=$(pwd)
 BERYLLIUM=/tmp/beryllium
 rm -rf $BERYLLIUM && mkdir $BERYLLIUM && cd $BERYLLIUM
 
@@ -101,3 +102,4 @@ cd android_kernel_xiaomi_sdm845
 git push ssh://git@github.com/AOSPK-Devices/kernel_xiaomi_sdm845 HEAD:refs/heads/eleven --force
 
 rm -rf $BERYLLIUM
+cd $pwd

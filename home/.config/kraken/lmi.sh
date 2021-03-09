@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+pwd=$(pwd)
 LMI=/tmp/lmi
 rm -rf $LMI && mkdir $LMI && cd $LMI
 
@@ -129,3 +130,4 @@ git add . && git commit --message "ARM64: configs: xiaomi: Set localversion to k
 git push ssh://git@github.com/AOSPK-Devices/kernel_xiaomi_sm8250 HEAD:refs/heads/eleven --force
 
 rm -rf $LMI
+cd $pwd
