@@ -53,8 +53,8 @@ packages=(
 
 aur=(
   # themes
-  ant-dracula-gtk-theme
   capitaine-cursors
+  dracula-gtk-theme
   papirus-icon-theme-git
 
   # apps
