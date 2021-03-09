@@ -100,13 +100,15 @@ exec --no-startup-id hwclock --systohc --utc && timedatectl set-ntp true
 exec --no-startup-id "pactl set-sink-mute @DEFAULT_SINK@ false; pactl set-sink-volume @DEFAULT_SINK@ 70%"
 
 # GTK theme
-set $theme Ant-Dracula
+set $theme Dracula
 set $icon Papirus-Dark
 set $cursor capitaine-cursors
 set $font Cantarell
 set $font_size 9
 
 seat seat0 xcursor_theme $cursor 24
+
+set $gnome-schema org.gnome.desktop.interface
 
 exec_always {
     gsettings set $gnome-schema gtk-theme $theme
