@@ -1,7 +1,7 @@
 #!/bin/zsh
 
 if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
-  XKB_DEFAULT_LAYOUT=br exec sway >> ~/sway.log
+  XKB_DEFAULT_LAYOUT=br exec sway > ~/sway.log
 fi
 
 export GTK2_RC_FILES=~/.gtkrc-2.0
