@@ -69,7 +69,7 @@ gitCommit() {
     git add .
     git commit -m "${m}" --signoff --author "Kraken Project Bot <bot@aospk.org>" --date "$(date)"
     git push
-    git config --global user.email "mamutal91@aospk.org" && git config --global user.name "Alexandre Rangel"
+    git config --global user.email "mamutal91@gmail.com" && git config --global user.name "Alexandre Rangel"
   else
     echo ${BOL_MAG}No commits!${END}
   fi

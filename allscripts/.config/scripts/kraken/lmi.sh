@@ -4,7 +4,7 @@ source $HOME/.Xcolors &> /dev/null
 
 pwd=$(pwd)
 
-git config --global user.email "mamutal91@aospk.org"
+git config --global user.email "mamutal91@gmail.com"
 git config --global user.name "Alexandre Rangel"
 
 branch=${1}
@@ -58,7 +58,7 @@ tree() {
   }
 ]" > aosp.dependencies
 
-  git add . && git commit --message "lmi: $bringup" --signoff --author "Alexandre Rangel <mamutal91@aospk.org>"
+  git add . && git commit --message "lmi: $bringup" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>"
 
   # Overlay fod
   mkdir -p overlay-kraken/frameworks/base/packages/SystemUI/res/values
@@ -132,7 +132,7 @@ tree() {
     <string name="takeback_camera_front_failed">Não foi possível fechar a câmera frontal. Tente novamente.</string>
     <string name="popup_camera_front_failed">Não foi possível abrir a câmera frontal. Tente novamente.</string>
 </resources>' | tee parts/res/values-pt-rBR/strings.xml &> /dev/null
-  git add . && git commit --message "lmi: parts: Translations for Portuguese Brazil" --author "Alexandre Rangel <mamutal91@aospk.org>"
+  git add . && git commit --message "lmi: parts: Translations for Portuguese Brazil" --author "Alexandre Rangel <mamutal91@gmail.com>"
 
   sed -i '$ d' overlay/frameworks/base/core/res/res/values/config.xml
   echo '
@@ -142,7 +142,7 @@ tree() {
          2: gestures only for back, home and overview -->
     <integer name="config_navBarInteractionMode">1</integer>
 </resources>' >> overlay/frameworks/base/core/res/res/values/config.xml
-  git add . && git commit --message "lmi: Add the default gesture" --author "Alexandre Rangel <mamutal91@aospk.org>"
+  git add . && git commit --message "lmi: Add the default gesture" --author "Alexandre Rangel <mamutal91@gmail.com>"
 
   git push ssh://git@github.com/AOSPK-Devices/device_xiaomi_lmi HEAD:refs/heads/${branch} --force
 
@@ -172,7 +172,7 @@ tree() {
   }
 ]' > aosp.dependencies
 
-  git add . && git commit --message "sm8250-common: $bringup" --signoff --author "Alexandre Rangel <mamutal91@aospk.org>"
+  git add . && git commit --message "sm8250-common: $bringup" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>"
 
   # FaceUnlock
   pwd_faceunlock=$(pwd)
@@ -229,7 +229,7 @@ sed -i "s/lineageos/kraken/g" arch/arm64/configs/vendor/lmi_defconfig
 sed -i "s/lineageos/kraken/g" arch/arm64/configs/vendor/apollo_defconfig
 sed -i "s/lineageos/kraken/g" arch/arm64/configs/vendor/cas_defconfig
 sed -i "s/lineageos/kraken/g" arch/arm64/configs/vendor/cmi_defconfig
-git add . && git commit --message "ARM64: configs: xiaomi: Set localversion to kraken" --signoff --author "Alexandre Rangel <mamutal91@aospk.org>"
+git add . && git commit --message "ARM64: configs: xiaomi: Set localversion to kraken" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>"
 
 git push ssh://git@github.com/AOSPK-Devices/kernel_xiaomi_sm8250 HEAD:refs/heads/${branch} --force
 

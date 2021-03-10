@@ -126,7 +126,7 @@ m() {
 
   msg=$(cat /tmp/NEW_COMMITMSG)
 
-  git add . && git commit --message "${msg}" --amend --author "Alexandre Rangel <mamutal91@aospk.org>" --date "$(date)"
+  git add . && git commit --message "${msg}" --amend --author "Alexandre Rangel <mamutal91@gmail.com>" --date "$(date)"
   push gerrit -v ${tag}
   sleep 3 && clear
 }

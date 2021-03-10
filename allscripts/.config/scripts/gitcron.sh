@@ -18,7 +18,7 @@ if [[ $(cat /etc/hostname) == odin ]]; then
     echo -e "${BOL_GRE}Copying .zsh_history${END}"
     m="Autocommit Git-Cron"
     git add .
-    git commit -m "${m}" --signoff --author "Alexandre Rangel <mamutal91@aospk.org>" --date "$(date)"
+    git commit -m "${m}" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>" --date "$(date)"
     git push
   fi
   cd $pwd
@@ -34,6 +34,6 @@ if [[ $(cat /etc/hostname) == buildersbr ]]; then
   cd /home/mamutal91/.gerrit
   git config --global user.email "bot@aospk.org" && git config --global user.name "Kraken Project Bot"
   git add . && git commit -m "${m}" --signoff --author "Kraken Project Bot <bot@aospk.org>" --date "$(date)" && git push -f
-  git config --global user.email "mamutal91@aospk.org" && git config --global user.name "Alexandre Rangel"
+  git config --global user.email "mamutal91@gmail.com" && git config --global user.name "Alexandre Rangel"
   cd $pwd
 fi

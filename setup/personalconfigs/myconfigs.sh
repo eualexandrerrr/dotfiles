@@ -8,7 +8,7 @@ pwd=$(pwd)
 cd $HOME
 
 # Git
-git config --global user.email "mamutal91@aospk.org" && git config --global user.name "Alexandre Rangel"
+git config --global user.email "mamutal91@gmail.com" && git config --global user.name "Alexandre Rangel"
 
 # zsh history
 pwd=$(pwd)

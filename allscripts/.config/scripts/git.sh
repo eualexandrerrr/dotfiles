@@ -3,7 +3,7 @@
 source $HOME/.Xcolors &> /dev/null
 source $HOME/.mytokens/.myTokens &> /dev/null
 
-myGitUser="Alexandre Rangel <mamutal91@aospk.org>"
+myGitUser="Alexandre Rangel <mamutal91@gmail.com>"
 
 gitpushRules() {
   if [[ $USER == mamutal91 ]]; then
