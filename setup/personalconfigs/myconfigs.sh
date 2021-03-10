@@ -37,7 +37,7 @@ sudo chmod 700 $HOME/.mytokens
 sudo cp -rf $HOME/GitHub/mytokens/.myTokens $HOME/.mytokens
 cd $HOME/GitHub/mytokens/keys
 cp -rf * $HOME/.ssh
-sudo chmod +x $HOME/.mytokens/.myTokens
+sudo chmod 777 -R $HOME/.mytokens
 sudo chmod 644 $HOME/.ssh/*.pub
 sudo chmod 600 $HOME/.ssh/id_ed25519
 sudo chmod 600 $HOME/.ssh/id_rsa
