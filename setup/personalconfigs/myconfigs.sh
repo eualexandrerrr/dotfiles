@@ -19,19 +19,29 @@ cd $pwd
 mkdir -p $HOME/{Pictures,Videos,GitHub} &> /dev/null
 
 # My Tokens
-rm -rf $HOME/GitHub/mytokens
+sudo rm -rf $HOME/GitHub/mytokens
 if [[ -e $HOME/.ssh/id_rsa ]]; then
-  git clone ssh://git@github.com/mamutal91/mytokens $HOME/GitHub/mytokens
+  git clone ssh://git@gitlab.com/mamutal91/mytokens $HOME/GitHub/mytokens
 else
-  git clone https://github.com/mamutal91/mytokens $HOME/GitHub/mytokens
+  git clone https://gitlab.com/mamutal91/mytokens $HOME/GitHub/mytokens
 fi
 
 pwd=$(pwd)
-cp -rf $HOME/GitHub/mytokens $HOME && rm -rf $HOME/.mytokens && mv $HOME/mytokens $HOME/.mytokens
-cd $HOME/GitHub/mytokens/.ssh
-mkdir -p $HOME/.ssh
+sudo rm -rf $HOME/.ssh
+sudo rm -rf $HOME/.mytokens
+sudo mkdir -p $HOME/.mytokens
+sudo mkdir -p $HOME/.ssh
+sudo chown -R mamutal91:mamutal91 $HOME/.ssh
+sudo chmod 700 $HOME/.ssh
+sudo chmod 700 $HOME/.mytokens
+sudo cp -rf $HOME/GitHub/mytokens/.myTokens $HOME/.mytokens
+cd $HOME/GitHub/mytokens/keys
 cp -rf * $HOME/.ssh
-sudo chmod 600 $HOME/.ssh/*
+sudo chmod +x $HOME/.mytokens/.myTokens
+sudo chmod 644 $HOME/.ssh/*.pub
+sudo chmod 600 $HOME/.ssh/id_ed25519
+sudo chmod 600 $HOME/.ssh/id_rsa
+eval "$(ssh-agent -s)"
 cd $pwd
 
 # Clone my important repos

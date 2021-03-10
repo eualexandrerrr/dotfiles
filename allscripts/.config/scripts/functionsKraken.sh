@@ -70,23 +70,25 @@ push() {
       echo "              -s [Submit automatic]"
       echo "              -v [Verified]"
       echo "              -c [Specific SHA ID commit]"
+      echo "              -n [Nothin]"
       echo "${END}"
     else
       [[ ${2} == -s ]] && gerritPush="HEAD:refs/for/${branch}%submit"
       [[ ${2} == -v ]] && gerritPush="HEAD:refs/for/${branch}%l=Verified+1,l=Code-Review+2"
       [[ ${2} == -c ]] && gerritPush="${3}:refs/for/${branch}" && topic=${4}
+      [[ ${2} == -n ]] && gerritPush="HEAD:refs/for/${branch}"
       [[ -z ${2} ]] && gerritPush="HEAD:refs/for/${branch}"
 
       if [[ ! -d .git ]]; then
         echo "${BOL_RED}You are not in a .git repository${END}"
       else
-        echo "${BOL_BLU}Pushing to ${BOL_YEL}gerrit.aospk.org/${MAG}${repo}${END} ${CYA}${branch}${END}"
-        scp -p -P 29418 mamutal91@gerrit.aospk.org:hooks/commit-msg $(git rev-parse --git-dir)/hooks/ &> /dev/null
+        echo "${BOL_BLU}Pushing to ${BOL_YEL}gerrit-staging.pixelexperience.org/${MAG}${repo}${END} ${CYA}${branch}${END}"
+        scp -p -P 29418 mamutal91@gerrit-staging.pixelexperience.org:hooks/commit-msg $(git rev-parse --git-dir)/hooks/ &> /dev/null
         git commit --amend --no-edit &> /dev/null
         if [[ $topic ]]; then
-          git push ssh://mamutal91@gerrit.aospk.org:29418/${repo} $gerritPush,topic=${topic}
+          git push ssh://mamutal91@gerrit-staging.pixelexperience.org:29419/${repo} $gerritPush,topic=${topic}
         else
-          git push ssh://mamutal91@gerrit.aospk.org:29418/${repo} $gerritPush
+          git push ssh://mamutal91@gerrit-staging.pixelexperience.org:29419/${repo} $gerritPush
         fi
       fi
 #      [ $repo = manifest ] && echo ${BOL_RED}Pushing manifest to ORG DEV${END} && git push ssh://git@github.com/AOSPK-Next/manifest HEAD:refs/heads/twelve --force

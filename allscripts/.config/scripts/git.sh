@@ -108,9 +108,9 @@ cm() {
       pwdFolder=${PWD##*/}
       translate
       if [[ ${1} ]]; then
-        gitadd && git commit --message "${msg}" --signoff --date "$(date)" --author "${1}" && gitpush
+        gitadd && git commit --message "${msg}" --signoff --date "$(date)" --author "${1}" #&& gitpush
       else
-        gitadd && git commit --message "${msg}" --signoff --date "$(date)" --author "${myGitUser}" && gitpush
+        gitadd && git commit --message "${msg}" --signoff --date "$(date)" --author "${myGitUser}" #&& gitpush
       fi
     else
       echo "${BOL_RED}There are no local changes!!! leaving...${END}" && break &> /dev/null
@@ -124,11 +124,11 @@ amend() {
     echo "${BOL_RED}You are not in a .git repository${END}"
   else
     if [[ ${author} == "'" ]]; then
-      gitadd && git commit --amend --date "$(date)" --author "${1}" && gitpush force
+      gitadd && git commit --amend --date "$(date)" --author "${1}" #&& gitpush force
     else
       lastAuthorName=$(git log -1 --pretty=format:'%an')
       lastAuthorEmail=$(git log -1 --pretty=format:'%ae')
-      gitadd && git commit --amend --date "$(date)" --author "${lastAuthorName} <${lastAuthorEmail}>" && gitpush force
+      gitadd && git commit --amend --date "$(date)" --author "${lastAuthorName} <${lastAuthorEmail}>" #&& gitpush force
     fi
   fi
 }
