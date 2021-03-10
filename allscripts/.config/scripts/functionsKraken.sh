@@ -88,7 +88,7 @@ push() {
 }
 
 m() {
-  tag=android-11.0.0_r40
+  tag=android-11.0.0_r43
   echo $tag
   git add . && git commit --amend --no-edit
   sleep 2
