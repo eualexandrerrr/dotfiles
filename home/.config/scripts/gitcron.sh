@@ -6,10 +6,13 @@ HOST=$(cat /etc/hostname)
 if [[ $HOST = odin ]]; then
   cp -rf $HOME/.zsh_history $HOME/GitHub/zsh-history/
 
-  repos=( "zsh-history" "custom-rom" )
+  repos=( "zsh-history" "custom-rom" ".atom")
 
   for i in "${repos[@]}"; do
     dir=$HOME/GitHub
+    if [[ ${i} = ".atom" ]]; then
+      dir=$HOME
+    fi
   	cd ${dir}/${i}
   	status=$(git add . -n)
   	if [[ ! -z "$status" ]]; then
