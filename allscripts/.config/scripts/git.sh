@@ -53,6 +53,7 @@ f() {
 
 p() {
   git cherry-pick ${1}
+  m
 }
 
 translate() {
