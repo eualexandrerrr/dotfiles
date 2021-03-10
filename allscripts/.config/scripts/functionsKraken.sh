@@ -98,6 +98,7 @@ push() {
   # To GitHub/GitLab
   if [[ ${1} == -f ]]; then
     echo "${BOL_BLU}Pushing to ${BOL_YEL}${githost}.com/${BOL_RED}${org}/${MAG}${repo}${END} ${CYA}${branch}${END}"
+    gh repo create AOSPK/${repo} --public --confirm &> /dev/null
     gh repo create AOSPK-Next/${repo} --private --confirm &> /dev/null
     git push ssh://git@${githost}.com/AOSPK/${repo} HEAD:refs/heads/${branch} --force # REMOVERRRRRRRR APOS BRINGUP <<<<<<<<<<
     git push ssh://git@${githost}.com/${org}/${repo} HEAD:refs/heads/${branch} --force
@@ -128,6 +129,7 @@ upstream() {
   cd ${repo}
   repo=$(echo $repo | sed -e "s/arrow/custom/g")
   repo=$(echo $repo | sed -e "s/Arrow/Custom/g")
+  echo CRIANDO
   gh repo create AOSPK/${repo} --public --confirm
   gh repo create AOSPK-Next/${repo} --private --confirm
   git push ssh://git@github.com/AOSPK/${repo} HEAD:refs/heads/${branchKraken} --force
