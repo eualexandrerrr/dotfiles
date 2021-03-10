@@ -5,14 +5,13 @@ source $HOME/.Xcolors &> /dev/null
 
 source $HOME/.dotfiles/allscripts/.config/scripts/kraken/builderFunctions.sh
 
-[ $(cat /etc/hostname) = vmi635066.contaboserver.net ] && HOME=/home/mamutal91
+[ $(cat /etc/hostname) = buildersbr ] && HOME=/home/mamutal91
 
 gerrit() {
-  ssh mamutal91@75.119.145.181 "cd /mnt/roms/sites/docker/docker-files/gerrit && sudo ./repl.sh"
+  ssh mamutal91@145.40.75.153 "cd /mnt/roms/sites/docker/docker-files/gerrit && sudo ./repl.sh"
 }
 
 down() {
-  ssh mamutal91@75.119.145.181 "rm -rf /mnt/roms/sites/private/builds/**/*.zip &> /dev/null"
   ssh mamutal91@145.40.75.153 "rm -rf /mnt/roms/jobs/Kraken && rm -rf device/xiaomi kernel/xiaomi vendor/xiaomi &> /dev/null"
   }
 
@@ -153,7 +152,7 @@ up() {
 }
 
 hals() {
-  if [[ $(cat /etc/hostname) == vmi635066.contaboserver.net ]]; then
+  if [[ $(cat /etc/hostname) == buildersbr ]]; then
     pwd=$(pwd)
     branch=(
       apq8084
@@ -182,12 +181,12 @@ hals() {
 
     cd $pwd
   else
-    ssh mamutal91@75.119.145.181 "source $HOME/.zshrc && hals"
+    ssh mamutal91@145.40.75.153 "source $HOME/.zshrc && hals"
   fi
 }
 
 www() {
-  if [[ $(cat /etc/hostname) == vmi635066.contaboserver.net ]]; then
+  if [[ $(cat /etc/hostname) == buildersbr ]]; then
     cd $HOME && rm -rf downloadcenter
     git clone ssh://git@github.com/AOSPK/downloadcenter -b master downloadcenter
     sudo rm -rf /mnt/roms/sites/downloadcenter
@@ -196,6 +195,6 @@ www() {
     sudo npm i && sudo npm run build
     cd $HOME
   else
-    ssh mamutal91@75.119.145.181 "source $HOME/.zshrc && www"
+    ssh mamutal91@145.40.75.153 "source $HOME/.zshrc && www"
   fi
 }

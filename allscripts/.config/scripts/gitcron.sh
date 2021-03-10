@@ -25,7 +25,7 @@ if [[ $(cat /etc/hostname) == odin ]]; then
 fi
 
 # Kraken
-if [[ $(cat /etc/hostname) == vmi635066.contaboserver.net ]]; then
+if [[ $(cat /etc/hostname) == buildersbr ]]; then
   m="Autocommit Git-Cron"
   pwd=$(pwd)
   sudo rm -rf /home/mamutal91/.gerrit
