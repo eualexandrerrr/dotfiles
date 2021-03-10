@@ -4,7 +4,7 @@ source $HOME/.Xcolors &> /dev/null
 source $HOME/.dotfiles/allscripts/.config/scripts/kraken/builderFunctions.sh
 
 tree() {
-  cd /mnt/roms/jobs/KrakenDev
+  pwd
   rm -rf device/xiaomi vendor/xiaomi kernel/xiaomi hardware/xiaomi
   git clone ssh://git@github.com/AOSPK-Devices/device_xiaomi_lmi --single-branch -b twelve device/xiaomi/lmi
   git clone ssh://git@github.com/AOSPK-Devices/device_xiaomi_sm8250-common --single-branch -b twelve device/xiaomi/sm8250-common
