@@ -27,7 +27,7 @@ mypackages=(
   mesa mesa-demos vulkan-tools lib32-nvidia-utils lib32-opencl-nvidia lib32-virtualgl lib32-nvidia-utils lib32-libvdpau lib32-opencl-nvidia lib32-mesa
   steam wine winetricks lib32-gnutls
 
-  atom discord diff-so-fancy filezilla git htop jdk-openjdk jq krita man man-pages-pt_br github-cli-git lutris vkd3d lib32-vkd3d
+  atom silver-searcher-git discord diff-so-fancy filezilla git htop jdk-openjdk jq krita man man-pages-pt_br github-cli-git lutris vkd3d lib32-vkd3d
   rsync shfmt tree transmission-gtk zip
 
   android-tools hfsprogs gvfs gvfs-mtp btrfs-progs dosfstools exfat-utils f2fs-tools e2fsprogs jfsutils nilfs-utils ntfs-3g reiserfsprogs udftools xfsprogs ntfs-3g
