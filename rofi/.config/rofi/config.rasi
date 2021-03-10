@@ -1,6 +1,6 @@
 /** Basic config file **/
 
 configuration {
-  show-icons:         true;
-  icon-theme:         "Flatery-Dark";
+    show-icons:                     true;
+    icon-theme:                     "Flatery-Dark";
 }

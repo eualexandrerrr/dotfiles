@@ -1,9 +1,9 @@
 configuration {
-	font:                      		"Terminus 12";
+		font:                      			"Terminus 12";
     disable-history:                false;
     fullscreen:                     false;
-	hide-scrollbar: 				true;
-	sidebar-mode: 					false;
+		hide-scrollbar: 								true;
+		sidebar-mode: 									false;
 }
 
 @import "~/.Xrasi"
@@ -17,36 +17,36 @@ window {
     transparency:                   "real";
     border-radius:                  0px;
     location:                       center;
-	width:							420px;
+		width:													420px;
     x-offset:                       0px;
     y-offset:                       0px;
 }
 
 prompt {
-    enabled: 						true;
+    enabled: 												true;
     padding:                        10px;
-	background-color: 				@background-light;
-	text-color: 					@accent;
-    border:                  		2px 2px 2px 2px;
+		background-color: 							@background-light;
+		text-color: 										@accent;
+    border:             		     		2px 2px 2px 2px;
     border-radius:                  0px;
     border-color:                  	@accent;
 }
 
 textbox-prompt-colon {
-	expand: 						false;
-	str: 							" System ";
-	background-color: 				@accent;
-	text-color: 					@background;
+		expand: 												false;
+		str: 														" System ";
+		background-color: 							@accent;
+		text-color: 										@background;
     padding:                        12px 10px 0px 10px;
 }
 
 inputbar {
-	children: 						[ textbox-prompt-colon, prompt ];
+    children: 						[ textbox-prompt-colon, prompt ];
     spacing:                        0px;
     background-color:               @background;
     text-color:                     @foreground;
     expand:                         false;
-    border:                  		0px;
+    border:          		        		0px;
     border-radius:                  0px;
     border-color:                  	@accent;
     margin:                         0px 0px 0px 0px;
@@ -55,8 +55,8 @@ inputbar {
 }
 
 listview {
-    columns:						5;
-    lines:							1;
+    columns:												5;
+    lines:													1;
     spacing:                        12px;
     cycle:                          true;
     dynamic:                        true;
@@ -78,7 +78,9 @@ element {
 }
 
 element-text {
-	font:							"feather 20";
+		font:														"feather 20";
+		background-color: 							inherit;
+		text-color:       							inherit;
     expand:                         true;
     horizontal-align:               0.5;
     vertical-align:                 0;
@@ -101,7 +103,7 @@ element alternate.active {
 element selected {
     background-color:               @accent;
     text-color:                     @background;
-    border:                  		0px;
+    border:             		     		0px;
     border-radius:                  0px;
     border-color:                  	@border;
 }
