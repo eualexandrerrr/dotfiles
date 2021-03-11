@@ -14,7 +14,7 @@ newuser(){
 
 infra() {
   echo -e "\n${BLU}Recloning ${CYA}infra ${BLU}to have the latest changes...${END}"
-  ssh mamutal91@88.99.4.77 "cd $HOME && rm -rf /mnt/roms/infra && git clone ssh://git@github.com/AOSPK/infra /mnt/roms/infra" &> /dev/null
+  ssh mamutal91@88.99.4.77 "cd $HOME && rm -rf /mnt/roms/infra && git clone ssh://git@github.com/AOSPK/infra /mnt/roms/infra"
 }
 
 qemu() {

@@ -5,11 +5,11 @@ source $HOME/.mytokens/.myTokens &> /dev/null
 
 if [[ ! -f $HOME/.jenkins-cli.jar ]]; then
   cd $HOME
-  wget http://88.99.4.77:8090/jnlpJars/jenkins-cli.jar
+  wget http://88.99.4.77:8080/jnlpJars/jenkins-cli.jar
   mv jenkins-cli.jar .jenkins-cli.jar
 fi
 
-cli="java -jar $HOME/.jenkins-cli.jar -s http://88.99.4.77:8090 -auth ${myUserCI}:${ciKrakenToken} -webSocket"
+cli="java -jar $HOME/.jenkins-cli.jar -s http://88.99.4.77:8080 -auth ${myUserCI}:${ciKrakenToken} -webSocket"
 
 JOB=KrakenDev
 codename=lmi
