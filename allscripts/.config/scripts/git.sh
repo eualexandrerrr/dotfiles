@@ -135,7 +135,7 @@ amend() {
 }
 
 m() {
-  echo -e "${BOL_RED}Replacing Strings from ${BOL_BLU}Arrow ${BOL_RED}to ${BOL_YEL}Kraken${END}\n"
+  echo -e "\n${BOL_RED}Replacing Strings from ${BOL_BLU}Arrow ${BOL_RED}to ${BOL_YEL}Kraken${END}\n"
   pwd=$(pwd)
   lastCommit=$(git log --format="%H" -n 1)
   filesModded=$(git diff-tree --no-commit-id --name-only -r $lastCommit)
