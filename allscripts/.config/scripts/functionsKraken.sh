@@ -25,11 +25,11 @@ tree() {
 }
 
 gerrit() {
-  ssh mamutal91@88.99.4.77 "cd /mnt/roms/sites/docker/docker-files/gerrit && sudo ./repl.sh"
+  ssh mamutal91@147.75.35.163 "cd /mnt/roms/sites/docker/docker-files/gerrit && sudo ./repl.sh"
 }
 
 down() {
-  ssh mamutal91@88.99.4.77 "rm -rf /mnt/roms/jobs/Kraken && rm -rf device/xiaomi kernel/xiaomi vendor/xiaomi &> /dev/null"
+  ssh mamutal91@147.75.35.163 "rm -rf /mnt/roms/jobs/Kraken && rm -rf device/xiaomi kernel/xiaomi vendor/xiaomi &> /dev/null"
   }
 
 push() {
