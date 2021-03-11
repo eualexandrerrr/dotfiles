@@ -20,14 +20,13 @@ mkdir -p $HOME/{Pictures,Videos,GitHub} &> /dev/null
 
 # My Tokens
 sudo rm -rf $HOME/GitHub/mytokens
-if [[ -e $HOME/.ssh/id_rsa ]]; then
+if [[ -e $HOME/.ssh/id_ed25519 ]]; then
   git clone ssh://git@gitlab.com/mamutal91/mytokens $HOME/GitHub/mytokens
 else
   git clone https://gitlab.com/mamutal91/mytokens $HOME/GitHub/mytokens
 fi
 
 pwd=$(pwd)
-sudo rm -rf $HOME/.ssh
 sudo rm -rf $HOME/.mytokens
 sudo mkdir -p $HOME/.mytokens
 sudo mkdir -p $HOME/.ssh
@@ -41,6 +40,7 @@ sudo chmod 777 -R $HOME/.mytokens
 sudo chmod 644 $HOME/.ssh/*.pub
 sudo chmod 600 $HOME/.ssh/id_ed25519
 sudo chmod 600 $HOME/.ssh/id_rsa
+sudo chmod 600 $HOME/.ssh/authorized_keys
 eval "$(ssh-agent -s)"
 cd $pwd
 
