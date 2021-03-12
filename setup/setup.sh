@@ -89,4 +89,6 @@ if [[ $HOST == odin ]]; then
   done
 fi
 
+sudo chown -R $USER:$USER /home/$USER
+
 bash $HOME/.dotfiles/install.sh
