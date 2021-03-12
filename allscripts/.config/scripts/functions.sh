@@ -14,7 +14,8 @@ newuser(){
 
 infra() {
   echo -e "\n${BLU}Recloning ${CYA}infra ${BLU}to have the latest changes...${END}"
-  ssh mamutal91@147.75.35.163 "cd $HOME && rm -rf /mnt/roms/infra && git clone ssh://git@github.com/AOSPK/infra /mnt/roms/infra"
+  ssh mamutal91@88.99.4.77 "cd $HOME && rm -rf /mnt/roms/infra && git clone ssh://git@github.com/AOSPK/infra /mnt/roms/infra"
+#  ssh mamutal91@147.75.35.163 "cd $HOME && rm -rf /mnt/roms/infra && git clone ssh://git@github.com/AOSPK/infra /mnt/roms/infra"
 }
 
 qemu() {
@@ -26,13 +27,14 @@ dot() {
     cd $HOME && rm -rf .dotfiles && git clone ssh://git@github.com/mamutal91/dotfiles .dotfiles && source $HOME/.zshrc
   else
     echo -e "\n${BLU}Recloning ${CYA}dotfiles ${BLU}to have the latest changes...${END}"
-    ssh mamutal91@147.75.35.163 "cd $HOME && rm -rf .dotfiles && git clone ssh://git@github.com/mamutal91/dotfiles .dotfiles && bash $HOME/.dotfiles/install.sh && source $HOME/.zshrc"
+    ssh mamutal91@88.99.4.77 "cd $HOME && rm -rf .dotfiles && git clone ssh://git@github.com/mamutal91/dotfiles .dotfiles && bash $HOME/.dotfiles/install.sh && source $HOME/.zshrc"
+#    ssh mamutal91@147.75.35.163 "cd $HOME && rm -rf .dotfiles && git clone ssh://git@github.com/mamutal91/dotfiles .dotfiles && bash $HOME/.dotfiles/install.sh && source $HOME/.zshrc"
   fi
 }
 
 bkp() {
   bash $HOME/.config/scripts/gitcron.sh
-  ssh mamutal91@147.75.35.163 "bash $HOME/.config/scripts/gitcron.sh"
+  ssh mamutal91@88.99.4.77 "bash $HOME/.config/scripts/gitcron.sh"
 }
 
 update() {
