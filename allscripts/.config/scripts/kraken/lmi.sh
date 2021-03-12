@@ -11,13 +11,13 @@ branch=${1}
 
 echo ${BOL_RED}Branch ${branch}${END}
 
-orgRebase=ArrowOS
+orgRebase=LineageOS
 
 [ $orgRebase = xiaomi-sm8250-devs ] && orgRebaseVendor=xiaomi-sm8250-devs && repoVendor=android
-#[ $orgRebase = ArrowOS ] && orgRebaseVendor=the-muppets && repoVendor=proprietary
-[ $orgRebase = ArrowOS ] && orgRebaseVendor=SebaUbuntu && repoVendor=android
+#[ $orgRebase = LineageOS ] && orgRebaseVendor=the-muppets && repoVendor=proprietary
+[ $orgRebase = LineageOS ] && orgRebaseVendor=SebaUbuntu && repoVendor=android
 
-branchLOS=arrow-12.0
+branchLOS=lineage-19.0
 
 bringup="Initial changes for Kraken"
 
@@ -52,7 +52,7 @@ tree() {
   },
   {
     \"remote\": \"github\",
-    \"repository\": \"ArrowOS/android_hardware_xiaomi\",
+    \"repository\": \"LineageOS/android_hardware_xiaomi\",
     \"target_path\": \"hardware/xiaomi\",
     \"branch\": \"${branchLOS}\"
   }
@@ -94,7 +94,7 @@ tree() {
   mkdir -p parts/res/values-pt-rBR
   echo '<?xml version="1.0" encoding="utf-8"?>
 <!--
-     Copyright (C) 2018 The ArrowOS Project
+     Copyright (C) 2018 The LineageOS Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.

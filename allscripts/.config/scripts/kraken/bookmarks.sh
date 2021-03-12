@@ -7,9 +7,9 @@ grep -Po 'name=\"\K[^"]+(?=\")' $HOME/AOSPK/manifest/snippets/aosp.xml >> $tmp
 grep -Po 'name=\"\K[^"]+(?=\")' $HOME/AOSPK/manifest/snippets/extras.xml >> $tmp
 
 # Tags
-url="https://review.lineageos.org/q/project:ArrowOS/android_"
+url="https://review.lineageos.org/q/project:LineageOS/android_"
 url=${url//\//\\/}
-branch="+branch:arrow-12.0+status:merged"
+branch="+branch:lineage-19.0+status:merged"
 
 # Replace
 sed -i "s/Customizer/LineageCustomizer/g" $tmp

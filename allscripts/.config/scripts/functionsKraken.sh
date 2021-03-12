@@ -24,6 +24,10 @@ tree() {
   cd /mnt/roms/jobs/KrakenDev
 }
 
+c() {
+  google-chrome-stable https://review.lineageos.org/q/project:LineageOS/android_${1}+branch:lineage-19.0+status:merged
+}
+
 gerrit() {
   ssh mamutal91@147.75.35.163 "cd /mnt/roms/sites/docker/docker-files/gerrit && sudo ./repl.sh"
 }
@@ -108,9 +112,8 @@ push() {
 
 upstream() {
   repo=${1}
-  orgBase=ArrowOS
-  [[ ${4} != "-f" ]] && branchBase=${2} || branchBase=arrow-11.0
-  [[ ${4} == "-l" ]] && orgBase=LineageOS && branchBase=lineage-18.1
+  orgBase=LineageOS
+  [[ ${4} != "-f" ]] && branchBase=${2} || branchBase=lineage-18.1
   branchKraken=${3}
   [[ $repo == hardware_qcom_wlan ]] && branchBase="${branchBase}-caf" && branchKraken="${branchKraken}-caf"
   [[ $repo == hardware_qcom_bt ]] && branchBase="${branchBase}-caf" && branchKraken="${branchKraken}-caf"
@@ -121,24 +124,25 @@ upstream() {
     echo "${BOL_RED}Forget everything above, I'm cloning it is straight from AOSP${END}"
     repoAOSP=$(echo $repo | sed "s/_/\//g")
     [[ $repoAOSP == hardware/libhardware/legacy ]] && repoAOSP="hardware/libhardware_legacy"
-    git clone https://android.googlesource.com/platform/${repoAOSP} -b android-12.0.0_r2 ${repo}
+    git clone https://android.googlesource.com/platform/${repoAOSP} -b android-12.0.0_r1 ${repo}
   else
     git clone https://github.com/${orgBase}/android_${repo} -b ${branchBase} ${repo}
   fi
   cd ${repo}
-  repo=$(echo $repo | sed -e "s/arrow/custom/g")
-  repo=$(echo $repo | sed -e "s/Arrow/Custom/g")
+  repo=$(echo $repo | sed -e "s/lineage/custom/g")
+  repo=$(echo $repo | sed -e "s/Lineage/Custom/g")
+  repo=$(echo $repo | sed -e "s/Trebuchet/Launcher3/g")
   gh repo create AOSPK/${repo} --public --confirm
   gh repo create AOSPK-Next/${repo} --private --confirm
   git push ssh://git@github.com/AOSPK/${repo} HEAD:refs/heads/${branchKraken} --force
-#  git push ssh://git@github.com/AOSPK-Next/${repo} HEAD:refs/heads/${branchKraken} --force
+  git push ssh://git@github.com/AOSPK-Next/${repo} HEAD:refs/heads/${branchKraken} --force
   gh api -XPATCH "repos/AOSPK/${repo}" -f default_branch="${branchKraken}" &> /dev/null
   gh api -XPATCH "repos/AOSPK-Next/${repo}" -f default_branch="${branchKraken}" &> /dev/null
   rm -rf $workingDir
 }
 
 up() {
-  upstream ${1} arrow-12.0 twelve ${2}
+  upstream ${1} lineage-19.0 twelve ${2}
   # upstream ${1} lineage-18.1 eleven
   #  upstream ${1} lineage-17.1 ten
   #  upstream ${1} lineage-16.0 pie
