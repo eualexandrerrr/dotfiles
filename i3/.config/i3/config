@@ -30,7 +30,6 @@ floating_modifier $super
 # Close window
 bindsym $super+w kill
 bindsym $alt+w kill
-bindsym $alt+F4 kill
 
 # Move windows
 bindsym $control+$shift+Left move left
