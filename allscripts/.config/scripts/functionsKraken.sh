@@ -128,7 +128,6 @@ upstream() {
   cd ${repo}
   repo=$(echo $repo | sed -e "s/arrow/custom/g")
   repo=$(echo $repo | sed -e "s/Arrow/Custom/g")
-  echo CRIANDO
   gh repo create AOSPK/${repo} --public --confirm
   gh repo create AOSPK-Next/${repo} --private --confirm
   git push ssh://git@github.com/AOSPK/${repo} HEAD:refs/heads/${branchKraken} --force
