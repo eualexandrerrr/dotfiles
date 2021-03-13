@@ -13,7 +13,8 @@ gerrit() {
 
 down() {
   ssh mamutal91@75.119.145.181 "rm -rf /mnt/roms/sites/private/builds/**/*.zip &> /dev/null"
-}
+  ssh mamutal91@145.40.75.153 "rm -rf /mnt/roms/jobs/Kraken && rm -rf device/xiaomi kernel/xiaomi vendor/xiaomi &> /dev/null"
+  }
 
 push() {
   if [[ $(pwd | cut -c1-15) == /mnt/roms/jobs/ ]]; then

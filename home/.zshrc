@@ -36,7 +36,7 @@ alias notify-send="dunstify"
 alias sideload="sudo adb sideload"
 
 # Paths
-[[ $(cat /etc/hostname) == odin ]] && alias x="cd /mnt/storage/Kraken" || alias x="cd /mnt/roms/jobs/KrakenDev"
+alias x="cd /mnt/storage/Kraken"
 
 if [[ $USER == mamutal91 ]]; then
   git config --global user.email "mamutal91@gmail.com" && git config --global user.name "Alexandre Rangel"

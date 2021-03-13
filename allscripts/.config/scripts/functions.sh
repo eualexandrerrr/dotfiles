@@ -31,9 +31,8 @@ dot() {
 }
 
 bkp() {
-  bash $HOME/.config/scripts/gitcron.sh ${1}
+  bash $HOME/.config/scripts/gitcron.sh
   ssh mamutal91@75.119.145.181 "bash $HOME/.config/scripts/gitcron.sh"
-  ssh mamutal91@5.217.146.43 "bash $HOME/.config/scripts/gitcron.sh"
 }
 
 update() {
