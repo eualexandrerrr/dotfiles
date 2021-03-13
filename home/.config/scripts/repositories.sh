@@ -6,6 +6,7 @@ rm -rf $HOME/GitHub && mkdir -p $HOME/GitHub
 repos=(
   mamutal91.github.io
   myarch
+  userge-x
   custom-rom
   zsh-history
   language-swaywm

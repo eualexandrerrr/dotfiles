@@ -22,37 +22,37 @@ function translate() {
   typing=$(mktemp)
   rm -rf $typing && nano $typing
   msg=$(trans -b :en -no-auto -i $typing)
-  cat $typing
+  typing=$(cat $typing)
+  echo "${BOL_RED}Message: ${BOL_YEL}${typing}${END}"
 }
 
-if [ $HOST = "odin" ]; then
-  function cm() {
-    translate
-    git add . && git commit --message $msg --signoff --author "Alexandre Rangel <mamutal91@gmail.com>" --date "$(date)" && git push -f
-  }
-  function c() {
-    git add . && git commit --author "${1}" --date "$(date)" && git push -f
-  }
-  function amend() {
-    git add . && git commit --signoff --amend --date "$(date)" && git push -f
-  }
-else
-  function cm() {
-    translate
-    git add . && git commit --message $msg --signoff --author "Alexandre Rangel <mamutal91@gmail.com>" --date "$(date)"
-  }
-  function c() {
-    git add . && git commit --author "${1}" --date "$(date)"
-  }
-  function amend() {
-    pwd=$(pwd)
-    if [[ $pwd = "/home/mamutal91/jenkins" ]]; then
-      sudo git add . && sudo git commit --amend --date "$(date)" && sudo git push -f
+function gitpush() {
+  pwd=$(pwd | cut -c-9)
+  if [[ $pwd = "/mnt/dev/" ]]; then
+    echo "${BOL_RED}No push!${END}"
+  else
+    if [[ ${1} = amend ]]; then
+      echo "${BOL_YEL}Pushing with force!${END}"
+      git push -f
     else
-      git add . && git commit --amend --date "$(date)"
+      echo "${BOL_YEL}Pushing!${END}"
+      git push
     fi
-  }
-fi
+  fi
+}
+
+function cm() {
+  translate
+  git add . && git commit --message $msg --signoff --author "Alexandre Rangel <mamutal91@gmail.com>" --date "$(date)" && gitpush
+}
+
+function c() {
+  git add . && git commit --author "${1}" --date "$(date)" && gitpush
+}
+
+function amend() {
+  git add . && git commit --signoff --amend --date "$(date)" && gitpush amend
+}
 
 function update() {
   $HOME/.config/scripts/update.sh
