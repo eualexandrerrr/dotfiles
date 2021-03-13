@@ -9,7 +9,7 @@ tree() {
 }
 
 c() {
-  google-chrome-stable https://review.lineageos.org/q/project:LineageOS/android_${1}+branch:lineage-19.0+status:open
+  google-chrome-stable https://review.lineageos.org/q/project:LineageOS/android_${1}+branch:lineage-19.0+status:open &> /dev/null
 }
 
 gerrit() {
