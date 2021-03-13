@@ -7,17 +7,23 @@ pwd=$(pwd)
 git config --global user.email "mamutal91@gmail.com"
 git config --global user.name "Alexandre Rangel"
 
-branch=${1}
+branch=twelve
+branchLOS=lineage-19.0
 
 echo ${BOL_RED}Branch ${branch}${END}
 
-orgRebase=LineageOS
+orgRebase=xiaomi-sm8250-devs
 
-[ $orgRebase = xiaomi-sm8250-devs ] && orgRebaseVendor=xiaomi-sm8250-devs && repoVendor=android
-#[ $orgRebase = LineageOS ] && orgRebaseVendor=the-muppets && repoVendor=proprietary
-[ $orgRebase = LineageOS ] && orgRebaseVendor=SebaUbuntu && repoVendor=android
+if [[ $orgRebase = xiaomi-sm8250-devs ]]; then
+  orgRebaseVendor=SebaUbuntu
+  repoVendor=android
+  branchRebaseVendor=lineage-18.1
+fi
 
-branchLOS=lineage-19.0
+if [[ $orgRebase = LineageOS ]]; then
+  orgRebaseVendor=the-muppets
+  repoVendor=proprietary
+fi
 
 bringup="Initial changes for Kraken"
 
@@ -25,7 +31,6 @@ workingDir=$(mktemp -d) && cd $workingDir
 
 tree() {
   git clone https://github.com/${orgRebase}/android_device_xiaomi_lmi -b ${branchLOS} device_xiaomi_lmi
-  git clone https://github.com/${orgRebase}/android_device_xiaomi_sm8250-common -b ${branchLOS} device_xiaomi_sm8250
 
   # Tree
   cd ${workingDir}/device_xiaomi_lmi
@@ -34,29 +39,25 @@ tree() {
 
   mv lineage_lmi.mk aosp_lmi.mk
   sed -i "s/lineage_/aosp_/g" aosp_lmi.mk
-  sed -i "s/vendor\/lineage/vendor\/aosp/" aosp_lmi.mk
+  sed -i "s:vendor/lineage:vendor/aosp:g" aosp_lmi.mk
   sed -i "s/Lineage stuff/Kraken stuff/g" aosp_lmi.mk
 
   mv overlay-lineage overlay-kraken
   sed -i "s/overlay-lineage/overlay-kraken/g" device.mk
 
   rm -rf lineage.dependencies
-  echo "[
+  echo '[
   {
-    \"repository\": \"device_xiaomi_sm8250-common\",
-    \"target_path\": \"device/xiaomi/sm8250-common\"
+    "repository": "device_xiaomi_sm8250-common",
+    "target_path": "device/xiaomi/sm8250-common"
   },
   {
-    \"repository\": \"vendor_xiaomi_lmi\",
-    \"target_path\": \"vendor/xiaomi/lmi\"
-  },
-  {
-    \"remote\": \"github\",
-    \"repository\": \"LineageOS/android_hardware_xiaomi\",
-    \"target_path\": \"hardware/xiaomi\",
-    \"branch\": \"${branchLOS}\"
+    "remote": "blobs",
+    "repository": "vendor_xiaomi_lmi",
+    "target_path": "vendor/xiaomi/lmi",
+    "branch": "twelve"
   }
-]" > aosp.dependencies
+]' > aosp.dependencies
 
   git add . && git commit --message "lmi: $bringup" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>"
 
@@ -147,7 +148,9 @@ tree() {
   git push ssh://git@github.com/AOSPK-Devices/device_xiaomi_lmi HEAD:refs/heads/${branch} --force
 
   # Common
-  cd ${workingDir}/device_xiaomi_sm8250-common
+  cd ${workingDir}
+  git clone https://github.com/${orgRebase}/android_device_xiaomi_sm8250-common -b ${branchLOS} device_xiaomi_sm8250-common
+  cd device_xiaomi_sm8250-common
 
   mv overlay-lineage overlay-kraken
   cd overlay-kraken
@@ -158,7 +161,8 @@ tree() {
   cd ../../
 
   sed -i "s/overlay-lineage/overlay-kraken/g" kona.mk
-  sed -i "s/vendor\/lineage/vendor\/aosp/" kona.mk
+  sed -i "s:vendor/lineage:vendor/aosp:g" kona.mk
+  sed -i "s:vendor/lineage:vendor/aosp:g" BoardConfigCommon.mk
 
   rm -rf lineage.dependencies
   echo '[
@@ -167,26 +171,20 @@ tree() {
     "target_path": "kernel/xiaomi/sm8250"
   },
   {
+    "remote": "blobs",
     "repository": "vendor_xiaomi_sm8250-common",
-    "target_path": "vendor/xiaomi/sm8250-common"
+    "target_path": "vendor/xiaomi/sm8250-common",
+    "branch": "twelve"
+  },
+  {
+    "remote": "github",
+    "repository": "xiaomi-sm8250-devs/android_hardware_xiaomi",
+    "target_path": "hardware/xiaomi",
+    "branch": "lineage-19.0"
   }
 ]' > aosp.dependencies
 
   git add . && git commit --message "sm8250-common: $bringup" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>"
-
-  # FaceUnlock
-  pwd_faceunlock=$(pwd)
-  mkdir -p overlay/packages/apps/FaceUnlockService/app/src/main/res/values
-  cd overlay/packages/apps/FaceUnlockService/app/src/main/res/values
-  wget https://raw.githubusercontent.com/PixelExperience-Devices/device_xiaomi_raphael/twelve/overlay/packages/apps/FaceUnlockService/app/src/main/res/values/config.xml
-  cd $pwd_faceunlock
-
-  msg="sm8250-common: overlay: FaceUnlockService: Define delay for our popup camera
-
-* Android framework sometimes triggers face unlock at random times (after unlocking with pin or pattern, for example) so that the camera on devices with a pop-up camera is activated at unwanted times.
-
-Adds a configurable delay to prevent this behavior"
-  git add . && git commit --message "$msg" --author "Henrique Silva <jhenrique09.mcz@hotmail.com>"
 
   # Props
   sed -i "s/debug.sf.latch_unsignaled=1/debug.sf.latch_unsignaled=0/g" system.prop
@@ -199,40 +197,49 @@ Adds a configurable delay to prevent this behavior"
 *Lmi: Also fixes Lags on Google Photos while playing videos."
   git add . && git commit --message "${msg} now" --signoff --author "soumyo19 <fsoummya@gmail.com>"
 
+  # Rules
+  sed -i "s/BUILD_BROKEN_VENDOR_PROPERTY_NAMESPACE := true/BUILD_BROKEN_VENDOR_PROPERTY_NAMESPACE := true\nBUILD_BROKEN_MISSING_REQUIRED_MODULES := true/g" BoardConfigCommon.mk
+  git add . && git commit --message "sm8250-common: Flags broken modules" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>"
+
   git push ssh://git@github.com/AOSPK-Devices/device_xiaomi_sm8250-common HEAD:refs/heads/${branch} --force
 }
-#tree
+tree
 
 # Kernel and Vendor
-cd $workingDir
+function kernelAndVendor() {
+  cd $workingDir
 
-git clone https://gitlab.com/${orgRebaseVendor}/${repoVendor}_vendor_xiaomi -b ${branchLOS} vendor_xiaomi
-cp -rf vendor_xiaomi vendor_xiaomi_lmi
-cp -rf vendor_xiaomi vendor_xiaomi_sm8250-common
+  if [[ $(cat /etc/hostname) == odin ]]; then
+    echo -e "${BOL_RED}\nVENDOR??? RODE ESSE SCRIPT SOMENTE NO SERVIDOR PARA NÃO CONSUMIR A INTERNET${END}"
+    exit
+  fi
 
-cd ${workingDir}/vendor_xiaomi_lmi
-git filter-branch --prune-empty --subdirectory-filter lmi ${branchLOS}
-git push ssh://git@github.com/AOSPK-Devices/vendor_xiaomi_lmi HEAD:refs/heads/${branch} --force
-git push ssh://git@gitlab.com/AOSPK-Devices/vendor_xiaomi_lmi HEAD:refs/heads/${branch} --force
+  git clone https://gitlab.com/${orgRebaseVendor}/${repoVendor}_vendor_xiaomi -b ${branchRebaseVendor} vendor_xiaomi
+  cp -rf vendor_xiaomi vendor_xiaomi_lmi
+  cp -rf vendor_xiaomi vendor_xiaomi_sm8250-common
 
-cd ${workingDir}/vendor_xiaomi_sm8250-common
-git filter-branch --prune-empty --subdirectory-filter sm8250-common ${branchLOS}
-git push ssh://git@github.com/AOSPK-Devices/vendor_xiaomi_sm8250-common HEAD:refs/heads/${branch} --force
-git push ssh://git@gitlab.com/AOSPK-Devices/vendor_xiaomi_sm8250-common HEAD:refs/heads/${branch} --force
+  cd ${workingDir}/vendor_xiaomi_lmi
+  git filter-branch --prune-empty --subdirectory-filter lmi ${branchRebaseVendor}
+  git push ssh://git@github.com/TheBootloops/vendor_xiaomi_lmi HEAD:refs/heads/${branch} --force
 
-cd ${workingDir}
-git clone https://github.com/${orgRebase}/android_kernel_xiaomi_sm8250 -b ${branchLOS} kernel_xiaomi_sm8250
-cd ${workingDir}/kernel_xiaomi_sm8250
+  cd ${workingDir}/vendor_xiaomi_sm8250-common
+  git filter-branch --prune-empty --subdirectory-filter sm8250-common ${branchRebaseVendor}
+  git push ssh://git@github.com/TheBootloops/vendor_xiaomi_sm8250-common HEAD:refs/heads/${branch} --force
 
-sed -i "s/lineageos/kraken/g" arch/arm64/configs/vendor/umi_defconfig
-sed -i "s/lineageos/kraken/g" arch/arm64/configs/vendor/lmi_defconfig
-sed -i "s/lineageos/kraken/g" arch/arm64/configs/vendor/apollo_defconfig
-sed -i "s/lineageos/kraken/g" arch/arm64/configs/vendor/cas_defconfig
-sed -i "s/lineageos/kraken/g" arch/arm64/configs/vendor/cmi_defconfig
-git add . && git commit --message "ARM64: configs: xiaomi: Set localversion to kraken" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>"
+  cd ${workingDir}
+  git clone https://github.com/${orgRebase}/android_kernel_xiaomi_sm8250 -b ${branchRebaseVendor} kernel_xiaomi_sm8250
+  cd ${workingDir}/kernel_xiaomi_sm8250
 
-git push ssh://git@github.com/AOSPK-Devices/kernel_xiaomi_sm8250 HEAD:refs/heads/${branch} --force
+  sed -i "s/lineageos/kraken/g" arch/arm64/configs/vendor/umi_defconfig
+  sed -i "s/lineageos/kraken/g" arch/arm64/configs/vendor/lmi_defconfig
+  sed -i "s/lineageos/kraken/g" arch/arm64/configs/vendor/apollo_defconfig
+  sed -i "s/lineageos/kraken/g" arch/arm64/configs/vendor/cas_defconfig
+  sed -i "s/lineageos/kraken/g" arch/arm64/configs/vendor/cmi_defconfig
+  git add . && git commit --message "ARM64: configs: xiaomi: Set localversion to kraken" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>"
+
+  git push ssh://git@github.com/AOSPK-Devices/kernel_xiaomi_sm8250 HEAD:refs/heads/${branch} --force
+}
+kernelAndVendor
 
 cd $pwd
-
 rm -rf $workingDir
