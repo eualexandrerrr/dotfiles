@@ -4,28 +4,12 @@ source $HOME/.Xcolors &> /dev/null
 source $HOME/.dotfiles/allscripts/.config/scripts/kraken/builderFunctions.sh
 
 tree() {
-  pwd
-  rm -rf device/xiaomi vendor/xiaomi kernel/xiaomi hardware/xiaomi
-  git clone ssh://git@github.com/AOSPK-Devices/device_xiaomi_lmi --single-branch -b twelve device/xiaomi/lmi
-  git clone ssh://git@github.com/AOSPK-Devices/device_xiaomi_sm8250-common --single-branch -b twelve device/xiaomi/sm8250-common
-  git clone ssh://git@github.com/AOSPK-Devices/kernel_xiaomi_sm8250 --single-branch -b twelve kernel/xiaomi/sm8250
-  git clone ssh://git@github.com/TheBootloops/vendor_xiaomi_lmi --single-branch -b twelve vendor/xiaomi/lmi
-  git clone ssh://git@github.com/TheBootloops/vendor_xiaomi_sm8250-common --single-branch -b twelve vendor/xiaomi/sm8250-common
-  git clone ssh://git@github.com/AOSPK/hardware_xiaomi --single-branch -b twelve hardware/xiaomi
-#  git clone ssh://git@github.com/AOSPK-Devices/device_xiaomi_ysl --single-branch -b twelve device/xiaomi/ysl
-#  git clone ssh://git@github.com/AOSPK-Devices/device_xiaomi_msm8953-common --single-branch -b twelve device/xiaomi/msm8953-common
-#  git clone https://github.com/NOtreallydust/kernel_xiaomi_ysl-1 --single-branch -b eleven kernel/xiaomi/msm8953
-#  git clone ssh://git@github.com/TheBootloops/vendor_xiaomi_msm8953-common --single-branch -b twelve vendor/xiaomi/ysl-temp
-#  cd /mnt/roms/jobs/KrakenDev/vendor/xiaomi/ysl-temp
-#  mv msm8953-common ..
-#  mv ysl ..
-#  cd ..
-#  rm -rf ysl-temp
-  cd /mnt/roms/jobs/KrakenDev
+  echo "REBASE TREE LMI"
+  bash $HOME/.dotfiles/allscripts/.config/scripts/kraken/lmi.sh
 }
 
 c() {
-  google-chrome-stable https://review.lineageos.org/q/project:LineageOS/android_${1}+branch:lineage-19.0+status:merged
+  google-chrome-stable https://review.lineageos.org/q/project:LineageOS/android_${1}+branch:lineage-19.0+status:open
 }
 
 gerrit() {
