@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+  #!/usr/bin/env bash
 
 source $HOME/.colors &>/dev/null
 
@@ -23,7 +23,7 @@ function translate() {
   rm -rf $typing && nano $typing
   msg=$(trans -b :en -no-auto -i $typing)
   typing=$(cat $typing)
-  echo "${BOL_RED}Message: ${BOL_YEL}${typing}${END}"
+  echo "${BOL_RED}Message:${BOL_YEL}${msg}${END}"
 }
 
 function gitpush() {
