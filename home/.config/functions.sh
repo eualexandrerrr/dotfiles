@@ -32,7 +32,7 @@ function gitpush() {
     echo "${BOL_RED}No push!${END}"
   else
     if [[ ${1} = amend ]]; then
-      echo "${BOL_YEL}Pushing with force!${END}"
+      echo "${BOL_YEL}Pushing with --force!${END}"
       git push -f
     else
       echo "${BOL_YEL}Pushing!${END}"
