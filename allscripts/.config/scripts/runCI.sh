@@ -3,13 +3,16 @@
 source $HOME/.Xcolors &> /dev/null
 source $HOME/.mytokens/.myTokens &> /dev/null
 
+#IP=147.75.35.163:8080
+IP=88.99.4.77:8080
+
 if [[ ! -f $HOME/.jenkins-cli.jar ]]; then
   cd $HOME
-  wget http://147.75.35.163:8080/jnlpJars/jenkins-cli.jar
+  wget http://${IP}/jnlpJars/jenkins-cli.jar
   mv jenkins-cli.jar .jenkins-cli.jar
 fi
 
-cli="java -jar $HOME/.jenkins-cli.jar -s http://147.75.35.163:8080 -auth ${myUserCI}:${ciKrakenToken} -webSocket"
+cli="java -jar $HOME/.jenkins-cli.jar -s http://${IP} -auth ${myUserCI}:${ciKrakenToken} -webSocket"
 
 JOB=KrakenDev
 codename=lmi
