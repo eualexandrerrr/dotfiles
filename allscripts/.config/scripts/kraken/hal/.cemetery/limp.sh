@@ -10,7 +10,7 @@ repos=(
     vendor_nxp_opensource_hidlimpl
 )
 
-branchLOS="lineage-19.0-${1}"
+branchLOS="arrow-12.0-${1}"
 branchKK="twelve-${1}"
 
 tmp="/tmp/kraken-hals"
@@ -19,7 +19,7 @@ cd $tmp
 
 for i in "${repos[@]}"; do
   rm -rf ${i}
-  losURL="https://github.com/LineageOS/android_${i}"
+  losURL="https://github.com/ArrowOS/android_${i}"
   krakenURL="ssh://git@github.com/AOSPK/${i}"
   echo "-------------------------------------------------------------------------"
   echo "${BLU}Clonando $losURL -b $branchLOS em ${i}${END}"

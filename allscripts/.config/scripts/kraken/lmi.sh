@@ -8,7 +8,7 @@ git config --global user.email "mamutal91@gmail.com"
 git config --global user.name "Alexandre Rangel"
 
 branch=twelve
-branchLOS=lineage-19.0
+branchLOS=arrow-12.0
 
 echo ${BOL_RED}Branch ${branch}${END}
 
@@ -20,7 +20,7 @@ if [[ $orgRebase = xiaomi-sm8250-devs ]]; then
   branchRebaseVendor=lineage-18.1
 fi
 
-if [[ $orgRebase = LineageOS ]]; then
+if [[ $orgRebase = ArrowOS ]]; then
   orgRebaseVendor=the-muppets
   repoVendor=proprietary
 fi
@@ -41,6 +41,7 @@ tree() {
   sed -i "s/lineage_/aosp_/g" aosp_lmi.mk
   sed -i "s:vendor/lineage:vendor/aosp:g" aosp_lmi.mk
   sed -i "s/Lineage stuff/Kraken stuff/g" aosp_lmi.mk
+  sed -i "s/common_full_phone.mk/common.mk/g" aosp_lmi.mk
 
   mv overlay-lineage overlay-kraken
   sed -i "s/overlay-lineage/overlay-kraken/g" device.mk
@@ -95,7 +96,7 @@ tree() {
   mkdir -p parts/res/values-pt-rBR
   echo '<?xml version="1.0" encoding="utf-8"?>
 <!--
-     Copyright (C) 2018 The LineageOS Project
+     Copyright (C) 2018 The ArrowOS Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -180,7 +181,7 @@ tree() {
     "remote": "github",
     "repository": "xiaomi-sm8250-devs/android_hardware_xiaomi",
     "target_path": "hardware/xiaomi",
-    "branch": "lineage-19.0"
+    "branch": "arrow-12.0"
   }
 ]' > aosp.dependencies
 

@@ -9,7 +9,11 @@ tree() {
 }
 
 c() {
-  google-chrome-stable https://review.lineageos.org/q/project:LineageOS/android_${1}+branch:lineage-19.0+status:open &> /dev/null
+  repo=${1}
+  [[ ${2} == o ]] && statusCommit=open || statusCommit=merged
+  google-chrome-stable https://review.arrowos.net/q/project:ArrowOS/android_${repo}+branch:arrow-12.0+status:${statusCommit} &> /dev/null
+  [[ $statusCommit=merge ]] && google-chrome-stable --new-window https://github.com/ArrowOS/android_${repo}/commits/arrow-12.0
+  clear
 }
 
 gerrit() {
@@ -69,16 +73,16 @@ push() {
       if [[ ! -d .git ]]; then
         echo "${BOL_RED}You are not in a .git repository${END}"
       else
-        echo "${BOL_BLU}Pushing to ${BOL_YEL}gerrit-staging.pixelexperience.org/${MAG}${repo}${END} ${CYA}${branch}${END}"
-        scp -p -P 29418 mamutal91@gerrit-staging.pixelexperience.org:hooks/commit-msg $(git rev-parse --git-dir)/hooks/ &> /dev/null
+        echo "${BOL_BLU}Pushing to ${BOL_YEL}gerrit.aospk.org/${MAG}${repo}${END} ${CYA}${branch}${END}"
+        scp -p -P 29418 mamutal91@gerrit.aospk.org:hooks/commit-msg $(git rev-parse --git-dir)/hooks/ &> /dev/null
         git commit --amend --no-edit &> /dev/null
         if [[ $topic ]]; then
-          git push ssh://mamutal91@gerrit-staging.pixelexperience.org:29419/${repo} $gerritPush,topic=${topic}
+          git push ssh://mamutal91@gerrit.aospk.org:29418/${repo} $gerritPush,topic=${topic}
         else
-          git push ssh://mamutal91@gerrit-staging.pixelexperience.org:29419/${repo} $gerritPush
+          git push ssh://mamutal91@gerrit.aospk.org:29418/${repo} $gerritPush
         fi
       fi
-#      [ $repo = manifest ] && echo ${BOL_RED}Pushing manifest to ORG DEV${END} && git push ssh://git@github.com/AOSPK-Next/manifest HEAD:refs/heads/twelve --force
+      [[ $repo = manifest ]] && echo ${BOL_RED}Pushing manifest to ORG DEV${END} && git push ssh://git@github.com/AOSPK-Next/manifest HEAD:refs/heads/twelve --force
     fi
   fi
 
@@ -96,8 +100,8 @@ push() {
 
 upstream() {
   repo=${1}
-  orgBase=LineageOS
-  [[ ${4} != "-f" ]] && branchBase=${2} || branchBase=lineage-18.1
+  orgBase=ArrowOS
+  [[ ${4} != "-f" ]] && branchBase=${2} || branchBase=arrow-11.0
   branchKraken=${3}
   [[ $repo == hardware_qcom_wlan ]] && branchBase="${branchBase}-caf" && branchKraken="${branchKraken}-caf"
   [[ $repo == hardware_qcom_bt ]] && branchBase="${branchBase}-caf" && branchKraken="${branchKraken}-caf"
@@ -108,30 +112,30 @@ upstream() {
     echo "${BOL_RED}Forget everything above, I'm cloning it is straight from AOSP${END}"
     repoAOSP=$(echo $repo | sed "s/_/\//g")
     [[ $repoAOSP == hardware/libhardware/legacy ]] && repoAOSP="hardware/libhardware_legacy"
-    git clone https://android.googlesource.com/platform/${repoAOSP} -b android-12.0.0_r1 ${repo}
+    git clone https://android.googlesource.com/platform/${repoAOSP} -b android-12.0.0_r2 ${repo}
   else
     git clone https://github.com/${orgBase}/android_${repo} -b ${branchBase} ${repo}
   fi
   cd ${repo}
-  repo=$(echo $repo | sed -e "s/lineage/custom/g")
-  repo=$(echo $repo | sed -e "s/Lineage/Custom/g")
-  repo=$(echo $repo | sed -e "s/Trebuchet/Launcher3/g")
-  gh repo create AOSPK/${repo} --public --confirm
+  repo=$(echo $repo | sed -e "s/arrow/custom/g")
+  repo=$(echo $repo | sed -e "s/Arrow/Custom/g")
+  repo=$(echo $repo | sed -e "s/vendor_custom/vendor_aosp/g")
   gh repo create AOSPK-Next/${repo} --private --confirm
-  git push ssh://git@github.com/AOSPK/${repo} HEAD:refs/heads/${branchKraken} --force
   git push ssh://git@github.com/AOSPK-Next/${repo} HEAD:refs/heads/${branchKraken} --force
-  gh api -XPATCH "repos/AOSPK/${repo}" -f default_branch="${branchKraken}" &> /dev/null
   gh api -XPATCH "repos/AOSPK-Next/${repo}" -f default_branch="${branchKraken}" &> /dev/null
+
+#  if [[ ${4} == "-m" ]]; then
+    echo -e "${BOL_RED}Warning ! ${BOL_BLU}Pushing to main org github.com/AOSPK ${END}"
+    gh repo create AOSPK/${repo} --public --confirm
+    git push ssh://git@github.com/AOSPK/${repo} HEAD:refs/heads/${branchKraken} --force
+    gh api -XPATCH "repos/AOSPK/${repo}" -f default_branch="${branchKraken}" &> /dev/null
+#  fi
+
   rm -rf $workingDir
 }
 
 up() {
-  upstream ${1} lineage-19.0 twelve ${2}
-  # upstream ${1} lineage-18.1 eleven
-  #  upstream ${1} lineage-17.1 ten
-  #  upstream ${1} lineage-16.0 pie
-  #  upstream ${1} lineage-15.1 oreo-mr1
-  #  upstream ${1} cm-14.1 nougat
+  upstream ${1} arrow-12.0 twelve ${2}
 }
 
 hals() {

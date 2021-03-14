@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Copyright (C) 2017 The LineageOS Project
+# Copyright (C) 2017 The ArrowOS Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -52,7 +52,7 @@ BRANCH=$(git -C ${TOP}/.repo/manifests.git config --get branch.default.merge | s
 STAGINGBRANCH="staging/${BRANCH}_${OPERATION}-${NEWTAG}"
 STAGINGBRANCH="staging/${BRANCH}_${OPERATION}-${NEWTAG}"
 
-# Build list of LineageOS forked repos
+# Build list of ArrowOS forked repos
 PROJECTPATHS=$(grep "remote=\"aospk/" "${MANIFEST}" | sed -n 's/.*path="\([^"]\+\)".*/\1/p')
 
 echo -e "#### Old tag = ${OLDTAG} \n#### Branch = ${BRANCH} \n#### Staging branch = ${STAGINGBRANCH}"

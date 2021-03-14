@@ -53,7 +53,6 @@ f() {
 
 p() {
   git cherry-pick ${1}
-  m
 }
 
 translate() {
@@ -152,15 +151,15 @@ m() {
     fi
     cd $dirname
     replaceSed() {
-    sed -i "s:vendor/lineage:vendor/aosp:g" ${basename}
-    sed -i "s:device/lineage:device/custom:g" ${basename}
-    sed -i "s:hardware/lineage:hardware/custom:g" ${basename}
-    sed -i "s:LINEAGE_:KRAKEN_:g" ${basename}
-#    sed -i "s:LINEAGE:KRAKEN:g" ${basename}
-    sed -i "s:lineage_:aosp_:g" ${basename}
-#    sed -i "s:arrow:kraken:g" ${basename}
-#    sed -i "s:ro.arrow:ro.kraken:g" ${basename}
-    sed -i "s:BoardConfigLineage.mk:BoardConfigKraken.mk:g" ${basename}
+    sed -i "s:vendor/arrow:vendor/aosp:g" ${basename}
+    sed -i "s:device/arrow:device/custom:g" ${basename}
+    sed -i "s:hardware/arrow:hardware/custom:g" ${basename}
+    sed -i "s:ARROW_:KRAKEN_:g" ${basename}
+    sed -i "s:ARROW:KRAKEN:g" ${basename}
+    sed -i "s:arrow_:aosp_:g" ${basename}
+    sed -i "s:arrow:kraken:g" ${basename}
+    sed -i "s:ro.arrow:ro.kraken:g" ${basename}
+    sed -i "s:BoardConfigArrow.mk:BoardConfigKraken.mk:g" ${basename}
     }
     replaceSed
     cd $pwd
