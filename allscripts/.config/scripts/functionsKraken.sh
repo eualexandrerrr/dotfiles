@@ -141,14 +141,8 @@ up() {
 hals() {
     pwd=$(pwd)
     branch=(
-      apq8084
-      msm8960
-      msm8952
-      msm8916
-      msm8974
-      msm8994
-      msm8996
       msm8998
+      sdm660
       sdm845
       sm8150
       sm8250
@@ -157,6 +151,6 @@ hals() {
     for i in "${branch[@]}"; do
       $HOME/.dotfiles/allscripts/.config/scripts/kraken/hal/hal.sh ${i}
     done
-    $HOME/.dotfiles/allscripts/.config/scripts/kraken/hal/devicesettings-custom.sh
+#    $HOME/.dotfiles/allscripts/.config/scripts/kraken/hal/devicesettings-custom.sh
     cd $pwd
 }

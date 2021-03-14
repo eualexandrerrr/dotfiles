@@ -8,7 +8,8 @@ git config --global user.email "mamutal91@gmail.com"
 git config --global user.name "Alexandre Rangel"
 
 branch=twelve
-branchLOS=arrow-12.0
+branchRebase=lineage-19.0
+branchRebaseKernel=lineage-19.0
 
 echo ${BOL_RED}Branch ${branch}${END}
 
@@ -30,7 +31,7 @@ bringup="Initial changes for Kraken"
 workingDir=$(mktemp -d) && cd $workingDir
 
 tree() {
-  git clone https://github.com/${orgRebase}/android_device_xiaomi_lmi -b ${branchLOS} device_xiaomi_lmi
+  git clone https://github.com/${orgRebase}/android_device_xiaomi_lmi -b ${branchRebase} device_xiaomi_lmi
 
   # Tree
   cd ${workingDir}/device_xiaomi_lmi
@@ -150,7 +151,7 @@ tree() {
 
   # Common
   cd ${workingDir}
-  git clone https://github.com/${orgRebase}/android_device_xiaomi_sm8250-common -b ${branchLOS} device_xiaomi_sm8250-common
+  git clone https://github.com/${orgRebase}/android_device_xiaomi_sm8250-common -b ${branchRebase} device_xiaomi_sm8250-common
   cd device_xiaomi_sm8250-common
 
   mv overlay-lineage overlay-kraken
@@ -179,9 +180,9 @@ tree() {
   },
   {
     "remote": "github",
-    "repository": "xiaomi-sm8250-devs/android_hardware_xiaomi",
+    "repository": "AOSPK/hardware_xiaomi",
     "target_path": "hardware/xiaomi",
-    "branch": "arrow-12.0"
+    "branch": "twelve"
   }
 ]' > aosp.dependencies
 
@@ -228,7 +229,7 @@ function kernelAndVendor() {
   git push ssh://git@github.com/TheBootloops/vendor_xiaomi_sm8250-common HEAD:refs/heads/${branch} --force
 
   cd ${workingDir}
-  git clone https://github.com/${orgRebase}/android_kernel_xiaomi_sm8250 -b ${branchRebaseVendor} kernel_xiaomi_sm8250
+  git clone https://github.com/${orgRebase}/android_kernel_xiaomi_sm8250 -b ${branchRebaseKernel} kernel_xiaomi_sm8250
   cd ${workingDir}/kernel_xiaomi_sm8250
 
   sed -i "s/lineageos/kraken/g" arch/arm64/configs/vendor/umi_defconfig

@@ -19,7 +19,7 @@ for i in ${repos[@]}; do
   echo -e "${BOL_CYA}Kraken  : ${BOL_MAG}$branchKraken${END}"
   if curl --output /dev/null --silent --head --fail "https://github.com/ArrowOS/android_${i}/commits/${branchBase}"; then
     git clone https://github.com/ArrowOS/android_${i} -b $branchBase ${i}
-    cd ${i} &> /dev/null
+    cd ${i}
     git push ssh://git@github.com/AOSPK/${i} HEAD:refs/heads/$branchKraken --force &> /dev/null
     git push ssh://git@github.com/AOSPK-Next/${i} HEAD:refs/heads/$branchKraken --force &> /dev/null
   else
