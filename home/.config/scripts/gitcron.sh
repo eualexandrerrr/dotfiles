@@ -27,27 +27,30 @@ fi
 
 # Kraken VPS
 if [[ $HOST = mamutal91 ]]; then
-  kraken=( "gerrit" "jenkins" )
+  m="Autocommit Git-Cron"
+  pwd=$(pwd)
+  sudo rm -rf /home/mamutal91/.jenkins
+  git clone ssh://git@github.com/AOSPK/jenkins -b master /home/mamutal91/.jenkins
+  sudo cp -rf /mnt/roms/backupJenkins/* /home/mamutal91/.jenkins
+  cd /home/mamutal91/.jenkins
+  sudo git add . && sudo git commit -m "${m}" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>" --date "$(date)" && sudo git push -f
 
-  for i in "${kraken[@]}"; do
-    sudo rm -rf /home/mamutal91/.gerrit
-    sudo rm -rf /home/mamutal91/.jenkins
-    git clone ssh://git@github.com/AOSPK/gerrit -b backup /home/mamutal91/.gerrit
-    git clone ssh://git@github.com/AOSPK/jenkins -b master /home/mamutal91/.jenkins
-    if [[ ${i} = gerrit ]]; then
-      sudo cp -rf /mnt/roms/sites/docker/gerrit /home/mamutal91/.gerrit
-    fi
-    if [[ ${i} = jenkins ]]; then
-      sudo cp -rf /var/lib/jenkins/* /home/mamutal91/.jenkins
-    fi
-  	cd $HOME/.${i}
-  	status=$(sudo git add . -n)
-  	if [[ ! -z "$status" ]]; then
-  		c=$(echo $(sudo git add . -n | tr '\r\n' ' '))
-  		m="Autocommit Git-Cron: ${c}"
-  		sudo git add .
-      sudo git commit -m "${m}" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>" --date "$(date)"
-  		sudo git push -f
-  	fi
-  done
+  sudo rm -rf /home/mamutal91/.gerrit
+  git clone ssh://git@github.com/AOSPK/gerrit -b backup /home/mamutal91/.gerrit
+  sudo cp -rf /mnt/roms/sites/docker/gerrit /home/mamutal91/.gerrit
+  cd /home/mamutal91/.gerrit
+  sudo git add . && sudo git commit -m "${m}" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>" --date "$(date)" && sudo git push -f
+  cd $pwd
+fi
+
+# BuildersBR
+if [[ $HOST = buildersbr.ninja ]]; then
+  m="Autocommit Git-Cron"
+  pwd=$(pwd)
+  sudo rm -rf /home/mamutal91/.jenkins
+  git clone ssh://git@github.com/buildersbr/jenkins -b master /home/mamutal91/.jenkins
+  sudo cp -rf /mnt/roms/backupJenkins/* /home/mamutal91/.jenkins
+  cd /home/mamutal91/.jenkins
+  sudo git add . && sudo git commit -m "${m}" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>" --date "$(date)" && sudo git push -f
+  cd $pwd
 fi
