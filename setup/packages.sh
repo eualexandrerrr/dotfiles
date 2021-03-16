@@ -21,7 +21,7 @@ readonly PACKAGES=(
   krita
   reflector
   stow sway swaybg
-  telegram-desktop thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman transmission-gtk
+  telegram-desktop tree thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman transmission-gtk
   waybar wayland wofi
   xorg-server-xwayland
   zsh-syntax-highlighting
