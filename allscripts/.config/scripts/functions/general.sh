@@ -25,6 +25,18 @@ infra() {
   ssh mamutal91@88.99.4.77 "cd $HOME && rm -rf /mnt/roms/infra && git clone ssh://git@github.com/AOSPK/infra /mnt/roms/infra"
 }
 
+www() {
+  pwd=$(pwd)
+  cd /mnt/roms/sites/docker/
+  rm -rf website
+  git clone ssh://git@github.com/AOSPK/website-wip website
+  cd website
+  sudo docker-compose stop
+  sudo docker-compose build
+  sudo docker-compose up -d
+  cd $pwd
+}
+
 gerrit() {
   pwd=$(pwd)
   if [[ ${1} == restart ]]; then
