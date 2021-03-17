@@ -2,7 +2,7 @@
 
 pwd=$(pwd)
 LMI=/tmp/lmi
-rm -rf $LMI && mkdir $LMI && cd $LMI
+sudo rm -rf $LMI && mkdir $LMI && cd $LMI
 
 bringup="Initial changes for Kraken"
 

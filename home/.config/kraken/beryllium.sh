@@ -2,7 +2,7 @@
 
 pwd=$(pwd)
 BERYLLIUM=/tmp/beryllium
-rm -rf $BERYLLIUM && mkdir $BERYLLIUM && cd $BERYLLIUM
+sudo rm -rf $BERYLLIUM && mkdir $BERYLLIUM && cd $BERYLLIUM
 
 bringup="Initial changes for Kraken"
 
