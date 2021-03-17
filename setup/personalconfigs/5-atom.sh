@@ -17,5 +17,9 @@ atomPkgs=(
 )
 
 for i in "${atomPkgs[@]}"; do
-  apm install ${i} --no-confirm
+  if apm list | grep ${i}; then
+    echo ${i} already installed, skiping...
+  else
+    apm install ${i} --no-confirm
+  fi
 done

@@ -76,13 +76,7 @@ sudo cp -rf $HOME/.dotfiles/assets/.config/assets/fonts/* /usr/share/fonts/TTF
 fc-cache -f -r -v &> /dev/null
 
 # Remove Kraken scripts
-[[ $USER != mamutal91 ]] && rm -rf $HOME/.dotfiles/allscripts/.config/scripts/kraken && rm -rf $HOME//.config/scripts/kraken
-
-# Last scripts
-for i in $(ls $HOME/.dotfiles/setup/scripts/*.sh); do
-  chmod +x $i
-  bash $i
-done
+[[ $USER != mamutal91 ]] && rm -rf $HOME/.dotfiles/allscripts/.config/scripts/kraken && rm -rf $HOME/.config/scripts/kraken
 
 if [[ $HOST == odin ]]; then
   for i in $(ls $HOME/.dotfiles/setup/personalconfigs/*.sh); do

@@ -1,6 +1,6 @@
 /* Confirm Dialog */
 
-@import "~/.Xrasi"
+@import "~/.config/rofi/style.rasi"
 
 * {
     background-color:              @background;

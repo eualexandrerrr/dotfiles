@@ -2,7 +2,7 @@
 
 zipBuild=${1}
 
-source /home/mamutal91/.mytokens/.myTokens
+source $HOME/.mytokens/.myTokens &> /dev/null
 
 chatId="-1001485974314"
 

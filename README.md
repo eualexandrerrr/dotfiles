@@ -63,38 +63,36 @@ $ startx
 
 ## Polybar
 #### Available modules
- - volume
- - brightness
- - battery_bar
- - cpu_bar
- - filesystem_bar
- - memory_bar
- - mpd_bar
  - alsa
+ - apps
  - backlight
  - battery
+ - battery_bar
+ - brightness
+ - browser
  - cpu
+ - cpu_bar
  - date
+ - files
  - filesystem
+ - filesystem_bar
+ - keyboard
+ - launcher
  - memory
+ - memory_bar
+ - menu
  - mpd
+ - mpd_bar
+ - network
+ - powermenu
+ - pulseaudio
+ - settings
+ - sysmenu
+ - temperature
+ - term
+ - title
+ - updates
+ - volume
  - wired-network
  - wireless-network
- - network
- - pulseaudio
- - temperature
- - keyboard
- - title
  - workspaces
- - updates
- - launcher
- - sysmenu
- - color-switch
- - sep
- - apps
- - term
- - files
- - browser
- - settings
- - powermenu
- - menu

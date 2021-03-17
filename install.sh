@@ -17,13 +17,6 @@ for dotfiles in $(find . -maxdepth 1  -not -name ".*" ! -name "setup" -type d -p
   echo "${RED}$dotfiles ${GRE}stowed.${END}"
 done
 
-# Styles
-echo "${RED}styles, themes and gtk ${GRE}configured.${END}"
-bash $HOME/.dotfiles/setup/scripts/theme_generator_colors.sh
-bash $HOME/.dotfiles/setup/scripts/theme_generator_gtk.sh
-bash $HOME/.dotfiles/polybar/.config/polybar/scripts/style-switch-generator.sh
-bash $HOME/.dotfiles/polybar/.config/polybar/scripts/easy-menu-generator.sh
-
 # etc
 echo "${RED}/etc/ ${GRE}configured.${END}"
 bash $HOME/.dotfiles/setup/scripts/etc.sh

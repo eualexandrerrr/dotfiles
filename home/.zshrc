@@ -18,7 +18,6 @@ source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 
 export BROWSER="/usr/bin/google-chrome-stable"
 export EDITOR="nano"
-export LS_COLORS="$LS_COLORS:ow=1;34:tw=1;34:"
 export TERM="xterm-256color"
 export STUDIO_JDK=/usr/lib/jvm/java-11-openjdk
 export PATH="/usr/share/:$PATH"
@@ -36,11 +35,19 @@ alias notify-send="dunstify"
 alias sideload="sudo adb sideload"
 
 # Paths
-alias x="cd /mnt/roms/jobs/KrakenDev"
+if [[ $(cat /etc/hostname) == odin ]]; then
+  alias x="cd /mnt/storage/Kraken"
+  alias out="clear && cd /mnt/storage/Kraken/out/target/product/lmi && ls -1"
+else
+  alias x="cd /mnt/roms/jobs/KrakenDev"
+  alias out="clear && cd /mnt/roms/jobs/KrakenDev/out/target/product/lmi && ls -1"
+fi
 
 if [[ $USER == mamutal91 ]]; then
   git config --global user.email "mamutal91@gmail.com" && git config --global user.name "Alexandre Rangel"
-  source $HOME/.config/scripts/functions.sh
-  source $HOME/.config/scripts/functionsKraken.sh
-  source $HOME/.config/scripts/git.sh
+  source $HOME/.config/scripts/functions/builder.sh
+  source $HOME/.config/scripts/functions/general.sh
+  source $HOME/.config/scripts/functions/giteasy.sh
+  source $HOME/.config/scripts/functions/push.sh
+  source $HOME/.config/scripts/functions/upstreamAndHals.sh
 fi

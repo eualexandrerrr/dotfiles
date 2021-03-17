@@ -1,7 +1,7 @@
 configuration {
     lines:					             		15;
     columns:					             	1;
-    font: 		            					"Terminus 9";
+    font: 		            					"Terminus 10";
     bw: 					               		0;
     location: 			           			0;
     padding: 			            			0;
@@ -25,7 +25,7 @@ configuration {
     display-combi: 				         	"";
 }
 
-@import "~/.Xrasi"
+@import "~/.config/rofi/style.rasi"
 
 * {
     background-color:             	@background;
@@ -91,7 +91,7 @@ element {
 }
 element normal.normal {
     background-color: 		      		@background;
-    text-color:       		      		@foreground;
+    text-color: 			           		@foreground;
 }
 element normal.urgent {
     background-color: 		      		@background;
@@ -111,19 +111,19 @@ element selected.urgent {
 }
 element selected.active {
     background-color: 		      		@foreground;
-    text-color:       		      		@background;
+    text-color: 			           		@foreground;
 }
 element alternate.normal {
     background-color: 		      		@background;
-    text-color:       		      		@foreground;
+    text-color: 			           		@foreground;
 }
 element alternate.urgent {
     background-color: 		      		@background;
-    text-color:       		      		@foreground;
+    text-color: 			           		@foreground;
 }
 element alternate.active {
     background-color: 		      		@background;
-    text-color:       		      		@foreground;
+    text-color: 			           		@foreground;
 }
 
 sidebar {
@@ -136,7 +136,7 @@ button {
     background-color:             	@foreground;
     margin: 				            		5px;
     padding: 			            			5px;
-    text-color: 	           				@background;
+    text-color: 			           		@foreground;
     border: 			             			0px;
     border-radius:        					4px;
     border-color: 	         				@foreground;
@@ -165,5 +165,5 @@ message {
 }
 
 textbox {
-    text-color: 		          			@foreground;
+    text-color: 			           		@foreground;
 }

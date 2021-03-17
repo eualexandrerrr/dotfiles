@@ -28,7 +28,7 @@ font:
   bold_italic:
     family: Terminus
     style: Bold Italic
-  size: 10
+  size: 7
 
 mouse:
   double_click: { threshold: 300 }

@@ -6,7 +6,7 @@ configuration {
 		sidebar-mode: 									false;
 }
 
-@import "~/.Xrasi"
+@import "~/.config/rofi/style.rasi"
 
 * {
     background-color:               @background;
