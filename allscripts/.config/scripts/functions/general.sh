@@ -3,6 +3,14 @@
 source $HOME/.Xcolors &> /dev/null
 source $HOME/.mytokens/.myTokens &> /dev/null
 
+c() {
+  if [[ ${2} == open ]]; then
+    google-chrome-stable https://review.arrowos.net/q/project:ArrowOS/android_${1}+branch:arrow-12.0+status:open
+  else
+    google-chrome-stable https://review.arrowos.net/q/project:ArrowOS/android_${1}+branch:arrow-12.0+status:merged
+  fi
+}
+
 newuser(){
   user=${1}
   sudo useradd ${user}
@@ -15,6 +23,19 @@ newuser(){
 infra() {
   echo -e "\n${BLU}Recloning ${CYA}infra ${BLU}to have the latest changes...${END}"
   ssh mamutal91@88.99.4.77 "cd $HOME && rm -rf /mnt/roms/infra && git clone ssh://git@github.com/AOSPK/infra /mnt/roms/infra"
+}
+
+gerrit() {
+  pwd=$(pwd)
+  if [[ ${1} == restart ]]; then
+    cd /mnt/roms/sites/docker/docker-files/gerrit
+    sudo docker-compose stop
+    sudo docker-compose restart
+  else
+    cd /mnt/roms/sites/docker/docker-files/gerrit
+    sudo bash repl.sh
+  fi
+  cd $pwd
 }
 
 qemu() {

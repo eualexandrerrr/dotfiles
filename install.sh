@@ -19,7 +19,7 @@ done
 
 # etc
 echo "${RED}/etc/ ${GRE}configured.${END}"
-bash $HOME/.dotfiles/setup/scripts/etc.sh
+bash $HOME/.dotfiles/setup/etc.sh
 
 # Clone my tokens
 [[ ! -d $HOME/.mytokens ]] && git clone ssh://git@github.com/mamutal91/mytokens $HOME/.mytokens

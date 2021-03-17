@@ -3,7 +3,18 @@
 source $HOME/.Xcolors &> /dev/null
 
 getRepoName(){
-  repoName=$(pwd | cut -c21-300 | sed "s:/:_:g")
+  repoNameCheck=$(pwd | cut -c-20)
+  if [[ $repoNameCheck == "/home/mamutal91/GitH" ]]; then
+    repoName=$(pwd | cut -c24-300 | sed "s:/:_:g")
+  elif [[ $repoNameCheck == "/mnt/storage/Kraken/" ]]; then
+    repoName=$(pwd | cut -c21-300 | sed "s:/:_:g")
+  elif [[ $repoNameCheck == "/mnt/storage/KrakenD" ]]; then
+    repoName=$(pwd | cut -c24-300 | sed "s:/:_:g")
+  else
+    echo -e "\n\n${BOL_MAG}* * *${BOL_RED}Eu não consegui capturar o nome do repo...${END}"
+    repoName=$(pwd | cut -c17-300 | sed "s:/:_:g")
+    echo -e "\n\n${BOL_YEL}${repoName}${END}"
+  fi
 }
 
 pushGitHub() {
@@ -27,11 +38,11 @@ pushGitHub() {
       git push ssh://git@github.com/${pushGitHubOrg}/${pushGitHubRepo} HEAD:refs/heads/${pushCommitBranch} --force
     else
       echo -e "\n${BOL_BLU}Pushing to ${BOL_YEL}github.com/${CYA}${pushGitHubOrg}/${MAG}${pushGitHubRepo}${END} ${YEL}${pushCommitBranch}${END}\n"
-      gh repo create AOSPK/${repo} --public --confirm &> /dev/null
-      gh repo create AOSPK-Next/${repo} --private --confirm &> /dev/null
-      git push ssh://git@${githost}.com/${org}/${repo} HEAD:refs/heads/${branch} --force
-      gh api -XPATCH "repos/AOSPK/${repo}" -f default_branch="${branch}" &> /dev/null
-      gh api -XPATCH "repos/AOSPK-Next/${repo}" -f default_branch="${branch}" &> /dev/null
+      gh repo create AOSPK/${pushGitHubRepo} --public --confirm &> /dev/null
+      gh repo create AOSPK-Next/${pushGitHubRepo} --private --confirm &> /dev/null
+      git push ssh://git@github.com/${pushGitHubOrg}/${pushGitHubRepo} HEAD:refs/heads/${pushCommitBranch} --force
+      gh api -XPATCH "repos/AOSPK/${pushGitHubRepo}" -f default_branch="${pushCommitBranch}" &> /dev/null
+      gh api -XPATCH "repos/AOSPK-Next/${pushGitHubRepo}" -f default_branch="${pushCommitBranch}" &> /dev/null
     fi
   fi
 }
@@ -41,6 +52,7 @@ pushGerrit() {
   pushGerritArgument=${2}
   pushGerritProject=${3}
   pushGerritBranch="twelve"
+  [[ $pushGerritRepo == official_devices ]] && pushGerritBranch=master
   pushGerritUrlProject="gerrit.aospk.org"
   if [[ -z ${pushGerritArgument} ]]; then
     echo -e "${BLU}Usage:\n"

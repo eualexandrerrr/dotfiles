@@ -24,8 +24,11 @@ upstream() {
   repo=$(echo $repo | sed -e "s/arrow/custom/g")
   repo=$(echo $repo | sed -e "s/Arrow/Custom/g")
   repo=$(echo $repo | sed -e "s/vendor_custom/vendor_aosp/g")
+  gh repo create AOSPK/${repo} --public --confirm
   gh repo create AOSPK-Next/${repo} --private --confirm
+  git push ssh://git@github.com/AOSPK/${repo} HEAD:refs/heads/${branchKraken} --force
   git push ssh://git@github.com/AOSPK-Next/${repo} HEAD:refs/heads/${branchKraken} --force
+  gh api -XPATCH "repos/AOSPK/${repo}" -f default_branch="${branchKraken}" &> /dev/null
   gh api -XPATCH "repos/AOSPK-Next/${repo}" -f default_branch="${branchKraken}" &> /dev/null
   rm -rf $workingDir
 }

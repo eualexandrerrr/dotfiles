@@ -33,6 +33,7 @@ alias systemctl="sudo systemctl"
 alias xprop="xprop | awk '/^WM_CLASS/{sub(/.* =/, \"instance:\"); sub(/,/, \"\nclass:\"); print} /^WM_NAME/{sub(/.* =/, \"title:\"); print}'"
 alias notify-send="dunstify"
 alias sideload="sudo adb sideload"
+alias atom="atom -n=false"
 
 # Paths
 if [[ $(cat /etc/hostname) == odin ]]; then
