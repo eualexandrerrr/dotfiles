@@ -3,6 +3,10 @@
 source $HOME/.Xcolors &> /dev/null
 source $HOME/.mytokens/.myTokens &> /dev/null
 
+rom="/mnt/storage/Kraken"
+codename=lmi
+buildtype=userdebug
+
 argsC() {
   export TARGET_BOOT_ANIMATION_RES=1080
 }
@@ -11,18 +15,9 @@ ccacheC() {
   export USE_CCACHE=1
   export CCACHE_EXEC=/usr/bin/ccache
   export CCACHE_DIR=/mnt/storage/ccache
-  ccache -M 60G -F 0
+  ccache -M 100G -F 0
   sudo mkdir -p /home/mamutal91/.ccache &> /dev/null
   sudo mount --bind /mnt/storage/ccache ~/.ccache
-}
-
-rom="/mnt/storage/Kraken"
-codename=lmi
-buildtype=userdebug
-
-unproxy() {
-  git config --global --unset http.proxy
-  git config --global --unset https.proxy
 }
 
 proxy() {
@@ -47,6 +42,11 @@ proxy() {
   fi
 }
 
+unproxy() {
+  git config --global --unset http.proxy
+  git config --global --unset https.proxy
+}
+
 s() {
   currentWifi=$(iwctl station wlan0 show | grep 'Connected network' | awk '{ print $3}')
   if [[ $currentWifi == "MamutMovel" ]]; then
@@ -58,7 +58,7 @@ s() {
   else
     proxy ${1}
   fi
-  cd $rom && clear && pwd
+  cd $rom && clear
   rm -rf .repo/local_manifests
   nbfc set -s 100
   repo init -u https://github.com/AOSPK/manifest -b twelve
@@ -72,10 +72,18 @@ lunchC() {
 }
 
 b() {
-  cd $rom && clear && pwd
+  cd $rom && clear
   nbfc set -s 100
   argsC
   ccacheC
+  task=${1}
+  [[ -z $task ]] && task=bacon || task=${1}
+  echo -e "${BOL_MAG}\nYou are building:"
+  echo -e "${BOL_YEL}Task   : ${BOL_CYA}${task}"
+  echo -e "${BOL_YEL}Device : ${BOL_CYA}${codename}"
+  echo -e "${BOL_YEL}Type   : ${BOL_CYA}${buildtype}"
+  echo -e "${BOL_YEL}Pwd    : ${BOL_CYA}$PWD"
+  echo -e "\n\n"
   lunchC
   make -j$(nproc --all) ${task} 2>&1 | tee log.txt
   dunstify "Kraken Builder" "Build finished"
@@ -83,7 +91,7 @@ b() {
 }
 
 clean() {
-  cd $rom && clear && pwd
+  cd $rom && clear
   nbfc set -s 100
   argsC
   lunchC
