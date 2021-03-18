@@ -55,10 +55,13 @@ pushGitHub() {
 pushGerrit() {
   pushGerritRepo=${repoName}
   pushGerritArgument=${2}
-  pushGerritProject=${3}
+  pushGerritTopic=${3}
   pushGerritBranch="twelve"
   [[ $pushGerritRepo == official_devices ]] && pushGerritBranch=master
   pushGerritUrlProject="gerrit.aospk.org"
+  if [[ ${pushGerritArgument} == "-c" ]]; then
+    pushGerritIdCommit=${3}
+  fi
   if [[ -z ${pushGerritArgument} ]]; then
     echo -e "${BLU}Usage:\n"
     echo -e "${CYA}  push gerrit ${RED}-?${END} ${GRE}<topic>${END}${YEL}"
@@ -72,9 +75,11 @@ pushGerrit() {
   else
     [[ ${pushGerritArgument} == -s ]] && pushGerritPush="HEAD:refs/for/${pushGerritBranch}%submit"
     [[ ${pushGerritArgument} == -v ]] && pushGerritPush="HEAD:refs/for/${pushGerritBranch}%l=Verified+1,l=Code-Review+2"
-    [[ ${pushGerritArgument} == -c ]] && pushGerritPush="${3}:refs/for/${pushGerritBranch}" && topic=${4}
+    [[ ${pushGerritArgument} == -c ]] && pushGerritPush="${pushGerritIdCommit}:refs/for/${pushGerritBranch}"
     [[ ${pushGerritArgument} == -n ]] && pushGerritPush="HEAD:refs/for/${pushGerritBranch}"
     if [[ ${pushGerritArgument} == -p ]]; then
+      pushGerritProject=${3}
+      pushGerritTopic=${4}
       if [[ -n ${pushGerritBranch} ]]; then
         echo -e "${BOL_RED}You need type ${BOL_YEL}branch!"
         sleep 100
