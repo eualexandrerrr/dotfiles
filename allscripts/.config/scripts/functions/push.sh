@@ -22,6 +22,11 @@ pushGitHub() {
   pushGitHubArgument=${1}
   pushCommitBranch="twelve"
   pushGitHubOrg="AOSPK-Next"
+  pushGitHubHost=github
+  if [[ $repoName == vendor_gapps ]]; then
+    pushGitHubOrg="AOSPK"
+    pushGitHubHost=gitlab
+  fi
   if [[ -z ${pushGitHubArgument} ]]; then
     echo -e "${BLU}Usage:\n"
     echo -e "${CYA}  push ${RED}-?${YEL}"
@@ -34,13 +39,13 @@ pushGitHub() {
       else
         pushGitHubOrg="AOSPK-Devices"
       fi
-      echo -e "\n${BOL_BLU}Pushing to ${BOL_YEL}github.com/${CYA}${pushGitHubOrg}/${MAG}${pushGitHubRepo}${END} ${YEL}${pushCommitBranch}${END}\n"
+      echo -e "\n${BOL_BLU}Pushing to ${BOL_YEL}${pushGitHubHost}.com/${CYA}${pushGitHubOrg}/${MAG}${pushGitHubRepo}${END} ${YEL}${pushCommitBranch}${END}\n"
       git push ssh://git@github.com/${pushGitHubOrg}/${pushGitHubRepo} HEAD:refs/heads/${pushCommitBranch} --force
     else
-      echo -e "\n${BOL_BLU}Pushing to ${BOL_YEL}github.com/${CYA}${pushGitHubOrg}/${MAG}${pushGitHubRepo}${END} ${YEL}${pushCommitBranch}${END}\n"
+      echo -e "\n${BOL_BLU}Pushing to ${BOL_YEL}${pushGitHubHost}.com/${CYA}${pushGitHubOrg}/${MAG}${pushGitHubRepo}${END} ${YEL}${pushCommitBranch}${END}\n"
       gh repo create AOSPK/${pushGitHubRepo} --public --confirm &> /dev/null
       gh repo create AOSPK-Next/${pushGitHubRepo} --private --confirm &> /dev/null
-      git push ssh://git@github.com/${pushGitHubOrg}/${pushGitHubRepo} HEAD:refs/heads/${pushCommitBranch} --force
+      git push ssh://git@${pushGitHubHost}.com/${pushGitHubOrg}/${pushGitHubRepo} HEAD:refs/heads/${pushCommitBranch} --force
       gh api -XPATCH "repos/AOSPK/${pushGitHubRepo}" -f default_branch="${pushCommitBranch}" &> /dev/null
       gh api -XPATCH "repos/AOSPK-Next/${pushGitHubRepo}" -f default_branch="${pushCommitBranch}" &> /dev/null
     fi
