@@ -54,6 +54,10 @@ qemu() {
   $HOME/.config/scripts/qemu.sh ${1}
 }
 
+sideload() {
+  sudo adb sideload ${1}
+}
+
 dot() {
   if [[ ${1} ]]; then
     cd $HOME && rm -rf .dotfiles && git clone ssh://git@github.com/mamutal91/dotfiles .dotfiles && source $HOME/.zshrc

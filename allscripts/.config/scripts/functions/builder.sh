@@ -71,6 +71,14 @@ lunchC() {
   lunch aosp_${codename}-${buildtype}
 }
 
+moveBuild() {
+  pwd=$(pwd)
+  mkdir -p $HOME/Builds &> /dev/null
+  cd /mnt/storage/Kraken/out/target/product/lmi
+  mv Kraken-12-*-lmi-*.zip $HOME/Builds
+  cd $pwd
+}
+
 b() {
   cd $rom && clear
   nbfc set -s 100
@@ -88,6 +96,7 @@ b() {
   make -j$(nproc --all) ${task} 2>&1 | tee log.txt
   dunstify "Kraken Builder" "Build finished"
   nbfc set -s 50
+  moveBuild
 }
 
 clean() {
