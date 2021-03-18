@@ -11,7 +11,23 @@ branch=twelve
 branchRebase=lineage-19.0
 branchRebaseKernel=lineage-19.0
 
-echo ${BOL_RED}Branch ${branch}${END}
+if [[ ${1} == pe ]]; then
+  pushToGitHubTree=mamutal91
+  pushToGitHubVendor=mamutal91
+  projectName=PE
+  projectNameKernel=pe
+  remoteBlobs=pixel-devices-blobs
+  repoHardwareXiaomi=LineageOS/android_hardware_xiaomi
+  repoHardwareXiaomiBranch=lineage-19.0
+else
+  pushToGitHubTree=AOSPK-Devices
+  pushToGitHubVendor=TheBootloops
+  projectName=Kraken
+  projectNameKernel=kraken
+  remoteBlobs=blobs
+  repoHardwareXiaomi=AOSPK/hardware_xiaomi
+  repoHardwareXiaomiBranch=twelve
+fi
 
 orgRebase=xiaomi-sm8250-devs
 
@@ -26,7 +42,7 @@ if [[ $orgRebase = ArrowOS ]]; then
   repoVendor=proprietary
 fi
 
-bringup="Initial changes for Kraken"
+bringup="Initial changes for ${projectName}"
 
 workingDir=$(mktemp -d) && cd $workingDir
 
@@ -38,14 +54,20 @@ tree() {
 
   sed -i "s/lineage_/aosp_/g" AndroidProducts.mk
 
+  rm -rf overlay-lineage
+  sed -i '/overlay-lineage/d' device.mk
+  sed -i 's/overlay \\/overlay/' device.mk
+
   mv lineage_lmi.mk aosp_lmi.mk
   sed -i "s/lineage_/aosp_/g" aosp_lmi.mk
   sed -i "s:vendor/lineage:vendor/aosp:g" aosp_lmi.mk
-  sed -i "s/Lineage stuff/Kraken stuff/g" aosp_lmi.mk
-  sed -i "s/common_full_phone.mk/common.mk/g" aosp_lmi.mk
+  sed -i "s/Lineage stuff/${projectName} stuff/g" aosp_lmi.mk
 
-  mv overlay-lineage overlay-kraken
-  sed -i "s/overlay-lineage/overlay-kraken/g" device.mk
+  if [[ $projectName == PE ]]; then
+    echo -e "\nNo change name include mk vendor aosp\n"
+  else
+    sed -i "s/common_full_phone.mk/common.mk/g" aosp_lmi.mk
+  fi
 
   rm -rf lineage.dependencies
   echo '[
@@ -61,81 +83,20 @@ tree() {
   }
 ]' > aosp.dependencies
 
+  echo "[
+  {
+    \"repository\": \"device_xiaomi_sm8250-common\",
+    \"target_path\": \"device/xiaomi/sm8250-common\"
+  },
+  {
+    \"remote\": \"${remoteBlobs}\",
+    \"repository\": \"vendor_xiaomi_lmi\",
+    \"target_path\": \"vendor/xiaomi/lmi\",
+    \"branch\": \"twelve\"
+  }
+]"
+
   git add . && git commit --message "lmi: $bringup" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>"
-
-  # Overlay fod
-  mkdir -p overlay-kraken/frameworks/base/packages/SystemUI/res/values
-  echo '<?xml version="1.0" encoding="utf-8"?>
-<!--
-/*
-** Copyright 2021 The Kraken Project
-**
-** Licensed under the Apache License, Version 2.0 (the "License");
-** you may not use this file except in compliance with the License.
-** You may obtain a copy of the License at
-**
-**     http://www.apache.org/licenses/LICENSE-2.0
-**
-** Unless required by applicable law or agreed to in writing, software
-** distributed under the License is distributed on an "AS IS" BASIS,
-** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-** See the License for the specific language governing permissions and
-** limitations under the License.
-*/
--->
-
-<!-- These resources are around just to allow their values to be customized
-     for different hardware and product builds. -->
-<resources>
-    <!-- Biometric Prompt -->
-    <dimen name="biometric_dialog_fod_margin">150dp</dimen>
-</resources>' | tee overlay-kraken/frameworks/base/packages/SystemUI/res/values/custom_config.xml &> /dev/null
-
-  git add . && git commit --message "lmi: overlay: Adjust biometric prompt layout" --author "Mesquita <mesquita@aospa.co>"
-
-  # Translations pt-BR
-  mkdir -p parts/res/values-pt-rBR
-  echo '<?xml version="1.0" encoding="utf-8"?>
-<!--
-     Copyright (C) 2018 The ArrowOS Project
-
-     Licensed under the Apache License, Version 2.0 (the "License");
-     you may not use this file except in compliance with the License.
-     You may obtain a copy of the License at
-
-          http://www.apache.org/licenses/LICENSE-2.0
-
-     Unless required by applicable law or agreed to in writing, software
-     distributed under the License is distributed on an "AS IS" BASIS,
-     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-     See the License for the specific language governing permissions and
-     limitations under the License.
--->
-<resources>
-    <!-- Popup camera settings -->
-    <string name="popup_led_title">Efeito visual</string>
-    <string name="popup_led_summary">Mostra a animação quando a câmera frontal aparece e se retrai</string>
-    <string name="popup_title">Efeitos de câmera frontal</string>
-    <string name="popup_title_muqin">Xylophone</string>
-    <string name="popup_title_yingyan">Condor</string>
-    <string name="popup_title_mofa">Magic</string>
-    <string name="popup_title_jijia">Mecha</string>
-    <string name="popup_title_chilun">Gearwheel</string>
-    <string name="popup_title_cangmen">Cabin door</string>
-
-    <!-- Popup camera strings -->
-    <string name="popup_camera_tip">Warning</string>
-    <string name="popup_camera_takeback_failed_times_calibrate">Não foi possível fechar a câmera frontal várias vezes. Tente calibrar a câmera.</string>
-    <string name="popup_camera_popup_failed_times_calibrate">Não foi possível abrir a câmera frontal várias vezes. Tente calibrar a câmera.</string>
-    <string name="popup_camera_calibrate_running">A câmera frontal não pode ser usada durante a calibração.</string>
-    <string name="popup_camera_calibrate_now">Calibrar</string>
-    <string name="popup_camera_calibrate_failed">Não foi possível calibrar</string>
-    <string name="popup_camera_calibrate_success">Calibrado com sucesso. Você pode abrir a câmera frontal agora.</string>
-    <string name="stop_operate_camera_frequently">Você está abrindo a câmera frontal com muita frequência.</string>
-    <string name="takeback_camera_front_failed">Não foi possível fechar a câmera frontal. Tente novamente.</string>
-    <string name="popup_camera_front_failed">Não foi possível abrir a câmera frontal. Tente novamente.</string>
-</resources>' | tee parts/res/values-pt-rBR/strings.xml &> /dev/null
-  git add . && git commit --message "lmi: parts: Translations for Portuguese Brazil" --author "Alexandre Rangel <mamutal91@gmail.com>"
 
   sed -i '$ d' overlay/frameworks/base/core/res/res/values/config.xml
   echo '
@@ -147,44 +108,53 @@ tree() {
 </resources>' >> overlay/frameworks/base/core/res/res/values/config.xml
   git add . && git commit --message "lmi: Add the default gesture" --author "Alexandre Rangel <mamutal91@gmail.com>"
 
-  git push ssh://git@github.com/AOSPK-Devices/device_xiaomi_lmi HEAD:refs/heads/${branch} --force
+  # UDFPS
+  sed -i '$d' overlay/frameworks/base/packages/SystemUI/res/values/config.xml
+  echo "
+    <!-- Color of the UDFPS pressed view -->
+    <color name=\"config_udfpsColor\">#ffffff</color>
+
+    <!-- HBM type of UDFPS overlay.
+        0 - GLOBAL HBM
+        1 - LOCAL HBM
+    -->
+    <integer name=\"config_udfps_hbm_type\">0</integer>
+</resources>" | tee -a overlay/frameworks/base/packages/SystemUI/res/values/config.xml
+  git add . && git commit --message "lmi: Re-add color and type HBM udfps" --author "TheScarastic <warabhishek@gmail.com>"
+
+  git push ssh://git@github.com/${pushToGitHubTree}/device_xiaomi_lmi HEAD:refs/heads/${branch} --force
 
   # Common
   cd ${workingDir}
   git clone https://github.com/${orgRebase}/android_device_xiaomi_sm8250-common -b ${branchRebase} device_xiaomi_sm8250-common
   cd device_xiaomi_sm8250-common
 
-  mv overlay-lineage overlay-kraken
-  cd overlay-kraken
-  mv lineage-sdk custom-sdk
-  cd custom-sdk
-  mv lineage kraken
+  rm -rf overlay-lineage
+  sed -i '/overlay-lineage/d' kona.mk
+  sed -i 's/overlay \\/overlay/' kona.mk
 
-  cd ../../
-
-  sed -i "s/overlay-lineage/overlay-kraken/g" kona.mk
   sed -i "s:vendor/lineage:vendor/aosp:g" kona.mk
   sed -i "s:vendor/lineage:vendor/aosp:g" BoardConfigCommon.mk
 
   rm -rf lineage.dependencies
-  echo '[
+  echo "[
   {
-    "repository": "kernel_xiaomi_sm8250",
-    "target_path": "kernel/xiaomi/sm8250"
+    \"repository\": \"kernel_xiaomi_sm8250\",
+    \"target_path\": \"kernel/xiaomi/sm8250\"
   },
   {
-    "remote": "blobs",
-    "repository": "vendor_xiaomi_sm8250-common",
-    "target_path": "vendor/xiaomi/sm8250-common",
-    "branch": "twelve"
+    \"remote\": \"${remoteBlobs}\",
+    \"repository\": \"vendor_xiaomi_sm8250-common\",
+    \"target_path\": \"vendor/xiaomi/sm8250-common\",
+    \"branch\": \"twelve\"
   },
   {
-    "remote": "github",
-    "repository": "AOSPK/hardware_xiaomi",
-    "target_path": "hardware/xiaomi",
-    "branch": "twelve"
+    \"remote\": \"github\",
+    \"repository\": \"${repoHardwareXiaomi}\",
+    \"target_path\": \"hardware/xiaomi\",
+    \"branch\": \"${repoHardwareXiaomiBranch}\"
   }
-]' > aosp.dependencies
+]" > aosp.dependencies
 
   git add . && git commit --message "sm8250-common: $bringup" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>"
 
@@ -201,9 +171,9 @@ tree() {
 
   # Rules
   sed -i "s/BUILD_BROKEN_VENDOR_PROPERTY_NAMESPACE := true/BUILD_BROKEN_VENDOR_PROPERTY_NAMESPACE := true\nBUILD_BROKEN_MISSING_REQUIRED_MODULES := true/g" BoardConfigCommon.mk
-  git add . && git commit --message "sm8250-common: Flags broken modules" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>"
+  git add . && git commit --message "sm8250-common: Add build broken rule" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>"
 
-  git push ssh://git@github.com/AOSPK-Devices/device_xiaomi_sm8250-common HEAD:refs/heads/${branch} --force
+  git push ssh://git@github.com/${pushToGitHubTree}/device_xiaomi_sm8250-common HEAD:refs/heads/${branch} --force
 }
 tree
 
@@ -222,24 +192,24 @@ function kernelAndVendor() {
 
   cd ${workingDir}/vendor_xiaomi_lmi
   git filter-branch --prune-empty --subdirectory-filter lmi ${branchRebaseVendor}
-  git push ssh://git@github.com/TheBootloops/vendor_xiaomi_lmi HEAD:refs/heads/${branch} --force
+  git push ssh://git@github.com/${pushToGitHubVendor}/vendor_xiaomi_lmi HEAD:refs/heads/${branch} --force
 
   cd ${workingDir}/vendor_xiaomi_sm8250-common
   git filter-branch --prune-empty --subdirectory-filter sm8250-common ${branchRebaseVendor}
-  git push ssh://git@github.com/TheBootloops/vendor_xiaomi_sm8250-common HEAD:refs/heads/${branch} --force
+  git push ssh://git@github.com/${pushToGitHubVendor}/vendor_xiaomi_sm8250-common HEAD:refs/heads/${branch} --force
 
   cd ${workingDir}
   git clone https://github.com/${orgRebase}/android_kernel_xiaomi_sm8250 -b ${branchRebaseKernel} kernel_xiaomi_sm8250
   cd ${workingDir}/kernel_xiaomi_sm8250
 
-  sed -i "s/lineageos/kraken/g" arch/arm64/configs/vendor/umi_defconfig
-  sed -i "s/lineageos/kraken/g" arch/arm64/configs/vendor/lmi_defconfig
-  sed -i "s/lineageos/kraken/g" arch/arm64/configs/vendor/apollo_defconfig
-  sed -i "s/lineageos/kraken/g" arch/arm64/configs/vendor/cas_defconfig
-  sed -i "s/lineageos/kraken/g" arch/arm64/configs/vendor/cmi_defconfig
-  git add . && git commit --message "ARM64: configs: xiaomi: Set localversion to kraken" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>"
+  sed -i "s/lineageos/${projectNameKernel}/g" arch/arm64/configs/vendor/umi_defconfig
+  sed -i "s/lineageos/${projectNameKernel}/g" arch/arm64/configs/vendor/lmi_defconfig
+  sed -i "s/lineageos/${projectNameKernel}/g" arch/arm64/configs/vendor/apollo_defconfig
+  sed -i "s/lineageos/${projectNameKernel}/g" arch/arm64/configs/vendor/cas_defconfig
+  sed -i "s/lineageos/${projectNameKernel}/g" arch/arm64/configs/vendor/cmi_defconfig
+  git add . && git commit --message "ARM64: configs: xiaomi: Set localversion to ${projectName}" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>"
 
-  git push ssh://git@github.com/AOSPK-Devices/kernel_xiaomi_sm8250 HEAD:refs/heads/${branch} --force
+  git push ssh://git@github.com/${pushToGitHubTree}/kernel_xiaomi_sm8250 HEAD:refs/heads/${branch} --force
 }
 kernelAndVendor
 
