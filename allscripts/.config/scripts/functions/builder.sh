@@ -90,7 +90,7 @@ b() {
   echo -e "${BOL_YEL}Task   : ${BOL_CYA}${task}"
   echo -e "${BOL_YEL}Device : ${BOL_CYA}${codename}"
   echo -e "${BOL_YEL}Type   : ${BOL_CYA}${buildtype}"
-  echo -e "${BOL_YEL}Pwd    : ${BOL_CYA}$PWD"
+  echo -e "${BOL_YEL}Pwd    : ${BOL_CYA}$PWD${END}"
   echo -e "\n\n"
   lunchC
   make -j$(nproc --all) ${task} 2>&1 | tee log.txt
