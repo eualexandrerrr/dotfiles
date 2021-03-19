@@ -21,6 +21,7 @@ window {
 		border-color:										@accent;
     border-radius:                  0px;
 	  width:													400px;
+		height:													300px;
     location:                       center;
     x-offset:                       0;
     y-offset:                       0;
@@ -83,7 +84,7 @@ mainbox {
 		border-color:										@accent;
     children:                       [ inputbar, listview ];
     spacing:                       	6px;
-    padding:                        6px;
+		padding: 												0px 0px 0px 0px;
 }
 
 element {
@@ -91,7 +92,7 @@ element {
     text-color:                     @fga;
     orientation:                    horizontal;
     border-radius:                  0px;
-		padding: 												3px 3px 3px -23px;
+		padding: 												0px 0px 0px -24px;
 }
 
 element-icon {

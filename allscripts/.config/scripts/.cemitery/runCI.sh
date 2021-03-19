@@ -14,7 +14,7 @@ fi
 
 cli="java -jar $HOME/.jenkins-cli.jar -s http://${IP} -auth ${myUserCI}:${ciKrakenToken} -webSocket"
 
-JOB=KrakenDev
+JOB=KrakenMaintainers
 codename=lmi
 codenameRandom=ysl
 
