@@ -12,12 +12,15 @@ c() {
 }
 
 newuser(){
+  clear
   user=${1}
   sudo useradd ${user}
   sudo passwd ${user}
   sudo mkdir -p /home/${user}/.ssh
-  sudo chmod 600 $HOME/.ssh
   sudo chown -R ${user}:${user} /home/${user}
+  sudo chmod 700 ${user}/.ssh
+  sudo touch ${user}/.ssh/authorized_keys
+  sudo chmod 600 ${user}/.ssh/authorized_keys
 }
 
 infra() {
@@ -55,7 +58,7 @@ qemu() {
 }
 
 sideload() {
-  sudo adb sideload ${1}
+  sudo adb sideload "$HOME/Builds/Kraken-12-GApps-$(date +"%Y%m%d")-${1}-lmi-ALPHA.zip"
 }
 
 dot() {
@@ -64,6 +67,7 @@ dot() {
   else
     echo -e "\n${BLU}Recloning ${CYA}dotfiles ${BLU}to have the latest changes...${END}"
     ssh mamutal91@88.99.4.77 "cd $HOME && rm -rf .dotfiles && git clone ssh://git@github.com/mamutal91/dotfiles .dotfiles && bash $HOME/.dotfiles/install.sh && source $HOME/.zshrc"
+    ssh mamutal91@138.201.224.156 "cd $HOME && rm -rf .dotfiles && git clone ssh://git@github.com/mamutal91/dotfiles .dotfiles && bash $HOME/.dotfiles/install.sh && source $HOME/.zshrc"
   fi
 }
 

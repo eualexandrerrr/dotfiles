@@ -97,6 +97,17 @@ b() {
   dunstify "Kraken Builder" "Build finished"
   nbfc set -s 50
   moveBuild
+  if [[ ${1} != "poweroff" ]]; then
+    if [[ ${2} == "poweroff" ]]; then
+      ${1}
+      sleep 100
+      sudo poweroff
+    fi
+  else
+    ${1}
+    sleep 100
+    sudo poweroff
+  fi
 }
 
 clean() {
