@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 zipBuild=${1}
+codename=${2}
 
 source $HOME/.mytokens/.myTokens &> /dev/null
 
@@ -11,35 +12,29 @@ year=$(echo ${dateFull} | cut -c3-4)
 month=$(echo ${dateFull} | cut -c4-5)
 day=$(echo ${dateFull} | cut -c5-6)
 
-echo $year
-
 pwd=$(pwd)
 cd /tmp
-rm -rf lmi.png
-wget https://github.com/AOSPK/official_devices/raw/master/images/banners/lmi.png
-img=/tmp/lmi.png
+rm -rf ${codename}.png
+wget https://github.com/AOSPK/official_devices/raw/master/images/banners/${codename}.png &> /dev/null
+img=/tmp/${codename}.png
 cd $pwd
 
-codename=lmi
-
-msg="#AOSPK #KRAKEN #ROM #Official #R #lmi
-*The Kraken Project - OFFICIAL | Android 11.*
+msg="#AOSPK #KRAKEN #ROM #Official #S #lmi
+*The Kraken Project - OFFICIAL | Android 12.*
 *Updated:* ${day}/${month}/'${year}
 
-▪️[Vanilla (stock) variant](https://aospk.org/lmi) [1.2 GB]
-▪️[GApps variant](https://aospk.org/lmi) [1.5 GB]
+▪️[Download](https://aospk.org/devices/lmi)
 ▪️[Support](https://t.me/AOSPKChat)
 
-
 *Required firmware:*
-• V12.2.6.0.RJKMIXM
+• V12.5.3.0.RJKMIXM
 
-By @mamutal91
-Follow @PocoF2ProGlobalReleases
-Join @PocoF2ProGlobalOfficial"
+[By] @mamutal91
+[Follow] @PocoF2ProGlobalReleases
+[Join] @PocoF2ProGlobalOfficial"
 
 sendMessage() {
-  curl "https://api.telegram.org/bot${botToken}/sendPhoto" \
+  curl "https://api.telegram.org/bot${botTelegramToken}/sendPhoto" \
     -F chat_id="${chatId}" \
     -F photo=@"${img}" \
     -F caption="${msg}" \
