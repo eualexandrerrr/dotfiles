@@ -1,10 +1,10 @@
 # Configuration for Alacritty, the GPU enhanced terminal emulator.
 
+import:
+  - ~/.config/alacritty/colors.yml
+
 env:
   TERM: alacritty
-
-import:
-  - /home/mamutal91/.config/alacritty/colors.yml
 
 scrolling:
   history: 10000
@@ -34,9 +34,6 @@ background_opacity: 0.7
 
 mouse:
   double_click: { threshold: 300 }
-  url:
-    launcher:
-      program: xdg-open
 
 debug:
   render_timer: false
