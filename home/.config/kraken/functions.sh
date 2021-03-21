@@ -80,10 +80,13 @@ function push() {
     GITHOST=gitlab
     ORG=AOSPK
   fi
+
   if [[ $REPO = "build_make" ]]; then
     REPO=build
   fi
-
+  if [[ $REPO = "packages_apps_PermissionController" ]]; then
+    REPO=packages_apps_PackageInstaller
+  fi
   if [[ $REPO = "vendor_qcom_opensource_commonsys-intf_bluetooth" ]]; then
     REPO=vendor_qcom_opensource_bluetooth-commonsys-intf
   fi
