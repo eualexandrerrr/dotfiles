@@ -37,6 +37,30 @@ function treeseba() {
   git push ssh://git@gitlab.com/AOSPK-Devices/vendor_xiaomi_sm8250-common HEAD:refs/heads/eleven --force
 }
 
+function beryllium() {
+  pdw=$(pwd)
+  cd $HOME
+  rm -rf android_kernel_xiaomi_sdm845 proprietary_vendor_xiaomi vendor_xiaomi_beryllium vendor_xiaomi_sdm845-common
+
+  git clone https://github.com/LineageOS/android_kernel_xiaomi_sdm845 -b lineage-18.1
+
+  cd $HOME/android_kernel_xiaomi_sdm845
+  git push ssh://git@github.com/AOSPK-Devices/kernel_xiaomi_sdm845 HEAD:refs/heads/eleven --force
+
+  cd $HOME
+  git clone https://gitlab.com/the-muppets/proprietary_vendor_xiaomi -b lineage-18.1
+  mv proprietary_vendor_xiaomi vendor_xiaomi_beryllium
+  cp -rf vendor_xiaomi_beryllium vendor_xiaomi_sdm845-common
+
+  cd $HOME/vendor_xiaomi_beryllium
+  git filter-branch --prune-empty --subdirectory-filter beryllium lineage-18.1
+  git push ssh://git@gitlab.com/AOSPK-Devices/vendor_xiaomi_beryllium HEAD:refs/heads/eleven --force
+
+  cd $HOME/vendor_xiaomi_sdm845-common
+  git filter-branch --prune-empty --subdirectory-filter sdm845-common lineage-18.1
+  git push ssh://git@gitlab.com/AOSPK-Devices/vendor_xiaomi_sdm845-common HEAD:refs/heads/eleven --force
+}
+
 function down() {
   pwd=$(pwd)
   rm -rf /mnt/roms/sites/private/*/*.zip &>/dev/null
