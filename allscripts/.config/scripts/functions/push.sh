@@ -17,13 +17,21 @@ getRepoName() {
   fi
   replaceNameRepo() {
     [[ $repoName == "build_make" ]] && repoName="build"
+    [[ $repoName == "hardware_qcom-caf_wlan" ]] && repoName="hardware_qcom_wlan" && branchDefault=twelve-caf
+    [[ $repoName == "hardware_qcom-caf_bootctrl" ]] && repoName="hardware_qcom_bootctrl" && branchDefault=twelve-caf
+    [[ $repoName == "hardware_qcom-caf_thermal" ]] && repoName="hardware_qcom_thermal"
+    [[ $repoName == "vendor_qcom_opensource_commonsys-intf_bluetooth" ]] && repoName=vendor_qcom_opensource_bluetooth-commonsys-intf
+    [[ $repoName == "vendor_qcom_opensource_commonsys-intf_display" ]] && repoName=vendor_qcom_opensource_display-commonsys-intf
+    [[ $repoName == "vendor_qcom_opensource_commonsys_bluetooth_ext" ]] && repoName=vendor_qcom_opensource_bluetooth_ext
+    [[ $repoName == "vendor_qcom_opensource_commonsys_packages_apps_Bluetooth" ]] && repoName=vendor_qcom_opensource_packages_apps_Bluetooth
+    [[ $repoName == "vendor_qcom_opensource_commonsys_system_bt" ]] && repoName=vendor_qcom_opensource_system_bt
   }
 }
 
 pushGitHub() {
   repoName=${repoName} && replaceNameRepo
   pushGitHubArgument=${1}
-  pushCommitBranch="twelve"
+  branchDefault="twelve"
   pushGitHubOrg="AOSPK-Next"
   pushGitHubHost=github
   if [[ $repoName == vendor_gapps ]]; then
@@ -42,15 +50,15 @@ pushGitHub() {
       else
         pushGitHubOrg="AOSPK-Devices"
       fi
-      echo -e "\n${BOL_BLU}Pushing to ${BOL_YEL}${pushGitHubHost}.com/${CYA}${pushGitHubOrg}/${MAG}${repoName}${END} ${YEL}${pushCommitBranch}${END}\n"
-      git push ssh://git@github.com/${pushGitHubOrg}/${repoName} HEAD:refs/heads/${pushCommitBranch} --force
+      echo -e "\n${BOL_BLU}Pushing to ${BOL_YEL}${pushGitHubHost}.com/${CYA}${pushGitHubOrg}/${MAG}${repoName}${END} ${YEL}${branchDefault}${END}\n"
+      git push ssh://git@github.com/${pushGitHubOrg}/${repoName} HEAD:refs/heads/${branchDefault} --force
     else
-      echo -e "\n${BOL_BLU}Pushing to ${BOL_YEL}${pushGitHubHost}.com/${CYA}${pushGitHubOrg}/${MAG}${repoName}${END} ${YEL}${pushCommitBranch}${END}\n"
+      echo -e "\n${BOL_BLU}Pushing to ${BOL_YEL}${pushGitHubHost}.com/${CYA}${pushGitHubOrg}/${MAG}${repoName}${END} ${YEL}${branchDefault}${END}\n"
       gh repo create AOSPK/${repoName} --public --confirm &> /dev/null
       gh repo create AOSPK-Next/${repoName} --private --confirm &> /dev/null
-      git push ssh://git@${pushGitHubHost}.com/${pushGitHubOrg}/${repoName} HEAD:refs/heads/${pushCommitBranch} --force
-      gh api -XPATCH "repos/AOSPK/${repoName}" -f default_branch="${pushCommitBranch}" &> /dev/null
-      gh api -XPATCH "repos/AOSPK-Next/${repoName}" -f default_branch="${pushCommitBranch}" &> /dev/null
+      git push ssh://git@${pushGitHubHost}.com/${pushGitHubOrg}/${repoName} HEAD:refs/heads/${branchDefault} --force
+      gh api -XPATCH "repos/AOSPK/${repoName}" -f default_branch="${branchDefault}" &> /dev/null
+      gh api -XPATCH "repos/AOSPK-Next/${repoName}" -f default_branch="${branchDefault}" &> /dev/null
     fi
   fi
 }
@@ -59,8 +67,8 @@ pushGerrit() {
   repoName=${repoName} && replaceNameRepo
   pushGerritArgument=${2}
   pushGerritTopic=${3}
-  pushGerritBranch="twelve"
-  [[ $repoName == official_devices ]] && pushGerritBranch=master
+  branchDefault="twelve"
+  [[ $repoName == official_devices ]] && branchDefault=master
   pushGerritUrlProject="gerrit.aospk.org"
   if [[ ${pushGerritArgument} == "-c" ]]; then
     pushGerritIdCommit=${3}
@@ -76,30 +84,30 @@ pushGerrit() {
     echo -e "${BOL_RED}              Use Project, example: ${BOL_YEL}: push gerrit -p LineageOS lineage-19.0"
     echo -e "${END}"
   else
-    [[ ${pushGerritArgument} == -s ]] && pushGerritPush="HEAD:refs/for/${pushGerritBranch}%submit"
-    [[ ${pushGerritArgument} == -v ]] && pushGerritPush="HEAD:refs/for/${pushGerritBranch}%l=Verified+1,l=Code-Review+2"
-    [[ ${pushGerritArgument} == -c ]] && pushGerritPush="${pushGerritIdCommit}:refs/for/${pushGerritBranch}"
-    [[ ${pushGerritArgument} == -n ]] && pushGerritPush="HEAD:refs/for/${pushGerritBranch}"
+    [[ ${pushGerritArgument} == -s ]] && pushGerritPush="HEAD:refs/for/${branchDefault}%submit"
+    [[ ${pushGerritArgument} == -v ]] && pushGerritPush="HEAD:refs/for/${branchDefault}%l=Verified+1,l=Code-Review+2"
+    [[ ${pushGerritArgument} == -c ]] && pushGerritPush="${pushGerritIdCommit}:refs/for/${branchDefault}"
+    [[ ${pushGerritArgument} == -n ]] && pushGerritPush="HEAD:refs/for/${branchDefault}"
     if [[ ${pushGerritArgument} == -p ]]; then
       pushGerritProject=${3}
       pushGerritTopic=${4}
-      if [[ -n ${pushGerritBranch} ]]; then
+      if [[ -n ${branchDefault} ]]; then
         echo -e "${BOL_RED}You need type ${BOL_YEL}branch!"
         sleep 100
         exit 0
       else
-        [[ ${3} == LineageOS ]] && pushGerritUrlProject="review.lineageos.org" && pushGerritPush="HEAD:refs/for/${pushGerritBranch}" && pushGerritBranch=${4}
-        [[ ${3} == ArrowOS ]] && pushGerritUrlProject="review.arrowos.net" && pushGerritPush="HEAD:refs/for/${pushGerritBranch}" && pushGerritBranch=${4}
-        [[ ${3} == PixelExperience ]] && pushGerritUrlProject="gerrit.pixelexperience.org" && pushGerritPush="HEAD:refs/for/${pushGerritBranch}" && pushGerritBranch=${4}
+        [[ ${3} == LineageOS ]] && pushGerritUrlProject="review.lineageos.org" && pushGerritPush="HEAD:refs/for/${branchDefault}" && branchDefault=${4}
+        [[ ${3} == ArrowOS ]] && pushGerritUrlProject="review.arrowos.net" && pushGerritPush="HEAD:refs/for/${branchDefault}" && branchDefault=${4}
+        [[ ${3} == PixelExperience ]] && pushGerritUrlProject="gerrit.pixelexperience.org" && pushGerritPush="HEAD:refs/for/${branchDefault}" && branchDefault=${4}
       fi
     fi
-    [[ -z ${pushGerritArgument} ]] && pushGerritPush="HEAD:refs/for/${pushGerritBranch}"
+    [[ -z ${pushGerritArgument} ]] && pushGerritPush="HEAD:refs/for/${branchDefault}"
     if [[ ! -d .git ]]; then
       echo -e "${BOL_RED}You are not in a .git repository\n${RED}$(pwd)${END}"
     else
       scp -p -P 29418 mamutal91@${pushGerritUrlProject}:hooks/commit-msg $(git rev-parse --git-dir)/hooks/ &> /dev/null
       git commit --amend --no-edit &> /dev/null
-      echo -e "\n${BOL_BLU}Pushing to ${BOL_YEL}${pushGerritUrlProject}/${MAG}${repoName}${END} ${YEL}${pushGerritBranch}${END}\n"
+      echo -e "\n${BOL_BLU}Pushing to ${BOL_YEL}${pushGerritUrlProject}/${MAG}${repoName}${END} ${YEL}${branchDefault}${END}\n"
       if [[ ${pushGerritTopic} ]]; then
         git push ssh://mamutal91@${pushGerritUrlProject}:29418/${repoName} ${pushGerritPush},topic=${pushGerritTopic}
       else
