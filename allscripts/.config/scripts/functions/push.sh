@@ -2,7 +2,7 @@
 
 source $HOME/.Xcolors &> /dev/null
 
-getRepoName(){
+getRepoName() {
   repoNameCheck=$(pwd | cut -c-20)
   if [[ $repoNameCheck == "/home/mamutal91/GitH" ]]; then
     repoName=$(pwd | cut -c24-300 | sed "s:/:_:g")
@@ -15,10 +15,13 @@ getRepoName(){
     repoName=$(pwd | cut -c17-300 | sed "s:/:_:g")
     echo -e "\n\n${BOL_YEL}${repoName}${END}"
   fi
+  replaceNameRepo() {
+    [[ $repoName == "build_make" ]] && repoName="build"
+  }
 }
 
 pushGitHub() {
-  pushGitHubRepo=${repoName}
+  repoName=${repoName} && replaceNameRepo
   pushGitHubArgument=${1}
   pushCommitBranch="twelve"
   pushGitHubOrg="AOSPK-Next"
@@ -33,31 +36,31 @@ pushGitHub() {
     echo -e "              -f [force commit to AOSPK-Next]"
     echo -e "${END}"
   else
-    if echo $pushGitHubRepo | grep xiaomi &> /dev/null; then
-      if echo $pushGitHubRepo | grep vendor &> /dev/null; then
+    if echo $repoName | grep xiaomi &> /dev/null; then
+      if echo $repoName | grep vendor &> /dev/null; then
         pushGitHubOrg="TheBootloops"
       else
         pushGitHubOrg="AOSPK-Devices"
       fi
-      echo -e "\n${BOL_BLU}Pushing to ${BOL_YEL}${pushGitHubHost}.com/${CYA}${pushGitHubOrg}/${MAG}${pushGitHubRepo}${END} ${YEL}${pushCommitBranch}${END}\n"
-      git push ssh://git@github.com/${pushGitHubOrg}/${pushGitHubRepo} HEAD:refs/heads/${pushCommitBranch} --force
+      echo -e "\n${BOL_BLU}Pushing to ${BOL_YEL}${pushGitHubHost}.com/${CYA}${pushGitHubOrg}/${MAG}${repoName}${END} ${YEL}${pushCommitBranch}${END}\n"
+      git push ssh://git@github.com/${pushGitHubOrg}/${repoName} HEAD:refs/heads/${pushCommitBranch} --force
     else
-      echo -e "\n${BOL_BLU}Pushing to ${BOL_YEL}${pushGitHubHost}.com/${CYA}${pushGitHubOrg}/${MAG}${pushGitHubRepo}${END} ${YEL}${pushCommitBranch}${END}\n"
-      gh repo create AOSPK/${pushGitHubRepo} --public --confirm &> /dev/null
-      gh repo create AOSPK-Next/${pushGitHubRepo} --private --confirm &> /dev/null
-      git push ssh://git@${pushGitHubHost}.com/${pushGitHubOrg}/${pushGitHubRepo} HEAD:refs/heads/${pushCommitBranch} --force
-      gh api -XPATCH "repos/AOSPK/${pushGitHubRepo}" -f default_branch="${pushCommitBranch}" &> /dev/null
-      gh api -XPATCH "repos/AOSPK-Next/${pushGitHubRepo}" -f default_branch="${pushCommitBranch}" &> /dev/null
+      echo -e "\n${BOL_BLU}Pushing to ${BOL_YEL}${pushGitHubHost}.com/${CYA}${pushGitHubOrg}/${MAG}${repoName}${END} ${YEL}${pushCommitBranch}${END}\n"
+      gh repo create AOSPK/${repoName} --public --confirm &> /dev/null
+      gh repo create AOSPK-Next/${repoName} --private --confirm &> /dev/null
+      git push ssh://git@${pushGitHubHost}.com/${pushGitHubOrg}/${repoName} HEAD:refs/heads/${pushCommitBranch} --force
+      gh api -XPATCH "repos/AOSPK/${repoName}" -f default_branch="${pushCommitBranch}" &> /dev/null
+      gh api -XPATCH "repos/AOSPK-Next/${repoName}" -f default_branch="${pushCommitBranch}" &> /dev/null
     fi
   fi
 }
 
 pushGerrit() {
-  pushGerritRepo=${repoName}
+  repoName=${repoName} && replaceNameRepo
   pushGerritArgument=${2}
   pushGerritTopic=${3}
   pushGerritBranch="twelve"
-  [[ $pushGerritRepo == official_devices ]] && pushGerritBranch=master
+  [[ $repoName == official_devices ]] && pushGerritBranch=master
   pushGerritUrlProject="gerrit.aospk.org"
   if [[ ${pushGerritArgument} == "-c" ]]; then
     pushGerritIdCommit=${3}
@@ -94,13 +97,13 @@ pushGerrit() {
     if [[ ! -d .git ]]; then
       echo -e "${BOL_RED}You are not in a .git repository${END}"
     else
-      echo -e "\n${BOL_BLU}Pushing to ${BOL_YEL}${pushGerritUrlProject}/${MAG}${pushGerritRepo}${END} ${YEL}${pushGerritBranch}${END}\n"
       scp -p -P 29418 mamutal91@${pushGerritUrlProject}:hooks/commit-msg $(git rev-parse --git-dir)/hooks/ &> /dev/null
       git commit --amend --no-edit &> /dev/null
+      echo -e "\n${BOL_BLU}Pushing to ${BOL_YEL}${pushGerritUrlProject}/${MAG}${repoName}${END} ${YEL}${pushGerritBranch}${END}\n"
       if [[ ${pushGerritTopic} ]]; then
-        git push ssh://mamutal91@${pushGerritUrlProject}:29418/${pushGerritRepo} ${pushGerritPush},topic=${pushGerritTopic}
+        git push ssh://mamutal91@${pushGerritUrlProject}:29418/${repoName} ${pushGerritPush},topic=${pushGerritTopic}
       else
-        git push ssh://mamutal91@${pushGerritUrlProject}:29418/${pushGerritRepo} ${pushGerritPush}
+        git push ssh://mamutal91@${pushGerritUrlProject}:29418/${repoName} ${pushGerritPush}
       fi
     fi
     [[ $repo = manifest ]] && echo ${BOL_RED}Pushing manifest to ORG DEV${END} && git push ssh://git@github.com/AOSPK-Next/manifest HEAD:refs/heads/twelve --force
