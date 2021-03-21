@@ -50,6 +50,7 @@ function push() {
   ORG=AOSPK-WIP
   BRANCH=eleven
   FORCE=${1}
+  TOPIC=${2}
 
   if [[ $REPO = "vendor_google_gms" ]]; then
     GITHOST=gitlab
@@ -58,6 +59,7 @@ function push() {
   if [[ $REPO = "build_make" ]]; then
     REPO=build
   fi
+
   if [[ $REPO = "vendor_qcom_opensource_commonsys-intf_bluetooth" ]]; then
     REPO=vendor_qcom_opensource_bluetooth-commonsys-intf
   fi
@@ -76,7 +78,12 @@ function push() {
 
   if [[ ${1} = "gerrit" ]]; then
     echo "${BOL_BLU}Pushing to gerrit.aospk.org/${GRE}${ORG}${END}/${BLU}${REPO}${END} - ${BRANCH} ${RED}${FORCE}${END}"
-    git push ssh://mamutal91@gerrit.aospk.org:29418/${REPO} HEAD:refs/for/${BRANCH}
+    if [ -z "${TOPIC}" ]
+    then
+      git push ssh://mamutal91@gerrit.aospk.org:29418/${REPO} HEAD:refs/for/${BRANCH}
+    else
+      git push ssh://mamutal91@gerrit.aospk.org:29418/${REPO} HEAD:refs/for/${BRANCH}%topic=${TOPIC}
+    fi
   else
     echo "${BOL_BLU}Pushing to ${GITHOST}.com/${GRE}${ORG}${END}/${BLU}${REPO}${END} - ${BRANCH} ${RED}${FORCE}${END}"
     git push ssh://git@${GITHOST}.com/${ORG}/${REPO} HEAD:refs/heads/${BRANCH} ${FORCE}
