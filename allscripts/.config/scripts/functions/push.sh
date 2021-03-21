@@ -95,7 +95,7 @@ pushGerrit() {
     fi
     [[ -z ${pushGerritArgument} ]] && pushGerritPush="HEAD:refs/for/${pushGerritBranch}"
     if [[ ! -d .git ]]; then
-      echo -e "${BOL_RED}You are not in a .git repository${END}"
+      echo -e "${BOL_RED}You are not in a .git repository\n${RED}$(pwd)${END}"
     else
       scp -p -P 29418 mamutal91@${pushGerritUrlProject}:hooks/commit-msg $(git rev-parse --git-dir)/hooks/ &> /dev/null
       git commit --amend --no-edit &> /dev/null

@@ -102,7 +102,7 @@ gitpush() {
 
 cm() {
   if [[ ! -d .git ]]; then
-    echo "${BOL_RED}You are not in a .git repository${END}"
+    echo -e "${BOL_RED}You are not in a .git repository\n${RED}$(pwd)${END}"
   else
     if [[ $(git status --porcelain) ]]; then
       pwdFolder=${PWD##*/}
