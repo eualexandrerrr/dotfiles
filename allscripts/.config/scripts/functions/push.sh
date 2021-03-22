@@ -116,6 +116,7 @@ pushGerrit() {
     fi
     [[ $repo = manifest ]] && echo ${BOL_RED}Pushing manifest to ORG DEV${END} && git push ssh://git@github.com/AOSPK-Next/manifest HEAD:refs/heads/twelve --force
   fi
+  push -f
 }
 
 push (){

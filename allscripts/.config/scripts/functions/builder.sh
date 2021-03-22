@@ -91,7 +91,7 @@ b() {
   echo -e "${BOL_YEL}Device : ${BOL_CYA}${codename}"
   echo -e "${BOL_YEL}Type   : ${BOL_CYA}${buildtype}"
   echo -e "${BOL_YEL}Pwd    : ${BOL_CYA}$PWD${END}"
-  echo -e "\n\n"
+  echo -e "\n"
   lunchC
   make -j$(nproc --all) ${task} 2>&1 | tee log.txt
   dunstify "Kraken Builder" "Build finished"
