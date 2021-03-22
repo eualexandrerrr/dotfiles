@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/zsh
 
 # eleven    lineage-18.1
 # ten       lineage-17.1

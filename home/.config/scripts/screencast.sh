@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/zsh
 
 iconpath="/usr/share/icons/Papirus-Dark/32x32/devices"
 icon="${iconpath}/camera-video.svg"

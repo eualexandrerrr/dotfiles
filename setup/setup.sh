@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/zsh
 
 function personalconfig() {
   pwd=$(pwd) && cd $HOME

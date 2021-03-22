@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/zsh
 # Adjust the following variables as necessary
 
 git remote remove push

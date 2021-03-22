@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/zsh
 
 readonly REPOS_HAL=(
     hardware_qcom_audio

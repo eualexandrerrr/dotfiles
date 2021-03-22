@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/zsh
 
 rm -rf $HOME/AOSPK && mkdir -p $HOME/AOSPK
 rm -rf $HOME/GitHub && mkdir -p $HOME/GitHub

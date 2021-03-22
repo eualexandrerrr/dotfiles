@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/zsh
 
 main() {
   if ! pgrep -x spotify >/dev/null; then
