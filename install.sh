@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/env bash
 
 clear
 
@@ -12,12 +12,11 @@ do
   echo "${RED}$DOTFILES ${GRE}stowed.${END}"
 done
 
-# Personal configs
-if [[ "$USER" = "mamutal91" ]];
+# etc
+if [[ "$USERNAME" = "mamutal91" ]];
 then
-  $HOME/.dotfiles/setup/etc.sh
-  sudo cp -rf $HOME/.zshrc /root
-  echo "${RED}/etc and /root ${GRE}configured.${END}"
+  $HOME/.dotfiles/setup/etc.sh || echo "Error configure etc"
+  echo "${RED}/etc/ ${GRE}configured.${END}"
 fi
 
 play $HOME/.config/sounds/completed.wav &>/dev/null

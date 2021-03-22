@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/env bash
 
 dir="$HOME/"
 cp -rf $HOME/.zsh_history $HOME/GitHub/zsh-history/

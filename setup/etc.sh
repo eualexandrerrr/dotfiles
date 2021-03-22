@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/env bash
 
 # systemd
 sudo rm -rf /etc/systemd/system/getty@tty1.service.d

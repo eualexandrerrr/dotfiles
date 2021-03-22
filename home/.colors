@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/env bash
 
 END=$(tput sgr0)                    #  reset flag
 BLA=$END$(tput setaf 0)             #  black

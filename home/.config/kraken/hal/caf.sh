@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/env bash
 
 readonly REPOS_HAL=(
     hardware_qcom_bootctrl

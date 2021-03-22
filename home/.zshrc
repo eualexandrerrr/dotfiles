@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/env bash
 
 # Themes https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 
@@ -35,11 +35,8 @@ alias sed="sudo sed"
 alias aospk="cd $HOME/AOSPK"
 alias x="cd /mnt/roms/jobs/Kraken"
 
-if [[ $HOST = odin ]];
-then
-  source /home/mamutal91/.config/functions.sh
-  source /home/mamutal91/.config/kraken/functions.sh
-fi
+source $HOME/.config/functions.sh
+source $HOME/.config/kraken/functions.sh
 
 function fetch() {
   ./.dotfiles/home/.config/scripts/fetch.sh gnu

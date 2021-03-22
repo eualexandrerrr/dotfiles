@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/env bash
 
 iconpath="/usr/share/icons/Papirus-Dark/32x32/devices"
 icon="${iconpath}/modem.svg"
