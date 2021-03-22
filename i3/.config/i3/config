@@ -105,14 +105,14 @@ exec --no-startup-id echo 206 | sudo tee /sys/class/backlight/amdgpu_bl0/brightn
 # GTK theme
 set $theme Dracula
 set $icon Flatery-Dark
-set $cursor vimix-cursors
+set $cursor Vimix-cursors
 set $font Cantarell
 set $mono Terminus
 set $size_font 9
 
 exec --no-startup-id gsettings set org.gnome.desktop.interface gtk-theme $theme
 exec --no-startup-id gsettings set org.gnome.desktop.interface icon-theme $icon
-exec --no-startup-id gsettings set org.gnome.desktop.interface cursor-theme $icon
+exec --no-startup-id gsettings set org.gnome.desktop.interface cursor-theme $cursor
 exec --no-startup-id gsettings set org.gnome.desktop.interface cursor-size 20
 exec --no-startup-id gsettings set org.gnome.desktop.interface icon-theme $icon
 exec --no-startup-id gsettings set org.gnome.desktop.interface font-name $font
