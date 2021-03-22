@@ -10,13 +10,12 @@ configuration {
 		sidebar-mode: 									false;
 }
 
-@import "style-configs.rasi"
 @import "~/.config/rofi/style.rasi"
 
 window {
     transparency:                   "real";
     background-color:               @background;
-    text-color:                     @on;
+    text-color:                     @green;
 		border:													0px 0px 0px 0px;
 		border-color:										@accent;
     border-radius:                  0px;
@@ -44,8 +43,8 @@ textbox-prompt-colon {
 }
 
 entry {
-    background-color:               @al;
-    text-color:                     @on;
+    background-color:               @background-alt;
+    text-color:                     @green;
     placeholder-color:              @foreground;
     expand:                         true;
     horizontal-align:               0;
@@ -57,7 +56,7 @@ entry {
 inputbar {
     children: 											[ textbox-prompt-colon, entry ];
     background-color:               @background-light;
-    text-color:                     @on;
+    text-color:                     @green;
     expand:                         false;
 		border:													0px;
     border-radius:                  0px;
@@ -67,7 +66,7 @@ inputbar {
 }
 
 listview {
-    background-color:               @al;
+    background-color:               @background-alt;
     padding:                        0px;
     columns:                        1;
     lines:                          15;
@@ -78,7 +77,7 @@ listview {
 }
 
 mainbox {
-    background-color:               @al;
+    background-color:               @background-alt;
 		border:													0px;
     border-radius:                  0px;
 		border-color:										@accent;
@@ -88,8 +87,8 @@ mainbox {
 }
 
 element {
-    background-color:               @al;
-    text-color:                     @fga;
+    background-color:               @background-alt;
+    text-color:                     @white;
     orientation:                    horizontal;
     border-radius:                  0px;
 		padding: 												0px 0px 0px -24px;
@@ -111,7 +110,7 @@ element-text {
 
 element selected {
     background-color:               @accent;
-    text-color:                     @fga;
+    text-color:                     @white;
 		border:													0px 0px 0px 0px;
     border-radius:                  0px;
     border-color:                  	@accent;

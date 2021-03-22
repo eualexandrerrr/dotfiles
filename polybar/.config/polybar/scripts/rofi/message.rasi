@@ -1,10 +1,10 @@
 /* Confirm Dialog */
 
-@import "style-configs.rasi"
+@import "style.rasi"
 
 * {
-    background-color:               @bg;
-    text-color:                     @fga;
+    background-color:               @background;
+    text-color:                     @white;
 	  font:				                  	"Terminus 9";
 }
 
@@ -13,12 +13,12 @@ window {
     padding:                  			25px;
     border:			                		0px 0px 2px 0px;
     border-radius:                  0px;
-    border-color:                   @ac;
+    border-color:                   @gray
     location:                       center;
     y-offset:                       -2em;
 }
 
 entry {
     expand: 		                		true;
-    text-color:	              			@ac;
+    text-color:	              			@gray
 }

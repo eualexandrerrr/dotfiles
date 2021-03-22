@@ -86,14 +86,14 @@ element-text {
 
 element normal.urgent,
 element alternate.urgent {
-    background-color:               @off;
+    background-color:               @red;
     text-color:                     @background;
     border-radius:                  0px;
 }
 
 element normal.active,
 element alternate.active {
-    background-color:               @on;
+    background-color:               @green;
     text-color:                     @background;
 }
 
@@ -106,11 +106,11 @@ element selected {
 }
 
 element selected.urgent {
-    background-color:               @on;
+    background-color:               @green;
     text-color:                     @background;
 }
 
 element selected.active {
-    background-color:               @off;
+    background-color:               @red;
     color:                          @background;
 }
