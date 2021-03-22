@@ -21,9 +21,6 @@ done
 echo "${RED}/etc/ ${GRE}configured.${END}"
 bash $HOME/.dotfiles/setup/etc.sh
 
-# Clone my tokens
-[[ ! -d $HOME/.mytokens ]] && git clone ssh://git@github.com/mamutal91/mytokens $HOME/.mytokens
-
 # Restart sway
 i3-msg reload &> /dev/null
 fc-cache -f -r -v &> /dev/null
