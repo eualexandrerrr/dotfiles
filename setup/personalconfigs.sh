@@ -26,6 +26,6 @@ fi
 
 # Atom configs
 rm -rf $HOME/.atom
-git clone https://github.com/mamutal91/atom $HOME/.atom
+git clone ssh://git@github.com/mamutal91/atom $HOME/.atom
 
 cd $pwd
