@@ -12,6 +12,7 @@ packages=(
   # apps
   alacritty atom
   cronie
+  discord
   filezilla
   git gpicview
   htop
