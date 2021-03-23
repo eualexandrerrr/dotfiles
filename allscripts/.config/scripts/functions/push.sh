@@ -11,9 +11,9 @@ getRepoName() {
   elif [[ $repoNameCheck == "/mnt/storage/KrakenD" ]]; then
     repoName=$(pwd | cut -c24-300 | sed "s:/:_:g")
   else
-    echo -e "\n\n${BOL_MAG}* * *${BOL_RED}Eu não consegui capturar o nome do repo...${END}"
+    echo -e "\n${BOL_MAG} * ${BOL_RED}Eu não consegui capturar o nome do repo...${END}"
+    echo -e "${BOL_MAG} * ${BOL_YEL}${repoName}${END}"
     repoName=$(pwd | cut -c17-300 | sed "s:/:_:g")
-    echo -e "\n\n${BOL_YEL}${repoName}${END}"
   fi
   replaceNameRepo() {
     [[ $repoName == "build_make" ]] && repoName="build"
@@ -25,6 +25,7 @@ getRepoName() {
     [[ $repoName == "vendor_qcom_opensource_commonsys_bluetooth_ext" ]] && repoName=vendor_qcom_opensource_bluetooth_ext
     [[ $repoName == "vendor_qcom_opensource_commonsys_packages_apps_Bluetooth" ]] && repoName=vendor_qcom_opensource_packages_apps_Bluetooth
     [[ $repoName == "vendor_qcom_opensource_commonsys_system_bt" ]] && repoName=vendor_qcom_opensource_system_bt
+    [[ $repoName == "official_devices" ]] && branchDefault=master
   }
 }
 
@@ -38,7 +39,6 @@ pushGitHub() {
     pushGitHubOrg="AOSPK"
     pushGitHubHost=gitlab
   fi
-  [[ ${2} == "main" ]] && pushGitHubOrg="AOSPK"
   if [[ -z ${pushGitHubArgument} ]]; then
     echo -e "${BLU}Usage:\n"
     echo -e "${CYA}  push ${RED}-?${YEL}"
@@ -51,13 +51,19 @@ pushGitHub() {
       else
         pushGitHubOrg="AOSPK-Devices"
       fi
-      echo -e "\n${BOL_BLU}Pushing to ${BOL_YEL}${pushGitHubHost}.com/${CYA}${pushGitHubOrg}/${MAG}${repoName}${END} ${YEL}${branchDefault}${END}\n"
-      git push ssh://git@github.com/${pushGitHubOrg}/${repoName} HEAD:refs/heads/${branchDefault} --force
+      echo -e "\n${BOL_BLU}(AOSPK-Devices/TheBootloops) Pushing to ${BOL_YEL}${pushGitHubHost}.com/${CYA}${pushGitHubOrg}/${MAG}${repoName}${END} ${YEL}${branchDefault}${END}\n"
+      git push ssh://git@${pushGitHubHost}.com/${pushGitHubOrg}/${repoName} HEAD:refs/heads/${branchDefault} --force
     else
       echo -e "\n${BOL_BLU}Pushing to ${BOL_YEL}${pushGitHubHost}.com/${CYA}${pushGitHubOrg}/${MAG}${repoName}${END} ${YEL}${branchDefault}${END}\n"
-      gh repo create AOSPK/${repoName} --public --confirm &> /dev/null
+      if [[ $repoName != "vendor_gapps" ]]; then
+            gh repo create AOSPK/${repoName} --public --confirm
       gh repo create AOSPK-Next/${repoName} --private --confirm &> /dev/null
+    fi
       git push ssh://git@${pushGitHubHost}.com/${pushGitHubOrg}/${repoName} HEAD:refs/heads/${branchDefault} --force
+      if [[ ${2} == "main" ]]; then
+        echo OK
+        git push ssh://git@${pushGitHubHost}.com/AOSPK/${repoName} HEAD:refs/heads/${branchDefault} --force
+      fi
       gh api -XPATCH "repos/AOSPK/${repoName}" -f default_branch="${branchDefault}" &> /dev/null
       gh api -XPATCH "repos/AOSPK-Next/${repoName}" -f default_branch="${branchDefault}" &> /dev/null
     fi

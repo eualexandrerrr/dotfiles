@@ -11,6 +11,10 @@ c() {
   fi
 }
 
+agg() {
+  ag -s ${1} .
+}
+
 newuser(){
   clear
   user=${1}
