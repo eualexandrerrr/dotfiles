@@ -1,4 +1,4 @@
-  #!/usr/bin/env bash
+#!/usr/bin/env bash
 
 source $HOME/.colors &>/dev/null
 
@@ -43,15 +43,19 @@ function gitpush() {
 
 function cm() {
   translate
-  git add . && git commit --message $msg --signoff --author "Alexandre Rangel <mamutal91@gmail.com>" --date "$(date)" && gitpush
-}
-
-function c() {
-  git add . && git commit --author "${1}" --date "$(date)" && gitpush
+  if [[ ${1} ]]; then
+    git add . && git commit --author "${1}" --date "$(date)" && gitpush
+  else
+    git add . && git commit --message $msg --signoff --author "Alexandre Rangel <mamutal91@gmail.com>" --date "$(date)" && gitpush
+  fi
 }
 
 function amend() {
-  git add . && git commit --signoff --amend --date "$(date)" && gitpush amend
+  if [[ ${1} ]]; then
+    git add . && git commit --author "${1}" --signoff --amend --date "$(date)" && gitpush amend
+  else
+    git add . && git commit --signoff --amend --date "$(date)" && gitpush amend
+  fi
 }
 
 function update() {
