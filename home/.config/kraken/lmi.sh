@@ -32,7 +32,6 @@ echo "[
     \"target_path\": \"device/xiaomi/sm8250-common\"
   },
   {
-    \"remote\": \"lab-devices\",
     \"repository\": \"vendor_xiaomi_lmi\",
     \"target_path\": \"vendor/xiaomi/lmi\"
   },
@@ -142,7 +141,6 @@ echo "[
     \"target_path\": \"kernel/xiaomi/sm8250\"
   },
   {
-    \"remote\": \"lab-devices\",
     \"repository\": \"vendor_xiaomi_sm8250-common\",
     \"target_path\": \"vendor/xiaomi/sm8250-common\"
   }
@@ -184,11 +182,11 @@ cp -rf android_vendor_xiaomi_lmi android_vendor_xiaomi_sm8250-common
 
 cd android_vendor_xiaomi_lmi
 git filter-branch --prune-empty --subdirectory-filter lmi lineage-18.1
-git push ssh://git@gitlab.com/AOSPK-Devices/vendor_xiaomi_lmi HEAD:refs/heads/eleven --force
+git push ssh://git@github.com/AOSPK-Devices/vendor_xiaomi_lmi HEAD:refs/heads/eleven --force
 
 cd ../android_vendor_xiaomi_sm8250-common
 git filter-branch --prune-empty --subdirectory-filter sm8250-common lineage-18.1
-git push ssh://git@gitlab.com/AOSPK-Devices/vendor_xiaomi_sm8250-common HEAD:refs/heads/eleven --force
+git push ssh://git@github.com/AOSPK-Devices/vendor_xiaomi_sm8250-common HEAD:refs/heads/eleven --force
 
 cd ..
 git clone https://github.com/xiaomi-sm8250-devs/android_kernel_xiaomi_sm8250 -b lineage-18.1
