@@ -28,6 +28,9 @@ function translate() {
 
 function gitpush() {
   pwd=$(pwd | cut -c-9)
+  if [[ $pwd = "/home/mamutal91/AOSPK/manifest" ]]; then
+    exit
+  fi
   if [[ $pwd = "/mnt/dev/" ]]; then
     echo "${BOL_RED}No push!${END}"
   else
@@ -52,9 +55,9 @@ function cm() {
 
 function amend() {
   if [[ ${1} ]]; then
-    git add . && git commit --author "${1}" --signoff --amend --date "$(date)" && gitpush amend
+    git add . && git commit --author "${1}" --amend --date "$(date)" && gitpush amend
   else
-    git add . && git commit --signoff --amend --date "$(date)" && gitpush amend
+    git add . && git commit --amend --date "$(date)" && gitpush amend
   fi
 }
 
