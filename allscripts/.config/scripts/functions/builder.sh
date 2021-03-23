@@ -91,9 +91,9 @@ b() {
     task=${1}
     cores=$(nproc --all)
   else
+    task=bacon
     cores=${1}
   fi
-  [[ -z $task ]] && task=bacon || task=${1}
   echo -e "${BOL_MAG}\nYou are building:"
   echo -e "${BOL_YEL}Task   : ${BOL_CYA}${task}"
   echo -e "${BOL_YEL}Device : ${BOL_CYA}${codename}"
@@ -106,14 +106,7 @@ b() {
   dunstify "Kraken Builder" "Build finished"
   nbfc set -s 50
   moveBuild
-  if [[ ${1} != "poweroff" ]]; then
-    if [[ ${2} == "poweroff" ]]; then
-      ${1}
-      sleep 100
-      sudo poweroff
-    fi
-  else
-    ${1}
+  if [[ ${1} == poweroff ]]; then
     sleep 100
     sudo poweroff
   fi
