@@ -38,6 +38,7 @@ pushGitHub() {
     pushGitHubOrg="AOSPK"
     pushGitHubHost=gitlab
   fi
+  [[ ${2} == "main" ]] && pushGitHubOrg="AOSPK"
   if [[ -z ${pushGitHubArgument} ]]; then
     echo -e "${BLU}Usage:\n"
     echo -e "${CYA}  push ${RED}-?${YEL}"
@@ -84,8 +85,8 @@ pushGerrit() {
     echo -e "${BOL_RED}              Use Project, example: ${BOL_YEL}: push gerrit -p LineageOS lineage-19.0"
     echo -e "${END}"
   else
-    [[ ${pushGerritArgument} == -s ]] && pushGerritPush="HEAD:refs/for/${branchDefault}%submit"
     [[ ${pushGerritArgument} == -v ]] && pushGerritPush="HEAD:refs/for/${branchDefault}%l=Verified+1,l=Code-Review+2"
+    [[ ${pushGerritArgument} == -s ]] && pushGerritPush="HEAD:refs/for/${branchDefault}%submit,l=Verified+1,l=Code-Review+2"
     [[ ${pushGerritArgument} == -c ]] && pushGerritPush="${pushGerritIdCommit}:refs/for/${branchDefault}"
     [[ ${pushGerritArgument} == -n ]] && pushGerritPush="HEAD:refs/for/${branchDefault}"
     if [[ ${pushGerritArgument} == -p ]]; then
@@ -108,11 +109,8 @@ pushGerrit() {
       scp -p -P 29418 mamutal91@${pushGerritUrlProject}:hooks/commit-msg $(git rev-parse --git-dir)/hooks/ &> /dev/null
       git commit --amend --no-edit &> /dev/null
       echo -e "\n${BOL_BLU}Pushing to ${BOL_YEL}${pushGerritUrlProject}/${MAG}${repoName}${END} ${YEL}${branchDefault}${END}\n"
-      if [[ ${pushGerritTopic} ]]; then
-        git push ssh://mamutal91@${pushGerritUrlProject}:29418/${repoName} ${pushGerritPush},topic=${pushGerritTopic}
-      else
-        git push ssh://mamutal91@${pushGerritUrlProject}:29418/${repoName} ${pushGerritPush}
-      fi
+      [[ ${pushGerritTopic} ]] && pushGerritTopicCmd=",topic=${pushGerritTopic}"
+      git push ssh://mamutal91@${pushGerritUrlProject}:29418/${repoName} ${pushGerritPush}${pushGerritTopicCmd}
     fi
     [[ $repo = manifest ]] && echo ${BOL_RED}Pushing manifest to ORG DEV${END} && git push ssh://git@github.com/AOSPK-Next/manifest HEAD:refs/heads/twelve --force
   fi

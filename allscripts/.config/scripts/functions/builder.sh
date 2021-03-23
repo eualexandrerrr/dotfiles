@@ -82,18 +82,27 @@ moveBuild() {
 b() {
   cd $rom && clear
   nbfc set -s 100
+  cp -rf log.txt old_log.txt
   argsC
   ccacheC
-  task=${1}
+  var=${1}
+  re='^[0-9]+$'
+  if ! [[ $var =~ $re ]] ; then
+    task=${1}
+    cores=$(nproc --all)
+  else
+    cores=${1}
+  fi
   [[ -z $task ]] && task=bacon || task=${1}
   echo -e "${BOL_MAG}\nYou are building:"
   echo -e "${BOL_YEL}Task   : ${BOL_CYA}${task}"
   echo -e "${BOL_YEL}Device : ${BOL_CYA}${codename}"
   echo -e "${BOL_YEL}Type   : ${BOL_CYA}${buildtype}"
+  echo -e "${BOL_YEL}Cores  : ${BOL_CYA}${cores}${END}"
   echo -e "${BOL_YEL}Pwd    : ${BOL_CYA}$PWD${END}"
   echo -e "\n"
   lunchC
-  make -j$(nproc --all) ${task} 2>&1 | tee log.txt
+  make -j${cores} ${task} 2>&1 | tee log.txt
   dunstify "Kraken Builder" "Build finished"
   nbfc set -s 50
   moveBuild
@@ -115,7 +124,12 @@ clean() {
   nbfc set -s 100
   argsC
   lunchC
-  [[ ${1} == "-f" ]] && make clean || make installclean
-  dunstify "Kraken Builder" "Clean finished"
+  if [[ ${1} == "-f" ]]; then
+    echo -e "${BOL_MAG}make clean"
+    make clean
+  else
+    echo -e "${BOL_MAG}make installclean"
+    make installclean
+  fi
   nbfc set -s 50
 }
