@@ -85,13 +85,12 @@ b() {
   cp -rf log.txt old_log.txt
   argsC
   ccacheC
+  task=bacon
   var=${1}
   re='^[0-9]+$'
   if ! [[ $var =~ $re ]] ; then
-    task=${1}
     cores=$(nproc --all)
   else
-    task=bacon
     cores=${1}
   fi
   echo -e "${BOL_MAG}\nYou are building:"
@@ -102,6 +101,7 @@ b() {
   echo -e "${BOL_YEL}Pwd    : ${BOL_CYA}$PWD${END}"
   echo -e "\n"
   lunchC
+  sleep 1000
   make -j${cores} ${task} 2>&1 | tee log.txt
   dunstify "Kraken Builder" "Build finished"
   nbfc set -s 50
