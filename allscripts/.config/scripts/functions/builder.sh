@@ -9,6 +9,8 @@ buildtype=userdebug
 
 argsC() {
   export TARGET_BOOT_ANIMATION_RES=1080
+  export KRAKEN_BUILD_TYPE=OFFICIAL
+#  export TARGET_INCLUDE_PIXEL_STYLE=true
 }
 
 ccacheC() {
@@ -89,7 +91,7 @@ b() {
   var=${1}
   re='^[0-9]+$'
   if ! [[ $var =~ $re ]] ; then
-    cores=$(nproc --all)
+    cores=6
   else
     cores=${1}
   fi
