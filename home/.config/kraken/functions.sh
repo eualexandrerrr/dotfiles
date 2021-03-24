@@ -78,10 +78,10 @@ upstream() {
 
 function up() {
   upstream ${1} lineage-18.1 eleven
-  upstream ${1} lineage-17.1 ten
-  upstream ${1} lineage-16.0 pie
-  upstream ${1} lineage-15.1 oreo-mr1
-  upstream ${1} cm-14.1 nougat
+#  upstream ${1} lineage-17.1 ten
+#  upstream ${1} lineage-16.0 pie
+#  upstream ${1} lineage-15.1 oreo-mr1
+#  upstream ${1} cm-14.1 nougat
 }
 
 function hals() {
