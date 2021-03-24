@@ -50,6 +50,7 @@ cloneRepos() {
   rm -rf $HOME/GitHub/{myarch,myhistory,infra,shellscript-atom-snippets} && rm -rf $HOME/.scripter
   git clone ssh://git@github.com/mamutal91/scripter $HOME/.scripter
   git clone ssh://git@github.com/AOSPK/infra $HOME/GitHub/infra
+  git clone ssh://git@github.com/buildersbr/buildersbr $HOME/GitHub/buildersbr
   git clone ssh://git@github.com/mamutal91/myarch $HOME/GitHub/myarch
   git clone ssh://git@github.com/mamutal91/myhistory $HOME/GitHub/myhistory
   git clone ssh://git@github.com/mamutal91/shellscript-atom-snippets $HOME/GitHub/shellscript-atom-snippets

@@ -9,6 +9,7 @@ gitpushRules() {
   if [[ $USER == mamutal91 ]]; then
     [[ $pwdFolder == .dotfiles ]] && dot && exit
     [[ $pwdFolder == infra ]] && infra && exit
+    [[ $pwdFolder == buildersbr ]] && buildersbr && exit
     [[ $pwdFolder == shellscript-atom-snippets ]] && export ATOM_ACCESS_TOKEN=${atomToken} && apm publish minor && sleep 5 && apm update mamutal91-shellscript-snippets-atom --no-confirm
     [[ $pwdFolder == mysyntaxtheme ]] && export ATOM_ACCESS_TOKEN=${atomToken} && apm publish minor && sleep 5 && apm update mysyntaxtheme --no-confirm
     [[ $pwdFolder == mytokens ]] && cp -rf $HOME/GitHub/mytokens/.myTokens $HOME &> /dev/null
@@ -77,14 +78,14 @@ gitadd() {
 
 gitpush() {
   pwdFolder=${PWD##*/}
-  pwd=$(pwd | cut -c-24)
+  pwd=$(pwd | cut -c-19)
 
   blacklist() {
     [ $pwdFolder = manifest ] && echo "${BOL_RED}Blacklist detected, no push!!!${END}" && break &> /dev/null
     [ $pwdFolder = official_devices ] && echo "${BOL_RED}Blacklist detected, no push!!!${END}" && break &> /dev/null
   }
 
-  if [[ $pwd == /mnt/roms/jobs/KrakenDev ]]; then
+  if [[ $pwd == /mnt/storage/Kraken ]]; then
     echo "\n${BOL_RED}No push!${END}\n"
   else
     if [[ ${1} == force ]]; then

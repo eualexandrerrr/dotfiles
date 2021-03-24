@@ -101,8 +101,8 @@ b() {
   echo -e "${BOL_YEL}Pwd    : ${BOL_CYA}$PWD${END}"
   echo -e "\n"
   lunchC
-  sleep 1000
-  make -j${cores} ${task} 2>&1 | tee log.txt
+#  make -j${cores} ${task} 2>&1 | tee log.txt
+  make -j${cores} ${task} | tee log.txt
   dunstify "Kraken Builder" "Build finished"
   nbfc set -s 50
   moveBuild

@@ -7,8 +7,9 @@ repo02="02.   infra"
 repo03="03.   myarch"
 repo04="04.   mytokens"
 repo05="05.   shellscript-atom-snippets"
+repo06="06.   buildersbr"
 
-menu="$repo01\n$repo02\n$repo03\n$repo04\n$repo05"
+menu="$repo01\n$repo02\n$repo03\n$repo04\n$repo05\n$repo06"
 
 theme="style_2"
 
@@ -19,5 +20,6 @@ case $chosen in
   $repo03) alacritty -t mywindowfloat --working-directory $github/myarch ;;
   $repo04) alacritty -t mywindowfloat --working-directory $github/mytokens ;;
   $repo05) alacritty -t mywindowfloat --working-directory $github/shellscript-atom-snippets ;;
+  $repo06) alacritty -t mywindowfloat --working-directory $github/buildersbr ;;
 esac
 exit 0

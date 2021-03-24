@@ -18,8 +18,8 @@ for dotfiles in $(find . -maxdepth 1  -not -name ".*" ! -name "setup" -type d -p
 done
 
 # etc
-echo "${RED}/etc and GTK${GRE}configured.${END}"
-basb $HOME/.dotfiles/setup/gtk-generator.sh
+echo "${RED}/etc ${GRE}and ${RED}GTK ${GRE}configured.${END}"
+bash $HOME/.dotfiles/setup/gtk-generator.sh
 bash $HOME/.dotfiles/setup/etc.sh
 
 # Restart sway

@@ -4,14 +4,22 @@
 
 set $term alacritty
 
-# Font
-font pango:Cantarell 9
-
-# use super/alt/control key
+# Use super/alt/control key
 set $super Mod4
 set $alt Mod1
 set $control Control
 set $shift Shift
+
+# GTK theme
+set $theme Dracula
+set $icon Flatery-Dark
+set $cursor Breeze
+set $font Cantarell
+set $mono Terminus
+set $size_font 9
+
+# Font
+font pango:$font $size_font
 
 # Define names for workspaces
 set $ws1 "1 "
@@ -70,7 +78,7 @@ bindsym $super+Tab workspace next
 bindsym $alt+Tab workspace next
 
 # i3-gaps
-gaps inner 10
+gaps inner 22
 gaps outer 0
 default_border pixel 0
 default_floating_border none
@@ -102,18 +110,12 @@ exec_always --no-startup-id kotatogram-desktop &
 exec --no-startup-id "pactl set-sink-mute @DEFAULT_SINK@ false; pactl set-sink-volume @DEFAULT_SINK@ 80%"
 exec --no-startup-id echo 206 | sudo tee /sys/class/backlight/amdgpu_bl1/brightness
 
-# GTK theme
-set $theme Dracula
-set $icon Flatery-Dark
-set $cursor Breeze
-set $font Cantarell
-set $mono Terminus
-set $size_font 9
-
+# GTK theme set
 exec --no-startup-id gsettings set org.gnome.desktop.interface gtk-theme $theme
 exec --no-startup-id gsettings set org.gnome.desktop.interface icon-theme $icon
 exec --no-startup-id gsettings set org.gnome.desktop.interface cursor-theme $cursor
-exec --no-startup-id gsettings set org.gnome.desktop.interface cursor-size 20
+exec --no-startup-id xsetroot -cursor_name $cursor
+exec --no-startup-id gsettings set org.gnome.desktop.interface cursor-size 18
 exec --no-startup-id gsettings set org.gnome.desktop.interface icon-theme $icon
 exec --no-startup-id gsettings set org.gnome.desktop.interface font-name $font
 exec --no-startup-id gsettings set org.gnome.desktop.interface monospace-font-name $mono
