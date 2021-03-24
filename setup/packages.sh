@@ -8,7 +8,7 @@ dependencies=(
   i3-gaps i3lock feh rofi dunst picom polybar-git alacritty stow nano nano-syntax-highlighting neofetch vlc gpicview zsh zsh-syntax-highlighting oh-my-zsh-git maim ffmpeg imagemagick slop
   thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman
 
-  flatery-icon-theme-git vimix-cursors-git dracula-gtk-theme-git
+  flatery-icon-theme-git xcursor-breeze dracula-gtk-theme-git
 
   google-chrome kotatogram-desktop-bin
 
