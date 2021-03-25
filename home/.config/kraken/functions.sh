@@ -84,6 +84,10 @@ function up() {
 #  upstream ${1} cm-14.1 nougat
 }
 
+function devicesepolicy() {
+  bash $HOME/.dotfiles/home/.config/kraken/hal/sepolicy.sh
+}
+
 function hals() {
   branch=(
     apq8084
