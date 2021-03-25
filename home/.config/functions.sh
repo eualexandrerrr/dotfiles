@@ -37,10 +37,6 @@ else
   }
 fi
 
-function blog() {
-  $HOME/.config/scripts/blog.sh
-}
-
 function update() {
   $HOME/.config/scripts/pacman-update.sh
 }
