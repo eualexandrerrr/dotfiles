@@ -36,9 +36,9 @@ case $chosen in
     $repo7)
         alacritty -t newcommit --working-directory $kraken/manifest;;
     $repo8)
-        alacritty -t newcommit --working-directory $kraken/device_xiaomi_lmi;;
+        alacritty -t newcommit --working-directory $github/device_xiaomi_lmi;;
     $repo9)
-        alacritty -t newcommit --working-directory $kraken/device_xiaomi_sm8250-common;;
+        alacritty -t newcommit --working-directory $github/device_xiaomi_sm8250-common;;
     $repo10)
         alacritty -t newcommit --working-directory $github/buildersbr;;
 esac
