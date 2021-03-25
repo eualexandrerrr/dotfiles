@@ -16,7 +16,6 @@ packages=(
   filezilla
   git gpicview
   htop
-  kotatogram-desktop-bin
   mako
   nano nano-syntax-highlighting
   reflector
@@ -61,6 +60,7 @@ aur=(
 
   # apps
   google-chrome-beta
+  kotatogram-desktop-bin
   oh-my-zsh-git
   swaylock-effects-git spotify-snap
   translate-shell-git
