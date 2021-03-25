@@ -10,6 +10,7 @@
     search = grep --line-number --ignore-case -E -I
     today = diff --stat 'HEAD@{midnight}'
     yesterday = diff --stat 'HEAD@{yesterday}' 'HEAD@{midnight}'
+    clone = git clone -s
 
 [color "branch"]
     current = yellow bold

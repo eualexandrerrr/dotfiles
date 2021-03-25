@@ -28,7 +28,7 @@ mypackages=(
   steam wine winetricks lib32-gnutls
 
   atom silver-searcher-git discord diff-so-fancy filezilla git htop jdk-openjdk jq krita man man-pages-pt_br github-cli-git lutris vkd3d lib32-vkd3d
-  rsync shfmt tree transmission-gtk zip scrcpy
+  rsync shfmt tree transmission-gtk zip scrcpy yad
 
   android-tools hfsprogs gvfs gvfs-mtp btrfs-progs dosfstools exfat-utils f2fs-tools e2fsprogs jfsutils nilfs-utils ntfs-3g reiserfsprogs udftools xfsprogs ntfs-3g
 
