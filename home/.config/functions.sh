@@ -10,6 +10,7 @@ function translate() {
   typing=$(mktemp)
   rm -rf $typing && nano $typing
   msg=$(trans -b :en -no-auto -i $typing)
+  cat $typing
 }
 
 if [ $HOST = "odin" ]; then
