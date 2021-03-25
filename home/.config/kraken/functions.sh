@@ -24,7 +24,7 @@ function treeseba() {
 #  git push ssh://git@github.com/AOSPK-Devices/kernel_xiaomi_sm8250 HEAD:refs/heads/eleven --force
 
   cd $HOME
-  git clone https://git.rip/xiaomi-sm8250-devs/android_vendor_xiaomi -b lineage-18.1
+  git clone https://gitlab.com/xiaomi-sm8250-devs/android_vendor_xiaomi -b lineage-18.1
   mv android_vendor_xiaomi vendor_xiaomi_lmi
   cp -rf vendor_xiaomi_lmi vendor_xiaomi_sm8250-common
 
