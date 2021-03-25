@@ -62,7 +62,7 @@ readonly AUR=(
   # apps
   google-chrome-beta
   oh-my-zsh-git
-  spotify swaylock-effects-git
+  swaylock-effects-git
   translate-shell-git
   zsh-syntax-highlighting
 
