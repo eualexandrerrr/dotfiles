@@ -132,10 +132,6 @@ function clone() {
   git clone ssh://git@${GITHOST}.com/${ORG}/${1} -b ${2} ${3} && cd ${3}
 }
 
-function f() {
-  git fetch https://github.com/${1} ${2}
-}
-
 upstream() {
   cd $HOME && rm -rf ${1}
   echo "${BOL_CYA}Cloning LineageOS/android_${1} -b ${2}${END}"

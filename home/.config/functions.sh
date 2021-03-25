@@ -2,6 +2,10 @@
 
 source $HOME/.colors &>/dev/null
 
+function f() {
+  git fetch https://github.com/${1} ${2}
+}
+
 function p() {
   git cherry-pick ${1}
 }
