@@ -8,7 +8,7 @@ codename=lmi
 buildtype=userdebug
 
 argsC() {
-#  echo -e "${BOL_RED}SELINUX_IGNORE_NEVERALLOWS=true${END}\n" && export SELINUX_IGNORE_NEVERALLOWS=true
+  echo -e "${BOL_RED}SELINUX_IGNORE_NEVERALLOWS=true${END}\n" && export SELINUX_IGNORE_NEVERALLOWS=true
 }
 
 ccacheC() {
@@ -16,8 +16,8 @@ ccacheC() {
   export CCACHE_EXEC=/usr/bin/ccache
   export CCACHE_DIR=/mnt/nvme/ccache
   ccache -M 100G -F 0
-  sudo mkdir -p /home/mamutal91/.ccache &> /dev/null
-  sudo mount --bind /mnt/nvme/ccache ~/.ccache
+  sudo mkdir -p /home/mamutal91/.ccache
+  sudo mount --bind /mnt/nvme/ccache /home/mamutal91/.ccache
 }
 
 s() {
@@ -70,7 +70,7 @@ b() {
   cd $rom && clear
   nbfc set -s 100
   cp -rf log.txt old_log.txt
-  ccacheC &> /dev/null
+  ccacheC
   task=${1}
   [[ -z $task ]] && task=bacon
   cores=$(nproc --all)
