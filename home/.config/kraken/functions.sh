@@ -70,10 +70,31 @@ function push() {
 
 upstream() {
   cd $HOME && rm -rf ${1}
-  echo "${BOL_CYA}Cloning LineageOS/android_${1} -b ${2}${END}"
-  git clone https://github.com/LineageOS/android_${1} -b ${2} ${1}
-  cd ${1} && git push ssh://git@github.com/AOSPK/${1} HEAD:refs/heads/${3} --force
-  rm -rf $HOME/${1}
+  GITHOST=github
+  ORG=LineageOS
+  REPO=android_${1}
+  REPO_KK=$(echo $REPO | cut -c9-)
+  BRANCH=${2}
+  BRANCH_KK=${3}
+  if [[ ${1} = vendor_google_pixel ]]; then
+    ORG=ThankYouMario
+    REPO=android_vendor_google_pixel
+    BRANCH=ruby
+  fi
+  if [[ ${1} = packages_apps_FaceUnlockService ]]; then
+    ORG=PixelExperience
+    REPO=packages_apps_FaceUnlockService
+    BRANCH=eleven
+    rm -rf external_faceunlock
+    git clone https://gitlab.pixelexperience.org/android/external_faceunlock -b eleven
+    cd external_faceunlock && git push ssh://git@github.com/AOSPK/external_faceunlock HEAD:refs/heads/${BRANCH_KK} --force
+    cd ..
+  fi
+
+  echo "${BOL_CYA}Cloning ${ORG}/${REPO} -b ${BRANCH}${END}"
+  git clone https://${GITHOST}.com/${ORG}/${REPO} -b ${BRANCH} ${REPO}
+  cd ${REPO} && git push ssh://git@${GITHOST}.com/AOSPK/${REPO_KK} HEAD:refs/heads/${BRANCH_KK} --force
+  rm -rf $HOME/${REPO}
 }
 
 function up() {
