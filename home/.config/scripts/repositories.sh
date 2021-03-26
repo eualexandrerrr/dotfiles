@@ -6,7 +6,6 @@ rm -rf $HOME/GitHub && mkdir -p $HOME/GitHub
 readonly kraken=(
     manifest
     docs
-    official_devices
 )
 
 for i in "${kraken[@]}"; do
