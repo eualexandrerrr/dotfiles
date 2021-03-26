@@ -45,7 +45,7 @@ www() {
   pwd=$(pwd)
   cd /mnt/
   rm -rf website
-  git clone ssh://git@github.com/AOSPK/website-wip website
+  git clone ssh://git@github.com/AOSPK/website website
   cd website
   sudo docker-compose stop
   sudo docker-compose build
