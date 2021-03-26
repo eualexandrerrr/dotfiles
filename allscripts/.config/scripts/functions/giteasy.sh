@@ -5,6 +5,22 @@ source $HOME/.myTokens/tokens.sh &> /dev/null
 
 myGitUser="Alexandre Rangel <mamutal91@gmail.com>"
 
+m() {
+  echo -e "${BOL_GRE}Changes:${END}"
+  lastCommit=$(git log --format="%H" -n 1)
+  for i in $(git diff-tree --no-commit-id --name-only -r $lastCommit); do
+    cat ${i} | grep 'ARROW\|arrow\|ARROW_\|com.arrow\|ErrorCode' ${i} &> /dev/null
+    if [[ $? -eq 0 ]]; then
+      echo "${BOL_RED}\n  * DETECTED:\n    ${i}${END}\n"
+      ag --color-line-number=30 -i ArRoW ${i}
+      echo
+    else
+      echo "${BOL_GRE} No detected - ${BOL_CYA}${i}${END}"
+    fi
+  done
+  echo -e "\n${BOL_RED}-----------------------------------------\n"
+}
+
 gitpushRules() {
   if [[ $USER == mamutal91 ]]; then
     [[ $pwdFolder == .dotfiles ]] && dot && exit
@@ -15,28 +31,9 @@ gitpushRules() {
   fi
 }
 
-reset(){
-  if [[ ! -d .git ]]; then
-    echo "${BOL_RED}You are not in a .git repository${END}"
-  else
-    if [[ -z ${1} ]]; then
-      echo "${RED}Specify the number of commits you want to reset${END}"
-    else
-      git reset --hard HEAD~${1}
-    fi
-  fi
-}
-
-rebase(){
-  if [[ ! -d .git ]]; then
-    echo "${BOL_RED}You are not in a .git repository${END}"
-  else
-    if [[ -z ${1} ]]; then
-      echo "${RED}Specify the number of commits you want to rebase${END}"
-    else
-      git rebase -i HEAD~${1}
-    fi
-  fi
+st () {
+  git status
+  m
 }
 
 f() {
@@ -51,7 +48,31 @@ f() {
 }
 
 p() {
-  git cherry-pick ${1}
+  argumentPick=${1}
+  if [[ ${argumentPick} == "git" ]]; then
+    bash $HOME/.dotfiles/allscripts/.config/scripts/functions/cherry-pick.sh ${1} ${2} ${3} ${4}
+    m
+    breack &> /dev/null
+  else
+    git cherry-pick ${1}
+    m
+  fi
+}
+
+pc() {
+  git add . && git cherry-pick --continue
+  m
+}
+
+rc() {
+  git add . && git rebase --continue
+  m
+}
+
+ab() {
+  git cherry-pick --abort
+  git rebase --abort
+  m
 }
 
 translate() {
@@ -115,6 +136,7 @@ cm() {
       echo "${BOL_RED}There are no local changes!!! leaving...${END}" && break &> /dev/null
     fi
   fi
+  m
 }
 
 amend() {
@@ -130,39 +152,5 @@ amend() {
       gitadd && git commit --amend --date "$(date)" --author "${lastAuthorName} <${lastAuthorEmail}>" && gitpush force
     fi
   fi
-}
-
-m() {
-  echo -e "\n${BOL_RED}Replacing Strings from ${BOL_BLU}Arrow ${BOL_RED}to ${BOL_YEL}Kraken${END}\n"
-  pwd=$(pwd)
-  lastCommit=$(git log --format="%H" -n 1)
-  filesModded=$(git diff-tree --no-commit-id --name-only -r $lastCommit)
-  for f in $filesModded; do
-    if [[ $f == "core/Makefile" ]]; then
-      dirname=core
-      basename=Makefile
-    elif [[ $f == "envsetup.sh" ]]; then
-      dirname=$(pwd)
-      basename=envsetup.sh
-    else
-      dirname=${f%/*}
-      basename=${f##*/}
-    fi
-    cd $dirname
-    replaceSed() {
-    sed -i "s:vendor/arrow:vendor/aosp:g" ${basename}
-    sed -i "s:device/arrow:device/custom:g" ${basename}
-    sed -i "s:hardware/arrow:hardware/custom:g" ${basename}
-    sed -i "s:ARROW_:KRAKEN_:g" ${basename}
-    sed -i "s:ARROW:KRAKEN:g" ${basename}
-    sed -i "s:arrow_:aosp_:g" ${basename}
-    sed -i "s:arrow:kraken:g" ${basename}
-    sed -i "s:ro.arrow:ro.kraken:g" ${basename}
-    sed -i "s:BoardConfigArrow.mk:BoardConfigKraken.mk:g" ${basename}
-    }
-    replaceSed
-    cd $pwd
-  done
-  git add . && git commit --amend --no-edit
-  echo -e "\n${BOL_RED}FINISHED!${END}"
+  m
 }
