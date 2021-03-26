@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-function personalconfig() {
+if [[ $USER = "mamutal91" ]]; then
   pwd=$(pwd) && cd $HOME
   git config --global user.email "mamutal91@gmail.com"
   git config --global user.name "Alexandre Rangel"
@@ -8,7 +8,7 @@ function personalconfig() {
   rm -rf $HOME/.zsh_history && wget https://raw.githubusercontent.com/mamutal91/zsh-history/master/.zsh_history
   mkdir -p $HOME/{Images,Videos} &>/dev/null
   cd $pwd
-}
+fi
 
 # Install YAY AUR Manager
 pwd=$(pwd)
@@ -60,10 +60,5 @@ do
 done
 
 source $HOME/.dotfiles/setup/etc.sh
-
-if [[ $USER = "mamutal91" ]]; then
-  echo "Set personal configs"
-  personalconfig
-fi
 
 chsh -s $(which zsh)
