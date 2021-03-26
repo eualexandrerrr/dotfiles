@@ -91,7 +91,7 @@ b() {
   var=${1}
   re='^[0-9]+$'
   if ! [[ $var =~ $re ]] ; then
-    cores=6
+    cores=7
   else
     cores=${1}
   fi
