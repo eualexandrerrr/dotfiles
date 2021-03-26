@@ -17,25 +17,23 @@ cd $pwd
 mkdir -p $HOME/{Pictures,Videos,GitHub} &> /dev/null
 
 # My Tokens
-sudo rm -rf $HOME/GitHub/mytokens
-if [[ -e $HOME/.ssh/id_ed25519 ]]; then
-  git clone ssh://git@gitlab.com/mamutal91/mytokens $HOME/GitHub/mytokens
-else
-  git clone https://gitlab.com/mamutal91/mytokens $HOME/GitHub/mytokens
-fi
+checkTokens() {
+  sudo rm -rf $HOME/GitHub/mytokens
+  if [[ -e $HOME/.ssh/id_ed25519 ]]; then
+    git clone ssh://git@gitlab.com/mamutal91/mytokens $HOME/GitHub/mytokens
+  else
+    git clone https://gitlab.com/mamutal91/mytokens $HOME/GitHub/mytokens
+  fi
+}
+checkTokens
 
 myTokensPerms() {
   pwd=$(pwd)
-  sudo rm -rf $HOME/.mytokens
-  sudo mkdir -p $HOME/.mytokens
   sudo mkdir -p $HOME/.ssh
   sudo chown -R mamutal91:mamutal91 $HOME/.ssh
   sudo chmod 700 $HOME/.ssh
-  sudo chmod 700 $HOME/.mytokens
-  sudo cp -rf $HOME/GitHub/mytokens/.myTokens $HOME/.mytokens
   cd $HOME/GitHub/mytokens/keys
   cp -rf * $HOME/.ssh
-  sudo chmod 777 -R $HOME/.mytokens
   sudo chmod 644 $HOME/.ssh/*.pub
   sudo chmod 600 $HOME/.ssh/id_ed25519
   sudo chmod 600 $HOME/.ssh/id_rsa
@@ -45,6 +43,16 @@ myTokensPerms() {
 }
 myTokensPerms &> /dev/null
 
+copyTokens() {
+  pwd=$(pwd)
+  mkdir -p $HOME/.myTokens
+  cd $HOME/GitHub/mytokens
+  cp -rf tokens.sh $HOME/.myTokens
+  chmod +x $HOME/.myTokens
+  cd $pwd
+}
+
+copyTokens
 # Clone my important repos
 cloneRepos() {
   rm -rf $HOME/GitHub/{myarch,myhistory,docker-files,shellscript-atom-snippets} && rm -rf $HOME/.scripter

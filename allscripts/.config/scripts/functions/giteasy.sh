@@ -11,9 +11,7 @@ gitpushRules() {
     [[ $pwdFolder == docker-files ]] && dockerfiles && exit
     [[ $pwdFolder == buildersbr ]] && buildersbr && exit
     [[ $pwdFolder == shellscript-atom-snippets ]] && export ATOM_ACCESS_TOKEN=${atomToken} && apm publish minor && sleep 5 && apm update mamutal91-shellscript-snippets-atom --no-confirm
-    [[ $pwdFolder == mysyntaxtheme ]] && export ATOM_ACCESS_TOKEN=${atomToken} && apm publish minor && sleep 5 && apm update mysyntaxtheme --no-confirm
-    [[ $pwdFolder == mytokens ]] && cp -rf $HOME/GitHub/mytokens/.myTokens $HOME &> /dev/null
-    [[ $pwdFolder == downloadcenter ]] && www && exit
+    [[ $pwdFolder == mytokens ]] && cp -rf $HOME/GitHub/mytokens $HOME/.mytokens &> /dev/null
   fi
 }
 
