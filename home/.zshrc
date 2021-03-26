@@ -33,6 +33,8 @@ alias systemctl="sudo systemctl"
 alias xprop="xprop | awk '/^WM_CLASS/{sub(/.* =/, \"instance:\"); sub(/,/, \"\nclass:\"); print} /^WM_NAME/{sub(/.* =/, \"title:\"); print}'"
 alias notify-send="dunstify"
 alias atom="atom -n=false"
+alias docker="sudo docker"
+alias docker-compose="sudo docker-compose"
 
 # Paths
 if [[ $(cat /etc/hostname) == odin ]]; then
