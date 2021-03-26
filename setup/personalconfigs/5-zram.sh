@@ -18,7 +18,7 @@ host-memory-limit = none
 # 256 MiB. Values in the range 0.10–0.50 are recommended.
 #
 # The default is 0.5.
-zram-fraction = 1
+zram-fraction = 3
 
 # The maximum size of the zram device (in MiB).
 #
