@@ -30,6 +30,25 @@ for i in "${AUR[@]}"; do
   yay -Sy ${i} --needed --noconfirm
 done
 
+# Atom packages
+ATOM="
+  atom-beautify
+  atom-material-syntax
+  color-picker
+  file-icons
+  flatten-json
+  ftp-remote-edit
+  highlight-selected
+  indent-sort
+  language-i3wm
+  language-swaywm
+  mamutal91-shellscript-snippets-atom
+  markdown-writer
+  pigments
+  save-workspace"
+
+apm install $ATOM
+
 # Enable systemd services
 for SERVICES in \
     cronie \
