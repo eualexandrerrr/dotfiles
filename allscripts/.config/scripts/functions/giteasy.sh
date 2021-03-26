@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 source $HOME/.Xcolors &> /dev/null
-source $HOME/.mytokens/.myTokens &> /dev/null
+source $HOME/.myTokens/tokens.sh &> /dev/null
 
 myGitUser="Alexandre Rangel <mamutal91@gmail.com>"
 

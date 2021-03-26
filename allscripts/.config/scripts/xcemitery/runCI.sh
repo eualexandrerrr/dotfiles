@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 source $HOME/.Xcolors &> /dev/null
-source $HOME/.mytokens/.myTokens &> /dev/null
+source $HOME/.myTokens/tokens.sh &> /dev/null
 
 #IP=88.99.4.77:8080
 IP=88.99.4.77:8080

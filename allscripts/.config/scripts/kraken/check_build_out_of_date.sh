@@ -3,7 +3,7 @@
 clear
 
 source $HOME/.Xcolors &> /dev/null
-source $HOME/.mytokens/.myTokens &> /dev/null
+source $HOME/.myTokens/tokens.sh &> /dev/null
 
 chatId="-1001485974314"
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Adjust the following variables as necessary
 
-source $HOME/.mytokens/.myTokens &> /dev/null
+source $HOME/.myTokens/tokens.sh &> /dev/null
 
 gh repo create AOSPK/frameworks_base --private --confirm &> /dev/null
 

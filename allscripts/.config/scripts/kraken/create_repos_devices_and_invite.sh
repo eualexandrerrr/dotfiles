@@ -3,7 +3,7 @@
 clear
 
 source $HOME/.Xcolors &> /dev/null
-source $HOME/.mytokens/.myTokens &> /dev/null
+source $HOME/.myTokens/tokens.sh &> /dev/null
 
 workingDir=$(mktemp -d) && cd $workingDir
 git clone ssh://git@github.com/AOSPK/official_devices

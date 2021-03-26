@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-source $HOME/.mytokens/.myTokens &> /dev/null
+source $HOME/.myTokens/tokens.sh &> /dev/null
 
 count=$(curl -u username:${githubNotification} https://api.github.com/notifications | jq '. | length')
 
