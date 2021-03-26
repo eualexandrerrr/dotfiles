@@ -120,10 +120,10 @@ clean() {
   argsC
   lunchC
   if [[ ${1} == "-f" ]]; then
-    echo -e "${BOL_MAG}make clean"
+    echo -e "${BOL_MAG}make clean${END}"
     make clean
   else
-    echo -e "${BOL_MAG}make installclean"
+    echo -e "${BOL_MAG}make installclean${END}"
     make installclean
   fi
   nbfc set -s 50

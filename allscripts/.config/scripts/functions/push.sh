@@ -26,6 +26,7 @@ getRepoName() {
     [[ $repoName == "vendor_qcom_opensource_commonsys_packages_apps_Bluetooth" ]] && repoName=vendor_qcom_opensource_packages_apps_Bluetooth
     [[ $repoName == "vendor_qcom_opensource_commonsys_system_bt" ]] && repoName=vendor_qcom_opensource_system_bt
     [[ $repoName == "official_devices" ]] && branchDefault=master
+    [[ $repoName == "crowdin" ]] && branchDefault=master
   }
 }
 
@@ -88,7 +89,7 @@ pushGerrit() {
     echo -e "              -c [Specific SHA ID commit]"
     echo -e "              -n [Nothin]"
     echo -e "              -p [Specifc project]"
-    echo -e "${BOL_RED}              Use Project, example: ${BOL_YEL}: push gerrit -p LineageOS lineage-19.0"
+    echo -e "${BOL_RED}              Use Project, example: ${BOL_YEL}: push gerrit -p ArrowOS arrow-12.0 topic"
     echo -e "${END}"
   else
     [[ ${pushGerritArgument} == -v ]] && pushGerritPush="HEAD:refs/for/${branchDefault}%l=Verified+1,l=Code-Review+2"
@@ -97,16 +98,11 @@ pushGerrit() {
     [[ ${pushGerritArgument} == -n ]] && pushGerritPush="HEAD:refs/for/${branchDefault}"
     if [[ ${pushGerritArgument} == -p ]]; then
       pushGerritProject=${3}
-      pushGerritTopic=${4}
-      if [[ -n ${branchDefault} ]]; then
-        echo -e "${BOL_RED}You need type ${BOL_YEL}branch!"
-        sleep 100
-        exit 0
-      else
-        [[ ${3} == LineageOS ]] && pushGerritUrlProject="review.lineageos.org" && pushGerritPush="HEAD:refs/for/${branchDefault}" && branchDefault=${4}
-        [[ ${3} == ArrowOS ]] && pushGerritUrlProject="review.arrowos.net" && pushGerritPush="HEAD:refs/for/${branchDefault}" && branchDefault=${4}
-        [[ ${3} == PixelExperience ]] && pushGerritUrlProject="gerrit.pixelexperience.org" && pushGerritPush="HEAD:refs/for/${branchDefault}" && branchDefault=${4}
-      fi
+      branchDefault=${4}
+      pushGerritTopic=${5}
+        [[ ${3} == LineageOS ]] && pushGerritUrlProject="review.lineageos.org" && pushGerritPush="HEAD:refs/for/${branchDefault}" && repoName=${pushGerritProject}/${repoName}
+        [[ ${3} == ArrowOS ]] && pushGerritUrlProject="review.arrowos.net" && pushGerritPush="HEAD:refs/for/${branchDefault}" && repoName=${pushGerritProject}/${repoName}
+        [[ ${3} == PixelExperience ]] && pushGerritUrlProject="gerrit.pixelexperience.org" && pushGerritPush="HEAD:refs/for/${branchDefault}"
     fi
     [[ -z ${pushGerritArgument} ]] && pushGerritPush="HEAD:refs/for/${branchDefault}"
     if [[ ! -d .git ]]; then
@@ -120,7 +116,9 @@ pushGerrit() {
     fi
     [[ $repo = manifest ]] && echo ${BOL_RED}Pushing manifest to ORG DEV${END} && git push ssh://git@github.com/AOSPK-Next/manifest HEAD:refs/heads/twelve --force
   fi
-  push -f
+  if [[ ${pushGerritArgument} != "-p" ]]; then
+    push -f
+  fi
 }
 
 push (){

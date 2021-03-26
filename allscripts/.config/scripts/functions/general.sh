@@ -71,7 +71,9 @@ qemu() {
 }
 
 sideload() {
-  sudo adb sideload "$HOME/Builds/Kraken-12-GApps-$(date +"%Y%m%d")-${1}-lmi-BETA.zip"
+  cd $HOME/Builds
+  zip=$(ls Kraken-12-*-*-${1}-lmi-*.zip)
+  sudo adb sideload ${zip}
 }
 
 dot() {
