@@ -92,7 +92,7 @@ bindsym $control+$shift+r mode "resize"
 
 # Startup
 exec_always --no-startup-id $HOME/.config/scripts/battery.sh
-exec_always --no-startup-id swaybg -i $HOME/.config/wallpapers/kraken.png
+exec_always --no-startup-id swaybg -i $HOME/.config/wallpapers/space.jpg
 exec_always --no-startup-id bluetoothctl power off
 exec --no-startup-id mako
 exec --no-startup-id pulseeffects --gapplication-service &>/dev/null
