@@ -38,6 +38,7 @@ application/wps-office.wpss=wps-office-wps.desktop
 application/wps-office.wpso=wps-office-wps.desktop
 application/wps-office.wpt=wps-office-wps.desktop
 x-scheme-handler/mailto=google-chrome-beta.desktop
+x-scheme-handler/tg=userapp-Telegram Desktop-073C00.desktop
 
 [Added Associations]
 application/wps-office.potx=wps-office-wpp.desktop;
@@ -51,5 +52,5 @@ application/wps-office.docx=wps-office-wps.desktop;
 application/wps-office.dotx=wps-office-wps.desktop;
 application/wps-office.wpss=wps-office-wps.desktop;
 application/wps-office.wpso=wps-office-wps.desktop;
-x-scheme-handler/tg=userapp-Telegram Desktop-0MNHW0.desktop;userapp-Telegram Desktop-PYNRW0.desktop;userapp-Telegram Desktop-B8IWW0.desktop;userapp-Telegram Desktop-4R2NX0.desktop;userapp-Telegram Desktop-I9NPX0.desktop;userapp-Telegram Desktop-A9TDX0.desktop;userapp-Telegram Desktop-8FC2X0.desktop;userapp-Telegram Desktop-SFGRY0.desktop;userapp-Telegram Desktop-O56UY0.desktop;
+x-scheme-handler/tg=userapp-Telegram Desktop-0MNHW0.desktop;userapp-Telegram Desktop-PYNRW0.desktop;userapp-Telegram Desktop-B8IWW0.desktop;userapp-Telegram Desktop-4R2NX0.desktop;userapp-Telegram Desktop-I9NPX0.desktop;userapp-Telegram Desktop-A9TDX0.desktop;userapp-Telegram Desktop-8FC2X0.desktop;userapp-Telegram Desktop-SFGRY0.desktop;userapp-Telegram Desktop-O56UY0.desktop;userapp-Telegram Desktop-073C00.desktop;
 application/pdf=wps-office-pdf.desktop;
