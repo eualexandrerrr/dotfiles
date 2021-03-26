@@ -41,8 +41,8 @@ alias h="cat /etc/hostname"
 
 # Paths
 if [[ $(cat /etc/hostname) == odin ]]; then
-  alias x="cd /mnt/nvme/Kraken"
-  alias out="clear && cd /mnt/nvme/Kraken/out/target/product/lmi && ls -1"
+  alias x="cd $HOME/Kraken"
+  alias out="clear && cd $HOME/Kraken/out/target/product/lmi && ls -1"
 else
   alias d="cd /mnt/docker-files"
   alias x="cd /mnt/jobs/KrakenMaintainers"

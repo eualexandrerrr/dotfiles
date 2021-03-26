@@ -17,9 +17,9 @@
 
 source $HOME/.Xcolors &> /dev/null
 
-cd /mnt/nvme/Kraken
+cd $HOME/Kraken
 
-WORKING_DIR=/mnt/nvme/Kraken
+WORKING_DIR=$HOME/Kraken
 echo "${YEL}WORKING_DIR=${CYA}$WORKING_DIR${END}"
 
 # The tag you want to merge in goes here

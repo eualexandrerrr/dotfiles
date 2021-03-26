@@ -3,21 +3,21 @@
 source $HOME/.Xcolors &> /dev/null
 source $HOME/.myTokens/tokens.sh &> /dev/null
 
-rom="/mnt/nvme/Kraken"
+rom="$HOME/Kraken"
 codename=lmi
 buildtype=userdebug
 
 argsC() {
-  echo -e "${BOL_RED}SELINUX_IGNORE_NEVERALLOWS=true${END}\n" && export SELINUX_IGNORE_NEVERALLOWS=true
+  #echo -e "${BOL_RED}SELINUX_IGNORE_NEVERALLOWS=true${END}\n" && export SELINUX_IGNORE_NEVERALLOWS=true
 }
 
 ccacheC() {
   export USE_CCACHE=1
   export CCACHE_EXEC=/usr/bin/ccache
-  export CCACHE_DIR=/mnt/nvme/ccache
+  export CCACHE_DIR=$HOME/ccache
   ccache -M 100G -F 0
   sudo mkdir -p /home/mamutal91/.ccache
-  sudo mount --bind /mnt/nvme/ccache /home/mamutal91/.ccache
+  sudo mount --bind $HOME/.ccacherom /home/mamutal91/.ccache
 }
 
 s() {
@@ -44,7 +44,7 @@ lunchC() {
 }
 
 apkAndimg() {
-  pathPrebuilts=/mnt/nvme/Builds
+  pathPrebuilts=$HOME/Builds
   rm -rf ${pathPrebuilts}/{apk,img} &> /dev/null
   mkdir -p ${pathPrebuilts}/{apk,apk/accents,apk/overlay,img} &> /dev/null
   rm -rf obj/*/*/*.apk
@@ -57,11 +57,11 @@ apkAndimg() {
 }
 
 moveBuild() {
-  pathBuilds=/mnt/nvme/Builds
+  pathBuilds=$HOME/Builds
   mkdir -p $pathBuilds
-  mv /mnt/nvme/Kraken/out/target/product/*/Kraken-12-*-*.zip $pathBuilds
+  mv $HOME/Kraken/out/target/product/*/Kraken-12-*-*.zip $pathBuilds
   [[ $codename == lmi ]] && apkAndimg &> /dev/null
-  rm -rf /mnt/nvme/Kraken/out/target/product/*/{*.md5sum,*.json}
+  rm -rf $HOME/Kraken/out/target/product/*/{*.md5sum,*.json}
 }
 
 b() {

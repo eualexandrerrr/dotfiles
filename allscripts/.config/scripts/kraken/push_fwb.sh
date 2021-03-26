@@ -5,7 +5,7 @@ source $HOME/.myTokens/tokens.sh &> /dev/null
 source $HOME/.Xcolors &> /dev/null
 
 if [[ $(cat /etc/hostname) == "odin" ]]; then
-  cd /mnt/nvme/Kraken/frameworks/base
+  cd $HOME/Kraken/frameworks/base
 fi
 
 git remote remove push &> /dev/null

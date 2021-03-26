@@ -13,7 +13,7 @@ getRepo() {
 }
 
 mc() {
-  if echo $PWD | grep "/mnt/nvme/Kraken" &> /dev/null; then
+  if echo $PWD | grep "$HOME/Kraken" &> /dev/null; then
     lastCommit=$(git log --format="%H" -n 1)
     for i in $(git diff-tree --no-commit-id --name-only -r $lastCommit); do
       cat ${i} | grep 'ARROW\|arrow\|ARROW_\|com.arrow' ${i} &> /dev/null
@@ -176,7 +176,7 @@ gitadd() {
 
 gitpush() {
   gitBlacklist
-  if echo $PWD | grep "/mnt/nvme/Kraken" &> /dev/null; then
+  if echo $PWD | grep "$HOME/Kraken" &> /dev/null; then
     echo "\n${BOL_RED}No push!${END}\n"
   else
     if [[ ${1} == force ]]; then
