@@ -30,14 +30,15 @@ if [[ $HOST = mamutal91 ]]; then
   kraken=( "gerrit" "jenkins" )
 
   for i in "${kraken[@]}"; do
-  	sudo rm -rf /home/mamutal91/.${i}
-    git clone ssh://git@github.com/AOSPK/gerrit -b backup $HOME/.gerrit
-    git clone ssh://git@github.com/AOSPK/jenkins -b master $HOME/.jenkins
+    sudo rm -rf /home/mamutal91/.gerrit
+    sudo rm -rf /home/mamutal91/.jenkins
+    git clone ssh://git@github.com/AOSPK/gerrit -b backup /home/mamutal91/.gerrit
+    git clone ssh://git@github.com/AOSPK/jenkins -b master /home/mamutal91/.jenkins
     if [[ ${i} = gerrit ]]; then
-      sudo cp -rf /mnt/roms/sites/docker/${i}/${i} /home/mamutal91/.${i}
+      sudo cp -rf /mnt/roms/sites/docker/gerrit /home/mamutal91/.gerrit
     fi
     if [[ ${i} = jenkins ]]; then
-      sudo cp -rf /var/lib/jenkins/* /home/mamutal91/.${i}
+      sudo cp -rf /var/lib/jenkins/* /home/mamutal91/.jenkins
     fi
   	cd $HOME/.${i}
   	status=$(sudo git add . -n)
