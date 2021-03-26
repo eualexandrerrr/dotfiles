@@ -104,7 +104,7 @@ b() {
   echo -e "\n"
   lunchC
 #  make -j${cores} ${task} 2>&1 | tee log.txt
-  make -j${cores} ${task} | tee log.txt
+  make -j${cores} ${task} > log.txt
   dunstify "Kraken Builder" "Build finished"
   nbfc set -s 50
   moveBuild
