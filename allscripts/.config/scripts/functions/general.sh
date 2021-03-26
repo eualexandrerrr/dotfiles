@@ -31,9 +31,9 @@ newuser(){
   sudo chmod 600 ${user}/.ssh/authorized_keys &> /dev/null
 }
 
-infra() {
-  echo -e "\n${BLU}Recloning ${CYA}infra ${BLU}to have the latest changes...${END}"
-  ssh mamutal91@88.99.4.77 "cd $HOME && rm -rf /mnt/roms/infra && git clone ssh://git@github.com/AOSPK/infra /mnt/roms/infra"
+dockerfiles() {
+  echo -e "\n${BLU}Recloning ${CYA}docker-files ${BLU}to have the latest changes...${END}"
+  ssh mamutal91@88.99.4.77 "cd $HOME && rm -rf /mnt/docker-files && git clone ssh://git@github.com/AOSPK/docker-files /mnt/docker-files"
 }
 
 buildersbr() {
@@ -43,7 +43,7 @@ buildersbr() {
 
 www() {
   pwd=$(pwd)
-  cd /mnt/roms/sites/docker/
+  cd /mnt/
   rm -rf website
   git clone ssh://git@github.com/AOSPK/website-wip website
   cd website

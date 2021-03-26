@@ -8,7 +8,7 @@ myGitUser="Alexandre Rangel <mamutal91@gmail.com>"
 gitpushRules() {
   if [[ $USER == mamutal91 ]]; then
     [[ $pwdFolder == .dotfiles ]] && dot && exit
-    [[ $pwdFolder == infra ]] && infra && exit
+    [[ $pwdFolder == docker-files ]] && dockerfiles && exit
     [[ $pwdFolder == buildersbr ]] && buildersbr && exit
     [[ $pwdFolder == shellscript-atom-snippets ]] && export ATOM_ACCESS_TOKEN=${atomToken} && apm publish minor && sleep 5 && apm update mamutal91-shellscript-snippets-atom --no-confirm
     [[ $pwdFolder == mysyntaxtheme ]] && export ATOM_ACCESS_TOKEN=${atomToken} && apm publish minor && sleep 5 && apm update mysyntaxtheme --no-confirm

@@ -35,14 +35,16 @@ alias notify-send="dunstify"
 alias atom="atom -n=false"
 alias docker="sudo docker"
 alias docker-compose="sudo docker-compose"
+alias h="cat /etc/hostname"
 
 # Paths
 if [[ $(cat /etc/hostname) == odin ]]; then
   alias x="cd /mnt/storage/Kraken"
   alias out="clear && cd /mnt/storage/Kraken/out/target/product/lmi && ls -1"
 else
-  alias x="cd /mnt/roms/jobs/KrakenDev"
-  alias out="clear && cd /mnt/roms/jobs/KrakenDev/out/target/product/lmi && ls -1"
+  alias d="cd /mnt/docker-files"
+  alias x="cd /mnt/jobs/KrakenMaintainers"
+  alias out="clear && cd /mnt/jobs/KrakenMaintainers/out/target/product/lmi && ls -1"
 fi
 
 if [[ $USER == mamutal91 ]]; then
