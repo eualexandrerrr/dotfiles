@@ -18,7 +18,6 @@ readonly PACKAGES=(
   lxappearance
   mako
   nano nano-syntax-highlighting
-  krita
   reflector
   stow sway swaybg
   telegram-desktop tree thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman transmission-gtk
