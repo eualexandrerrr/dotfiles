@@ -123,6 +123,15 @@ p() {
   fi
 }
 
+pp() {
+  clear
+  f
+  git cherry-pick -m 1 ${1}
+  git add . && git commit --amend --author "Alexandre Rangel <mamutal91@gmail.com>" --no-edit
+  push -f main
+}
+
+
 add() {
   git add .
 }
