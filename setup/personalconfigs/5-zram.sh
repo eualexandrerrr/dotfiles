@@ -1,56 +1,27 @@
 #!/usr/bin/env bash
 
-echo '# This file is part of the zram-generator project
-# https://github.com/systemd/zram-generator
+# Desabilitar antes
+sudo swapoff /dev/zram0
+sudo rmmod zram
+sudo systemctl disable zram.service
 
-[zram0]
-# This section describes the settings for /dev/zram0.
-#
-# The maximum amount of memory (in MiB). If the machine has more RAM
-# than this, zram device will not be created.
-#
-# "host-memory-limit = none" may be used to disable this limit. This
-# is also the default.
-host-memory-limit = none
+# Inicio
+sudo modprobe zram
+sudo sh -c "echo 'lz4' > /sys/block/zram0/comp_algorithm"
+sudo sh -c "echo '16G' > /sys/block/zram0/disksize"
+sudo mkswap --label zram0 /dev/zram0
+sudo swapon --priority 100 /dev/zram0
 
-# The fraction of memory to use as ZRAM. For example, if the machine
-# has 1 GiB, and zram-fraction=0.25, then the zram device will have
-# 256 MiB. Values in the range 0.10–0.50 are recommended.
-#
-# The default is 0.5.
-zram-fraction = 1.5
+echo '[Unit]
+Description=zRam block devices swapping
 
-# The maximum size of the zram device (in MiB).
-#
-# If host-memory times zram-fraction is greater than this,
-# the size will be capped to this amount;
-# for example, on a machine with 2 GiB of RAM and with zram-fraction=0.5,
-# the device would still be 512 MiB in size due to the limit below.
-#
-# The default is 4096.
-max-zram-size = 8192
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/bash -c "modprobe zram && echo lz4 > /sys/block/zram0/comp_algorithm && echo 16G > /sys/block/zram0/disksize && mkswap --label zram0 /dev/zram0 && swapon --priority 100 /dev/zram0"
+ExecStop=/usr/bin/bash -c "swapoff /dev/zram0 && rmmod zram"
+RemainAfterExit=yes
 
-# The compression algorithm to use for the zram device,
-# or leave unspecified to keep the kernel default.
-compression-algorithm = zstd
+[Install]
+WantedBy=multi-user.target' | sudo tee /etc/systemd/system/zram.service
 
-[zram1]
-# This section describes the settings for /dev/zram1.
-#
-# host-memory-limit is not specifed, so this device will always be created.
-
-# Size the device to a tenth of RAM.
-zram-fraction = 0.1
-
-# The file system to put on the device. If not specified, ext2 will be used.
-fs-type = ext2
-
-# Where to mount the file system. If a mount point is not specified,
-# the device will be initialized, but will not be used for anything.
-mount-point = /var/zram' | sudo tee /etc/systemd/zram-generator.conf &> /dev/null
-
-sudo cp -rf zram-generator.conf /etc/systemd/
-sudo systemctl daemon-reload
-sudo systemctl enable /dev/zram0
-sudo systemctl start /dev/zram0
-sudo zramctl
+sudo systemctl enable zram
