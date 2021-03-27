@@ -14,10 +14,10 @@ argsC() {
 ccacheC() {
   export USE_CCACHE=1
   export CCACHE_EXEC=/usr/bin/ccache
-  export CCACHE_DIR=$HOME/ccache
+  export CCACHE_DIR=$HOME/.ccache
   ccache -M 100G -F 0
-  sudo mkdir -p /home/mamutal91/.ccache
-  sudo mount --bind $HOME/.ccacherom /home/mamutal91/.ccache
+  sudo mkdir -p $HOME/.ccache
+  sudo mount --bind $HOME/.ccacherom $HOME/.ccache
 }
 
 s() {
@@ -69,7 +69,7 @@ b() {
   iconFail="$HOME/.config/assets/icons/fail.png"
   cd $rom && clear
   nbfc set -s 100
-  cp -rf log.txt old_log.txt
+  cp -rf log.txt old_log.txt &> /dev/null
   ccacheC
   task=${1}
   [[ -z $task ]] && task=bacon
