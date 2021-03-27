@@ -6,16 +6,46 @@ source $HOME/.myTokens/tokens.sh &> /dev/null
 myGitUser="Alexandre Rangel <mamutal91@gmail.com>"
 
 m() {
+  echo -e "\n${BOL_MAG}-----------------------------------------\n"
   echo -e "${BOL_GRE}Changes:${END}"
   lastCommit=$(git log --format="%H" -n 1)
   for i in $(git diff-tree --no-commit-id --name-only -r $lastCommit); do
-    cat ${i} | grep 'ARROW\|arrow\|ARROW_\|com.arrow\|ErrorCode' ${i} &> /dev/null
+    cat ${i} | grep 'ARROW\|arrow\|ARROW_\|com.arrow' ${i} &> /dev/null
     if [[ $? -eq 0 ]]; then
-      echo -e "${BOL_RED}\n  * DETECTED:\n    ${i}${END}\n"
+      echo -e "${BOL_RED}  * DETECTED:    ${i}${END}"
       ag --color-line-number=30 -i ArRoW ${i}
+      ag -s arrow ${i}
       echo
     else
       echo -e "${BOL_GRE} No detected - ${BOL_CYA}${i}${END}"
+    fi
+  done
+  echo -e "\n${BOL_MAG}-----------------------------------------\n"
+}
+
+mm() {
+  echo -e "${BOL_GRE}Changes:${END}"
+  lastCommit=$(git log --format="%H" -n 1)
+
+  for i in $(find -L . | cut -c3-300); do
+    check=$(echo ${i} | cut -c-2)
+    if [[ $check == "./" ]]; then
+      continue
+    else
+      if [[ -d ${i} ]]; then
+        # is a directory
+        continue
+      else
+        cat ${i} | grep 'ARROW\|arrow\|ARROW_\|com.arrow' ${i} &> /dev/null
+        if [[ $? -eq 0 ]]; then
+          echo -e "${BOL_RED}\n  * DETECTED:    ${i}${END}"
+          ag --color-line-number=30 -i ArRoW ${i}
+          ag -s arrow ${i}
+          echo
+        else
+          echo -e "${BOL_GRE} No detected - ${BOL_CYA}${i}${END}"
+        fi
+      fi
     fi
   done
   echo -e "\n${BOL_RED}-----------------------------------------\n"
