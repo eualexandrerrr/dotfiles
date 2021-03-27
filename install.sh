@@ -25,5 +25,5 @@ bash $HOME/.dotfiles/setup/etc.sh
 # Restart sway
 i3-msg reload &> /dev/null
 fc-cache -f -r -v &> /dev/null
-bash $HOME/.config/polybar/launch.sh &> /dev/null
+bash $HOME/.config/polybar/launch.sh
 exit 0
