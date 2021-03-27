@@ -169,7 +169,7 @@ for_window [class="pop-up|bubble|task_dialog|Preferences"] floating enable, move
 for_window [title="Open Folder*|Escolha*|Salvar*|Abrir arquivo"] floating enable, move position center, resize set 700 px 480 px, move right -300px, , move down 0px, focus
 for_window [title="Media viewer|Progresso|Friends*|Novidades*|Pastas de biblioteca*"] floating enable, move position center, focus
 for_window [title="Lista de amigos"] floating enable, move position center, focus
-for_window [title="mywindowfloat"] move to workspace $ws3, floating enable, resize set 700 px 330 px, move right -300px, move down 0px, focus
+for_window [title="mywindowfloat"] move to workspace $ws3, floating enable, resize set 850 px 400 px, move right -300px, move down 0px, focus
 for_window [title="testingscript"] move to workspace $ws3, floating enable, resize set 800 px 500 px, move right -190px, move down 170px, focus
 for_window [class="Yad"] floating enable, resize set 800 px 100 px, focus
 
