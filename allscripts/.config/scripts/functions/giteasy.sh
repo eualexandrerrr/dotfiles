@@ -14,7 +14,6 @@ m() {
     if [[ $? -eq 0 ]]; then
       echo -e "${BOL_RED}  * DETECTED:    ${i}${END}"
       ag --color-line-number=30 -i arrow ${i}
-      ag -s com.arrow ${i}
       echo
     else
       echo -e "${BOL_GRE} No detected - ${BOL_CYA}${i}${END}"
@@ -40,7 +39,6 @@ mm() {
         if [[ $? -eq 0 ]]; then
           echo -e "${BOL_RED}\n  * DETECTED:    ${i}${END}"
           ag --color-line-number=30 -i arrow ${i}
-          ag -s com.arrow ${i}
           echo
         else
           echo -e "${BOL_GRE} No detected - ${BOL_CYA}${i}${END}"
