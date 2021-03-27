@@ -81,7 +81,7 @@
     "format-linked": " Disconnected",
     "format-disconnected": " No network",
     "format-alt": "{ifname}: {ipaddr}/{cidr}",
-    "interval": 1
+    "interval": 5
   },
   "pulseaudio": {
     "scroll-step": 1, // %, can be a float
