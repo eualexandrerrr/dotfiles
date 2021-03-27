@@ -16,10 +16,10 @@ Description=Update Nvidia module in initcpio
 Depends=mkinitcpio
 When=PostTransaction
 NeedsTargets
-Exec=/bin/sh -c 'while read -r trg; do case $trg in linux) exit 0; esac; done; /usr/bin/mkinitcpio -P'" | sudo tee /etc/pacman.d/hooks/nvidia.hook &> /dev/null
+Exec=/bin/sh -c 'while read -r trg; do case $trg in linux) exit 0; esac; done; /usr/bin/mkinitcpio -P'" | sudo tee /etc/pacman.d/hooks/nvidia.hook
 
 echo 'blacklist nouveau
-options nouveau modeset=0' | sudo tee /etc/modprobe.d/blacklist-nvidia-nouveau.conf &> /dev/null
+options nouveau modeset=0' | sudo tee /etc/modprobe.d/blacklist-nvidia-nouveau.conf
 
 echo 'Section "OutputClass"
     Identifier "amd"
@@ -36,4 +36,4 @@ Section "OutputClass"
     Option "Backlight"  "amdgpu_bl0"
     ModulePath "/usr/lib/nvidia/xorg"
     ModulePath "/usr/lib/xorg/modules"
-EndSection' | sudo tee /etc/X11/xorg.conf.d/20-nvidia-drm-outputclass.conf &> /dev/null
+EndSection' | sudo tee /etc/X11/xorg.conf.d/20-nvidia-drm-outputclass.conf
