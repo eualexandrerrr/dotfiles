@@ -42,6 +42,13 @@ window#waybar.empty {
 #workspaces button.urgent {
 	color:  #BF616A;
 }
+#mode {
+	background-color: #910909;
+	margin-left: 5px;
+	border-radius: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
+}
 #tags button {
   color: #4c566a;
   font-weight: 600;

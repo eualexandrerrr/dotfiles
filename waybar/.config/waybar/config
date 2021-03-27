@@ -12,6 +12,7 @@
     "custom/keep",
     "custom/bluetooth",
     "sway/workspaces",
+    "sway/mode",
     "custom/spotify"
   ],
   "modules-center": ["sway/window"],
@@ -30,6 +31,9 @@
     "all-outputs": true,
     "format": "{icon}",
     "icon-size": 15
+  },
+  "sway/mode": {
+    "format": " resizing window"
   },
   "sway/window": {
     "format": "{}",
