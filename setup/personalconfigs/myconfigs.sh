@@ -56,7 +56,7 @@ copyTokens() {
 copyTokens
 # Clone my important repos
 cloneRepos() {
-  rm -rf $HOME/GitHub/{myarch,myhistory,docker-files,shellscript-atom-snippets} && rm -rf $HOME/.scripter
+  rm -rf $HOME/GitHub/{myarch,myhistory,docker-files,buildersbr,shellscript-atom-snippets} && rm -rf $HOME/.scripter
   git clone ssh://git@github.com/mamutal91/scripter $HOME/.scripter
   git clone ssh://git@github.com/AOSPK/docker-files $HOME/GitHub/docker-files
   git clone ssh://git@github.com/buildersbr/buildersbr $HOME/GitHub/buildersbr
