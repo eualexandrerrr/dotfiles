@@ -64,7 +64,7 @@ pc() {
   m
 }
 
-rc() {
+rcontinue() {
   git add . && git rebase --continue
   m
 }
