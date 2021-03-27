@@ -7,8 +7,6 @@
   "modules-left": [
     "custom/github",
     "custom/gerrit",
-    "custom/youtube",
-    "custom/mail",
     "custom/keep",
     "custom/bluetooth",
     "sway/workspaces",
