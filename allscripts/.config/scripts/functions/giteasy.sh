@@ -11,11 +11,11 @@ m() {
   for i in $(git diff-tree --no-commit-id --name-only -r $lastCommit); do
     cat ${i} | grep 'ARROW\|arrow\|ARROW_\|com.arrow\|ErrorCode' ${i} &> /dev/null
     if [[ $? -eq 0 ]]; then
-      echo "${BOL_RED}\n  * DETECTED:\n    ${i}${END}\n"
+      echo -e "${BOL_RED}\n  * DETECTED:\n    ${i}${END}\n"
       ag --color-line-number=30 -i ArRoW ${i}
       echo
     else
-      echo "${BOL_GRE} No detected - ${BOL_CYA}${i}${END}"
+      echo -e "${BOL_GRE} No detected - ${BOL_CYA}${i}${END}"
     fi
   done
   echo -e "\n${BOL_RED}-----------------------------------------\n"
