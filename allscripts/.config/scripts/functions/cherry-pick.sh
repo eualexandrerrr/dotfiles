@@ -2,9 +2,6 @@
 
 source $HOME/.Xcolors &> /dev/null
 
-rm -rf /mnt/storage/Kraken/system/update_engine
-cp -rf $HOME/update_engine /mnt/storage/Kraken/system/
-
 replacePaths() {
   [[ $path == "build" ]] && path="build/make"
   [[ $path == "system/update/engine" ]] && path="system/update_engine"
