@@ -8,7 +8,7 @@ codename=lmi
 buildtype=userdebug
 
 argsC() {
-  #echo -e "${BOL_RED}SELINUX_IGNORE_NEVERALLOWS=true${END}\n" && export SELINUX_IGNORE_NEVERALLOWS=true
+  echo -e "${BOL_RED}SELINUX_IGNORE_NEVERALLOWS=true${END}\n" && export SELINUX_IGNORE_NEVERALLOWS=true
 }
 
 ccacheC() {
@@ -70,7 +70,7 @@ b() {
   cd $rom && clear
   nbfc set -s 100
   cp -rf log.txt old_log.txt &> /dev/null
-  ccacheC
+  ccacheC &> /dev/null
   task=${1}
   [[ -z $task ]] && task=bacon
   cores=$(nproc --all)
