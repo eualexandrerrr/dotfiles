@@ -30,9 +30,7 @@ aurMsg() {
   echo -e "${BOL_BLU}\nThe ${BOL_YEL}$i ${BOL_BLU}package is not in the official ${BOL_GRE}ArchLinux ${BOL_BLU}repositories...\n${BOL_BLU}Searching ${BOL_BLU}AUR ${BOL_BLU}package ${BOL_BLU}with ${BOL_BLU}yay${END}\n"
 }
 
-echo -e "\n${BOL_MAG}Installing dependencies!${END}\n"
-for i in "${dependencies[@]}"; do
-  sudo pacman -S ${i} --needed --noconfirm && continue || aurMsg && yay -S ${i} --needed --noconfirm
+checkInstallPkg() {
   if [[ $? -eq 0 ]]; then
     echo "${BOL_GRE}${i} installed${END}"
   else
@@ -40,19 +38,26 @@ for i in "${dependencies[@]}"; do
     echo "${CYA}${i} ${BOL_RED}FAILURE${END}"
     exit 1
   fi
+}
+
+echo -e "\n${BOL_MAG}Installing dependencies!${END}\n"
+for i in "${dependencies[@]}"; do
+  sudo pacman -S ${i} --needed --noconfirm && continue || aurMsg && yay -S ${i} --needed --noconfirm
+  checkInstallPkg
 done
+
 
 if [[ $HOST == odin ]]; then
   for i in "${mypackages[@]}"; do
     sudo pacman -S ${i} --needed --noconfirm && continue || aurMsg && yay -S ${i} --needed --noconfirm
-    if [[ $? -eq 0 ]]; then
-      echo "${BOL_GRE}${i} installed${END}"
-    else
-      echo " ${BOL_RED}#*#*#*#*#*#*#*"
-      echo "${CYA}${i} ${BOL_RED}FAILURE${END}"
-      exit 1
-    fi
+    checkInstallPkg
   done
+
+  for i in "${builder[@]}"; do
+    sudo pacman -S ${i} --needed --noconfirm && continue || aurMsg && yay -S ${i} --needed --noconfirm
+    checkInstallPkg
+  done
+
   # Configs
   sudo sed -i "s/#unix_sock_group/unix_sock_group/g" /etc/libvirt/libvirtd.conf
   sudo sed -i "s/#unix_sock_rw_perms/unix_sock_rw_perms/g" /etc/libvirt/libvirtd.conf

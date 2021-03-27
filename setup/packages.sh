@@ -28,7 +28,7 @@ mypackages=(
   steam wine winetricks lib32-gnutls
 
   atom silver-searcher-git discord diff-so-fancy filezilla git htop jdk-openjdk jq man man-pages-pt_br github-cli-git vkd3d lib32-vkd3d
-  rsync shfmt tree transmission-gtk zip scrcpy python-pip crowdin-cli-bin lutris-git
+  rsync shfmt tree transmission-gtk zip scrcpy python-pip crowdin-cli lutris-git
 
   android-tools hfsprogs gvfs gvfs-mtp btrfs-progs dosfstools exfat-utils f2fs-tools e2fsprogs jfsutils nilfs-utils ntfs-3g reiserfsprogs udftools xfsprogs
 
@@ -39,4 +39,12 @@ mypackages=(
   python-ruamel-yaml
   selinux-python
   laptop-mode-tools acpi
+)
+
+builder=(
+  android-tools android-udev base-devel git wget multilib-devel cmake svn clang lzip patchelf inetutils ccache \
+  gcc-multilib gcc-libs-multilib binutils libtool-multilib lib32-libusb \
+  lib32-readline lib32-glibc lib32-zlib python2 perl git gnupg flex bison gperf zip unzip sdl squashfs-tools \
+  ncurses libpng zlib libusb libusb-compat readline inetutils android-sdk-platform-tools android-udev esd-oss pngcrush \
+  repo tcp_wrappers termcap perl-switch
 )
