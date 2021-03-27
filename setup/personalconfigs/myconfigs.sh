@@ -19,6 +19,7 @@ mkdir -p $HOME/{Pictures,Videos,GitHub} &> /dev/null
 # My Tokens
 checkTokens() {
   sudo rm -rf $HOME/GitHub/mytokens
+  sudo rm -rf $HOME/.ssh/id_*
   if [[ -e $HOME/.ssh/id_ed25519 ]]; then
     git clone ssh://git@gitlab.com/mamutal91/mytokens $HOME/GitHub/mytokens
   else

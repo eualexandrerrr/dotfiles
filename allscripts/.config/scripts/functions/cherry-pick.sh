@@ -29,7 +29,7 @@ else
   commandGerritChange=$(echo $commandGerrit | awk '{ print $4 }')
 fi
 
-cd /mnt/storage/Kraken/${path}
+#cd /mnt/storage/Kraken/${path}
 
 echo -e "\n${BOL_CYA}Pick in ${BOL_YEL}$PWD${END}\n"
 git fetch https://${commandGerritUrl} ${commandGerritChange} && git cherry-pick FETCH_HEAD
