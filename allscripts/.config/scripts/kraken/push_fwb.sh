@@ -8,13 +8,25 @@ if [[ $(cat /etc/hostname) == "odin" ]]; then
   cd /mnt/storage/Kraken/frameworks/base
 fi
 
-git remote remove push
+git remote remove push &> /dev/null
 
-org=${1}
-if [[ ${org} == AOSPK ]]; then
-  typeRepo=public
+if [[ -z "$1" ]]; then
+  echo "${BOL_RED}\$1${BOL_YEL} org não existe"
+  exit 1
 else
-  typeRepo=private
+  org=${1}
+  if [[ ${org} == AOSPK ]]; then
+    typeRepo=public
+  else
+    typeRepo=private
+  fi
+fi
+
+if [[ -z "$2" ]]; then
+  echo "${BOL_RED}\$2${BOL_YEL} branch não existe"
+  exit 1
+else
+  branch=${2}
 fi
 
 echo "${BOL_GRE}${org}${END}"
@@ -25,7 +37,6 @@ git remote add push ssh://git@github.com/${org}/frameworks_base
 
 REMOTE=push
 BRANCH=$(git rev-parse --abbrev-ref HEAD)
-NEWBRANCH=twelve
 BATCH_SIZE=50000 # default: 20000
 
 # check if the branch exists on the remote
@@ -44,7 +55,7 @@ for i in $(seq $n -$BATCH_SIZE 1); do
     # get the hash of the commit to push
     h=$(git log --first-parent --reverse --format=format:%H --skip $i -n1)
     echo "Pushing $h..."
-    git push $REMOTE $h:refs/heads/$NEWBRANCH --force
+    git push $REMOTE $h:refs/heads/$branch --force
 done
 # push the final partial batch
-git push $REMOTE HEAD:refs/heads/$NEWBRANCH --force
+git push $REMOTE HEAD:refs/heads/$branch --force
