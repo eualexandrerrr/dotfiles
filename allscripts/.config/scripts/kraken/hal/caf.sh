@@ -12,7 +12,6 @@ caf() {
     branchArrow=${1}
     branchKraken=${2}
     workingDir=$(mktemp -d) && cd $workingDir
-    echo OOOOOO ${i}
     git clone https://github.com/ArrowOS/android_${i} -b ${branchArrow} ${i}
     cd ${i}
     git push ssh://git@github.com/AOSPK/${i} HEAD:refs/heads/${branchKraken} --force
