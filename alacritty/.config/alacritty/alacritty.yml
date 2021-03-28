@@ -17,16 +17,16 @@ window:
 
 font:
   normal:
-    family: xos4 Terminus
+    family: Terminus
     style: Regular
   bold:
-    family: xos4 Terminus
+    family: Terminus
     style: Bold
   italic:
-    family: xos4 Terminus
+    family: Terminus
     style: Italic
   bold_italic:
-    family: xos4 Terminus
+    family: Terminus
     style: Bold Italic
   size: 10.0
 
