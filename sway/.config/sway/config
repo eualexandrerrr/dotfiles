@@ -101,19 +101,19 @@ exec --no-startup-id sudo hwclock --systohc --utc && sudo timedatectl set-ntp tr
 exec --no-startup-id "pactl set-sink-mute @DEFAULT_SINK@ false; pactl set-sink-volume @DEFAULT_SINK@ 50%"
 
 # GTK theme
-set $gnome-schema org.gnome.desktop.interface
-exec_always {
-    gsettings set $gnome-schema gtk-theme 'Ant-Dracula'
-    gsettings set $gnome-schema icon-theme 'Papirus-Dark'
-    gsettings set $gnome-schema cursor-theme 'capitaine-cursors'
-    gsettings set $gnome-schema font-name 'Cantarell 9'
-}
+set $theme 'Dracula'
+set $icon 'Papirus-Dark'
+set $cursor 'Capitaine Cursors'
+set $font 'Cantarell 9'
 
-exec_always import-gsettings \
-    gtk-theme:gtk-theme-name \
-    icon-theme:gtk-icon-theme-name \
-    cursor-theme:gtk-cursor-theme-name \
-    font-name:gtk-font-name
+seat seat0 xcursor_theme $cursor 24
+
+exec_always {
+    gsettings set $gnome-schema gtk-theme $theme
+    gsettings set $gnome-schema icon-theme $icon
+    gsettings set $gnome-schema cursor-theme $cursor
+    gsettings set $gnome-schema font-name $font
+}
 
 # Shortcuts
 # Start Rofi menu
