@@ -50,6 +50,8 @@ unproxy() {
 }
 
 s() {
+  iconSuccess="$HOME/.config/assets/icons/success.png"
+  iconFail="$HOME/.config/assets/icons/fail.png"
   cd $rom && clear
   rm -rf .repo/local_manifests
   nbfc set -s 100
@@ -57,10 +59,11 @@ s() {
   repo sync -c -j$(nproc --all) --no-clone-bundle --current-branch --no-tags --force-sync
   if [[ $? -eq 0 ]]; then
     echo "${BOL_GRE}Repo Sync success${END}"
+    dunstify -i $iconSuccess "Kraken Builder" "Sync success"
   else
     echo "${BOL_RED}Repo Sync failure${END}"
+    dunstify -i $iconFail "Kraken Builder" "Sync failure"
   fi
-  dunstify "Kraken Builder" "Sync finished"
 }
 
 lunchC() {
@@ -77,6 +80,8 @@ moveBuild() {
 }
 
 b() {
+  iconSuccess="$HOME/.config/assets/icons/success.png"
+  iconFail="$HOME/.config/assets/icons/fail.png"
   cd $rom && clear
   nbfc set -s 100
   cp -rf log.txt old_log.txt
@@ -100,10 +105,11 @@ b() {
   lunchC
   make -j${cores} ${task}
   if [[ $? -eq 0 ]]; then
-    dunstify "Kraken Builder" "Build finished"
-    echo "${BOL_GRE}Repo Sync success${END}"
+    echo "${BOL_GRE}Build success${END}"
+    dunstify -i $iconSuccess "Kraken Builder" "Build success"
   else
-    echo "${BOL_RED}Repo Sync failure${END}"
+    echo "${BOL_RED}Build failure${END}"
+    dunstify -i $iconFail "Kraken Builder" "Build failure"
   fi
   nbfc set -s 50
   moveBuild
