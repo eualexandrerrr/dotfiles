@@ -50,16 +50,6 @@ unproxy() {
 }
 
 s() {
-  currentWifi=$(iwctl station wlan0 show | grep 'Connected network' | awk '{ print $3}')
-  if [[ $currentWifi == "MamutMovel" ]]; then
-    echo "${BOL_RED}Você não pode fazer sync na sua rede móvel de 100GB${END}"
-    sleep 20 && exit
-  fi
-  if [[ ${1} == -f ]]; then
-    echo "${BOL_GRE}Syncing!${END}"
-  else
-    proxy ${1}
-  fi
   cd $rom && clear
   rm -rf .repo/local_manifests
   nbfc set -s 100
