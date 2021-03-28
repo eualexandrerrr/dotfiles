@@ -55,6 +55,11 @@ s() {
   nbfc set -s 100
   repo init -u https://github.com/AOSPK/manifest -b twelve
   repo sync -c -j$(nproc --all) --no-clone-bundle --current-branch --no-tags --force-sync
+  if [[ $? -eq 0 ]]; then
+    echo "${BOL_GRE}Repo Sync success${END}"
+  else
+    echo "${BOL_RED}Repo Sync failure${END}"
+  fi
   dunstify "Kraken Builder" "Sync finished"
 }
 
@@ -93,9 +98,13 @@ b() {
   echo -e "${BOL_YEL}Pwd    : ${BOL_CYA}$PWD${END}"
   echo -e "\n"
   lunchC
-#  make -j${cores} ${task} 2>&1 | tee log.txt
   make -j${cores} ${task}
-  dunstify "Kraken Builder" "Build finished"
+  if [[ $? -eq 0 ]]; then
+    dunstify "Kraken Builder" "Build finished"
+    echo "${BOL_GRE}Repo Sync success${END}"
+  else
+    echo "${BOL_RED}Repo Sync failure${END}"
+  fi
   nbfc set -s 50
   moveBuild
   if [[ ${1} == poweroff ]]; then
