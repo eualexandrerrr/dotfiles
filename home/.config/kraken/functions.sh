@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-function treeseba() {
+function lmi() {
   pdw=$(pwd)
 
   # TREE
@@ -8,18 +8,21 @@ function treeseba() {
   rm -rf android_device_xiaomi_lmi android_device_xiaomi_lmi-kernel android_device_xiaomi_sm8250-common android_kernel_xiaomi_sm8250
   rm -rf android_vendor_xiaomi vendor_xiaomi_lmi vendor_xiaomi_sm8250-common
 
-#  git clone https://github.com/xiaomi-sm8250-devs/android_device_xiaomi_lmi -b lineage-18.1
-#  git clone https://github.com/xiaomi-sm8250-devs/android_device_xiaomi_sm8250-common -b lineage-18.1
-  git clone https://github.com/xiaomi-sm8250-devs/android_device_xiaomi_lmi-kernel -b lineage-18.1
+  if [[ ${1} = tree ]]; then
+    cd $HOME
+    git clone https://github.com/xiaomi-sm8250-devs/android_device_xiaomi_lmi -b lineage-18.1
+    git clone https://github.com/xiaomi-sm8250-devs/android_device_xiaomi_sm8250-common -b lineage-18.1
+    git clone https://github.com/xiaomi-sm8250-devs/android_device_xiaomi_lmi-kernel -b lineage-18.1
 
-#  cd $HOME/android_device_xiaomi_lmi
-#  git push ssh://git@github.com/AOSPK-Devices/device_xiaomi_lmi HEAD:refs/heads/eleven --force
+    cd $HOME/android_device_xiaomi_lmi
+    git push ssh://git@github.com/AOSPK-Devices/device_xiaomi_lmi HEAD:refs/heads/eleven --force
 
-#  cd $HOME/android_device_xiaomi_sm8250-common
-#  git push ssh://git@github.com/AOSPK-Devices/device_xiaomi_sm8250-common HEAD:refs/heads/eleven --force
+    cd $HOME/android_device_xiaomi_sm8250-common
+    git push ssh://git@github.com/AOSPK-Devices/device_xiaomi_sm8250-common HEAD:refs/heads/eleven --force
 
-  cd $HOME/android_device_xiaomi_lmi-kernel
-  git push ssh://git@github.com/AOSPK-Devices/device_xiaomi_lmi-kernel HEAD:refs/heads/eleven --force
+    cd $HOME/android_device_xiaomi_lmi-kernel
+    git push ssh://git@github.com/AOSPK-Devices/device_xiaomi_lmi-kernel HEAD:refs/heads/eleven --force
+  fi
 
   # VENDOR
   cd $HOME

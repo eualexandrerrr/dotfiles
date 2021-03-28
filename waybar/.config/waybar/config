@@ -71,8 +71,8 @@
       "critical": 15
     },
     "format": "{icon} {capacity}%",
-    "format-charging": " {capacity}%",
-    "format-icons": ["􏉄", "", ""],
+    "format-icons": ["", "", "", "", ""],
+    "format-full": "Charged {capacity}%",
     "max-length": 25
   },
   "network": {
