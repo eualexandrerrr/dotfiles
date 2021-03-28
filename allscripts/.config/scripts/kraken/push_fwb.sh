@@ -29,7 +29,7 @@ else
   branch=${2}
 fi
 
-echo "${BOL_GRE}${org}${END}"
+echo "${BOL_GRE}${org} - ${branch}${END}"
 
 gh repo create ${org}/frameworks_base --${typeRepo} --confirm
 
