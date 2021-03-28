@@ -21,3 +21,5 @@ else
 	wl-copy < $img
 	notify-send -i $icon "Screenshot" "Fullscreen capture."
 fi
+
+play $HOME/.config/sounds/screenshot.wav &>/dev/null
