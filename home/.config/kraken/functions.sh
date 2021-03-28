@@ -16,7 +16,12 @@ function down() {
 }
 
 function push() {
-  REPO=$(pwd | sed "s/\/mnt\/dev\/Kraken\///; s/\//_/g")
+  HOST=$(cat /etc/hostname)
+  if [[ $HOST = mamutal91 ]]; then
+    REPO=$(pwd | sed "s/\/mnt\/dev\/Kraken\///; s/\//_/g")
+  else
+    REPO=$(basename "`pwd`")
+  fi
   echo $REPO
   GITHOST=github
   ORG=AOSPK-WIP
@@ -55,7 +60,7 @@ function push() {
   fi
 
   if [[ ${1} = "gerrit" ]]; then
-    echo "${BOL_BLU}Pushing to gerrit.aospk.org/${GRE}${ORG}${END}/${BLU}${REPO}${END} - ${BRANCH} ${RED}${FORCE}${END}"
+    echo "${BOL_BLU}Pushing to gerrit.aospk.org${END} - ${BRANCH} ${RED}${FORCE}${END}"
     if [ -z "${TOPIC}" ]
     then
       git push ssh://mamutal91@gerrit.aospk.org:29418/${REPO} HEAD:refs/for/${BRANCH}%l=Verified+1,l=Code-Review+2
