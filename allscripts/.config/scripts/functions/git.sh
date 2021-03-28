@@ -361,7 +361,6 @@ upstream() {
   workingDir=$(mktemp -d) && cd $workingDir
 
   repo=${1}
-
   orgBaseName=ArrowOS
   orgBase=ArrowOS/android_
   branchBase=${2}
@@ -369,7 +368,7 @@ upstream() {
   org=AOSPK
   githost=github
 
-  if [[ ${4} == "pe" ]]; then
+  if [[ ${4} == "arrow" ]]; then
     orgBaseName=PixelExperience
     orgBase=PixelExperience/
     branchBase=twelve
@@ -398,24 +397,31 @@ upstream() {
   repo=$(echo $repo | sed -e "s/vendor_custom/vendor_aosp/g")
   gitRules
 
-  if git ls-remote ssh://git@github.com/${org}/${repo} &> /dev/null; then
-    echo "${BOL_BLU}* Repo already exist ${CYA}(${org}/${repo})${END}"
-  else
-    echo "${BOL_YEL}* Creating ${CYA}(AOSPK-Next/${repo})${END}"
-    gh repo create ${org}/${repo} --public
-  fi
+  mainOrg() {
+    if git ls-remote ssh://git@github.com/${org}/${repo} &> /dev/null; then
+      echo "${BOL_BLU}* Repo already exist ${CYA}(${org}/${repo})${END}"
+    else
+      echo "${BOL_YEL}* Creating ${CYA}(AOSPK-Next/${repo})${END}"
+      gh repo create ${org}/${repo} --public
+    fi
+    git push ssh://git@${githost}.com/${org}/${repo} HEAD:refs/heads/${branch} --force
+    gh api -XPATCH "repos/${org}/${repo}" -f default_branch="${branch}" &> /dev/null
+  }
 
-  if git ls-remote ssh://git@github.com/AOSPK-Next/${repo} &> /dev/null; then
-    echo "${BOL_BLU}* Repo already exist ${CYA}(AOSPK-Next/${repo})${END}"
-  else
-    echo "${BOL_YEL}* Creating ${CYA}(AOSPK-Next/${repo})${END}"
-    gh repo create AOSPK-Next/${repo} --private
-  fi
+  nextOrg() {
+    if git ls-remote ssh://git@github.com/AOSPK-Next/${repo} &> /dev/null; then
+      echo "${BOL_BLU}* Repo already exist ${CYA}(AOSPK-Next/${repo})${END}"
+    else
+      echo "${BOL_YEL}* Creating ${CYA}(AOSPK-Next/${repo})${END}"
+      gh repo create AOSPK-Next/${repo} --private
+    fi
+    git push ssh://git@${githost}.com/AOSPK-Next/${repo} HEAD:refs/heads/${branch} --force
+    gh api -XPATCH "repos/AOSPK-Next/${repo}" -f default_branch="${branch}" &> /dev/null
+  }
 
-  git push ssh://git@${githost}.com/${org}/${repo} HEAD:refs/heads/${branch} --force
-  git push ssh://git@${githost}.com/AOSPK-Next/${repo} HEAD:refs/heads/${branch} --force
-  gh api -XPATCH "repos/${org}/${repo}" -f default_branch="${branch}" &> /dev/null
-  gh api -XPATCH "repos/AOSPK-Next/${repo}" -f default_branch="${branch}" &> /dev/null
+#  mainOrg
+  nextOrg
+
   rm -rf $workingDir
 }
 

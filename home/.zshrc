@@ -40,14 +40,9 @@ alias docker-compose="sudo docker-compose"
 alias h="cat /etc/hostname"
 
 # Paths
-if [[ $(cat /etc/hostname) == odin ]]; then
-  alias x="cd $HOME/Kraken"
-  alias out="clear && cd $HOME/Kraken/out/target/product/lmi && ls -1"
-else
-  alias d="cd /mnt/docker-files"
-  alias x="cd /mnt/jobs/KrakenMaintainers"
-  alias out="clear && cd /mnt/jobs/KrakenMaintainers/out/target/product/lmi && ls -1"
-fi
+alias x="cd $HOME/Kraken"
+alias out="clear && cd $HOME/Kraken/out/target/product/lmi && ls -1"
+alias d="cd /mnt/docker-files"
 
 if [[ $USER == mamutal91 ]]; then
   git config --global user.email "mamutal91@gmail.com" && git config --global user.name "Alexandre Rangel"
