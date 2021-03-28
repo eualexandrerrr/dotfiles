@@ -12,12 +12,12 @@ argsC() {
 }
 
 ccacheC() {
+  sudo mkdir /home/mamutal91/.ccacherom
+  sudo mount --bind /home/mamutal91/.ccache /home/mamutal91/.ccacherom
   export USE_CCACHE=1
   export CCACHE_EXEC=/usr/bin/ccache
-  export CCACHE_DIR=$HOME/.ccache
+  export CCACHE_DIR=/home/mamutal91/.ccacherom
   ccache -M 100G -F 0
-  sudo mkdir -p $HOME/.ccache
-  sudo mount --bind $HOME/.ccacherom $HOME/.ccache
 }
 
 s() {
@@ -70,7 +70,7 @@ b() {
   cd $rom && clear
   nbfc set -s 100
   cp -rf log.txt old_log.txt &> /dev/null
-  ccacheC &> /dev/null
+  ccacheC
   task=${1}
   [[ -z $task ]] && task=bacon
   cores=$(nproc --all)
