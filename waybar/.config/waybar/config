@@ -45,7 +45,7 @@
   },
   "cpu": {
     "interval": 30,
-    "format": " {usage}%",
+    "format": " {usage}%",
     "max-length": 10,
     "on-click": "alacritty -e htop",
     "tooltip": false
@@ -71,7 +71,8 @@
       "critical": 15
     },
     "format": "{icon} {capacity}%",
-    "format-icons": ["", "", "", "", ""],
+    "format-charging": " {capacity}%",
+    "format-icons": ["􏉄", "", ""],
     "max-length": 25
   },
   "network": {
