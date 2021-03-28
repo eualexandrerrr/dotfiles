@@ -96,8 +96,7 @@ exec_always --no-startup-id swaybg -i $HOME/.config/wallpapers/space.jpg
 exec_always --no-startup-id bluetoothctl power off
 exec --no-startup-id mako
 exec --no-startup-id pulseeffects --gapplication-service &>/dev/null
-exec --no-startup-id sudo timedatectl set-ntp true && sudo hwclock --systohc
-exec --no-startup-id sudo hwclock --systohc --utc && sudo timedatectl set-ntp true
+exec --no-startup-id hwclock --systohc --utc && timedatectl set-ntp true
 exec --no-startup-id "pactl set-sink-mute @DEFAULT_SINK@ false; pactl set-sink-volume @DEFAULT_SINK@ 50%"
 
 # GTK theme
