@@ -59,7 +59,7 @@ gitpushRules() {
   fi
 }
 
-st () {
+st()  {
   git status
   m
 }
@@ -134,22 +134,8 @@ gitpush() {
   pwd=$(pwd | cut -c-19)
 
   blacklist() {
-    if [[ $pwdFolder = manifest ]]; then
-      clear
-      echo "${BOL_RED}Blacklist detected, no push!!!${END}"
-      git push ssh://git@github.com/AOSPK-Next/manifest HEAD:refs/heads/twelve --force && break &> /dev/null
-
-      mkdir -p /tmp/manifestRepoPrivateSSH
-      cd /tmp/manifestRepoPrivateSSH
-      git clone ssh://git@github.com/AOSPK-Next/manifest
-      cd manifest
-      pwd
-      sed -i "s/AOSPK/AOSPK-Next/g" aosp.xml
-      git add .
-      git commit -m "[REPO SSH PRIVATE]"
-      git push ssh://git@github.com/AOSPK-Next/manifest HEAD:refs/heads/twelve --force && break &> /dev/null
-    fi
-    [ $pwdFolder = official_devices ] && echo "${BOL_RED}Blacklist detected, no push!!!${END}" && break &> /dev/null
+    [[ $pwdFolder == manifest ]] && echo "${BOL_RED}Blacklist detected, no push!!!${END}" && break &> /dev/null
+    [[ $pwdFolder == official_devices ]] && echo "${BOL_RED}Blacklist detected, no push!!!${END}" && break &> /dev/null
   }
 
   if [[ $pwd == /mnt/storage/Kraken ]]; then

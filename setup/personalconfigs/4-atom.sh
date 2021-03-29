@@ -14,6 +14,7 @@ atomPkgs=(
   markdown-writer
   pigments
   save-workspace
+  format-shell
 )
 
 for i in "${atomPkgs[@]}"; do

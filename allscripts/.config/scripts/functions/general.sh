@@ -15,7 +15,7 @@ agg() {
   ag -s ${1} .
 }
 
-newuser(){
+newuser() {
   clear
   user=${1}
   if [[ $(cat /etc/hostname) == "builders" ]]; then
@@ -79,7 +79,7 @@ qemu() {
 sideload() {
   cd $HOME/Builds
   if [[ ${1} == "overlays" ]]; then
-    zip=kraken_overlays.zip
+    zip=Kraken_overlays.zip
   else
     zip=$(ls Kraken-12-*-*-${1}-lmi-*.zip)
   fi

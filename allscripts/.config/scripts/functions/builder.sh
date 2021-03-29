@@ -54,7 +54,7 @@ apkAndimg() {
   cp -R */*/*/*.apk ${pathPrebuilts}/apk
   cp -R */*/*/*/*.apk ${pathPrebuilts}/apk
   cp -R *.img ${pathPrebuilts}/img
-  cp -R kraken_overlays.zip ${pathPrebuilts}
+  cp -R Kraken_overlays.zip ${pathPrebuilts}
 }
 
 moveBuild() {
@@ -101,6 +101,10 @@ b() {
     makeBuild=false
     echo building overlays
     bash vendor/aosp/build/tools/overlays.sh
+  elif [[ $task == "changelog" ]]; then
+    makeBuild=false
+    echo generate changelogs
+    bash vendor/aosp/build/tools/changelog
   elif [[ $task == "Settings" ]]; then
     makeBuild=true
     task=Settings
