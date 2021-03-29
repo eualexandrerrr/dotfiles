@@ -28,7 +28,6 @@ s() {
   cd $rom && clear
   nbfc set -s 100
   repo init -u https://github.com/AOSPK/manifest -b twelve
-  git clone ssh://git@github.com/AOSPK/hardware_xiaomi -b twelve hardware/xiaomi
   repo sync -c -j$(nproc --all) --no-clone-bundle --current-branch --no-tags --force-sync
   if [[ $? -eq 0 ]]; then
     echo "${BOL_GRE}Repo Sync success${END}"
@@ -37,6 +36,7 @@ s() {
     echo "${BOL_RED}Repo Sync failure${END}"
     dunstify -i $iconFail "Kraken Builder" "Sync failure"
   fi
+  git clone ssh://git@github.com/AOSPK/hardware_xiaomi -b twelve hardware/xiaomi
 }
 
 lunchC() {
