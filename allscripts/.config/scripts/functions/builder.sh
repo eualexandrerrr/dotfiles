@@ -10,7 +10,7 @@ buildtype=userdebug
 argsC() {
   export TARGET_BOOT_ANIMATION_RES=1080
   export KRAKEN_BUILD_TYPE=OFFICIAL
-#  export TARGET_INCLUDE_PIXEL_STYLE=true
+  export BUILD_WITH_COLORS=1
 }
 
 ccacheC() {
@@ -20,33 +20,6 @@ ccacheC() {
   ccache -M 100G -F 0
   sudo mkdir -p /home/mamutal91/.ccache &> /dev/null
   sudo mount --bind /mnt/storage/ccache ~/.ccache
-}
-
-proxy() {
-  if [[ -n ${1} ]]; then
-    echo "${BOL_CYA}Proxy: ${1}${END}"
-    export http_proxy="http://${1}/"
-    export ftp_proxy="ftp://${1}/"
-    export rsync_proxy="rsync://${1}/"
-    export no_proxy="localhost,127.0.0.1,192.168.1.1,::1,*.local"
-    export HTTP_PROXY="http://${1}/"
-    export FTP_PROXY="ftp://${1}/"
-    export RSYNC_PROXY="rsync://${1}/"
-    export NO_PROXY="localhost,127.0.0.1,192.168.1.1,::1,*.local"
-    export https_proxy="http://${1}/"
-    export HTTPS_PROXY="http://${1}/"
-    git config --global http.proxy http://${1}
-    git config --global https.proxy http://${1}
-  else
-    echo -e "${BOL_RED} You need set proxy!\n${BOL_GRE}Example: ${BOL_CYA}s 192.168.17.28:44355${END}"
-    sleep 20
-    exit
-  fi
-}
-
-unproxy() {
-  git config --global --unset http.proxy
-  git config --global --unset https.proxy
 }
 
 s() {
@@ -71,11 +44,25 @@ lunchC() {
   lunch aosp_${codename}-${buildtype}
 }
 
+apkAndimg() {
+  pathPrebuilts=$HOME/Builds
+  rm -rf ${pathPrebuilts}/{apk,img} &> /dev/null
+  mkdir -p ${pathPrebuilts}/{apk,apk/accents,apk/overlay,img} &> /dev/null
+  rm -rf obj/*/*/*.apk
+  rm -rf symbols/*/*/*.apk
+  cp -R */*/*.apk ${pathPrebuilts}/apk
+  cp -R */*/*/*.apk ${pathPrebuilts}/apk
+  cp -R */*/*/*/*.apk ${pathPrebuilts}/apk
+  cp -R *.img ${pathPrebuilts}/img
+  cp -R kraken_overlays.zip ${pathPrebuilts}
+}
+
 moveBuild() {
   pwd=$(pwd)
   mkdir -p $HOME/Builds
   cd /mnt/storage/Kraken/out/target/product/lmi
   mv Kraken-12-*-lmi-*.zip $HOME/Builds
+  apkAndimg &> /dev/null
   cd $pwd
 }
 
@@ -86,15 +73,10 @@ b() {
   nbfc set -s 100
   cp -rf log.txt old_log.txt
   argsC
-  ccacheC
-  task=bacon
-  var=${1}
-  re='^[0-9]+$'
-  if ! [[ $var =~ $re ]] ; then
-    cores=7
-  else
-    cores=${1}
-  fi
+  ccacheC &> /dev/null
+  task=${1}
+  [[ -z $task ]] && task=bacon
+  cores=7
   echo -e "${BOL_MAG}\nYou are building:"
   echo -e "${BOL_YEL}Task   : ${BOL_CYA}${task}"
   echo -e "${BOL_YEL}Device : ${BOL_CYA}${codename}"
@@ -103,20 +85,40 @@ b() {
   echo -e "${BOL_YEL}Pwd    : ${BOL_CYA}$PWD${END}"
   echo -e "\n"
   lunchC
-  make -j${cores} ${task} 2>&1 | tee log.txt
-  if [[ $? -eq 0 ]]; then
-    echo "${BOL_GRE}Build success${END}"
-    dunstify -i $iconSuccess "Kraken Builder" "Build success"
+  makeC() {
+    [[ -z $task ]] && task=bacon
+    make -j${cores} ${task} 2>&1 | tee log.txt
+    if [[ $? -eq 0 ]]; then
+      echo "${BOL_GRE}Build success${END}"
+      dunstify -i $iconSuccess "Kraken Builder" "Build success"
+    else
+      echo "${BOL_RED}Build failure${END}"
+      dunstify -i $iconFail "Kraken Builder" "Build failure"
+    fi
+  }
+
+  if [[ $task == "overlays" ]]; then
+    makeBuild=false
+    echo building overlays
+    bash vendor/aosp/build/tools/overlays.sh
+  elif [[ $task == "Settings" ]]; then
+    makeBuild=true
+    task=Settings
+  elif [[ $task == "recovery" ]]; then
+    makeBuild=true
+    task=recoveryimage
   else
-    echo "${BOL_RED}Build failure${END}"
-    dunstify -i $iconFail "Kraken Builder" "Build failure"
+    makeBuild=true
+    task=bacon
   fi
+
+  [[ $makeBuild == "true" ]] && makeC
+
   nbfc set -s 50
   moveBuild &> /dev/null
-  if [[ ${1} == poweroff ]]; then
-    sleep 100
-    sudo poweroff
-  fi
+
+  # Desligar o notebook se $1 for poweroff, porém, esperar 100 segundos para que esfrie os componentes
+  [[ ${1} == poweroff ]] && sleep 100 && sudo poweroff
 }
 
 clean() {
