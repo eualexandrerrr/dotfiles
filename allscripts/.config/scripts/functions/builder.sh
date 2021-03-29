@@ -73,7 +73,7 @@ lunchC() {
 
 moveBuild() {
   pwd=$(pwd)
-  mkdir -p $HOME/Builds &> /dev/null
+  mkdir -p $HOME/Builds
   cd /mnt/storage/Kraken/out/target/product/lmi
   mv Kraken-12-*-lmi-*.zip $HOME/Builds
   cd $pwd
@@ -112,7 +112,7 @@ b() {
     dunstify -i $iconFail "Kraken Builder" "Build failure"
   fi
   nbfc set -s 50
-  moveBuild
+  moveBuild &> /dev/null
   if [[ ${1} == poweroff ]]; then
     sleep 100
     sudo poweroff
