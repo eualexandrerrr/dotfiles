@@ -35,11 +35,19 @@ pushGitHub() {
   pushGitHubArgument=${1}
   branchDefault="twelve"
   pushGitHubOrg="AOSPK-Next"
-  pushGitHubHost=github
+  pushGitHubHost="github"
+
+  # Specials rules
   if [[ $repoName == vendor_gapps ]]; then
     pushGitHubOrg="AOSPK"
-    pushGitHubHost=gitlab
+    pushGitHubHost="gitlab"
   fi
+  if [[ $repoName == "crowdin" ]]; then
+    pushGitHubOrg="AOSPK"
+    branchDefault="master"
+  fi
+
+  # Usage
   if [[ -z ${pushGitHubArgument} ]]; then
     echo -e "${BLU}Usage:\n"
     echo -e "${CYA}  push ${RED}-?${YEL}"
@@ -57,9 +65,9 @@ pushGitHub() {
     else
       echo -e "\n${BOL_BLU}Pushing to ${BOL_YEL}${pushGitHubHost}.com/${CYA}${pushGitHubOrg}/${MAG}${repoName}${END} ${YEL}${branchDefault}${END}\n"
       if [[ $repoName != "vendor_gapps" ]]; then
-      gh repo create AOSPK/${repoName} --public --confirm &> /dev/null
-      gh repo create AOSPK-Next/${repoName} --private --confirm &> /dev/null
-    fi
+        gh repo create AOSPK/${repoName} --public --confirm &> /dev/null
+        gh repo create AOSPK-Next/${repoName} --private --confirm &> /dev/null
+      fi
       git push ssh://git@${pushGitHubHost}.com/${pushGitHubOrg}/${repoName} HEAD:refs/heads/${branchDefault} --force
       if [[ ${2} == "main" ]]; then
         echo OK
@@ -68,7 +76,7 @@ pushGitHub() {
       gh api -XPATCH "repos/AOSPK/${repoName}" -f default_branch="${branchDefault}" &> /dev/null
       gh api -XPATCH "repos/AOSPK-Next/${repoName}" -f default_branch="${branchDefault}" &> /dev/null
     fi
-    [[ $repo = manifest ]] && git push ssh://git@github.com/AOSPK-Next/manifest HEAD:refs/heads/twelve --force
+    [[ $repo == manifest ]] && git push ssh://git@github.com/AOSPK-Next/manifest HEAD:refs/heads/twelve --force
   fi
 }
 
@@ -115,14 +123,14 @@ pushGerrit() {
       [[ ${pushGerritTopic} ]] && pushGerritTopicCmd=",topic=${pushGerritTopic}"
       git push ssh://mamutal91@${pushGerritUrlProject}:29418/${repoName} ${pushGerritPush}${pushGerritTopicCmd}
     fi
-    [[ $repo = manifest ]] && git push ssh://git@github.com/AOSPK-Next/manifest HEAD:refs/heads/twelve --force
+    [[ $repo == manifest ]] && git push ssh://git@github.com/AOSPK-Next/manifest HEAD:refs/heads/twelve --force
   fi
   if [[ ${pushGerritArgument} != "-p" ]]; then
     push -f
   fi
 }
 
-push (){
+push() {
   m
   if [[ -z ${1} ]]; then
     echo -e "${BLU}Usage:\n"
