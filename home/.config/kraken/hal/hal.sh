@@ -1,32 +1,56 @@
 #!/usr/bin/env bash
 
-readonly REPOS_HAL=(
+source $HOME/.colors &>/dev/null
+
+readonly repos=(
     hardware_qcom_audio
     hardware_qcom_display
     hardware_qcom_media
+
+    hardware_qcom_bootctrl
+    hardware_qcom_bt
+    hardware_qcom_wlan
 )
 
-LOS_HAL="lineage-18.1-caf-${1}"
-AOSPK_HAL="eleven-caf-${1}"
+branchLOS="lineage-18.1-caf-${1}"
+branchKK="eleven-caf-${1}"
 
 tmp="/tmp/kraken-hals"
-mkdir -p $tmp
+rm -rf $tmp && mkdir -p $tmp
 cd $tmp
 
-for i in "${REPOS_HAL[@]}"; do
-  echo "${BOL_CYA}BRANCH - $LOS_HAL > $AOSPK_HAL${END}"
-  git clone https://github.com/LineageOS/android_${i} -b $LOS_HAL ${i}
-  cd ${i} && echo
-  git push ssh://git@github.com/AOSPK/${i} HEAD:refs/heads/$AOSPK_HAL --force
+for i in "${repos[@]}"; do
+  if [[ ${i} = hardware_qcom_bootctrl || ${i} = hardware_qcom_bt || ${i} = hardware_qcom_wlan ]]; then
+    branchLOS="lineage-18.1-caf"
+    branchKK="eleven-caf"
+  fi
+
+  rm -rf ${i}
+  losURL="https://github.com/LineageOS/android_${i}"
+  krakenURL="ssh://git@github.com/AOSPK/${i}"
+  echo "-------------------------------------------------------------------------"
+  echo "${BLU}Clonando $losURL -b $branchLOS em ${i}${END}"
+  git clone $losURL -b $branchLOS ${i}
+  echo
+  echo "${GRE}Pushand $krakenURL -b $branchKK para ${i}${END}"
+  cd ${i}
+  git push $krakenURL HEAD:refs/heads/$branchKK --force
+  echo
 done
 
-# FIXES
-cd /tmp/
+function limp() {
+  git clone https://github.com/LineageOS/android_vendor_nxp_opensource_halimpl -b lineage-18.1-pn5xx halimpl-pn5xx
+  git clone https://github.com/LineageOS/android_vendor_nxp_opensource_halimpl -b lineage-18.1-sn100x halimpl-sn100x
 
-rm -rf hardware_qcom_display
-git clone ssh://git@github.com/AOSPK/hardware_qcom_display -b eleven-caf-sm8250
-cd hardware_qcom_display
-git fetch "https://github.com/LineageOS/android_hardware_qcom_display" refs/changes/18/305418/1 && git cherry-pick FETCH_HEAD
-git push
+  cd halimpl-pn5xx && git push ssh://git@github.com/AOSPK/vendor_nxp_opensource_halimpl HEAD:refs/heads/eleven-pn5xx --force
+  cd ../halimpl-sn100x && git push ssh://git@github.com/AOSPK/vendor_nxp_opensource_halimpl HEAD:refs/heads/eleven-sn100x --force
 
-rm -rf $tmp
+  cd ..
+  git clone https://github.com/LineageOS/android_vendor_nxp_opensource_hidlimpl -b lineage-18.1-pn5xx hidlimpl-pn5xx
+  git clone https://github.com/LineageOS/android_vendor_nxp_opensource_hidlimpl -b lineage-18.1-sn100x hidlimpl-sn100x
+
+  cd hidlimpl-pn5xx && git push ssh://git@github.com/AOSPK/vendor_nxp_opensource_hidlimpl HEAD:refs/heads/eleven-pn5xx --force
+  cd ../hidlimpl-sn100x && git push ssh://git@github.com/AOSPK/vendor_nxp_opensource_hidlimpl HEAD:refs/heads/eleven-sn100x --force
+}
+
+limp &>/dev/null

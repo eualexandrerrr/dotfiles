@@ -116,22 +116,25 @@ function up() {
 }
 
 function hals() {
-  $HOME/.config/kraken/hal/hal.sh apq8084
-  $HOME/.config/kraken/hal/hal.sh msm8960
-  $HOME/.config/kraken/hal/hal.sh msm8952
-  $HOME/.config/kraken/hal/hal.sh msm8916
-  $HOME/.config/kraken/hal/hal.sh msm8974
-  $HOME/.config/kraken/hal/hal.sh msm8994
-  $HOME/.config/kraken/hal/hal.sh msm8996
-  $HOME/.config/kraken/hal/hal.sh msm8998
-  $HOME/.config/kraken/hal/hal.sh sdm845
-  $HOME/.config/kraken/hal/hal.sh sm8150
-  $HOME/.config/kraken/hal/hal.sh sm8250
+  branch=(
+    apq8084
+    msm8960
+    msm8952
+    msm8916
+    msm8974
+    msm8994
+    msm8996
+    msm8998
+    sdm845
+    sm8150
+    sm8250
+  )
 
-  $HOME/.config/kraken/hal/limp.sh pn5xx
-  $HOME/.config/kraken/hal/limp.sh sn100x
+  for i in "${branch[@]}"; do
+    $HOME/.config/kraken/hal/hal.sh ${i}
+  done
 
-  $HOME/.config/kraken/hal/caf.sh
+  $HOME/.config/kraken/hal/fixes.sh
 }
 
 function www() {
