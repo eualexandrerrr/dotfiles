@@ -57,7 +57,7 @@ pushGitHub() {
     else
       echo -e "\n${BOL_BLU}Pushing to ${BOL_YEL}${pushGitHubHost}.com/${CYA}${pushGitHubOrg}/${MAG}${repoName}${END} ${YEL}${branchDefault}${END}\n"
       if [[ $repoName != "vendor_gapps" ]]; then
-            gh repo create AOSPK/${repoName} --public --confirm
+      gh repo create AOSPK/${repoName} --public --confirm &> /dev/null
       gh repo create AOSPK-Next/${repoName} --private --confirm &> /dev/null
     fi
       git push ssh://git@${pushGitHubHost}.com/${pushGitHubOrg}/${repoName} HEAD:refs/heads/${branchDefault} --force

@@ -65,13 +65,19 @@ st () {
 }
 
 f() {
-  org=$(echo ${1} | cut -c1-5)
-  if [[ $org == AOSPK ]]; then
-    git fetch ssh://git@github.com/${1} ${2}
+  if [[ -z ${1} ]]; then
+    repo=$(pwd | cut -c21-300)
+    repo=$(echo $repo | sed "s:/:_:g")
+    git fetch https://github.com/ArrowOS/android_${repo} arrow-12.0
   else
-    githost=github
-    [ ${1} = the-muppets/proprietary_vendor_xiaomi ] && githost=gitlab
-    git fetch https://${githost}.com/${1} ${2}
+    org=$(echo ${1} | cut -c1-5)
+    if [[ $org == AOSPK ]]; then
+      git fetch ssh://git@github.com/${1} ${2}
+    else
+      githost=github
+      [ ${1} = the-muppets/proprietary_vendor_xiaomi ] && githost=gitlab
+      git fetch https://${githost}.com/${1} ${2}
+    fi
   fi
 }
 
