@@ -36,8 +36,7 @@ echo "[
   {
     \"remote\": \"lab-devices\",
     \"repository\": \"vendor_xiaomi_beryllium\",
-    \"target_path\": \"vendor/xiaomi/beryllium\",
-    \"branch\": \"eleven\"
+    \"target_path\": \"vendor/xiaomi/beryllium\"
   },
   {
     \"remote\": \"github\",
@@ -72,8 +71,7 @@ echo "[
   {
     \"remote\": \"lab-devices\",
     \"repository\": \"vendor_xiaomi_sdm845-common\",
-    \"target_path\": \"vendor/xiaomi/sdm845-common\",
-    \"branch\": \"eleven\"
+    \"target_path\": \"vendor/xiaomi/sdm845-common\"
   }
 ]" > aosp.dependencies
 
