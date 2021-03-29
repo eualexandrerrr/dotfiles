@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-LMI=$HOME/lmi
+LMI=/tmp/lmi
 rm -rf $LMI && mkdir $LMI && cd $LMI
 
 bringup="Initial changes for Kraken"

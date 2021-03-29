@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-BERYLLIUM=$HOME/beryllium
+BERYLLIUM=/tmp/beryllium
 rm -rf $BERYLLIUM && mkdir $BERYLLIUM && cd $BERYLLIUM
 
 bringup="Initial changes for Kraken"
