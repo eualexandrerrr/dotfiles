@@ -27,7 +27,7 @@ s() {
   iconFail="$HOME/.config/assets/icons/fail.png"
   cd $rom && clear
   nbfc set -s 100
-  repo init -u ssh://git@github.com/AOSPK-Next/manifest -b twelve
+  repo init -u https://github.com/AOSPK/manifest -b twelve
   git clone ssh://git@github.com/AOSPK/hardware_xiaomi -b twelve hardware/xiaomi
   repo sync -c -j$(nproc --all) --no-clone-bundle --current-branch --no-tags --force-sync
   if [[ $? -eq 0 ]]; then
