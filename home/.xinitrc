@@ -5,4 +5,6 @@ xrandr --auto
 
 xrdb -merge $HOME/.Xresources
 
+fc-cache -f -r -v
+
 exec i3
