@@ -62,7 +62,6 @@ readonly AUR=(
   oh-my-zsh-git
   swaylock-effects-git
   translate-shell-git
-  zsh-syntax-highlighting
 
   # dependencies
   python-ruamel-yaml
