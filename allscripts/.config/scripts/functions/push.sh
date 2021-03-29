@@ -68,6 +68,7 @@ pushGitHub() {
       gh api -XPATCH "repos/AOSPK/${repoName}" -f default_branch="${branchDefault}" &> /dev/null
       gh api -XPATCH "repos/AOSPK-Next/${repoName}" -f default_branch="${branchDefault}" &> /dev/null
     fi
+    [[ $repo = manifest ]] && git push ssh://git@github.com/AOSPK-Next/manifest HEAD:refs/heads/twelve --force
   fi
 }
 
@@ -114,7 +115,7 @@ pushGerrit() {
       [[ ${pushGerritTopic} ]] && pushGerritTopicCmd=",topic=${pushGerritTopic}"
       git push ssh://mamutal91@${pushGerritUrlProject}:29418/${repoName} ${pushGerritPush}${pushGerritTopicCmd}
     fi
-    [[ $repo = manifest ]] && echo ${BOL_RED}Pushing manifest to ORG DEV${END} && git push ssh://git@github.com/AOSPK-Next/manifest HEAD:refs/heads/twelve --force
+    [[ $repo = manifest ]] && git push ssh://git@github.com/AOSPK-Next/manifest HEAD:refs/heads/twelve --force
   fi
   if [[ ${pushGerritArgument} != "-p" ]]; then
     push -f

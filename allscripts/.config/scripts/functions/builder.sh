@@ -53,9 +53,9 @@ s() {
   iconSuccess="$HOME/.config/assets/icons/success.png"
   iconFail="$HOME/.config/assets/icons/fail.png"
   cd $rom && clear
-  rm -rf .repo/local_manifests
   nbfc set -s 100
-  repo init -u https://github.com/AOSPK/manifest -b twelve
+  repo init -u ssh://git@github.com/AOSPK-Next/manifest -b twelve
+  git clone ssh://git@github.com/AOSPK/hardware_xiaomi -b twelve hardware/xiaomi
   repo sync -c -j$(nproc --all) --no-clone-bundle --current-branch --no-tags --force-sync
   if [[ $? -eq 0 ]]; then
     echo "${BOL_GRE}Repo Sync success${END}"
@@ -103,7 +103,7 @@ b() {
   echo -e "${BOL_YEL}Pwd    : ${BOL_CYA}$PWD${END}"
   echo -e "\n"
   lunchC
-  make -j${cores} ${task}
+  make -j${cores} ${task} 2>&1 | tee log.txt
   if [[ $? -eq 0 ]]; then
     echo "${BOL_GRE}Build success${END}"
     dunstify -i $iconSuccess "Kraken Builder" "Build success"

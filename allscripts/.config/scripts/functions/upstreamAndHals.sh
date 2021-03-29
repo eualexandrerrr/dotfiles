@@ -7,6 +7,7 @@ upstream() {
   orgBase=ArrowOS
   [[ ${4} != "-f" ]] && branchBase=${2} || branchBase=arrow-11.0
   branchKraken=${3}
+  [[ $repo == hardware_xiaomi ]] && orgBase=ArrowOS-Devices
   [[ $repo == hardware_qcom_wlan ]] && branchBase="${branchBase}-caf" && branchKraken="${branchKraken}-caf"
   [[ $repo == hardware_qcom_bt ]] && branchBase="${branchBase}-caf" && branchKraken="${branchKraken}-caf"
   [[ $repo == hardware_qcom_bootctrl ]] && branchBase="${branchBase}-caf" && branchKraken="${branchKraken}-caf"
