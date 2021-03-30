@@ -94,8 +94,8 @@ b() {
     make -j${cores} ${task} 2>&1 | tee log.txt
     if [[ $? -eq 0 ]]; then
       echo "${BOL_GRE}Build success${END}"
-      dunstify -i $iconSuccess "Kraken Builder" "Build success"
       moveBuild &> /dev/null
+      dunstify -i $iconSuccess "Kraken Builder" "Build success"
     else
       echo "${BOL_RED}Build failure${END}"
       dunstify -i $iconFail "Kraken Builder" "Build failure"
