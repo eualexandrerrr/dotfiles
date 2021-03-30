@@ -10,7 +10,6 @@ buildtype=userdebug
 argsC() {
   export TARGET_BOOT_ANIMATION_RES=1080
   export KRAKEN_BUILD_TYPE=OFFICIAL
-  export BUILD_WITH_COLORS=1
 }
 
 ccacheC() {
