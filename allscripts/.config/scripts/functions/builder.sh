@@ -92,6 +92,7 @@ b() {
     if [[ $? -eq 0 ]]; then
       echo "${BOL_GRE}Build success${END}"
       dunstify -i $iconSuccess "Kraken Builder" "Build success"
+      moveBuild &> /dev/null
     else
       echo "${BOL_RED}Build failure${END}"
       dunstify -i $iconFail "Kraken Builder" "Build failure"
@@ -120,7 +121,6 @@ b() {
   [[ $makeBuild == "true" ]] && makeC
 
   nbfc set -s 50
-  moveBuild &> /dev/null
 
   # Desligar o notebook se $1 for poweroff, porém, esperar 100 segundos para que esfrie os componentes
   [[ ${1} == poweroff ]] && sleep 100 && sudo poweroff
