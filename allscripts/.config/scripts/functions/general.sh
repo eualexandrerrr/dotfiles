@@ -93,6 +93,7 @@ sideload() {
       adb reboot sideload-auto-reboot
       adb wait-for-sideload
       adb sideload $zipPath
+      dunstify -i $HOME/.config/assets/icons/flash.png "Kraken Builder" "Build flashed"
     else
       echo "The connected device does not appear to be $CUSTOM_BUILD, run away!"
     fi
