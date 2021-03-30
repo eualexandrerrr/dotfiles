@@ -56,7 +56,7 @@ function infra() {
   cd $HOME
   echo "infra cloned."
   sudo rm -rf /mnt/roms/infra
-  git clone ssh://git@github.com/mamutal91/infra && sudo mv infra /mnt/roms
+  git clone ssh://git@github.com/AOSPK/infra && sudo mv infra /mnt/roms
   cd $pwd
 }
 

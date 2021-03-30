@@ -4,7 +4,6 @@
 # manual-custom-rom
 
 github=$HOME/GitHub
-kraken=$HOME/AOSPK
 
 repo1="dotfiles"
 repo2="mamutal91.github.io"
@@ -34,7 +33,7 @@ case $chosen in
     $repo6)
         alacritty -t newcommit --working-directory $github/shellscript-atom-snippets;;
     $repo7)
-        alacritty -t newcommit --working-directory $kraken/manifest;;
+        alacritty -t newcommit --working-directory $github/manifest;;
     $repo8)
         alacritty -t newcommit --working-directory $github/device_xiaomi_lmi;;
     $repo9)
