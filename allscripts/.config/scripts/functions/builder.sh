@@ -76,7 +76,7 @@ b() {
   ccacheC &> /dev/null
   task=${1}
   [[ -z $task ]] && task=bacon
-  cores=7
+  cores=$(nproc --all)
   echo -e "${BOL_MAG}\nYou are building:"
   echo -e "${BOL_YEL}Task   : ${BOL_CYA}${task}"
   echo -e "${BOL_YEL}Device : ${BOL_CYA}${codename}"
