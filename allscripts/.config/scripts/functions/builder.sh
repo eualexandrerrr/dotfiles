@@ -36,7 +36,8 @@ s() {
     echo "${BOL_RED}Repo Sync failure${END}"
     dunstify -i $iconFail "Kraken Builder" "Sync failure"
   fi
-  git clone ssh://git@github.com/AOSPK/hardware_xiaomi -b twelve hardware/xiaomi
+  git clone ssh://git@github.com/AOSPK/hardware_xiaomi -b twelve hardware/xiaomi &> /dev/null
+  nbfc set -s 50
 }
 
 lunchC() {
