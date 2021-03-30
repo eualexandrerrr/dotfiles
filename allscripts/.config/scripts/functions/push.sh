@@ -100,10 +100,16 @@ pushGerrit() {
     echo -e "${BOL_RED}              Use Project, example: ${BOL_YEL}: push gerrit -p ArrowOS arrow-12.0 topic"
     echo -e "${END}"
   else
+    # Regras para o push
     [[ ${pushGerritArgument} == -v ]] && pushGerritPush="HEAD:refs/for/${branchDefault}%l=Verified+1,l=Code-Review+2"
     [[ ${pushGerritArgument} == -s ]] && pushGerritPush="HEAD:refs/for/${branchDefault}%submit,l=Verified+1,l=Code-Review+2"
-    [[ ${pushGerritArgument} == -c ]] && pushGerritPush="${pushGerritIdCommit}:refs/for/${branchDefault}"
     [[ ${pushGerritArgument} == -n ]] && pushGerritPush="HEAD:refs/for/${branchDefault}"
+
+    if [[ ${pushGerritArgument} == -c ]]; then
+      pushGerritPush="${pushGerritIdCommit}:refs/for/${branchDefault}"
+      pushGerritTopic=${4}
+    fi
+
     if [[ ${pushGerritArgument} == -p ]]; then
       pushGerritProject=${3}
       branchDefault=${4}
@@ -124,12 +130,10 @@ pushGerrit() {
       if [[ ${pushGerritTopic} ]]; then
         if [[ ${pushGerritArgument} == "-n" ]]; then
           pushGerritTopicCmd="%topic=${pushGerritTopic}"
-        else
-          pushGerritTopicCmd=",topic=${pushGerritTopic}"
         fi
       fi
       echo -e "${GRE}Repo  : ${MAG}${repoName}"
-      echo -e "${GRE}Push  : ${MAG}${pushGerritPush}${pushGerritTopicCmd}"
+      echo -e "${GRE}Push  : ${MAG}${pushGerritPush}"
       echo -e "${GRE}Topic : ${MAG}${pushGerritTopic}${END}\n"
       git push ssh://mamutal91@${pushGerritUrlProject}:29418/${repoName} ${pushGerritPush}${pushGerritTopicCmd}
     fi
