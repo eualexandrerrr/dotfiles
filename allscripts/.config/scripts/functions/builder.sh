@@ -12,7 +12,7 @@ argsC() {
 }
 
 ccacheC() {
-  sudo mkdir /home/mamutal91/.ccacherom
+  sudo mkdir /home/mamutal91/.ccacherom &> /dev/null
   sudo mount --bind /home/mamutal91/.ccache /home/mamutal91/.ccacherom
   export USE_CCACHE=1
   export CCACHE_EXEC=/usr/bin/ccache
