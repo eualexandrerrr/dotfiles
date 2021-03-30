@@ -125,8 +125,8 @@ pushGerrit() {
       echo -e "${BOL_RED}You are not in a .git repository\n${RED}$(pwd)${END}"
     else
       echo -e "\n${BOL_BLU}Pushing to ${BOL_YEL}${pushGerritUrlProject}/${MAG}${repoName}${END} ${YEL}${branchDefault}${END}\n"
-      #      scp -p -P 29418 mamutal91@${pushGerritUrlProject}:hooks/commit-msg $(git rev-parse --git-dir)/hooks/ &> /dev/null
-      #      git commit --amend --no-edit &> /dev/null
+      gitdir=$(git rev-parse --git-dir); scp -p -P 29418 mamutal91@${pushGerritUrlProject}:hooks/commit-msg ${gitdir}/hooks/ &> /dev/null
+      git commit --amend --no-edit &> /dev/null
       if [[ ${pushGerritTopic} ]]; then
         if [[ ${pushGerritArgument} == "-n" ]]; then
           pushGerritTopicCmd="%topic=${pushGerritTopic}"
