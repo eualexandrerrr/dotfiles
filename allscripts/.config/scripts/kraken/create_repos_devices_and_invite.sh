@@ -14,12 +14,12 @@ jsonMaintainers=${workingDir}/official_devices/team/maintainers.json
 editDescription() {
   echo "${BOL_BLU}Editing description repo ${BOL_MAG}${organization}/${deviceRepo}${END}"
   curl \
-    -H "Authorization: Token ${githubToken}" \
-    -H "Content-Type:application/json" \
-    -H "Accept: application/json" \
-    -X PATCH \
-    --data "{ \"name\": \"${deviceRepo}\", \"description\":\"${brandDevice} ${nameDevice} maintained by @${maintainerGithub}\" }" \
-    https://api.github.com/repos/AOSPK-Devices/${deviceRepo}
+  -H "Authorization: Token ${githubToken}" \
+  -H "Content-Type:application/json" \
+  -H "Accept: application/json" \
+  -X PATCH \
+  --data "{ \"name\": \"${deviceRepo}\", \"description\":\"${brandDevice} ${nameDevice} maintained by @${maintainerGithub}\" }" \
+  https://api.github.com/repos/AOSPK-Devices/${deviceRepo}
 }
 
 createRepo() {
@@ -41,7 +41,7 @@ createRepo() {
   done
 }
 
-function generateBanner() {
+generateBanner() {
   echo "${BOL_BLU}Creating banner ${BOL_MAG}${codename}${END}"
   bannerModel=${workingDir}/official_devices/images/banners/banner_model.png
 
@@ -77,30 +77,29 @@ gitCommit() {
 }
 
 for codename in $(jq '.[] | select(.name|test("^")) | .codename' $jsonDevices | tr -d '"'); do
+  brandDevice=$(jq -r ".[] | select(.codename == \"${codename}\") | .brand" $jsonDevices)
+  nameDevice=$(jq -r ".[] | select(.codename == \"${codename}\") | .name" $jsonDevices)
+  repositories=$(jq -r ".[] | select(.codename == \"${codename}\") | .repositories[]" $jsonDevices)
+  deprecated=$(jq -r ".[] | select(.codename == \"${codename}\") | .deprecated" $jsonDevices)
 
-    brandDevice=$(jq -r ".[] | select(.codename == \"${codename}\") | .brand" $jsonDevices)
-    nameDevice=$(jq -r ".[] | select(.codename == \"${codename}\") | .name" $jsonDevices)
-    repositories=$(jq -r ".[] | select(.codename == \"${codename}\") | .repositories[]" $jsonDevices)
-    deprecated=$(jq -r ".[] | select(.codename == \"${codename}\") | .deprecated" $jsonDevices)
+  maintainerGithub=$(jq -r ".[] | select(.devices[].codename == \"${codename}\") | .github_username" $jsonMaintainers)
+  maintainerName=$(jq -r ".[] | select(.devices[].codename == \"${codename}\") | .name" $jsonMaintainers)
 
-    maintainerGithub=$(jq -r ".[] | select(.devices[].codename == \"${codename}\") | .github_username" $jsonMaintainers)
-    maintainerName=$(jq -r ".[] | select(.devices[].codename == \"${codename}\") | .name" $jsonMaintainers)
+  deviceRepo="device_${brandDevice,,}_${codename}"
+  vendorRepo="vendor_${brandDevice,,}_${codename}"
 
-    deviceRepo="device_${brandDevice,,}_${codename}"
-    vendorRepo="vendor_${brandDevice,,}_${codename}"
+  if [[ $deprecated == true ]]; then
+    echo -e "${BOL_BLU}${BLU}$brandDevice $nameDevice ${BOL_MAG}($codename)${END} ${BOL_RED}DEPRECATED!!!${END}"
+    rm -rf ${workingDir}/official_devices/images/banners/${codename}.png
+  else
+    echo -e "${BOL_BLU}${BLU}$brandDevice $nameDevice ${BOL_MAG}($codename)${END}"
+    echo -e "${BOL_GRE}${GRE}$maintainerName ($maintainerGithub)"
+    echo -e "${BOL_YEL}Repositories:\n${YEL}$repositories"
+    createRepo &> /dev/null
+    generateBanner &> /dev/null
+  fi
 
-    if [[ $deprecated == true ]]; then
-      echo -e "${BOL_BLU}${BLU}$brandDevice $nameDevice ${BOL_MAG}($codename)${END} ${BOL_RED}DEPRECATED!!!${END}"
-      rm -rf ${workingDir}/official_devices/images/banners/${codename}.png
-    else
-      echo -e "${BOL_BLU}${BLU}$brandDevice $nameDevice ${BOL_MAG}($codename)${END}"
-      echo -e "${BOL_GRE}${GRE}$maintainerName ($maintainerGithub)"
-      echo -e "${BOL_YEL}Repositories:\n${YEL}$repositories"
-      createRepo &> /dev/null
-      generateBanner &> /dev/null
-    fi
-
-    echo -e "${BOL_CYA}\n--------- END ---------${END}\n"
+  echo -e "${BOL_CYA}\n--------- END ---------${END}\n"
 done
 
 gitCommit

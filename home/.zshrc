@@ -51,7 +51,6 @@ if [[ $USER == mamutal91 ]]; then
   git config --global user.email "mamutal91@gmail.com" && git config --global user.name "Alexandre Rangel"
   source $HOME/.config/scripts/functions/builder.sh
   source $HOME/.config/scripts/functions/general.sh
-  source $HOME/.config/scripts/functions/giteasy.sh
-  source $HOME/.config/scripts/functions/push.sh
+  source $HOME/.config/scripts/functions/git.sh
   source $HOME/.config/scripts/functions/upstreamAndHals.sh
 fi

@@ -184,7 +184,7 @@ for_window [class="Atom"] move to workspace $ws3, focus
 for_window [class="Electron"] move to workspace $ws3, floating enable, focus
 
 # Workspace 4 [telegram]
-for_window [class="KotatogramDesktop"] move to workspace $ws4, focus
+for_window [class="TelegramDesktop"] move to workspace $ws4, focus
 
 # Workspace 5 [media]
 for_window [class="Spotify"] move to workspace $ws5, focus
