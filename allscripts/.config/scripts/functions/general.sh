@@ -77,13 +77,11 @@ qemu() {
 }
 
 sideload() {
+  pwd=$(pwd)
   cd $HOME/Builds
-  if [[ ${1} == "overlays" ]]; then
-    zip=Kraken_overlays.zip
-  else
-    zip=$(ls Kraken-12-*-*-${1}-lmi*.zip)
-  fi
+  zip=$(ls Kraken-12-*-*-${1}-lmi*.zip)
   sudo adb sideload ${zip}
+  cd $pwd
 }
 
 dot() {
