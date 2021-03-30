@@ -85,7 +85,7 @@ p() {
   argumentPick=${1}
   if [[ ${argumentPick} == "git" ]]; then
     bash $HOME/.dotfiles/allscripts/.config/scripts/functions/cherry-pick.sh ${1} ${2} ${3} ${4}
-    m
+    mm
     breack &> /dev/null
   else
     git cherry-pick ${1}
