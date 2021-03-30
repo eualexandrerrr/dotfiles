@@ -77,11 +77,30 @@ qemu() {
 }
 
 sideload() {
-  pwd=$(pwd)
-  cd $HOME/Builds
-  zip=$(ls Kraken-12-*-*-${1}-lmi*.zip)
-  sudo adb sideload ${zip}
-  cd $pwd
+  buildHour=${1}
+  pathBuilds=/mnt/storage/Builds
+  if [ "${pathBuilds}" ]; then
+    zipPath=$(ls -tr "${pathBuilds}"/Kraken-12-*-*-${buildHour}-lmi*.zip | tail -1)
+    if [ ! -f $zipPath ]; then
+      echo "Nothing to eat"
+      return 1
+    fi
+    echo "Waiting for device..."
+    adb wait-for-device-recovery
+    echo "Found device"
+    if (adb shell getprop ro.kraken.device | grep -q "$CUSTOM_BUILD"); then
+      echo "Rebooting to sideload for install"
+      adb reboot sideload-auto-reboot
+      adb wait-for-sideload
+      adb sideload $zipPath
+    else
+      echo "The connected device does not appear to be $CUSTOM_BUILD, run away!"
+    fi
+      return $?
+  else
+      echo "Nothing to eat"
+      return 1
+  fi
 }
 
 dot() {

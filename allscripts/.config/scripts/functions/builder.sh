@@ -61,9 +61,10 @@ apkAndimg() {
 
 moveBuild() {
   pwd=$(pwd)
-  mkdir -p $HOME/Builds
+  pathBuilds=/mnt/storage/Builds
+  mkdir -p $pathBuilds
   cd /mnt/storage/Kraken/out/target/product/lmi
-  mv Kraken-12-*-*.zip $HOME/Builds
+  mv Kraken-12-*-*.zip $pathBuilds
   apkAndimg &> /dev/null
   rm -rf /mnt/storage/Kraken/out/target/product/lmi/{*.md5sum,*.json}
   cd $pwd
