@@ -70,7 +70,6 @@ pushGitHub() {
       fi
       git push ssh://git@${pushGitHubHost}.com/${pushGitHubOrg}/${repoName} HEAD:refs/heads/${branchDefault} --force
       if [[ ${2} == "main" ]]; then
-        echo OK
         git push ssh://git@${pushGitHubHost}.com/AOSPK/${repoName} HEAD:refs/heads/${branchDefault} --force
       fi
       gh api -XPATCH "repos/AOSPK/${repoName}" -f default_branch="${branchDefault}" &> /dev/null
@@ -113,14 +112,25 @@ pushGerrit() {
         [[ ${3} == ArrowOS ]] && pushGerritUrlProject="review.arrowos.net" && pushGerritPush="HEAD:refs/for/${branchDefault}" && repoName=${pushGerritProject}/${repoName}
         [[ ${3} == PixelExperience ]] && pushGerritUrlProject="gerrit.pixelexperience.org" && pushGerritPush="HEAD:refs/for/${branchDefault}"
     fi
+
     [[ -z ${pushGerritArgument} ]] && pushGerritPush="HEAD:refs/for/${branchDefault}"
+
     if [[ ! -d .git ]]; then
       echo -e "${BOL_RED}You are not in a .git repository\n${RED}$(pwd)${END}"
     else
-      scp -p -P 29418 mamutal91@${pushGerritUrlProject}:hooks/commit-msg $(git rev-parse --git-dir)/hooks/ &> /dev/null
-      git commit --amend --no-edit &> /dev/null
       echo -e "\n${BOL_BLU}Pushing to ${BOL_YEL}${pushGerritUrlProject}/${MAG}${repoName}${END} ${YEL}${branchDefault}${END}\n"
-      [[ ${pushGerritTopic} ]] && pushGerritTopicCmd=",topic=${pushGerritTopic}"
+      #      scp -p -P 29418 mamutal91@${pushGerritUrlProject}:hooks/commit-msg $(git rev-parse --git-dir)/hooks/ &> /dev/null
+      #      git commit --amend --no-edit &> /dev/null
+      if [[ ${pushGerritTopic} ]]; then
+        if [[ ${pushGerritArgument} == "-n" ]]; then
+          pushGerritTopicCmd="%topic=${pushGerritTopic}"
+        else
+          pushGerritTopicCmd=",topic=${pushGerritTopic}"
+        fi
+      fi
+      echo -e "${GRE}Repo  : ${MAG}${repoName}"
+      echo -e "${GRE}Push  : ${MAG}${pushGerritPush}${pushGerritTopicCmd}"
+      echo -e "${GRE}Topic : ${MAG}${pushGerritTopic}${END}\n"
       git push ssh://mamutal91@${pushGerritUrlProject}:29418/${repoName} ${pushGerritPush}${pushGerritTopicCmd}
     fi
     [[ $repo == manifest ]] && git push ssh://git@github.com/AOSPK-Next/manifest HEAD:refs/heads/twelve --force
@@ -131,7 +141,6 @@ pushGerrit() {
 }
 
 push() {
-  mm
   if [[ -z ${1} ]]; then
     echo -e "${BLU}Usage:\n"
     echo -e "${CYA}  push ${RED}-?${YEL}"

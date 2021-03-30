@@ -5,7 +5,7 @@ source $HOME/.myTokens/tokens.sh &> /dev/null
 
 myGitUser="Alexandre Rangel <mamutal91@gmail.com>"
 
-mm() {
+mc() {
   echo -e "\n${BOL_MAG}-----------------------------------------\n"
   echo -e "${BOL_GRE}Changes:${END}"
   lastCommit=$(git log --format="%H" -n 1)
@@ -22,9 +22,9 @@ mm() {
   echo -e "\n${BOL_MAG}-----------------------------------------\n"
 }
 
-mmm() {
+mmc() {
   echo -e "${BOL_GRE}Changes:${END}"
-  lastCommit=$(git log --format="%H" -n 1)
+  lastComcit=$(git log --format="%H" -n 1)
 
   for i in $(find -L . | cut -c3-300); do
     check=$(echo ${i} | cut -c-2)
@@ -61,7 +61,7 @@ gitpushRules() {
 
 st()  {
   git status
-  mm
+  mc
 }
 
 f() {
@@ -85,28 +85,28 @@ p() {
   argumentPick=${1}
   if [[ ${argumentPick} == "git" ]]; then
     bash $HOME/.dotfiles/allscripts/.config/scripts/functions/cherry-pick.sh ${1} ${2} ${3} ${4}
-    mm
+    mc
     breack &> /dev/null
   else
     git cherry-pick ${1}
-    mm
+    mc
   fi
 }
 
 pc() {
   git add . && git cherry-pick --continue
-  mm
+  mc
 }
 
 rcontinue() {
   git add . && git rebase --continue
-  mm
+  mc
 }
 
 ab() {
   git cherry-pick --abort
   git rebase --abort
-  mm
+  mc
 }
 
 translate() {
@@ -170,7 +170,7 @@ cm() {
       echo "${BOL_RED}There are no local changes!!! leaving...${END}" && break &> /dev/null
     fi
   fi
-  mm
+  mc
 }
 
 amend() {
@@ -186,5 +186,5 @@ amend() {
       gitadd && git commit --amend --date "$(date)" --author "${lastAuthorName} <${lastAuthorEmail}>" && gitpush force
     fi
   fi
-  mm
+  mc
 }
