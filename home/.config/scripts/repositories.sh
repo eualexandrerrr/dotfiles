@@ -3,14 +3,8 @@
 rm -rf $HOME/AOSPK && mkdir -p $HOME/AOSPK
 rm -rf $HOME/GitHub && mkdir -p $HOME/GitHub
 
-readonly kraken=(
-    manifest
-    docs
-)
-
-for i in "${kraken[@]}"; do
-  git clone ssh://git@github.com/AOSPK/${i} $HOME/AOSPK/${i}
-done
+ACCOUNT=mamutal91
+FOLDER=GitHub
 
 readonly mamutal91=(
     mamutal91.github.io
@@ -20,10 +14,18 @@ readonly mamutal91=(
     zsh-history
     language-swaywm
     shellscript-atom-snippets
+    manifest
+    docs
+    infra
 )
 
 for i in "${mamutal91[@]}"; do
-  git clone ssh://git@github.com/mamutal91/${i} $HOME/GitHub/${i}
+  if [[ ${i} = manifest || ${i} = docs || ${i} = infra ]]; then
+    ACCOUNT=AOSPK
+    FOLDER=AOSPK
+  fi
+
+  git clone ssh://git@github.com/${ACCOUNT}/${i} $HOME/${FOLDER}/${i}
 done
 
-git clone ssh://git@github.com/BuildersBR/buildersbr $HOME/GitHub/buildersbr
+git clone ssh://git@github.com/BuildersBR/buildersbr $HOME/${FOLDER}/buildersbr
