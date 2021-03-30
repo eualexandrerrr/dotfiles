@@ -25,6 +25,7 @@ ccacheC() {
 s() {
   iconSuccess="$HOME/.config/assets/icons/success.png"
   iconFail="$HOME/.config/assets/icons/fail.png"
+  mkdir -p $rom &> /dev/null
   cd $rom && clear
   nbfc set -s 100
   repo init -u https://github.com/AOSPK/manifest -b twelve
