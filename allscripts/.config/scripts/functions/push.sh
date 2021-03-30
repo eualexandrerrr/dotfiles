@@ -131,7 +131,7 @@ pushGerrit() {
 }
 
 push() {
-  m
+  mm
   if [[ -z ${1} ]]; then
     echo -e "${BLU}Usage:\n"
     echo -e "${CYA}  push ${RED}-?${YEL}"

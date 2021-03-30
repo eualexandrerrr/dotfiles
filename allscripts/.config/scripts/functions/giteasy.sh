@@ -5,7 +5,7 @@ source $HOME/.myTokens/tokens.sh &> /dev/null
 
 myGitUser="Alexandre Rangel <mamutal91@gmail.com>"
 
-m() {
+mm() {
   echo -e "\n${BOL_MAG}-----------------------------------------\n"
   echo -e "${BOL_GRE}Changes:${END}"
   lastCommit=$(git log --format="%H" -n 1)
@@ -22,7 +22,7 @@ m() {
   echo -e "\n${BOL_MAG}-----------------------------------------\n"
 }
 
-mm() {
+mmm() {
   echo -e "${BOL_GRE}Changes:${END}"
   lastCommit=$(git log --format="%H" -n 1)
 
@@ -61,7 +61,7 @@ gitpushRules() {
 
 st()  {
   git status
-  m
+  mm
 }
 
 f() {
@@ -89,24 +89,24 @@ p() {
     breack &> /dev/null
   else
     git cherry-pick ${1}
-    m
+    mm
   fi
 }
 
 pc() {
   git add . && git cherry-pick --continue
-  m
+  mm
 }
 
 rcontinue() {
   git add . && git rebase --continue
-  m
+  mm
 }
 
 ab() {
   git cherry-pick --abort
   git rebase --abort
-  m
+  mm
 }
 
 translate() {
@@ -170,7 +170,7 @@ cm() {
       echo "${BOL_RED}There are no local changes!!! leaving...${END}" && break &> /dev/null
     fi
   fi
-  m
+  mm
 }
 
 amend() {
@@ -186,5 +186,5 @@ amend() {
       gitadd && git commit --amend --date "$(date)" --author "${lastAuthorName} <${lastAuthorEmail}>" && gitpush force
     fi
   fi
-  m
+  mm
 }
