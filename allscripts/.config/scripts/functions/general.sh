@@ -81,7 +81,7 @@ sideload() {
   if [[ ${1} == "overlays" ]]; then
     zip=Kraken_overlays.zip
   else
-    zip=$(ls Kraken-12-*-*-${1}-lmi-*.zip)
+    zip=$(ls Kraken-12-*-*-${1}-lmi*.zip)
   fi
   sudo adb sideload ${zip}
 }
