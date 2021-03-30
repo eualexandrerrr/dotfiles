@@ -15,6 +15,7 @@ atomPkgs=(
   pigments
   save-workspace
   format-shell
+  language-docker
 )
 
 for i in "${atomPkgs[@]}"; do
