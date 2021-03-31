@@ -60,16 +60,7 @@ www() {
 }
 
 gerrit() {
-  pwd=$(pwd)
-  if [[ ${1} == restart ]]; then
-    cd /mnt/roms/sites/docker/docker-files/gerrit
-    sudo docker-compose stop
-    sudo docker-compose restart
-  else
-    cd /mnt/roms/sites/docker/docker-files/gerrit
-    sudo bash repl.sh
-  fi
-  cd $pwd
+  ssh mamutal91@88.99.4.77 "cd /mnt/docker-files/gerrit && sudo docker-compose build && sudo docker-compose up -d"
 }
 
 qemu() {
