@@ -14,7 +14,7 @@ function gitcron() {
 				m="Autocommit Git-Cron: $c"
 				git add .
 				git commit -m "$m" --author "Alexandre Rangel <mamutal91@gmail.com>" --date "$(date '+%Y-%m-%d %H:%M:%S')"
-				git push --force
+				git push
 			fi
 done
 }
