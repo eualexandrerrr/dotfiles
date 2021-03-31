@@ -53,6 +53,13 @@ function update() {
   $HOME/.config/scripts/pacman-update.sh
 }
 
+function wifi() {
+  interface=$(cat /proc/net/wireless | perl -ne '/(\w+):/ && print $1')
+  iwctl station $interface scan && sleep 3
+  iwctl station $interface get-networks
+  echo "${BLU}Which network do you want to connect to?${END} "; read wifi
+  iwctl station $interface connect "${wifi}"
+}
 
 function sshconfig() {
   email="mamutal91@gmail.com"
