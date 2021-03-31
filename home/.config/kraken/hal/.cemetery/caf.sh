@@ -2,7 +2,7 @@
 
 source $HOME/.colors &>/dev/null
 
-readonly repos=(
+repos=(
     hardware_qcom_bootctrl
     hardware_qcom_bt
     hardware_qcom_wlan

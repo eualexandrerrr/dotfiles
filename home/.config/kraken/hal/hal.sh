@@ -2,7 +2,7 @@
 
 source $HOME/.colors &>/dev/null
 
-readonly repos=(
+repos=(
     hardware_qcom_audio
     hardware_qcom_display
     hardware_qcom_media

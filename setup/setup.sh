@@ -22,16 +22,16 @@ source $HOME/.dotfiles/setup/packages.sh
 curl -sS https://download.spotify.com/debian/pubkey_0D811D58.gpg | gpg --import -
 
 # Install packages
-for i in "${PACKAGES[@]}"; do
+for i in "${packages[@]}"; do
   sudo pacman -Sy ${i} --needed --noconfirm
 done
 
-for i in "${AUR[@]}"; do
+for i in "${aur[@]}"; do
   yay -Sy ${i} --needed --noconfirm
 done
 
 # Atom packages
-ATOM="
+atom="
   atom-beautify
   atom-material-syntax
   color-picker
@@ -47,16 +47,16 @@ ATOM="
   pigments
   save-workspace"
 
-apm install $ATOM
+apm install $atom
 
 # Enable systemd services
-for SERVICES in \
+for services in \
     cronie \
     bluetooth \
     getty@ttyN.service
 do
-    sudo systemctl enable $SERVICES
-    sudo systemctl start $SERVICES
+    sudo systemctl enable $services
+    sudo systemctl start $services
 done
 
 source $HOME/.dotfiles/setup/etc.sh

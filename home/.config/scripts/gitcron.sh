@@ -3,7 +3,7 @@
 dir="$HOME/GitHub"
 cp -rf $HOME/.zsh_history $HOME/GitHub/zsh-history/
 
-readonly repos=(
+repos=(
   'zsh-history'
   'custom-rom'
   'gerrit'

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-readonly PACKAGES=(
+packages=(
   # audio
   alsa alsa-firmware alsa-utils alsa-plugins
   pulseaudio pulseaudio-bluetooth pavucontrol
@@ -51,7 +51,7 @@ readonly PACKAGES=(
   terminus-font ttf-liberation
 )
 
-readonly AUR=(
+aur=(
   # themes
   ant-dracula-gtk-theme
   capitaine-cursors

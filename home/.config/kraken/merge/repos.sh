@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-readonly REPOS=(
+REPOS=(
     art
     bionic
     bootable_recovery
@@ -148,7 +148,7 @@ readonly REPOS=(
     vendor_qcom_opensource_vibrator
 )
 
-readonly REPOS_CAF=(
+REPOS_CAF=(
     hardware_qcom_bt
     hardware_qcom_wlan
 )

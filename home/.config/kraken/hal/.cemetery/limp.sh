@@ -5,7 +5,7 @@ source $HOME/.colors &>/dev/null
 # pn5xx
 # sn100x
 
-readonly repos=(
+repos=(
     vendor_nxp_opensource_halimpl
     vendor_nxp_opensource_hidlimpl
 )

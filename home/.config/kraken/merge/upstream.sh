@@ -11,11 +11,11 @@
 
 source repos.sh
 
-LOS="lineage-18.1"
-AOSPK="eleven"
+los="lineage-18.1"
+kraken="eleven"
 
-LOS_CAF="lineage-18.1-caf"
-AOSPK_CAF="eleven-caf"
+los_caf="lineage-18.1-caf"
+aospk_caf="eleven-caf"
 
 tmp=/tmp/kraken-upstream
 mkdir -p $tmp
@@ -23,15 +23,15 @@ cd $tmp
 
 # REPOS > eleven (lineage-18.1)
 for i in "${REPOS[@]}"; do
-  rm -rf ${i} && echo && echo "***************" && echo ${i} && echo && git clone https://github.com/LineageOS/android_${i} -b $LOS ${i} && cd ${i} && echo && git push ssh://git@github.com/AOSPK/${i} HEAD:refs/heads/$AOSPK --force
+  rm -rf ${i} && echo && echo "***************" && echo ${i} && echo && git clone https://github.com/LineageOS/android_${i} -b $los ${i} && cd ${i} && echo && git push ssh://git@github.com/AOSPK/${i} HEAD:refs/heads/$kraken --force
 done
 
-# REPOS_CAF > eleven-caf (lineage-18.1-caf)
-for i in "${REPOS_CAF[@]}"; do
+# repos_caf > eleven-caf (lineage-18.1-caf)
+for i in "${repos_caf[@]}"; do
   echo ${i}
-  git clone https://github.com/LineageOS/android_${i} -b $LOS_CAF ${i}
+  git clone https://github.com/LineageOS/android_${i} -b $los_caf ${i}
   cd ${i} && echo
-  git push ssh://git@github.com/AOSPK/${i} HEAD:refs/heads/$AOSPK_CAF --force
+  git push ssh://git@github.com/AOSPK/${i} HEAD:refs/heads/$aospk_caf --force
 done
 
 rm -rf $tmp
