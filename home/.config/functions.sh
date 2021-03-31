@@ -69,7 +69,6 @@ function infra() {
   pwd=$(pwd)
   cd $HOME
   HOSTNAME=$(cat /etc/hostname)
-  echo "*************************************** $HOSTNAME"
   if [[ $HOSTNAME = odin ]]; then
     echo "Você não está em um host adequado!"
     exit
