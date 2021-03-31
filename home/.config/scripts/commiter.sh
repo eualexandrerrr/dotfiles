@@ -3,6 +3,7 @@
 # Autocommit
 # manual-custom-rom
 
+kraken=$HOME/AOSPK
 github=$HOME/GitHub
 
 repo1="dotfiles"
@@ -27,13 +28,13 @@ case $chosen in
     $repo3)
         alacritty -t newcommit --working-directory $github/myarch;;
     $repo4)
-        alacritty -t newcommit --working-directory $github/infra;;
+        alacritty -t newcommit --working-directory $kraken/infra;;
     $repo5)
         alacritty -t newcommit --working-directory $github/language-swaywm;;
     $repo6)
         alacritty -t newcommit --working-directory $github/shellscript-atom-snippets;;
     $repo7)
-        alacritty -t newcommit --working-directory $github/manifest;;
+        alacritty -t newcommit --working-directory $kraken/manifest;;
     $repo8)
         alacritty -t newcommit --working-directory $github/device_xiaomi_lmi;;
     $repo9)
