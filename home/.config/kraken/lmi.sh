@@ -71,7 +71,7 @@ echo "<?xml version=\"1.0\" encoding=\"utf-8\"?>
 <resources>
     <!-- Biometric Prompt -->
     <dimen name=\"biometric_dialog_fod_margin\">150dp</dimen>
-</resources>" | tee overlay-kraken/frameworks/base/packages/SystemUI/res/values/custom_config.xml
+</resources>" | tee overlay-kraken/frameworks/base/packages/SystemUI/res/values/custom_config.xml &>/dev/null
 
 git add . && git commit --message "lmi: overlay: Adjust biometric prompt layout" --author "Mesquita <mesquita@aospa.co>"
 
@@ -116,7 +116,7 @@ echo "<?xml version=\"1.0\" encoding=\"utf-8\"?>
     <string name=\"stop_operate_camera_frequently\">Você está abrindo a câmera frontal com muita frequência.</string>
     <string name=\"takeback_camera_front_failed\">Não foi possível fechar a câmera frontal. Tente novamente.</string>
     <string name=\"popup_camera_front_failed\">Não foi possível abrir a câmera frontal. Tente novamente.</string>
-</resources>" | tee parts/res/values-pt-rBR/strings.xml
+</resources>" | tee parts/res/values-pt-rBR/strings.xml &>/dev/null
 git add . && git commit --message "lmi: parts: Translations for Portuguese Brazil" --author "Alexandre Rangel <mamutal91@gmail.com>"
 
 git push ssh://git@github.com/AOSPK-Devices/device_xiaomi_lmi HEAD:refs/heads/eleven --force
@@ -162,9 +162,16 @@ msg="sm8250-common: overlay: FaceUnlockService: Define delay for our popup camer
 Adds a configurable delay to prevent this behavior"
 git add . && git commit --message "$msg" --author "Henrique Silva <jhenrique09.mcz@hotmail.com>"
 
-# Permissive
-#sed -i "s/BOARD_KERNEL_CMDLINE += androidboot.init_fatal_reboot_target=recovery/BOARD_KERNEL_CMDLINE += androidboot.init_fatal_reboot_target=recovery\nBOARD_KERNEL_CMDLINE += androidboot.selinux=permissive/g" BoardConfigCommon.mk
-#git add . && git commit --message "[DNM] sm8250-common: Permissive for now" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>"
+# Props
+sed -i "s/debug.sf.latch_unsignaled=1/debug.sf.latch_unsignaled=0/g" system.prop
+sed -i "s/debug.sf.latch_unsignaled=1/debug.sf.latch_unsignaled=0/g" vendor.prop
+
+msg="sm8250-common: Disable debug.sf.latch_unsignaled from prop.
+* Disabling this helps reduces notification flicker, UI performance is not impacted.
+(per:  change https://android.googlesource.com/platform/frameworks/native/+/c5da271)
+
+*Lmi: Also fixes Lags on Google Photos while playing videos."
+git add . && git commit --message "${msg} now" --signoff --author "soumyo19 <soumyo19@gmail.com>"
 
 git push ssh://git@github.com/AOSPK-Devices/device_xiaomi_sm8250-common HEAD:refs/heads/eleven --force
 
