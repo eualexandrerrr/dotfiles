@@ -99,14 +99,13 @@ bindsym $control+$shift+r mode "resize"
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 exec_always --no-startup-id $HOME/.config/scripts/battery.sh
 exec_always --no-startup-id feh --bg-fill $HOME/.config/assets/wallpapers/neon.png
-exec_always --no-startup-id fc-cache -f -r -v
+exec --no-startup-id fc-cache -f -r -v
 exec_always --no-startup-id picom --config $HOME/.config/picom/picom.conf
 exec_always --no-startup-id dunst -config $HOME/.config/dunst/dunstrc &
 exec_always --no-startup-id nbfc set -s 50
 exec_always --no-startup-id xidlehook --not-when-audio --not-when-fullscreen --timer 600 '$HOME/.config/scripts/i3lock.sh'
 exec_always --no-startup-id sudo timedatectl set-ntp true && sudo hwclock --systohc
 exec_always --no-startup-id telegram-desktop &
-exec_always --no-startup-id discord --enable-accelerated-mjpeg-decode --enable-accelerated-video --ignore-gpu-blacklist --enable-native-gpu-memory-buffers --enable-gpu-rasterization &
 exec --no-startup-id "pactl set-sink-mute @DEFAULT_SINK@ false; pactl set-sink-volume @DEFAULT_SINK@ 80%"
 exec --no-startup-id echo 206 | sudo tee /sys/class/backlight/amdgpu_bl1/brightness
 

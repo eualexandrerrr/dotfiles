@@ -5,7 +5,20 @@ source $HOME/.myTokens/tokens.sh &> /dev/null
 
 myGitUserFull="Alexandre Rangel <mamutal91@gmail.com>"
 myGitUser="mamutal91"
-LOCAL_ROM=/mnt/storage/Kraken
+
+getRepo() {
+  repoCheck=$(pwd | cut -c-20)
+
+  if [[ $repoCheck == "/home/mamutal91/GitH" ]]; then
+    repo=$(pwd | cut -c24-300 | sed "s:/:_:g")
+  elif [[ $repoCheck == "/mnt/storage/Kraken/" ]]; then
+    repo=$(pwd | cut -c21-300 | sed "s:/:_:g")
+  elif [[ $repoCheck == "/mnt/roms/Jobs/KrakenD" ]]; then
+    repo=$(pwd | cut -c24-300 | sed "s:/:_:g")
+  else
+    repo=$(pwd | cut -c17-300 | sed "s:/:_:g")
+  fi
+}
 
 mc() {
   echo -e "\n${BOL_MAG}-----------------------------------------\n"
@@ -208,11 +221,7 @@ push() {
   gerrit=gerrit.aospk.org
   branch=twelve
 
-  countRepo=$(echo -n "$LOCAL_ROM" | wc -c)
-  countRepo=$((countRepo+2))
-  repo=$(echo $PWD | cut -c${countRepo}-300 )
-  repo=$(echo $repo | sed "s/\//_/g")
-
+  getRepo
   gitRules
 
   pushGitHub() {
