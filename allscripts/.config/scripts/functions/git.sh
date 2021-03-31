@@ -219,14 +219,23 @@ push() {
     if [[ ! -d .git ]]; then
       echo -e "${BOL_RED}You are not in a .git repository: ${YEL}$(pwd)${END}\n"
     else
-      echo -e " ${BOL_BLU}Pushing to ${BOL_YEL}${org}/${MAG}${repo}${END}\n"
-      echo -e " ${MAG}PROJECT : ${YEL}$gerrit"
+      echo -e " ${BOL_BLU}\nPushing to ${BOL_YEL}${org}/${MAG}${repo}${END}\n"
+      echo -e " ${MAG}PROJECT : ${YEL}$org"
       echo -e " ${MAG}REPO    : ${BLU}$repo"
       echo -e " ${MAG}BRANCH  : ${CYA}$branch${END}\n"
+
       [[ $repo == vendor_gapps ]] && gitHost=gitlab
+
       gh repo create ${org}/${repo} --private --confirm &> /dev/null
       git push ssh://git@${gitHost}.com/${org}/${repo} HEAD:refs/heads/${branch} --force
       gh api -XPATCH "repos/${org}/${repo}" -f default_branch="${branch}" &> /dev/null
+
+      if [[ ${2} == main ]]; then
+        echo -e " ${BOL_BLU}\nPushing to ${BOL_YEL}AOSPK/${MAG}${repo}${END}\n"
+        gh repo create AOSPK/${repo} --public --confirm &> /dev/null
+        git push ssh://git@github.com/AOSPK/${repo} HEAD:refs/heads/${branch} --force
+        gh api -XPATCH "repos/AOSPK/${repo}" -f default_branch="${branch}" &> /dev/null
+      fi
     fi
   }
 
@@ -248,7 +257,7 @@ push() {
         topicGerrit=$OPTARG
         ;;
       f)
-        pushGitHub
+        pushGitHub ${1} ${2}
         return 0
         ;;
       p)
@@ -267,7 +276,7 @@ push() {
       echo -e "${BOL_RED}You are not in a .git repository: ${YEL}$(pwd)${END}\n"
     else
 
-    echo -e " ${BOL_BLU}Pushing to ${BOL_YEL}${gerrit}/${MAG}${repo}${END}\n"
+    echo -e " ${BOL_BLU}\nPushing to ${BOL_YEL}${gerrit}/${MAG}${repo}${END}\n"
     echo -e " ${MAG}PROJECT : ${YEL}$gerrit"
     echo -e " ${MAG}REPO    : ${BLU}$repo"
     echo -e " ${MAG}BRANCH  : ${CYA}$branch"
