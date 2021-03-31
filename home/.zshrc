@@ -33,7 +33,6 @@ alias sed="sudo sed"
 alias wget="wget --user kraken --password kraken"
 
 # paths
-alias aospk="cd $HOME/AOSPK"
 alias x="cd /mnt/roms/jobs/KrakenDev"
 
 source $HOME/.config/functions.sh
