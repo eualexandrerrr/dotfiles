@@ -86,23 +86,3 @@ function infra() {
   fi
   cd $pwd
 }
-
-function sshconfig() {
-  HOSTNAME=$(cat /etc/hostname)
-  email="mamutal91@gmail.com"
-  if [[ ${1} = ed ]]; then
-    ssh-keygen -t ed25519 -C "${email}"
-    file="id_ed25519"
-  else
-    ssh-keygen -C "${email}"
-    file="id_rsa"
-  fi
-  eval "$(ssh-agent -s)" && ssh-add -l
-  if [[ $HOSTNAME = odin ]]; then
-    wl-copy < $HOME/.ssh/${file}.pub
-    xdg-open https://github.com/settings/ssh/new
-  else
-    cat $HOME/.ssh/${file}.pub
-    echo https://github.com/settings/ssh/new
-  fi
-}
