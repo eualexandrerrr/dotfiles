@@ -46,14 +46,20 @@ function update() {
 }
 
 function sshconfig() {
-  echo "${GRE}Creating key for ${BLU}Equinix${END}"
-  ssh-keygen -t rsa
-  echo "${RED}Type pass ${BLU}Equinix ${RED}server:${END}"
-  ssh-copy-id mamutal91@147.75.63.219
-  echo "${GRE}Creating key for ${BLU}GitHub${END}"
-
-  ssh-keygen -t ed25519 -C "mamutal91@github.com"
+  email="mamutal91@gmail.com"
+  if [[ ${1} = ed ]]; then
+    ssh-keygen -t ed25519 -C "$email"
+    file="id_ed25519"
+  else
+    ssh-keygen -C "$email"
+    file="id_rsa"
+  fi
   eval "$(ssh-agent -s)" && ssh-add -l
-  cat $HOME/.ssh/id_ed25519.pub | wl-copy
-  xdg-open https://github.com/settings/ssh/new
+  if [[ $HOST == @("odin"|"buildersbr.ninja") ]]; then
+    wl-copy < $HOME/.ssh/${file}.pub
+    xdg-open https://github.com/settings/ssh/new
+  else
+    cat $HOME/.ssh/${file}.pub
+    echo https://github.com/settings/ssh/new
+  fi
 }
