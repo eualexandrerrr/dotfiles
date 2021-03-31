@@ -54,18 +54,15 @@ function dot() {
 function infra() {
   pwd=$(pwd)
   cd $HOME
-  echo "infra cloned."
-  sudo rm -rf /mnt/roms/infra
-  git clone ssh://git@github.com/AOSPK/infra && sudo mv infra /mnt/roms
-  cd $pwd
-}
-
-
-function builders() {
-  pwd=$(pwd)
-  cd $HOME
-  echo "buildersbr cloned."
-  sudo rm -rf /mnt/roms/buildersbr
-  git clone ssh://git@github.com/BuildersBR/buildersbr && sudo mv buildersbr /mnt/roms
+  if [[ $HOST = buildersbr.ninja ]]; then
+    org=buildersbr
+    repo=buildersbr
+  else
+    org=AOSPK
+    repo=infra
+  fi
+  echo "${repo} cloned."
+  sudo rm -rf /mnt/roms/${repo}
+  git clone ssh://git@github.com/${org}/${repo} && sudo mv ${repo} /mnt/roms
   cd $pwd
 }
