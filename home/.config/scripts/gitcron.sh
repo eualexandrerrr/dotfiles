@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-HOST=$(cat /etc/hostname)
+HOSTNAME=$(cat /etc/hostname)
 
 # My notebook
-if [[ $HOST = odin ]]; then
+if [[ $HOSTNAME = odin ]]; then
   cp -rf $HOME/.zsh_history $HOME/GitHub/zsh-history/
 
   repos=( "zsh-history" "custom-rom" ".atom")
@@ -26,7 +26,7 @@ if [[ $HOST = odin ]]; then
 fi
 
 # Kraken VPS
-if [[ $HOST = mamutal91-v2 ]]; then
+if [[ $HOSTNAME = mamutal91-v2 ]]; then
   m="Autocommit Git-Cron"
   pwd=$(pwd)
   rm -rf /home/mamutal91/.gerrit
@@ -44,7 +44,7 @@ if [[ $HOST = mamutal91-v2 ]]; then
 fi
 
 # BuildersBR
-if [[ $HOST = buildersbr.ninja-v2 ]]; then
+if [[ $HOSTNAME = buildersbr.ninja-v2 ]]; then
   m="Autocommit Git-Cron"
   pwd=$(pwd)
   rm -rf /home/mamutal91/.jenkins

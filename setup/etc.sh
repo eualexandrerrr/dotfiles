@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
+HOSTNAME=$(cat /etc/hostname)
+
 # modprobe.d
-if [[ $HOST = "odin" ]]; then
+if [[ $HOSTNAME = "odin" ]]; then
   echo "options ath10k_pci fwlps=0" | sudo tee -a /etc/modprobe.d/ath10k_pci.conf > /dev/null
 fi
 
