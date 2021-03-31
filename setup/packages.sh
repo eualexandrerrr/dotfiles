@@ -60,7 +60,7 @@ aur=(
   # apps
   google-chrome-beta
   oh-my-zsh-git
-  swaylock-effects-git
+  swaylock-effects-git spotify-snap
   translate-shell-git
 
   # dependencies

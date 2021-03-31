@@ -78,6 +78,10 @@ window#waybar.empty {
 	padding-right: 6px;
 }
 #custom-spotify {
+	color: #2bd96c;
+	background-color: transparent;
+	margin-left: 5px;
+	margin-top: 5px;
 	padding-left: 5px;
 }
 /* WIDGETS */

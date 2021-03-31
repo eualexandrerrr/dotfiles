@@ -103,10 +103,19 @@
     },
   },
   "custom/spotify": {
-    "format": " {}",
-    "max-length": 40,
-    "exec": "$HOME/.config/scripts/spotify.sh",
-    "exec-if": "pgrep spotify"
+      "format": " <span color=\"#F2F2F2\">{}</span>",
+      "format-alt-click": "click-right",
+      "interval": 10,
+      "signal": 20,
+      "return-type": "json",
+      "max-length": 2000,
+      "exec": "~/.config/scripts/spotify.sh",
+      "exec-if": "pgrep spotify",
+      "escape": true,
+      "on-click-middle": "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause && pkill -RTMIN+20 waybar",
+      "format-icons": {
+        "default": ""
+      }
   },
   "custom/github": {
     "format": "",
