@@ -34,7 +34,7 @@ alias wget="wget --user kraken --password kraken"
 
 # paths
 alias aospk="cd $HOME/AOSPK"
-alias x="cd /mnt/dev/Kraken"
+alias x="cd /mnt/roms/jobs/KrakenDev"
 
 source $HOME/.config/functions.sh
 source $HOME/.config/kraken/functions.sh
@@ -49,25 +49,5 @@ function dot() {
   rm -rf .dotfiles && git clone ssh://git@github.com/mamutal91/dotfiles .dotfiles
   ./.dotfiles/install.sh
   source .zshrc
-  cd $pwd
-}
-
-function infra() {
-  pwd=$(pwd)
-  cd $HOME
-  if [[ $HOST = odin ]]; then
-    echo "Você não está em um host adequado!"
-  else
-    if [[ $HOST = buildersbr.ninja ]]; then
-      org=buildersbr
-      repo=buildersbr
-    else
-      org=AOSPK
-      repo=infra
-    fi
-    echo "${repo} cloned."
-    sudo rm -rf /mnt/roms/${repo}
-    git clone ssh://git@github.com/${org}/${repo} && sudo mv ${repo} /mnt/roms
-  fi
   cd $pwd
 }

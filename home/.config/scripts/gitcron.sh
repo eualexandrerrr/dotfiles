@@ -26,31 +26,31 @@ if [[ $HOST = odin ]]; then
 fi
 
 # Kraken VPS
-if [[ $HOST = mamutal91 ]]; then
+if [[ $HOST = mamutal91-v2 ]]; then
   m="Autocommit Git-Cron"
   pwd=$(pwd)
-  sudo rm -rf /home/mamutal91/.jenkins
-  git clone ssh://git@github.com/AOSPK/jenkins -b master /home/mamutal91/.jenkins
-  sudo cp -rf /mnt/roms/backupJenkins/* /home/mamutal91/.jenkins
-  cd /home/mamutal91/.jenkins
-  sudo git add . && sudo git commit -m "${m}" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>" --date "$(date)" && sudo git push -f
-
-  sudo rm -rf /home/mamutal91/.gerrit
+  rm -rf /home/mamutal91/.gerrit
   git clone ssh://git@github.com/AOSPK/gerrit -b backup /home/mamutal91/.gerrit
-  sudo cp -rf /mnt/roms/sites/docker/gerrit /home/mamutal91/.gerrit
+  cp -rf /mnt/roms/sites/docker/gerrit /home/mamutal91/.gerrit
   cd /home/mamutal91/.gerrit
-  sudo git add . && sudo git commit -m "${m}" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>" --date "$(date)" && sudo git push -f
+  git add . && git commit -m "${m}" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>" --date "$(date)" && git push -f
   cd $pwd
+
+  rm -rf /home/mamutal91/.jenkins
+  git clone ssh://git@github.com/AOSPK/jenkins -b master /home/mamutal91/.jenkins
+  cp -rf /mnt/roms/backupJenkins/* /home/mamutal91/.jenkins
+  cd /home/mamutal91/.jenkins
+  git add . && git commit -m "${m}" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>" --date "$(date)" && git push -f
 fi
 
 # BuildersBR
-if [[ $HOST = buildersbr.ninja ]]; then
+if [[ $HOST = buildersbr.ninja-v2 ]]; then
   m="Autocommit Git-Cron"
   pwd=$(pwd)
-  sudo rm -rf /home/mamutal91/.jenkins
+  rm -rf /home/mamutal91/.jenkins
   git clone ssh://git@github.com/buildersbr/jenkins -b master /home/mamutal91/.jenkins
-  sudo cp -rf /mnt/roms/backupJenkins/* /home/mamutal91/.jenkins
+  cp -rf /mnt/roms/backupJenkins/* /home/mamutal91/.jenkins
   cd /home/mamutal91/.jenkins
-  sudo git add . && sudo git commit -m "${m}" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>" --date "$(date)" && sudo git push -f
+  git add . && git commit -m "${m}" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>" --date "$(date)" && git push -f
   cd $pwd
 fi

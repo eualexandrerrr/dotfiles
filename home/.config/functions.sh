@@ -31,7 +31,7 @@ function gitpush() {
   if [[ $pwd = "/home/mamutal91/AOSPK/manifest" ]]; then
     exit
   fi
-  if [[ $pwd = "/mnt/dev/" ]]; then
+  if [[ $pwd = "/mnt/roms/jobs/" ]]; then
     echo "${BOL_RED}No push!${END}"
   else
     if [[ ${1} = amend ]]; then
@@ -65,7 +65,31 @@ function update() {
   $HOME/.config/scripts/update.sh
 }
 
+function infra() {
+  pwd=$(pwd)
+  cd $HOME
+  HOSTNAME=$(cat /etc/hostname)
+  echo "*************************************** $HOSTNAME"
+  if [[ $HOSTNAME = odin ]]; then
+    echo "Você não está em um host adequado!"
+    exit
+  else
+    if [[ $HOSTNAME = buildersbr.ninja-v2 ]]; then
+      org=buildersbr
+      repo=buildersbr
+    else
+      org=AOSPK
+      repo=infra
+    fi
+    echo "${repo} cloned."
+    sudo rm -rf /mnt/roms/${repo}
+    git clone ssh://git@github.com/${org}/${repo} && sudo mv ${repo} /mnt/roms
+  fi
+  cd $pwd
+}
+
 function sshconfig() {
+  HOSTNAME=$(cat /etc/hostname)
   email="mamutal91@gmail.com"
   if [[ ${1} = ed ]]; then
     ssh-keygen -t ed25519 -C "${email}"
@@ -75,7 +99,7 @@ function sshconfig() {
     file="id_rsa"
   fi
   eval "$(ssh-agent -s)" && ssh-add -l
-  if [[ $HOST == @("odin"|"buildersbr.ninja") ]]; then
+  if [[ $HOSTNAME = odin ]]; then
     wl-copy < $HOME/.ssh/${file}.pub
     xdg-open https://github.com/settings/ssh/new
   else

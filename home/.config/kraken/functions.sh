@@ -17,8 +17,8 @@ function down() {
 
 function push() {
   HOST=$(cat /etc/hostname)
-  if [[ $HOST = mamutal91 ]]; then
-    REPO=$(pwd | sed "s/\/mnt\/dev\/Kraken\///; s/\//_/g")
+  if [[ $HOST = mamutal91-v2 ]]; then
+    REPO=$(pwd | sed "s/\/mnt\/roms\/jobs\/KrakenDev\///; s/\//_/g")
   else
     REPO=$(basename "`pwd`")
   fi

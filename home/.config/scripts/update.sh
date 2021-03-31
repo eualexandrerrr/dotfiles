@@ -7,7 +7,7 @@ source $HOME/.colors
 
 HOSTNAME=$(cat /etc/hostname)
 
-if [[ $HOSTNAME = mamutal91 || $HOSTNAME = buildersbr.ninja ]]; then
+if [[ $HOSTNAME = mamutal91 || $HOSTNAME = buildersbr.ninja-v2 ]]; then
   sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y
 else
   echo "${GRE}Updating Pacman and AUR${END}"
