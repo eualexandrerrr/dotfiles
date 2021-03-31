@@ -10,11 +10,11 @@ function p() {
   git cherry-pick ${1}
 }
 
-function continue() {
+function cc() {
   git add . && git cherry-pick --continue
 }
 
-function abort() {
+function a() {
   git cherry-pick --abort
 }
 
