@@ -53,6 +53,7 @@ function update() {
   $HOME/.config/scripts/pacman-update.sh
 }
 
+
 function sshconfig() {
   email="mamutal91@gmail.com"
   if [[ ${1} = ed ]]; then
