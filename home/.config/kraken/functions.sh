@@ -127,6 +127,7 @@ function hals() {
     sdm845
     sm8150
     sm8250
+    sm8350
   )
 
   for i in "${branch[@]}"; do
