@@ -54,7 +54,9 @@ function dot() {
 function infra() {
   pwd=$(pwd)
   cd $HOME
-  if [[ $HOST == @("mamutal91"|"buildersbr.ninja") ]]; then
+  if [[ $HOST = odin ]]; then
+    echo "Você não está em um host adequado!"
+  else
     if [[ $HOST = buildersbr.ninja ]]; then
       org=buildersbr
       repo=buildersbr
@@ -65,8 +67,6 @@ function infra() {
     echo "${repo} cloned."
     sudo rm -rf /mnt/roms/${repo}
     git clone ssh://git@github.com/${org}/${repo} && sudo mv ${repo} /mnt/roms
-  else
-    echo "Você não está em um host adequeado!"
   fi
   cd $pwd
 }
