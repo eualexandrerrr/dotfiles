@@ -3,7 +3,7 @@
 rm -rf $HOME/AOSPK && mkdir -p $HOME/AOSPK
 rm -rf $HOME/GitHub && mkdir -p $HOME/GitHub
 
-mamutal91=(
+repos=(
   mamutal91.github.io
   myarch
   custom-rom
@@ -13,16 +13,18 @@ mamutal91=(
   infra
   manifest
   docs
+  buildersbr
 )
 
-for i in "${mamutal91[@]}"; do
+for i in "${repos[@]}"; do
   account=mamutal91
   folder=GitHub
   if [[ ${i} == @("infra"|"manifest"|"docs") ]]; then
     account=AOSPK
     folder=AOSPK
   fi
+  if [[ ${i} = buildersbr ]]; then
+    account=BuildersBR
+  fi
   git clone ssh://git@github.com/${account}/${i} $HOME/${folder}/${i}
 done
-
-git clone ssh://git@github.com/BuildersBR/buildersbr $HOME/${folder}/buildersbr
