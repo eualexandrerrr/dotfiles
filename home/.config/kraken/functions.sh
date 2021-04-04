@@ -10,8 +10,8 @@ function beryllium() {
 
 function down() {
   pwd=$(pwd)
-  rm -rf /mnt/roms/sites/private/*/*.zip &>/dev/null
-  rm -rf /mnt/roms/sites/private/*/json/*.json &>/dev/null
+  rm -rf /mnt/roms/sites/private/builds/*/*.zip &>/dev/null
+  rm -rf /mnt/roms/sites/private/builds/*/json/*.json &>/dev/null
   cd $pwd
 }
 
