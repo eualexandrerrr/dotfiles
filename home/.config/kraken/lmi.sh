@@ -89,8 +89,8 @@ Adds a configurable delay to prevent this behavior"
 git add . && git commit --message "$msg" --author "Henrique Silva <jhenrique09.mcz@hotmail.com>"
 
 # Permissive
-sed -i "s/BOARD_KERNEL_CMDLINE += androidboot.init_fatal_reboot_target=recovery/BOARD_KERNEL_CMDLINE += androidboot.init_fatal_reboot_target=recovery\nBOARD_KERNEL_CMDLINE += androidboot.selinux=permissive/g" BoardConfigCommon.mk
-git add . && git commit --message "[DNM] sm8250-common: Permissive for now" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>"
+#sed -i "s/BOARD_KERNEL_CMDLINE += androidboot.init_fatal_reboot_target=recovery/BOARD_KERNEL_CMDLINE += androidboot.init_fatal_reboot_target=recovery\nBOARD_KERNEL_CMDLINE += androidboot.selinux=permissive/g" BoardConfigCommon.mk
+#git add . && git commit --message "[DNM] sm8250-common: Permissive for now" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>"
 
 git push ssh://git@github.com/AOSPK-Devices/device_xiaomi_sm8250-common HEAD:refs/heads/eleven --force
 
