@@ -1,21 +1,31 @@
 #!/usr/bin/env bash
 
-dir="$HOME/GitHub"
-cp -rf $HOME/.zsh_history $HOME/GitHub/zsh-history/
+#cp -rf $HOME/.zsh_history $HOME/GitHub/zsh-history/
+
+[ ! -d $HOME/.gerrit ] && git clone ssh://git@github.com/AOSPK/gerrit $HOME/.gerrit
+[ ! -d $HOME/.jenkins ] && git clone ssh://git@github.com/AOSPK/jenkins $HOME/.jenkins
+[ ! -d $HOME/.userge-x ] && git clone ssh://git@github.com/mamutal91/userge-x $HOME/.userge-x
 
 repos=(
-  'zsh-history'
-  'custom-rom'
-  'gerrit'
-  'jenkins'
-  'userge-x'
+#  "$HOME/GitHub/zsh-history"
+#  "$HOME/GitHub/custom-rom"
+  "$HOME/.gerrit"
+  "$HOME/.jenkins"
+  "$HOME/.userge-x"
 )
 
 for i in "${repos[@]}"; do
-  if [[ ${i} = gerrit || ${i} = jenkins || ${i} = userge-x ]]; then
-    dir="/mnt/roms/sites/docker"
+  dir=$HOME/GitHub
+  if [[ ${i} = gerrit ]]; then
+    cp -rf /mnt/roms/sites/docker/gerrit/* $HOME/.gerrit
   fi
-	cd $dir/$i
+  if [[ ${i} = jenkins ]]; then
+    cp -rf /var/lib/jenkins/* $HOME/.jenkins
+  fi
+  if [[ ${i} = userge-x ]]; then
+    cp -rf /mnt/roms/sites/docker/userge-x/* $HOME/.userge-x
+  fi
+	cd $i
 	status=$(git add . -n)
 	if [[ ! -z "$status" ]]; then
 		c=$(echo $(git add . -n | tr '\r\n' ' '))
