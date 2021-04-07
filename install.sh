@@ -16,6 +16,11 @@ done
 bash $HOME/.dotfiles/setup/etc.sh
 echo "${RED}/etc/ ${GRE}configured.${END}"
 
+# SSH /root
+if [[ $USER = mamutal91 ]]; then
+  sudo cp -rf /home/mamutal91/.ssh /root
+fi
+
 # GTK Generator
 SWAY=$HOME/.config/sway/config
 GTK_THEME=$(grep 'set $theme' $SWAY | awk '{ print $3 }')
