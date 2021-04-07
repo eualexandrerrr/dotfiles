@@ -1,1 +1,1 @@
-*/120 * * * * $HOME/.config/scripts/gitcron.sh
+0 */2 * * * $HOME/.config/scripts/gitcron.sh
