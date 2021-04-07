@@ -6,7 +6,6 @@ if [[ $USER = "mamutal91" ]]; then
   git config --global user.name "Alexandre Rangel"
   git config --global http.postBuffer 524288000
   rm -rf $HOME/.zsh_history && wget https://raw.githubusercontent.com/mamutal91/zsh-history/master/.zsh_history
-  sudo cp -rf /home/mamutal91/.dotfiles/home/.nanorc /root
   mkdir -p $HOME/{Images,Videos} &>/dev/null
   cd $pwd
 fi

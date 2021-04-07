@@ -16,11 +16,6 @@ done
 bash $HOME/.dotfiles/setup/etc.sh
 echo "${RED}/etc/ ${GRE}configured.${END}"
 
-# SSH /root
-if [[ $USER = mamutal91 ]]; then
-  sudo cp -rf /home/mamutal91/.ssh /root
-fi
-
 # GTK Generator
 SWAY=$HOME/.config/sway/config
 GTK_THEME=$(grep 'set $theme' $SWAY | awk '{ print $3 }')
@@ -37,6 +32,12 @@ mkdir -p $HOME/.config/gtk-3.0
 echo -e "[Settings]\n" > $HOME/.config/gtk-3.0/settings.ini
 echo -e $THEME > $HOME/.gtkrc-2.0
 echo -e $THEME >> $HOME/.config/gtk-3.0/settings.ini
+
+# Settings to use on my /root
+if [[ $USER = mamutal91 ]]; then
+  sudo cp -rf /home/mamutal91/.ssh /root
+  sudo cp -rf /home/mamutal91/.dotfiles/home/.nanorc /root
+fi
 
 # Restart sway
 play $HOME/.config/sounds/completed.wav &>/dev/null
