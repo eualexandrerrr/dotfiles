@@ -1,37 +1,49 @@
 #!/usr/bin/env bash
 
-#cp -rf $HOME/.zsh_history $HOME/GitHub/zsh-history/
+HOST=$(cat /etc/hostname)
 
-[ ! -d $HOME/.gerrit ] && git clone ssh://git@github.com/AOSPK/gerrit $HOME/.gerrit
-[ ! -d $HOME/.jenkins ] && git clone ssh://git@github.com/AOSPK/jenkins $HOME/.jenkins
-[ ! -d $HOME/.userge-x ] && git clone ssh://git@github.com/mamutal91/userge-x $HOME/.userge-x
+# My notebook
+if [[ $HOST = odin ]]; then
+  cp -rf $HOME/.zsh_history $HOME/GitHub/zsh-history/
 
-repos=(
-#  "$HOME/GitHub/zsh-history"
-#  "$HOME/GitHub/custom-rom"
-  "$HOME/.gerrit"
-  "$HOME/.jenkins"
-  "$HOME/.userge-x"
-)
+  repos=( "zsh-history" "custom-rom" )
 
-for i in "${repos[@]}"; do
-  dir=$HOME/GitHub
-  if [[ ${i} = gerrit ]]; then
-    cp -rf /mnt/roms/sites/docker/gerrit/* $HOME/.gerrit
-  fi
-  if [[ ${i} = jenkins ]]; then
-    cp -rf /var/lib/jenkins/* $HOME/.jenkins
-  fi
-  if [[ ${i} = userge-x ]]; then
-    cp -rf /mnt/roms/sites/docker/userge-x/* $HOME/.userge-x
-  fi
-	cd $i
-	status=$(git add . -n)
-	if [[ ! -z "$status" ]]; then
-		c=$(echo $(git add . -n | tr '\r\n' ' '))
-		m="Autocommit Git-Cron: $c"
-		git add .
-		git commit -m "$m" --author "Alexandre Rangel <mamutal91@gmail.com>" --date "$(date '+%Y-%m-%d %H:%M:%S')"
-		git push
-	fi
-done
+  for i in "${repos[@]}"; do
+    dir=$HOME/GitHub
+  	cd ${dir}/${i}
+  	status=$(git add . -n)
+  	if [[ ! -z "$status" ]]; then
+  		c=$(echo $(git add . -n | tr '\r\n' ' '))
+  		m="Autocommit Git-Cron: ${c}"
+  		git add .
+  		git commit -m "${m}" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>"
+  		git push
+  	fi
+  done
+fi
+
+# Kraken VPS
+if [[ $HOST = mamutal91 ]]; then
+  kraken=( "gerrit" "jenkins" )
+
+  for i in "${kraken[@]}"; do
+  	sudo rm -rf /home/mamutal91/.${i}
+    git clone ssh://git@github.com/AOSPK/gerrit -b backup $HOME/.gerrit
+    git clone ssh://git@github.com/AOSPK/jenkins -b backup $HOME/.jenkins
+    if [[ ${i} = gerrit ]]; then
+      sudo cp -rf /mnt/roms/sites/docker/${i}/* /home/mamutal91/.${i}
+    fi
+    if [[ ${i} = jenkins ]]; then
+      sudo cp -rf /var/lib/jenkins/* /home/mamutal91/.${i}
+    fi
+  	cd $HOME/.${i}
+  	status=$(sudo git add . -n)
+  	if [[ ! -z "$status" ]]; then
+  		c=$(echo $(sudo git add . -n | tr '\r\n' ' '))
+  		m="Autocommit Git-Cron: ${c}"
+  		sudo git add .
+      sudo git commit -m "${m}" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>"
+  		sudo git push -f
+  	fi
+  done
+fi
