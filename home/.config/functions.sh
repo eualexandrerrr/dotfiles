@@ -45,7 +45,12 @@ else
     git add . && git commit --author "${1}"
   }
   function amend() {
-    git add . && git commit --amend
+    pwd=$(pwd)
+    if [[ $pwd = "/home/mamutal91/jenkins" ]]; then
+      sudo git add . && sudo git commit --amend && sudo git push -f
+    else
+      git add . && git commit --amend
+    fi
   }
 fi
 
