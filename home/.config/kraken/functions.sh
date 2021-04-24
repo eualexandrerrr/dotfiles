@@ -1,5 +1,13 @@
 #!/usr/bin/env bash
 
+function lmi() {
+  cd $HOME && $HOME/.dotfiles/home/.config/kraken/lmi.sh
+}
+
+function beryllium() {
+  cd $HOME && $HOME/.dotfiles/home/.config/kraken/beryllium.sh
+}
+
 function down() {
   pwd=$(pwd)
   rm -rf /mnt/roms/sites/private/builds/*/*.zip &>/dev/null
