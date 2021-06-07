@@ -190,13 +190,12 @@ cd ..
 git clone https://github.com/LineageOS/android_kernel_xiaomi_sm8250 -b lineage-18.1
 cd android_kernel_xiaomi_sm8250
 
-sed -i "s/lineageos/kraken/g" arch/arm64/configs/vendor/umi_defconfig
-sed -i "s/lineageos/kraken/g" arch/arm64/configs/vendor/lmi_defconfig
-sed -i "s/lineageos/kraken/g" arch/arm64/configs/vendor/apollo_defconfig
-sed -i "s/lineageos/kraken/g" arch/arm64/configs/vendor/cas_defconfig
-sed -i "s/lineageos/kraken/g" arch/arm64/configs/vendor/cmi_defconfig
-
-git add . && git commit --message "ARM64: configs: xiaomi: Set localversion to kraken" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>"
+#sed -i "s/lineageos/kraken/g" arch/arm64/configs/vendor/umi_defconfig
+#sed -i "s/lineageos/kraken/g" arch/arm64/configs/vendor/lmi_defconfig
+#sed -i "s/lineageos/kraken/g" arch/arm64/configs/vendor/apollo_defconfig
+#sed -i "s/lineageos/kraken/g" arch/arm64/configs/vendor/cas_defconfig
+#sed -i "s/lineageos/kraken/g" arch/arm64/configs/vendor/cmi_defconfig
+#git add . && git commit --message "ARM64: configs: xiaomi: Set localversion to kraken" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>"
 
 git push ssh://git@github.com/AOSPK-Devices/kernel_xiaomi_sm8250 HEAD:refs/heads/eleven --force
 
