@@ -133,8 +133,10 @@ sed -i "s/vendor\/lineage/vendor\/aosp/" kona.mk
 rm -rf lineage.dependencies
 echo "[
   {
-    \"repository\": \"kernel_xiaomi_sm8250\",
-    \"target_path\": \"kernel/xiaomi/sm8250\"
+    \"remote\": \"github\",
+    \"repository\": \"xiaomi-sm8250-devs/android_kernel_xiaomi_sm8250\",
+    \"target_path\": \"kernel/xiaomi/sm8250\",
+    \"branch\": \"lineage-18.1\"
   },
   {
     \"repository\": \"vendor_xiaomi_sm8250-common\",
