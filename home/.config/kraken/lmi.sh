@@ -75,7 +75,7 @@ git add . && git commit --message "lmi: overlay: Adjust biometric prompt layout"
 mkdir -p parts/res/values-pt-rBR
 echo "<?xml version=\"1.0\" encoding=\"utf-8\"?>
 <!--
-     Copyright (C) 2018 The xiaomi-sm8250-devs Project
+     Copyright (C) 2018 The LineageOS Project
 
      Licensed under the Apache License, Version 2.0 (the \"License\");
      you may not use this file except in compliance with the License.
