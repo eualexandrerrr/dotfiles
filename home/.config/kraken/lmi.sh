@@ -167,7 +167,7 @@ msg="sm8250-common: Disable debug.sf.latch_unsignaled from prop.
 (per:  change https://android.googlesource.com/platform/frameworks/native/+/c5da271)
 
 *Lmi: Also fixes Lags on Google Photos while playing videos."
-git add . && git commit --message "${msg} now" --signoff --author "soumyo19 <soumyo19@gmail.com>"
+git add . && git commit --message "${msg} now" --signoff --author "soumyo19 <fsoummya@gmail.com>"
 
 git push ssh://git@github.com/AOSPK-Devices/device_xiaomi_sm8250-common HEAD:refs/heads/eleven --force
 
