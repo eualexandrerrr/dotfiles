@@ -6,8 +6,8 @@ sudo rm -rf $LMI && mkdir $LMI && cd $LMI
 
 bringup="Initial changes for Kraken"
 
-git clone https://github.com/LineageOS/android_device_xiaomi_lmi -b lineage-18.1
-git clone https://github.com/LineageOS/android_device_xiaomi_sm8250-common -b lineage-18.1
+git clone https://github.com/xiaomi-sm8250-devs/android_device_xiaomi_lmi -b lineage-18.1
+git clone https://github.com/xiaomi-sm8250-devs/android_device_xiaomi_sm8250-common -b lineage-18.1
 
 cd android_device_xiaomi_lmi
 
@@ -75,7 +75,7 @@ git add . && git commit --message "lmi: overlay: Adjust biometric prompt layout"
 mkdir -p parts/res/values-pt-rBR
 echo "<?xml version=\"1.0\" encoding=\"utf-8\"?>
 <!--
-     Copyright (C) 2018 The LineageOS Project
+     Copyright (C) 2018 The xiaomi-sm8250-devs Project
 
      Licensed under the Apache License, Version 2.0 (the \"License\");
      you may not use this file except in compliance with the License.
@@ -187,7 +187,7 @@ git filter-branch --prune-empty --subdirectory-filter sm8250-common lineage-18.1
 git push ssh://git@github.com/AOSPK-Devices/vendor_xiaomi_sm8250-common HEAD:refs/heads/eleven --force
 
 cd ..
-git clone https://github.com/LineageOS/android_kernel_xiaomi_sm8250 -b lineage-18.1
+git clone https://github.com/xiaomi-sm8250-devs/android_kernel_xiaomi_sm8250 -b lineage-18.1
 cd android_kernel_xiaomi_sm8250
 
 #sed -i "s/lineageos/kraken/g" arch/arm64/configs/vendor/umi_defconfig
