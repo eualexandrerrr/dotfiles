@@ -24,10 +24,6 @@ sed -i "s/overlay-lineage/overlay-kraken/g" device.mk
 rm -rf lineage.dependencies
 echo "[
   {
-    \"repository\": \"device_xiaomi_lmi-kernel\",
-    \"target_path\": \"device/xiaomi/lmi-kernel\"
-  },
-  {
     \"repository\": \"device_xiaomi_sm8250-common\",
     \"target_path\": \"device/xiaomi/sm8250-common\"
   },
@@ -178,11 +174,6 @@ git push ssh://git@github.com/AOSPK-Devices/device_xiaomi_sm8250-common HEAD:ref
 # Kernel and Vendor
 cd $LMI
 
-git clone https://github.com/LineageOS/android_device_xiaomi_lmi-kernel -b lineage-18.1
-cd android_device_xiaomi_lmi-kernel
-git push ssh://git@github.com/AOSPK-Devices/device_xiaomi_lmi-kernel HEAD:refs/heads/eleven --force
-
-cd ..
 git clone https://gitlab.com/xiaomi-sm8250-devs/android_vendor_xiaomi -b lineage-18.1
 mv android_vendor_xiaomi android_vendor_xiaomi_lmi
 cp -rf android_vendor_xiaomi_lmi android_vendor_xiaomi_sm8250-common
