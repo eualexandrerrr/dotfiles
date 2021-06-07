@@ -6,8 +6,8 @@ sudo rm -rf $LMI && mkdir $LMI && cd $LMI
 
 bringup="Initial changes for Kraken"
 
-git clone https://github.com/xiaomi-sm8250-devs/android_device_xiaomi_lmi -b lineage-18.1
-git clone https://github.com/xiaomi-sm8250-devs/android_device_xiaomi_sm8250-common -b lineage-18.1
+git clone https://github.com/LineageOS/android_device_xiaomi_lmi -b lineage-18.1
+git clone https://github.com/LineageOS/android_device_xiaomi_sm8250-common -b lineage-18.1
 
 cd android_device_xiaomi_lmi
 
@@ -178,7 +178,7 @@ git push ssh://git@github.com/AOSPK-Devices/device_xiaomi_sm8250-common HEAD:ref
 # Kernel and Vendor
 cd $LMI
 
-git clone https://github.com/xiaomi-sm8250-devs/android_device_xiaomi_lmi-kernel -b lineage-18.1
+git clone https://github.com/LineageOS/android_device_xiaomi_lmi-kernel -b lineage-18.1
 cd android_device_xiaomi_lmi-kernel
 git push ssh://git@github.com/AOSPK-Devices/device_xiaomi_lmi-kernel HEAD:refs/heads/eleven --force
 
@@ -196,7 +196,7 @@ git filter-branch --prune-empty --subdirectory-filter sm8250-common lineage-18.1
 git push ssh://git@github.com/AOSPK-Devices/vendor_xiaomi_sm8250-common HEAD:refs/heads/eleven --force
 
 cd ..
-git clone https://github.com/xiaomi-sm8250-devs/android_kernel_xiaomi_sm8250 -b lineage-18.1
+git clone https://github.com/LineageOS/android_kernel_xiaomi_sm8250 -b lineage-18.1
 cd android_kernel_xiaomi_sm8250
 
 sed -i "s/lineageos/kraken/g" arch/arm64/configs/vendor/umi_defconfig
