@@ -27,11 +27,11 @@ function translate() {
 }
 
 function gitpush() {
-  pwd=$(pwd | cut -c-9)
+  pwd=$(pwd | cut -c-24)
   if [[ $pwd = "/home/mamutal91/AOSPK/manifest" ]]; then
     exit
   fi
-  if [[ $pwd = "/mnt/roms/jobs/" ]]; then
+  if [[ $pwd = "/mnt/roms/jobs/KrakenDev" ]]; then
     echo "${BOL_RED}No push!${END}"
   else
     if [[ ${1} = amend ]]; then
