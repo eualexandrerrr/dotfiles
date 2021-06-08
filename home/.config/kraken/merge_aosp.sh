@@ -105,7 +105,7 @@ function force_sync() {
 
 function merge() {
   cd $WORKING_DIR/$1
-  git pull $REPO/$1.git -t $BRANCH
+  git pull --no-edit $REPO/$1.git -t $BRANCH
   if [ $? -ne 0 ]; then # If merge failed
     failed+=($1) # Add to the list
   fi
