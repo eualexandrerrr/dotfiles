@@ -18,7 +18,7 @@ packages=(
   htop
   mako
   nano nano-syntax-highlighting
-  reflector
+  reflector rsync
   stow sway swaybg
   tree thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman transmission-gtk
   waybar wayland wofi

@@ -24,10 +24,12 @@ export STUDIO_JDK=/usr/lib/jvm/java-11-openjdk
 
 # sudo easy
 alias chmod="sudo chmod"
+alias cp="rsync --progress"
 alias mv="sudo mv"
 alias pacman="sudo pacman"
 alias pkill="sudo pkill"
 alias rm="sudo rm"
+alias rsync="sudo rsync --progress"
 alias systemctl="sudo systemctl"
 alias sed="sudo sed"
 alias wget="wget --user kraken --password kraken"
