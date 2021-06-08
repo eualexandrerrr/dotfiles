@@ -28,8 +28,10 @@ echo "[
     \"target_path\": \"device/xiaomi/sm8250-common\"
   },
   {
+    \"remote\": \"lab-devices\",
     \"repository\": \"vendor_xiaomi_lmi\",
-    \"target_path\": \"vendor/xiaomi/lmi\"
+    \"target_path\": \"vendor/xiaomi/lmi\",
+    \"branch\": \"eleven\"
   },
   {
     \"remote\": \"github\",
@@ -137,8 +139,10 @@ echo "[
     \"target_path\": \"kernel/xiaomi/sm8250\"
   },
   {
+    \"remote\": \"lab-devices\",
     \"repository\": \"vendor_xiaomi_sm8250-common\",
-    \"target_path\": \"vendor/xiaomi/sm8250-common\"
+    \"target_path\": \"vendor/xiaomi/sm8250-common\",
+    \"branch\": \"eleven\"
   }
 ]" > aosp.dependencies
 
