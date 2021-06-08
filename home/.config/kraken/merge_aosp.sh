@@ -47,7 +47,7 @@ upstream=()
 failed=()
 
 # This is the array of repos to blacklist and not merge
-blacklist=('external/google' 'prebuilts/clang/host/linux-x86' 'prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9')
+blacklist=('external/google' 'manifest' 'prebuilts/clang/host/linux-x86' 'prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9')
 
 # Colors
 COLOR_RED='\033[0;31m'
@@ -155,6 +155,15 @@ force_sync
 for i in ${upstream[@]}
 do
   merge $i
+  actualRepo=$(pwd | sed "s/\/mnt\/roms\/jobs\/KrakenDev\///; s/\//_/g")
+  echo $actualRepo
+  branch=eleven
+  topic=android-${1}
+#  export gitdir=$(git rev-parse --git-dir); scp -p -P 29418 mamutal91@gerrit.aospk.org:hooks/commit-msg ${gitdir}/hooks/
+#  git commit --amend --no-edit
+#  git push ssh://mamutal91@gerrit.aospk.org:29418/${actualRepo} HEAD:refs/for/${branch}%l=Verified+1,l=Code-Review+2,topic=${topic}
+  gh repo create AOSPK-WIP/${actualRepo} --private --confirm
+  git push ssh://git@github.com/AOSPK-WIP/${actualRepo} HEAD:refs/heads/${branch} --force
 done
 
 # Merge in the build repo last since is got a different
