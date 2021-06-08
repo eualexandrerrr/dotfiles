@@ -8,6 +8,7 @@ source $HOME/.colors
 HOSTNAME=$(cat /etc/hostname)
 
 if [[ $HOSTNAME = mamutal91-v2 || $HOSTNAME = buildersbr.ninja-v2 ]]; then
+  echo "${GRE}Updating apt${END}"
   sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y
 else
   echo "${GRE}Updating Pacman and AUR${END}"
@@ -22,4 +23,8 @@ else
 
   play $HOME/.config/sounds/completed.wav &>/dev/null
   notify-send -i $icon "ArchLinux" "Successfully updated packages."
+
+  echo "${GRE}Updating my apt hosts${END}"
+  ssh mamutal91@86.109.7.111 "sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y"
+  ssh mamutal91@147.75.80.89 "sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y"
 fi
