@@ -20,7 +20,7 @@ else
   git clone https://github.com/mamutal91/ssh
   cd ssh/.ssh
   cp -rf id_rsa* $HOME/.ssh
-  chmod 400 $HOME/.ssh/id_rsa*
+  chmod 600 $HOME/.ssh/id_rsa*
   rm -rf $HOME/ssh
 fi
 
