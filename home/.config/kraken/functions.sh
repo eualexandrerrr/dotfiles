@@ -15,6 +15,10 @@ function down() {
   cd $pwd
 }
 
+function merge_aosp() {
+  $HOME/.dotfiles/home/.config/kraken/merge_aosp.sh ${1}
+}
+
 function push() {
   HOSTNAME=$(cat /etc/hostname)
   if [[ $HOSTNAME = mamutal91-v2 ]]; then
