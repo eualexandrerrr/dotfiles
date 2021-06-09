@@ -39,9 +39,11 @@ orgDeDestino=AOSPK-DEV
 
 cd $workingDir
 echo -e "${BLU}Org de origem: ${orgDeOrigem}\nOrg de destino: ${orgDeDestino}${END}"
-sleep 20
 echo "${RED}Go to ${BLU}$(pwd)${END}"
-repo sync -c -j$(nproc --all) --no-clone-bundle --current-branch --no-tags --force-sync
+echo "${CYA}Syncing...${END}"
+
+repo init -u git://github.com/AOSPK/manifest -b eleven
+repo sync -c -j$(nproc --all) --no-clone-bundle --current-branch --no-tags --force-sync >> /dev/null
 
 function go() {
   for repo in $(grep "remote=\"${remote}\"" ${workingDir}/manifest/${1}.xml | awk '{print $2 $3}'); do
