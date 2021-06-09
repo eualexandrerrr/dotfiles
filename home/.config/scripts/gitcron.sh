@@ -37,7 +37,7 @@ if [[ $HOSTNAME = mamutal91-v2 ]]; then
   cd $pwd
 
   rm -rf /home/mamutal91/.jenkins
-  git clone ssh://git@github.com/AOSPK/jenkins -b master /home/mamutal91/.jenkins
+  git clone ssh://git@gitlab.com/AOSPK/jenkins -b backup /home/mamutal91/.jenkins
   cp -rf /mnt/roms/backupJenkins/* /home/mamutal91/.jenkins
   cd /home/mamutal91/.jenkins
   git add . && git commit -m "${m}" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>" --date "$(date)" && git push -f
