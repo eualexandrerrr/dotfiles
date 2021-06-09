@@ -16,7 +16,11 @@ function down() {
 }
 
 function merge_aosp() {
-  $HOME/.dotfiles/home/.config/kraken/merge_aosp.sh ${1}
+  $HOME/.dotfiles/home/.config/kraken/merge_aosp.sh
+}
+
+function sync_repos() {
+  $HOME/.dotfiles/home/.config/kraken/sync_repos.sh
 }
 
 function push() {

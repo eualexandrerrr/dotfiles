@@ -35,12 +35,7 @@ alias sed="sudo sed"
 alias wget="wget --user kraken --password kraken"
 
 # paths
-HOSTNAME=$(cat /etc/hostname)
-if [[ $HOSTNAME = mamutal91-v2 ]]; then
-  alias x="cd /mnt/roms/jobs/KrakenDev"
-else
-  alias x="cd /mnt/roms/jobs/Kraken"
-fi
+alias x="cd /mnt/roms/jobs/KrakenDev"
 
 source $HOME/.config/functions.sh
 source $HOME/.config/kraken/functions.sh

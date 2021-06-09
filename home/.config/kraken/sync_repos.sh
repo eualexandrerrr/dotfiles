@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 
+source $HOME/.colors &>/dev/null
+
 clear
+
+pwd=$(pwd)
 
 replace(){
   if [ $repoPath = build_make ]; then
@@ -29,14 +33,19 @@ replace(){
 remote=aospk
 branch=eleven
 
-working_dir=/mnt/roms/jobs/Kraken
+workingDir=/mnt/roms/jobs/Kraken
+orgDeOrigem=AOSPK
+orgDeDestino=AOSPK-DEV
 
-cd $working_dir
-#repo sync -c --force-sync >> /dev/null
+cd $workingDir
+echo -e "${BLU}Org de origem: ${orgDeOrigem}\nOrg de destino: ${orgDeDestino}${END}"
+sleep 20
+echo "${RED}Go to ${BLU}$(pwd)${END}"
+repo sync -c -j$(nproc --all) --no-clone-bundle --current-branch --no-tags --force-sync
 
 function go() {
-  cd $working_dir
-  for repo in $(grep "remote=\"${remote}\"" ${working_dir}/manifest/${1}.xml | awk '{print $2 $3}'); do
+  for repo in $(grep "remote=\"${remote}\"" ${workingDir}/manifest/${1}.xml | awk '{print $2 $3}'); do
+    cd $workingDir
     repoPath=$(echo $repo | cut -d'"' -f2)
     repoName=$(echo $repo | cut -d'"' -f4)
 
@@ -57,13 +66,15 @@ function go() {
     cd $repoPath
     echo
     echo $repoName
-    gh repo create AOSPK-DEV/${repoName} --private --confirm &>/dev/null
-    git remote add old https://github.com/AOSPK/${repoName} &>/dev/null
+    gh repo create ${orgDeDestino}/${repoName} --private --confirm &>/dev/null
+    git remote add old https://github.com/${orgDeOrigem}/${repoName} &>/dev/null
     git fetch --unshallow old &>/dev/null
-    git push ssh://git@github.com/AOSPK-DEV/${repoName} HEAD:refs/heads/${branch} --force
-    cd $working_dir
+    git push ssh://git@github.com/${orgDeDestino}/${repoName} HEAD:refs/heads/${branch} --force
+    cd $workingDir
   done
 }
 
 go aosp
 go custom
+
+cd $pwd
