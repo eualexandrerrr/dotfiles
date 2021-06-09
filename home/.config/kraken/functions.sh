@@ -71,7 +71,7 @@ function push() {
     echo "${BOL_BLU}Pushing to gerrit.aospk.org${END} - ${BRANCH} ${RED}${FORCE}${END}"
     if [ -z "${TOPIC}" ]
     then
-      git push ssh://mamutal91@gerrit.aospk.org:29418/${REPO} HEAD:refs/for/${BRANCH}%l=Verified+1,l=Code-Review+2
+      git push ssh://mamutal91@gerrit.aospk.org:29418/${REPO} HEAD:refs/for/${BRANCH}%l=Verified+1,l=Code-Review+2,topic=${TOPIC}
     else
       git push ssh://mamutal91@gerrit.aospk.org:29418/${REPO} HEAD:refs/for/${BRANCH}%l=Verified+1,l=Code-Review+2,topic=${TOPIC}
     fi
@@ -79,6 +79,38 @@ function push() {
     echo "${BOL_BLU}Pushing to ${GITHOST}.com/${GRE}${ORG}${END}/${BLU}${REPO}${END} - ${BRANCH} ${RED}${FORCE}${END}"
     git push ssh://git@${GITHOST}.com/${ORG}/${REPO} HEAD:refs/heads/${BRANCH} ${FORCE}
   fi
+}
+
+function m() {
+  git add . && git commit --amend --no-edit
+  sleep 2
+
+  pwd=$(pwd)
+  cd .git
+  sudo rm -rf /tmp/COMMIT_EDITMSG
+  sudo cp -rf COMMIT_EDITMSG /tmp/
+  cd $pwd
+
+  pathRepo=$(pwd | cut -c26-)
+
+  msgMerge="Merge tag 'android-11.0.0_r38' of https://android.googlesource.com/platform/${pathRepo} into HEAD"
+
+  echo $msgMerge > /tmp/NEW_COMMITMSG
+  cat /tmp/NEW_COMMITMSG
+
+  sudo sed -i '1d' /tmp/COMMIT_EDITMSG
+  sed -i "s/haggertk/AOSPK-DEV/g" /tmp/COMMIT_EDITMSG
+  sed -i "s/android_//g" /tmp/COMMIT_EDITMSG
+  sed -i "s/lineage-18.1/eleven/g" /tmp/COMMIT_EDITMSG
+  cat /tmp/COMMIT_EDITMSG >> /tmp/NEW_COMMITMSG
+
+  echo -e "\n\nCONTEÚDO:\n$(cat /tmp/NEW_COMMITMSG)"
+
+  msg=$(cat /tmp/NEW_COMMITMSG)
+
+  git add . && git commit --message "${msg}" --amend --author "Alexandre Rangel <mamutal91@gmail.com>" --date "$(date)"
+  push gerrit android-11.0.0_r38
+  sleep 3 && clear
 }
 
 upstream() {

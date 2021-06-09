@@ -55,7 +55,7 @@ function cm() {
 
 function amend() {
   if [[ ${1} ]]; then
-    git add . && git commit --author "${1}" --amend --date "$(date)" && gitpush amend
+    git add . && git commit --author "${1}" --amend --author "Alexandre Rangel <mamutal91@gmail.com>" --date "$(date)" && gitpush amend
   else
     git add . && git commit --amend --date "$(date)" && gitpush amend
   fi
