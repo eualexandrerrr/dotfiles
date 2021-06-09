@@ -114,10 +114,6 @@ function up() {
 #  upstream ${1} cm-14.1 nougat
 }
 
-function devicesepolicy() {
-  bash $HOME/.dotfiles/home/.config/kraken/hal/sepolicy.sh
-}
-
 function hals() {
   branch=(
     apq8084
@@ -135,10 +131,11 @@ function hals() {
   )
 
   for i in "${branch[@]}"; do
-    $HOME/.config/kraken/hal/hal.sh ${i}
+    $HOME/.dotfiles/home/.config/kraken/hal/hal.sh ${i}
   done
 
-  $HOME/.config/kraken/hal/fixes.sh
+  $HOME/.dotfiles/home/.config/kraken/hal/fixes.sh
+  $HOME/.dotfiles/home/.config/kraken/hal/sepolicy.sh
 }
 
 function www() {
