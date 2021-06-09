@@ -115,6 +115,12 @@ function up() {
 }
 
 function hals() {
+  pwd=$(pwd)
+
+  $HOME/.dotfiles/home/.config/kraken/hal/caf.sh
+  $HOME/.dotfiles/home/.config/kraken/hal/fixes.sh
+  $HOME/.dotfiles/home/.config/kraken/hal/sepolicy.sh
+
   branch=(
     apq8084
     msm8960
@@ -134,8 +140,7 @@ function hals() {
     $HOME/.dotfiles/home/.config/kraken/hal/hal.sh ${i}
   done
 
-  $HOME/.dotfiles/home/.config/kraken/hal/fixes.sh
-  $HOME/.dotfiles/home/.config/kraken/hal/sepolicy.sh
+  cd $pwd
 }
 
 function www() {
