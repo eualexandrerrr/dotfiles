@@ -23,6 +23,6 @@ for i in "${repos[@]}"; do
   echo "${GRE}Pushand -b $branchKraken para ${i}${END}"
   cd ${i}
   git push ssh://git@github.com/AOSPK/${i} HEAD:refs/heads/$branchKraken --force
-  git push ssh://git@github.com/AOSPK-WIP/${i} HEAD:refs/heads/$branchKraken --force
+  git push ssh://git@github.com/AOSPK-DEV/${i} HEAD:refs/heads/$branchKraken --force
   echo
 done

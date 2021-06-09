@@ -162,8 +162,8 @@ do
 #  export gitdir=$(git rev-parse --git-dir); scp -p -P 29418 mamutal91@gerrit.aospk.org:hooks/commit-msg ${gitdir}/hooks/
 #  git commit --amend --no-edit
 #  git push ssh://mamutal91@gerrit.aospk.org:29418/${actualRepo} HEAD:refs/for/${branch}%l=Verified+1,l=Code-Review+2,topic=${topic}
-  gh repo create AOSPK-WIP/${actualRepo} --private --confirm
-  git push ssh://git@github.com/AOSPK-WIP/${actualRepo} HEAD:refs/heads/${branch} --force
+  gh repo create AOSPK-DEV/${actualRepo} --private --confirm
+  git push ssh://git@github.com/AOSPK-DEV/${actualRepo} HEAD:refs/heads/${branch} --force
 done
 
 # Merge in the build repo last since is got a different

@@ -14,15 +14,15 @@ function caf() {
 
   cd $working_dir/hardware_qcom_bootctrl-caf
   git push ssh://git@github.com/AOSPK/hardware_qcom_bootctrl HEAD:refs/heads/eleven-caf --force
-  git push ssh://git@github.com/AOSPK-WIP/hardware_qcom_bootctrl HEAD:refs/heads/eleven-caf --force
+  git push ssh://git@github.com/AOSPK-DEV/hardware_qcom_bootctrl HEAD:refs/heads/eleven-caf --force
 
   cd $working_dir/hardware_qcom_bt-caf
   git push ssh://git@github.com/AOSPK/hardware_qcom_bt HEAD:refs/heads/eleven-caf --force
-  git push ssh://git@github.com/AOSPK-WIP/hardware_qcom_bt HEAD:refs/heads/eleven-caf --force
+  git push ssh://git@github.com/AOSPK-DEV/hardware_qcom_bt HEAD:refs/heads/eleven-caf --force
 
   cd $working_dir/hardware_qcom_wlan-caf
   git push ssh://git@github.com/AOSPK/hardware_qcom_wlan HEAD:refs/heads/eleven-caf --force
-  git push ssh://git@github.com/AOSPK-WIP/hardware_qcom_wlan HEAD:refs/heads/eleven-caf --force
+  git push ssh://git@github.com/AOSPK-DEV/hardware_qcom_wlan HEAD:refs/heads/eleven-caf --force
 }
 
 function limp() {
@@ -34,19 +34,19 @@ function limp() {
 
   cd ${working_dir}/halimpl-pn5xx
   git push ssh://git@github.com/AOSPK/vendor_nxp_opensource_halimpl HEAD:refs/heads/eleven-pn5xx --force
-  git push ssh://git@github.com/AOSPK-WIP/vendor_nxp_opensource_halimpl HEAD:refs/heads/eleven-pn5xx --force
+  git push ssh://git@github.com/AOSPK-DEV/vendor_nxp_opensource_halimpl HEAD:refs/heads/eleven-pn5xx --force
 
   cd ${working_dir}/halimpl-sn100x
   git push ssh://git@github.com/AOSPK/vendor_nxp_opensource_halimpl HEAD:refs/heads/eleven-sn100x --force
-  git push ssh://git@github.com/AOSPK-WIP/vendor_nxp_opensource_halimpl HEAD:refs/heads/eleven-sn100x --force
+  git push ssh://git@github.com/AOSPK-DEV/vendor_nxp_opensource_halimpl HEAD:refs/heads/eleven-sn100x --force
 
   cd ${working_dir}/hidlimpl-pn5xx
   git push ssh://git@github.com/AOSPK/vendor_nxp_opensource_hidlimpl HEAD:refs/heads/eleven-pn5xx --force
-  git push ssh://git@github.com/AOSPK-WIP/vendor_nxp_opensource_hidlimpl HEAD:refs/heads/eleven-pn5xx --force
+  git push ssh://git@github.com/AOSPK-DEV/vendor_nxp_opensource_hidlimpl HEAD:refs/heads/eleven-pn5xx --force
 
   cd ${working_dir}/hidlimpl-sn100x
   git push ssh://git@github.com/AOSPK/vendor_nxp_opensource_hidlimpl HEAD:refs/heads/eleven-sn100x --force
-  git push ssh://git@github.com/AOSPK-WIP/vendor_nxp_opensource_hidlimpl HEAD:refs/heads/eleven-sn100x --force
+  git push ssh://git@github.com/AOSPK-DEV/vendor_nxp_opensource_hidlimpl HEAD:refs/heads/eleven-sn100x --force
 }
 
 function halDefault() {
@@ -57,15 +57,15 @@ function halDefault() {
 
   cd ${working_dir}/hardware_qcom_audio-eleven-default
   git push ssh://git@github.com/AOSPK/hardware_qcom_audio HEAD:refs/heads/eleven --force
-  git push ssh://git@github.com/AOSPK-WIP/hardware_qcom_audio HEAD:refs/heads/eleven --force
+  git push ssh://git@github.com/AOSPK-DEV/hardware_qcom_audio HEAD:refs/heads/eleven --force
 
   cd ${working_dir}/hardware_qcom_display-eleven-default
   git push ssh://git@github.com/AOSPK/hardware_qcom_display HEAD:refs/heads/eleven --force
-  git push ssh://git@github.com/AOSPK-WIP/hardware_qcom_display HEAD:refs/heads/eleven --force
+  git push ssh://git@github.com/AOSPK-DEV/hardware_qcom_display HEAD:refs/heads/eleven --force
 
   cd ${working_dir}/hardware_qcom_media-eleven-default
   git push ssh://git@github.com/AOSPK/hardware_qcom_media HEAD:refs/heads/eleven --force
-  git push ssh://git@github.com/AOSPK-WIP/hardware_qcom_media HEAD:refs/heads/eleven --force
+  git push ssh://git@github.com/AOSPK-DEV/hardware_qcom_media HEAD:refs/heads/eleven --force
 }
 
 caf

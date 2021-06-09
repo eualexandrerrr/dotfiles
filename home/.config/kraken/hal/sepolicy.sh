@@ -13,19 +13,19 @@ function sepolicyCustom() {
 
   cd $working_dir/device_qcom_sepolicy-default
   git push ssh://git@github.com/AOSPK/device_qcom_sepolicy HEAD:refs/heads/eleven --force
-  git push ssh://git@github.com/AOSPK-WIP/device_qcom_sepolicy HEAD:refs/heads/eleven --force
+  git push ssh://git@github.com/AOSPK-DEV/device_qcom_sepolicy HEAD:refs/heads/eleven --force
 
   cd $working_dir/device_qcom_sepolicy-lineage-18.1-legacy
   sed -i "s/device\/lineage/device\/custom/" sepolicy.mk
   git add . && git commit --message "legacy: Fix path" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>"
   git push ssh://git@github.com/AOSPK/device_qcom_sepolicy HEAD:refs/heads/eleven-legacy --force
-  git push ssh://git@github.com/AOSPK-WIP/device_qcom_sepolicy HEAD:refs/heads/eleven-legacy --force
+  git push ssh://git@github.com/AOSPK-DEV/device_qcom_sepolicy HEAD:refs/heads/eleven-legacy --force
 
   cd $working_dir/device_qcom_sepolicy-lineage-18.1-legacy-um
   sed -i "s/device\/lineage/device\/custom/" SEPolicy.mk
   git add . && git commit --message "legacy-um: Fix path" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>"
   git push ssh://git@github.com/AOSPK/device_qcom_sepolicy HEAD:refs/heads/eleven-legacy-um --force
-  git push ssh://git@github.com/AOSPK-WIP/device_qcom_sepolicy HEAD:refs/heads/eleven-legacy-um --force
+  git push ssh://git@github.com/AOSPK-DEV/device_qcom_sepolicy HEAD:refs/heads/eleven-legacy-um --force
 }
 
 sepolicyCustom

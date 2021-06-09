@@ -57,10 +57,10 @@ function go() {
     cd $repoPath
     echo
     echo $repoName
-    gh repo create AOSPK-WIP/${repoName} --private --confirm &>/dev/null
+    gh repo create AOSPK-DEV/${repoName} --private --confirm &>/dev/null
     git remote add old https://github.com/AOSPK/${repoName} &>/dev/null
     git fetch --unshallow old &>/dev/null
-    git push ssh://git@github.com/AOSPK-WIP/${repoName} HEAD:refs/heads/${branch} --force
+    git push ssh://git@github.com/AOSPK-DEV/${repoName} HEAD:refs/heads/${branch} --force
     cd $working_dir
   done
 }
