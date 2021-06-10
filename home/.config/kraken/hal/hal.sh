@@ -2,9 +2,9 @@
 
 source $HOME/.colors &>/dev/null
 
-working_dir="/tmp/kraken-hals"
-rm -rf $working_dir && mkdir -p $working_dir
-cd $working_dir
+workingDir="/tmp/kraken-hals"
+rm -rf $workingDir && mkdir -p $workingDir
+cd $workingDir
 
 repos=(
     hardware_qcom_audio

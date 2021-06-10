@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 
 pwd=$(pwd)
-LMI=/tmp/lmi
-sudo rm -rf $LMI && mkdir $LMI && cd $LMI
 
 git config --global user.email "mamutal91@gmail.com"
 git config --global user.name "Alexandre Rangel"
@@ -11,9 +9,9 @@ branchTest="eleven-test"
 
 bringup="Initial changes for Kraken"
 
-working_dir="/tmp/rebase-tree-lmi"
-rm -rf $working_dir && mkdir -p $working_dir
-cd $working_dir
+workingDir="/tmp/rebase-tree-lmi"
+rm -rf $workingDir && mkdir -p $workingDir
+cd $workingDir
 
 git clone https://github.com/xiaomi-sm8250-devs/android_device_xiaomi_lmi -b lineage-18.1
 git clone https://github.com/xiaomi-sm8250-devs/android_device_xiaomi_sm8250-common -b lineage-18.1
@@ -210,5 +208,4 @@ git add . && git commit --message "ARM64: configs: xiaomi: Set localversion to k
 
 git push ssh://git@github.com/AOSPK-Devices/kernel_xiaomi_sm8250 HEAD:refs/heads/${branchTest} --force
 
-rm -rf $LMI
 cd $pwd

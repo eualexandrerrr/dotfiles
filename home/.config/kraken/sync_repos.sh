@@ -4,8 +4,6 @@ source $HOME/.colors &>/dev/null
 
 clear
 
-pwd=$(pwd)
-
 replace(){
   if [ $repoPath = build_make ]; then
     repoName=build
@@ -51,6 +49,7 @@ function go() {
 
     replace
     [ $repoName = manifest ] && continue
+    [ $repoName = frameworks_base ] && continue
     [ $repoName = device_qcom_sepolicy ] && continue
     [ $repoName = hardware_qcom_audio ] && continue
     [ $repoName = hardware_qcom_bootctrl ] && continue

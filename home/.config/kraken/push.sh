@@ -1,11 +1,15 @@
 #!/usr/bin/env bash
 # Adjust the following variables as necessary
 
-git remote remove push
-git remote add push ssh://git@github.com/AOSPK/frameworks_base
+pwd=$(pwd)
+
+git remote add push ssh://git@github.com/AOSPK-DEV/frameworks_base
+
+sleep 2
 
 REMOTE=push
 BRANCH=$(git rev-parse --abbrev-ref HEAD)
+NEWBRANCH=eleven
 BATCH_SIZE=20000
 
 # check if the branch exists on the remote
@@ -24,7 +28,9 @@ for i in $(seq $n -$BATCH_SIZE 1); do
     # get the hash of the commit to push
     h=$(git log --first-parent --reverse --format=format:%H --skip $i -n1)
     echo "Pushing $h..."
-    git push $REMOTE $h:refs/heads/$BRANCH
+    git push $REMOTE $h:refs/heads/$NEWBRANCH
 done
 # push the final partial batch
-git push $REMOTE HEAD:refs/heads/$BRANCH
+git push $REMOTE HEAD:refs/heads/$NEWBRANCH
+
+cd $pwd
