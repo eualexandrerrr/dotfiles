@@ -62,7 +62,7 @@ aur=(
   papirus-icon-theme-git
 
   # apps
-  google-chrome-beta
+  google-chrome-beta github-cli-git
   kotatogram-desktop-bin
   oh-my-zsh-git
   swaylock-effects-git spotify-snap
