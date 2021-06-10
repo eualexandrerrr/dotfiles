@@ -5,7 +5,7 @@ pwd=$(pwd)
 git config --global user.email "mamutal91@gmail.com"
 git config --global user.name "Alexandre Rangel"
 
-branchTest="eleven-test"
+branchTest="eleven-wip"
 
 bringup="Initial changes for Kraken"
 
