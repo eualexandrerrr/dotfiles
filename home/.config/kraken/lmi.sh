@@ -4,13 +4,21 @@ pwd=$(pwd)
 LMI=/tmp/lmi
 sudo rm -rf $LMI && mkdir $LMI && cd $LMI
 
+git config --global user.email "mamutal91@gmail.com"
+git config --global user.name "Alexandre Rangel"
+
 branchTest="eleven-test"
 
 bringup="Initial changes for Kraken"
 
+working_dir="/tmp/rebase-tree-lmi"
+rm -rf $working_dir && mkdir -p $working_dir
+cd $working_dir
+
 git clone https://github.com/xiaomi-sm8250-devs/android_device_xiaomi_lmi -b lineage-18.1
 git clone https://github.com/xiaomi-sm8250-devs/android_device_xiaomi_sm8250-common -b lineage-18.1
 
+# Tree
 cd android_device_xiaomi_lmi
 
 sed -i "s/lineage_/aosp_/g" AndroidProducts.mk
@@ -119,6 +127,7 @@ git add . && git commit --message "lmi: parts: Translations for Portuguese Brazi
 
 git push ssh://git@github.com/AOSPK-Devices/device_xiaomi_lmi HEAD:refs/heads/${branchTest} --force
 
+# Common
 cd ../android_device_xiaomi_sm8250-common
 
 mv overlay-lineage overlay-kraken
@@ -174,7 +183,7 @@ git add . && git commit --message "${msg} now" --signoff --author "soumyo19 <fso
 git push ssh://git@github.com/AOSPK-Devices/device_xiaomi_sm8250-common HEAD:refs/heads/${branchTest} --force
 
 # Kernel and Vendor
-cd $LMI
+cd $workingDir
 
 git clone https://gitlab.com/xiaomi-sm8250-devs/android_vendor_xiaomi -b lineage-18.1
 mv android_vendor_xiaomi android_vendor_xiaomi_lmi
