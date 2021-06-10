@@ -50,6 +50,9 @@ packages=(
   # fonts
   noto-fonts-emoji
   terminus-font ttf-liberation
+
+  # wine
+  wine winetricks lib32-gnutls
 )
 
 aur=(
