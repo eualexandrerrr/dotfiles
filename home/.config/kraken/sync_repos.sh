@@ -38,11 +38,9 @@ orgDeOrigem=AOSPK
 orgDeDestino=AOSPK-DEV
 
 cd $workingDir
-echo -e "${BLU}Org de origem: ${orgDeOrigem}\nOrg de destino: ${orgDeDestino}${END}"
-echo "${RED}Go to ${BLU}$(pwd)${END}"
 echo "${CYA}Syncing...${END}"
 
-repo init -u git://github.com/AOSPK/manifest -b eleven
+repo init -u git://github.com/AOSPK/manifest -b eleven >> /dev/null
 repo sync -c -j$(nproc --all) --no-clone-bundle --current-branch --no-tags --force-sync >> /dev/null
 
 function go() {
