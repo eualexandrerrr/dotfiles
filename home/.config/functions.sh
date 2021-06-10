@@ -34,7 +34,7 @@ function gitpush() {
   if [[ $pwd = "/mnt/roms/jobs/KrakenDev" ]]; then
     echo "${BOL_RED}No push!${END}"
   else
-    if [[ ${1} = amend ]]; then
+    if [[ ${1} = force ]]; then
       echo "${BOL_YEL}Pushing with --force!${END}"
       git push -f
     else
@@ -55,9 +55,9 @@ function cm() {
 
 function amend() {
   if [[ ${1} ]]; then
-    git add . && git commit --author "${1}" --amend --author "Alexandre Rangel <mamutal91@gmail.com>" --date "$(date)" && gitpush amend
+    git add . && git commit --author "${1}" --amend --author "Alexandre Rangel <mamutal91@gmail.com>" --date "$(date)" && gitpush force
   else
-    git add . && git commit --amend --date "$(date)" && gitpush amend
+    git add . && git commit --amend --date "$(date)" && gitpush force
   fi
 }
 
