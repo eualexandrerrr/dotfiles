@@ -36,7 +36,7 @@ orgDeOrigem=AOSPK
 orgDeDestino=AOSPK-DEV
 
 cd $workingDir
-echo "${CYA}Syncing...${END}"
+echo -e "[Repo] \$ Syncing..."
 
 repo init -u git://github.com/AOSPK/manifest -b eleven >> /dev/null
 repo sync -c -j$(nproc --all) --no-clone-bundle --current-branch --no-tags --force-sync >> /dev/null
