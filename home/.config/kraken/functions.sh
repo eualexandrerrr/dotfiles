@@ -8,6 +8,13 @@ function beryllium() {
   cd $HOME && $HOME/.dotfiles/home/.config/kraken/beryllium.sh
 }
 
+function gerrit() {
+  pwd=$(pwd)
+  cd /mnt/roms/sites/docker/docker-files/gerrit
+  sudo ./repl.sh
+  cd $pwd
+}
+
 function down() {
   pwd=$(pwd)
   rm -rf /mnt/roms/sites/private/builds/*/*.zip &>/dev/null
