@@ -156,6 +156,7 @@ function hals() {
   $HOME/.dotfiles/home/.config/kraken/hal/caf.sh
   $HOME/.dotfiles/home/.config/kraken/hal/fixes.sh
   $HOME/.dotfiles/home/.config/kraken/hal/sepolicy.sh
+  $HOME/.dotfiles/home/.config/kraken/hal/chromium.sh
 
   branch=(
     apq8084

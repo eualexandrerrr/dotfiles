@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+source $HOME/.colors &>/dev/null
+
+workingDir="/tmp/kraken-chromium"
+rm -rf $workingDir && mkdir -p $workingDir
+cd $workingDir
+
+function chromium() {
+  cd $workingDir
+  git clone https://github.com/LineageOS/android_external_chromium-webview -b master external_chromium
+
+  cd $workingDir/external_chromium
+  git push ssh://git@github.com/AOSPK/external_chromium-webview HEAD:refs/heads/eleven --force
+  git push ssh://git@github.com/AOSPK-DEV/external_chromium-webview HEAD:refs/heads/eleven --force
+}
+
+chromium
