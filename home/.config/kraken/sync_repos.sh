@@ -49,7 +49,6 @@ function go() {
 
     replace
     [ $repoName = manifest ] && continue
-    [ $repoName = frameworks_base ] && continue
     [ $repoName = device_qcom_sepolicy ] && continue
     [ $repoName = hardware_qcom_audio ] && continue
     [ $repoName = hardware_qcom_bootctrl ] && continue
