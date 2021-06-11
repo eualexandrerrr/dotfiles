@@ -2,6 +2,15 @@
 
 source $HOME/.colors &>/dev/null
 
+function dot() {
+  if [[ ${1} ]]; then
+    cd $HOME && rm -rf .dotfiles && git clone ssh://git@github.com/mamutal91/dotfiles .dotfiles && source $HOME/.zshrc
+  else
+    ssh mamutal91@86.109.7.111 "cd $HOME && rm -rf .dotfiles && git clone ssh://git@github.com/mamutal91/dotfiles .dotfiles && source $HOME/.zshrc"
+    ssh mamutal91@147.75.80.89 "cd $HOME && rm -rf .dotfiles && git clone ssh://git@github.com/mamutal91/dotfiles .dotfiles && source $HOME/.zshrc"
+  fi
+}
+
 function f() {
   git fetch https://github.com/${1} ${2}
 }
