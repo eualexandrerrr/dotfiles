@@ -39,7 +39,3 @@ alias x="cd /mnt/roms/jobs/KrakenDev"
 
 source $HOME/.config/functions.sh
 source $HOME/.config/kraken/functions.sh
-
-function fetch() {
-  ./.dotfiles/home/.config/scripts/fetch.sh gnu
-}

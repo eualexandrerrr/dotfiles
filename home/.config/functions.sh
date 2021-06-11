@@ -11,6 +11,10 @@ function dot() {
   fi
 }
 
+function fetch() {
+  $HOME/.config/scripts/fetch.sh gnu
+}
+
 function f() {
   git fetch https://github.com/${1} ${2}
 }
