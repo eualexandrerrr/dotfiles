@@ -10,7 +10,7 @@ fi
 
 pwd=$(pwd)
 
-source $HOME/.botTokens
+source /home/mamutal91/.botTokens
 
 workingDir=$(mktemp -d) && cd $workingDir
 
