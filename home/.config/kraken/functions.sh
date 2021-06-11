@@ -44,7 +44,11 @@ function merge_aosp() {
 }
 
 function sync_repos() {
-  $HOME/.dotfiles/home/.config/kraken/sync_repos.sh
+  if [[ $(cat /etc/hostname) = mamutal91-v2 ]]; then
+    $HOME/.dotfiles/home/.config/kraken/sync_repos.sh
+  else
+    ssh mamutal91@86.109.7.111 "source $HOME/.zshrc && sync_repos"
+  fi
 }
 
 function push() {
