@@ -2,9 +2,7 @@
 
 source $HOME/.colors &>/dev/null
 
-workingDir="/tmp/kraken-chromium"
-rm -rf $workingDir && mkdir -p $workingDir
-cd $workingDir
+workingDir=$(mktemp -d) && mkdir -p $workingDir && cd $workingDir
 
 function chromium() {
   cd $workingDir
@@ -16,3 +14,5 @@ function chromium() {
 }
 
 chromium
+
+rm -rf $workingDir

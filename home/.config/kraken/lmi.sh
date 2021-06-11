@@ -9,9 +9,7 @@ branchTest="eleven"
 
 bringup="Initial changes for Kraken"
 
-workingDir="/tmp/rebase-tree-lmi"
-rm -rf $workingDir && mkdir -p $workingDir
-cd $workingDir
+workingDir=$(mktemp -d) && mkdir -p $workingDir && cd $workingDir
 
 git clone https://github.com/xiaomi-sm8250-devs/android_device_xiaomi_lmi -b lineage-18.1
 git clone https://github.com/xiaomi-sm8250-devs/android_device_xiaomi_sm8250-common -b lineage-18.1
@@ -209,3 +207,5 @@ git add . && git commit --message "ARM64: configs: xiaomi: Set localversion to k
 git push ssh://git@github.com/AOSPK-Devices/kernel_xiaomi_sm8250 HEAD:refs/heads/${branchTest} --force
 
 cd $pwd
+
+rm -rf $workingDir

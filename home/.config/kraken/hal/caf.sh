@@ -2,9 +2,7 @@
 
 source $HOME/.colors &>/dev/null
 
-workingDir="/tmp/kraken-caf-repos"
-rm -rf $workingDir && mkdir -p $workingDir
-cd $workingDir
+workingDir=$(mktemp -d) && mkdir -p $workingDir && cd $workingDir
 
 function caf() {
   cd $workingDir
@@ -71,3 +69,5 @@ function halDefault() {
 caf
 limp
 halDefault
+
+rm -rf $workingDir

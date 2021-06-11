@@ -2,9 +2,7 @@
 
 source $HOME/.colors &>/dev/null
 
-workingDir="/tmp/kraken-sepolicy-legacy-and-legacy-um"
-rm -rf $workingDir && mkdir -p $workingDir
-cd $workingDir
+workingDir=$(mktemp -d) && mkdir -p $workingDir && cd $workingDir
 
 function sepolicyCustom() {
   git clone https://github.com/LineageOS/android_device_qcom_sepolicy -b lineage-18.1 device_qcom_sepolicy-default
@@ -29,3 +27,5 @@ function sepolicyCustom() {
 }
 
 sepolicyCustom
+
+rm -rf $workingDir

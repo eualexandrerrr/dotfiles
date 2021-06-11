@@ -2,9 +2,7 @@
 
 source $HOME/.colors &>/dev/null
 
-workingDir="/tmp/kraken-hals"
-rm -rf $workingDir && mkdir -p $workingDir
-cd $workingDir
+workingDir=$(mktemp -d) && mkdir -p $workingDir && cd $workingDir
 
 repos=(
     hardware_qcom_audio
@@ -20,9 +18,12 @@ for i in "${repos[@]}"; do
   echo "${BLU}Clonando https://github.com/LineageOS/android_${i} -b $branchLineage em ${i}${END}"
   git clone https://github.com/LineageOS/android_${i} -b $branchLineage ${i}
   echo
-  echo "${GRE}Pushand -b $branchKraken para ${i}${END}"
+  echo "${RED}LineageOS: ${GRE}$branchLineage${END}"
+  echo "${RED}Kraken   : ${GRE}$branchKraken${END}"
   cd ${i}
   git push ssh://git@github.com/AOSPK/${i} HEAD:refs/heads/$branchKraken --force
   git push ssh://git@github.com/AOSPK-DEV/${i} HEAD:refs/heads/$branchKraken --force
   echo
 done
+
+rm -rf $workingDir
