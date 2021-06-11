@@ -1,17 +1,32 @@
 #!/usr/bin/env bash
 
+if [ -z ${1} ]; then
+  echo "Você precisa definir o .zip, exemplo, ./publish_channel_lmi.sh Kraken-11-GApps-20210611-1919-lmi.zip"
+  exit
+else
+  zipBuild=${1}
+  clear
+fi
+
+pwd=$(pwd)
+
+source $HOME/.botTokens
+
+workingDir=$(mktemp -d) && cd $workingDir
+
 year=$(echo ${dateFull} | cut -c3-4)
 month=$(echo ${dateFull} | cut -c6-7)
 day=$(echo ${dateFull} | cut -c9-10)
 
-zipBuild=Kraken-11-GApps-20210611-1919-lmi.zip
 changelogFile=$(basename $zipBuild .zip)
 changelogFile=${changelogFile}.txt
+
+img=/home/mamutal91/.dotfiles/home/.config/kraken/images/banner_lmi.jpg
 
 codename=lmi
 
 rm -rf $changelogFile
-wget https://raw.githubusercontent.com/AOSPK/official_devices/master/changelogs/${codename}/${changelogFile} &>/dev/null
+wget https://raw.githubusercontent.com/AOSPK-DEV/official_devices/master/changelogs/${codename}/${changelogFile} &>/dev/null
 sed -i "s/^/• /" $changelogFile
 
 cat $changelogFile
@@ -48,10 +63,14 @@ Follow @PocoF2ProGlobalReleases
 Join @PocoF2ProGlobalOfficial"
 
 function sendMessage() {
-  curl "https://api.telegram.org/bot${botToken}/sendMessage" \
-    -d chat_id="$chatId" \
-    --data-urlencode text="$msg" \
-    --data-urlencode parse_mode="markdown" \
-    --data-urlencode disable_web_page_preview="true"
+  curl "https://api.telegram.org/bot${botToken}/sendPhoto" \
+    -F chat_id="${chatId}" \
+    -F photo=@"${img}" \
+    -F caption="${msg}" \
+    -F parse_mode="markdown"
 }
-sendMessage &>/dev/null
+sendMessage
+
+rm -rf $workingDir
+
+cd $pwd
