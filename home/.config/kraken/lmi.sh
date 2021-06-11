@@ -9,7 +9,7 @@ branchTest="eleven"
 
 bringup="Initial changes for Kraken"
 
-workingDir=$(mktemp -d) && mkdir -p $workingDir && cd $workingDir
+workingDir=$(mktemp -d) && cd $workingDir
 
 git clone https://github.com/xiaomi-sm8250-devs/android_device_xiaomi_lmi -b lineage-18.1
 git clone https://github.com/xiaomi-sm8250-devs/android_device_xiaomi_sm8250-common -b lineage-18.1

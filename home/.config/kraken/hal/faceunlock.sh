@@ -2,7 +2,7 @@
 
 source $HOME/.colors &>/dev/null
 
-workingDir=$(mktemp -d) && mkdir -p $workingDir && cd $workingDir
+workingDir=$(mktemp -d) && cd $workingDir
 
 function faceunlock() {
   git clone https://gitlab.pixelexperience.org/android/external_faceunlock -b eleven external_faceunlock

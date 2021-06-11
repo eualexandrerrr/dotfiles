@@ -2,7 +2,7 @@
 
 source $HOME/.colors &>/dev/null
 
-workingDir=$(mktemp -d) && mkdir -p $workingDir && cd $workingDir
+workingDir=$(mktemp -d) && cd $workingDir
 
 repos=(
     hardware_qcom_audio

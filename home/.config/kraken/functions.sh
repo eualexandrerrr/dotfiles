@@ -125,7 +125,7 @@ function m() {
 }
 
 upstream() {
-  workingDir=$(mktemp -d) && mkdir -p $workingDir && cd $workingDir
+  workingDir=$(mktemp -d) && cd $workingDir
 
   git clone https://github.com/LineageOS/android_${1} -b ${2} ${1}
   cd ${1}
