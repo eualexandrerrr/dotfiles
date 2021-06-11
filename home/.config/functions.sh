@@ -56,6 +56,13 @@ function gitpush() {
       git push
     fi
   fi
+  if [[ $(pwd) = /home/mamutal91/.dotfiles ]]; then
+    echo "${BOL_MAG}Updating dotfiles!${END}"
+    dot &>/dev/null
+    exit
+  fi
+  sleep 3
+  exit
 }
 
 function cm() {
