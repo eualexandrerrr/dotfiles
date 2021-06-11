@@ -125,32 +125,15 @@ function m() {
 }
 
 upstream() {
-  cd $HOME && rm -rf ${1}
-  GITHOST=github
-  ORG=LineageOS
-  REPO=android_${1}
-  REPO_KK=$(echo $REPO | cut -c9-)
-  BRANCH=${2}
-  BRANCH_KK=${3}
-  if [[ ${1} = vendor_google_pixel ]]; then
-    ORG=ThankYouMario
-    REPO=android_vendor_google_pixel
-    BRANCH=ruby
-  fi
-  if [[ ${1} = packages_apps_FaceUnlockService ]]; then
-    ORG=PixelExperience
-    REPO=packages_apps_FaceUnlockService
-    BRANCH=eleven
-    rm -rf external_faceunlock
-    git clone https://gitlab.pixelexperience.org/android/external_faceunlock -b eleven
-    cd external_faceunlock && git push ssh://git@github.com/AOSPK/external_faceunlock HEAD:refs/heads/${BRANCH_KK} --force
-    cd ..
-  fi
+  workingDir=$(mktemp -d) && mkdir -p $workingDir && cd $workingDir
 
-  echo "${BOL_CYA}Cloning ${ORG}/${REPO} -b ${BRANCH}${END}"
-  git clone https://${GITHOST}.com/${ORG}/${REPO} -b ${BRANCH} ${REPO}
-  cd ${REPO} && git push ssh://git@${GITHOST}.com/AOSPK/${REPO_KK} HEAD:refs/heads/${BRANCH_KK} --force
-  rm -rf $HOME/${REPO}
+  git clone https://github.com/LineageOS/android_${1} -b ${2} ${1}
+  cd ${1}
+  gh repo create AOSPK/${i} --public --confirm &>/dev/null
+  gh repo create AOSPK-DEV/${i} --private --confirm &>/dev/null
+  cd ${REPO} && git push ssh://git@github.com/AOSPK/${i} HEAD:refs/heads/eleven --force
+
+  rm -rf $workingDir
 }
 
 function up() {
@@ -163,11 +146,6 @@ function up() {
 
 function hals() {
   pwd=$(pwd)
-
-  $HOME/.dotfiles/home/.config/kraken/hal/caf.sh
-  $HOME/.dotfiles/home/.config/kraken/hal/sepolicy.sh
-  $HOME/.dotfiles/home/.config/kraken/hal/chromium.sh
-
   branch=(
     apq8084
     msm8960
@@ -186,6 +164,11 @@ function hals() {
   for i in "${branch[@]}"; do
     $HOME/.dotfiles/home/.config/kraken/hal/hal.sh ${i}
   done
+
+  $HOME/.dotfiles/home/.config/kraken/hal/caf.sh
+  $HOME/.dotfiles/home/.config/kraken/hal/chromium.sh
+  $HOME/.dotfiles/home/.config/kraken/hal/faceunlock.sh
+  $HOME/.dotfiles/home/.config/kraken/hal/sepolicy.sh
 
   cd $pwd
 }
