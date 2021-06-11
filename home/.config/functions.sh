@@ -59,10 +59,9 @@ function gitpush() {
   if [[ $(pwd) = /home/mamutal91/.dotfiles ]]; then
     echo "${BOL_MAG}Updating dotfiles!${END}"
     dot &>/dev/null
-    exit
+    [ $(cat /etc/hostname) = odin ] && exit
   fi
-  sleep 3
-  exit
+  [ $(cat /etc/hostname) = odin ] && sleep 3 && exit
 }
 
 function cm() {
