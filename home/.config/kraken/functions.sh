@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+if [[ $(cat /etc/hostname) = mamutal91-v2 ]]; then
+  HOME=/home/mamutal91
+fi
+
 function lmi() {
   cd $HOME && $HOME/.dotfiles/home/.config/kraken/lmi.sh
 }
