@@ -5,7 +5,11 @@ if [[ $(cat /etc/hostname) = mamutal91-v2 ]]; then
 fi
 
 function lmi() {
-  cd $HOME && $HOME/.dotfiles/home/.config/kraken/lmi.sh
+  if [[ $(cat /etc/hostname) = mamutal91-v2 ]]; then
+    $HOME/.dotfiles/home/.config/kraken/lmi.sh
+  else
+    ssh mamutal91@86.109.7.111 "$HOME/.dotfiles/home/.config/kraken/lmi.sh"
+  fi
 }
 
 function beryllium() {
@@ -13,18 +17,27 @@ function beryllium() {
 }
 
 function gerrit() {
-  pwd=$(pwd)
-  cd /mnt/roms/sites/docker/docker-files/gerrit
-  sudo ./repl.sh
-  cd $pwd
+  if [[ $(cat /etc/hostname) = mamutal91-v2 ]]; then
+    pwd=$(pwd)
+    cd /mnt/roms/sites/docker/docker-files/gerrit
+    sudo ./repl.sh
+    cd $pwd
+  else
+    ssh mamutal91@86.109.7.111 "source $HOME/.zshrc && gerrit"
+  fi
 }
 
 function down() {
-  pwd=$(pwd)
-  rm -rf /mnt/roms/sites/private/builds/*/*.zip &>/dev/null
-  rm -rf /mnt/roms/sites/private/builds/*/json/*.json &>/dev/null
-  cd $pwd
+  if [[ $(cat /etc/hostname) = mamutal91-v2 ]]; then
+    pwd=$(pwd)
+    rm -rf /mnt/roms/sites/private/builds/*/*.zip &>/dev/null
+    rm -rf /mnt/roms/sites/private/builds/*/json/*.json &>/dev/null
+    cd $pwd
+  else
+    ssh mamutal91@86.109.7.111 "source $HOME/.zshrc && down"
+  fi
 }
+
 
 function merge_aosp() {
   $HOME/.dotfiles/home/.config/kraken/merge_aosp.sh
@@ -145,40 +158,48 @@ function up() {
 }
 
 function hals() {
-  pwd=$(pwd)
-  branch=(
-    apq8084
-    msm8960
-    msm8952
-    msm8916
-    msm8974
-    msm8994
-    msm8996
-    msm8998
-    sdm845
-    sm8150
-    sm8250
-    sm8350
-  )
+  if [[ $(cat /etc/hostname) = mamutal91-v2 ]]; then
+    pwd=$(pwd)
+    branch=(
+      apq8084
+      msm8960
+      msm8952
+      msm8916
+      msm8974
+      msm8994
+      msm8996
+      msm8998
+      sdm845
+      sm8150
+      sm8250
+      sm8350
+    )
 
-  for i in "${branch[@]}"; do
-    $HOME/.dotfiles/home/.config/kraken/hal/hal.sh ${i}
-  done
+    for i in "${branch[@]}"; do
+      $HOME/.dotfiles/home/.config/kraken/hal/hal.sh ${i}
+    done
 
-  $HOME/.dotfiles/home/.config/kraken/hal/caf.sh
-  $HOME/.dotfiles/home/.config/kraken/hal/chromium.sh
-  $HOME/.dotfiles/home/.config/kraken/hal/faceunlock.sh
-  $HOME/.dotfiles/home/.config/kraken/hal/sepolicy.sh
+    $HOME/.dotfiles/home/.config/kraken/hal/caf.sh
+    $HOME/.dotfiles/home/.config/kraken/hal/chromium.sh
+    $HOME/.dotfiles/home/.config/kraken/hal/faceunlock.sh
+    $HOME/.dotfiles/home/.config/kraken/hal/sepolicy.sh
 
-  cd $pwd
+    cd $pwd
+  else
+    ssh mamutal91@86.109.7.111 "source $HOME/.zshrc && hals"
+  fi
 }
 
 function www() {
-  cd $HOME && rm -rf www
-  git clone ssh://git@github.com/AOSPK/www -b master www
-  sudo rm -rf /mnt/roms/sites/www
-  sudo cp -rf www /mnt/roms/sites
-  cd /mnt/roms/sites/www
-  sudo npm i && sudo npm run build
-  cd $HOME
+  if [[ $(cat /etc/hostname) = mamutal91-v2 ]]; then
+    cd $HOME && rm -rf www
+    git clone ssh://git@github.com/AOSPK/www -b master www
+    sudo rm -rf /mnt/roms/sites/www
+    sudo cp -rf www /mnt/roms/sites
+    cd /mnt/roms/sites/www
+    sudo npm i && sudo npm run build
+    cd $HOME
+  else
+    ssh mamutal91@86.109.7.111 "source $HOME/.zshrc && www"
+  fi
 }
