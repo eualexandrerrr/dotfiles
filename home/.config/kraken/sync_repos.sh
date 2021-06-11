@@ -64,7 +64,8 @@ function go() {
     cd $repoPath
     echo
     echo $repoName
-    gh repo create ${orgDeDestino}/${repoName} --private --confirm &>/dev/null
+    gh repo create AOSPK/${repoName} --public --confirm &>/dev/null
+    gh repo create AOSPK-DEV/${repoName} --private --confirm &>/dev/null
     git remote add old https://github.com/${orgDeOrigem}/${repoName} &>/dev/null
     git fetch --unshallow old &>/dev/null
     git push ssh://git@github.com/${orgDeDestino}/${repoName} HEAD:refs/heads/${branch} --force
