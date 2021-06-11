@@ -2,6 +2,11 @@
 
 source $HOME/.colors &>/dev/null
 
+function a() {
+  chmod +x $HOME/test.sh
+  bash test.sh
+}
+
 function dot() {
   if [[ ${1} ]]; then
     cd $HOME && rm -rf .dotfiles && git clone ssh://git@github.com/mamutal91/dotfiles .dotfiles && source $HOME/.zshrc
@@ -35,14 +40,6 @@ function f() {
 
 function p() {
   git cherry-pick ${1}
-}
-
-function cc() {
-  git add . && git cherry-pick --continue
-}
-
-function a() {
-  git cherry-pick --abort
 }
 
 function translate() {
