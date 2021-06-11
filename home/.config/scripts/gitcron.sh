@@ -25,31 +25,31 @@ if [[ $HOSTNAME = odin ]]; then
   done
 fi
 
-# Kraken VPS
+# Kraken
 if [[ $HOSTNAME = mamutal91-v2 ]]; then
   m="Autocommit Git-Cron"
   pwd=$(pwd)
-  rm -rf /home/mamutal91/.gerrit
+  sudo rm -rf /home/mamutal91/.gerrit
   git clone ssh://git@github.com/AOSPK/gerrit -b backup /home/mamutal91/.gerrit
   cp -rf /mnt/roms/sites/docker/gerrit /home/mamutal91/.gerrit
   cd /home/mamutal91/.gerrit
   git add . && git commit -m "${m}" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>" --date "$(date)" && git push -f
-  cd $pwd
 
-  rm -rf /home/mamutal91/.jenkins
+  sudo rm -rf /home/mamutal91/.jenkins
   git clone ssh://git@gitlab.com/AOSPK/jenkins -b backup /home/mamutal91/.jenkins
-  cp -rf /mnt/roms/backupJenkins/* /home/mamutal91/.jenkins
+  cd /mnt/roms/backupJenkins && sudo cp -rf * /home/mamutal91/.jenkins
   cd /home/mamutal91/.jenkins
   git add . && git commit -m "${m}" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>" --date "$(date)" && git push -f
+  cd $pwd
 fi
 
 # BuildersBR
 if [[ $HOSTNAME = buildersbr.ninja-v2 ]]; then
   m="Autocommit Git-Cron"
   pwd=$(pwd)
-  rm -rf /home/mamutal91/.jenkins
-  git clone ssh://git@github.com/buildersbr/jenkins -b master /home/mamutal91/.jenkins
-  cp -rf /mnt/roms/backupJenkins/* /home/mamutal91/.jenkins
+  sudo rm -rf /home/mamutal91/.jenkins
+  git clone ssh://git@gitlab.com/buildersbr/jenkins -b backup /home/mamutal91/.jenkins
+  cd /mnt/roms/backupJenkins && sudo cp -rf * /home/mamutal91/.jenkins
   cd /home/mamutal91/.jenkins
   git add . && git commit -m "${m}" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>" --date "$(date)" && git push -f
   cd $pwd
