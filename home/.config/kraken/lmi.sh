@@ -5,14 +5,18 @@ pwd=$(pwd)
 git config --global user.email "mamutal91@gmail.com"
 git config --global user.name "Alexandre Rangel"
 
-branchTest="eleven-wip"
+if [[ -z ${1} ]]; then
+  branch=eleven-wip
+fi
+
+branchLOS=lineage-18.1
 
 bringup="Initial changes for Kraken"
 
 workingDir=$(mktemp -d) && cd $workingDir
 
-git clone https://github.com/xiaomi-sm8250-devs/android_device_xiaomi_lmi -b lineage-18.1
-git clone https://github.com/xiaomi-sm8250-devs/android_device_xiaomi_sm8250-common -b lineage-18.1
+git clone https://github.com/xiaomi-sm8250-devs/android_device_xiaomi_lmi -b ${branchLOS}
+git clone https://github.com/xiaomi-sm8250-devs/android_device_xiaomi_sm8250-common -b ${branchLOS}
 
 # Tree
 cd android_device_xiaomi_lmi
@@ -41,7 +45,7 @@ echo "[
     \"remote\": \"github\",
     \"repository\": \"LineageOS/android_hardware_xiaomi\",
     \"target_path\": \"hardware/xiaomi\",
-    \"branch\": \"lineage-18.1\"
+    \"branch\": \"${branchLOS}\"
   }
 ]" > aosp.dependencies
 
@@ -121,7 +125,7 @@ echo "<?xml version=\"1.0\" encoding=\"utf-8\"?>
 </resources>" | tee parts/res/values-pt-rBR/strings.xml &>/dev/null
 git add . && git commit --message "lmi: parts: Translations for Portuguese Brazil" --author "Alexandre Rangel <mamutal91@gmail.com>"
 
-git push ssh://git@github.com/AOSPK-Devices/device_xiaomi_lmi HEAD:refs/heads/${branchTest} --force
+git push ssh://git@github.com/AOSPK-Devices/device_xiaomi_lmi HEAD:refs/heads/${branch} --force
 
 # Common
 cd ../android_device_xiaomi_sm8250-common
@@ -176,25 +180,27 @@ msg="sm8250-common: Disable debug.sf.latch_unsignaled from prop.
 *Lmi: Also fixes Lags on Google Photos while playing videos."
 git add . && git commit --message "${msg} now" --signoff --author "soumyo19 <fsoummya@gmail.com>"
 
-git push ssh://git@github.com/AOSPK-Devices/device_xiaomi_sm8250-common HEAD:refs/heads/${branchTest} --force
+git push ssh://git@github.com/AOSPK-Devices/device_xiaomi_sm8250-common HEAD:refs/heads/${branch} --force
 
 # Kernel and Vendor
 cd $workingDir
 
-git clone https://gitlab.com/xiaomi-sm8250-devs/android_vendor_xiaomi -b lineage-18.1
+git clone https://gitlab.com/xiaomi-sm8250-devs/android_vendor_xiaomi -b ${branchLOS}
 mv android_vendor_xiaomi android_vendor_xiaomi_lmi
 cp -rf android_vendor_xiaomi_lmi android_vendor_xiaomi_sm8250-common
 
 cd android_vendor_xiaomi_lmi
-git filter-branch --prune-empty --subdirectory-filter lmi lineage-18.1
-git push ssh://git@github.com/AOSPK-Devices/vendor_xiaomi_lmi HEAD:refs/heads/${branchTest} --force
+git filter-branch --prune-empty --subdirectory-filter lmi ${branchLOS}
+git push ssh://git@github.com/AOSPK-Devices/vendor_xiaomi_lmi HEAD:refs/heads/${branch} --force
+git push ssh://git@gitlab.com/AOSPK-Devices/vendor_xiaomi_lmi HEAD:refs/heads/${branch} --force
 
 cd ../android_vendor_xiaomi_sm8250-common
-git filter-branch --prune-empty --subdirectory-filter sm8250-common lineage-18.1
-git push ssh://git@github.com/AOSPK-Devices/vendor_xiaomi_sm8250-common HEAD:refs/heads/${branchTest} --force
+git filter-branch --prune-empty --subdirectory-filter sm8250-common ${branchLOS}
+git push ssh://git@github.com/AOSPK-Devices/vendor_xiaomi_sm8250-common HEAD:refs/heads/${branch} --force
+git push ssh://git@gitlab.com/AOSPK-Devices/vendor_xiaomi_sm8250-common HEAD:refs/heads/${branch} --force
 
 cd ..
-git clone https://github.com/xiaomi-sm8250-devs/android_kernel_xiaomi_sm8250 -b lineage-18.1
+git clone https://github.com/xiaomi-sm8250-devs/android_kernel_xiaomi_sm8250 -b ${branchLOS}
 cd android_kernel_xiaomi_sm8250
 
 sed -i "s/lineageos/kraken/g" arch/arm64/configs/vendor/umi_defconfig
@@ -204,7 +210,7 @@ sed -i "s/lineageos/kraken/g" arch/arm64/configs/vendor/cas_defconfig
 sed -i "s/lineageos/kraken/g" arch/arm64/configs/vendor/cmi_defconfig
 git add . && git commit --message "ARM64: configs: xiaomi: Set localversion to kraken" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>"
 
-git push ssh://git@github.com/AOSPK-Devices/kernel_xiaomi_sm8250 HEAD:refs/heads/${branchTest} --force
+git push ssh://git@github.com/AOSPK-Devices/kernel_xiaomi_sm8250 HEAD:refs/heads/${branch} --force
 
 cd $pwd
 

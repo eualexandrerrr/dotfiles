@@ -35,6 +35,10 @@ for maintainer in $(jq '.[] | select(.name|test("^")) | .github_username' $jsonM
       nameDevice=$(jq -r ".[] | select(.codename == \"${device}\") | .name" $jsonDevices)
 
       if grep -q "common\|kernel\|vendor" <<<"$repo"; then
+        continue
+      fi
+
+      if grep -q "common\|kernel\|vendor" <<<"$repo"; then
         gh repo create AOSPK-Devices/${repo} --public --confirm &>/dev/null
       else
         gh repo create AOSPK-Devices/${repo} -d "${brandDevice} ${nameDevice} maintained by @${maintainer}" --public --confirm &>/dev/null
@@ -47,7 +51,7 @@ for maintainer in $(jq '.[] | select(.name|test("^")) | .github_username' $jsonM
 
       if [[ ${1} = push ]]; then
         rm -rf $repo
-        repoExist=$(git ls-remote --heads https://github.com/AOSPK-Devices-Backup/${repo} eleven)
+        repoExist=$(git ls-remote --heads https://github.com/AOSPK-Devices/${repo} eleven)
         if [[ -z ${repoExist} ]]; then
           repoExist=$(git ls-remote --heads https://github.com/PixelExperience-Devices/${repo} eleven)
           if [[ -z ${repoExist} ]]; then
@@ -59,14 +63,16 @@ for maintainer in $(jq '.[] | select(.name|test("^")) | .github_username' $jsonM
           fi
         else
           echo "${BOL_YEL} * ~ AOSPK-Devices${END}"
-          git clone https://github.com/AOSPK-Devices-Backup/${repo} -b eleven $repo
+          git clone https://github.com/AOSPK-Devices/${repo} -b eleven $repo
         fi
 
         cd $repo
 
         if grep -q "vendor" <<<"$repo"; then
           glab repo create AOSPK-Devices/${repo} --defaultBranch eleven --public
-          git push ssh://git@gitlab.com/AOSPK-Devices/${repo} HEAD:refs/heads/eleven --force
+          if [[ $repo != vendor_xiaomi_mojito-vendor ]]; then
+            git push ssh://git@gitlab.com/AOSPK-Devices/${repo} HEAD:refs/heads/eleven --force
+          fi
           git push ssh://git@github.com/AOSPK-Devices/${repo} HEAD:refs/heads/eleven --force
         else
           git push ssh://git@github.com/AOSPK-Devices/${repo} HEAD:refs/heads/eleven --force
