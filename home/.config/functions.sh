@@ -2,11 +2,6 @@
 
 source $HOME/.colors &>/dev/null
 
-function a() {
-  chmod +x $HOME/test.sh
-  bash test.sh
-}
-
 function dot() {
   if [[ ${1} ]]; then
     cd $HOME && rm -rf .dotfiles && git clone ssh://git@github.com/mamutal91/dotfiles .dotfiles && source $HOME/.zshrc

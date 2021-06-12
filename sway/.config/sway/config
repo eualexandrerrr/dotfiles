@@ -143,6 +143,7 @@ bindsym $super+F2 exec --no-startup-id google-chrome-beta --enable-features=UseO
 bindsym $super+F3 exec --no-startup-id kotatogram-desktop &; workspace $ws4
 
 # System shortcuts
+bindsym $super+BackSpace exec --no-startup-id alacritty -t scripttest -e $HOME/.dotfiles/home/.config/scripts/scripttest.sh &
 bindsym F10 exec --no-startup-id $HOME/.config/scripts/commiter.sh &
 bindsym F11 exec --no-startup-id $HOME/.dotfiles/install.sh
 
