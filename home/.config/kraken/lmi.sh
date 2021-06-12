@@ -7,7 +7,7 @@ git config --global user.name "Alexandre Rangel"
 
 branch=eleven-wip
 
-orgRebase=LineageOS # or xiaomi-sm8250-devs
+orgRebase=xiaomi-sm8250-devs # or xiaomi-sm8250-devs
 
 branchLOS=lineage-18.1
 
