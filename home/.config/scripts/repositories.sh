@@ -11,21 +11,20 @@ repos=(
   zsh-history
   language-swaywm
   shellscript-atom-snippets
-  infra
   manifest
   docs
-  buildersbr
+  scripttest
 )
 
 for i in "${repos[@]}"; do
   account=mamutal91
-  folder=GitHub
+  folder=GitHub/${i}
   if [[ ${i} == @("infra"|"manifest"|"docs") ]]; then
     account=AOSPK
     folder=AOSPK
   fi
-  if [[ ${i} = buildersbr ]]; then
-    account=BuildersBR
+  if [[ ${i} = scripttest ]]; then
+    folder=.scripttest
   fi
-  git clone ssh://git@github.com/${account}/${i} $HOME/${folder}/${i}
+  git clone ssh://git@github.com/${account}/${i} $HOME/${folder}
 done
