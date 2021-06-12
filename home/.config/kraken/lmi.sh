@@ -5,7 +5,9 @@ pwd=$(pwd)
 git config --global user.email "mamutal91@gmail.com"
 git config --global user.name "Alexandre Rangel"
 
-branch=eleven-wip
+branch=eleven
+
+orgRebase=LineageOS # or xiaomi-sm8250-devs
 
 branchLOS=lineage-18.1
 
@@ -13,8 +15,8 @@ bringup="Initial changes for Kraken"
 
 workingDir=$(mktemp -d) && cd $workingDir
 
-git clone https://github.com/xiaomi-sm8250-devs/android_device_xiaomi_lmi -b ${branchLOS}
-git clone https://github.com/xiaomi-sm8250-devs/android_device_xiaomi_sm8250-common -b ${branchLOS}
+git clone https://github.com/${orgRebase}/android_device_xiaomi_lmi -b ${branchLOS}
+git clone https://github.com/${orgRebase}/android_device_xiaomi_sm8250-common -b ${branchLOS}
 
 # Tree
 cd android_device_xiaomi_lmi
@@ -198,7 +200,7 @@ git push ssh://git@github.com/AOSPK-Devices/vendor_xiaomi_sm8250-common HEAD:ref
 git push ssh://git@gitlab.com/AOSPK-Devices/vendor_xiaomi_sm8250-common HEAD:refs/heads/${branch} --force
 
 cd ..
-git clone https://github.com/xiaomi-sm8250-devs/android_kernel_xiaomi_sm8250 -b ${branchLOS}
+git clone https://github.com/${orgRebase}/android_kernel_xiaomi_sm8250 -b ${branchLOS}
 cd android_kernel_xiaomi_sm8250
 
 sed -i "s/lineageos/kraken/g" arch/arm64/configs/vendor/umi_defconfig
