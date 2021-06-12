@@ -1,14 +1,23 @@
 #!/usr/bin/env bash
 
+clear
+
 source $HOME/.colors &>/dev/null
-
-workingDir=$(mktemp -d) && cd $workingDir
-
-git clone ssh://git@github.com/AOSPK/official_devices
 
 jsonDevices=$HOME/official_devices/devices.json
 jsonMaintainers=$HOME/official_devices/team/maintainers.json
 
+# GitLab vendors
+if [[ ${1} ]]; then
+  for vendorRepo in  $(jq '.[] | select(.name|test("^")) | .repositories' $jsonDevices | tr -d '"[]' | grep vendor); do
+    rm -rf $vendorRepo && mkdir $vendorRepo
+    cd $vendorRepo
+    glab repo create AOSPK-Devices/${vendorRepo} --defaultBranch eleven --public
+    cd ..
+  done
+fi
+
+# Loop
 for maintainer in $(jq '.[] | select(.name|test("^")) | .github_username' $jsonMaintainers | tr -d '"'); do
   while IFS= read -r device; do
     for repo in $(jq -r ".[] | select(.codename == \"${device}\") | .repositories[]" $jsonDevices); do
@@ -19,15 +28,15 @@ for maintainer in $(jq '.[] | select(.name|test("^")) | .github_username' $jsonM
       repoCheck=$repo
 
       if grep -q "common\|kernel\|vendor" <<<"$repo"; then
-        gh repo create AOSPK-Devices2/${repo} --public --confirm &>/dev/null
+        gh repo create AOSPK-DevicesTest/${repo} --public --confirm &>/dev/null
       else
-        gh repo create AOSPK-Devices2/${repo} -d "${brandDevice} ${nameDevice} maintained by @${maintainer}" --public --confirm &>/dev/null
+        gh repo create AOSPK-DevicesTest/${repo} -d "${brandDevice} ${nameDevice} maintained by @${maintainer}" --public --confirm &>/dev/null
       fi
 
       echo -e "\n${BOL_GRE}Creating the repository${END} ${BLU}${device} #${CYA}${repo}${END} and inviting the ${YEL}@${maintainer}${END} maintainer"
       echo -e "${RED}${brandDevice} $nameDevice${END}"
 
-      gh api -X PUT repos/AOSPK-Devices2/${repo}/collaborators/${maintainer} -f permission=admin &>/dev/null
+      gh api -X PUT repos/AOSPK-DevicesTest/${repo}/collaborators/${maintainer} -f permission=admin &>/dev/null
 
       rm -rf $repo
       repoExist=$(git ls-remote --heads https://github.com/AOSPK-Devices/${repo} eleven)
@@ -46,11 +55,18 @@ for maintainer in $(jq '.[] | select(.name|test("^")) | .github_username' $jsonM
       fi
 
       cd $repo
-      git push ssh://git@github.com/AOSPK-Devices2/${repo} HEAD:refs/heads/eleven --force
+
+      if grep -q "vendor" <<<"$repo"; then
+        glab repo create AOSPK-Devices/${repo} --defaultBranch eleven --public
+        git push ssh://git@gitlab.com/AOSPK-Devices/${repo} HEAD:refs/heads/eleven --force
+        git push ssh://git@github.com/AOSPK-DevicesTest/${repo} HEAD:refs/heads/eleven --force
+      else
+        git push ssh://git@github.com/AOSPK-DevicesTest/${repo} HEAD:refs/heads/eleven --force
+      fi
+
+      git push ssh://git@github.com/AOSPK-DevicesTest/${repo} HEAD:refs/heads/eleven --force
       cd ..
 
     done
   done < <(jq -r ".[] | select(.github_username == \"${maintainer}\") | .devices[].codename" $jsonMaintainers)
 done
-
-rm -rf $workingDir
