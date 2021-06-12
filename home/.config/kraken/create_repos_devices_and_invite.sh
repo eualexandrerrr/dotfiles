@@ -4,6 +4,10 @@ clear
 
 source $HOME/.colors &>/dev/null
 
+workingDir=$(mktemp -d) && cd $workingDir
+
+git clone https://github.com/AOSPK/official_devices
+
 jsonDevices=$HOME/official_devices/devices.json
 jsonMaintainers=$HOME/official_devices/team/maintainers.json
 
@@ -38,35 +42,39 @@ for maintainer in $(jq '.[] | select(.name|test("^")) | .github_username' $jsonM
 
       gh api -X PUT repos/AOSPK-DevicesTest/${repo}/collaborators/${maintainer} -f permission=admin &>/dev/null
 
-      rm -rf $repo
-      repoExist=$(git ls-remote --heads https://github.com/AOSPK-Devices/${repo} eleven)
-      if [[ -z ${repoExist} ]]; then
-        repoExist=$(git ls-remote --heads https://github.com/PixelExperience-Devices/${repo} eleven)
+      if [[ ${1} = push ]]; then
+        rm -rf $repo
+        repoExist=$(git ls-remote --heads https://github.com/AOSPK-Devices/${repo} eleven)
         if [[ -z ${repoExist} ]]; then
-          echo "${BOL_YEL} * ~ PixelBlobs${END}"
-          git clone https://gitlab.pixelexperience.org/android/vendor-blobs/${repo} -b eleven
+          repoExist=$(git ls-remote --heads https://github.com/PixelExperience-Devices/${repo} eleven)
+          if [[ -z ${repoExist} ]]; then
+            echo "${BOL_YEL} * ~ PixelBlobs${END}"
+            git clone https://gitlab.pixelexperience.org/android/vendor-blobs/${repo} -b eleven
+          else
+            echo "${BOL_YEL} * ~ PixelExperience-Devices${END}"
+            git clone https://github.com/PixelExperience-Devices/${repo} -b eleven $repo
+          fi
         else
-          echo "${BOL_YEL} * ~ PixelExperience-Devices${END}"
-          git clone https://github.com/PixelExperience-Devices/${repo} -b eleven $repo
+          echo "${BOL_YEL} * ~ AOSPK-Devices${END}"
+          git clone https://github.com/AOSPK-Devices/${repo} -b eleven $repo
         fi
-      else
-        echo "${BOL_YEL} * ~ AOSPK-Devices${END}"
-        git clone https://github.com/AOSPK-Devices/${repo} -b eleven $repo
-      fi
 
-      cd $repo
+        cd $repo
 
-      if grep -q "vendor" <<<"$repo"; then
-        glab repo create AOSPK-Devices/${repo} --defaultBranch eleven --public
-        git push ssh://git@gitlab.com/AOSPK-Devices/${repo} HEAD:refs/heads/eleven --force
+        if grep -q "vendor" <<<"$repo"; then
+          glab repo create AOSPK-Devices/${repo} --defaultBranch eleven --public
+          git push ssh://git@gitlab.com/AOSPK-Devices/${repo} HEAD:refs/heads/eleven --force
+          git push ssh://git@github.com/AOSPK-DevicesTest/${repo} HEAD:refs/heads/eleven --force
+        else
+          git push ssh://git@github.com/AOSPK-DevicesTest/${repo} HEAD:refs/heads/eleven --force
+        fi
+
         git push ssh://git@github.com/AOSPK-DevicesTest/${repo} HEAD:refs/heads/eleven --force
-      else
-        git push ssh://git@github.com/AOSPK-DevicesTest/${repo} HEAD:refs/heads/eleven --force
+        cd ..
       fi
-
-      git push ssh://git@github.com/AOSPK-DevicesTest/${repo} HEAD:refs/heads/eleven --force
-      cd ..
 
     done
   done < <(jq -r ".[] | select(.github_username == \"${maintainer}\") | .devices[].codename" $jsonMaintainers)
 done
+
+rm -rf $workingDir
