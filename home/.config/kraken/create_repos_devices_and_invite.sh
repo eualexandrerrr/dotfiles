@@ -4,15 +4,20 @@ clear
 
 source $HOME/.colors &>/dev/null
 
+if [[ -z ${1} ]]; then
+  echo -e "${BOL_YEL}You can: usage: command <vendor|push>${END}\n"
+fi
+
 workingDir=$(mktemp -d) && cd $workingDir
 
-git clone https://github.com/AOSPK/official_devices
+echo -e "${BOL_CYA}Cloning official_devices${END}"
+git clone https://github.com/AOSPK/official_devices &>/dev/null
 
-jsonDevices=$HOME/official_devices/devices.json
-jsonMaintainers=$HOME/official_devices/team/maintainers.json
+jsonDevices=${workingDir}/official_devices/devices.json
+jsonMaintainers=${workingDir}/official_devices/team/maintainers.json
 
 # GitLab vendors
-if [[ ${1} ]]; then
+if [[ ${1} = vendor ]]; then
   for vendorRepo in  $(jq '.[] | select(.name|test("^")) | .repositories' $jsonDevices | tr -d '"[]' | grep vendor); do
     rm -rf $vendorRepo && mkdir $vendorRepo
     cd $vendorRepo
