@@ -5,9 +5,7 @@ pwd=$(pwd)
 git config --global user.email "mamutal91@gmail.com"
 git config --global user.name "Alexandre Rangel"
 
-if [[ -z ${1} ]]; then
-  branch=eleven-wip
-fi
+branch=eleven
 
 branchLOS=lineage-18.1
 
