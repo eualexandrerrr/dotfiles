@@ -4,6 +4,9 @@ pwd=$(pwd)
 BERYLLIUM=/tmp/beryllium
 sudo rm -rf $BERYLLIUM && mkdir $BERYLLIUM && cd $BERYLLIUM
 
+git config --global user.email "mamutal91@gmail.com"
+git config --global user.name "Alexandre Rangel"
+
 bringup="Initial changes for Kraken"
 
 git clone https://github.com/LineageOS/android_device_xiaomi_beryllium -b lineage-18.1
@@ -47,7 +50,7 @@ echo "[
 ]" > aosp.dependencies
 
 git add . && git commit --message "beryllium: $bringup" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>"
-git push ssh://git@github.com/AOSPK-DevicesTest/device_xiaomi_beryllium HEAD:refs/heads/eleven --force
+git push ssh://git@github.com/AOSPK-Devices/device_xiaomi_beryllium HEAD:refs/heads/eleven --force
 
 cd ../android_device_xiaomi_sdm845-common
 
@@ -77,7 +80,7 @@ echo "[
 git add . && git commit --message "sdm845-common: $bringup" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>"
 
 
-git push ssh://git@github.com/AOSPK-DevicesTest/device_xiaomi_sdm845-common HEAD:refs/heads/eleven --force
+git push ssh://git@github.com/AOSPK-Devices/device_xiaomi_sdm845-common HEAD:refs/heads/eleven --force
 
 # Kernel and Vendor
 cd $BERYLLIUM
@@ -88,16 +91,16 @@ cp -rf android_vendor_xiaomi_beryllium android_vendor_xiaomi_sdm845-common
 
 cd android_vendor_xiaomi_beryllium
 git filter-branch --prune-empty --subdirectory-filter beryllium lineage-18.1
-git push ssh://git@gitlab.com/AOSPK-DevicesTest/vendor_xiaomi_beryllium HEAD:refs/heads/eleven --force
+git push ssh://git@gitlab.com/AOSPK-Devices/vendor_xiaomi_beryllium HEAD:refs/heads/eleven --force
 
 cd ../android_vendor_xiaomi_sdm845-common
 git filter-branch --prune-empty --subdirectory-filter sdm845-common lineage-18.1
-git push ssh://git@gitlab.com/AOSPK-DevicesTest/vendor_xiaomi_sdm845-common HEAD:refs/heads/eleven --force
+git push ssh://git@gitlab.com/AOSPK-Devices/vendor_xiaomi_sdm845-common HEAD:refs/heads/eleven --force
 
 cd ..
 git clone https://github.com/LineageOS/android_kernel_xiaomi_sdm845 -b lineage-18.1
 cd android_kernel_xiaomi_sdm845
-git push ssh://git@github.com/AOSPK-DevicesTest/kernel_xiaomi_sdm845 HEAD:refs/heads/eleven --force
+git push ssh://git@github.com/AOSPK-Devices/kernel_xiaomi_sdm845 HEAD:refs/heads/eleven --force
 
 rm -rf $BERYLLIUM
 cd $pwd
