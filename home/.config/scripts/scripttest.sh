@@ -2,8 +2,9 @@
 
 source $HOME/.colors &>/dev/null
 
-echo -e "${BOL_BLU}Starting script...${END}\n\n"
+echo -e "${BOL_BLU}Starting script...${END}\n"
 chmod +x $HOME/.scripttest/scripttest.sh
+
 bash $HOME/.scripttest/scripttest.sh
 
 echo -e "\n"
