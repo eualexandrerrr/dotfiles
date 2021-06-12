@@ -9,8 +9,7 @@ function faceunlock() {
   git clone https://github.com/PixelExperience/packages_apps_FaceUnlockService -b eleven packages_apps_FaceUnlockService
 
   cd $workingDir/external_faceunlock
-  git push ssh://git@github.com/AOSPK/external_faceunlock HEAD:refs/heads/eleven --force
-  git push ssh://git@github.com/AOSPK-DEV/external_faceunlock HEAD:refs/heads/eleven --force
+  git push ssh://git@gitlab.com/AOSPK/external_faceunlock HEAD:refs/heads/eleven --force
 
   cd $workingDir/packages_apps_FaceUnlockService
   git push ssh://git@github.com/AOSPK/packages_apps_FaceUnlockService HEAD:refs/heads/eleven --force
