@@ -1,13 +1,21 @@
 #!/usr/bin/env bash
 
-rm -rf $HOME/AOSPK && mkdir -p $HOME/AOSPK
-rm -rf $HOME/GitHub && mkdir -p $HOME/GitHub
-
 cd $HOME
+
+rm -rf AOSPK && mkdir -p AOSPK
+rm -rf GitHub && mkdir -p GitHub
 
 rm -rf $HOME/.scripttest
 
-git clone ssh://git@github.com/mamutal91/myarch GitHub/myarch
-git clone ssh://git@github.com/mamutal91/custom-rom GitHub/custom-rom
-git clone ssh://git@github.com/mamutal91/zsh-history GitHub/zsh-history
-git clone ssh://git@github.com/mamutal91/scripttest $HOME/.scripttest
+if [[ -e $HOME/.ssh/id_rsa ]]; then
+  echo "Cloning repos my repos with SSH"
+  typeClone=ssh://git@github
+else
+  echo "Cloning repos my repos with HTTPS"
+  typeClone=https://github
+fi
+
+git clone ${typeClone}.com/mamutal91/myarch GitHub/myarch
+git clone ${typeClone}.com/mamutal91/myapps GitHub/myapps
+git clone ${typeClone}.com/mamutal91/custom-rom GitHub/custom-rom
+git clone ${typeClone}.com/mamutal91/scripttest $HOME/.scripttest

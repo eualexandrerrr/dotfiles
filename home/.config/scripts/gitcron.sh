@@ -1,53 +1,47 @@
 #!/usr/bin/env bash
 
-HOSTNAME=$(cat /etc/hostname)
+source $HOME/.colors &>/dev/null
+
+iconpath="/usr/share/icons/Papirus-Dark/32x32/devices"
+icon="${iconpath}/computer.svg"
+
+clear
 
 # My notebook
-if [[ $HOSTNAME = odin ]]; then
+if [[ $(cat /etc/hostname) = odin ]]; then
   #MyApps
-  apps=("Atom" "filezilla" "Thunar")
+  play $HOME/.config/sounds/gitcron.wav &>/dev/null
+  notify-send -i $icon "GitCron" "Starting backups..."
+  apps=("Atom" "filezilla" "Thunar" "google-chrome-beta")
 
   for i in "${apps[@]}"; do
 
-    cp -rf $HOME/.config/${i} $HOME/GitHub/myapps
+    echo -e "${BOL_GRE}Copying .atom${END}"
+    mkdir -p $HOME/GitHub/myapps/.atom
     cp -rf $HOME/.atom/* $HOME/GitHub/myapps/.atom
+    echo -e "${BOL_BLU}Copying .zhs-history${END}"
+    mkdir -p $HOME/GitHub/myapps/zsh-history
+    cp -rf $HOME/.zsh_history $HOME/GitHub/myapps/zsh-history
 
+    echo -e "${BOL_RED}Copying configs ${i}${END}"
+    cp -rf $HOME/.config/${i} $HOME/GitHub/myapps
+
+    pwd=$(pwd)
     cd $HOME/GitHub/myapps
     status=$(git add . -n)
     if [[ ! -z "$status" ]]; then
-      c=$(echo $(git add . -n | tr '\r\n' ' '))
-      m="Autocommit Git-Cron: ${c}"
+      m="Autocommit Git-Cron"
       git add .
       git commit -m "${m}" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>" --date "$(date)"
       git push
     fi
-    cd $HOME
+    cd $pwd
 
-  done
-
-  #Commits
-  repos=( "zsh-history" "custom-rom" ".atom")
-  cp -rf $HOME/.zsh_history $HOME/GitHub/zsh-history/
-
-  for i in "${repos[@]}"; do
-    dir=$HOME/GitHub
-    if [[ ${i} = ".atom" ]]; then
-      dir=$HOME
-    fi
-  	cd ${dir}/${i}
-  	status=$(git add . -n)
-  	if [[ ! -z "$status" ]]; then
-  		c=$(echo $(git add . -n | tr '\r\n' ' '))
-  		m="Autocommit Git-Cron: ${c}"
-  		git add .
-  		git commit -m "${m}" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>" --date "$(date)"
-  		git push
-  	fi
   done
 fi
 
 # Kraken
-if [[ $HOSTNAME = mamutal91-v2 ]]; then
+if [[ $(cat /etc/hostname) = mamutal91-v2 ]]; then
   m="Autocommit Git-Cron"
   pwd=$(pwd)
   sudo rm -rf /home/mamutal91/.gerrit
@@ -65,7 +59,7 @@ if [[ $HOSTNAME = mamutal91-v2 ]]; then
 fi
 
 # BuildersBR
-if [[ $HOSTNAME = buildersbr.ninja-v2 ]]; then
+if [[ $(cat /etc/hostname) = buildersbr.ninja-v2 ]]; then
   m="Autocommit Git-Cron"
   pwd=$(pwd)
   sudo rm -rf /home/mamutal91/.jenkins
