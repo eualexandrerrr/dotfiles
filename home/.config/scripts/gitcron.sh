@@ -4,9 +4,30 @@ HOSTNAME=$(cat /etc/hostname)
 
 # My notebook
 if [[ $HOSTNAME = odin ]]; then
-  cp -rf $HOME/.zsh_history $HOME/GitHub/zsh-history/
+  #MyApps
+  apps=("Atom" "filezilla" "Thunar")
 
+  for i in "${apps[@]}"; do
+
+    cp -rf $HOME/.config/${i} $HOME/GitHub/myapps
+    cp -rf $HOME/.atom/* $HOME/GitHub/myapps/.atom
+
+    cd $HOME/GitHub/myapps
+    status=$(git add . -n)
+    if [[ ! -z "$status" ]]; then
+      c=$(echo $(git add . -n | tr '\r\n' ' '))
+      m="Autocommit Git-Cron: ${c}"
+      git add .
+      git commit -m "${m}" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>" --date "$(date)"
+      git push
+    fi
+    cd $HOME
+
+  done
+
+  #Commits
   repos=( "zsh-history" "custom-rom" ".atom")
+  cp -rf $HOME/.zsh_history $HOME/GitHub/zsh-history/
 
   for i in "${repos[@]}"; do
     dir=$HOME/GitHub
