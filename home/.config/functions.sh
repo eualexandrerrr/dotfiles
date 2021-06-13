@@ -66,6 +66,8 @@ function gitpush() {
       git push
     fi
   fi
+
+  [ $pwdFolder = .dotfiles ] && echo "${BOL_BLU}Cloning dotfiles in servers...${END}" && dot
 }
 
 function cm() {

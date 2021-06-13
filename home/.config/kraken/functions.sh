@@ -12,10 +12,6 @@ function lmi() {
   fi
 }
 
-function beryllium() {
-  cd $HOME && $HOME/.dotfiles/home/.config/kraken/beryllium.sh
-}
-
 function gerrit() {
   if [[ $(cat /etc/hostname) = mamutal91-v2 ]]; then
     pwd=$(pwd)
