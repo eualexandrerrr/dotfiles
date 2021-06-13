@@ -46,27 +46,26 @@ function translate() {
 }
 
 function gitpush() {
+  pwdFolder=${PWD##*/}
   pwd=$(pwd | cut -c-24)
-  if [[ $pwd = "/home/mamutal91/AOSPK/manifest" ]]; then
-    exit
-  fi
+
+  blacklist(){
+    [ $pwdFolder = manifest ] && echo "${BOL_RED}Blacklist detected, no push!!!${END}" && break &>/dev/null
+  }
+
   if [[ $pwd = "/mnt/roms/jobs/KrakenDev" ]]; then
     echo "${BOL_RED}No push!${END}"
   else
     if [[ ${1} = force ]]; then
       echo "${BOL_YEL}Pushing with --force!${END}"
+      blacklist
       git push -f
     else
       echo "${BOL_YEL}Pushing!${END}"
+      blacklist
       git push
     fi
   fi
-  if [[ $(pwd) = /home/mamutal91/.dotfiles ]]; then
-    echo "${BOL_MAG}Updating dotfiles!${END}"
-    dot &>/dev/null
-    [ $(cat /etc/hostname) = odin ] && exit
-  fi
-  [ $(cat /etc/hostname) = odin ] && sleep 3 && exit
 }
 
 function cm() {
