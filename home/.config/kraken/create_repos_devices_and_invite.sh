@@ -20,6 +20,12 @@ for maintainer in $(jq '.[] | select(.name|test("^")) | .github_username' $jsonM
       brandDevice=$(jq -r ".[] | select(.codename == \"${device}\") | .brand" $jsonDevices)
       nameDevice=$(jq -r ".[] | select(.codename == \"${device}\") | .name" $jsonDevices)
 
+      pwd=$(pwd)
+      cd ${workingDir}/official_devices
+      mkdir -p ${workingDir}/official_devices/builds/eleven/{vanilla,gapps}/${device} &>/dev/null
+      mkdir -p ${workingDir}/official_devices/changelogs/eleven/{vanilla,gapps}/${device} &>/dev/null
+      cd $pwd
+
       if grep -q "common\|kernel\|vendor" <<<"$repo"; then
         gh repo create AOSPK-Devices/${repo} --public --confirm &>/dev/null
       else
@@ -33,5 +39,13 @@ for maintainer in $(jq '.[] | select(.name|test("^")) | .github_username' $jsonM
     done
   done < <(jq -r ".[] | select(.github_username == \"${maintainer}\") | .devices[].codename" $jsonMaintainers)
 done
+
+cd ${workingDir}/official_devices
+status=$(git add . -n)
+if [[ ! -z "$status" ]]; then
+  git config --global user.email "krakengerrit@gmail.com"
+  git config --global user.name "Kraken Project Bot"
+  git add . && git commit -m "[KRAKEN-CI] Automatic structuring" && git push
+fi
 
 rm -rf $workingDir
