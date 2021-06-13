@@ -7,6 +7,7 @@ cd $HOME
 
 rm -rf $HOME/.scripttest
 
-git clone ssh://github.com/mamutal91/myarch GitHub/myarch
-git clone ssh://github.com/mamutal91/zsh-history GitHub/zsh-history
-git clone ssh://github.com/mamutal91/scripttest $HOME/.scripttest
+git clone ssh://git@github.com/mamutal91/myarch GitHub/myarch
+git clone ssh://git@github.com/mamutal91/custom-rom GitHub/custom-rom
+git clone ssh://git@github.com/mamutal91/zsh-history GitHub/zsh-history
+git clone ssh://git@github.com/mamutal91/scripttest $HOME/.scripttest
