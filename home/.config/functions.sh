@@ -71,17 +71,18 @@ function gitpush() {
 }
 
 function cm() {
+  [ -z $(git add . -n) ] && echo "${BOL_RED}There are no local changes... leaving...${END}" && break &>/dev/null
   translate
   if [[ ${1} ]]; then
-    git add . && git commit --author "${1}" --date "$(date)" && gitpush
+    git add . && git commit --signoff --date "$(date)" --author "${1}" && gitpush
   else
-    git add . && git commit --message $msg --signoff --author "Alexandre Rangel <mamutal91@gmail.com>" --date "$(date)" && gitpush
+    git add . && git commit --message "${msg}" --signoff --date "$(date)" --author "Alexandre Rangel <mamutal91@gmail.com>" && gitpush
   fi
 }
 
 function amend() {
   if [[ ${1} ]]; then
-    git add . && git commit --author "${1}" --amend --author "Alexandre Rangel <mamutal91@gmail.com>" --date "$(date)" && gitpush force
+    git add . && git commit --amend --signoff --date "$(date)" --author "${1}" && gitpush force
   else
     git add . && git commit --amend --date "$(date)" && gitpush force
   fi

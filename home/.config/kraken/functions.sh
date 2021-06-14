@@ -54,7 +54,6 @@ function push() {
   else
     REPO=$(basename "`pwd`")
   fi
-  echo $REPO
   GITHOST=github
   ORG=AOSPK-DEV
   BRANCH=eleven
@@ -92,7 +91,7 @@ function push() {
   fi
 
   if [[ ${1} = "gerrit" ]]; then
-    echo "${BOL_BLU}Pushing to gerrit.aospk.org${END} - ${BRANCH} ${RED}${FORCE}${END}"
+    echo "${BOL_BLU}Pushing to ${BOL_BLU}gerrit.aospk.org${END} - ${BRANCH} ${RED}${FORCE}${END}"
     if [ -z "${TOPIC}" ]
     then
       git push ssh://mamutal91@gerrit.aospk.org:29418/${REPO} HEAD:refs/for/${BRANCH}%l=Verified+1,l=Code-Review+2,topic=${TOPIC}
