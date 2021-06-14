@@ -7,7 +7,10 @@ git config --global user.name "Alexandre Rangel"
 
 branch=eleven-wip
 
-orgRebase=xiaomi-sm8250-devs # or xiaomi-sm8250-devs
+orgRebase=xiaomi-sm8250-devs
+
+[ $orgRebase = xiaomi-sm8250-devs ] && orgRebaseVendor=xiaomi-sm8250-devs
+[ $orgRebase = LineageOS ] && orgRebaseVendor=the-muppets
 
 branchLOS=lineage-18.1
 
@@ -185,7 +188,7 @@ git push ssh://git@github.com/AOSPK-Devices/device_xiaomi_sm8250-common HEAD:ref
 # Kernel and Vendor
 cd $workingDir
 
-git clone https://gitlab.com/xiaomi-sm8250-devs/android_vendor_xiaomi -b ${branchLOS}
+git clone https://gitlab.com/${orgRebaseVendor}/android_vendor_xiaomi -b ${branchLOS}
 mv android_vendor_xiaomi android_vendor_xiaomi_lmi
 cp -rf android_vendor_xiaomi_lmi android_vendor_xiaomi_sm8250-common
 
