@@ -31,7 +31,6 @@ alias pkill="sudo pkill"
 alias rm="sudo rm"
 alias systemctl="sudo systemctl"
 alias sed="sudo sed"
-alias wget="wget --user kraken --password kraken"
 
 # paths
 alias x="cd /mnt/roms/jobs/KrakenDev"
