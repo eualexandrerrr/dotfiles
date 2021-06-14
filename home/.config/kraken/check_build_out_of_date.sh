@@ -9,6 +9,8 @@ chatId="-1001397744652"
 
 workingDir=$(mktemp -d) && cd $workingDir
 
+git clone https://github.com/AOSPK/official_devices
+
 rm -rf /tmp/nobuild
 rm -rf /tmp/msg
 echo "* 📅 Days out of date*" > /tmp/msg
@@ -16,8 +18,8 @@ echo >> /tmp/msg
 echo "_Please, help us not to leave more than 30 days out of date..._" >> /tmp/msg
 echo >> /tmp/msg
 
-jsonDevices=$HOME/AOSPK/official_devices/devices.json
-jsonMaintainers=$HOME/AOSPK/official_devices/team/maintainers.json
+jsonDevices=${workingDir}/official_devices/devices.json
+jsonMaintainers=${workingDir}/official_devices/team/maintainers.json
 
 # Loop
 for maintainer in $(jq '.[] | select(.name|test("^")) | .telegram_username' $jsonMaintainers | tr -d '"'); do
@@ -30,8 +32,8 @@ for maintainer in $(jq '.[] | select(.name|test("^")) | .telegram_username' $jso
     fi
 
     # Verifica se existe builds
-    if [ -n "$(ls -A $HOME/AOSPK/official_devices/changelogs/eleven/gapps/${device} 2>/dev/null)" ];then
-      cd $HOME/AOSPK/official_devices/changelogs/eleven/gapps/${device} &>/dev/null
+    if [ -n "$(ls -A ${workingDir}/official_devices/changelogs/eleven/gapps/${device} 2>/dev/null)" ];then
+      cd ${workingDir}/official_devices/changelogs/eleven/gapps/${device} &>/dev/null
         for builds in $(ls); do
           year=$(echo $builds | cut -c17-20)
           month=$(echo $builds | cut -c21-22)
@@ -98,6 +100,13 @@ function sendMessage() {
     --data-urlencode disable_web_page_preview="true" \
 
 }
-sendMessage
 
 rm -rf $workingDir
+
+echo "Finished successfully."
+read -r -p "${BOL_RED}Post in my group maintainers? [Y/n] [enter=no]" confirmPost
+if [[ ! "$confirmPost" =~ ^(y|Y) ]]; then
+  exit
+else
+  sendMessage
+fi
