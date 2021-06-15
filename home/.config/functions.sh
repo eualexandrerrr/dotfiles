@@ -6,14 +6,14 @@ function dot() {
   if [[ ${1} ]]; then
     cd $HOME && rm -rf .dotfiles && git clone ssh://git@github.com/mamutal91/dotfiles .dotfiles && source $HOME/.zshrc
   else
-    echo -e "${YEL}Wait, ${BLU}recloning dotfiles to have the latest changes...${END}"
-    ssh mamutal91@86.109.7.111 "cd $HOME && rm -rf .dotfiles && git clone ssh://git@github.com/mamutal91/dotfiles .dotfiles && bash $HOME/.dotfiles/install.sh && source $HOME/.zshrc"
-    ssh mamutal91@147.75.80.89 "cd $HOME && rm -rf .dotfiles && git clone ssh://git@github.com/mamutal91/dotfiles .dotfiles && bash $HOME/.dotfiles/install.sh && source $HOME/.zshrc"
+    echo -e "\n${YEL}Wait... ${BLU}recloning ${CYA}dotfiles ${BLU}to have the latest changes...${END}"
+    ssh mamutal91@86.109.7.111 "cd $HOME && rm -rf .dotfiles && git clone ssh://git@github.com/mamutal91/dotfiles .dotfiles && bash $HOME/.dotfiles/install.sh && source $HOME/.zshrc" &>/dev/null
+    ssh mamutal91@147.75.80.89 "cd $HOME && rm -rf .dotfiles && git clone ssh://git@github.com/mamutal91/dotfiles .dotfiles && bash $HOME/.dotfiles/install.sh && source $HOME/.zshrc" &>/dev/null
   fi
 }
 
 function infra() {
-  echo -e "${YEL}Wait, ${CYA}recloning infra to have the latest changes...${END}"
+  echo -e "\n${YEL}Wait... ${BLU}recloning ${CYA}infra ${BLU}to have the latest changes...${END}"
   ssh mamutal91@86.109.7.111 "cd $HOME && rm -rf /mnt/roms/infra && git clone ssh://git@github.com/AOSPK/infra /mnt/roms/infra"
 }
 
@@ -54,7 +54,7 @@ function gitpush() {
     echo "\n${BOL_RED}No push!${END}\n"
   else
     if [[ ${1} = force ]]; then
-      echo -e "\n${BOL_YEL}Pushing with --force!${END}\n"
+      echo -e "\n${BOL_YEL}Pushing with ${BOL_RED}force!${END}\n"
       blacklist
       git push -f
     else
@@ -64,13 +64,13 @@ function gitpush() {
     fi
   fi
 
-  [ $pwdFolder = .dotfiles ] && dot &>/dev/null && exit
-  [ $pwdFolder = infra ] && infra &>/dev/null && exit
+  [ $pwdFolder = .dotfiles ] && dot && exit
+  [ $pwdFolder = infra ] && infra && exit
 }
 
 function cm() {
   if git diff-index --quiet HEAD --; then
-      echo "${BOL_RED}There are no local changes... leaving...${END}" && break 2 &>/dev/null
+      echo "${BOL_RED}There are no local changes... leaving...${END}" && break &>/dev/null
   else
     translate
     if [[ ${1} ]]; then
