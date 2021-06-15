@@ -12,7 +12,7 @@ function dot() {
   fi
 }
 
-function infraKraken() {
+function infra() {
   ssh mamutal91@86.109.7.111 "cd $HOME && rm -rf /mnt/roms/infra && git clone ssh://git@github.com/AOSPK/infra /mnt/roms/infra"
 }
 
@@ -21,7 +21,12 @@ function fetch() {
 }
 
 function f() {
-  git fetch https://github.com/${1} ${2}
+  org=$(echo ${1} | cut -c1-5)
+  if [[ $org = AOSPK ]]; then
+    git fetch ssh://git@github.com/${1} ${2}
+  else
+    git fetch https://github.com/${1} ${2}
+  fi
 }
 
 function p() {
@@ -59,7 +64,7 @@ function gitpush() {
   fi
 
   [ $pwdFolder = .dotfiles ] && echo -e "\n${BLU}Cloning dotfiles in my servers...${END}" && dot &>/dev/null && exit
-  [ $pwdFolder = infra ] && echo -e "\n${BLU}Cloning infra in Kraken server...${END}" && infraKraken &>/dev/null && exit
+  [ $pwdFolder = infra ] && echo -e "\n${BLU}Cloning infra in Kraken server...${END}" && infra &>/dev/null && exit
 }
 
 function cm() {
