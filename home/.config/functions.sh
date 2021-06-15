@@ -78,15 +78,15 @@ function gitpush() {
 }
 
 function cm() {
-  if git diff-index --quiet HEAD --; then
-      echo "${BOL_RED}There are no local changes... leaving...${END}" && break &>/dev/null
-  else
+  if [[ $(git status --porcelain) ]]; then
     translate
     if [[ ${1} ]]; then
       git add . && git commit --signoff --date "$(date)" --author "${1}" && gitpush
     else
       git add . && git commit --message "${msg}" --signoff --date "$(date)" --author "Alexandre Rangel <mamutal91@gmail.com>" && gitpush
     fi
+  else
+    echo "${BOL_RED}There are no local changes!!! leaving...${END}" && break &>/dev/null
   fi
 }
 
