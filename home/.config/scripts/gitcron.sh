@@ -8,18 +8,20 @@ icon="${iconpath}/computer.svg"
 clear
 
 # My history
-pwd=$(pwd)
-cd $HOME/GitHub/myhistory
-cp -rf $HOME/.zsh_history $HOME/GitHub/myhistory
-status=$(git add . -n)
-if [[ ! -z $status ]]; then
-  echo -e "${BOL_GRE}Copying .zsh_history${END}"
-  m="Autocommit Git-Cron"
-  git add .
-  git commit -m "${m}" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>" --date "$(date)"
-  git push
+if [[ $(cat /etc/hostname) = odin ]]; then
+  pwd=$(pwd)
+  cd $HOME/GitHub/myhistory
+  cp -rf $HOME/.zsh_history $HOME/GitHub/myhistory
+  status=$(git add . -n)
+  if [[ ! -z $status ]]; then
+    echo -e "${BOL_GRE}Copying .zsh_history${END}"
+    m="Autocommit Git-Cron"
+    git add .
+    git commit -m "${m}" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>" --date "$(date)"
+    git push
+  fi
+  cd $pwd
 fi
-cd $pwd
 
 # My notebook
 if [[ $(cat /etc/hostname) = odin ]]; then

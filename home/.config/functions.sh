@@ -18,6 +18,12 @@ function infra() {
   ssh mamutal91@86.109.7.111 "cd $HOME && rm -rf /mnt/roms/infra && git clone ssh://git@github.com/AOSPK/infra /mnt/roms/infra" &>/dev/null
 }
 
+function bkp() {
+  bash $HOME/.dotfiles/home/.config/scripts/gitcron.sh
+  ssh mamutal91@86.109.7.111 "bash $HOME/.dotfiles/home/.config/scripts/gitcron.sh"
+  ssh mamutal91@147.75.80.89 "bash $HOME/.dotfiles/home/.config/scripts/gitcron.sh"
+}
+
 function fetch() {
   $HOME/.config/scripts/fetch.sh gnu
 }
