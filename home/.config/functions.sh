@@ -40,7 +40,7 @@ function translate() {
   rm -rf $typing && nano $typing
   msg=$(trans -b :en -no-auto -i $typing)
   typing=$(cat $typing)
-  echo -e "${BOL_RED}Message: ${YEL}${msg}${END}\n"
+  echo -e "\n${BOL_RED}Message: ${YEL}${msg}${END}\n"
 }
 
 function gitpush() {
