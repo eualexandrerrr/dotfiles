@@ -46,7 +46,7 @@ function translate() {
   rm -rf $typing && nano $typing
   msg=$(trans -b :en -no-auto -i $typing)
   typing=$(cat $typing)
-  echo -e "${BOL_RED}Message commit: ${YEL}${msg}${END}"
+  echo -e "${BOL_RED}Message commit: ${YEL}${msg}${END}\n"
 }
 
 function gitpush() {
@@ -61,11 +61,11 @@ function gitpush() {
     echo "${BOL_RED}No push!${END}"
   else
     if [[ ${1} = force ]]; then
-      echo "${BOL_YEL}Pushing with --force!${END}"
+      echo -e "\n${BOL_YEL}Pushing with --force!${END}"
       blacklist
       git push -f
     else
-      echo "${BOL_YEL}Pushing!${END}"
+      echo -e "\n${BOL_YEL}Pushing!${END}"
       blacklist
       git push
     fi
