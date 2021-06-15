@@ -51,10 +51,10 @@ function gitpush() {
     [ $pwdFolder = manifest ] && echo "${BOL_RED}Blacklist detected, no push!!!${END}" && break &>/dev/null
   }
 
-  if [ $pwd = "/mnt/roms/jobs/KrakenDev" ]; then
+  if [[ $pwd = "/mnt/roms/jobs/KrakenDev" ]]; then
     echo "\n${BOL_RED}No push!${END}\n"
   else
-    if [ ${1} = force ]; then
+    if [[ ${1} = force ]]; then
       echo -e "\n${BOL_YEL}Pushing with ${BOL_RED}force!${END}\n"
       blacklist
       git push -f
