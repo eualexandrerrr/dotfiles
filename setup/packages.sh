@@ -16,7 +16,7 @@ packages=(
   filezilla
   git gpicview
   htop
-  jq
+  jdk-openjdk jq
   mako
   nano nano-syntax-highlighting
   reflector rsync
