@@ -44,7 +44,7 @@ atom="
   pigments
   save-workspace"
 
-apm install $atom
+# apm install $atom --noconfirm
 
 # Enable systemd services
 for services in \
