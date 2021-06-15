@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+source $HOME/.colors &>/dev/null
+source $HOME/.myTokens &>/dev/null # $myUser $myPass
+
 [ $USER = "mamutal91" ] && source $HOME/.dotfiles/setup/personalconfigs.sh
 
 sudo pacman -Syyu --noconfirm
@@ -54,5 +57,6 @@ do
 done
 
 source $HOME/.dotfiles/setup/etc.sh
+source $HOME/.dotfiles/install.sh
 
 chsh -s $(which zsh)

@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 source $HOME/.colors &>/dev/null
+source $HOME/.myTokens &>/dev/null
 
 function dot() {
   if [[ ${1} ]]; then
@@ -66,6 +67,7 @@ function gitpush() {
 
   [ $pwdFolder = .dotfiles ] && dot && exit
   [ $pwdFolder = infra ] && infra && exit
+  [ $pwdFolder = shellscript-atom-snippets ] && export ATOM_ACCESS_TOKEN=${atomToken} && apm publish minor && apm update mamutal91-shellscript-snippets-atom --noconfirm
 }
 
 function cm() {

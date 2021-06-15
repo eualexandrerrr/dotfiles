@@ -14,12 +14,12 @@ do
 done
 
 # GTK
-bash $HOME/.dotfiles/setup/gtk.sh
 echo "${RED}gtk ${GRE}configured.${END}"
+bash $HOME/.dotfiles/setup/gtk.sh
 
 # etc
-bash $HOME/.dotfiles/setup/etc.sh
 echo "${RED}/etc/ ${GRE}configured.${END}"
+bash $HOME/.dotfiles/setup/etc.sh
 
 # Settings to use on my /root
 [ $USER = mamutal91 ] && sudo cp -rf /home/mamutal91/.dotfiles/home/.nanorc /root &>/dev/null
