@@ -17,12 +17,6 @@ console="$cli console KrakenDev -f"
 disable="$cli disable-job"
 enable="$cli enable-job"
 
-# Temporary commands
-tree_wip=true
-if [[ $tree_wip = true ]]; then
-  build="$cli build KrakenDev -p use_tree_wip=true -p rebase_tree_wip=true"
-fi
-
 echo -e "${BOL_BLU}Executing command via ci-cli...\n${END}${GRE}"
 
 [ ${1} = build ] && echo -e "3. Building dirty for ${BLU}lmi${END}...${RED}" && $build
