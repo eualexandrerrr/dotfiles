@@ -26,7 +26,7 @@ if [ $(cat /etc/hostname) = odin ]; then
   #MyApps
   play $HOME/.config/sounds/gitcron.wav &>/dev/null
   notify-send -i $icon "GitCron" "Starting backups..."
-  apps=("Atom" "filezilla" "Thunar" "google-chrome-beta")
+  apps=("Atom" "filezilla" "Thunar")
 
   for i in "${apps[@]}"; do
     echo -e "${BOL_RED}Copying configs ${i}${END}"

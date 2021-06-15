@@ -21,10 +21,10 @@ mkdir -p $HOME/{Images,Videos,GitHub} &>/dev/null
 # My Tokens
 rm -rf $HOME/GitHub/mytokens
 if [ -e $HOME/.ssh/id_rsa ]; then
-  echo "${BOL_YEL}Waiting... ${BOL_BLU}cloning repos my * T O K E N S * with ${BOL_YEL}SSH${END}"
+  echo "${BOL_BLU}Cloning repos my * T O K E N S * with ${BOL_YEL}SSH${END}"
   git clone ssh://git@github.com/mamutal91/mytokens $HOME/GitHub/mytokens
 else
-  echo "${BOL_YEL}Waiting... ${BOL_BLU}cloning repos my * T O K E N S * with ${BOL_CYA}HTTPS${END}"
+  echo "${BOL_BLU}Cloning repos my * T O K E N S * with ${BOL_CYA}HTTPS${END}"
   git clone https://github.com/mamutal91/mytokens $HOME/GitHub/mytokens
 fi
 
@@ -40,7 +40,7 @@ cd $pwd
 
 # Clone my important repos
 function cloneRepos() {
-  rm -rf $HOME/{GitHub,.scripter}
+  rm -rf $HOME/GitHub/{myarch,myhistory,infra,custom-rom,shellscript-atom-snippets} && rm -rf $HOME/.scripter
   git clone ssh://git@github.com/mamutal91/scripter $HOME/.scripter
   git clone ssh://git@github.com/AOSPK/infra $HOME/GitHub/infra
   git clone ssh://git@github.com/mamutal91/myarch $HOME/GitHub/myarch
@@ -48,13 +48,19 @@ function cloneRepos() {
   git clone ssh://git@github.com/mamutal91/custom-rom $HOME/GitHub/custom-rom
   git clone ssh://git@github.com/mamutal91/shellscript-atom-snippets $HOME/GitHub/shellscript-atom-snippets
 
-  git clone ssh://git@github.com/mamutal91/myapps $HOME/GitHub/myapps # O últomo a ser clonado devido o tamanho...
-  if [ $? -eq 0 ]; then
-    echo "${GRE}Repo Sync success${END}"
+  # myapps
+  if [ ! -d "$HOME/GitHub/myapps" ]; then
+    echo "${BOL_YEL}Copying myapps${END}"
+    git clone ssh://git@github.com/mamutal91/myapps $HOME/GitHub/myapps # O últomo a ser clonado devido o tamanho...
+    if [ $? -eq 0 ]; then
+      echo "${GRE}Clone myapps success${END}"
+    else
+      echo "${RED}Clone myapps failure${END}"
+      exit 1
+    fi
   else
-    echo "${RED}Repo Sync failure${END}"
-    exit 1
-   fi
+    echo "${BOL_RED}myapps already exists, I won't clone...${END}"
+  fi
 }
 cloneRepos
 
@@ -62,12 +68,11 @@ cloneRepos
 echo "${BOL_CYA}Copying my apps${END}"
 pwd=$(pwd)
 cd $HOME/GitHub/myapps
-rm -rf $HOME/.config/{Atom,filezilla,Thunar,google-chrome-beta}
+rm -rf $HOME/.config/{Atom,filezilla,Thunar}
 rm -rf $HOME/.atom
 cp -rf .atom $HOME
 cp -rf Atom $HOME/.config
 cp -rf filezilla $HOME/.config
 cp -rf Thunar $HOME/.config
-cp -rf google-chrome-beta $HOME/.config
 
 cd $pwd
