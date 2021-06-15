@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-if [[ $USER = "mamutal91" ]]; then
-  source $HOME/.dotfiles/setup/personalconfigs.sh
-fi
+[ $USER = "mamutal91" ] && source $HOME/.dotfiles/setup/personalconfigs.sh
+
+sudo pacman -Syyu --noconfirm
 
 # Install YAY AUR Manager
 pwd=$(pwd)

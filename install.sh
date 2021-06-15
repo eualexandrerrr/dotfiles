@@ -22,10 +22,7 @@ bash $HOME/.dotfiles/setup/etc.sh
 echo "${RED}/etc/ ${GRE}configured.${END}"
 
 # Settings to use on my /root
-if [[ $USER = mamutal91 ]]; then
-  sudo cp -rf /home/mamutal91/.ssh /root &>/dev/null
-  sudo cp -rf /home/mamutal91/.dotfiles/home/.nanorc /root &>/dev/null
-fi
+[ $USER = mamutal91 ] && sudo cp -rf /home/mamutal91/.dotfiles/home/.nanorc /root &>/dev/null
 
 # Restart sway
 play $HOME/.config/sounds/completed.wav &>/dev/null

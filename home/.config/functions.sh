@@ -6,6 +6,7 @@ function dot() {
   if [[ ${1} ]]; then
     cd $HOME && rm -rf .dotfiles && git clone ssh://git@github.com/mamutal91/dotfiles .dotfiles && source $HOME/.zshrc
   else
+    ssh mamutal91@86.109.7.111 "cd $HOME && rm -rf /mnt/roms/infra && git clone ssh://git@github.com/AOSPK/infra /mnt/roms/infra"
     ssh mamutal91@86.109.7.111 "cd $HOME && rm -rf .dotfiles && git clone ssh://git@github.com/mamutal91/dotfiles .dotfiles && source $HOME/.zshrc"
     ssh mamutal91@147.75.80.89 "cd $HOME && rm -rf .dotfiles && git clone ssh://git@github.com/mamutal91/dotfiles .dotfiles && source $HOME/.zshrc"
     source $HOME/.zshrc
@@ -67,7 +68,8 @@ function gitpush() {
     fi
   fi
 
-  [ $pwdFolder = .dotfiles ] && echo "${BOL_BLU}Cloning dotfiles in servers...${END}" && dot
+  [ $pwdFolder = .dotfiles ] && echo "${BOL_BLU}Cloning dotfiles and infra in servers...${END}" && dot && exit
+  [ $pwdFolder = infra ] && echo "${BOL_BLU}Cloning dotfiles and infra in servers...${END}" && dot && exit
 }
 
 function cm() {

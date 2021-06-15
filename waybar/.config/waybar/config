@@ -7,7 +7,7 @@
   "modules-left": [
     "custom/github",
     "custom/gerrit",
-    "custom/keep",
+    "custom/ci",
     "custom/bluetooth",
     "sway/workspaces",
     "sway/mode",
@@ -127,9 +127,9 @@
     "on-click": "xdg-open https://review.lineageos.org/q/status:merged+branch:lineage-18.1",
     "tooltip": false
   },
-  "custom/keep": {
-    "format": "",
-    "on-click": "xdg-open https://keep.google.com/",
+  "custom/ci": {
+    "format": "",
+    "on-click": "$HOME/.config/scripts/ci.sh",
     "tooltip": false
   },
   "custom/bluetooth": {
