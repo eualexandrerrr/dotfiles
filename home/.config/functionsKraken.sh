@@ -1,9 +1,12 @@
 #!/usr/bin/env bash
 
+source $HOME/.colors &>/dev/null
+
 [ $(cat /etc/hostname) = mamutal91-v2 ] && HOME=/home/mamutal91
 
 function lmi() {
-  dot && clear && ssh mamutal91@86.109.7.111 "$HOME/.dotfiles/home/.config/kraken/lmi.sh"
+  echo "${RED}Wait, reclining dotfiles to have the latest changes...${END}"
+  dot &>/dev/null && clear && ssh mamutal91@86.109.7.111 "bash $HOME/.dotfiles/home/.config/kraken/lmi.sh"
 }
 
 function gerrit() {
