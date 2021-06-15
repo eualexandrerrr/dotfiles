@@ -46,7 +46,7 @@ function translate() {
   rm -rf $typing && nano $typing
   msg=$(trans -b :en -no-auto -i $typing)
   typing=$(cat $typing)
-  echo -e "${BOL_RED}Message commit: ${YEL}${msg}${END}\n"
+  echo -e "${BOL_RED}Message: ${YEL}${msg}${END}\n"
 }
 
 function gitpush() {
@@ -58,14 +58,14 @@ function gitpush() {
   }
 
   if [[ $pwd = "/mnt/roms/jobs/KrakenDev" ]]; then
-    echo "${BOL_RED}No push!${END}"
+    echo "\n${BOL_RED}No push!${END}\n"
   else
     if [[ ${1} = force ]]; then
-      echo -e "\n${BOL_YEL}Pushing with --force!${END}"
+      echo -e "\n${BOL_YEL}Pushing with --force!${END}\n"
       blacklist
       git push -f
     else
-      echo -e "\n${BOL_YEL}Pushing!${END}"
+      echo -e "\n${BOL_YEL}Pushing!${END}\n"
       blacklist
       git push
     fi
