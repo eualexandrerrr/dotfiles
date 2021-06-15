@@ -7,9 +7,9 @@ grep -Po 'name=\"\K[^"]+(?=\")' $HOME/AOSPK/manifest/snippets/aosp.xml >> $tmp
 grep -Po 'name=\"\K[^"]+(?=\")' $HOME/AOSPK/manifest/snippets/extras.xml >> $tmp
 
 # Tags
-URL="https://review.lineageos.org/q/project:LineageOS/android_"
-URL=${URL//\//\\/}
-BRANCH="+branch:lineage-18.1+status:merged"
+url="https://review.lineageos.org/q/project:LineageOS/android_"
+url=${url//\//\\/}
+branch="+branch:lineage-18.1+status:merged"
 
 # Replace
 sed -i "s/Customizer/LineageCustomizer/g" $tmp
@@ -22,6 +22,6 @@ sed -i "s/packages_apps_LineageLineageizer/packages_apps_TvCustomizer/g" $tmp
 cat $tmp > $HOME/bookmarks_names.txt
 
 # Insert links and branch
-sed 's/^/LINK/;s/$/BRANCH/' $tmp > $HOME/bookmarks_link.txt
-sed -i "s/LINK/$URL/g" $HOME/bookmarks_link.txt
-sed -i "s/BRANCH/$BRANCH/g" $HOME/bookmarks_link.txt
+sed 's/^/LINK/;s/$/branch/' $tmp > $HOME/bookmarks_link.txt
+sed -i "s/LINK/$url/g" $HOME/bookmarks_link.txt
+sed -i "s/branch/$branch/g" $HOME/bookmarks_link.txt

@@ -22,59 +22,58 @@ function sync_repos() {
 }
 
 function push() {
-  HOSTNAME=$(cat /etc/hostname)
-  if [[ $HOSTNAME = mamutal91-v2 ]]; then
-    REPO=$(pwd | sed "s/\/mnt\/roms\/jobs\/KrakenDev\///; s/\//_/g")
+  if [[ $(cat /etc/hostname) = mamutal91-v2 ]]; then
+    repo=$(pwd | sed "s/\/mnt\/roms\/jobs\/KrakenDev\///; s/\//_/g")
   else
-    REPO=$(basename "`pwd`")
+    repo=$(basename "`pwd`")
   fi
-  GITHOST=github
-  ORG=AOSPK-DEV
-  BRANCH=eleven
-  FORCE=${1}
+  github=github
+  org=AOSPK-DEV
+  branch=eleven
+  force=${1}
   TOPIC=${2}
 
-  if [[ $REPO = "vendor_gapps" || $REPO = "vendor_google_gms" ]]; then
-    GITHOST=gitlab
-    ORG=AOSPK
+  if [[ $repo = "vendor_gapps" || $repo = "vendor_google_gms" ]]; then
+    github=gitlab
+    org=AOSPK
   fi
-  if [[ $REPO = "www" ]]; then
-    ORG=AOSPK
-    BRANCH=master
+  if [[ $repo = "www" ]]; then
+    org=AOSPK
+    branch=master
   fi
-  if [[ $REPO = "build_make" ]]; then
-    REPO=build
+  if [[ $repo = "build_make" ]]; then
+    repo=build
   fi
-  if [[ $REPO = "packages_apps_PermissionController" ]]; then
-    REPO=packages_apps_PackageInstaller
+  if [[ $repo = "packages_apps_PermissionController" ]]; then
+    repo=packages_apps_PackageInstaller
   fi
-  if [[ $REPO = "vendor_qcom_opensource_commonsys-intf_bluetooth" ]]; then
-    REPO=vendor_qcom_opensource_bluetooth-commonsys-intf
+  if [[ $repo = "vendor_qcom_opensource_commonsys-intf_bluetooth" ]]; then
+    repo=vendor_qcom_opensource_bluetooth-commonsys-intf
   fi
-  if [[ $REPO = "vendor_qcom_opensource_commonsys-intf_display" ]]; then
-    REPO=vendor_qcom_opensource_display-commonsys-intf
+  if [[ $repo = "vendor_qcom_opensource_commonsys-intf_display" ]]; then
+    repo=vendor_qcom_opensource_display-commonsys-intf
   fi
-  if [[ $REPO = "vendor_qcom_opensource_commonsys_bluetooth_ext" ]]; then
-    REPO=vendor_qcom_opensource_bluetooth_ext
+  if [[ $repo = "vendor_qcom_opensource_commonsys_bluetooth_ext" ]]; then
+    repo=vendor_qcom_opensource_bluetooth_ext
   fi
-  if [[ $REPO = "vendor_qcom_opensource_commonsys_packages_apps_Bluetooth" ]]; then
-    REPO=vendor_qcom_opensource_packages_apps_Bluetooth
+  if [[ $repo = "vendor_qcom_opensource_commonsys_packages_apps_Bluetooth" ]]; then
+    repo=vendor_qcom_opensource_packages_apps_Bluetooth
   fi
-  if [[ $REPO = "vendor_qcom_opensource_commonsys_system_bt" ]]; then
-    REPO=vendor_qcom_opensource_system_bt
+  if [[ $repo = "vendor_qcom_opensource_commonsys_system_bt" ]]; then
+    repo=vendor_qcom_opensource_system_bt
   fi
 
   if [[ ${1} = "gerrit" ]]; then
-    echo "${BOL_BLU}Pushing to ${BOL_BLU}gerrit.aospk.org${END} - ${BRANCH} ${RED}${FORCE}${END}"
+    echo "${BOL_BLU}Pushing to ${BOL_BLU}gerrit.aospk.org${END} - ${branch} ${RED}${force}${END}"
     if [ -z "${TOPIC}" ]
     then
-      git push ssh://mamutal91@gerrit.aospk.org:29418/${REPO} HEAD:refs/for/${BRANCH}%l=Verified+1,l=Code-Review+2,topic=${TOPIC}
+      git push ssh://mamutal91@gerrit.aospk.org:29418/${repo} HEAD:refs/for/${branch}%l=Verified+1,l=Code-Review+2,topic=${TOPIC}
     else
-      git push ssh://mamutal91@gerrit.aospk.org:29418/${REPO} HEAD:refs/for/${BRANCH}%l=Verified+1,l=Code-Review+2,topic=${TOPIC}
+      git push ssh://mamutal91@gerrit.aospk.org:29418/${repo} HEAD:refs/for/${branch}%l=Verified+1,l=Code-Review+2,topic=${TOPIC}
     fi
   else
-    echo "${BOL_BLU}Pushing to ${GITHOST}.com/${GRE}${ORG}${END}/${BLU}${REPO}${END} - ${BRANCH} ${RED}${FORCE}${END}"
-    git push ssh://git@${GITHOST}.com/${ORG}/${REPO} HEAD:refs/heads/${BRANCH} ${FORCE}
+    echo "${BOL_BLU}Pushing to ${github}.com/${GRE}${org}${END}/${BLU}${repo}${END} - ${branch} ${RED}${force}${END}"
+    git push ssh://git@${github}.com/${org}/${repo} HEAD:refs/heads/${branch} ${force}
   fi
 }
 
@@ -117,7 +116,7 @@ upstream() {
   cd ${1}
   gh repo create AOSPK/${i} --public --confirm &>/dev/null
   gh repo create AOSPK-DEV/${i} --private --confirm &>/dev/null
-  cd ${REPO} && git push ssh://git@github.com/AOSPK/${i} HEAD:refs/heads/eleven --force
+  cd ${repo} && git push ssh://git@github.com/AOSPK/${i} HEAD:refs/heads/eleven --force
 
   rm -rf $workingDir
 }
