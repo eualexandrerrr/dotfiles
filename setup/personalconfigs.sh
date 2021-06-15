@@ -20,7 +20,7 @@ mkdir -p $HOME/{Images,Videos,GitHub} &>/dev/null
 
 # My Tokens
 rm -rf $HOME/GitHub/mytokens
-if [ -e $HOME/.ssh/id_rsa ]; then
+if [[ -e $HOME/.ssh/id_rsa ]]; then
   echo "${BOL_BLU}Cloning repos my * T O K E N S * with ${BOL_YEL}SSH${END}"
   git clone ssh://git@github.com/mamutal91/mytokens $HOME/GitHub/mytokens
 else
@@ -49,10 +49,10 @@ function cloneRepos() {
   git clone ssh://git@github.com/mamutal91/shellscript-atom-snippets $HOME/GitHub/shellscript-atom-snippets
 
   # myapps
-  if [ ! -d "$HOME/GitHub/myapps" ]; then
+  if [[ ! -d $HOME/GitHub/myapps ]]; then
     echo "${BOL_YEL}Copying myapps${END}"
     git clone ssh://git@github.com/mamutal91/myapps $HOME/GitHub/myapps # O últomo a ser clonado devido o tamanho...
-    if [ $? -eq 0 ]; then
+    if [[ $? -eq 0 ]]; then
       echo "${GRE}Clone myapps success${END}"
     else
       echo "${RED}Clone myapps failure${END}"

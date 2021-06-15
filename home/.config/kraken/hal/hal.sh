@@ -13,7 +13,7 @@ repos=(
 branchLineage="lineage-18.1-caf-${1}"
 branchKraken="eleven-caf-${1}"
 
-for i in "${repos[@]}"; do
+for i in ${repos[@]}; do
   rm -rf ${i}
   echo "${BLU}Clonando https://github.com/LineageOS/android_${i} -b $branchLineage em ${i}${END}"
   git clone https://github.com/LineageOS/android_${i} -b $branchLineage ${i}

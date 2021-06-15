@@ -3,7 +3,7 @@
 HOSTNAME=$(cat /etc/hostname)
 
 # modprobe.d
-[ $HOSTNAME = "odin" ] && echo "options ath10k_pci fwlps=0" | sudo tee -a /etc/modprobe.d/ath10k_pci.conf > /dev/null
+[ $HOSTNAME = odin ] && echo "options ath10k_pci fwlps=0" | sudo tee -a /etc/modprobe.d/ath10k_pci.conf > /dev/null
 
 # systemd Auto Login
 sudo rm -rf /etc/systemd/system/getty@tty1.service.d/override.conf

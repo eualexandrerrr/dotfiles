@@ -21,7 +21,7 @@ bt4="KD-750"
 
 devices="$scan\n$bt1\n$bt2\n$bt3\n$bt4"
 
-chosen="$(echo -e "$devices" | wofi --lines 5 --sort-order=DEFAULT --dmenu -p "  Bluetooth")"
+chosen="$(echo -e $devices | wofi --lines 5 --sort-order=DEFAULT --dmenu -p "  Bluetooth")"
 case $chosen in
     $scan)
       bluetoothctl scan on;;

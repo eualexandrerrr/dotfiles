@@ -4,13 +4,13 @@ iconpath="/usr/share/icons/Papirus-Dark/32x32/devices"
 icon="${iconpath}/camera.svg"
 
 dir="$HOME/Images/Screenshots/"
-if [ ! -d "$dir" ]; then
+if [[ ! -d "$dir" ]]; then
 	mkdir -p $dir
 fi
 
 date=$(date +"%Y%m%d-%H%M")
 
-if [ ${1} = "window" ]; then
+if [[ ${1} = "window" ]]; then
 	img="$dir/window-$date.png"
 	grim -g "$(slurp -d)" "$img"
 	wl-copy < $img

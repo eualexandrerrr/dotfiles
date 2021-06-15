@@ -19,11 +19,11 @@ source $HOME/.dotfiles/setup/packages.sh
 curl -sS https://download.spotify.com/debian/pubkey_0D811D58.gpg | gpg --import -
 
 # Install packages
-for i in "${packages[@]}"; do
+for i in ${packages[@]}; do
   sudo pacman -Sy ${i} --needed --noconfirm
 done
 
-for i in "${aur[@]}"; do
+for i in ${aur[@]}; do
   yay -Sy ${i} --needed --noconfirm
 done
 

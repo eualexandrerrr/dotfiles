@@ -42,7 +42,7 @@ done
 
 cd ${workingDir}/official_devices
 status=$(git add . -n)
-if [ ! -z "$status" ]; then
+if [[ ! -z "$status" ]]; then
   git config --global user.email "krakengerrit@gmail.com"
   git config --global user.name "Kraken Project Bot"
   git add . && git commit -m "[KRAKEN-CI] Automatic structuring" && git push

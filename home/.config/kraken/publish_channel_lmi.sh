@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-if [ -z ${1} ]; then
+if [[ -z ${1} ]]; then
   echo "Você precisa definir o .zip, exemplo, ./publish_channel_lmi.sh Kraken-11-GApps-20210611-1919-lmi.zip"
   exit
 else
@@ -37,7 +37,7 @@ changelogSource="*Source changelog:*
 changelogDevice="*Device changelog:*
 $(cat ${changelogFile})"
 
-if [ -z "$changelogSource" ]; then
+if [[ -z "$changelogSource" ]]; then
   changelogFull="$changelogDevice"
 else
   changelogFull="$changelogSource

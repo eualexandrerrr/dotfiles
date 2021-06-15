@@ -19,7 +19,7 @@ enable="$cli enable-job"
 
 # Temporary commands
 tree_wip=true
-if [ $tree_wip = true ]; then
+if [[ $tree_wip = true ]]; then
   build="$cli build KrakenDev -p use_tree_wip=true -p rebase_tree_wip=true"
 fi
 

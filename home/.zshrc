@@ -9,7 +9,7 @@ HIST_STAMPS="dd/mm/yyyy"
 plugins=(git)
 
 ZSH_CACHE_DIR=$HOME/.cache/oh-my-zsh
-if [ ! -d $ZSH_CACHE_DIR ]; then
+if [[ ! -d $ZSH_CACHE_DIR ]]; then
   mkdir $ZSH_CACHE_DIR
 fi
 

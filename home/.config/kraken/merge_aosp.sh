@@ -22,7 +22,7 @@ usage() {
 }
 
 # Verify argument count
-if [ "$#" -ne 3 ]; then
+if [[ "$#" -ne 3 ]]; then
     usage
     exit 1
 fi
@@ -31,13 +31,13 @@ OPERATION="${1}"
 OLDTAG="${2}"
 NEWTAG="${3}"
 
-if [ "${OPERATION}" != "merge" -a "${OPERATION}" != "rebase" ]; then
+if [[ "${OPERATION}" != "merge" -a "${OPERATION}" != "rebase" ]]; then
     usage
     exit 1
 fi
 
 # Check to make sure this is being run from the top level repo dir
-if [ ! -e "build/envsetup.sh" ]; then
+if [[ ! -e "build/envsetup.sh" ]]; then
     echo "Must be run from the top level repo dir"
     exit 1
 fi
@@ -61,7 +61,7 @@ echo -e "#### Old tag = ${OLDTAG} \n#### Branch = ${BRANCH} \n#### Staging branc
 echo "#### Verifying there are no uncommitted changes on Kraken forked AOSP projects ####"
 for PROJECTPATH in ${PROJECTPATHS} .repo/manifests; do
     cd "${TOP}/${PROJECTPATH}"
-    if [ -n "$(git status --porcelain)" ]; then
+    if [[ -n "$(git status --porcelain)" ]]; then
         echo "Path ${PROJECTPATH} has uncommitted changes. Please fix."
         exit 1
     fi
@@ -89,14 +89,14 @@ for PROJECTPATH in ${PROJECTPATHS}; do
 
     # Check if we've actually changed anything before attempting to merge
     # If we haven't, just "git reset --hard" to the tag
-    if [ -z "$(git diff HEAD ${OLDTAG})" ]; then
+    if [[ -z "$(git diff HEAD ${OLDTAG})" ]]; then
         git reset --hard "${NEWTAG}"
         echo -e "reset\t\t${PROJECTPATH}" | tee -a "${MERGEDREPOS}"
         continue
     fi
 
     # Was there any change upstream? Skip if not.
-    if [ -z "$(git diff ${OLDTAG} ${NEWTAG})" ]; then
+    if [[ -z "$(git diff ${OLDTAG} ${NEWTAG})" ]]; then
         echo -e "nochange\t\t${PROJECTPATH}" | tee -a "${MERGEDREPOS}"
         continue
     fi
@@ -105,22 +105,22 @@ for PROJECTPATH in ${PROJECTPATHS}; do
     # ie is history consistent.
     git merge-base --is-ancestor "${OLDTAG}" "${NEWTAG}"
     # If no, force rebase.
-    if [ "$?" -eq 1 ]; then
+    if [[ "$?" -eq 1 ]]; then
         echo -n "#### Project ${PROJECTPATH} old tag ${OLD} is not an ancestor "
         echo    "of new tag ${NEWTAG}, forcing rebase ####"
         PROJECTOPERATION="rebase"
     fi
 
-    if [ "${PROJECTOPERATION}" == "merge" ]; then
+    if [[ "${PROJECTOPERATION}" == "merge" ]]; then
         echo "#### Merging ${NEWTAG} into ${PROJECTPATH} ####"
         git merge --no-edit --log "${NEWTAG}"
-    elif [ "${PROJECTOPERATION}" == "rebase" ]; then
+    elif [[ "${PROJECTOPERATION}" == "rebase" ]]; then
         echo "#### Rebasing ${PROJECTPATH} onto ${NEWTAG} ####"
         git rebase --onto "${NEWTAG}" "${OLDTAG}"
     fi
 
     CONFLICT=""
-    if [ -n "$(git status --porcelain)" ]; then
+    if [[ -n "$(git status --porcelain)" ]]; then
         CONFLICT="conflict-"
     fi
     echo -e "${CONFLICT}${PROJECTOPERATION}\t\t${PROJECTPATH}" | tee -a "${MERGEDREPOS}"
@@ -186,7 +186,7 @@ colorBlank='\033[0m'
 function is_in_blacklist() {
     for repo in ${blacklist[@]}
     do
-        if [ "$repo" == "$1" ]; then
+        if [[ "$repo" == "$1" ]]; then
             return 0;
         fi
     done
@@ -226,7 +226,7 @@ function force_sync() {
     echo "${BOL_CYA}Repo Syncing...${END}"
     sleep 5
     repo sync -c -j$(nproc --all) --no-clone-bundle --current-branch --no-tags --force-sync >> /dev/null
-    if [ $? -eq 0 ]; then
+    if [[ $? -eq 0 ]]; then
         echo "${GRE}Repo Sync success${END}"
     else
         echo "${RED}Repo Sync failure${END}"
@@ -238,7 +238,7 @@ function merge() {
     echo -e "\n${CYA}Merging ${GRE}$1${END} \n"
     cd $workingDir/$1
     git pull $REPO/$1.git -t $branchAOSP --no-edit
-    if [ $? -ne 0 ]; then # If merge failed
+    if [[ $? -ne 0 ]]; then # If merge failed
         git_status=$(git status)
         if grep -q "You have unmerged paths" <<<"$git_status"; then
             failed+=($1) # Add to the list
@@ -250,7 +250,7 @@ function build_repo() {
     echo -e "\n${CYA}Merging build/make ${END}\n"
     cd $workingDir/build/make
     git pull $REPO/build.git -t $branchAOSP --no-edit
-    if [ $? -ne 0 ]; then # If merge failed
+    if [[ $? -ne 0 ]]; then # If merge failed
         git_status=$(git status)
         if grep -q "You have unmerged paths" <<<"$git_status"; then
             failed+=('build/make') # Add to the list
@@ -262,7 +262,7 @@ function permission_controller_repo() {
     echo -e "\n${CYA}Merging packages/apps/PermissionController${END} \n"
     cd $workingDir/packages/apps/PermissionController
     git pull https://android.googlesource.com/platform/packages/apps/PackageInstaller.git -t $branchAOSP --no-edit
-    if [ $? -ne 0 ]; then # If merge failed
+    if [[ $? -ne 0 ]]; then # If merge failed
         git_status=$(git status)
         if grep -q "You have unmerged paths" <<<"$git_status"; then
             failed+=('packages/apps/PermissionController') # Add to the list
@@ -271,7 +271,7 @@ function permission_controller_repo() {
 }
 
 function print_result() {
-    if [ ${#failed[@]} -eq 0 ]; then
+    if [[ ${#failed[@]} -eq 0 ]]; then
         echo ""
         echo "========== "$branchAOSP" is merged sucessfully =========="
         echo "========= Compile and test before pushing to github ========="
