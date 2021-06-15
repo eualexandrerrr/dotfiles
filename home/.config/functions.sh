@@ -71,8 +71,8 @@ function gitpush() {
     fi
   fi
 
-  [ $pwdFolder = .dotfiles ] && echo "${BOL_BLU}Cloning dotfiles and infra in servers...${END}" && dot &>/dev/null && exit
-  [ $pwdFolder = infra ] && echo "${BOL_BLU}Cloning dotfiles and infra in servers...${END}" && infraKraken &>/dev/null && exit
+  [ $pwdFolder = .dotfiles ] && echo -e "\n${BOL_BLU}Cloning dotfiles and infra in servers...${END}" && dot &>/dev/null && exit
+  [ $pwdFolder = infra ] && echo -e "\n${BOL_BLU}Cloning dotfiles and infra in servers...${END}" && infraKraken &>/dev/null && exit
 }
 
 function cm() {
