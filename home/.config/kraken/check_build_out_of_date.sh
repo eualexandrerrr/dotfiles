@@ -27,12 +27,12 @@ for maintainer in $(jq '.[] | select(.name|test("^")) | .telegram_username' $jso
 
     deprecated=$(jq -r ".[] | select(.codename == \"${device}\") | .deprecated" $jsonDevices)
 
-    if [[ $deprecated = true ]]; then
+    if [ $deprecated = true ]; then
       continue
     fi
 
     # Verifica se existe builds
-    if [ -n "$(ls -A ${workingDir}/official_devices/changelogs/eleven/gapps/${device} 2>/dev/null)" ];then
+    if [ -n "$(ls -A ${workingDir}/official_devices/changelogs/eleven/gapps/${device} 2>/dev/null)" ]; then
       cd ${workingDir}/official_devices/changelogs/eleven/gapps/${device} &>/dev/null
         for builds in $(ls); do
           year=$(echo $builds | cut -c17-20)
@@ -59,13 +59,13 @@ for maintainer in $(jq '.[] | select(.name|test("^")) | .telegram_username' $jso
     echo -e " ${BOL_GRE}Última build: ${END}${GRE}$lastBuild"
     echo -e " ${BOL_GRE}Data atual: ${END}${GRE}$lastBuild"
     echo -e " ${BOL_GRE}Dias sem postar: ${END}${BOL_RED}$daysWithou${END}"
-    if [[ $build != true ]]; then
+    if [ $build != true ]; then
       echo -e " ${BOL_RED}O DEVICE NÃO TEM BUILD LANÇADA${END}"
     fi
 
-    if [[ $daysWithou -ge 30 ]]; then
-      if [[ $build = true ]]; then
-        if [[ $daysWithou = "1" ]]; then
+    if [ $daysWithou -ge 30 ]; then
+      if [ $build = true ]; then
+        if [ $daysWithou = "1" ]; then
           daysFormatted="${daysWithou} day"
         else
           daysFormatted="${daysWithou} days"
@@ -105,7 +105,7 @@ rm -rf $workingDir
 
 echo "Finished successfully."
 read -r -p "${BOL_RED}Post in my group maintainers? [Y/n] [enter=no]" confirmPost
-if [[ ! "$confirmPost" =~ ^(y|Y) ]]; then
+if [ ! "$confirmPost" =~ ^(y|Y) ]; then
   exit
 else
   sendMessage

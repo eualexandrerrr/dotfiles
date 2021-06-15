@@ -29,7 +29,7 @@ for i in "${repos[@]}"; do
   echo
 done
 
-if [[ ${i} = hardware_qcom_bootctrl || ${i} = hardware_qcom_bt || ${i} = hardware_qcom_wlan ]]; then
+if [ ${i} = hardware_qcom_bootctrl || ${i} = hardware_qcom_bt || ${i} = hardware_qcom_wlan ]; then
   branchLOS="lineage-18.1-caf"
   branchKK="eleven-caf"
 fi

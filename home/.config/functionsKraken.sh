@@ -22,7 +22,7 @@ function sync_repos() {
 }
 
 function push() {
-  if [[ $(cat /etc/hostname) = mamutal91-v2 ]]; then
+  if [ $(cat /etc/hostname) = mamutal91-v2 ]; then
     repo=$(pwd | sed "s/\/mnt\/roms\/jobs\/KrakenDev\///; s/\//_/g")
   else
     repo=$(basename "`pwd`")
@@ -33,37 +33,37 @@ function push() {
   force=${1}
   TOPIC=${2}
 
-  if [[ $repo = "vendor_gapps" || $repo = "vendor_google_gms" ]]; then
+  if [ $repo = "vendor_gapps" || $repo = "vendor_google_gms" ]; then
     github=gitlab
     org=AOSPK
   fi
-  if [[ $repo = "www" ]]; then
+  if [ $repo = "www" ]; then
     org=AOSPK
     branch=master
   fi
-  if [[ $repo = "build_make" ]]; then
+  if [ $repo = "build_make" ]; then
     repo=build
   fi
-  if [[ $repo = "packages_apps_PermissionController" ]]; then
+  if [ $repo = "packages_apps_PermissionController" ]; then
     repo=packages_apps_PackageInstaller
   fi
-  if [[ $repo = "vendor_qcom_opensource_commonsys-intf_bluetooth" ]]; then
+  if [ $repo = "vendor_qcom_opensource_commonsys-intf_bluetooth" ]; then
     repo=vendor_qcom_opensource_bluetooth-commonsys-intf
   fi
-  if [[ $repo = "vendor_qcom_opensource_commonsys-intf_display" ]]; then
+  if [ $repo = "vendor_qcom_opensource_commonsys-intf_display" ]; then
     repo=vendor_qcom_opensource_display-commonsys-intf
   fi
-  if [[ $repo = "vendor_qcom_opensource_commonsys_bluetooth_ext" ]]; then
+  if [ $repo = "vendor_qcom_opensource_commonsys_bluetooth_ext" ]; then
     repo=vendor_qcom_opensource_bluetooth_ext
   fi
-  if [[ $repo = "vendor_qcom_opensource_commonsys_packages_apps_Bluetooth" ]]; then
+  if [ $repo = "vendor_qcom_opensource_commonsys_packages_apps_Bluetooth" ]; then
     repo=vendor_qcom_opensource_packages_apps_Bluetooth
   fi
-  if [[ $repo = "vendor_qcom_opensource_commonsys_system_bt" ]]; then
+  if [ $repo = "vendor_qcom_opensource_commonsys_system_bt" ]; then
     repo=vendor_qcom_opensource_system_bt
   fi
 
-  if [[ ${1} = "gerrit" ]]; then
+  if [ ${1} = "gerrit" ]; then
     echo "${BOL_BLU}Pushing to ${BOL_BLU}gerrit.aospk.org${END} - ${branch} ${RED}${force}${END}"
     if [ -z "${TOPIC}" ]
     then
@@ -130,7 +130,7 @@ function up() {
 }
 
 function hals() {
-  if [[ $(cat /etc/hostname) = mamutal91-v2 ]]; then
+  if [ $(cat /etc/hostname) = mamutal91-v2 ]; then
     pwd=$(pwd)
     branch=(
       apq8084
@@ -163,7 +163,7 @@ function hals() {
 }
 
 function www() {
-  if [[ $(cat /etc/hostname) = mamutal91-v2 ]]; then
+  if [ $(cat /etc/hostname) = mamutal91-v2 ]; then
     cd $HOME && rm -rf www
     git clone ssh://git@github.com/AOSPK/www -b master www
     sudo rm -rf /mnt/roms/sites/www

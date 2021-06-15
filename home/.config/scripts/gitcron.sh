@@ -12,7 +12,7 @@ pwd=$(pwd)
 cd $HOME/GitHub/myhistory
 cp -rf $HOME/.zsh_history $HOME/GitHub/myhistory
 status=$(git add . -n)
-if [[ ! -z "$status" ]]; then
+if [ ! -z "$status" ]; then
   echo -e "${BOL_GRE}Copying .zsh_history${END}"
   m="Autocommit Git-Cron"
   git add .
@@ -22,7 +22,7 @@ fi
 cd $pwd
 
 # My notebook
-if [[ $(cat /etc/hostname) = odin ]]; then
+if [ $(cat /etc/hostname) = odin ]; then
   #MyApps
   play $HOME/.config/sounds/gitcron.wav &>/dev/null
   notify-send -i $icon "GitCron" "Starting backups..."
@@ -32,7 +32,7 @@ if [[ $(cat /etc/hostname) = odin ]]; then
     echo -e "${BOL_RED}Copying configs ${i}${END}"
     cp -rf $HOME/.config/${i} $HOME/GitHub/myapps
 
-    if [[ $i = Atom ]]; then
+    if [ $i = Atom ]; then
       echo -e "${BOL_GRE}Copying .atom${END}"
       mkdir -p $HOME/GitHub/myapps/.atom
       cp -rf $HOME/.atom/* $HOME/GitHub/myapps/.atom
@@ -41,7 +41,7 @@ if [[ $(cat /etc/hostname) = odin ]]; then
     pwd=$(pwd)
     cd $HOME/GitHub/myapps
     status=$(git add . -n)
-    if [[ ! -z "$status" ]]; then
+    if [ ! -z "$status" ]; then
       m="Autocommit Git-Cron: ${i}"
       git add .
       git commit -m "${m}" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>" --date "$(date)"
@@ -53,7 +53,7 @@ if [[ $(cat /etc/hostname) = odin ]]; then
 fi
 
 # Kraken
-if [[ $(cat /etc/hostname) = mamutal91-v2 ]]; then
+if [ $(cat /etc/hostname) = mamutal91-v2 ]; then
   m="Autocommit Git-Cron"
   pwd=$(pwd)
   sudo rm -rf /home/mamutal91/.gerrit
@@ -71,7 +71,7 @@ if [[ $(cat /etc/hostname) = mamutal91-v2 ]]; then
 fi
 
 # BuildersBR
-if [[ $(cat /etc/hostname) = buildersbr.ninja-v2 ]]; then
+if [ $(cat /etc/hostname) = buildersbr.ninja-v2 ]; then
   m="Autocommit Git-Cron"
   pwd=$(pwd)
   sudo rm -rf /home/mamutal91/.jenkins

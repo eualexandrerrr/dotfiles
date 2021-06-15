@@ -4,7 +4,7 @@ iconpath="/usr/share/icons/Papirus-Dark/32x32/devices"
 icon="${iconpath}/camera-video.svg"
 
 dir="$HOME/Videos/Screencasts/"
-if [[ ! -d "$dir" ]]; then
+if [ ! -d "$dir" ]; then
 	mkdir -p $dir
 fi
 

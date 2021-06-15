@@ -7,7 +7,7 @@ source $HOME/.colors
 
 HOSTNAME=$(cat /etc/hostname)
 
-if [[ $HOSTNAME = mamutal91-v2 || $HOSTNAME = buildersbr.ninja-v2 ]]; then
+if [ $HOSTNAME = mamutal91-v2 || $HOSTNAME = buildersbr.ninja-v2 ]; then
   echo "${GRE}Updating apt${END}"
   sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y
 else

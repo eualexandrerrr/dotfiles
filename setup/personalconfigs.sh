@@ -20,7 +20,7 @@ mkdir -p $HOME/{Images,Videos,GitHub} &>/dev/null
 
 # My Tokens
 rm -rf $HOME/GitHub/mytokens
-if [[ -e $HOME/.ssh/id_rsa ]]; then
+if [ -e $HOME/.ssh/id_rsa ]; then
   echo "${BOL_YEL}Waiting... ${BOL_BLU}cloning repos my * T O K E N S * with ${BOL_YEL}SSH${END}"
   git clone ssh://git@github.com/mamutal91/mytokens $HOME/GitHub/mytokens
 else

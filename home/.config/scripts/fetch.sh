@@ -155,7 +155,7 @@ reset=$(tput sgr0;)
 
 # Verifica se há argumentos, se o script não for chamado com o argumento "gnu"
 # vai executar com a lago ascii do arch padrão
-[[ -n $@ ]] && art=$1 || art=arch
+[ -n $@ ] && art=$1 || art=arch
 
 # Gera informaçoes de acordo com a art escolhida
 case $art in

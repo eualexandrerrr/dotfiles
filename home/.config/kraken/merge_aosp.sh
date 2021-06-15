@@ -61,7 +61,7 @@ echo -e "#### Old tag = ${OLDTAG} \n#### Branch = ${BRANCH} \n#### Staging branc
 echo "#### Verifying there are no uncommitted changes on Kraken forked AOSP projects ####"
 for PROJECTPATH in ${PROJECTPATHS} .repo/manifests; do
     cd "${TOP}/${PROJECTPATH}"
-    if [[ -n "$(git status --porcelain)" ]]; then
+    if [ -n "$(git status --porcelain)" ]; then
         echo "Path ${PROJECTPATH} has uncommitted changes. Please fix."
         exit 1
     fi
@@ -89,14 +89,14 @@ for PROJECTPATH in ${PROJECTPATHS}; do
 
     # Check if we've actually changed anything before attempting to merge
     # If we haven't, just "git reset --hard" to the tag
-    if [[ -z "$(git diff HEAD ${OLDTAG})" ]]; then
+    if [ -z "$(git diff HEAD ${OLDTAG})" ]; then
         git reset --hard "${NEWTAG}"
         echo -e "reset\t\t${PROJECTPATH}" | tee -a "${MERGEDREPOS}"
         continue
     fi
 
     # Was there any change upstream? Skip if not.
-    if [[ -z "$(git diff ${OLDTAG} ${NEWTAG})" ]]; then
+    if [ -z "$(git diff ${OLDTAG} ${NEWTAG})" ]; then
         echo -e "nochange\t\t${PROJECTPATH}" | tee -a "${MERGEDREPOS}"
         continue
     fi
@@ -105,22 +105,22 @@ for PROJECTPATH in ${PROJECTPATHS}; do
     # ie is history consistent.
     git merge-base --is-ancestor "${OLDTAG}" "${NEWTAG}"
     # If no, force rebase.
-    if [[ "$?" -eq 1 ]]; then
+    if [ "$?" -eq 1 ]; then
         echo -n "#### Project ${PROJECTPATH} old tag ${OLD} is not an ancestor "
         echo    "of new tag ${NEWTAG}, forcing rebase ####"
         PROJECTOPERATION="rebase"
     fi
 
-    if [[ "${PROJECTOPERATION}" == "merge" ]]; then
+    if [ "${PROJECTOPERATION}" == "merge" ]; then
         echo "#### Merging ${NEWTAG} into ${PROJECTPATH} ####"
         git merge --no-edit --log "${NEWTAG}"
-    elif [[ "${PROJECTOPERATION}" == "rebase" ]]; then
+    elif [ "${PROJECTOPERATION}" == "rebase" ]; then
         echo "#### Rebasing ${PROJECTPATH} onto ${NEWTAG} ####"
         git rebase --onto "${NEWTAG}" "${OLDTAG}"
     fi
 
     CONFLICT=""
-    if [[ -n "$(git status --porcelain)" ]]; then
+    if [ -n "$(git status --porcelain)" ]; then
         CONFLICT="conflict-"
     fi
     echo -e "${CONFLICT}${PROJECTOPERATION}\t\t${PROJECTPATH}" | tee -a "${MERGEDREPOS}"
