@@ -7,14 +7,14 @@ function dot() {
   if [ ${1} ]; then
     cd $HOME && rm -rf .dotfiles && git clone ssh://git@github.com/mamutal91/dotfiles .dotfiles && source $HOME/.zshrc
   else
-    echo -e "\n${BLU}recloning ${CYA}dotfiles ${BLU}to have the latest changes...${END}"
+    echo -e "\n${BLU}Recloning ${CYA}dotfiles ${BLU}to have the latest changes...${END}"
     ssh mamutal91@86.109.7.111 "cd $HOME && rm -rf .dotfiles && git clone ssh://git@github.com/mamutal91/dotfiles .dotfiles && bash $HOME/.dotfiles/install.sh && source $HOME/.zshrc" &>/dev/null
     ssh mamutal91@147.75.80.89 "cd $HOME && rm -rf .dotfiles && git clone ssh://git@github.com/mamutal91/dotfiles .dotfiles && bash $HOME/.dotfiles/install.sh && source $HOME/.zshrc" &>/dev/null
   fi
 }
 
 function infra() {
-  echo -e "\n${YEL}Wait... ${BLU}recloning ${CYA}infra ${BLU}to have the latest changes...${END}"
+  echo -e "\n${BLU}Recloning ${CYA}infra ${BLU}to have the latest changes...${END}"
   ssh mamutal91@86.109.7.111 "cd $HOME && rm -rf /mnt/roms/infra && git clone ssh://git@github.com/AOSPK/infra /mnt/roms/infra"
 }
 
@@ -68,6 +68,7 @@ function gitpush() {
   [ $pwdFolder = .dotfiles ] && dot && exit
   [ $pwdFolder = infra ] && infra && exit
   [ $pwdFolder = shellscript-atom-snippets ] && export ATOM_ACCESS_TOKEN=${atomToken} && apm publish minor && apm update mamutal91-shellscript-snippets-atom --noconfirm
+  [ $pwdFolder = mytokens ] && cp -rf $HOME/GitHub/mytokens/.myTokens $HOME &>/dev/null
 }
 
 function cm() {

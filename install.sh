@@ -22,11 +22,11 @@ echo "${RED}/etc/ ${GRE}configured.${END}"
 bash $HOME/.dotfiles/setup/etc.sh
 
 # Settings to use on my /root
-[ $USER = mamutal91 ] && sudo cp -rf /home/mamutal91/.dotfiles/home/.nanorc /root &>/dev/null
+[ $USER = mamutal91 ] && sudo cp -rf $HOME/.dotfiles/home/.nanorc /root &>/dev/null
 
 # Copy my tokens
-[ $(cat /etc/hostname) = mamutal91-v2 ] && rm -rf $HOME/.mytokensfolder && git clone ssh://git@github.com/mamutal91/mytokens $HOME/.mytokensfolder && cp -rf /home/mamutal91/.mytokensfolder/.myTokens $HOME &>/dev/null
-[ $(cat /etc/hostname) = odin ] && cp -rf /home/mamutal91/GitHub/mytokens/.myTokens $HOME &>/dev/null
+[ $(cat /etc/hostname) = mamutal91-v2 ] && rm -rf $HOME/.mytokensfolder && git clone ssh://git@github.com/mamutal91/mytokens $HOME/.mytokensfolder && cp -rf $HOME/.mytokensfolder/.myTokens $HOME &>/dev/null
+[ $(cat /etc/hostname) = odin ] && cp -rf $HOME/GitHub/mytokens/.myTokens $HOME &>/dev/null
 
 # Restart sway
 play $HOME/.config/sounds/completed.wav &>/dev/null
