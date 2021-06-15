@@ -24,8 +24,8 @@ export STUDIO_JDK=/usr/lib/jvm/java-11-openjdk
 
 # sudo easy
 alias chmod="sudo chmod"
-alias cp="sudo rsync -avz --progress"
-alias mv="sudo rsync -avz --progress --remove-source-files"
+alias cp -rf="sudo rsync -av --progress"
+alias mv="sudo rsync -av --progress --remove-source-files"
 alias pacman="sudo pacman"
 alias pkill="sudo pkill"
 alias rm="sudo rm"

@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-source $HOME/.myTokens &>/dev/null # $myUser $myPass
-
-kraken=$HOME/AOSPK
 github=$HOME/GitHub
 
 repo01="01.   dotfiles"
@@ -18,11 +15,13 @@ repo10="10.   stop and clear/limpar queue"
 repo11="11.   enable-jobs"
 repo12="12.   disable-jobs"
 repo13="13.   myarch"
-repo14="14.   custom-rom"
+repo14="14.   mytokens"
+repo15="15.   custom-rom"
+repo16="16.   shellscript-atom-snippets"
 
-menu="$repo01\n$repo02\n$repo03\n$repo04\n$repo05\n$repo06\n$repo07\n$repo08\n$repo09\n$repo10\n$repo11\n$repo12\n$repo13\n$repo14"
+menu="$repo01\n$repo02\n$repo03\n$repo04\n$repo05\n$repo06\n$repo07\n$repo08\n$repo09\n$repo10\n$repo11\n$repo12\n$repo13\n$repo14\n$repo15\n$repo16"
 
-chosen="$(echo -e "$menu" | wofi --lines 14 --sort-order=alphabetical --dmenu -p "  myMenu")"
+chosen="$(echo -e "$menu" | wofi --lines 16 --sort-order=alphabetical --dmenu -p "  myMenu")"
 case $chosen in
   $repo01) alacritty -t mywindowfloat --working-directory $HOME/.dotfiles;;
   $repo02) alacritty -t mywindowfloat --working-directory $github/infra;;
@@ -37,6 +36,8 @@ case $chosen in
   $repo11) alacritty -t mywindowfloat -e $HOME/.config/scripts/runCI.sh enableJobs;;
   $repo12) alacritty -t mywindowfloat -e $HOME/.config/scripts/runCI.sh disableJobs;;
   $repo13) alacritty -t mywindowfloat --working-directory $github/myarch;;
-  $repo14) alacritty -t mywindowfloat --working-directory $github/custom-rom;;
+  $repo14) alacritty -t mywindowfloat --working-directory $github/mytokens;;
+  $repo15) alacritty -t mywindowfloat --working-directory $github/custom-rom;;
+  $repo16) alacritty -t mywindowfloat --working-directory $github/shellscript-atom-snippets;;
 esac
 exit 0;

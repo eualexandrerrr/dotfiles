@@ -3,9 +3,9 @@
 source $HOME/.colors &>/dev/null
 
 echo -e "${BOL_BLU}Starting script...${END}\n"
-chmod +x $HOME/.scripttest/scripttest.sh
+chmod +x $HOME/.scripter/scripter.sh
 
-bash $HOME/.scripttest/scripttest.sh
+bash $HOME/.scripter/scripter.sh
 
 echo -e "\n"
 read -p "${BOL_RED}Exit?${END}" -n 1 -r

@@ -9,7 +9,7 @@ rm -rf $HOME/.bash_profile .bashrc .config/mimeapps.list
 cd $HOME/.dotfiles
 for DOTFILES in $(find . -maxdepth 1  -not -name ".*" ! -name "setup" -type d -printf '%f\n')
 do
-  stow --adopt $DOTFILES || echo "Error on gnu/stow"
+  stow --adopt $DOTFILES || echo -e "${BOL_RED}Error on gnu/stow${END}"
   echo "${RED}$DOTFILES ${GRE}stowed.${END}"
 done
 
@@ -24,7 +24,11 @@ echo "${RED}/etc/ ${GRE}configured.${END}"
 # Settings to use on my /root
 [ $USER = mamutal91 ] && sudo cp -rf /home/mamutal91/.dotfiles/home/.nanorc /root &>/dev/null
 
+# Copy my tokens
+[ $(cat /etc/hostname) = mamutal91-v2 ] && rm -rf $HOME/.mytokensfolder && git clone ssh://git@github.com/mamutal91/mytokens $HOME/.mytokensfolder && cp -rf /home/mamutal91/.mytokensfolder/.myTokens $HOME &>/dev/null
+[ $(cat /etc/hostname) = odin ] && cp -rf /home/mamutal91/GitHub/mytokens/.myTokens $HOME &>/dev/null
+
 # Restart sway
 play $HOME/.config/sounds/completed.wav &>/dev/null
 swaymsg reload &>/dev/null
-exit 0
+exit

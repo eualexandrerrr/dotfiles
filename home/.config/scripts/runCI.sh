@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
 source $HOME/.colors &>/dev/null
-source $HOME/.myTokens &>/dev/null # $myUser $myPass
+source $HOME/.myTokens &>/dev/null # $myUserCI
 
-cli="java -jar $HOME/.jenkins-cli.jar -s http://86.109.7.111:8080 -auth ${myUser}:${ciKrakenToken} -webSocket"
+cli="java -jar $HOME/.jenkins-cli.jar -s http://86.109.7.111:8080 -auth ${myUserCI}:${ciKrakenToken} -webSocket"
 
 build="$cli build KrakenDev"
 buildRandom="$cli build KrakenDev -p codename=mojito"

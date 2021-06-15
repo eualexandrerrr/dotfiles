@@ -7,6 +7,20 @@ icon="${iconpath}/computer.svg"
 
 clear
 
+# My history
+pwd=$(pwd)
+cd $HOME/GitHub/myhistory
+cp -rf $HOME/.zsh_history $HOME/GitHub/myhistory
+status=$(git add . -n)
+if [[ ! -z "$status" ]]; then
+  echo -e "${BOL_GRE}Copying .zsh_history${END}"
+  m="Autocommit Git-Cron"
+  git add .
+  git commit -m "${m}" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>" --date "$(date)"
+  git push
+fi
+cd $pwd
+
 # My notebook
 if [[ $(cat /etc/hostname) = odin ]]; then
   #MyApps
@@ -15,22 +29,20 @@ if [[ $(cat /etc/hostname) = odin ]]; then
   apps=("Atom" "filezilla" "Thunar" "google-chrome-beta")
 
   for i in "${apps[@]}"; do
-
-    echo -e "${BOL_GRE}Copying .atom${END}"
-    mkdir -p $HOME/GitHub/myapps/.atom
-    cp -rf $HOME/.atom/* $HOME/GitHub/myapps/.atom
-    echo -e "${BOL_BLU}Copying .zhs-history${END}"
-    mkdir -p $HOME/GitHub/myapps/zsh-history
-    cp -rf $HOME/.zsh_history $HOME/GitHub/myapps/zsh-history
-
     echo -e "${BOL_RED}Copying configs ${i}${END}"
     cp -rf $HOME/.config/${i} $HOME/GitHub/myapps
+
+    if [[ $i = Atom ]]; then
+      echo -e "${BOL_GRE}Copying .atom${END}"
+      mkdir -p $HOME/GitHub/myapps/.atom
+      cp -rf $HOME/.atom/* $HOME/GitHub/myapps/.atom
+    fi
 
     pwd=$(pwd)
     cd $HOME/GitHub/myapps
     status=$(git add . -n)
     if [[ ! -z "$status" ]]; then
-      m="Autocommit Git-Cron"
+      m="Autocommit Git-Cron: ${i}"
       git add .
       git commit -m "${m}" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>" --date "$(date)"
       git push
