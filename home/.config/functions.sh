@@ -99,25 +99,3 @@ function amend() {
 function update() {
   $HOME/.config/scripts/update.sh
 }
-
-function infra() {
-  pwd=$(pwd)
-  cd $HOME
-  HOSTNAME=$(cat /etc/hostname)
-  if [[ $HOSTNAME = odin ]]; then
-    echo "Você não está em um host adequado!"
-    exit
-  else
-    if [[ $HOSTNAME = buildersbr.ninja-v2 ]]; then
-      org=buildersbr
-      repo=buildersbr
-    else
-      org=AOSPK
-      repo=infra
-    fi
-    echo "${repo} cloned."
-    sudo rm -rf /mnt/roms/${repo}
-    git clone ssh://git@github.com/${org}/${repo} && sudo mv ${repo} /mnt/roms
-  fi
-  cd $pwd
-}
