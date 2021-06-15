@@ -68,12 +68,12 @@ function gitpush() {
     fi
   fi
 
-  [ $pwdFolder = .dotfiles ] && echo "${BOL_BLU}Cloning dotfiles and infra in servers...${END}" && dot && exit
-  [ $pwdFolder = infra ] && echo "${BOL_BLU}Cloning dotfiles and infra in servers...${END}" && dot && exit
+  [ $pwdFolder = .dotfiles ] && echo "${BOL_BLU}Cloning dotfiles and infra in servers...${END}" && dot &>/dev/null && exit
+  [ $pwdFolder = infra ] && echo "${BOL_BLU}Cloning dotfiles and infra in servers...${END}" && dot &>/dev/null && exit
 }
 
 function cm() {
-  [ -z $(git add . -n) ] && echo "${BOL_RED}There are no local changes... leaving...${END}" && break &>/dev/null
+  [ -z $(git add . -n) ] && echo "${BOL_RED}There are no local changes... leaving...${END}" && break 2 &>/dev/null
   translate
   if [[ ${1} ]]; then
     git add . && git commit --signoff --date "$(date)" --author "${1}" && gitpush
