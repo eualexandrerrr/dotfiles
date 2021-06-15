@@ -1,50 +1,21 @@
 #!/usr/bin/env bash
 
-if [[ $(cat /etc/hostname) = mamutal91-v2 ]]; then
-  HOME=/home/mamutal91
-fi
+[ $(cat /etc/hostname) = mamutal91-v2 ] && HOME=/home/mamutal91
 
 function lmi() {
-  if [[ $(cat /etc/hostname) = mamutal91-v2 ]]; then
-    $HOME/.dotfiles/home/.config/kraken/lmi.sh
-  else
-    ssh mamutal91@86.109.7.111 "$HOME/.dotfiles/home/.config/kraken/lmi.sh"
-  fi
+  dot && clear && ssh mamutal91@86.109.7.111 "$HOME/.dotfiles/home/.config/kraken/lmi.sh"
 }
 
 function gerrit() {
-  if [[ $(cat /etc/hostname) = mamutal91-v2 ]]; then
-    pwd=$(pwd)
-    cd /mnt/roms/sites/docker/docker-files/gerrit
-    sudo ./repl.sh
-    cd $pwd
-  else
-    ssh mamutal91@86.109.7.111 "source $HOME/.zshrc && gerrit"
-  fi
+  ssh mamutal91@86.109.7.111 "cd /mnt/roms/sites/docker/docker-files/gerrit && sudo ./repl.sh"
 }
 
 function down() {
-  if [[ $(cat /etc/hostname) = mamutal91-v2 ]]; then
-    pwd=$(pwd)
-    rm -rf /mnt/roms/sites/private/builds/*/*.zip &>/dev/null
-    rm -rf /mnt/roms/sites/private/builds/*/json/*.json &>/dev/null
-    cd $pwd
-  else
-    ssh mamutal91@86.109.7.111 "source $HOME/.zshrc && down"
-  fi
-}
-
-
-function merge_aosp() {
-  $HOME/.dotfiles/home/.config/kraken/merge_aosp.sh
+  ssh mamutal91@86.109.7.111 "rm -rf /mnt/roms/sites/private/builds/*/*.zip &>/dev/null && rm -rf /mnt/roms/sites/private/builds/*/json/*.json &>/dev/null"
 }
 
 function sync_repos() {
-  if [[ $(cat /etc/hostname) = mamutal91-v2 ]]; then
-    $HOME/.dotfiles/home/.config/kraken/sync_repos.sh
-  else
-    ssh mamutal91@86.109.7.111 "source $HOME/.zshrc && sync_repos"
-  fi
+  ssh mamutal91@86.109.7.111 "bash $HOME/.dotfiles/home/.config/kraken/sync_repos.sh"
 }
 
 function push() {

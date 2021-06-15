@@ -16,19 +16,6 @@ function infraKraken() {
   ssh mamutal91@86.109.7.111 "cd $HOME && rm -rf /mnt/roms/infra && git clone ssh://git@github.com/AOSPK/infra /mnt/roms/infra"
 }
 
-function changelog() {
-  # Git config
-  git config --global user.email "krakengerrit@gmail.com"
-  git config --global user.name "Kraken Project Bot"
-
-  cd $HOME/AOSPK/official_devices
-  date=$(cat -n $HOME/AOSPK/official_devices/changelogs/changelog.md | grep -n ^ | grep ^3 | awk '{print $4}')
-
-  git add . && git commit --message "[KRAKEN-CI]: Changelog (eleven) #${date}" --author "Kraken Project Bot <krakengerrit@gmail.com>" && git push
-  git config --global user.email "mamutal91@gmail.com"
-  git config --global user.name "Alexandre Rangel"
-}
-
 function fetch() {
   $HOME/.config/scripts/fetch.sh gnu
 }
