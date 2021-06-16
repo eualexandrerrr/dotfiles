@@ -110,13 +110,13 @@ function m() {
 
 upstream() {
   workingDir=$(mktemp -d) && cd $workingDir
-
+  [ ${2} = lineage-18.1 ] && branch=eleven
   git clone https://github.com/LineageOS/android_${1} -b ${2} ${1}
   cd ${1}
-  gh repo create AOSPK/${i} --public --confirm &>/dev/null
-  gh repo create AOSPK-DEV/${i} --private --confirm &>/dev/null
-  cd ${repo} && git push ssh://git@github.com/AOSPK/${i} HEAD:refs/heads/eleven --force
-
+  gh repo create AOSPK/${1} --public --confirm
+  gh repo create AOSPK-DEV/${1} --private --confirm
+  git push ssh://git@github.com/AOSPK/${1} HEAD:refs/heads/${branch} --force
+  git push ssh://git@github.com/AOSPK-DEV/${1} HEAD:refs/heads/${branch} --force
   rm -rf $workingDir
 }
 
