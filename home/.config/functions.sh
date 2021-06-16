@@ -49,6 +49,15 @@ function translate() {
   echo -e "\n${BOL_RED}Message: ${YEL}${msg}${END}\n"
 }
 
+function gitadd() {
+  if [[ $(basename "`pwd`") = aosp ]]; then
+    git add .
+    git reset build/tools/roomservice.py
+  else
+    git add .
+  fi
+}
+
 function gitpush() {
   pwdFolder=${PWD##*/}
   pwd=$(pwd | cut -c-24)
@@ -81,9 +90,9 @@ function cm() {
   if [[ $(git status --porcelain) ]]; then
     translate
     if [[ ${1} ]]; then
-      git add . && git commit --signoff --date "$(date)" --author "${1}" && gitpush
+      gitadd && git commit --signoff --date "$(date)" --author "${1}" && gitpush
     else
-      git add . && git commit --message "${msg}" --signoff --date "$(date)" --author "Alexandre Rangel <mamutal91@gmail.com>" && gitpush
+      gitadd && git commit --message "${msg}" --signoff --date "$(date)" --author "Alexandre Rangel <mamutal91@gmail.com>" && gitpush
     fi
   else
     echo "${BOL_RED}There are no local changes!!! leaving...${END}" && break &>/dev/null
@@ -92,9 +101,9 @@ function cm() {
 
 function amend() {
   if [[ ${1} ]]; then
-    git add . && git commit --amend --signoff --date "$(date)" --author "${1}" && gitpush force
+    gitadd && git commit --amend --signoff --date "$(date)" --author "${1}" && gitpush force
   else
-    git add . && git commit --amend --date "$(date)" && gitpush force
+    gitadd && git commit --amend --date "$(date)" && gitpush force
   fi
 }
 
