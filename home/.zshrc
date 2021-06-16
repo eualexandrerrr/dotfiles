@@ -31,6 +31,7 @@ alias pkill="sudo pkill"
 alias rm="sudo rm"
 alias systemctl="sudo systemctl"
 alias sed="sudo sed"
+alias docker="sudo docker"
 
 # paths
 alias x="cd /mnt/roms/jobs/KrakenDev"
