@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-source $HOME/.colors 2>/dev/null
-source $HOME/.myTokens 2>/dev/null
+source $HOME/.colors &>/dev/null
+source $HOME/.myTokens &>/dev/null
 
 function dot() {
   if [[ ${1} ]]; then
@@ -9,13 +9,13 @@ function dot() {
   else
     echo -e "\n${BLU}Recloning ${CYA}dotfiles ${BLU}to have the latest changes...${END}"
     ssh mamutal91@86.109.7.111 "cd $HOME && rm -rf .dotfiles && git clone ssh://git@github.com/mamutal91/dotfiles .dotfiles && bash $HOME/.dotfiles/install.sh && source $HOME/.zshrc" &>/dev/null
-    ssh mamutal91@147.75.80.89 "cd $HOME && rm -rf .dotfiles && git clone ssh://git@github.com/mamutal91/dotfiles .dotfiles && bash $HOME/.dotfiles/install.sh && source $HOME/.zshrc" &>/dev/null 
+    ssh mamutal91@147.75.80.89 "cd $HOME && rm -rf .dotfiles && git clone ssh://git@github.com/mamutal91/dotfiles .dotfiles && bash $HOME/.dotfiles/install.sh && source $HOME/.zshrc" &>/dev/null
   fi
 }
 
 function infra() {
   echo -e "\n${BLU}Recloning ${CYA}infra ${BLU}to have the latest changes...${END}"
-  ssh mamutal91@86.109.7.111 "cd $HOME && rm -rf /mnt/roms/infra && git clone ssh://git@github.com/AOSPK/infra /mnt/roms/infra" 2>/dev/null
+  ssh mamutal91@86.109.7.111 "cd $HOME && rm -rf /mnt/roms/infra && git clone ssh://git@github.com/AOSPK/infra /mnt/roms/infra" &>/dev/null
 }
 
 function bkp() {
@@ -54,7 +54,7 @@ function gitpush() {
   pwd=$(pwd | cut -c-24)
 
   blacklist(){
-    [ $pwdFolder = manifest ] && echo "${BOL_RED}Blacklist detected, no push!!!${END}" && break 2>/dev/null
+    [ $pwdFolder = manifest ] && echo "${BOL_RED}Blacklist detected, no push!!!${END}" && break &>/dev/null
   }
 
   if [[ $pwd = /mnt/roms/jobs/KrakenDev ]]; then
@@ -74,7 +74,7 @@ function gitpush() {
   [ $pwdFolder = .dotfiles ] && dot && exit
   [ $pwdFolder = infra ] && infra && exit
   [ $pwdFolder = shellscript-atom-snippets ] && export ATOM_ACCESS_TOKEN=${atomToken} && apm publish minor && sleep 5 && apm update mamutal91-shellscript-snippets-atom --noconfirm
-  [ $pwdFolder = mytokens ] && cp -rf $HOME/GitHub/mytokens/.myTokens $HOME 2>/dev/null
+  [ $pwdFolder = mytokens ] && cp -rf $HOME/GitHub/mytokens/.myTokens $HOME &>/dev/null
 }
 
 function cm() {
@@ -86,7 +86,7 @@ function cm() {
       git add . && git commit --message "${msg}" --signoff --date "$(date)" --author "Alexandre Rangel <mamutal91@gmail.com>" && gitpush
     fi
   else
-    echo "${BOL_RED}There are no local changes!!! leaving...${END}" && break 2>/dev/null
+    echo "${BOL_RED}There are no local changes!!! leaving...${END}" && break &>/dev/null
   fi
 }
 

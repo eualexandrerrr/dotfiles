@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-source $HOME/.colors 2>/dev/null 
+source $HOME/.colors &>/dev/null 
 
 repos=(
     hardware_qcom_bootctrl

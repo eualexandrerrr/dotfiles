@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-source $HOME/.colors 2>/dev/null 
+source $HOME/.colors &>/dev/null 
 
 clear
 
@@ -9,7 +9,7 @@ pwd=$(pwd)
 workingDir=$(mktemp -d) && cd $workingDir
 
 echo -e "${BOL_GRE}Cloning AOSPK/official_devices\n"
-git clone ssh://git@github.com/AOSPK/official_devices 2>/dev/null 
+git clone ssh://git@github.com/AOSPK/official_devices &>/dev/null 
 clear
 cd official_devices
 

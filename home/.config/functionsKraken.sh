@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-source $HOME/.colors 2>/dev/null 
+source $HOME/.colors &>/dev/null 
 
 [ $(cat /etc/hostname) = mamutal91-v2 ] && HOME=/home/mamutal91
 
@@ -14,7 +14,7 @@ function gerrit() {
 }
 
 function down() {
-  ssh mamutal91@86.109.7.111 "rm -rf /mnt/roms/sites/private/builds/*/*.zip 2>/dev/null  && rm -rf /mnt/roms/sites/private/builds/*/json/*.json 2>/dev/null "
+  ssh mamutal91@86.109.7.111 "rm -rf /mnt/roms/sites/private/builds/*/*.zip &>/dev/null  && rm -rf /mnt/roms/sites/private/builds/*/json/*.json &>/dev/null "
 }
 
 function sync_repos() {
@@ -45,8 +45,8 @@ function push() {
 
   if [[ ${1} = gerrit ]]; then
     echo "${BOL_BLU}Pushing to ${BOL_YEL}gerrit.aospk.org/${MAG}${repo}${END} ${CYA}${branch}${END}"
-    gitdir=$(git rev-parse --git-dir); scp -p -P 29418 mamutal91@gerrit.aospk.org:hooks/commit-msg ${gitdir}/hooks/ 2>/dev/null 
-    git commit --amend --no-edit 2>/dev/null 
+    gitdir=$(git rev-parse --git-dir); scp -p -P 29418 mamutal91@gerrit.aospk.org:hooks/commit-msg ${gitdir}/hooks/ &>/dev/null 
+    git commit --amend --no-edit &>/dev/null 
     if [[ -z ${topic} ]]; then
       git push ssh://mamutal91@gerrit.aospk.org:29418/${repo} HEAD:refs/for/${branch}%l=Verified+1,l=Code-Review+2,topic=${topic}
     else

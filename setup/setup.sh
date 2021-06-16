@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-source $HOME/.colors 2>/dev/null 
-source $HOME/.myTokens 2>/dev/null 
+source $HOME/.colors &>/dev/null 
+source $HOME/.myTokens &>/dev/null 
 
 [ $USER = "mamutal91" ] && source $HOME/.dotfiles/setup/personalconfigs.sh
 

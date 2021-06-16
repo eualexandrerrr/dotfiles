@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-source $HOME/.colors 2>/dev/null 
-source $HOME/.myTokens 2>/dev/null 
+source $HOME/.colors &>/dev/null 
+source $HOME/.myTokens &>/dev/null 
 
 cli="java -jar $HOME/.jenkins-cli.jar -s http://86.109.7.111:8080 -auth ${myUserCI}:${ciKrakenToken} -webSocket"
 

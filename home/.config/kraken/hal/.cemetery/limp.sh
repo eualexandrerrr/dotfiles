@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-source $HOME/.colors 2>/dev/null 
+source $HOME/.colors &>/dev/null 
 
 # pn5xx
 # sn100x

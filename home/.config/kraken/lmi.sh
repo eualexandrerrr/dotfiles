@@ -80,7 +80,7 @@ echo "<?xml version=\"1.0\" encoding=\"utf-8\"?>
 <resources>
     <!-- Biometric Prompt -->
     <dimen name=\"biometric_dialog_fod_margin\">150dp</dimen>
-</resources>" | tee overlay-kraken/frameworks/base/packages/SystemUI/res/values/custom_config.xml 2>/dev/null 
+</resources>" | tee overlay-kraken/frameworks/base/packages/SystemUI/res/values/custom_config.xml &>/dev/null 
 
 git add . && git commit --message "lmi: overlay: Adjust biometric prompt layout" --author "Mesquita <mesquita@aospa.co>"
 
@@ -125,7 +125,7 @@ echo "<?xml version=\"1.0\" encoding=\"utf-8\"?>
     <string name=\"stop_operate_camera_frequently\">Você está abrindo a câmera frontal com muita frequência.</string>
     <string name=\"takeback_camera_front_failed\">Não foi possível fechar a câmera frontal. Tente novamente.</string>
     <string name=\"popup_camera_front_failed\">Não foi possível abrir a câmera frontal. Tente novamente.</string>
-</resources>" | tee parts/res/values-pt-rBR/strings.xml 2>/dev/null 
+</resources>" | tee parts/res/values-pt-rBR/strings.xml &>/dev/null 
 git add . && git commit --message "lmi: parts: Translations for Portuguese Brazil" --author "Alexandre Rangel <mamutal91@gmail.com>"
 
 git push ssh://git@github.com/AOSPK-Devices/device_xiaomi_lmi HEAD:refs/heads/${branch} --force
