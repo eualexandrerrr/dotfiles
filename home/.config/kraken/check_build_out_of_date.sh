@@ -2,8 +2,8 @@
 
 clear
 
-source $HOME/.colors &>/dev/null
-source $HOME/.botTokens &>/dev/null
+source $HOME/.colors 2>/dev/null 
+source $HOME/.botTokens 2>/dev/null 
 
 chatId="-1001397744652"
 
@@ -33,7 +33,7 @@ for maintainer in $(jq '.[] | select(.name|test("^")) | .telegram_username' $jso
 
     # Verifica se existe builds
     if [[ -n "$(ls -A ${workingDir}/official_devices/changelogs/eleven/gapps/${device} 2>/dev/null)" ]]; then
-      cd ${workingDir}/official_devices/changelogs/eleven/gapps/${device} &>/dev/null
+      cd ${workingDir}/official_devices/changelogs/eleven/gapps/${device} 2>/dev/null 
         for builds in $(ls); do
           year=$(echo $builds | cut -c17-20)
           month=$(echo $builds | cut -c21-22)

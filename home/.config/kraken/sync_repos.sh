@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-source $HOME/.colors &>/dev/null
+source $HOME/.colors 2>/dev/null 
 
 clear
 
@@ -64,10 +64,10 @@ function go() {
     cd $repoPath
     echo
     echo $repoName
-    gh repo create AOSPK/${repoName} --public --confirm &>/dev/null
-    gh repo create AOSPK-DEV/${repoName} --private --confirm &>/dev/null
-    git remote add old https://github.com/${orgDeOrigem}/${repoName} &>/dev/null
-    git fetch --unshallow old &>/dev/null
+    gh repo create AOSPK/${repoName} --public --confirm 2>/dev/null 
+    gh repo create AOSPK-DEV/${repoName} --private --confirm 2>/dev/null 
+    git remote add old https://github.com/${orgDeOrigem}/${repoName} 2>/dev/null 
+    git fetch --unshallow old 2>/dev/null 
     git push ssh://git@github.com/${orgDeDestino}/${repoName} HEAD:refs/heads/${branch} --force
     cd $workingDir
   done

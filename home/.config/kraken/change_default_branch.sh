@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-source $HOME/.colors &>/dev/null
+source $HOME/.colors 2>/dev/null 
 
 clear
 
@@ -39,8 +39,8 @@ function go() {
 
     replace
     echo -e "${RED}Changing default branch: ${GRE}${repoName}${END}"
-    gh api -XPATCH "repos/AOSPK/${repoName}" -f default_branch="${branch}" &>/dev/null
-    gh api -XPATCH "repos/AOSPK-DEV/${repoName}" -f default_branch="${branch}" &>/dev/null
+    gh api -XPATCH "repos/AOSPK/${repoName}" -f default_branch="${branch}" 2>/dev/null 
+    gh api -XPATCH "repos/AOSPK-DEV/${repoName}" -f default_branch="${branch}" 2>/dev/null 
   done
 }
 

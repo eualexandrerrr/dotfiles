@@ -21,7 +21,7 @@ else
     sudo pacman -Rncs $(pacman -Qdtq) --noconfirm
     yay -Rncs $(yay -Qdtq) --noconfirm
 
-  play $HOME/.config/sounds/completed.wav &>/dev/null
+  play $HOME/.config/sounds/completed.wav 2>/dev/null 
   notify-send -i $icon "ArchLinux" "Successfully updated packages."
 
   echo "${GRE}Updating my apt hosts${END}"

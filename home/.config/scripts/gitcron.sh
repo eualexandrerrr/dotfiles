@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-source $HOME/.colors &>/dev/null
+source $HOME/.colors 2>/dev/null 
 
 iconpath="/usr/share/icons/Papirus-Dark/32x32/devices"
 icon="${iconpath}/computer.svg"
@@ -26,7 +26,7 @@ fi
 # My notebook
 if [[ $(cat /etc/hostname) = odin ]]; then
   #MyApps
-  play $HOME/.config/sounds/gitcron.wav &>/dev/null
+  play $HOME/.config/sounds/gitcron.wav 2>/dev/null 
   notify-send -i $icon "GitCron" "Starting backups..."
   apps=("Atom" "filezilla" "Thunar")
 
