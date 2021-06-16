@@ -34,6 +34,7 @@ alias sed="sudo sed"
 
 # paths
 alias x="cd /mnt/roms/jobs/KrakenDev"
+alias c="cd $HOME/GitHub"
 
 source $HOME/.config/functions.sh
 source $HOME/.config/functionsKraken.sh

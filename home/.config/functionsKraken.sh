@@ -27,51 +27,33 @@ function push() {
   else
     repo=$(basename "`pwd`")
   fi
+  echo -e "${BOL_GRE}$repo${END}"
   github=github
   org=AOSPK-DEV
   branch=eleven
   force=${1}
   topic=${2}
 
-  if [[ $repo = vendor_gapps || $repo = vendor_google_gms ]]; then
-    github=gitlab
-    org=AOSPK
-  fi
-  if [[ $repo = www ]]; then
-    org=AOSPK
-    branch=master
-  fi
-  if [[ $repo = build_make ]]; then
-    repo=build
-  fi
-  if [[ $repo = packages_apps_PermissionController ]]; then
-    repo=packages_apps_PackageInstaller
-  fi
-  if [[ $repo = vendor_qcom_opensource_commonsys-intf_bluetooth ]]; then
-    repo=vendor_qcom_opensource_bluetooth-commonsys-intf
-  fi
-  if [[ $repo = vendor_qcom_opensource_commonsys-intf_display ]]; then
-    repo=vendor_qcom_opensource_display-commonsys-intf
-  fi
-  if [[ $repo = vendor_qcom_opensource_commonsys_bluetooth_ext ]]; then
-    repo=vendor_qcom_opensource_bluetooth_ext
-  fi
-  if [[ $repo = vendor_qcom_opensource_commonsys_packages_apps_Bluetooth ]]; then
-    repo=vendor_qcom_opensource_packages_apps_Bluetooth
-  fi
-  if [[ $repo = vendor_qcom_opensource_commonsys_system_bt ]]; then
-    repo=vendor_qcom_opensource_system_bt
-  fi
+  [ $repo = build_make ] && repo=build
+  [ $repo = packages_apps_PermissionController ] && repo=packages_apps_PackageInstaller
+  [ $repo = vendor_qcom_opensource_commonsys-intf_bluetooth ] && repo=vendor_qcom_opensource_bluetooth-commonsys-intf
+  [ $repo = vendor_qcom_opensource_commonsys-intf_display ] && repo=vendor_qcom_opensource_display-commonsys-intf
+  [ $repo = vendor_qcom_opensource_commonsys_bluetooth_ext ] && repo=vendor_qcom_opensource_bluetooth_ext
+  [ $repo = vendor_qcom_opensource_commonsys_packages_apps_Bluetooth ] && repo=vendor_qcom_opensource_packages_apps_Bluetooth
+  [ $repo = vendor_qcom_opensource_commonsys_system_bt ] && repo=vendor_qcom_opensource_system_bt
+  [ $repo = vendor_gapps ] && github=gitlab && org=AOSPK
 
   if [[ ${1} = gerrit ]]; then
-    echo "${BOL_BLU}Pushing to ${BOL_BLU}gerrit.aospk.org${END} - ${branch} ${RED}${force}${END}"
+    echo "${BOL_BLU}Pushing to ${BOL_YEL}gerrit.aospk.org/${MAG}${repo}${END} ${CYA}${branch}${END}"
+    gitdir=$(git rev-parse --git-dir); scp -p -P 29418 mamutal91@gerrit.aospk.org:hooks/commit-msg ${gitdir}/hooks/ &>/dev/null
+    git commit --amend --no-edit &>/dev/null
     if [[ -z ${topic} ]]; then
       git push ssh://mamutal91@gerrit.aospk.org:29418/${repo} HEAD:refs/for/${branch}%l=Verified+1,l=Code-Review+2,topic=${topic}
     else
       git push ssh://mamutal91@gerrit.aospk.org:29418/${repo} HEAD:refs/for/${branch}%l=Verified+1,l=Code-Review+2,topic=${topic}
     fi
   else
-    echo "${BOL_BLU}Pushing to ${github}.com/${GRE}${org}${END}/${BLU}${repo}${END} - ${branch} ${RED}${force}${END}"
+    echo "${BOL_BLU}Pushing to ${BOL_YEL}github.com/${BOL_RED}AOSPK-DEV/${MAG}${repo}${END} ${CYA}${branch}${END}"
     git push ssh://git@${github}.com/${org}/${repo} HEAD:refs/heads/${branch} ${force}
   fi
 }
