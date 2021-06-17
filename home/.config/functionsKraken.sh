@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-source $HOME/.colors &>/dev/null 
+source $HOME/.colors &> /dev/null
 
 [ $(cat /etc/hostname) = mamutal91-v2 ] && HOME=/home/mamutal91
 
@@ -22,10 +22,10 @@ function sync_repos() {
 }
 
 function push() {
-  if [[ $(cat /etc/hostname) = mamutal91-v2 ]]; then
+  if [[ $(cat /etc/hostname) == mamutal91-v2 ]]; then
     repo=$(pwd | sed "s/\/mnt\/roms\/jobs\/KrakenDev\///; s/\//_/g")
   else
-    repo=$(basename "`pwd`")
+    repo=$(basename "$(pwd)")
   fi
   echo -e "${BOL_GRE}$repo${END}"
   github=github
@@ -43,10 +43,11 @@ function push() {
   [ $repo = vendor_qcom_opensource_commonsys_system_bt ] && repo=vendor_qcom_opensource_system_bt
   [ $repo = vendor_gapps ] && github=gitlab && org=AOSPK
 
-  if [[ ${1} = gerrit ]]; then
+  if [[ ${1} == gerrit ]]; then
     echo "${BOL_BLU}Pushing to ${BOL_YEL}gerrit.aospk.org/${MAG}${repo}${END} ${CYA}${branch}${END}"
-    gitdir=$(git rev-parse --git-dir); scp -p -P 29418 mamutal91@gerrit.aospk.org:hooks/commit-msg ${gitdir}/hooks/ &>/dev/null 
-    git commit --amend --no-edit &>/dev/null 
+    gitdir=$(git rev-parse --git-dir)
+                                       scp -p -P 29418 mamutal91@gerrit.aospk.org:hooks/commit-msg ${gitdir}/hooks/ &> /dev/null
+    git commit --amend --no-edit &> /dev/null
     if [[ -z ${topic} ]]; then
       git push ssh://mamutal91@gerrit.aospk.org:29418/${repo} HEAD:refs/for/${branch}%l=Verified+1,l=Code-Review+2,topic=${topic}
     else
@@ -104,14 +105,14 @@ upstream() {
 
 function up() {
   upstream ${1} lineage-18.1 eleven
-#  upstream ${1} lineage-17.1 ten
-#  upstream ${1} lineage-16.0 pie
-#  upstream ${1} lineage-15.1 oreo-mr1
-#  upstream ${1} cm-14.1 nougat
+  #  upstream ${1} lineage-17.1 ten
+  #  upstream ${1} lineage-16.0 pie
+  #  upstream ${1} lineage-15.1 oreo-mr1
+  #  upstream ${1} cm-14.1 nougat
 }
 
 function hals() {
-  if [[ $(cat /etc/hostname) = mamutal91-v2 ]]; then
+  if [[ $(cat /etc/hostname) == mamutal91-v2 ]]; then
     pwd=$(pwd)
     branch=(
       apq8084
@@ -144,7 +145,7 @@ function hals() {
 }
 
 function www() {
-  if [[ $(cat /etc/hostname) = mamutal91-v2 ]]; then
+  if [[ $(cat /etc/hostname) == mamutal91-v2 ]]; then
     cd $HOME && rm -rf www
     git clone ssh://git@github.com/AOSPK/www -b master www
     sudo rm -rf /mnt/roms/sites/www

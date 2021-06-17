@@ -20,7 +20,7 @@ packages=(
   mako
   nano nano-syntax-highlighting
   reflector rsync
-  stow sway swaybg
+  stow sway swaybg shfmt
   tree thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman transmission-gtk
   waybar wayland wofi
   xorg-server-xwayland

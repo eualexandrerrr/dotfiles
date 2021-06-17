@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-source $HOME/.colors &>/dev/null 
+source $HOME/.colors &>/dev/null
 
 echo -e "${BOL_BLU}Starting script...${END}\n"
 chmod +x $HOME/.scripter/scripter.sh

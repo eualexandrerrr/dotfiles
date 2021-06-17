@@ -159,7 +159,7 @@ exit
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-source $HOME/.colors &>/dev/null 
+source $HOME/.colors &>/dev/null
 
 workingDir=/mnt/roms/jobs/KrakenDev
 
@@ -310,8 +310,8 @@ do
     merge $i
     repoKraken=$(pwd | sed "s/\/mnt\/roms\/jobs\/KrakenDev\///; s/\//_/g")
     echo -e "${RED}Pushing to org AOSPK-DEV ${GRE}${repoKraken}${END}"
-    git remote add old https://github.com/AOSPK/${repoName} &>/dev/null 
-    git fetch --unshallow old &>/dev/null 
+    git remote add old https://github.com/AOSPK/${repoName} &>/dev/null
+    git fetch --unshallow old &>/dev/null
     git push ssh://git@github.com/AOSPK-DEV/${repoKraken} HEAD:refs/heads/${branchKraken}
     echo
 done

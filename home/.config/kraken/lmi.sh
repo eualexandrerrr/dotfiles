@@ -56,19 +56,19 @@ git add . && git commit --message "lmi: $bringup" --signoff --author "Alexandre 
 
 # Overlay fod
 mkdir -p overlay-kraken/frameworks/base/packages/SystemUI/res/values
-echo "<?xml version=\"1.0\" encoding=\"utf-8\"?>
+echo '<?xml version="1.0" encoding="utf-8"?>
 <!--
 /*
 ** Copyright 2021 The Kraken Project
 **
-** Licensed under the Apache License, Version 2.0 (the \"License\");
+** Licensed under the Apache License, Version 2.0 (the "License");
 ** you may not use this file except in compliance with the License.
 ** You may obtain a copy of the License at
 **
 **     http://www.apache.org/licenses/LICENSE-2.0
 **
 ** Unless required by applicable law or agreed to in writing, software
-** distributed under the License is distributed on an \"AS IS\" BASIS,
+** distributed under the License is distributed on an "AS IS" BASIS,
 ** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 ** See the License for the specific language governing permissions and
 ** limitations under the License.
@@ -79,53 +79,53 @@ echo "<?xml version=\"1.0\" encoding=\"utf-8\"?>
      for different hardware and product builds. -->
 <resources>
     <!-- Biometric Prompt -->
-    <dimen name=\"biometric_dialog_fod_margin\">150dp</dimen>
-</resources>" | tee overlay-kraken/frameworks/base/packages/SystemUI/res/values/custom_config.xml &>/dev/null 
+    <dimen name="biometric_dialog_fod_margin">150dp</dimen>
+</resources>' | tee overlay-kraken/frameworks/base/packages/SystemUI/res/values/custom_config.xml &> /dev/null
 
 git add . && git commit --message "lmi: overlay: Adjust biometric prompt layout" --author "Mesquita <mesquita@aospa.co>"
 
 # Translations pt-BR
 mkdir -p parts/res/values-pt-rBR
-echo "<?xml version=\"1.0\" encoding=\"utf-8\"?>
+echo '<?xml version="1.0" encoding="utf-8"?>
 <!--
      Copyright (C) 2018 The LineageOS Project
 
-     Licensed under the Apache License, Version 2.0 (the \"License\");
+     Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
      You may obtain a copy of the License at
 
           http://www.apache.org/licenses/LICENSE-2.0
 
      Unless required by applicable law or agreed to in writing, software
-     distributed under the License is distributed on an \"AS IS\" BASIS,
+     distributed under the License is distributed on an "AS IS" BASIS,
      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
 <resources>
     <!-- Popup camera settings -->
-    <string name=\"popup_led_title\">Efeito visual</string>
-    <string name=\"popup_led_summary\">Mostra a animação quando a câmera frontal aparece e se retrai</string>
-    <string name=\"popup_title\">Efeitos de câmera frontal</string>
-    <string name=\"popup_title_muqin\">Xylophone</string>
-    <string name=\"popup_title_yingyan\">Condor</string>
-    <string name=\"popup_title_mofa\">Magic</string>
-    <string name=\"popup_title_jijia\">Mecha</string>
-    <string name=\"popup_title_chilun\">Gearwheel</string>
-    <string name=\"popup_title_cangmen\">Cabin door</string>
+    <string name="popup_led_title">Efeito visual</string>
+    <string name="popup_led_summary">Mostra a animação quando a câmera frontal aparece e se retrai</string>
+    <string name="popup_title">Efeitos de câmera frontal</string>
+    <string name="popup_title_muqin">Xylophone</string>
+    <string name="popup_title_yingyan">Condor</string>
+    <string name="popup_title_mofa">Magic</string>
+    <string name="popup_title_jijia">Mecha</string>
+    <string name="popup_title_chilun">Gearwheel</string>
+    <string name="popup_title_cangmen">Cabin door</string>
 
     <!-- Popup camera strings -->
-    <string name=\"popup_camera_tip\">Warning</string>
-    <string name=\"popup_camera_takeback_failed_times_calibrate\">Não foi possível fechar a câmera frontal várias vezes. Tente calibrar a câmera.</string>
-    <string name=\"popup_camera_popup_failed_times_calibrate\">Não foi possível abrir a câmera frontal várias vezes. Tente calibrar a câmera.</string>
-    <string name=\"popup_camera_calibrate_running\">A câmera frontal não pode ser usada durante a calibração.</string>
-    <string name=\"popup_camera_calibrate_now\">Calibrar</string>
-    <string name=\"popup_camera_calibrate_failed\">Não foi possível calibrar</string>
-    <string name=\"popup_camera_calibrate_success\">Calibrado com sucesso. Você pode abrir a câmera frontal agora.</string>
-    <string name=\"stop_operate_camera_frequently\">Você está abrindo a câmera frontal com muita frequência.</string>
-    <string name=\"takeback_camera_front_failed\">Não foi possível fechar a câmera frontal. Tente novamente.</string>
-    <string name=\"popup_camera_front_failed\">Não foi possível abrir a câmera frontal. Tente novamente.</string>
-</resources>" | tee parts/res/values-pt-rBR/strings.xml &>/dev/null 
+    <string name="popup_camera_tip">Warning</string>
+    <string name="popup_camera_takeback_failed_times_calibrate">Não foi possível fechar a câmera frontal várias vezes. Tente calibrar a câmera.</string>
+    <string name="popup_camera_popup_failed_times_calibrate">Não foi possível abrir a câmera frontal várias vezes. Tente calibrar a câmera.</string>
+    <string name="popup_camera_calibrate_running">A câmera frontal não pode ser usada durante a calibração.</string>
+    <string name="popup_camera_calibrate_now">Calibrar</string>
+    <string name="popup_camera_calibrate_failed">Não foi possível calibrar</string>
+    <string name="popup_camera_calibrate_success">Calibrado com sucesso. Você pode abrir a câmera frontal agora.</string>
+    <string name="stop_operate_camera_frequently">Você está abrindo a câmera frontal com muita frequência.</string>
+    <string name="takeback_camera_front_failed">Não foi possível fechar a câmera frontal. Tente novamente.</string>
+    <string name="popup_camera_front_failed">Não foi possível abrir a câmera frontal. Tente novamente.</string>
+</resources>' | tee parts/res/values-pt-rBR/strings.xml &> /dev/null
 git add . && git commit --message "lmi: parts: Translations for Portuguese Brazil" --author "Alexandre Rangel <mamutal91@gmail.com>"
 
 git push ssh://git@github.com/AOSPK-Devices/device_xiaomi_lmi HEAD:refs/heads/${branch} --force
@@ -145,16 +145,16 @@ sed -i "s/overlay-lineage/overlay-kraken/g" kona.mk
 sed -i "s/vendor\/lineage/vendor\/aosp/" kona.mk
 
 rm -rf lineage.dependencies
-echo "[
+echo '[
   {
-    \"repository\": \"kernel_xiaomi_sm8250\",
-    \"target_path\": \"kernel/xiaomi/sm8250\"
+    "repository": "kernel_xiaomi_sm8250",
+    "target_path": "kernel/xiaomi/sm8250"
   },
   {
-    \"repository\": \"vendor_xiaomi_sm8250-common\",
-    \"target_path\": \"vendor/xiaomi/sm8250-common\"
+    "repository": "vendor_xiaomi_sm8250-common",
+    "target_path": "vendor/xiaomi/sm8250-common"
   }
-]" > aosp.dependencies
+]' > aosp.dependencies
 
 git add . && git commit --message "sm8250-common: $bringup" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>"
 

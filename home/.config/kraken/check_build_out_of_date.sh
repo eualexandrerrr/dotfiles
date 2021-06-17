@@ -2,8 +2,8 @@
 
 clear
 
-source $HOME/.colors &>/dev/null 
-source $HOME/.botTokens &>/dev/null 
+source $HOME/.colors &> /dev/null
+source $HOME/.botTokens &> /dev/null
 
 chatId="-1001397744652"
 
@@ -27,21 +27,21 @@ for maintainer in $(jq '.[] | select(.name|test("^")) | .telegram_username' $jso
 
     deprecated=$(jq -r ".[] | select(.codename == \"${device}\") | .deprecated" $jsonDevices)
 
-    if [[ $deprecated = true ]]; then
+    if [[ $deprecated == true ]]; then
       continue
     fi
 
     # Verifica se existe builds
-    if [[ -n "$(ls -A ${workingDir}/official_devices/changelogs/eleven/gapps/${device} &>/dev/null)" ]]; then
-      cd ${workingDir}/official_devices/changelogs/eleven/gapps/${device} &>/dev/null 
-        for builds in $(ls); do
-          year=$(echo $builds | cut -c17-20)
-          month=$(echo $builds | cut -c21-22)
-          day=$(echo $builds | cut -c23-24)
-          lastBuild="${year}-${month}-${day}"
-          date=$(date +"%Y-%m-%d")
-          daysWithou=$(( (`date -d $date +%s` - `date -d $lastBuild +%s`) / 86400 ))
-        done
+    if [[ -n "$(ls -A ${workingDir}/official_devices/changelogs/eleven/gapps/${device} &> /dev/null)" ]]; then
+      cd ${workingDir}/official_devices/changelogs/eleven/gapps/${device} &> /dev/null
+      for builds in $(ls); do
+        year=$(echo $builds | cut -c17-20)
+        month=$(echo $builds | cut -c21-22)
+        day=$(echo $builds | cut -c23-24)
+        lastBuild="${year}-${month}-${day}"
+        date=$(date +"%Y-%m-%d")
+        daysWithou=$((($(date -d $date +%s) - $(date -d $lastBuild +%s)) / 86400))
+      done
       lastBuild=$(xargs -n 1 <<< ${lastBuild[@]} | sort -nr | head -1)
       build=true
     else
@@ -64,8 +64,8 @@ for maintainer in $(jq '.[] | select(.name|test("^")) | .telegram_username' $jso
     fi
 
     if [[ $daysWithou -ge 30 ]]; then
-      if [[ $build = true ]]; then
-        if [[ $daysWithou = "1" ]]; then
+      if [[ $build == true ]]; then
+        if [[ $daysWithou == "1" ]]; then
           daysFormatted="${daysWithou} day"
         else
           daysFormatted="${daysWithou} days"
@@ -76,8 +76,8 @@ for maintainer in $(jq '.[] | select(.name|test("^")) | .telegram_username' $jso
       echo >> /tmp/msg
     fi
 
-
-  done < <(jq -r ".[] | select(.telegram_username == \"${maintainer}\") | .devices[].codename" $jsonMaintainers)
+  done \
+    < <(jq -r ".[] | select(.telegram_username == \"${maintainer}\") | .devices[].codename" $jsonMaintainers)
 done
 
 sed -i '1i\\' /tmp/nobuild
@@ -97,7 +97,7 @@ function sendMessage() {
     -d chat_id="$chatId" \
     --data-urlencode text="$msg" \
     --data-urlencode parse_mode="markdown" \
-    --data-urlencode disable_web_page_preview="true" \
+    --data-urlencode disable_web_page_preview="true"
 
 }
 
@@ -105,7 +105,7 @@ rm -rf $workingDir
 
 echo "Finished successfully."
 read -r -p "${BOL_RED}Post in my group maintainers? [Y/n] [enter=no]" confirmPost
-if [[ ! "$confirmPost" =~ ^(y|Y) ]]; then
+if [[ ! $confirmPost =~ ^(y|Y) ]]; then
   exit
 else
   sendMessage

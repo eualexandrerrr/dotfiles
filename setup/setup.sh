@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-source $HOME/.colors &>/dev/null 
-source $HOME/.myTokens &>/dev/null 
+source $HOME/.colors &> /dev/null
+source $HOME/.myTokens &> /dev/null
 
 [ $USER = "mamutal91" ] && source $HOME/.dotfiles/setup/personalconfigs.sh
 
@@ -50,8 +50,7 @@ atom="
 for services in \
     cronie \
     bluetooth \
-    getty@ttyN.service
-do
+    getty@ttyN.service; do
     sudo systemctl enable $services
     sudo systemctl start $services
 done

@@ -1,29 +1,29 @@
 #!/usr/bin/env bash
 
-source $HOME/.colors &>/dev/null 
+source $HOME/.colors &> /dev/null
 
 clear
 
-replace(){
-  if [[ $repoPath = build_make ]]; then
+replace() {
+  if [[ $repoPath == build_make ]]; then
     repoName=build
   fi
-  if [[ $repoPath = packages_apps_PermissionController ]]; then
+  if [[ $repoPath == packages_apps_PermissionController ]]; then
     repoName=packages_apps_PackageInstaller
   fi
-  if [[ $repoPath = vendor_qcom_opensource_commonsys-intf_bluetooth ]]; then
+  if [[ $repoPath == vendor_qcom_opensource_commonsys-intf_bluetooth ]]; then
     repoName=vendor_qcom_opensource_bluetooth-commonsys-intf
   fi
-  if [[ $repoPath = vendor_qcom_opensource_commonsys-intf_display ]]; then
+  if [[ $repoPath == vendor_qcom_opensource_commonsys-intf_display ]]; then
     repoName=vendor_qcom_opensource_display-commonsys-intf
   fi
-  if [[ $repoPath = vendor_qcom_opensource_commonsys_bluetooth_ext ]]; then
+  if [[ $repoPath == vendor_qcom_opensource_commonsys_bluetooth_ext ]]; then
     repoName=vendor_qcom_opensource_bluetooth_ext
   fi
-  if [[ $repoPath = vendor_qcom_opensource_commonsys_packages_apps_Bluetooth ]]; then
+  if [[ $repoPath == vendor_qcom_opensource_commonsys_packages_apps_Bluetooth ]]; then
     repoName=vendor_qcom_opensource_packages_apps_Bluetooth
   fi
-  if [[ $repoPath = vendor_qcom_opensource_commonsys_system_bt ]]; then
+  if [[ $repoPath == vendor_qcom_opensource_commonsys_system_bt ]]; then
     repoName=vendor_qcom_opensource_system_bt
   fi
 }
@@ -36,7 +36,7 @@ orgDeOrigem=AOSPK
 orgDeDestino=AOSPK-DEV
 
 cd $workingDir
-echo -e "[Repo] \$ Syncing..."
+echo -e '[Repo] $ Syncing...'
 
 repo init -u git://github.com/AOSPK/manifest -b eleven >> /dev/null
 repo sync -c -j$(nproc --all) --no-clone-bundle --current-branch --no-tags --force-sync >> /dev/null
@@ -64,10 +64,10 @@ function go() {
     cd $repoPath
     echo
     echo $repoName
-    gh repo create AOSPK/${repoName} --public --confirm &>/dev/null 
-    gh repo create AOSPK-DEV/${repoName} --private --confirm &>/dev/null 
-    git remote add old https://github.com/${orgDeOrigem}/${repoName} &>/dev/null 
-    git fetch --unshallow old &>/dev/null 
+    gh repo create AOSPK/${repoName} --public --confirm &> /dev/null
+    gh repo create AOSPK-DEV/${repoName} --private --confirm &> /dev/null
+    git remote add old https://github.com/${orgDeOrigem}/${repoName} &> /dev/null
+    git fetch --unshallow old &> /dev/null
     git push ssh://git@github.com/${orgDeDestino}/${repoName} HEAD:refs/heads/${branch} --force
     cd $workingDir
   done

@@ -30,13 +30,13 @@ mkdir -p $HOME/.config/gtk-3.0
 echo -e $THEME_GTK > $GTK_FILE_2
 echo -e "[Settings]" > $GTK_FILE_3
 echo -e $THEME_GTK >> $GTK_FILE_3
-sed -i "s/=/=\"/g" $GTK_FILE_2
+sed -i 's/=/="/g' $GTK_FILE_2
 sed -i "s/$/\"/" $GTK_FILE_2
-sed -i "s/]\"/]/g" $GTK_FILE_2
+sed -i 's/]"/]/g' $GTK_FILE_2
 
 echo -e $THEME_PLUS >> $GTK_FILE_2
 echo -e $THEME_PLUS >> $GTK_FILE_3
-sed -i "s/hintfull/\"hintfull\"/g" $GTK_FILE_2
+sed -i 's/hintfull/"hintfull"/g'   $GTK_FILE_2
 
 sed -i "s/^ //" $GTK_FILE_2
 sed -i "s/^ //" $GTK_FILE_3

@@ -36,22 +36,22 @@ sed -i "s/Lineage stuff/Kraken stuff/g" aosp_beryllium.mk
 sed -i "s/overlay-lineage/overlay-kraken/g" device.mk
 
 rm -rf lineage.dependencies
-echo "[
+echo '[
   {
-    \"repository\": \"device_xiaomi_sdm845-common\",
-    \"target_path\": \"device/xiaomi/sdm845-common\"
+    "repository": "device_xiaomi_sdm845-common",
+    "target_path": "device/xiaomi/sdm845-common"
   },
   {
-    \"repository\": \"vendor_xiaomi_beryllium\",
-    \"target_path\": \"vendor/xiaomi/beryllium\"
+    "repository": "vendor_xiaomi_beryllium",
+    "target_path": "vendor/xiaomi/beryllium"
   },
   {
-    \"remote\": \"github\",
-    \"repository\": \"LineageOS/android_hardware_xiaomi\",
-    \"target_path\": \"hardware/xiaomi\",
-    \"branch\": \"lineage-18.1\"
+    "remote": "github",
+    "repository": "LineageOS/android_hardware_xiaomi",
+    "target_path": "hardware/xiaomi",
+    "branch": "lineage-18.1"
   }
-]" > aosp.dependencies
+]' > aosp.dependencies
 
 git add . && git commit --message "beryllium: $bringup" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>"
 git push ssh://git@github.com/AOSPK-Devices/device_xiaomi_beryllium HEAD:refs/heads/${branchDefault} --force
@@ -70,19 +70,18 @@ sed -i "s/overlay-lineage/overlay-kraken/g" sdm845.mk
 sed -i "s/vendor\/lineage/vendor\/aosp/" sdm845.mk
 
 rm -rf lineage.dependencies
-echo "[
+echo '[
   {
-    \"repository\": \"kernel_xiaomi_sdm845\",
-    \"target_path\": \"kernel/xiaomi/sdm845\"
+    "repository": "kernel_xiaomi_sdm845",
+    "target_path": "kernel/xiaomi/sdm845"
   },
   {
-    \"repository\": \"vendor_xiaomi_sdm845-common\",
-    \"target_path\": \"vendor/xiaomi/sdm845-common\"
+    "repository": "vendor_xiaomi_sdm845-common",
+    "target_path": "vendor/xiaomi/sdm845-common"
   }
-]" > aosp.dependencies
+]' > aosp.dependencies
 
 git add . && git commit --message "sdm845-common: $bringup" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>"
-
 
 git push ssh://git@github.com/AOSPK-Devices/device_xiaomi_sdm845-common HEAD:refs/heads/${branchDefault} --force
 
@@ -107,7 +106,6 @@ cd ..
 git clone https://github.com/LineageOS/android_kernel_xiaomi_sdm845 -b lineage-18.1
 cd android_kernel_xiaomi_sdm845
 git push ssh://git@github.com/AOSPK-Devices/kernel_xiaomi_sdm845 HEAD:refs/heads/${branchDefault} --force
-
 
 cd $pwd
 

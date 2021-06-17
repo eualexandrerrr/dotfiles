@@ -24,22 +24,22 @@ menu="$repo01\n$repo02\n$repo03\n$repo04\n$repo05\n$repo06\n$repo07\n$repo08\n$r
 
 chosen="$(echo -e "$menu" | wofi --lines 17 --sort-order=alphabetical --dmenu -p "  myMenu")"
 case $chosen in
-  $repo01) alacritty -t mywindowfloat --working-directory $HOME/.dotfiles;;
-  $repo02) alacritty -t mywindowfloat --working-directory $github/infra;;
-  $repo03) alacritty -t mywindowfloat -e $HOME/.config/scripts/runCI.sh build;;
-  $repo04) alacritty -t mywindowfloat -e $HOME/.config/scripts/runCI.sh buildRandom;;
-  $repo05) alacritty -t mywindowfloat -e $HOME/.config/scripts/runCI.sh buildSync;;
-  $repo06) alacritty -t mywindowfloat -e $HOME/.config/scripts/runCI.sh buildSyncClean;;
-  $repo07) alacritty -t mywindowfloat -e $HOME/.config/scripts/runCI.sh buildSyncInstallclean;;
-  $repo08) alacritty -t mywindowfloat -e $HOME/.config/scripts/runCI.sh makeClean;;
-  $repo09) alacritty -t mywindowfloat -e $HOME/.config/scripts/runCI.sh stopOnlySync;;
-  $repo10) alacritty -t mywindowfloat -e $HOME/.config/scripts/runCI.sh stopJobs;;
-  $repo11) alacritty -t mywindowfloat -e $HOME/.config/scripts/runCI.sh stopClear;;
-  $repo12) alacritty -t mywindowfloat -e $HOME/.config/scripts/runCI.sh enableJobs;;
-  $repo13) alacritty -t mywindowfloat -e $HOME/.config/scripts/runCI.sh disableJobs;;
-  $repo14) alacritty -t mywindowfloat --working-directory $github/myarch;;
-  $repo15) alacritty -t mywindowfloat --working-directory $github/mytokens;;
-  $repo16) alacritty -t mywindowfloat --working-directory $github/custom-rom;;
-  $repo17) alacritty -t mywindowfloat --working-directory $github/shellscript-atom-snippets;;
+  $repo01) alacritty -t mywindowfloat --working-directory $HOME/.dotfiles ;;
+  $repo02) alacritty -t mywindowfloat --working-directory $github/infra ;;
+  $repo03) alacritty -t mywindowfloat -e $HOME/.config/scripts/runCI.sh build ;;
+  $repo04) alacritty -t mywindowfloat -e $HOME/.config/scripts/runCI.sh buildRandom ;;
+  $repo05) alacritty -t mywindowfloat -e $HOME/.config/scripts/runCI.sh buildSync ;;
+  $repo06) alacritty -t mywindowfloat -e $HOME/.config/scripts/runCI.sh buildSyncClean ;;
+  $repo07) alacritty -t mywindowfloat -e $HOME/.config/scripts/runCI.sh buildSyncInstallclean ;;
+  $repo08) alacritty -t mywindowfloat -e $HOME/.config/scripts/runCI.sh makeClean ;;
+  $repo09) alacritty -t mywindowfloat -e $HOME/.config/scripts/runCI.sh stopOnlySync ;;
+  $repo10) alacritty -t mywindowfloat -e $HOME/.config/scripts/runCI.sh stopJobs ;;
+  $repo11) alacritty -t mywindowfloat -e $HOME/.config/scripts/runCI.sh stopClear ;;
+  $repo12) alacritty -t mywindowfloat -e $HOME/.config/scripts/runCI.sh enableJobs ;;
+  $repo13) alacritty -t mywindowfloat -e $HOME/.config/scripts/runCI.sh disableJobs ;;
+  $repo14) alacritty -t mywindowfloat --working-directory $github/myarch ;;
+  $repo15) alacritty -t mywindowfloat --working-directory $github/mytokens ;;
+  $repo16) alacritty -t mywindowfloat --working-directory $github/custom-rom ;;
+  $repo17) alacritty -t mywindowfloat --working-directory $github/shellscript-atom-snippets ;;
 esac
-exit 0;
+exit 0

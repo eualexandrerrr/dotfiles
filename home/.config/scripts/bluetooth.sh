@@ -24,14 +24,19 @@ devices="$scan\n$bt1\n$bt2\n$bt3\n$bt4"
 chosen="$(echo -e $devices | wofi --lines 5 --sort-order=DEFAULT --dmenu -p "  Bluetooth")"
 case $chosen in
     $scan)
-      bluetoothctl scan on;;
+      bluetoothctl scan on
+                          ;;
     $bt1)
-      bt "78:44:05:BE:8A:7E";; # JBL T450BT
+      bt "78:44:05:BE:8A:7E"
+                            ;; # JBL T450BT
     $bt2)
-      bt "78:44:05:86:21:18";; # JBL GO
+      bt "78:44:05:86:21:18"
+                            ;; # JBL GO
     $bt3)
-      bt "70:99:1C:51:45:9B";; # JBL GO 2
+      bt "70:99:1C:51:45:9B"
+                            ;; # JBL GO 2
     $bt4)
-      bt "F1:32:33:23:43:4C";; # KD-750
+      bt "F1:32:33:23:43:4C"
+                            ;; # KD-750
 esac
-exit 0;
+exit 0

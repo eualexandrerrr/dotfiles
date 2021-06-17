@@ -26,7 +26,7 @@ img=/home/mamutal91/.dotfiles/home/.config/kraken/images/banner_lmi.jpg
 codename=lmi
 
 rm -rf $changelogFile
-wget https://raw.githubusercontent.com/AOSPK-DEV/official_devices/master/changelogs/${codename}/${changelogFile} &>/dev/null 
+wget https://raw.githubusercontent.com/AOSPK-DEV/official_devices/master/changelogs/${codename}/${changelogFile} &> /dev/null
 sed -i "s/^/• /" $changelogFile
 
 cat $changelogFile
@@ -37,7 +37,7 @@ changelogSource="*Source changelog:*
 changelogDevice="*Device changelog:*
 $(cat ${changelogFile})"
 
-if [[ -z "$changelogSource" ]]; then
+if [[ -z $changelogSource ]]; then
   changelogFull="$changelogDevice"
 else
   changelogFull="$changelogSource

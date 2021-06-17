@@ -3,7 +3,7 @@
 
 pwd=$(pwd)
 
-echo -e "[Push] \$ Pushing to or AOSPK-DEV/frameworks_base..."
+echo -e '[Push] $ Pushing to or AOSPK-DEV/frameworks_base...'
 git remote add push ssh://git@github.com/AOSPK-DEV/frameworks_base
 
 sleep 2
