@@ -50,12 +50,15 @@ function translate() {
 }
 
 function gitadd() {
-  if [[ $(basename "`pwd`") = aosp ]]; then
+  case $(basename "`pwd`") in
+    aosp|vendor_aosp)
     git add .
     git reset build/tools/roomservice.py
-  else
+    ;;
+    *)
     git add .
-  fi
+    ;;
+  esac
 }
 
 function gitpush() {
