@@ -7,10 +7,10 @@ git config --global user.name "Alexandre Rangel"
 
 branch=eleven-wip
 
-orgRebase=xiaomi-sm8250-devs
+orgRebase=LineageOS
 
-[ $orgRebase = xiaomi-sm8250-devs ] && orgRebaseVendor=xiaomi-sm8250-devs
-[ $orgRebase = LineageOS ] && orgRebaseVendor=the-muppets
+[ $orgRebase = xiaomi-sm8250-devs ] && orgRebaseVendor=xiaomi-sm8250-devs && repoVendor=android
+[ $orgRebase = LineageOS ] && orgRebaseVendor=the-muppets && repoVendor=proprietary
 
 branchLOS=lineage-18.1
 
@@ -188,16 +188,16 @@ git push ssh://git@github.com/AOSPK-Devices/device_xiaomi_sm8250-common HEAD:ref
 # Kernel and Vendor
 cd $workingDir
 
-git clone https://gitlab.com/${orgRebaseVendor}/android_vendor_xiaomi -b ${branchLOS}
-mv android_vendor_xiaomi android_vendor_xiaomi_lmi
-cp -rf android_vendor_xiaomi_lmi android_vendor_xiaomi_sm8250-common
+git clone https://gitlab.com/${orgRebaseVendor}/${repoVendor}_vendor_xiaomi -b ${branchLOS}
+mv ${repoVendor}_vendor_xiaomi ${repoVendor}_vendor_xiaomi_lmi
+cp -rf ${repoVendor}_vendor_xiaomi_lmi ${repoVendor}_vendor_xiaomi_sm8250-common
 
-cd android_vendor_xiaomi_lmi
+cd ${repoVendor}_vendor_xiaomi_lmi
 git filter-branch --prune-empty --subdirectory-filter lmi ${branchLOS}
 git push ssh://git@github.com/AOSPK-Devices/vendor_xiaomi_lmi HEAD:refs/heads/${branch} --force
 git push ssh://git@gitlab.com/AOSPK-Devices/vendor_xiaomi_lmi HEAD:refs/heads/${branch} --force
 
-cd ../android_vendor_xiaomi_sm8250-common
+cd ../${repoVendor}_vendor_xiaomi_sm8250-common
 git filter-branch --prune-empty --subdirectory-filter sm8250-common ${branchLOS}
 git push ssh://git@github.com/AOSPK-Devices/vendor_xiaomi_sm8250-common HEAD:refs/heads/${branch} --force
 git push ssh://git@gitlab.com/AOSPK-Devices/vendor_xiaomi_sm8250-common HEAD:refs/heads/${branch} --force
