@@ -27,7 +27,6 @@ function push() {
   else
     repo=$(basename "$(pwd)")
   fi
-  echo -e "${BOL_GRE}$repo${END}"
   github=github
   org=AOSPK-DEV
   branch=eleven
