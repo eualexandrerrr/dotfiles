@@ -8,7 +8,7 @@ if [[ ! -d $dir   ]]; then
   mkdir -p $dir
 fi
 
-date=$(date +"%Y%m%d-%H%M")
+date=$(date +"%m-%d-%Y-%H%M")
 
 if [[ ${1} == "window" ]]; then
   img="$dir/window-$date.png"
