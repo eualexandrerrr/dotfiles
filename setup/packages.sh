@@ -63,7 +63,7 @@ aur=(
   papirus-icon-theme-git
 
   # apps
-  google-chrome-unstable github-cli-git gitlab-glab-bin
+  chromium github-cli-git gitlab-glab-bin
   kotatogram-desktop-bin
   oh-my-zsh-git
   swaylock-effects-git spotify-snap
