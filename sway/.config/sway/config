@@ -95,7 +95,7 @@ exec_always --no-startup-id $HOME/.config/scripts/battery.sh
 exec_always --no-startup-id swaybg -i $HOME/.config/wallpapers/space.jpg
 exec_always --no-startup-id bluetoothctl power off
 exec --no-startup-id mako
-exec --no-startup-id pulseeffects --gapplication-service &>/dev/null 
+exec --no-startup-id pulseeffects --gapplication-service &>/dev/null
 exec --no-startup-id hwclock --systohc --utc && timedatectl set-ntp true
 exec --no-startup-id "pactl set-sink-mute @DEFAULT_SINK@ false; pactl set-sink-volume @DEFAULT_SINK@ 70%"
 
@@ -139,7 +139,7 @@ bindsym $control+$shift+k exec --no-startup-id $HOME/.config/scripts/screencast.
 # Application shortcuts
 bindsym $super+Return exec --no-startup-id alacritty &; workspace $ws1
 bindsym $super+e exec --no-startup-id thunar &; workspace $ws7
-bindsym $super+F2 exec --no-startup-id google-chrome-beta --enable-features=UseOzonePlatform --ozone-platform=wayland &; workspace $ws2
+bindsym $super+F2 exec --no-startup-id google-chrome-unstable --enable-features=UseOzonePlatform --ozone-platform=wayland &; workspace $ws2
 bindsym $super+F3 exec --no-startup-id kotatogram-desktop &; workspace $ws4
 
 # System shortcuts
