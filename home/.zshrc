@@ -21,6 +21,7 @@ export EDITOR="nano"
 export LS_COLORS="$LS_COLORS:ow=1;34:tw=1;34:"
 export TERM="xterm-256color"
 export STUDIO_JDK=/usr/lib/jvm/java-11-openjdk
+export PATH="$HOME/bin:$PATH"
 
 # sudo easy
 alias chmod="sudo chmod"
