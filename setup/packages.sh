@@ -60,7 +60,6 @@ aur=(
   # themes
   capitaine-cursors
   dracula-gtk-theme
-  papirus-icon-theme-git
 
   # apps
   google-chrome-dev github-cli-git gitlab-glab-bin
