@@ -7,7 +7,7 @@ pwd=$(pwd)
 git config --global user.email "mamutal91@gmail.com"
 git config --global user.name "Alexandre Rangel"
 
-branch=eleven-wip
+branch=eleven
 
 orgRebase=LineageOS
 
@@ -21,11 +21,11 @@ bringup="Initial changes for Kraken"
 workingDir=$(mktemp -d) && cd $workingDir
 
 function tree() {
-  git clone https://github.com/${orgRebase}/android_device_xiaomi_lmi -b ${branchLOS}
-  git clone https://github.com/${orgRebase}/android_device_xiaomi_sm8250-common -b ${branchLOS}
+  git clone https://github.com/${orgRebase}/android_device_xiaomi_lmi -b ${branchLOS} device_xiaomi_lmi
+  git clone https://github.com/${orgRebase}/android_device_xiaomi_sm8250-common -b ${branchLOS} device_xiaomi_sm8250
 
   # Tree
-  cd android_device_xiaomi_lmi
+  cd ${workingDir}/device_xiaomi_lmi
 
   sed -i "s/lineage_/aosp_/g" AndroidProducts.mk
 
@@ -144,7 +144,7 @@ function tree() {
   git push ssh://git@github.com/AOSPK-Devices/device_xiaomi_lmi HEAD:refs/heads/${branch} --force
 
   # Common
-  cd ../android_device_xiaomi_sm8250-common
+  cd ${workingDir}/device_xiaomi_sm8250-common
 
   mv overlay-lineage overlay-kraken
   cd overlay-kraken
@@ -203,23 +203,23 @@ Adds a configurable delay to prevent this behavior"
 # Kernel and Vendor
 cd $workingDir
 
-git clone https://gitlab.com/${orgRebaseVendor}/${repoVendor}_vendor_xiaomi -b ${branchLOS}
-mv ${repoVendor}_vendor_xiaomi ${repoVendor}_vendor_xiaomi_lmi
-cp -rf ${repoVendor}_vendor_xiaomi_lmi ${repoVendor}_vendor_xiaomi_sm8250-common
+git clone https://gitlab.com/${orgRebaseVendor}/${repoVendor}_vendor_xiaomi -b ${branchLOS} vendor_xiaomi
+cp -rf vendor_xiaomi vendor_xiaomi_lmi
+cp -rf vendor_xiaomi vendor_xiaomi_sm8250-common
 
-cd ${repoVendor}_vendor_xiaomi_lmi
+cd ${workingDir}/vendor_xiaomi_lmi
+git filter-branch --prune-empty --subdirectory-filter lmi ${branchLOS}
 git push ssh://git@github.com/AOSPK-Devices/vendor_xiaomi_lmi HEAD:refs/heads/${branch} --force
 git push ssh://git@gitlab.com/AOSPK-Devices/vendor_xiaomi_lmi HEAD:refs/heads/${branch} --force
 
-cd ../${repoVendor}_vendor_xiaomi_sm8250-common
+cd ${workingDir}/vendor_xiaomi_sm8250-common
 git filter-branch --prune-empty --subdirectory-filter sm8250-common ${branchLOS}
 git push ssh://git@github.com/AOSPK-Devices/vendor_xiaomi_sm8250-common HEAD:refs/heads/${branch} --force
 git push ssh://git@gitlab.com/AOSPK-Devices/vendor_xiaomi_sm8250-common HEAD:refs/heads/${branch} --force
 
-cd ..
-git clone https://github.com/${orgRebase}/android_kernel_xiaomi_sm8250 -b ${branchLOS}
-[[ $? -eq 0 ]] && echo "${GRE}Kernel clone success${END}" || echo "${RED}Kernel clone failure${END}" && exit 1
-cd android_kernel_xiaomi_sm8250
+cd ${workingDir}
+git clone https://github.com/${orgRebase}/android_kernel_xiaomi_sm8250 -b ${branchLOS} kernel_xiaomi_sm8250
+cd ${workingDir}/kernel_xiaomi_sm8250
 
 sed -i "s/lineageos/kraken/g" arch/arm64/configs/vendor/umi_defconfig
 sed -i "s/lineageos/kraken/g" arch/arm64/configs/vendor/lmi_defconfig
