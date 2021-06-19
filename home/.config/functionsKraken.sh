@@ -23,7 +23,7 @@ function sync_repos() {
 
 function push() {
   if [[ $(cat /etc/hostname) == mamutal91-v2 ]]; then
-    repo=$(pwd | sed "s/\/mnt\/roms\/jobs\/KrakenDev\///; s/\//_/g")
+    repo=$(pwd | sed "s/\/mnt\/roms\/jobs\///; s/\//_/g" | sed "s/KrakenDev_/_/g" | sed "s/Kraken_/_/g" | sed 's/.//')
   else
     repo=$(basename "$(pwd)")
   fi
