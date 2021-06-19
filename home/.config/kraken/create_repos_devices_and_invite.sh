@@ -3,6 +3,7 @@
 clear
 
 source $HOME/.colors &> /dev/null
+source $HOME/.myTokens &> /dev/null
 
 workingDir=$(mktemp -d) && cd $workingDir
 
@@ -30,6 +31,16 @@ for maintainer in $(jq '.[] | select(.name|test("^")) | .github_username' $jsonM
         gh repo create AOSPK-Devices/${repo} --public --confirm &> /dev/null
       else
         gh repo create AOSPK-Devices/${repo} -d "${brandDevice} ${nameDevice} maintained by @${maintainer}" --public --confirm &> /dev/null
+        function editDescription() {
+          curl \
+            -H "Authorization: Token ${githubToken}" \
+            -H "Content-Type:application/json" \
+            -H "Accept: application/json" \
+            -X PATCH \
+            --data "{ \"name\": \"${repo}\", \"description\":\"${brandDevice} ${nameDevice} maintained by @${maintainer}\" }" \
+            https://api.github.com/repos/AOSPK-Devices/${repo}
+        }
+        editDescription &> /dev/null
       fi
 
       echo -e "\n${BOL_GRE}Creating the repository${END} ${BLU}${device}\n# ${CYA}${repo}${END} and inviting the ${YEL}@${maintainer}${END} maintainer"
