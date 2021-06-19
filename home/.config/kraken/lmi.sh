@@ -7,7 +7,9 @@ pwd=$(pwd)
 git config --global user.email "mamutal91@gmail.com"
 git config --global user.name "Alexandre Rangel"
 
-branch=eleven-wip
+branch=${1}
+
+echo ${BOL_RED}Branch ${branch}${END}
 
 orgRebase=LineageOS
 

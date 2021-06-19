@@ -6,7 +6,7 @@ source $HOME/.colors &> /dev/null
 
 function lmi() {
   dot
-  ssh mamutal91@86.109.7.111 "bash $HOME/.dotfiles/home/.config/kraken/lmi.sh"
+  ssh mamutal91@86.109.7.111 "bash $HOME/.dotfiles/home/.config/kraken/lmi.sh ${1}"
 }
 
 function gerrit() {
