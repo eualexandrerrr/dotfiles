@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+source $HOME/.colors &> /dev/null
+
 pwd=$(pwd)
 
 git config --global user.email "mamutal91@gmail.com"
@@ -18,24 +20,25 @@ bringup="Initial changes for Kraken"
 
 workingDir=$(mktemp -d) && cd $workingDir
 
-git clone https://github.com/${orgRebase}/android_device_xiaomi_lmi -b ${branchLOS}
-git clone https://github.com/${orgRebase}/android_device_xiaomi_sm8250-common -b ${branchLOS}
+function tree() {
+  git clone https://github.com/${orgRebase}/android_device_xiaomi_lmi -b ${branchLOS}
+  git clone https://github.com/${orgRebase}/android_device_xiaomi_sm8250-common -b ${branchLOS}
 
-# Tree
-cd android_device_xiaomi_lmi
+  # Tree
+  cd android_device_xiaomi_lmi
 
-sed -i "s/lineage_/aosp_/g" AndroidProducts.mk
+  sed -i "s/lineage_/aosp_/g" AndroidProducts.mk
 
-mv lineage_lmi.mk aosp_lmi.mk
-sed -i "s/lineage_/aosp_/g" aosp_lmi.mk
-sed -i "s/vendor\/lineage/vendor\/aosp/" aosp_lmi.mk
-sed -i "s/Lineage stuff/Kraken stuff/g" aosp_lmi.mk
+  mv lineage_lmi.mk aosp_lmi.mk
+  sed -i "s/lineage_/aosp_/g" aosp_lmi.mk
+  sed -i "s/vendor\/lineage/vendor\/aosp/" aosp_lmi.mk
+  sed -i "s/Lineage stuff/Kraken stuff/g" aosp_lmi.mk
 
-mv overlay-lineage overlay-kraken
-sed -i "s/overlay-lineage/overlay-kraken/g" device.mk
+  mv overlay-lineage overlay-kraken
+  sed -i "s/overlay-lineage/overlay-kraken/g" device.mk
 
-rm -rf lineage.dependencies
-echo "[
+  rm -rf lineage.dependencies
+  echo "[
   {
     \"repository\": \"device_xiaomi_sm8250-common\",
     \"target_path\": \"device/xiaomi/sm8250-common\"
@@ -52,11 +55,11 @@ echo "[
   }
 ]" > aosp.dependencies
 
-git add . && git commit --message "lmi: $bringup" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>"
+  git add . && git commit --message "lmi: $bringup" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>"
 
-# Overlay fod
-mkdir -p overlay-kraken/frameworks/base/packages/SystemUI/res/values
-echo '<?xml version="1.0" encoding="utf-8"?>
+  # Overlay fod
+  mkdir -p overlay-kraken/frameworks/base/packages/SystemUI/res/values
+  echo '<?xml version="1.0" encoding="utf-8"?>
 <!--
 /*
 ** Copyright 2021 The Kraken Project
@@ -82,11 +85,11 @@ echo '<?xml version="1.0" encoding="utf-8"?>
     <dimen name="biometric_dialog_fod_margin">150dp</dimen>
 </resources>' | tee overlay-kraken/frameworks/base/packages/SystemUI/res/values/custom_config.xml &> /dev/null
 
-git add . && git commit --message "lmi: overlay: Adjust biometric prompt layout" --author "Mesquita <mesquita@aospa.co>"
+  git add . && git commit --message "lmi: overlay: Adjust biometric prompt layout" --author "Mesquita <mesquita@aospa.co>"
 
-# Translations pt-BR
-mkdir -p parts/res/values-pt-rBR
-echo '<?xml version="1.0" encoding="utf-8"?>
+  # Translations pt-BR
+  mkdir -p parts/res/values-pt-rBR
+  echo '<?xml version="1.0" encoding="utf-8"?>
 <!--
      Copyright (C) 2018 The LineageOS Project
 
@@ -126,26 +129,36 @@ echo '<?xml version="1.0" encoding="utf-8"?>
     <string name="takeback_camera_front_failed">Não foi possível fechar a câmera frontal. Tente novamente.</string>
     <string name="popup_camera_front_failed">Não foi possível abrir a câmera frontal. Tente novamente.</string>
 </resources>' | tee parts/res/values-pt-rBR/strings.xml &> /dev/null
-git add . && git commit --message "lmi: parts: Translations for Portuguese Brazil" --author "Alexandre Rangel <mamutal91@gmail.com>"
+  git add . && git commit --message "lmi: parts: Translations for Portuguese Brazil" --author "Alexandre Rangel <mamutal91@gmail.com>"
 
-git push ssh://git@github.com/AOSPK-Devices/device_xiaomi_lmi HEAD:refs/heads/${branch} --force
+  sed -i '$ d' overlay/frameworks/base/core/res/res/values/config.xml
+  echo '
+    <!-- Controls the navigation bar interaction mode:
+         0: 3 button mode (back, home, overview buttons)
+         1: 2 button mode (back, home buttons + swipe up for overview)
+         2: gestures only for back, home and overview -->
+    <integer name="config_navBarInteractionMode">1</integer>
+</resources>' >> overlay/frameworks/base/core/res/res/values/config.xml
+  git add . && git commit --message "lmi: Add the default gesture" --author "Alexandre Rangel <mamutal91@gmail.com>"
 
-# Common
-cd ../android_device_xiaomi_sm8250-common
+  git push ssh://git@github.com/AOSPK-Devices/device_xiaomi_lmi HEAD:refs/heads/${branch} --force
 
-mv overlay-lineage overlay-kraken
-cd overlay-kraken
-mv lineage-sdk custom-sdk
-cd custom-sdk
-mv lineage kraken
+  # Common
+  cd ../android_device_xiaomi_sm8250-common
 
-cd ../../
+  mv overlay-lineage overlay-kraken
+  cd overlay-kraken
+  mv lineage-sdk custom-sdk
+  cd custom-sdk
+  mv lineage kraken
 
-sed -i "s/overlay-lineage/overlay-kraken/g" kona.mk
-sed -i "s/vendor\/lineage/vendor\/aosp/" kona.mk
+  cd ../../
 
-rm -rf lineage.dependencies
-echo '[
+  sed -i "s/overlay-lineage/overlay-kraken/g" kona.mk
+  sed -i "s/vendor\/lineage/vendor\/aosp/" kona.mk
+
+  rm -rf lineage.dependencies
+  echo '[
   {
     "repository": "kernel_xiaomi_sm8250",
     "target_path": "kernel/xiaomi/sm8250"
@@ -156,34 +169,36 @@ echo '[
   }
 ]' > aosp.dependencies
 
-git add . && git commit --message "sm8250-common: $bringup" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>"
+  git add . && git commit --message "sm8250-common: $bringup" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>"
 
-# FaceUnlock
-pwd_faceunlock=$(pwd)
-mkdir -p overlay/packages/apps/FaceUnlockService/app/src/main/res/values
-cd overlay/packages/apps/FaceUnlockService/app/src/main/res/values
-wget https://raw.githubusercontent.com/PixelExperience-Devices/device_xiaomi_raphael/eleven/overlay/packages/apps/FaceUnlockService/app/src/main/res/values/config.xml
-cd $pwd_faceunlock
+  # FaceUnlock
+  pwd_faceunlock=$(pwd)
+  mkdir -p overlay/packages/apps/FaceUnlockService/app/src/main/res/values
+  cd overlay/packages/apps/FaceUnlockService/app/src/main/res/values
+  wget https://raw.githubusercontent.com/PixelExperience-Devices/device_xiaomi_raphael/eleven/overlay/packages/apps/FaceUnlockService/app/src/main/res/values/config.xml
+  cd $pwd_faceunlock
 
-msg="sm8250-common: overlay: FaceUnlockService: Define delay for our popup camera
+  msg="sm8250-common: overlay: FaceUnlockService: Define delay for our popup camera
 
 * Android framework sometimes triggers face unlock at random times (after unlocking with pin or pattern, for example) so that the camera on devices with a pop-up camera is activated at unwanted times.
 
 Adds a configurable delay to prevent this behavior"
-git add . && git commit --message "$msg" --author "Henrique Silva <jhenrique09.mcz@hotmail.com>"
+  git add . && git commit --message "$msg" --author "Henrique Silva <jhenrique09.mcz@hotmail.com>"
 
-# Props
-sed -i "s/debug.sf.latch_unsignaled=1/debug.sf.latch_unsignaled=0/g" system.prop
-sed -i "s/debug.sf.latch_unsignaled=1/debug.sf.latch_unsignaled=0/g" vendor.prop
+  # Props
+  sed -i "s/debug.sf.latch_unsignaled=1/debug.sf.latch_unsignaled=0/g" system.prop
+  sed -i "s/debug.sf.latch_unsignaled=1/debug.sf.latch_unsignaled=0/g" vendor.prop
 
-msg="sm8250-common: Disable debug.sf.latch_unsignaled from prop.
+  msg="sm8250-common: Disable debug.sf.latch_unsignaled from prop.
 * Disabling this helps reduces notification flicker, UI performance is not impacted.
 (per:  change https://android.googlesource.com/platform/frameworks/native/+/c5da271)
 
 *Lmi: Also fixes Lags on Google Photos while playing videos."
-git add . && git commit --message "${msg} now" --signoff --author "soumyo19 <fsoummya@gmail.com>"
+  git add . && git commit --message "${msg} now" --signoff --author "soumyo19 <fsoummya@gmail.com>"
 
-git push ssh://git@github.com/AOSPK-Devices/device_xiaomi_sm8250-common HEAD:refs/heads/${branch} --force
+  git push ssh://git@github.com/AOSPK-Devices/device_xiaomi_sm8250-common HEAD:refs/heads/${branch} --force
+}
+#tree
 
 # Kernel and Vendor
 cd $workingDir
@@ -193,7 +208,6 @@ mv ${repoVendor}_vendor_xiaomi ${repoVendor}_vendor_xiaomi_lmi
 cp -rf ${repoVendor}_vendor_xiaomi_lmi ${repoVendor}_vendor_xiaomi_sm8250-common
 
 cd ${repoVendor}_vendor_xiaomi_lmi
-git filter-branch --prune-empty --subdirectory-filter lmi ${branchLOS}
 git push ssh://git@github.com/AOSPK-Devices/vendor_xiaomi_lmi HEAD:refs/heads/${branch} --force
 git push ssh://git@gitlab.com/AOSPK-Devices/vendor_xiaomi_lmi HEAD:refs/heads/${branch} --force
 
@@ -204,6 +218,7 @@ git push ssh://git@gitlab.com/AOSPK-Devices/vendor_xiaomi_sm8250-common HEAD:ref
 
 cd ..
 git clone https://github.com/${orgRebase}/android_kernel_xiaomi_sm8250 -b ${branchLOS}
+[[ $? -eq 0 ]] && echo "${GRE}Kernel clone success${END}" || echo "${RED}Kernel clone failure${END}" && exit 1
 cd android_kernel_xiaomi_sm8250
 
 sed -i "s/lineageos/kraken/g" arch/arm64/configs/vendor/umi_defconfig
