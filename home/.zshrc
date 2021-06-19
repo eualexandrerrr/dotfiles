@@ -25,14 +25,18 @@ export PATH="$HOME/bin:$PATH"
 
 # sudo easy
 alias chmod="sudo chmod"
-alias cp -rf="sudo rsync -av --progress"
+alias cp="sudo cp"
+alias docker="sudo docker"
+alias mkdir="sudo mkdir"
+alias mount="sudo mount"
 alias mv="sudo rsync -av --progress --remove-source-files"
 alias pacman="sudo pacman"
 alias pkill="sudo pkill"
 alias rm="sudo rm"
-alias systemctl="sudo systemctl"
+alias rsync="sudo rsync"
 alias sed="sudo sed"
-alias docker="sudo docker"
+alias systemctl="sudo systemctl"
+alias umount="sudo umount"
 
 # paths
 alias x="cd /mnt/roms/jobs/KrakenDev"
