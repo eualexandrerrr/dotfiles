@@ -32,10 +32,5 @@ echo -e "${BOL_BLU}Executing command via ci-cli...\n${END}${GRE}"
 [ ${1} = enableJobs ] && echo -e "12. Enabling jobs...${RED}" && $enable Kraken && $enable PA
 [ ${1} = disableJobs ] && echo -e "13. Disabling jobs...${RED}" && $disable Kraken && $disable PA
 
-echo -e "${BOL_YEL}"
-echo -ne "#####                     (33%)\r"
+echo -e "\n${BOL_BLU}Exiting..."
 sleep 1
-echo -ne "##########                (48%)\r"
-sleep 1
-echo -ne "#######################   (100%)\r"
-echo -ne "\n"
