@@ -66,6 +66,7 @@ if [[ $(cat /etc/hostname) == mamutal91-v2 ]]; then
 
   sudo rm -rf /home/mamutal91/.jenkins
   git clone ssh://git@gitlab.com/AOSPK/jenkins -b backup /home/mamutal91/.jenkins
+  rm -rf /home/mamutal91/.jenkins/*
   cd /mnt/roms/backupJenkins && sudo cp -rf * /home/mamutal91/.jenkins
   cd /home/mamutal91/.jenkins
   git add . && git commit -m "${m}" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>" --date "$(date)" && git push -f
@@ -78,6 +79,7 @@ if [[ $(cat /etc/hostname) == buildersbr.ninja-v2 ]]; then
   pwd=$(pwd)
   sudo rm -rf /home/mamutal91/.jenkins
   git clone ssh://git@gitlab.com/buildersbr/jenkins -b backup /home/mamutal91/.jenkins
+  rm -rf /home/mamutal91/.jenkins/*
   cd /mnt/roms/backupJenkins && sudo cp -rf * /home/mamutal91/.jenkins
   cd /home/mamutal91/.jenkins
   git add . && git commit -m "${m}" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>" --date "$(date)" && git push -f
