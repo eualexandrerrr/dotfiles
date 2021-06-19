@@ -1,0 +1,40 @@
+print_info() {
+    info title
+    info underline
+
+    info "CPU" cpu
+    info "Disk" disk
+    info "GPU" gpu
+    info "Kernel" kernel
+    info "Model" model
+    info "Memory" memory
+    info "OS" distro
+
+    info line_break
+
+    info "Icons" icons
+    info "Packages" packages
+    info "Resolution" resolution
+    info "Shell" shell
+    info "Terminal" term
+    info "Terminal Font" term_font
+    info "Theme" theme
+    info "Uptime" uptime
+    info "WM" wm
+
+    info line_break
+    info cols
+    info line_break
+}
+
+# Related to the bar
+bar_char_elapsed="█"
+bar_char_total="░"
+
+# Related to the CPU
+speed_shorthand="on"
+speed_type="scaling_max_freq"
+
+# Related to the custom configuration
+thumbnail_dir="${XDG_CACHE_HOME:-${HOME}/.cache}/thumbnails/neofetch"
+underline_char="——"

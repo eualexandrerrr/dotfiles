@@ -5,6 +5,9 @@ source $HOME/.colors &> /dev/null
 iconpath="/usr/share/icons/Papirus-Dark/32x32/devices"
 icon="${iconpath}/computer.svg"
 
+play $HOME/.config/sounds/gitcron.wav &> /dev/null
+notify-send -i $icon "GitCron" "Starting backups..."
+
 clear
 
 # My history
@@ -26,8 +29,6 @@ fi
 # My notebook
 if [[ $(cat /etc/hostname) == odin ]]; then
   #MyApps
-  play $HOME/.config/sounds/gitcron.wav &> /dev/null
-  notify-send -i $icon "GitCron" "Starting backups..."
   apps=("Atom" "filezilla" "Thunar")
 
   for i in ${apps[@]}; do

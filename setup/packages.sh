@@ -12,16 +12,16 @@ packages=(
   # apps
   alacritty atom
   cronie
-  discord
+  discord diff-so-fancy
   filezilla
   git gpicview
   htop
   jdk-openjdk jq
   mako
-  nano nano-syntax-highlighting
+  nano nano-syntax-highlighting nnn neofetch
   reflector rsync
   stow sway swaybg shfmt
-  tree thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman transmission-gtk
+  tree transmission-gtk
   waybar wayland wofi
   xorg-server-xwayland
   zsh-syntax-highlighting
