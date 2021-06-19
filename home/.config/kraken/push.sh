@@ -1,12 +1,21 @@
 #!/usr/bin/env bash
 # Adjust the following variables as necessary
 
+source $HOME/.myTokens &> /dev/null
+
 pwd=$(pwd)
 
-echo -e '[Push] $ Pushing to or AOSPK-DEV/frameworks_base...'
-git remote add push ssh://git@github.com/AOSPK-DEV/frameworks_base
+curl \
+  -X DELETE \
+  -H "Accept: application/vnd.github.v3+json" \
+  -H "Authorization: token ${githubToken}" \
+   https://api.github.com/repos/AOSPK-DEV/frameworks_base
 
-sleep 2
+gh repo create AOSPK-DEV/frameworks_base --private --confirm &> /dev/null
+
+cd /mnt/roms/jobs/Kraken/frameworks/base
+
+git remote add push ssh://git@github.com/AOSPK-DEV/frameworks_base
 
 REMOTE=push
 BRANCH=$(git rev-parse --abbrev-ref HEAD)
