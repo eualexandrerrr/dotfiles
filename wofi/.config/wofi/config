@@ -1,7 +1,7 @@
 stylesheet=/home/bryan/.config/wofi/style.css
-xoffset=760
+xoffset=500
 yoffset=350%
-hide_scroll=false
+hide_scroll=true
 show=drun
 width=400
 lines=10

@@ -8,7 +8,7 @@ repo03="03.   myarch"
 repo04="04.   mytokens"
 repo05="05.   custom-rom"
 repo06="06.   shellscript-atom-snippets"
-repo07="07.   kraken|ci"
+repo07="07.   ci | kraken"
 
 menu="$repo01\n$repo02\n$repo03\n$repo04\n$repo05\n$repo06\n$repo07"
 
@@ -20,6 +20,6 @@ case $chosen in
   $repo04) alacritty -t mywindowfloat --working-directory $github/mytokens ;;
   $repo05) alacritty -t mywindowfloat --working-directory $github/custom-rom ;;
   $repo06) alacritty -t mywindowfloat --working-directory $github/shellscript-atom-snippets ;;
-  $repo07) alacritty -e HOME/.config/scripts/ciMenu.sh & ;;
+  $repo07) $HOME/.config/scripts/ciMenu.sh & ;;
 esac
 exit 0

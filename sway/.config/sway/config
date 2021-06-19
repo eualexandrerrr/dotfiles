@@ -144,6 +144,7 @@ bindsym $super+F3 exec --no-startup-id kotatogram-desktop &; workspace $ws4
 
 # System shortcuts
 bindsym $super+BackSpace exec --no-startup-id alacritty -t testingscript -e $HOME/.config/scripts/scripter.sh &
+bindsym $super+k exec --no-startup-id $HOME/.config/scripts/ciMenu.sh &
 bindsym F10 exec --no-startup-id $HOME/.config/scripts/myMenu.sh &
 bindsym F11 exec --no-startup-id $HOME/.dotfiles/install.sh
 
