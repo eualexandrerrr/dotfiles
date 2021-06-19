@@ -42,6 +42,12 @@ function push() {
   [ $repo = vendor_qcom_opensource_commonsys_system_bt ] && repo=vendor_qcom_opensource_system_bt
   [ $repo = vendor_gapps ] && github=gitlab && org=AOSPK
 
+  [ $repo = device_xiaomi_lmi ] && org=AOSPK-Devices
+  [ $repo = device_xiaomi_sm8250-common ] && org=AOSPK-Devices
+  [ $repo = kernel_xiaomi_sm8250 ] && org=AOSPK-Devices
+  [ $repo = vendor_xiaomi_lmi ] && org=AOSPK-Devices
+  [ $repo = vendor_xiaomi_sm8250-common ] && org=AOSPK-Devices
+
   if [[ ${1} == gerrit ]]; then
     echo "${BOL_BLU}Pushing to ${BOL_YEL}gerrit.aospk.org/${MAG}${repo}${END} ${CYA}${branch}${END}"
     gitdir=$(git rev-parse --git-dir)
@@ -53,7 +59,7 @@ function push() {
       git push ssh://mamutal91@gerrit.aospk.org:29418/${repo} HEAD:refs/for/${branch}%l=Verified+1,l=Code-Review+2,topic=${topic}
     fi
   else
-    echo "${BOL_BLU}Pushing to ${BOL_YEL}github.com/${BOL_RED}AOSPK-DEV/${MAG}${repo}${END} ${CYA}${branch}${END}"
+    echo "${BOL_BLU}Pushing to ${BOL_YEL}github.com/${BOL_RED}${org}/${MAG}${repo}${END} ${CYA}${branch}${END}"
     git push ssh://git@${github}.com/${org}/${repo} HEAD:refs/heads/${branch} ${force}
   fi
 }

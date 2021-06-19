@@ -2,7 +2,7 @@
 
 github=$HOME/GitHub
 # depois 7
-repo01="01.   dotfiles"
+repo01="01.   dsadsadsadsa"
 repo02="02.   infra"
 repo03="03.   build ( lmi )"
 repo04="04.   build ( random )"
@@ -26,6 +26,17 @@ chosen="$(echo -e "$menu" | wofi --lines 17 --sort-order=alphabetical --dmenu -p
 case $chosen in
   $repo01) alacritty -t mywindowfloat --working-directory $HOME/.dotfiles ;;
   $repo02) alacritty -t mywindowfloat --working-directory $github/infra ;;
+  $repo03) alacritty -t mywindowfloat -e $HOME/.config/scripts/runCI.sh build ;;
+  $repo04) alacritty -t mywindowfloat -e $HOME/.config/scripts/runCI.sh buildRandom ;;
+  $repo05) alacritty -t mywindowfloat -e $HOME/.config/scripts/runCI.sh buildSync ;;
+  $repo06) alacritty -t mywindowfloat -e $HOME/.config/scripts/runCI.sh buildSyncClean ;;
+  $repo07) alacritty -t mywindowfloat -e $HOME/.config/scripts/runCI.sh buildSyncInstallclean ;;
+  $repo08) alacritty -t mywindowfloat -e $HOME/.config/scripts/runCI.sh makeClean ;;
+  $repo09) alacritty -t mywindowfloat -e $HOME/.config/scripts/runCI.sh stopOnlySync ;;
+  $repo10) alacritty -t mywindowfloat -e $HOME/.config/scripts/runCI.sh stopJobs ;;
+  $repo11) alacritty -t mywindowfloat -e $HOME/.config/scripts/runCI.sh stopClear ;;
+  $repo12) alacritty -t mywindowfloat -e $HOME/.config/scripts/runCI.sh enableJobs ;;
+  $repo13) alacritty -t mywindowfloat -e $HOME/.config/scripts/runCI.sh disableJobs ;;
   $repo14) alacritty -t mywindowfloat --working-directory $github/myarch ;;
   $repo15) alacritty -t mywindowfloat --working-directory $github/mytokens ;;
   $repo16) alacritty -t mywindowfloat --working-directory $github/custom-rom ;;
