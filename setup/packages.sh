@@ -48,6 +48,9 @@ packages=(
   unrar unzip
   wget
 
+  # themes
+  papirus-icon-theme
+
   # fonts
   noto-fonts-emoji
   terminus-font ttf-liberation
@@ -60,7 +63,6 @@ aur=(
   # themes
   capitaine-cursors
   dracula-gtk-theme
-  numix-icon-theme-git
 
   # apps
   google-chrome-dev github-cli-git gitlab-glab-bin
