@@ -64,7 +64,7 @@ set constantshow
 # set historylog
 
 ## Display a "scrollbar" on the righthand side of the edit window.
-set indicator
+# set indicator
 
 ## Scroll the buffer contents per half-screen instead of per line.
 # set jumpyscrolling
@@ -78,7 +78,7 @@ set linenumbers
 # set locking
 
 ## Fall back to slow libmagic to try and determine an applicable syntax.
-set magic
+# set magic
 
 ## The opening and closing brackets that can be found by bracket
 ## searches.  They cannot contain blank characters.  The former set must
