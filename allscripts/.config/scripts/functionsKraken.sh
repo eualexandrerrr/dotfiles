@@ -6,7 +6,7 @@ source $HOME/.colors &> /dev/null
 
 function lmi() {
   dot
-  ssh mamutal91@86.109.7.111 "bash $HOME/.dotfiles/home/.config/kraken/lmi.sh ${1}"
+  ssh mamutal91@86.109.7.111 "bash $HOME/.config/scripts/kraken/lmi.sh ${1}"
 }
 
 function gerrit() {
@@ -18,7 +18,7 @@ function down() {
 }
 
 function sync_repos() {
-  ssh mamutal91@86.109.7.111 "bash $HOME/.dotfiles/home/.config/kraken/sync_repos.sh"
+  ssh mamutal91@86.109.7.111 "bash $HOME/.config/scripts/kraken/sync_repos.sh"
 }
 
 function push() {
@@ -135,14 +135,14 @@ function hals() {
     )
 
     for i in "${branch[@]}"; do
-      $HOME/.dotfiles/home/.config/kraken/hal/hal.sh ${i}
+      $HOME/.config/scripts/kraken/hal/hal.sh ${i}
     done
 
-    $HOME/.dotfiles/home/.config/kraken/hal/caf.sh
-    $HOME/.dotfiles/home/.config/kraken/hal/chromium.sh
-    $HOME/.dotfiles/home/.config/kraken/hal/faceunlock.sh
-    $HOME/.dotfiles/home/.config/kraken/hal/sepolicy.sh
-    $HOME/.dotfiles/home/.config/kraken/hal/fixes.sh
+    $HOME/.config/scripts/kraken/hal/caf.sh
+    $HOME/.config/scripts/kraken/hal/chromium.sh
+    $HOME/.config/scripts/kraken/hal/faceunlock.sh
+    $HOME/.config/scripts/kraken/hal/sepolicy.sh
+    $HOME/.config/scripts/kraken/hal/fixes.sh
 
     cd $pwd
   else

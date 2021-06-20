@@ -21,7 +21,7 @@ day=$(echo ${dateFull} | cut -c9-10)
 changelogFile=$(basename $zipBuild .zip)
 changelogFile=${changelogFile}.txt
 
-img=/home/mamutal91/.dotfiles/home/.config/kraken/images/banner_lmi.jpg
+img=/home/mamutal91/.dotfiles/home/.config/scripts/kraken/images/banner_lmi.jpg
 
 codename=lmi
 

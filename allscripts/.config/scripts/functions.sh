@@ -19,9 +19,9 @@ function infra() {
 }
 
 function bkp() {
-  bash $HOME/.dotfiles/home/.config/scripts/gitcron.sh
-  ssh mamutal91@86.109.7.111 "bash $HOME/.dotfiles/home/.config/scripts/gitcron.sh"
-  ssh mamutal91@147.75.80.89 "bash $HOME/.dotfiles/home/.config/scripts/gitcron.sh"
+  bash $HOME/.config/scripts/gitcron.sh
+  ssh mamutal91@86.109.7.111 "bash $HOME/.config/scripts/gitcron.sh"
+  ssh mamutal91@147.75.80.89 "bash $HOME/.config/scripts/gitcron.sh"
 }
 
 function fetch() {
