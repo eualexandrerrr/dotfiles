@@ -10,7 +10,7 @@ month=$(echo ${dateFull} | cut -c4-5)
 day=$(echo ${dateFull} | cut -c5-6)
 
 echo $year
-img=/home/mamutal91/.dotfiles/home/.config/scripts/kraken/images/banner_lmi.jpg
+img=/home/mamutal91/.dotfiles/allscripts/.config/scripts/kraken/images/banner_lmi.jpg
 
 codename=lmi
 
