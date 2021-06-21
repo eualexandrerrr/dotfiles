@@ -16,12 +16,12 @@ repo10="10.   build, sync and make clean"
 repo11="11.   build, sync and make installclean"
 repo12="12.   make clean"
 repo13="13.   only sync"
-repo14="14.   stop/parar"
-repo15="15.   stop and clear/limpar queue"
+repo14="14.   stop"
+repo15="15.   stop and clear"
 repo16="16.   enable-jobs"
 repo17="17.   disable-jobs"
 repo18="18.   console"
-repo19="19.   recovery image"
+repo19="19.   package"
 
 menu="$repo01\n$repo02\n$repo03\n$repo04\n$repo05\n$repo06\n$repo07\n$repo08\n$repo09\n$repo10\n$repo11\n$repo12\n$repo13\n$repo14\n$repo15\n$repo16\n$repo17\n$repo18\n$repo19"
 
@@ -46,6 +46,6 @@ case $chosen in
   $repo16) alacritty -t mywindowfloat -e $HOME/.config/scripts/runCI.sh enableJobs ;;
   $repo17) alacritty -t mywindowfloat -e $HOME/.config/scripts/runCI.sh disableJobs ;;
   $repo18) google-chrome-unstable https://ci.aospk.org/job/KrakenDev/lastBuild/console ;;
-  $repo19) alacritty -t mywindowfloat -e $HOME/.config/scripts/runCI.sh recoveryImage ;;
+  $repo19) alacritty -t mywindowfloat -e $HOME/.config/scripts/runCI.sh package ;;
 esac
 exit 0
