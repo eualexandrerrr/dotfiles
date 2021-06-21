@@ -21,10 +21,11 @@ repo15="15.   stop and clear/limpar queue"
 repo16="16.   enable-jobs"
 repo17="17.   disable-jobs"
 repo18="18.   console"
+repo19="19.   recovery image"
 
-menu="$repo01\n$repo02\n$repo03\n$repo04\n$repo05\n$repo06\n$repo07\n$repo08\n$repo09\n$repo10\n$repo11\n$repo12\n$repo13\n$repo14\n$repo15\n$repo16\n$repo17\n$repo18"
+menu="$repo01\n$repo02\n$repo03\n$repo04\n$repo05\n$repo06\n$repo07\n$repo08\n$repo09\n$repo10\n$repo11\n$repo12\n$repo13\n$repo14\n$repo15\n$repo16\n$repo17\n$repo18\n$repo19"
 
-chosen="$(echo -e "$menu" | wofi --lines 18 --sort-order=alphabetical --dmenu -p "  myMenu")"
+chosen="$(echo -e "$menu" | wofi --lines 19 --sort-order=alphabetical --dmenu -p "  myMenu")"
 case $chosen in
   $repo01) alacritty -t mywindowfloat --working-directory $HOME/.dotfiles ;;
   $repo02) alacritty -t mywindowfloat --working-directory $github/infra ;;
@@ -45,5 +46,6 @@ case $chosen in
   $repo16) alacritty -t mywindowfloat -e $HOME/.config/scripts/runCI.sh enableJobs ;;
   $repo17) alacritty -t mywindowfloat -e $HOME/.config/scripts/runCI.sh disableJobs ;;
   $repo18) google-chrome-unstable https://ci.aospk.org/job/KrakenDev/lastBuild/console ;;
+  $repo19) alacritty -t mywindowfloat -e $HOME/.config/scripts/runCI.sh recoveryImage ;;
 esac
 exit 0

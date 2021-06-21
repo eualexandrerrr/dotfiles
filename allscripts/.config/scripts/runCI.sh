@@ -17,6 +17,7 @@ clear="$cli clear-queue"
 console="$cli console KrakenDev -f"
 disable="$cli disable-job"
 enable="$cli enable-job"
+recoveryImage="$cli build KrakenDev -p build=true -p task=recoveryimage -p sync=false -p mka_clean=false -p mka_installclean=false -p publish_build=false"
 
 echo -e "${BOL_BLU}Executing command via ci-cli...\n${END}${GRE}"
 
@@ -31,6 +32,7 @@ echo -e "${BOL_BLU}Executing command via ci-cli...\n${END}${GRE}"
 [ ${1} = stopClear ] && echo -e "11. Stopping jobs and clearing jobs from the queue...${RED}" && $clear
 [ ${1} = enableJobs ] && echo -e "12. Enabling jobs...${RED}" && $enable Kraken && $enable PA
 [ ${1} = disableJobs ] && echo -e "13. Disabling jobs...${RED}" && $disable Kraken && $disable PA
+[ ${1} = recoveryImage ] && echo -e "13. Recovery image...${RED}" && $stop KrakenDev && $recoveryImage
 
 echo -e "\n${BOL_BLU}Exiting..."
 sleep 1
