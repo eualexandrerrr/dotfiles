@@ -27,6 +27,16 @@ for i in ${aur[@]}; do
   yay -Sy ${i} --needed --noconfirm
 done
 
+# gdrive
+pwd=$(pwd)
+cd $HOME
+wget https://github.com/prasmussen/gdrive/releases/download/2.1.1/gdrive_2.1.1_linux_amd64.tar.gz
+tar -xvzf gdrive*.tar.gz
+chmod +x gdrive
+install gdrive /usr/local/bin/gdrive
+rm -rf gdrive*
+cd $pwd
+
 # Atom packages
 atom="
   atom-beautify
