@@ -18,10 +18,10 @@ packages=(
   htop
   jdk-openjdk jq
   mako
-  nano nano-syntax-highlighting nnn neofetch
+  nano nano-syntax-highlighting neofetch
   reflector rsync
   stow sway swaybg shfmt
-  tree transmission-gtk
+  tree thunar transmission-gtk
   waybar wayland wofi
   xorg-server-xwayland
   zsh-syntax-highlighting
