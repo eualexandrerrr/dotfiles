@@ -45,7 +45,7 @@ for maintainer in $(jq '.[] | select(.name|test("^")) | .github_username' $jsonM
 
       echo -e "\n${BOL_GRE}Creating the repository${END} ${BLU}${device}\n# ${CYA}${repo}${END} and inviting the ${YEL}@${maintainer}${END} maintainer"
       echo -e "${RED}${brandDevice} $nameDevice${END}"
-
+      sleep 5
       gh api -X PUT repos/AOSPK-Devices/${repo}/collaborators/${maintainer} -f permission=admin &> /dev/null
     done
   done < <(jq -r ".[] | select(.github_username == \"${maintainer}\") | .devices[].codename" $jsonMaintainers)
