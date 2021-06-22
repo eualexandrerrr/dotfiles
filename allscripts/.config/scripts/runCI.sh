@@ -45,8 +45,6 @@ if [[ ${1} == package ]]; then
   exit
 fi
 
-/home/mamutal91/.config/scripts/runCI.sh: linha 36: java -jar /home/mamutal91/.jenkins-cli.jar -s http://86.109.7.111:8080 -auth mamutal91:114113d4a3eef01f2e6480abca3ded81bf -webSocket build KrakenDev -p build=true -p sync=false -p mka_clean=false -p mka_installclean=false -p publish_build=false -p task=bacon: Arquivo ou diretório inexistente
-
 echo -e "${BOL_BLU}Executing command via ci-cli...\n${END}${GRE}"
 
 [ ${1} = build ] && echo -e "Building dirty for ${BLU}lmi${END}...${RED}" && $build
