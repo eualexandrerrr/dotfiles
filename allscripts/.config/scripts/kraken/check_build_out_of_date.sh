@@ -98,7 +98,6 @@ function sendMessage() {
     --data-urlencode text="$msg" \
     --data-urlencode parse_mode="markdown" \
     --data-urlencode disable_web_page_preview="true"
-
 }
 
 rm -rf $workingDir
