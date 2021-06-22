@@ -24,16 +24,14 @@ function bkp() {
   ssh mamutal91@147.75.80.89 "bash $HOME/.config/scripts/gitcron.sh"
 }
 
-function fetch() {
-  $HOME/.config/scripts/fetch.sh gnu
-}
-
 function f() {
   org=$(echo ${1} | cut -c1-5)
   if [[ $org == AOSPK ]]; then
     git fetch ssh://git@github.com/${1} ${2}
   else
-    git fetch https://github.com/${1} ${2}
+    githost=github
+    [ ${1} = the-muppets/proprietary_vendor_xiaomi ] && githost=gitlab
+    git fetch https://${githost}.com/${1} ${2}
   fi
 }
 
