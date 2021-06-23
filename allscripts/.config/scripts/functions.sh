@@ -84,6 +84,7 @@ function gitpush() {
   [ $pwdFolder = .dotfiles ] && dot && exit
   [ $pwdFolder = infra ] && infra && exit
   [ $pwdFolder = shellscript-atom-snippets ] && export ATOM_ACCESS_TOKEN=${atomToken} && apm publish minor && sleep 5 && apm update mamutal91-shellscript-snippets-atom --no-confirm
+  [ $pwdFolder = jackhammer-syntax ] && export ATOM_ACCESS_TOKEN=${atomToken} && apm publish minor && sleep 5 && apm update mamutal91-jackhammer-syntax --no-confirm
   [ $pwdFolder = mytokens ] && cp -rf $HOME/GitHub/mytokens/.myTokens $HOME &> /dev/null
 }
 

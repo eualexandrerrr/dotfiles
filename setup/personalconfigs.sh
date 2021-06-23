@@ -47,6 +47,7 @@ function cloneRepos() {
   git clone ssh://git@github.com/mamutal91/myhistory $HOME/GitHub/myhistory
   git clone ssh://git@github.com/mamutal91/custom-rom $HOME/GitHub/custom-rom
   git clone ssh://git@github.com/mamutal91/shellscript-atom-snippets $HOME/GitHub/shellscript-atom-snippets
+  git clone ssh://git@github.com/mamutal91/jackhammer-syntax $HOME/GitHub/jackhammer-syntax
 
   # myapps
   if [[ ! -d $HOME/GitHub/myapps ]]; then
