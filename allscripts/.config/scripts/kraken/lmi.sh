@@ -14,7 +14,8 @@ echo ${BOL_RED}Branch ${branch}${END}
 orgRebase=LineageOS
 
 [ $orgRebase = xiaomi-sm8250-devs ] && orgRebaseVendor=xiaomi-sm8250-devs && repoVendor=android
-[ $orgRebase = LineageOS ] && orgRebaseVendor=the-muppets && repoVendor=proprietary
+#[ $orgRebase = LineageOS ] && orgRebaseVendor=the-muppets && repoVendor=proprietary
+[ $orgRebase = LineageOS ] && orgRebaseVendor=SebaUbuntu && repoVendor=android
 
 branchLOS=lineage-18.1
 
