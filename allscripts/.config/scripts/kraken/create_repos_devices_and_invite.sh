@@ -47,6 +47,7 @@ for maintainer in $(jq '.[] | select(.name|test("^")) | .github_username' $jsonM
       echo -e "${RED}${brandDevice} $nameDevice${END}"
       sleep 5
       gh api -X PUT repos/AOSPK-Devices/${repo}/collaborators/${maintainer} -f permission=admin &> /dev/null
+      gh api -XPATCH "repos/AOSPK/${repoName}" -f default_branch="eleven" &> /dev/null
     done
   done < <(jq -r ".[] | select(.github_username == \"${maintainer}\") | .devices[].codename" $jsonMaintainers)
 done
