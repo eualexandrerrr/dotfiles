@@ -157,14 +157,14 @@ function hals() {
 
 function www() {
   if [[ $(cat /etc/hostname) == mamutal91-v2 ]]; then
-    cd $HOME && rm -rf www
-    git clone ssh://git@github.com/AOSPK/www -b master www
-    sudo rm -rf /mnt/roms/sites/www
-    sudo cp -rf www /mnt/roms/sites
-    cd /mnt/roms/sites/www
+    cd $HOME && rm -rf downloadcenter
+    git clone ssh://git@github.com/AOSPK/downloadcenter -b master downloadcenter
+    sudo rm -rf /mnt/roms/sites/downloadcenter
+    sudo cp -rf downloadcenter /mnt/roms/sites
+    cd /mnt/roms/sites/downloadcenter
     sudo npm i && sudo npm run build
     cd $HOME
   else
-    ssh mamutal91@86.109.7.111 "source $HOME/.zshrc && www"
+    ssh mamutal91@86.109.7.111 "source $HOME/.zshrc && downloadcenter"
   fi
 }
