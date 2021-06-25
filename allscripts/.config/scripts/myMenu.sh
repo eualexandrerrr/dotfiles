@@ -11,7 +11,7 @@ repo06="06.   shellscript-atom-snippets"
 repo07="07.   mysyntaxtheme"
 
 repo08="08.   build ( lmi )"
-repo09="09.   build ( random )"
+repo09="09.   build ( vayu )"
 repo10="10.   build and sync"
 repo11="11.   build, sync and make clean"
 repo12="12.   build, sync and make installclean"
