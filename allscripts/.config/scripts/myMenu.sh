@@ -8,7 +8,7 @@ repo03="03.   myarch"
 repo04="04.   mytokens"
 repo05="05.   custom-rom"
 repo06="06.   shellscript-atom-snippets"
-repo07="07.   mysyntaxtheme"
+repo07="07.   site"
 
 repo08="08.   build ( lmi )"
 repo09="09.   build ( vayu )"
@@ -34,7 +34,7 @@ case $chosen in
   $repo04) alacritty -t mywindowfloat --working-directory $github/mytokens ;;
   $repo05) alacritty -t mywindowfloat --working-directory $github/custom-rom ;;
   $repo06) alacritty -t mywindowfloat --working-directory $github/shellscript-atom-snippets ;;
-  $repo07) alacritty -t mywindowfloat --working-directory $github/mysyntaxtheme/ ;;
+  $repo07) alacritty -t mywindowfloat --working-directory $github/site ;;
 
   $repo08) alacritty -t mywindowfloat -e $HOME/.config/scripts/runCI.sh build ;;
   $repo09) alacritty -t mywindowfloat -e $HOME/.config/scripts/runCI.sh buildRandom ;;

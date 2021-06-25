@@ -24,7 +24,7 @@ packages=(
   tree thunar transmission-gtk
   waybar wayland wofi
   xorg-server-xwayland
-  zsh-syntax-highlighting
+  zsh-syntax-highlighting zip
 
   # bluetooth
   bluez bluez-libs bluez-tools bluez-utils
