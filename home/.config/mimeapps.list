@@ -1,9 +1,9 @@
 [Default Applications]
-image/gif=gpicview.desktop
-image/jpeg=gpicview.desktop
-image/jpg=gpicview.desktop
-image/png=gpicview.desktop
-image/svg+xml=gpicview.desktop
+image/gif=imv.desktop
+image/jpeg=imv.desktop
+image/jpg=imv.desktop
+image/png=imv.desktop
+image/svg+xml=imv.desktop
 text/x-shellscript=atom.desktop
 text/plain=atom.desktop
 text/html=google-chrome-unstable.desktop

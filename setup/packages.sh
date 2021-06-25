@@ -14,8 +14,9 @@ packages=(
   cronie
   discord diff-so-fancy
   filezilla
-  git gpicview
+  git
   htop
+  imv
   jdk-openjdk jq
   mako
   nano nano-syntax-highlighting neofetch
