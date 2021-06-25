@@ -87,6 +87,7 @@ function gitpush() {
   [ $pwdFolder = mysyntaxtheme ] && export ATOM_ACCESS_TOKEN=${atomToken} && apm publish minor && sleep 5 && apm update mysyntaxtheme --no-confirm
   [ $pwdFolder = mytokens ] && cp -rf $HOME/GitHub/mytokens/.myTokens $HOME &> /dev/null
   [ $pwdFolder = site ] && ssh mamutal91@86.109.7.111 "cd $HOME && rm -rf site && git clone ssh://git@github.com/AOSPK/site" &> /dev/null && exit
+  [ $pwdFolder = site ] && ssh mamutal91@86.109.7.111 "source $HOME/.zshrc && www" &> /dev/null && exit
 }
 
 function cm() {

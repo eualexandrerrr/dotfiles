@@ -165,6 +165,6 @@ function www() {
     sudo npm i && sudo npm run build
     cd $HOME
   else
-    ssh mamutal91@86.109.7.111 "source $HOME/.zshrc && downloadcenter"
+    ssh mamutal91@86.109.7.111 "source $HOME/.zshrc && www"
   fi
 }
