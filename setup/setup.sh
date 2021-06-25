@@ -65,6 +65,9 @@ for services in \
     sudo systemctl start $services
 done
 
+# Remove folder GO
+rm -rf $HOME/go
+
 source $HOME/.dotfiles/setup/etc.sh
 source $HOME/.dotfiles/install.sh
 
