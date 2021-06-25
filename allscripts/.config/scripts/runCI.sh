@@ -8,7 +8,7 @@ cli="java -jar $HOME/.jenkins-cli.jar -s http://86.109.7.111:8080 -auth ${myUser
 JOB=KrakenDev
 
 build="$cli build $JOB"
-buildRandom="$cli build $JOB -p codename=mojito"
+buildRandom="$cli build $JOB -p codename=vayu"
 buildSync="$cli build $JOB -p sync=true"
 buildSyncClean="$cli build $JOB -p sync=true -p mka_clean=true"
 buildSyncInstallclean="$cli build $JOB -p sync=true -p mka_installclean=true"
@@ -48,7 +48,7 @@ fi
 echo -e "${BOL_BLU}Executing command via ci-cli...\n${END}${GRE}"
 
 [ ${1} = build ] && echo -e "Building dirty for ${BLU}lmi${END}...${RED}" && $build
-[ ${1} = buildRandom ] && echo -e "Building dirty for ${BLU}mojito${END}...${RED}" && $buildRandom
+[ ${1} = buildRandom ] && echo -e "Building dirty for ${BLU}vayu${END}...${RED}" && $buildRandom
 [ ${1} = buildSync ] && echo -e "Synchronizing source to build dirty...${RED}" && $buildSync
 [ ${1} = buildSyncClean ] && echo -e "Cleaning build to build...${RED}" && $buildSyncClean
 [ ${1} = buildSyncInstallclean ] && echo -e "Cleaning apps to build...${RED}" && $buildSyncInstallclean
