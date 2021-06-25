@@ -63,6 +63,10 @@ function push() {
     echo "${BOL_BLU}Pushing to ${BOL_YEL}github.com/${BOL_RED}${org}/${MAG}${repo}${END} ${CYA}${branch}${END}"
     git push ssh://git@${github}.com/${org}/${repo} HEAD:refs/heads/${branch} ${force}
   fi
+
+  if [[ ${2} == org ]]; then
+    git push ssh://git@github.com/AOSPK/${repo} HEAD:refs/heads/${branch} ${force}
+  fi
 }
 
 function m() {
