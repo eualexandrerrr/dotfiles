@@ -103,7 +103,7 @@ function cm() {
 
 function amend() {
   if [[ ${1} ]]; then
-    gitadd && git commit --amend --signoff --date "$(date)" --author "${1}" && gitpush force
+    gitadd && git commit --amend --date "$(date)" --author "${1}" && gitpush force
   else
     gitadd && git commit --amend --date "$(date)" && gitpush force
   fi
