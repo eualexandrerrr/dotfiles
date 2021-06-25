@@ -14,7 +14,7 @@ function gerrit() {
 }
 
 function down() {
-  ssh mamutal91@86.109.7.111 "rm -rf /mnt/roms/sites/private/builds/*/*.zip &>/dev/null"
+  rm -rf /mnt/roms/sites/private/builds/**/*.zip &> /dev/null
 }
 
 function sync_repos() {
