@@ -11,15 +11,15 @@ fi
 
 cli="java -jar $HOME/.jenkins-cli.jar -s http://86.109.7.111:8080 -auth ${myUserCI}:${ciKrakenToken} -webSocket"
 
-JOB=Kraken
+JOB=KrakenDev
 codename=lmi
 codenameRandom=ysl
 
 build="$cli build $JOB -p codename=${codename}"
 buildRandom="$cli build $JOB -p codename=${codenameRandom}"
-buildSync="$cli build $JOB -p sync=true"
-buildSyncClean="$cli build $JOB -p sync=true -p mka_clean=true"
-buildSyncInstallclean="$cli build $JOB -p sync=true -p mka_installclean=true"
+buildSync="$cli build $JOB -p codename=${codename} -p sync=true"
+buildSyncClean="$cli build $JOB -p codename=${codename} -p sync=true -p mka_clean=true"
+buildSyncInstallclean="$cli build $JOB -p codename=${codename} -p sync=true -p mka_installclean=true"
 makeClean="$cli build $JOB -p build=false -p sync=false -p mka_clean=true -p mka_installclean=false -p publish_build=false"
 onlySync="$cli build $JOB -p build=false -p sync=true -p mka_clean=false -p mka_installclean=false -p publish_build=false"
 stop="$cli stop-builds"
