@@ -43,4 +43,3 @@ alias x="cd /mnt/roms/jobs/KrakenDev"
 alias c="cd $HOME/GitHub"
 
 source $HOME/.config/scripts/functions.sh
-source $HOME/.config/scripts/functionsKraken.sh

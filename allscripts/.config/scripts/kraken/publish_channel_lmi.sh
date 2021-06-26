@@ -30,7 +30,7 @@ By @mamutal91
 Follow @PocoF2ProGlobalReleases
 Join @PocoF2ProGlobalOfficial"
 
-function sendMessage() {
+sendMessage() {
   curl "https://api.telegram.org/bot${botToken}/sendPhoto" \
     -F chat_id="${chatId}" \
     -F photo=@"${img}" \

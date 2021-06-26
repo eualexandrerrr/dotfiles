@@ -4,7 +4,7 @@ source $HOME/.colors &>/dev/null
 
 workingDir=$(mktemp -d) && cd $workingDir
 
-function caf() {
+caf() {
   cd $workingDir
   git clone https://github.com/LineageOS/android_hardware_qcom_bootctrl -b lineage-18.1-caf hardware_qcom_bootctrl-caf
   git clone https://github.com/LineageOS/android_hardware_qcom_bt -b lineage-18.1-caf hardware_qcom_bt-caf
@@ -23,7 +23,7 @@ function caf() {
   git push ssh://git@github.com/AOSPK-DEV/hardware_qcom_wlan HEAD:refs/heads/eleven-caf --force
 }
 
-function limp() {
+limp() {
   cd $workingDir
   git clone https://github.com/LineageOS/android_vendor_nxp_opensource_halimpl -b lineage-18.1-pn5xx halimpl-pn5xx
   git clone https://github.com/LineageOS/android_vendor_nxp_opensource_halimpl -b lineage-18.1-sn100x halimpl-sn100x
@@ -47,7 +47,7 @@ function limp() {
   git push ssh://git@github.com/AOSPK-DEV/vendor_nxp_opensource_hidlimpl HEAD:refs/heads/eleven-sn100x --force
 }
 
-function halDefault() {
+halDefault() {
   cd $workingDir
   git clone https://github.com/LineageOS/android_hardware_qcom_audio -b lineage-18.1 hardware_qcom_audio-eleven-default
   git clone https://github.com/LineageOS/android_hardware_qcom_display -b lineage-18.1 hardware_qcom_display-eleven-default

@@ -4,24 +4,28 @@ source $HOME/.colors &> /dev/null
 
 [ $(cat /etc/hostname) = mamutal91-v2 ] && HOME=/home/mamutal91
 
-function lmi() {
-  dot
-  ssh mamutal91@86.109.7.111 "bash $HOME/.config/scripts/kraken/lmi.sh ${1}"
+fu() {
+  if [[ -z ${1} ]]; then
+    echo -e "${BLU}Usage:\n"
+    echo "${CYA}  fu ${GRE}<function>${END}${YEL}"
+    echo "              lmi"
+    echo "              gerrit"
+    echo "              down"
+    echo "              manifest"
+    echo "              sync_repos"
+    echo "              infra"
+    echo "${END}"
+  else
+    [ ${1} == lmi ] && ssh mamutal91@86.109.7.111 "bash $HOME/.config/scripts/kraken/lmi.sh ${1}"
+    [ ${1} == gerrit ] && ssh mamutal91@86.109.7.111 "cd /mnt/roms/sites/docker/docker-files/gerrit && sudo ./repl.sh"
+    [ ${1} == down ] && rm -rf /mnt/roms/sites/private/builds/**/*.zip &> /dev/null
+    [ ${1} == manifest ] && ssh mamutal91@86.109.7.111 "cd $HOME && git clone ssh://git@github.com/AOSPK/manifest && cd $HOME/manifest && git push ssh://git@github.com/AOSPK-DEV/manifest HEAD:refs/heads/eleven --force"
+    [ ${1} == sync_repos ] && ssh mamutal91@86.109.7.111 "bash $HOME/.config/scripts/kraken/sync_repos.sh"
+    [ ${1} == infra ] && echo -e "\n${BLU}Recloning ${CYA}infra ${BLU}to have the latest changes...${END}" && ssh mamutal91@86.109.7.111 "cd $HOME && rm -rf /mnt/roms/infra && git clone ssh://git@github.com/AOSPK/infra /mnt/roms/infra" &> /dev/null
+  fi
 }
 
-function gerrit() {
-  ssh mamutal91@86.109.7.111 "cd /mnt/roms/sites/docker/docker-files/gerrit && sudo ./repl.sh"
-}
-
-function down() {
-  rm -rf /mnt/roms/sites/private/builds/**/*.zip &> /dev/null
-}
-
-function sync_repos() {
-  ssh mamutal91@86.109.7.111 "bash $HOME/.config/scripts/kraken/sync_repos.sh"
-}
-
-function push() {
+push() {
   if [[ $(pwd | cut -c1-15) == /mnt/roms/jobs/ ]]; then
     repo=$(pwd | sed "s/\/mnt\/roms\/jobs\///; s/\//_/g" | sed "s/KrakenDev_/_/g" | sed "s/Kraken_/_/g" | sed 's/.//')
   else
@@ -53,19 +57,18 @@ function push() {
   # To Gerrit
   if [[ ${1} == gerrit ]]; then
     topic=${3}
-    [[ $topic ]] && gerritPush="$gerritPush,topic=${topic}"
 
     if [[ -z ${2} ]]; then
-      echo "${BLU}Usage:"
+      echo -e "${BLU}Usage:\n"
       echo "${CYA}  push gerrit ${RED}-?${END} ${GRE}<topic>${END}${YEL}"
       echo "              -s [Submit automatic]"
       echo "              -v [Verified]"
       echo "              -n [Normal]"
       echo "${END}"
     else
-      [[ ${2} == -s ]] && gerritPush="HEAD:refs/for/${branch}%submit"
-      [[ ${2} == -v ]] && gerritPush="HEAD:refs/for/${branch}%l=Verified+1,l=Code-Review+2"
-      [[ ${2} == -n ]] && gerritPush="HEAD:refs/for/${branch}"
+      [ ${2} == -s ] && gerritPush="HEAD:refs/for/${branch}%submit"
+      [ ${2} == -v ] && gerritPush="HEAD:refs/for/${branch}%l=Verified+1,l=Code-Review+2"
+      [ ${2} == -n ] && gerritPush="HEAD:refs/for/${branch}"
 
       if [[ ! -d .git ]]; then
         echo "${BOL_RED}You are not in a .git repository${END}"
@@ -74,7 +77,7 @@ function push() {
         export gitdir=$(git rev-parse --git-dir)
         scp -p -P 29418 mamutal91@gerrit.aospk.org:hooks/commit-msg ${gitdir}/hooks/ &> /dev/null
         git commit --amend --no-edit &> /dev/null
-        git push ssh://mamutal91@gerrit.aospk.org:29418/${repo} $gerritPush
+        git push ssh://mamutal91@gerrit.aospk.org:29418/${repo} $gerritPush,topic=${topic}
       fi
 
       [ $repo = manifest ] && echo ${BOL_RED}Pushing manifest to ORG DEV${END} && git push ssh://git@github.com/AOSPK-DEV/manifest HEAD:refs/heads/eleven --force
@@ -89,7 +92,7 @@ function push() {
   fi
 }
 
-function m() {
+m() {
   git add . && git commit --amend --no-edit
   sleep 2
 
@@ -133,7 +136,7 @@ upstream() {
   rm -rf $workingDir
 }
 
-function up() {
+up() {
   upstream ${1} lineage-18.1 eleven
   #  upstream ${1} lineage-17.1 ten
   #  upstream ${1} lineage-16.0 pie
@@ -141,7 +144,7 @@ function up() {
   #  upstream ${1} cm-14.1 nougat
 }
 
-function hals() {
+hals() {
   if [[ $(cat /etc/hostname) == mamutal91-v2 ]]; then
     pwd=$(pwd)
     branch=(
@@ -175,7 +178,7 @@ function hals() {
   fi
 }
 
-function www() {
+www() {
   if [[ $(cat /etc/hostname) == mamutal91-v2 ]]; then
     cd $HOME && rm -rf downloadcenter
     git clone ssh://git@github.com/AOSPK/downloadcenter -b master downloadcenter

@@ -31,7 +31,7 @@ replace() {
 remote=aospk
 branch=eleven
 
-function go() {
+go() {
   cd /mnt/roms/jobs/Kraken
   for repo in $(grep "remote=\"${remote}\"" manifest/${1}.xml | awk '{print $2 $3}'); do
     repoPath=$(echo $repo | cut -d'"' -f2)

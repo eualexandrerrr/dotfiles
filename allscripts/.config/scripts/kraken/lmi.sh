@@ -23,7 +23,7 @@ bringup="Initial changes for Kraken"
 
 workingDir=$(mktemp -d) && cd $workingDir
 
-function tree() {
+tree() {
   git clone https://github.com/${orgRebase}/android_device_xiaomi_lmi -b ${branchLOS} device_xiaomi_lmi
   git clone https://github.com/${orgRebase}/android_device_xiaomi_sm8250-common -b ${branchLOS} device_xiaomi_sm8250
 

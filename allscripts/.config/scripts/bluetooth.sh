@@ -7,7 +7,7 @@ bluetoothctl power on
 bluetoothctl agent on
 bluetoothctl default-agent
 
-function bt() {
+bt() {
   bluetoothctl trust ${1}
   bluetoothctl pair ${1}
   bluetoothctl connect ${1}

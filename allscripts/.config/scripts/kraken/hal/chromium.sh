@@ -4,7 +4,7 @@ source $HOME/.colors &>/dev/null
 
 workingDir=$(mktemp -d) && cd $workingDir
 
-function chromium() {
+chromium() {
   cd $workingDir
   git clone https://github.com/LineageOS/android_external_chromium-webview -b master external_chromium
 

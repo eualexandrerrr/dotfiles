@@ -4,7 +4,7 @@ source $HOME/.colors &>/dev/null
 
 workingDir=$(mktemp -d) && cd $workingDir
 
-function sepolicyCustom() {
+sepolicyCustom() {
   git clone https://github.com/LineageOS/android_device_qcom_sepolicy -b lineage-18.1 device_qcom_sepolicy-default
   git clone https://github.com/LineageOS/android_device_qcom_sepolicy -b lineage-18.1-legacy device_qcom_sepolicy-lineage-18.1-legacy
   git clone https://github.com/LineageOS/android_device_qcom_sepolicy -b lineage-18.1-legacy-um device_qcom_sepolicy-lineage-18.1-legacy-um

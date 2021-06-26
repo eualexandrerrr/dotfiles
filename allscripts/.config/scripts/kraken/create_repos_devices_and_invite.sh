@@ -31,7 +31,7 @@ for maintainer in $(jq '.[] | select(.name|test("^")) | .github_username' $jsonM
         gh repo create AOSPK-Devices/${repo} --public --confirm &> /dev/null
       else
         gh repo create AOSPK-Devices/${repo} -d "${brandDevice} ${nameDevice} maintained by @${maintainer}" --public --confirm &> /dev/null
-        function editDescription() {
+        editDescription() {
           curl \
             -H "Authorization: Token ${githubToken}" \
             -H "Content-Type:application/json" \

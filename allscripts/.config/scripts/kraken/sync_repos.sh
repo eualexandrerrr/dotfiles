@@ -41,7 +41,7 @@ echo -e '[Repo] $ Syncing...'
 repo init -u git://github.com/AOSPK/manifest -b eleven >> /dev/null
 repo sync -c -j$(nproc --all) --no-clone-bundle --current-branch --no-tags --force-sync >> /dev/null
 
-function go() {
+go() {
   for repo in $(grep "remote=\"${remote}\"" ${workingDir}/manifest/${1}.xml | awk '{print $2 $3}'); do
     cd $workingDir
     repoPath=$(echo $repo | cut -d'"' -f2)

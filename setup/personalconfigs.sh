@@ -39,7 +39,7 @@ sudo chmod 600 $HOME/.ssh/id_rsa*
 cd $pwd
 
 # Clone my important repos
-function cloneRepos() {
+cloneRepos() {
   rm -rf $HOME/GitHub/{myarch,myhistory,infra,custom-rom,shellscript-atom-snippets} && rm -rf $HOME/.scripter
   git clone ssh://git@github.com/mamutal91/scripter $HOME/.scripter
   git clone ssh://git@github.com/AOSPK/infra $HOME/GitHub/infra

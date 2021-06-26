@@ -4,7 +4,7 @@ source $HOME/.colors &>/dev/null
 
 workingDir=$(mktemp -d) && cd $workingDir
 
-function faceunlock() {
+faceunlock() {
   git clone https://gitlab.pixelexperience.org/android/external_faceunlock -b eleven external_faceunlock
   git clone https://github.com/PixelExperience/packages_apps_FaceUnlockService -b eleven packages_apps_FaceUnlockService
 

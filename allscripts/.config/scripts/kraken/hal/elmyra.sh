@@ -4,7 +4,7 @@ source $HOME/.colors &> /dev/null
 
 workingDir=$(mktemp -d) && cd $workingDir
 
-function elmyra() {
+elmyra() {
   git clone https://github.com/ProtonAOSP/android_packages_apps_ElmyraService -b eleven packages_apps_ElmyraService
 
   cd $workingDir/packages_apps_ElmyraService

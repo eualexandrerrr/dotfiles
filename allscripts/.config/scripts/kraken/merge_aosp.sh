@@ -183,7 +183,7 @@ blacklist=('manifest' 'cts' 'pdk' 'prebuilts/build-tools' 'external/chromium-web
 colorRed='\033[0;31m'
 colorBlank='\033[0m'
 
-function is_in_blacklist() {
+is_in_blacklist() {
     for repo in ${blacklist[@]}
     do
         if [[ "$repo" == "$1" ]]; then
@@ -193,7 +193,7 @@ function is_in_blacklist() {
     return 1;
 }
 
-function get_repos() {
+get_repos() {
     declare -a repos=( $(repo list | cut -d: -f1) )
     curl --output /tmp/rebase.tmp $REPO --silent # Download the html source of the Android source page
     # Since their projects are listed, we can grep for them
@@ -214,7 +214,7 @@ function get_repos() {
     rm /tmp/rebase.tmp
 }
 
-function delete_upstream() {
+delete_upstream() {
     for i in ${upstream[@]}
     do
         echo "${RED}Removing ${BLU}${i}${END}"
@@ -222,7 +222,7 @@ function delete_upstream() {
     done
 }
 
-function force_sync() {
+force_sync() {
     echo "${BOL_CYA}Repo Syncing...${END}"
     sleep 5
     repo sync -c -j$(nproc --all) --no-clone-bundle --current-branch --no-tags --force-sync >> /dev/null
@@ -234,7 +234,7 @@ function force_sync() {
     fi
 }
 
-function merge() {
+merge() {
     echo -e "\n${CYA}Merging ${GRE}$1${END} \n"
     cd $workingDir/$1
     git pull $REPO/$1.git -t $branchAOSP --no-edit
@@ -246,7 +246,7 @@ function merge() {
     fi
 }
 
-function build_repo() {
+build_repo() {
     echo -e "\n${CYA}Merging build/make ${END}\n"
     cd $workingDir/build/make
     git pull $REPO/build.git -t $branchAOSP --no-edit
@@ -258,7 +258,7 @@ function build_repo() {
     fi
 }
 
-function permission_controller_repo() {
+permission_controller_repo() {
     echo -e "\n${CYA}Merging packages/apps/PermissionController${END} \n"
     cd $workingDir/packages/apps/PermissionController
     git pull https://android.googlesource.com/platform/packages/apps/PackageInstaller.git -t $branchAOSP --no-edit
@@ -270,7 +270,7 @@ function permission_controller_repo() {
     fi
 }
 
-function print_result() {
+print_result() {
     if [[ ${#failed[@]} -eq 0 ]]; then
         echo ""
         echo "========== "$branchAOSP" is merged sucessfully =========="

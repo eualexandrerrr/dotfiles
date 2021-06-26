@@ -92,7 +92,7 @@ fi
 cat /tmp/msg
 cat /tmp/nobuild
 
-function sendMessage() {
+sendMessage() {
   curl "https://api.telegram.org/bot${botToken}/sendMessage" \
     -d chat_id="$chatId" \
     --data-urlencode text="$msg" \

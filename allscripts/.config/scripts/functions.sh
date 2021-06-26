@@ -2,8 +2,9 @@
 
 source $HOME/.colors &> /dev/null
 source $HOME/.myTokens &> /dev/null
+source $HOME/.config/scripts/functionsKraken.sh
 
-function dot() {
+dot() {
   if [[ ${1} ]]; then
     cd $HOME && rm -rf .dotfiles && git clone ssh://git@github.com/mamutal91/dotfiles .dotfiles && source $HOME/.zshrc
   else
@@ -13,18 +14,13 @@ function dot() {
   fi
 }
 
-function infra() {
-  echo -e "\n${BLU}Recloning ${CYA}infra ${BLU}to have the latest changes...${END}"
-  ssh mamutal91@86.109.7.111 "cd $HOME && rm -rf /mnt/roms/infra && git clone ssh://git@github.com/AOSPK/infra /mnt/roms/infra" &> /dev/null
-}
-
-function bkp() {
+bkp() {
   bash $HOME/.config/scripts/gitcron.sh
   ssh mamutal91@86.109.7.111 "bash $HOME/.config/scripts/gitcron.sh"
   ssh mamutal91@147.75.80.89 "bash $HOME/.config/scripts/gitcron.sh"
 }
 
-function f() {
+f() {
   org=$(echo ${1} | cut -c1-5)
   if [[ $org == AOSPK ]]; then
     git fetch ssh://git@github.com/${1} ${2}
@@ -35,11 +31,11 @@ function f() {
   fi
 }
 
-function p() {
+p() {
   git cherry-pick ${1}
 }
 
-function translate() {
+translate() {
   typing=$(mktemp)
   rm -rf $typing && nano $typing
   msg=$(trans -b :en -no-auto -i $typing)
@@ -47,7 +43,7 @@ function translate() {
   echo -e "\n${BOL_RED}Message: ${YEL}${msg}${END}\n"
 }
 
-function gitadd() {
+gitadd() {
   case $(basename "$(pwd)") in
     aosp | vendor_aosp)
       git add .
@@ -59,7 +55,7 @@ function gitadd() {
   esac
 }
 
-function gitpush() {
+gitpush() {
   pwdFolder=${PWD##*/}
   pwd=$(pwd | cut -c-24)
 
@@ -83,14 +79,14 @@ function gitpush() {
   fi
 
   [ $pwdFolder = .dotfiles ] && dot && exit
-  [ $pwdFolder = infra ] && infra && exit
+  [ $pwdFolder = infra ] && fu infra && exit
   [ $pwdFolder = shellscript-atom-snippets ] && export ATOM_ACCESS_TOKEN=${atomToken} && apm publish minor && sleep 5 && apm update mamutal91-shellscript-snippets-atom --no-confirm
   [ $pwdFolder = mysyntaxtheme ] && export ATOM_ACCESS_TOKEN=${atomToken} && apm publish minor && sleep 5 && apm update mysyntaxtheme --no-confirm
   [ $pwdFolder = mytokens ] && cp -rf $HOME/GitHub/mytokens/.myTokens $HOME &> /dev/null
   [ $pwdFolder = downloadcenter ] && www && exit
 }
 
-function cm() {
+cm() {
   if [[ ! -d .git ]]; then
     echo "${BOL_RED}You are not in a .git repository${END}"
   else
@@ -108,7 +104,7 @@ function cm() {
 
 }
 
-function amend() {
+amend() {
   if [[ ! -d .git ]]; then
     echo "${BOL_RED}You are not in a .git repository${END}"
   else
@@ -120,6 +116,6 @@ function amend() {
   fi
 }
 
-function update() {
+update() {
   $HOME/.config/scripts/update.sh
 }
