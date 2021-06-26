@@ -39,12 +39,6 @@ function p() {
   git cherry-pick ${1}
 }
 
-function notifyEnd() {
-  iconpath="/usr/share/icons/Papirus-Dark/32x32/devices"
-  icon="${iconpath}/computer.svg"
-  notify-send -i $icon "GitCron" "End..."
-}
-
 function translate() {
   typing=$(mktemp)
   rm -rf $typing && nano $typing
@@ -92,8 +86,9 @@ function gitpush() {
   [ $pwdFolder = shellscript-atom-snippets ] && export ATOM_ACCESS_TOKEN=${atomToken} && apm publish minor && sleep 5 && apm update mamutal91-shellscript-snippets-atom --no-confirm
   [ $pwdFolder = mysyntaxtheme ] && export ATOM_ACCESS_TOKEN=${atomToken} && apm publish minor && sleep 5 && apm update mysyntaxtheme --no-confirm
   [ $pwdFolder = mytokens ] && cp -rf $HOME/GitHub/mytokens/.myTokens $HOME &> /dev/null
-  [ $pwdFolder = site ] && ssh mamutal91@86.109.7.111 "cd $HOME && rm -rf site && git clone ssh://git@github.com/AOSPK/site" &> /dev/null && notifyEnd && exit
-  [ $pwdFolder = downloadcenter ] && www && notifyEnd && exit
+  [ $pwdFolder = downloadcenter ] && www && gerrit && exit
+  [ $pwdFolder = official_devices ] && gerrit && exit
+  [ $pwdFolder = www ] && gerrit && exit
 }
 
 function cm() {
