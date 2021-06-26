@@ -18,6 +18,7 @@ packages=(
   htop
   imv
   jdk-openjdk jq
+  krita
   mako
   nano nano-syntax-highlighting neofetch
   reflector rsync
