@@ -57,11 +57,11 @@ function push() {
     git commit --amend --no-edit &> /dev/null
     topic=${2}
 
-    [[ ${2} == -g ]] && gerritMainCommand="HEAD:refs/for/${branch}%submit" && topic=${3} || gerritMainCommand="HEAD:refs/for/${branch}%l=Verified+1,l=Code-Review+2"
+    [[ ${2} == -g ]] && gerritPush="HEAD:refs/for/${branch}%submit" && topic=${3} || gerritPush="HEAD:refs/for/${branch}%l=Verified+1,l=Code-Review+2"
 
-    [[ $topic ]] && gerritCommand="$gerritCommand,topic=${topic}"
+    [[ $topic ]] && gerritPush="$gerritPush,topic=${topic}"
 
-    git push ssh://mamutal91@gerrit.aospk.org:29418/${repo} $gerritCommand
+    git push ssh://mamutal91@gerrit.aospk.org:29418/${repo} $gerritPush
 
     [ $repo = manifest ] && echo ${BOL_RED}Pushing manifest to ORG DEV${END} && git push ssh://git@github.com/AOSPK-DEV/manifest HEAD:refs/heads/eleven --force
   fi
