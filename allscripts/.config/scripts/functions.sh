@@ -86,9 +86,7 @@ function gitpush() {
   [ $pwdFolder = shellscript-atom-snippets ] && export ATOM_ACCESS_TOKEN=${atomToken} && apm publish minor && sleep 5 && apm update mamutal91-shellscript-snippets-atom --no-confirm
   [ $pwdFolder = mysyntaxtheme ] && export ATOM_ACCESS_TOKEN=${atomToken} && apm publish minor && sleep 5 && apm update mysyntaxtheme --no-confirm
   [ $pwdFolder = mytokens ] && cp -rf $HOME/GitHub/mytokens/.myTokens $HOME &> /dev/null
-  [ $pwdFolder = downloadcenter ] && www && gerrit && exit
-  [ $pwdFolder = official_devices ] && gerrit && exit
-  [ $pwdFolder = www ] && gerrit && exit
+  [ $pwdFolder = downloadcenter ] && www && exit
 }
 
 function cm() {
