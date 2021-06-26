@@ -3,6 +3,12 @@
 source $HOME/.colors &> /dev/null
 source $HOME/.myTokens &> /dev/null
 
+if [[ ! -f $HOME/.jenkins-cli.jar ]]; then
+  cd $HOME
+  wget https://ci.aospk.org/jnlpJars/jenkins-cli.jar
+  mv jenkins-cli.jar .jenkins-cli.jar
+fi
+
 cli="java -jar $HOME/.jenkins-cli.jar -s http://86.109.7.111:8080 -auth ${myUserCI}:${ciKrakenToken} -webSocket"
 
 JOB=KrakenDev
