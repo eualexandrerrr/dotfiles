@@ -12,7 +12,7 @@ repo07="07.   www / site"
 repo08="08.   download center"
 
 repo09="09.   build ( lmi )"
-repo10="10.   build ( vayu )"
+repo10="10.   build ( random device )"
 repo11="11.   build and sync"
 repo12="12.   build, sync and make clean"
 repo13="13.   build, sync and make installclean"
