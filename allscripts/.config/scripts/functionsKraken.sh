@@ -22,7 +22,7 @@ function sync_repos() {
 }
 
 function push() {
-  if [[ $(cat /etc/hostname) == mamutal91-v2 ]]; then
+  if [[ $(pwd | cut -c1-15) == /mnt/roms/jobs/ ]]; then
     repo=$(pwd | sed "s/\/mnt\/roms\/jobs\///; s/\//_/g" | sed "s/KrakenDev_/_/g" | sed "s/Kraken_/_/g" | sed 's/.//')
   else
     repo=$(basename "$(pwd)")
@@ -48,6 +48,10 @@ function push() {
   [ $repo = vendor_xiaomi_lmi ] && org=AOSPK-Devices
   [ $repo = vendor_xiaomi_sm8250-common ] && org=AOSPK-Devices
 
+  [ $repo = official_devices ] && branch=master
+  [ $repo = www ] && branch=master
+  [ $repo = downloadcenter ] && branch=master
+
   if [[ ${1} == gerrit ]]; then
     echo "${BOL_BLU}Pushing to ${BOL_YEL}gerrit.aospk.org/${MAG}${repo}${END} ${CYA}${branch}${END}"
     export gitdir=$(git rev-parse --git-dir)
@@ -61,10 +65,12 @@ function push() {
     [ $repo = manifest ] && echo ${BOL_RED}Pushing manifest to ORG DEV${END} && git push ssh://git@github.com/AOSPK-DEV/manifest HEAD:refs/heads/eleven --force
   else
     echo "${BOL_BLU}Pushing to ${BOL_YEL}github.com/${BOL_RED}${org}/${MAG}${repo}${END} ${CYA}${branch}${END}"
+    gh repo create AOSPK-DEV/${repo} --private --confirm &> /dev/null
     git push ssh://git@${github}.com/${org}/${repo} HEAD:refs/heads/${branch} ${force}
   fi
 
   if [[ ${2} == org ]]; then
+    echo "${BOL_BLU}Pushing to ${BOL_YEL}github.com/${BOL_RED}AOSPK/${MAG}${repo}${END} ${CYA}${branch}${END}"
     git push ssh://git@github.com/AOSPK/${repo} HEAD:refs/heads/${branch} ${force}
   fi
 }
