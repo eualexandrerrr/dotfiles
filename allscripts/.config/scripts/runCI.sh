@@ -6,8 +6,9 @@ source $HOME/.myTokens &> /dev/null
 cli="java -jar $HOME/.jenkins-cli.jar -s http://86.109.7.111:8080 -auth ${myUserCI}:${ciKrakenToken} -webSocket"
 
 JOB=KrakenDev
+CODENAME=lmi
 
-build="$cli build $JOB"
+build="$cli build $JOB -p codename=${CODENAME}"
 buildRandom="$cli build $JOB -p codename=vayu"
 buildSync="$cli build $JOB -p sync=true"
 buildSyncClean="$cli build $JOB -p sync=true -p mka_clean=true"
