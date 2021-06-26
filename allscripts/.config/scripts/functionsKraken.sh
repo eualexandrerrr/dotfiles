@@ -50,22 +50,38 @@ function push() {
   [ $repo = www ] && branch=master
   [ $repo = downloadcenter ] && branch=master
 
+  # To Gerrit
   if [[ ${1} == gerrit ]]; then
-    echo "${BOL_BLU}Pushing to ${BOL_YEL}gerrit.aospk.org/${MAG}${repo}${END} ${CYA}${branch}${END}"
-    export gitdir=$(git rev-parse --git-dir)
-    scp -p -P 29418 mamutal91@gerrit.aospk.org:hooks/commit-msg ${gitdir}/hooks/ &> /dev/null
-    git commit --amend --no-edit &> /dev/null
-    topic=${2}
-
-    [[ ${2} == -g ]] && gerritPush="HEAD:refs/for/${branch}%submit" && topic=${3} || gerritPush="HEAD:refs/for/${branch}%l=Verified+1,l=Code-Review+2"
-
+    topic=${3}
     [[ $topic ]] && gerritPush="$gerritPush,topic=${topic}"
 
-    git push ssh://mamutal91@gerrit.aospk.org:29418/${repo} $gerritPush
+    if [[ -z ${2} ]]; then
+      echo "${BLU}Usage:"
+      echo "${CYA}  push gerrit ${RED}-?${END} ${GRE}<topic>${END}${YEL}"
+      echo "              -s [Submit automatic]"
+      echo "              -v [Verified]"
+      echo "              -n [Normal]"
+      echo "${END}"
+    else
+      [[ ${2} == -s ]] && gerritPush="HEAD:refs/for/${branch}%submit"
+      [[ ${2} == -v ]] && gerritPush="HEAD:refs/for/${branch}%l=Verified+1,l=Code-Review+2"
+      [[ ${2} == -n ]] && gerritPush="HEAD:refs/for/${branch}"
 
-    [ $repo = manifest ] && echo ${BOL_RED}Pushing manifest to ORG DEV${END} && git push ssh://git@github.com/AOSPK-DEV/manifest HEAD:refs/heads/eleven --force
+      if [[ ! -d .git ]]; then
+        echo "${BOL_RED}You are not in a .git repository${END}"
+      else
+        echo "${BOL_BLU}Pushing to ${BOL_YEL}gerrit.aospk.org/${MAG}${repo}${END} ${CYA}${branch}${END}"
+        export gitdir=$(git rev-parse --git-dir)
+        scp -p -P 29418 mamutal91@gerrit.aospk.org:hooks/commit-msg ${gitdir}/hooks/ &> /dev/null
+        git commit --amend --no-edit &> /dev/null
+        git push ssh://mamutal91@gerrit.aospk.org:29418/${repo} $gerritPush
+      fi
+
+      [ $repo = manifest ] && echo ${BOL_RED}Pushing manifest to ORG DEV${END} && git push ssh://git@github.com/AOSPK-DEV/manifest HEAD:refs/heads/eleven --force
+    fi
   fi
 
+  # To GitHub/GitLab
   if [[ ${1} == -f ]]; then
     echo "${BOL_BLU}Pushing to ${BOL_YEL}github.com/${BOL_RED}${org}/${MAG}${repo}${END} ${CYA}${branch}${END}"
     gh repo create AOSPK-DEV/${repo} --private --confirm &> /dev/null

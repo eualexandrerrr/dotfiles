@@ -91,23 +91,32 @@ function gitpush() {
 }
 
 function cm() {
-  if [[ $(git status --porcelain) ]]; then
-    translate
-    if [[ ${1} ]]; then
-      gitadd && git commit --message "${msg}" --signoff --date "$(date)" --author "${1}" && gitpush
-    else
-      gitadd && git commit --message "${msg}" --signoff --date "$(date)" --author "Alexandre Rangel <mamutal91@gmail.com>" && gitpush
-    fi
+  if [[ ! -d .git ]]; then
+    echo "${BOL_RED}You are not in a .git repository${END}"
   else
-    echo "${BOL_RED}There are no local changes!!! leaving...${END}" && break &> /dev/null
+    if [[ $(git status --porcelain) ]]; then
+      translate
+      if [[ ${1} ]]; then
+        gitadd && git commit --message "${msg}" --signoff --date "$(date)" --author "${1}" && gitpush
+      else
+        gitadd && git commit --message "${msg}" --signoff --date "$(date)" --author "Alexandre Rangel <mamutal91@gmail.com>" && gitpush
+      fi
+    else
+      echo "${BOL_RED}There are no local changes!!! leaving...${END}" && break &> /dev/null
+    fi
   fi
+
 }
 
 function amend() {
-  if [[ ${1} ]]; then
-    gitadd && git commit --amend --date "$(date)" --author "${1}" && gitpush force
+  if [[ ! -d .git ]]; then
+    echo "${BOL_RED}You are not in a .git repository${END}"
   else
-    gitadd && git commit --amend --date "$(date)" && gitpush force
+    if [[ ${1} ]]; then
+      gitadd && git commit --amend --date "$(date)" --author "${1}" && gitpush force
+    else
+      gitadd && git commit --amend --date "$(date)" && gitpush force
+    fi
   fi
 }
 
