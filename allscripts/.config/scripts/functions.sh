@@ -65,6 +65,7 @@ function gitpush() {
 
   blacklist() {
     [ $pwdFolder = manifest ] && echo "${BOL_RED}Blacklist detected, no push!!!${END}" && break &> /dev/null
+    [ $pwdFolder = official_devices ] && echo "${BOL_RED}Blacklist detected, no push!!!${END}" && break &> /dev/null
   }
 
   if [[ $pwd == /mnt/roms/jobs/KrakenDev ]]; then

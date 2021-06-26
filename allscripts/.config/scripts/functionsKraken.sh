@@ -30,8 +30,6 @@ function push() {
   github=github
   org=AOSPK-DEV
   branch=eleven
-  force=${1}
-  topic=${2}
 
   [ $repo = build_make ] && repo=build
   [ $repo = packages_apps_PermissionController ] && repo=packages_apps_PackageInstaller
@@ -57,21 +55,21 @@ function push() {
     export gitdir=$(git rev-parse --git-dir)
     scp -p -P 29418 mamutal91@gerrit.aospk.org:hooks/commit-msg ${gitdir}/hooks/ &> /dev/null
     git commit --amend --no-edit &> /dev/null
-    if [[ -z ${topic} ]]; then
-      git push ssh://mamutal91@gerrit.aospk.org:29418/${repo} HEAD:refs/for/${branch}%l=Verified+1,l=Code-Review+2,topic=${topic}
-    else
-      git push ssh://mamutal91@gerrit.aospk.org:29418/${repo} HEAD:refs/for/${branch}%l=Verified+1,l=Code-Review+2,topic=${topic}
-    fi
+    topic=${2}
+
+    [[ ${2} == -g ]] && gerritMainCommand="HEAD:refs/for/${branch}%submit" && topic=${3} || gerritMainCommand="HEAD:refs/for/${branch}%l=Verified+1,l=Code-Review+2"
+
+    [[ $topic ]] && gerritCommand="$gerritCommand,topic=${topic}"
+
+    git push ssh://mamutal91@gerrit.aospk.org:29418/${repo} $gerritCommand
+
     [ $repo = manifest ] && echo ${BOL_RED}Pushing manifest to ORG DEV${END} && git push ssh://git@github.com/AOSPK-DEV/manifest HEAD:refs/heads/eleven --force
-  else
-    echo "${BOL_BLU}Pushing to ${BOL_YEL}github.com/${BOL_RED}${org}/${MAG}${repo}${END} ${CYA}${branch}${END}"
-    gh repo create AOSPK-DEV/${repo} --private --confirm &> /dev/null
-    git push ssh://git@${github}.com/${org}/${repo} HEAD:refs/heads/${branch} ${force}
   fi
 
-  if [[ ${2} == org ]]; then
-    echo "${BOL_BLU}Pushing to ${BOL_YEL}github.com/${BOL_RED}AOSPK/${MAG}${repo}${END} ${CYA}${branch}${END}"
-    git push ssh://git@github.com/AOSPK/${repo} HEAD:refs/heads/${branch} ${force}
+  if [[ ${1} == -f ]]; then
+    echo "${BOL_BLU}Pushing to ${BOL_YEL}github.com/${BOL_RED}${org}/${MAG}${repo}${END} ${CYA}${branch}${END}"
+    gh repo create AOSPK-DEV/${repo} --private --confirm &> /dev/null
+    git push ssh://git@${github}.com/AOSPK-DEV/${repo} HEAD:refs/heads/${branch} --force
   fi
 }
 
