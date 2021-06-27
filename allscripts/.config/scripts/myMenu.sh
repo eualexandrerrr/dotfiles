@@ -51,7 +51,7 @@ case $chosen in
   $repo18) alacritty -t mywindowfloat -e $HOME/.config/scripts/runCI.sh stopClear ;;
   $repo19) alacritty -t mywindowfloat -e $HOME/.config/scripts/runCI.sh enableJobs ;;
   $repo20) alacritty -t mywindowfloat -e $HOME/.config/scripts/runCI.sh disableJobs ;;
-  $repo21) google-chrome-unstable https://ci.aospk.org/job/KrakenDev/lastBuild/console ;;
+  $repo21) google-chrome-stable https://ci.aospk.org/job/KrakenDev/lastBuild/console ;;
   $repo22) alacritty -t mywindowfloat -e $HOME/.config/scripts/runCI.sh package ;;
 esac
 exit 0

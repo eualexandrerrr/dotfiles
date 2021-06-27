@@ -67,11 +67,14 @@ aur=(
   dracula-gtk-theme
 
   # apps
-  google-chrome-dev github-cli-git gitlab-glab-bin
+  google-chrome github-cli-git gitlab-glab-bin
   kotatogram-desktop-bin
   oh-my-zsh-git
   swaylock-effects-git spotify-snap
   translate-shell-git
+
+  # tools
+  laptop-mode-tools
 
   # dependencies
   python-ruamel-yaml

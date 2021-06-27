@@ -3,7 +3,7 @@
 source $HOME/.colors &> /dev/null
 source $HOME/.myTokens &> /dev/null
 
-[ $USER = "mamutal91" ] && source $HOME/.dotfiles/setup/personalconfigs.sh
+[ $USER = "mamutal91" ] && source $HOME/.dotfiles/setup/personalconfigs.sh && source $HOME/.dotfiles/setup/laptop-mode.sh
 
 sudo pacman -Syyu --noconfirm
 
@@ -60,6 +60,7 @@ atom="
 for services in \
     cronie \
     bluetooth \
+    laptop-mode.service \
     getty@ttyN.service; do
     sudo systemctl enable $services
     sudo systemctl start $services

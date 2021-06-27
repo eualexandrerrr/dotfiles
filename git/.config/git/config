@@ -50,7 +50,7 @@
     user = mamutal91
 
 [instaweb]
-    browser = google-chrome-unstable
+    browser = google-chrome-stable
 
 [log]
     decorate = short
