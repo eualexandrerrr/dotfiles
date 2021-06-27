@@ -5,27 +5,13 @@ source $HOME/.colors &> /dev/null
 clear
 
 replace() {
-  if [[ $repoPath == build_make ]]; then
-    repoName=build
-  fi
-  if [[ $repoPath == packages_apps_PermissionController ]]; then
-    repoName=packages_apps_PackageInstaller
-  fi
-  if [[ $repoPath == vendor_qcom_opensource_commonsys-intf_bluetooth ]]; then
-    repoName=vendor_qcom_opensource_bluetooth-commonsys-intf
-  fi
-  if [[ $repoPath == vendor_qcom_opensource_commonsys-intf_display ]]; then
-    repoName=vendor_qcom_opensource_display-commonsys-intf
-  fi
-  if [[ $repoPath == vendor_qcom_opensource_commonsys_bluetooth_ext ]]; then
-    repoName=vendor_qcom_opensource_bluetooth_ext
-  fi
-  if [[ $repoPath == vendor_qcom_opensource_commonsys_packages_apps_Bluetooth ]]; then
-    repoName=vendor_qcom_opensource_packages_apps_Bluetooth
-  fi
-  if [[ $repoPath == vendor_qcom_opensource_commonsys_system_bt ]]; then
-    repoName=vendor_qcom_opensource_system_bt
-  fi
+  [[ $repoPath == build_make ]] && repoName=build
+  [[ $repoPath == packages_apps_PermissionController ]] && repoName=packages_apps_PackageInstaller
+  [[ $repoPath == vendor_qcom_opensource_commonsys-intf_bluetooth ]] && repoName=vendor_qcom_opensource_bluetooth-commonsys-intf
+  [[ $repoPath == vendor_qcom_opensource_commonsys-intf_display ]] && repoName=vendor_qcom_opensource_display-commonsys-intf
+  [[ $repoPath == vendor_qcom_opensource_commonsys_bluetooth_ext ]] && repoName=vendor_qcom_opensource_bluetooth_ext
+  [[ $repoPath == vendor_qcom_opensource_commonsys_packages_apps_Bluetooth ]] && repoName=vendor_qcom_opensource_packages_apps_Bluetooth
+  [[ $repoPath == vendor_qcom_opensource_commonsys_system_bt ]] && repoName=vendor_qcom_opensource_system_bt
 }
 
 remote=aospk

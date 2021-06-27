@@ -82,12 +82,12 @@ gitpush() {
     fi
   fi
 
-  [ $pwdFolder = .dotfiles ] && dot && exit
-  [ $pwdFolder = infra ] && infra && exit
-  [ $pwdFolder = shellscript-atom-snippets ] && export ATOM_ACCESS_TOKEN=${atomToken} && apm publish minor && sleep 5 && apm update mamutal91-shellscript-snippets-atom --no-confirm
-  [ $pwdFolder = mysyntaxtheme ] && export ATOM_ACCESS_TOKEN=${atomToken} && apm publish minor && sleep 5 && apm update mysyntaxtheme --no-confirm
-  [ $pwdFolder = mytokens ] && cp -rf $HOME/GitHub/mytokens/.myTokens $HOME &> /dev/null
-  [ $pwdFolder = downloadcenter ] && www && exit
+  [[ $pwdFolder == .dotfiles ]] && dot && exit
+  [[ $pwdFolder == infra ]] && infra && exit
+  [[ $pwdFolder == shellscript-atom-snippets ]] && export ATOM_ACCESS_TOKEN=${atomToken} && apm publish minor && sleep 5 && apm update mamutal91-shellscript-snippets-atom --no-confirm
+  [[ $pwdFolder == mysyntaxtheme ]] && export ATOM_ACCESS_TOKEN=${atomToken} && apm publish minor && sleep 5 && apm update mysyntaxtheme --no-confirm
+  [[ $pwdFolder == mytokens ]] && cp -rf $HOME/GitHub/mytokens/.myTokens $HOME &> /dev/null
+  [[ $pwdFolder == downloadcenter ]] && www && exit
 }
 
 cm() {
