@@ -60,13 +60,13 @@
  	"thermal-zone": 2,
  	"hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
  	"critical-threshold": 80,
- 	"format-critical": "{temperatureC}°C ",
+ 	"format-critical": "{temperatureC}°C <span color=\"#f17676\"></span>",
  	"format": "{temperatureC}°C "
  },
   "backlight": {
     "interval": 30,
     "format": "{percent}% {icon}",
-    "format-icons": [""],
+    "format-icons": [""],
     "on-click": "echo 206 | sudo tee /sys/class/backlight/amdgpu_bl0/brightness",
     "on-scroll-down": "echo $((`cat /sys/class/backlight/amdgpu_bl0/brightness` - 5)) | sudo tee /sys/class/backlight/amdgpu_bl0/brightness",
     "on-scroll-up": "echo $((`cat /sys/class/backlight/amdgpu_bl0/brightness` + 5)) | sudo tee /sys/class/backlight/amdgpu_bl0/brightness"
