@@ -13,7 +13,6 @@ fu() {
     echo "              down"
     echo "              manifest"
     echo "              sync_repos"
-    echo "              infra"
     echo "${END}"
   else
     [ ${1} == lmi ] && ssh mamutal91@86.109.7.111 "bash $HOME/.config/scripts/kraken/lmi.sh ${1}"
@@ -21,7 +20,6 @@ fu() {
     [ ${1} == down ] && rm -rf /mnt/roms/sites/private/builds/**/*.zip &> /dev/null
     [ ${1} == manifest ] && ssh mamutal91@86.109.7.111 "cd $HOME && git clone ssh://git@github.com/AOSPK/manifest && cd $HOME/manifest && git push ssh://git@github.com/AOSPK-DEV/manifest HEAD:refs/heads/eleven --force"
     [ ${1} == sync_repos ] && ssh mamutal91@86.109.7.111 "bash $HOME/.config/scripts/kraken/sync_repos.sh"
-    [ ${1} == infra ] && echo -e "\n${BLU}Recloning ${CYA}infra ${BLU}to have the latest changes...${END}" && ssh mamutal91@86.109.7.111 "cd $HOME && rm -rf /mnt/roms/infra && git clone ssh://git@github.com/AOSPK/infra /mnt/roms/infra" &> /dev/null
   fi
 }
 
