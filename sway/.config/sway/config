@@ -98,6 +98,8 @@ exec --no-startup-id mako
 exec --no-startup-id pulseeffects --gapplication-service &>/dev/null
 exec --no-startup-id hwclock --systohc --utc && timedatectl set-ntp true
 exec --no-startup-id "pactl set-sink-mute @DEFAULT_SINK@ false; pactl set-sink-volume @DEFAULT_SINK@ 70%"
+exec --no-startup-id "pactl set-sink-mute @DEFAULT_SINK@ false; pactl set-sink-volume @DEFAULT_SINK@ 70%"
+exec --no-startup-id "echo 206 | sudo tee /sys/class/backlight/amdgpu_bl0/brightness"
 
 # GTK theme
 set $theme Dracula
