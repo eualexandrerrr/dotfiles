@@ -78,10 +78,10 @@
       "warning": 30,
       "critical": 15
     },
-    "format": "{capacity}% {icon}",
+    "format": "<span color=\"#F2F2F2\">{capacity}%</span> {icon}",
+    "format-charging": "<span color=\"#F2F2F2\">{capacity}%</span> <span color=\"#50fa7b\"></span>",
     "format-icons": ["", "", "", "", ""],
     "format-full": "{capacity}% ",
-    "max-length": 25
   },
   "network": {
     "interface": "wlan0", // (Optional) To force the use of this interface

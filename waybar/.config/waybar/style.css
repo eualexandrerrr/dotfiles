@@ -111,6 +111,12 @@ window#waybar.empty {
 	border-radius: 10px 0px 0px 10px;
 	color: #b8b8b8;
 }
+@keyframes blink {
+	to {
+		background-color: #ffffff;
+		color: #000000;
+	}
+}
 #battery {
 	background-color: #2e3440;
 	color: #FFFFFF;
@@ -118,15 +124,11 @@ window#waybar.empty {
 	padding: 6px 6px 6px 6px;
 	margin-left: 8px;
 }
-
-#battery.charging {
-	color: #FFFFFF;
+#battery.warning {
+	color: #edc519;
 }
-@keyframes blink {
-	to {
-		background-color: #ffffff;
-		color: #000000;
-	}
+#battery.critical {
+	color: #f53c3c;
 }
 #battery.critical:not(.charging) {
 	background-color: #f53c3c;
