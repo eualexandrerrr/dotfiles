@@ -2,7 +2,6 @@
 
 source $HOME/.colors &> /dev/null
 source $HOME/.myTokens &> /dev/null
-source $HOME/.config/scripts/functionsKraken.sh
 
 infra() {
   echo -e "\n${BLU}Recloning ${CYA}infra ${BLU}to have the latest changes...${END}"
