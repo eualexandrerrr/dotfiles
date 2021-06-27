@@ -89,6 +89,8 @@ push() {
 }
 
 m() {
+  tag=${1} # android-11.0.0_r38
+  [[ -z ${1} ]] && echo "Error" && sleep 200 && exit
   git add . && git commit --amend --no-edit
   sleep 2
 
@@ -100,7 +102,7 @@ m() {
 
   pathRepo=$(pwd | cut -c26-)
 
-  msgMerge="Merge tag 'android-11.0.0_r38' of https://android.googlesource.com/platform/${pathRepo} into HEAD"
+  msgMerge="Merge tag '${tag}' of https://android.googlesource.com/platform/${pathRepo} into HEAD"
 
   echo $msgMerge > /tmp/NEW_COMMITMSG
   cat /tmp/NEW_COMMITMSG
@@ -116,7 +118,7 @@ m() {
   msg=$(cat /tmp/NEW_COMMITMSG)
 
   git add . && git commit --message "${msg}" --amend --author "Alexandre Rangel <mamutal91@gmail.com>" --date "$(date)"
-  push gerrit android-11.0.0_r38
+  push gerrit -v ${tag}
   sleep 3 && clear
 }
 
