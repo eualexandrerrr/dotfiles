@@ -85,7 +85,7 @@ window#waybar.empty {
 	padding-left: 5px;
 }
 /* WIDGETS */
-#cpu, #memory, #backlight, #network, #pulseaudio, #battery {
+#cpu, #memory, #temperature, #backlight, #network, #pulseaudio, #battery {
 	background-color: #2e3440;
 	padding-left: 6px;
 	padding-right: 6px;
@@ -98,6 +98,9 @@ window#waybar.empty {
 	color: #b8b8b8;
 }
 #memory {
+	color: #b8b8b8;
+}
+#temperature {
 	color: #b8b8b8;
 }
 #network {
