@@ -99,7 +99,7 @@ cm() {
       if [[ ${1} ]]; then
         gitadd && git commit --message "${msg}" --signoff --date "$(date)" --author "${1}" && gitpush
       else
-        gitadd && git commit --message "${msg}" --signoff --date "$(date)" --author "Alexandre Rangel <mamutal91@gmail.com>" && gitpush
+        gitadd && git commit --message "${msg}" --signoff --date "$(date)" --author "Alexandre Rangel <mamutal91@aospk.org>" && gitpush
       fi
     else
       echo "${BOL_RED}There are no local changes!!! leaving...${END}" && break &> /dev/null

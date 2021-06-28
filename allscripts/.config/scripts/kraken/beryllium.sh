@@ -2,7 +2,7 @@
 
 pwd=$(pwd)
 
-git config --global user.email "mamutal91@gmail.com"
+git config --global user.email "mamutal91@aospk.org"
 git config --global user.name "Alexandre Rangel"
 
 branchDefault="eleven"
@@ -53,7 +53,7 @@ echo '[
   }
 ]' > aosp.dependencies
 
-git add . && git commit --message "beryllium: $bringup" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>"
+git add . && git commit --message "beryllium: $bringup" --signoff --author "Alexandre Rangel <mamutal91@aospk.org>"
 git push ssh://git@github.com/AOSPK-Devices/device_xiaomi_beryllium HEAD:refs/heads/${branchDefault} --force
 
 cd ../android_device_xiaomi_sdm845-common
@@ -81,7 +81,7 @@ echo '[
   }
 ]' > aosp.dependencies
 
-git add . && git commit --message "sdm845-common: $bringup" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>"
+git add . && git commit --message "sdm845-common: $bringup" --signoff --author "Alexandre Rangel <mamutal91@aospk.org>"
 
 git push ssh://git@github.com/AOSPK-Devices/device_xiaomi_sdm845-common HEAD:refs/heads/${branchDefault} --force
 

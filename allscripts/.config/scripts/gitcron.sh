@@ -20,7 +20,7 @@ if [[ $(cat /etc/hostname) == odin ]]; then
     echo -e "${BOL_GRE}Copying .zsh_history${END}"
     m="Autocommit Git-Cron"
     git add .
-    git commit -m "${m}" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>" --date "$(date)"
+    git commit -m "${m}" --signoff --author "Alexandre Rangel <mamutal91@aospk.org>" --date "$(date)"
     git push
   fi
   cd $pwd
@@ -47,7 +47,7 @@ if [[ $(cat /etc/hostname) == odin ]]; then
     if [[ -n $status   ]]; then
       m="Autocommit Git-Cron: ${i}"
       git add .
-      git commit -m "${m}" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>" --date "$(date)"
+      git commit -m "${m}" --signoff --author "Alexandre Rangel <mamutal91@aospk.org>" --date "$(date)"
       git push
     fi
     cd $pwd
@@ -63,14 +63,14 @@ if [[ $(cat /etc/hostname) == mamutal91-v2 ]]; then
   git clone ssh://git@github.com/AOSPK/gerrit -b backup /home/mamutal91/.gerrit
   cp -rf /mnt/roms/sites/docker/gerrit /home/mamutal91/.gerrit
   cd /home/mamutal91/.gerrit
-  git add . && git commit -m "${m}" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>" --date "$(date)" && git push -f
+  git add . && git commit -m "${m}" --signoff --author "Alexandre Rangel <mamutal91@aospk.org>" --date "$(date)" && git push -f
 
   sudo rm -rf /home/mamutal91/.jenkins
   git clone ssh://git@gitlab.com/AOSPK/jenkins -b backup /home/mamutal91/.jenkins
   rm -rf /home/mamutal91/.jenkins/*
   cd /mnt/roms/backupJenkins && sudo cp -rf * /home/mamutal91/.jenkins
   cd /home/mamutal91/.jenkins
-  git add . && git commit -m "${m}" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>" --date "$(date)" && git push -f
+  git add . && git commit -m "${m}" --signoff --author "Alexandre Rangel <mamutal91@aospk.org>" --date "$(date)" && git push -f
   cd $pwd
 fi
 
@@ -83,6 +83,6 @@ if [[ $(cat /etc/hostname) == buildersbr.ninja-v2 ]]; then
   rm -rf /home/mamutal91/.jenkins/*
   cd /mnt/roms/backupJenkins && sudo cp -rf * /home/mamutal91/.jenkins
   cd /home/mamutal91/.jenkins
-  git add . && git commit -m "${m}" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>" --date "$(date)" && git push -f
+  git add . && git commit -m "${m}" --signoff --author "Alexandre Rangel <mamutal91@aospk.org>" --date "$(date)" && git push -f
   cd $pwd
 fi
