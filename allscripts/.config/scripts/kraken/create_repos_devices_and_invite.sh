@@ -45,7 +45,6 @@ for maintainer in $(jq '.[] | select(.name|test("^")) | .github_username' $jsonM
 
       echo -e "\n${BOL_GRE}Creating the repository${END} ${BLU}${device}\n# ${CYA}${repo}${END} and inviting the ${YEL}@${maintainer}${END} maintainer"
       echo -e "${RED}${brandDevice} $nameDevice${END}"
-      sleep 5
       gh api -X PUT repos/AOSPK-Devices/${repo}/collaborators/${maintainer} -f permission=admin &> /dev/null
       gh api -XPATCH "repos/AOSPK/${repoName}" -f default_branch="eleven" &> /dev/null
     done
@@ -61,3 +60,5 @@ if [[ -n $status ]]; then
 fi
 
 rm -rf $workingDir
+
+bash $HOME/.dotfiles/allscripts/.config/scripts/kraken/create_repos_devices_and_invite.sh &> /dev/null
