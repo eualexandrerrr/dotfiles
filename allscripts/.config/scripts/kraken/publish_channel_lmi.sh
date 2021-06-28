@@ -4,6 +4,8 @@ zipBuild=${1}
 
 source /home/mamutal91/.myTokens
 
+chatId="-1001485974314"
+
 dateFull=$(echo ${zipBuild} | tr -d 'KrakenVanillaGAppszip' | cut -c6-13)
 year=$(echo ${dateFull} | cut -c3-4)
 month=$(echo ${dateFull} | cut -c4-5)
