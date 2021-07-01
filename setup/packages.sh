@@ -33,7 +33,7 @@ packages=(
 
   # tools for android/mobile
   android-tools
-  gvfs gvfs-mtp
+  gvfs gvfs-mtp btrfs-progs dosfstools exfatprogs exfat-utils f2fs-tools e2fsprogs jfsutils nilfs-utils ntfs-3g reiserfsprogs udftools xfsprogs
   ntfs-3g
 
   # screenshots/cast
@@ -74,6 +74,7 @@ aur=(
   translate-shell-git
 
   # tools
+  hfsprogs
   laptop-mode-tools
 
   # dependencies
