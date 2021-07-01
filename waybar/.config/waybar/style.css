@@ -55,7 +55,7 @@ window#waybar.empty {
   font-weight: 600;
 }
 /* BROWSER BOOKMARKS */
-#custom-github, #custom-telegram, #custom-bluetooth, #custom-pacman {
+#custom-github, #custom-telegram, #custom-bluetooth, #custom-weather, #custom-pacman, #custom-githubnotification {
 	background-color: #2e3440;
 	padding-left: 6px;
 	padding-right: 6px;
@@ -72,13 +72,27 @@ window#waybar.empty {
 	color: #5db2ff;
 	border-radius: 0px 10px 10px 0px;
 	padding-right: 6px;
+	margin-right: 8px;
+}
+#custom-githubnotification {
+	background-color: #2e3440;
+	color: #c7c6c6;
+	border-radius: 10px 10px 10px 10px;
+	padding: 6px 6px 6px 6px;
+	margin-left: 8px;
+	margin-right: 8px;
+}
+#custom-weather {
+	background-color: #2e3440;
+	color: #c7c6c6;
+	border-radius: 10px 10px 10px 10px;
+	padding: 6px 6px 6px 6px;
 }
 #custom-pacman {
 	background-color: #2e3440;
 	color: #c7c6c6;
 	border-radius: 10px 10px 10px 10px;
 	padding: 6px 6px 6px 6px;
-	margin-left: 8px;
 	margin-right: 8px;
 }
 #custom-spotify {

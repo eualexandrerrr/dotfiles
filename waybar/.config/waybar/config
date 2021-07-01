@@ -8,13 +8,15 @@
     "custom/github",
     "custom/telegram",
     "custom/bluetooth",
-    "custom/pacman",
     "sway/workspaces",
     "sway/mode",
     "custom/spotify"
   ],
   "modules-center": ["sway/window"],
   "modules-right": [
+    "custom/weather",
+    "custom/githubnotification",
+    "custom/pacman",
     "pulseaudio",
     "backlight",
     "cpu",
@@ -131,13 +133,24 @@
     "on-click": "xdg-open https://github.com",
     "tooltip": false
   },
+  "custom/githubnotification": {
+      "format": "{} <span color=\"#f3cbb1\"></span>",
+      "return-type": "json",
+      "interval": 60,
+      "exec": "$HOME/.config/scripts/githubnotification.sh",
+      "on-click": "xdg-open https://github.com/notifications"
+  },
   "custom/pacman": {
-      "format": "<span color=\"#bb61fa\"></span> {}",
+      "format": "{} <span color=\"#bb61fa\"></span>",
       "interval": 3600,
       "exec": "checkupdates | wc -l",
       "exec-if": "exit 0",
       "on-click": "alacritty -e 'sudo pacman -Syu'; pkill -SIGRTMIN+8 waybar",
       "signal": 8
+  },
+  "custom/weather": {
+      "exec": "curl 'https://wttr.in/?format=1'",
+      "interval": 3600
   },
   "custom/telegram": {
     "format": "",
