@@ -15,7 +15,6 @@
   "modules-center": ["sway/window"],
   "modules-right": [
     "custom/weather",
-    "custom/githubnotification",
     "custom/pacman",
     "pulseaudio",
     "backlight",
@@ -132,13 +131,6 @@
     "format": "",
     "on-click": "xdg-open https://github.com",
     "tooltip": false
-  },
-  "custom/githubnotification": {
-      "format": "{} <span color=\"#f3cbb1\"></span>",
-      "return-type": "json",
-      "interval": 60,
-      "exec": "$HOME/.config/scripts/githubnotification.sh",
-      "on-click": "xdg-open https://github.com/notifications"
   },
   "custom/pacman": {
       "format": "{} <span color=\"#bb61fa\"></span>",
