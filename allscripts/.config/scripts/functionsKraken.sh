@@ -84,7 +84,7 @@ push() {
   if [[ ${1} == -f ]]; then
     echo "${BOL_BLU}Pushing to ${BOL_YEL}github.com/${BOL_RED}${org}/${MAG}${repo}${END} ${CYA}${branch}${END}"
     gh repo create AOSPK-DEV/${repo} --private --confirm &> /dev/null
-    git push ssh://git@${github}.com/AOSPK-DEV/${repo} HEAD:refs/heads/${branch} --force
+    git push ssh://git@${github}.com/${org}/${repo} HEAD:refs/heads/${branch} --force
   fi
 }
 
