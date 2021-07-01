@@ -34,17 +34,18 @@ go() {
     repoName=$(echo $repo | cut -d'"' -f4)
 
     replace
-    [ $repoName = manifest ] && continue
-    [ $repoName = device_qcom_sepolicy ] && continue
-    [ $repoName = hardware_qcom_audio ] && continue
-    [ $repoName = hardware_qcom_bootctrl ] && continue
-    [ $repoName = hardware_qcom_bt ] && continue
-    [ $repoName = hardware_qcom_display ] && continue
-    [ $repoName = hardware_qcom_media ] && continue
-    [ $repoName = hardware_qcom_wlan ] && continue
-    [ $repoName = vendor_gapps ] && continue
-    [ $repoName = vendor_nxp_opensource_halimpl ] && continue
-    [ $repoName = vendor_nxp_opensource_hidlimpl ] && continue
+    [[ $repoName == manifest ]] && continue
+    [[ $repoName == device_qcom_sepolicy ]] && continue
+    [[ $repoName == hardware_qcom_audio ]] && continue
+    [[ $repoName == hardware_qcom_bootctrl ]] && continue
+    [[ $repoName == hardware_qcom_bt ]] && continue
+    [[ $repoName == hardware_qcom_display ]] && continue
+    [[ $repoName == hardware_qcom_media ]] && continue
+    [[ $repoName == hardware_qcom_wlan ]] && continue
+    [[ $repoName == vendor_gapps ]] && continue
+    [[ $repoName == vendor_nxp_opensource_halimpl ]] && continue
+    [[ $repoName == vendor_nxp_opensource_hidlimpl ]] && continue
+    [[ $repoName == external_chromium-webview ]] && continue
 
     # Executar tarefas
     cd $repoPath
