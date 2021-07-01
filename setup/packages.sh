@@ -25,7 +25,6 @@ packages=(
   stow sway swaybg shfmt
   tree thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman transmission-gtk
   waybar wayland wofi
-  xorg-server-xwayland
   zsh-syntax-highlighting zip
 
   # bluetooth
@@ -81,5 +80,6 @@ aur=(
   python-ruamel-yaml
   selinux-python
   ttf-font-awesome ttf-dejavu
+  xorg-xwayland-git
   wf-recorder-git
 )
