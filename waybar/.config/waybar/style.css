@@ -55,7 +55,7 @@ window#waybar.empty {
   font-weight: 600;
 }
 /* BROWSER BOOKMARKS */
-#custom-github, #custom-telegram, #custom-bluetooth {
+#custom-github, #custom-telegram, #custom-bluetooth, #custom-pacman {
 	background-color: #2e3440;
 	padding-left: 6px;
 	padding-right: 6px;
@@ -71,8 +71,15 @@ window#waybar.empty {
 #custom-bluetooth {
 	color: #5db2ff;
 	border-radius: 0px 10px 10px 0px;
-	margin-right: 6px;
 	padding-right: 6px;
+}
+#custom-pacman {
+	background-color: #2e3440;
+	color: #c7c6c6;
+	border-radius: 10px 10px 10px 10px;
+	padding: 6px 6px 6px 6px;
+	margin-left: 8px;
+	margin-right: 8px;
 }
 #custom-spotify {
 	color: #2bd96c;

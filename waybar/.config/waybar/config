@@ -8,6 +8,7 @@
     "custom/github",
     "custom/telegram",
     "custom/bluetooth",
+    "custom/pacman",
     "sway/workspaces",
     "sway/mode",
     "custom/spotify"
@@ -129,6 +130,14 @@
     "format": "",
     "on-click": "xdg-open https://github.com",
     "tooltip": false
+  },
+  "custom/pacman": {
+      "format": "<span color=\"#bb61fa\"></span> {}",
+      "interval": 3600,
+      "exec": "checkupdates | wc -l",
+      "exec-if": "exit 0",
+      "on-click": "alacritty -e 'sudo pacman -Syu'; pkill -SIGRTMIN+8 waybar",
+      "signal": 8
   },
   "custom/telegram": {
     "format": "",
