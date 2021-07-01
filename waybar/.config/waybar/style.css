@@ -55,7 +55,7 @@ window#waybar.empty {
   font-weight: 600;
 }
 /* BROWSER BOOKMARKS */
-#custom-github, #custom-gerrit, #custom-ci, #custom-bluetooth {
+#custom-github, #custom-telegram, #custom-bluetooth {
 	background-color: #2e3440;
 	padding-left: 6px;
 	padding-right: 6px;
@@ -65,11 +65,8 @@ window#waybar.empty {
 	color: #ffffff;
 	margin-left: 10px;
 }
-#custom-gerrit {
-	color: #2bd96c;
-}
-#custom-ci {
-	color: #32cd32;
+#custom-telegram {
+	color: #ffffff;
 }
 #custom-bluetooth {
 	color: #5db2ff;
