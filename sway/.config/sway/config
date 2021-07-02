@@ -93,7 +93,6 @@ bindsym $control+$shift+r mode "resize"
 # Startup
 exec_always --no-startup-id $HOME/.config/scripts/battery.sh
 exec_always --no-startup-id swaybg -i $HOME/.config/wallpapers/space.jpg
-exec_always --no-startup-id bluetoothctl power off
 exec --no-startup-id mako
 exec --no-startup-id hwclock --systohc --utc && timedatectl set-ntp true
 exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ false; pactl set-sink-volume @DEFAULT_SINK@ 80%

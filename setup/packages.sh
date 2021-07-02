@@ -47,6 +47,7 @@ packages=(
   python-setuptools
   sbc
   unrar unzip
+  xorg-xwayland
   wget
 
   # themes
@@ -80,6 +81,5 @@ aur=(
   python-ruamel-yaml
   selinux-python
   ttf-font-awesome ttf-dejavu
-  xorg-xwayland-git
   wf-recorder-git
 )
