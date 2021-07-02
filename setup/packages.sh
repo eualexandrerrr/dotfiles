@@ -70,7 +70,7 @@ aur=(
   google-chrome github-cli-git gitlab-glab-bin
   kotatogram-desktop-bin
   oh-my-zsh-git
-  swaylock-effects-git spotify-snap
+  swaylock-effects-git
   translate-shell-git
 
   # tools
