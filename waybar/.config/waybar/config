@@ -134,7 +134,7 @@
   },
   "custom/pacman": {
       "format": "{} <span color=\"#bb61fa\"></span>",
-      "interval": 3600,
+      "interval": 30,
       "exec": "checkupdates | wc -l",
       "exec-if": "exit 0",
       "on-click": "alacritty -e 'sudo pacman -Syu'; pkill -SIGRTMIN+8 waybar",
@@ -142,7 +142,7 @@
   },
   "custom/weather": {
       "exec": "curl 'https://wttr.in/?format=1'",
-      "interval": 3600
+      "interval": 30
   },
   "custom/telegram": {
     "format": "",
