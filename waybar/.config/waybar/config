@@ -141,7 +141,7 @@
       "signal": 8
   },
   "custom/weather": {
-      "exec": "curl 'https://wttr.in/?format=1'",
+      "exec": "curl 'https://wttr.in/?format=3'",
       "interval": 30
   },
   "custom/telegram": {
