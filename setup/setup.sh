@@ -66,6 +66,9 @@ for services in \
     sudo systemctl start $services
 done
 
+# Fix blacklist bluetooth
+echo 'USB_BLACKLIST="04ca:3015"' | sudo tee /etc/default/tlp
+
 # Remove folder GO
 rm -rf $HOME/go
 
