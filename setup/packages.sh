@@ -10,7 +10,7 @@ packages=(
   archlinux-keyring
 
   # WM
-  i3-wm
+  i3-gaps
   feh
   rofi
   dunst
