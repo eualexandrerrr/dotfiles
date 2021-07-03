@@ -14,6 +14,7 @@ packages=(
   feh
   rofi
   dunst
+  picom
 
   # Gamming
   bumblebee

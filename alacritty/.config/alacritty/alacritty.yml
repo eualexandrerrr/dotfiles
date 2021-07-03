@@ -28,7 +28,7 @@ font:
   bold_italic:
     family: Terminus
     style: Bold Italic
-  size: 7.0
+  size: 10.0
 
 background_opacity: 0.7
 
