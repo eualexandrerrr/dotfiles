@@ -22,7 +22,7 @@ packages=(
   mako
   nano nano-syntax-highlighting neofetch
   reflector rsync
-  steam stow sway swaybg shfmt
+  stow sway swaybg shfmt
   tree thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman transmission-gtk
   waybar wayland wofi
   zsh-syntax-highlighting zip
@@ -78,7 +78,8 @@ aur=(
   laptop-mode-tools
 
   # 3D
-  nvidia
+  xf86-video-nouveau mesa lib32-mesa # nvidia
+  steam
 
   # dependencies
   python-ruamel-yaml
