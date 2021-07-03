@@ -19,12 +19,10 @@ packages=(
   imv
   jdk-openjdk jq
   krita
-  mako
   nano nano-syntax-highlighting neofetch
   reflector rsync
-  stow sway swaybg shfmt
+  stow shfmt
   tree thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman transmission-gtk
-  waybar wayland wofi
   zsh-syntax-highlighting zip
 
   # bluetooth
@@ -47,7 +45,6 @@ packages=(
   python-setuptools
   sbc
   unrar unzip
-  xorg-xwayland
   wget
 
   # themes
@@ -70,7 +67,6 @@ aur=(
   google-chrome github-cli-git gitlab-glab-bin
   kotatogram-desktop-bin
   oh-my-zsh-git
-  swaylock-effects-git
   translate-shell-git
 
   # tools
