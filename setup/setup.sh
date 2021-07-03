@@ -71,7 +71,8 @@ done
 # Remove folder GO
 rm -rf $HOME/go
 
-source $HOME/.dotfiles/setup/etc.sh
-source $HOME/.dotfiles/install.sh
+bash $HOME/.dotfiles/setup/etc.sh
+bash $HOME/.dotfiles/setup/nvidia.sh
+bash $HOME/.dotfiles/install.sh
 
 chsh -s $(which zsh)

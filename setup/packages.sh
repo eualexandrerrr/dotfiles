@@ -87,7 +87,7 @@ aur=(
 
   # Gamming
   steam
-  optimus-manager-git optimus-manager-qt-git
+  optimus-manager
 
   # dependencies
   python-ruamel-yaml
