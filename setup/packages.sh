@@ -16,6 +16,7 @@ packages=(
   dunst
 
   # Gamming
+  bumblebee
   nvidia nvidia-utils nvidia-settings nvidia-utils nvidia-dkms opencl-nvidia
   lib32-nvidia-utils lib32-opencl-nvidia lib32-virtualgl lib32-nvidia-utils lib32-libvdpau lib32-opencl-nvidia lib32-mesa
   xorg-server xorg-xrandr xorg-xbacklight xorg-xinit xorg-xprop xorg-server-devel
@@ -87,7 +88,7 @@ aur=(
 
   # Gamming
   steam
-  optimus-manager
+  nvidia-xrun
 
   # dependencies
   python-ruamel-yaml
