@@ -15,9 +15,9 @@ packages=(
   rofi
   dunst
 
-  # nvidia
-  nvidia nvidia-utils nvidia-settings nvidia-utils nvidia-dkms # opencl-nvidia
-  #  lib32-nvidia-utils lib32-opencl-nvidia lib32-virtualgl lib32-nvidia-utils lib32-libvdpau lib32-opencl-nvidia lib32-mesa
+  # Gamming
+  nvidia nvidia-utils nvidia-settings nvidia-utils nvidia-dkms opencl-nvidia
+  lib32-nvidia-utils lib32-opencl-nvidia lib32-virtualgl lib32-nvidia-utils lib32-libvdpau lib32-opencl-nvidia lib32-mesa
   xorg-server xorg-xrandr xorg-xbacklight xorg-xinit xorg-xprop xorg-server-devel
 
   # apps
@@ -85,8 +85,9 @@ aur=(
   hfsprogs
   laptop-mode-tools
 
-  # 3D
+  # Gamming
   steam
+  optimus-manager-git optimus-manager-qt-git
 
   # dependencies
   python-ruamel-yaml
