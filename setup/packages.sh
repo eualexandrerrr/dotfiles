@@ -22,7 +22,7 @@ packages=(
   mako
   nano nano-syntax-highlighting neofetch
   reflector rsync
-  stow sway swaybg shfmt
+  steam stow sway swaybg shfmt
   tree thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman transmission-gtk
   waybar wayland wofi
   zsh-syntax-highlighting zip
