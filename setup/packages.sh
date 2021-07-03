@@ -78,6 +78,7 @@ aur=(
   laptop-mode-tools
 
   # 3D
+  lib32-nvidia-utils lib32-opencl-nvidia
   xf86-video-nouveau mesa lib32-mesa # nvidia
   steam
 
