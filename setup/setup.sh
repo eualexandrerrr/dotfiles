@@ -62,14 +62,11 @@ atom="
 for services in \
     cronie \
     bluetooth \
-    bumblebeed.service \
     laptop-mode.service \
     getty@ttyN.service; do
     sudo systemctl enable $services
     sudo systemctl start $services
 done
-
-sudo gpasswd -a mamutal91 bumblebeed
 
 # Remove folder GO
 rm -rf $HOME/go

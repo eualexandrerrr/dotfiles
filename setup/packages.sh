@@ -14,10 +14,11 @@ packages=(
   feh
   rofi
   dunst
-  bumblebee
-  nvidia nvidia-utils xorg-server-devel nvidia-settings nvidia-utils lib32-virtualgl lib32-nvidia-utils opencl-nvidia lib32-libvdpau lib32-opencl-nvidia xorg-server xorg-xrandr xorg-xbacklight xorg-xinit xorg-xprop xautolock xclip lib32-nvidia-utils lib32-opencl-nvidia mesa lib32-mesa # nvidia
 
-  winetricks
+  # nvidia
+  nvidia nvidia-utils nvidia-settings nvidia-utils nvidia-dkms # opencl-nvidia
+  #  lib32-nvidia-utils lib32-opencl-nvidia lib32-virtualgl lib32-nvidia-utils lib32-libvdpau lib32-opencl-nvidia lib32-mesa
+  xorg-server xorg-xrandr xorg-xbacklight xorg-xinit xorg-xprop xorg-server-devel
 
   # apps
   alacritty atom
@@ -35,6 +36,8 @@ packages=(
   stow shfmt slop
   tree thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman transmission-gtk
   zsh-syntax-highlighting zip
+  xclip xautolock
+  winetricks
 
   # bluetooth
   bluez bluez-libs bluez-tools bluez-utils
@@ -83,7 +86,6 @@ aur=(
   laptop-mode-tools
 
   # 3D
-  nvidia-xrun
   steam
 
   # dependencies
