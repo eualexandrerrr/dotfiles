@@ -77,6 +77,9 @@ aur=(
   hfsprogs
   laptop-mode-tools
 
+  # 3D
+  nvidia
+
   # dependencies
   python-ruamel-yaml
   selinux-python
