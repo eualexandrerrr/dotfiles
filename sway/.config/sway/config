@@ -95,8 +95,8 @@ exec_always --no-startup-id $HOME/.config/scripts/battery.sh
 exec_always --no-startup-id swaybg -i $HOME/.config/wallpapers/space.jpg
 exec --no-startup-id mako
 exec --no-startup-id hwclock --systohc --utc && timedatectl set-ntp true
-exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ false; pactl set-sink-volume @DEFAULT_SINK@ 80%
-exec --no-startup-id echo 206 | sudo tee /sys/class/backlight/amdgpu_bl0/brightness
+exec --no-startup-id "pactl set-sink-mute @DEFAULT_SINK@ false; pactl set-sink-volume @DEFAULT_SINK@ 80%"
+exec --no-startup-id echo 206 | sudo tee /sys/class/backlight/amdgpu_bl1/brightness
 exec --no-startup-id sudo chown -R mamutal91:mamutal91 /home/mamutal91
 
 # GTK theme
@@ -126,8 +126,8 @@ bindsym XF86AudioRaiseVolume exec --no-startup-id "pactl set-sink-mute @DEFAULT_
 bindsym XF86AudioLowerVolume exec --no-startup-id "pactl set-sink-mute @DEFAULT_SINK@ false; pactl set-sink-volume @DEFAULT_SINK@ -1%"
 bindsym XF86AudioMute exec --no-startup-id "pactl set-sink-mute 0 toggle"
 
-bindsym XF86MonBrightnessUp exec  --no-startup-id echo $((`cat /sys/class/backlight/amdgpu_bl0/brightness` + 5)) | sudo tee /sys/class/backlight/amdgpu_bl0/brightness
-bindsym XF86MonBrightnessDown exec  --no-startup-id echo $((`cat /sys/class/backlight/amdgpu_bl0/brightness` - 5)) | sudo tee /sys/class/backlight/amdgpu_bl0/brightness
+bindsym XF86MonBrightnessUp exec  --no-startup-id echo $((`cat /sys/class/backlight/amdgpu_bl1/brightness` + 5)) | sudo tee /sys/class/backlight/amdgpu_bl1/brightness
+bindsym XF86MonBrightnessDown exec  --no-startup-id echo $((`cat /sys/class/backlight/amdgpu_bl1/brightness` - 5)) | sudo tee /sys/class/backlight/amdgpu_bl1/brightness
 
 # Screenshot
 bindsym Print exec --no-startup-id $HOME/.config/scripts/screenshot.sh window
