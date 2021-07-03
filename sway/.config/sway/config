@@ -33,6 +33,7 @@ floating_modifier $super
 
 # Close window
 bindsym $super+w kill
+bindsym $alt+w kill
 
 # Move windows
 bindsym $control+$shift+Left move left
@@ -70,6 +71,7 @@ bindsym $control+$shift+9 move container to workspace $ws9; workspace $ws9
 
 # Next workspaces
 bindsym $super+Tab workspace next
+bindsym $alt+Tab workspace next
 
 # i3-gaps
 gaps inner 10
