@@ -1,11 +1,7 @@
-# Default config for sway
+# i3 config file (v4)
 #
-# Copy this to ~/.config/sway/config and edit it to your liking.
-#
-# Read `man 5 sway` for a complete reference.
+# Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
-# Configs
-include $HOME/.config/sway/profiles.conf
 set $term alacritty
 
 # Font
@@ -78,7 +74,6 @@ gaps inner 10
 gaps outer 0
 default_border pixel 0
 default_floating_border none
-hide_edge_borders --i3 none
 focus_on_window_activation focus
 
 # Rezise
@@ -94,7 +89,7 @@ bindsym $control+$shift+r mode "resize"
 
 # Startup
 exec_always --no-startup-id $HOME/.config/scripts/battery.sh
-exec_always --no-startup-id swaybg -i $HOME/.config/wallpapers/space.jpg
+exec_always --no-startup-id feh --bg-fill $HOME/.config/wallpapers/space.jpg
 exec --no-startup-id mako
 exec --no-startup-id hwclock --systohc --utc && timedatectl set-ntp true
 exec --no-startup-id "pactl set-sink-mute @DEFAULT_SINK@ false; pactl set-sink-volume @DEFAULT_SINK@ 80%"
@@ -108,20 +103,9 @@ set $cursor capitaine-cursors
 set $font Cantarell
 set $size_font 9
 
-seat seat0 xcursor_theme $cursor 24
-
-set $gnome-schema org.gnome.desktop.interface
-
-exec_always {
-    gsettings set $gnome-schema gtk-theme '$theme'
-    gsettings set $gnome-schema icon-theme '$icon'
-    gsettings set $gnome-schema cursor-theme '$cursor'
-    gsettings set $gnome-schema font-name '$font $size_font'
-}
-
 # Shortcuts
 # Start Rofi menu
-bindsym $super+d exec --no-startup-id wofi -I -p " Apps"
+bindsym $super+d exec --no-startup-id rofi -show drun
 
 # Audio/Brightness Control
 bindsym XF86AudioRaiseVolume exec --no-startup-id "pactl set-sink-mute @DEFAULT_SINK@ false; pactl set-sink-volume @DEFAULT_SINK@ +1%"
@@ -141,7 +125,7 @@ bindsym $control+$shift+k exec --no-startup-id $HOME/.config/scripts/screencast.
 # Application shortcuts
 bindsym $super+Return exec --no-startup-id alacritty &; workspace $ws1
 bindsym $super+e exec --no-startup-id thunar &; workspace $ws7
-bindsym $super+F2 exec --no-startup-id google-chrome-stable --enable-features=UseOzonePlatform --ozone-platform=wayland &; workspace $ws2
+bindsym $super+F2 exec --no-startup-id google-chrome-stable &; workspace $ws2
 bindsym $super+F3 exec --no-startup-id kotatogram-desktop &; workspace $ws4
 
 # System shortcuts
@@ -150,5 +134,46 @@ bindsym $super+k exec --no-startup-id $HOME/.config/scripts/ciMenu.sh &
 bindsym F10 exec --no-startup-id $HOME/.config/scripts/myMenu.sh &
 bindsym F11 exec --no-startup-id $HOME/.dotfiles/install.sh
 
-# Rules
-include $HOME/.config/sway/rules.conf
+# Get rules
+# xprop |awk '/^WM_CLASS/{sub(/.* =/, "instance:"); sub(/,/, "\nclass:"); print} /^WM_NAME/{sub(/.* =/, "title:"); print}'
+
+for_window [class=".*"] border pixel 0, focus
+
+# Titles, windows, classs
+for_window [class="pop-up|bubble|task_dialog|Preferences"] floating enable, move position center, focus
+for_window [title="Open Folder*|Escolha*|Salvar*|Abrir arquivo"] floating enable, resize set 700 px 500 px, move position center, focus
+for_window [title="Media viewer|Progresso|Friends*|Novidades*|Pastas de biblioteca*"] floating enable, move position center, focus
+
+# Workspace 1 [terminal]
+for_window [class="Alacritty"] focus
+
+# Workspace 2 [browser]
+for_window [class="Google-chrome"] move to workspace $ws2, focus
+
+# Workspace 3 [atom]
+for_window [class="Atom"] move to workspace $ws3, focus
+for_window [class="Electron"] move to workspace $ws3, floating enable, focus
+for_window [title="mywindowfloat"] move to workspace $ws3, floating enable, resize set 700 px 330 px, move right -300px, move down 0px, focus, opacity 0.99
+for_window [title="testingscript"] move to workspace $ws3, floating enable, resize set 800 px 500 px, move right -300px, move down 0px, focus, opacity 0.99
+
+# Workspace 4 [telegram]
+for_window [class="KotatogramDesktop"] move to workspace $ws4, focus
+
+# Workspace 5 [media]
+for_window [class="Spotify"] move to workspace $ws5, focus
+
+# Workspace 6 [office]
+for_window [class="Wpspdf|Wpp|Wps|Et"] move to workspace $ws6, focus
+
+# Workspace 7 [pc]
+for_window [class="lxappearance"] move to workspace $ws7, floating enable, focus
+for_window [class="Thunar|thunar|transmission-gtk"] move to workspace $ws7, floating enable, focus
+for_window [class="Filezilla"] move to workspace $ws7, focus
+
+# Workspace 8 [art]
+for_window [class="imv|krita"] move to workspace $ws8, focus
+for_window [class="fireworks.exe"] move to workspace $ws8, focus
+
+# Workspace 9 [games]
+for_window [class="Discord"] move to workspace $ws9, focus
+for_window [title="Steam"] move to workspace $ws9, focus

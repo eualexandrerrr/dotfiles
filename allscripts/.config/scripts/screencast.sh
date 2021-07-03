@@ -16,7 +16,7 @@ kill=" Stop recorder"
 
 devices="$window\n$full\n$kill"
 
-chosen="$(echo -e "$devices" | wofi --lines 3 --sort-order=alphabetical --dmenu -p "  Screencast")"
+chosen="$(echo -e "$devices" | rofi -dmenu -i)"
 case $chosen in
   $window) notify-send -i $icon "Screencast" "Cropped screen capture." && wf-recorder -g "$(slurp)" --audio -f "$dir/cropscreen-$date.mp4" ;;
   $full) notify-send -i $icon "Screencast" "Full screen capture." && wf-recorder --audio -f "$dir/fullscreen-$date.mp4" ;;

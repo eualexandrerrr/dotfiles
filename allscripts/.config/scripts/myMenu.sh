@@ -28,7 +28,7 @@ repo22="22.   package"
 
 menu="$repo01\n$repo02\n$repo03\n$repo04\n$repo05\n$repo06\n$repo07\n$repo08\n$repo09\n$repo10\n$repo11\n$repo12\n$repo13\n$repo14\n$repo15\n$repo16\n$repo17\n$repo18\n$repo19\n$repo20\n$repo21\n$repo22"
 
-chosen="$(echo -e "$menu" | wofi --lines 22 --sort-order=alphabetical --dmenu -p "  myMenu")"
+chosen="$(echo -e "$menu" | rofi -dmenu -i)"
 case $chosen in
   $repo01) alacritty -t mywindowfloat --working-directory $HOME/.dotfiles ;;
   $repo02) alacritty -t mywindowfloat --working-directory $github/infra ;;

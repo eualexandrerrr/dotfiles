@@ -9,6 +9,16 @@ packages=(
   # archlinux
   archlinux-keyring
 
+  # WM
+  i3-wm
+  feh
+  rofi
+  dunst
+  bumblebee
+  nvidia nvidia-utils xorg-server-devel nvidia-settings nvidia-utils lib32-virtualgl lib32-nvidia-utils opencl-nvidia lib32-libvdpau lib32-opencl-nvidia xorg-server xorg-xrandr xorg-xbacklight xorg-xinit xorg-xprop xautolock xclip lib32-nvidia-utils lib32-opencl-nvidia mesa lib32-mesa # nvidia
+
+  winetricks
+
   # apps
   alacritty atom
   cronie
@@ -19,9 +29,10 @@ packages=(
   imv
   jdk-openjdk jq
   krita
+  maim
   nano nano-syntax-highlighting neofetch
   reflector rsync
-  stow shfmt
+  stow shfmt slop
   tree thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman transmission-gtk
   zsh-syntax-highlighting zip
 
@@ -34,10 +45,7 @@ packages=(
   ntfs-3g
 
   # screenshots/cast
-  grim
   imagemagick
-  slurp
-  wl-clipboard
 
   # drivers and dependencies
   mesa mpd mpv
@@ -67,6 +75,7 @@ aur=(
   google-chrome github-cli-git gitlab-glab-bin
   kotatogram-desktop-bin
   oh-my-zsh-git
+  polybar
   translate-shell-git
 
   # tools
@@ -74,13 +83,11 @@ aur=(
   laptop-mode-tools
 
   # 3D
-  lib32-nvidia-utils lib32-opencl-nvidia
-  xf86-video-nouveau mesa lib32-mesa # nvidia
+  nvidia-xrun
   steam
 
   # dependencies
   python-ruamel-yaml
   selinux-python
   ttf-font-awesome ttf-dejavu
-  wf-recorder-git
 )

@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 
-SWAY=$HOME/.config/sway/config
+I3=$HOME/.config/i3/config
 GTK_FILE_2="$HOME/.gtkrc-2.0"
 GTK_FILE_3="$HOME/.config/gtk-3.0/settings.ini"
-GTK_THEME=$(grep 'set $theme' $SWAY | awk '{ print $3 }')
-GTK_ICON=$(grep 'set $icon' $SWAY | awk '{ print $3 }')
-GTK_CURSOR=$(grep 'set $cursor' $SWAY | awk '{ print $3 }')
-GTK_FONT=$(grep 'set $font' $SWAY | awk '{ print $3 }')
-GTK_FONT2=$(grep 'set $font' $SWAY | awk '{ print $4 }')
-GTK_FONT_SIZE=$(grep 'set $size_font' $SWAY | awk '{ print $3 }')
+GTK_THEME=$(grep 'set $theme' $I3 | awk '{ print $3 }')
+GTK_ICON=$(grep 'set $icon' $I3 | awk '{ print $3 }')
+GTK_CURSOR=$(grep 'set $cursor' $I3 | awk '{ print $3 }')
+GTK_FONT=$(grep 'set $font' $I3 | awk '{ print $3 }')
+GTK_FONT2=$(grep 'set $font' $I3 | awk '{ print $4 }')
+GTK_FONT_SIZE=$(grep 'set $size_font' $I3 | awk '{ print $3 }')
 
 THEME_GTK="gtk-theme-name=$GTK_THEME\n
 gtk-icon-theme-name=$GTK_ICON\n

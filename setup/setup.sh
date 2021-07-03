@@ -3,9 +3,9 @@
 source $HOME/.colors &> /dev/null
 source $HOME/.myTokens &> /dev/null
 
-[ $USER = "mamutal91" ] && source $HOME/.dotfiles/setup/personalconfigs.sh && source $HOME/.dotfiles/setup/laptop-mode.sh
+[ ${1} ] && source $HOME/.dotfiles/setup/personalconfigs.sh && source $HOME/.dotfiles/setup/laptop-mode.sh
 
-sudo pacman -Syyu --noconfirm
+sudo pacman -Syyu --noconfirm &> /dev/null
 
 # Install YAY AUR Manager
 pwd=$(pwd)
@@ -26,6 +26,9 @@ done
 for i in ${aur[@]}; do
   yay -Sy ${i} --needed --noconfirm
 done
+
+# Winetricks
+#winetricks --force directx9 vcrun2005 vcrun2008 vcrun2010 vcrun2012 vcrun2013 vcrun2015 dotnet40 dotnet452 vb6 xact xna31 xna40 msl31 openal corefonts
 
 # gdrive
 pwd=$(pwd)
@@ -48,7 +51,6 @@ atom="
   highlight-selected
   indent-sort
   language-i3wm
-  language-swaywm
   mamutal91-shellscript-snippets-atom
   markdown-writer
   pigments
@@ -60,14 +62,14 @@ atom="
 for services in \
     cronie \
     bluetooth \
+    bumblebeed.service \
     laptop-mode.service \
     getty@ttyN.service; do
     sudo systemctl enable $services
     sudo systemctl start $services
 done
 
-# Fix blacklist bluetooth
-echo 'USB_BLACKLIST="04ca:3015"' | sudo tee /etc/default/tlp
+sudo gpasswd -a mamutal91 bumblebeed
 
 # Remove folder GO
 rm -rf $HOME/go

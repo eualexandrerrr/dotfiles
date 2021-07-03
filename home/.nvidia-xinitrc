@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+xrandr --setprovideroutputsource modesetting NVIDIA-0
+xrandr --auto
+modprobe nvidia
+
+export video=" Nvidia GTX 1650"
+exec i3

@@ -12,12 +12,12 @@ date=$(date +"%m-%d-%Y-%H%M")
 
 if [[ ${1} == "window" ]]; then
   img="$dir/window-$date.png"
-  grim -t jpeg -q 100 -g "$(slurp -d)" "$img"
-  wl-copy < $img
+  maim -s $img
+  xclip -selection clipboard -t image/png -i $img
   notify-send -i $icon "Screenshot" "Cropped capture."
 else
   img="$dir/full-$date.png"
-  grim -t jpeg -q 100 "$img"
-  wl-copy < $img
+  maim $img
+  xclip -selection clipboard -t image/png -i $img
   notify-send -i $icon "Screenshot" "Fullscreen capture."
 fi
