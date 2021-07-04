@@ -17,16 +17,16 @@ window:
 
 font:
   normal:
-    family: Iosevka Nerd Font
+    family: Termite
     style: Regular
   bold:
-    family: Iosevka Nerd Font
+    family: Termite
     style: Bold
   italic:
-    family: Iosevka Nerd Font
+    family: Termite
     style: Italic
   bold_italic:
-    family: Iosevka Nerd Font
+    family: Termite
     style: Bold Italic
   size: 10.0
 
