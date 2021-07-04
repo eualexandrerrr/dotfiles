@@ -16,7 +16,7 @@ kill=" Stop recorder"
 
 devices="$window\n$full\n$kill"
 
-chosen="$(echo -e "$devices" | rofi -dmenu -i)"
+chosen="$(echo -e "$devices" | rofi -no-config -no-lazy-grab -dmenu -i -theme ~/.config/polybar/$(grep "launch" $HOME/.dotfiles/install.sh | awk '{print $3}' | tr -d '-')/scripts/rofi/launcher.rasi))"
 case $chosen in
   $window) notify-send -i $icon "Screencast" "Cropped screen capture." && wf-recorder -g "$(slurp)" --audio -f "$dir/cropscreen-$date.mp4" ;;
   $full) notify-send -i $icon "Screencast" "Full screen capture." && wf-recorder --audio -f "$dir/fullscreen-$date.mp4" ;;
