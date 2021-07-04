@@ -62,6 +62,7 @@ atom="
 for services in \
     cronie \
     bluetooth \
+    mpd \
     laptop-mode.service \
     getty@ttyN.service; do
     sudo systemctl enable $services

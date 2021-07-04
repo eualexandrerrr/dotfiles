@@ -29,5 +29,6 @@ bash $HOME/.dotfiles/setup/etc.sh
 
 # Restart sway
 play $HOME/.config/sounds/completed.wav &> /dev/null
+source $HOME/.config/polybar/launch.sh --blocks
 i3-msg restart
 exit

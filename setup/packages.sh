@@ -2,7 +2,7 @@
 
 packages=(
   # audio
-  alsa alsa-firmware alsa-utils alsa-plugins
+  pulseaudio alsa-firmware alsa-utils alsa-plugins
   pulseaudio pulseaudio-bluetooth pavucontrol
   sox
 
@@ -14,6 +14,7 @@ packages=(
   feh
   rofi
   dunst
+  mpc mpd ncmpcpp
 
   # Gamming
   nvidia nvidia-utils nvidia-settings nvidia-utils nvidia-dkms nvidia-prime opencl-nvidia
