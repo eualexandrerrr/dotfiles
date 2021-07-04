@@ -14,11 +14,10 @@ packages=(
   feh
   rofi
   dunst
-  picom
 
   # Gamming
-  bumblebee
-  nvidia nvidia-utils nvidia-settings nvidia-utils nvidia-dkms opencl-nvidia
+  nvidia nvidia-utils nvidia-settings nvidia-utils nvidia-dkms nvidia-prime opencl-nvidia
+  mesa mesa-demos vulkan-tools
   lib32-nvidia-utils lib32-opencl-nvidia lib32-virtualgl lib32-nvidia-utils lib32-libvdpau lib32-opencl-nvidia lib32-mesa
   xorg-server xorg-xrandr xorg-xbacklight xorg-xinit xorg-xprop xorg-server-devel
 
@@ -53,7 +52,7 @@ packages=(
   imagemagick
 
   # drivers and dependencies
-  mesa mpd mpv
+  mpd mpv
   openssh
   python-setuptools
   sbc
@@ -89,7 +88,6 @@ aur=(
 
   # Gamming
   steam
-  nvidia-xrun
 
   # dependencies
   python-ruamel-yaml

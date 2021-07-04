@@ -7,7 +7,7 @@ rm -rf $HOME/.bash_profile .bashrc .config/mimeapps.list
 
 # Stow
 cd $HOME/.dotfiles
-for DOTFILES in $(find . -maxdepth 1  -not -name ".*" ! -name "setup" ! -name "etc" -type d -printf '%f\n'); do
+for DOTFILES in $(find . -maxdepth 1  -not -name ".*" ! -name "setup" -type d -printf '%f\n'); do
   stow --adopt $DOTFILES || echo -e "${BOL_RED}Error on gnu/stow${END}"
   echo "${RED}$DOTFILES ${GRE}stowed.${END}"
 done
