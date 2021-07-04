@@ -19,7 +19,23 @@ echo 'Section "InputClass"
     Driver "evdev"
     Option "XkbLayout" "br"
     Option "XkbVariant" "abnt2"
-EndSection' | sudo tee /etc/X11/xorg.conf.d/10.evdev.conf
+EndSection' | sudo tee /etc/X11/xorg.conf.d/10.evdev.conf &> /dev/null
+
+echo 'Section "OutputClass"
+    Identifier "amd"
+    MatchDriver "amdgpu"
+    Driver "modesetting"
+EndSection
+
+Section "OutputClass"
+    Identifier "nvidia"
+    MatchDriver "nvidia-drm"
+    Driver "nvidia"
+    Option "AllowEmptyInitialConfiguration"
+    Option "PrimaryGPU" "yes"
+    ModulePath "/usr/lib/nvidia/xorg"
+    ModulePath "/usr/lib/xorg/modules"
+EndSection' | sudo tee /etc/X11/xorg.conf.d/20-nvidia-drm-outputclass.conf &> /dev/null
 
 echo 'Section "InputClass"
     Identifier "touchpad"
@@ -28,13 +44,12 @@ echo 'Section "InputClass"
     Option "Tapping" "on"
     Option "TappingButtonMap" "lmr"
     Option "NaturalScrolling" "true"
-EndSection' | sudo tee /etc/X11/xorg.conf.d/30-touchpad.conf
+EndSection' | sudo tee /etc/X11/xorg.conf.d/30-touchpad.conf &> /dev/null
 
 echo 'Section "InputClass"
 	Identifier "My Mouse"
 	MatchIsPointer "yes"
-# set the following to 1 1 0 respectively to disable acceleration.
 	Option "AccelerationNumerator" "2"
 	Option "AccelerationDenominator" "1"
 	Option "AccelerationThreshold" "4"
-EndSection' | sudo tee /etc/X11/xorg.conf.d/40-mouse-acceleration.conf
+EndSection' | sudo tee /etc/X11/xorg.conf.d/40-mouse-acceleration.conf &> /dev/null
