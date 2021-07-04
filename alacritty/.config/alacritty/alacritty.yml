@@ -17,16 +17,16 @@ window:
 
 font:
   normal:
-    family: Termite
+    family: Terminus
     style: Regular
   bold:
-    family: Termite
+    family: Terminus
     style: Bold
   italic:
-    family: Termite
+    family: Terminus
     style: Italic
   bold_italic:
-    family: Termite
+    family: Terminus
     style: Bold Italic
   size: 10.0
 
