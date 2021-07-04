@@ -108,7 +108,8 @@ set $size_font 9
 
 # Shortcuts
 # Start Rofi menu
-bindsym $super+d exec --no-startup-id rofi -show drun
+
+bindsym $super+d exec --no-startup-id $HOME/.config/polybar/$(grep "launch" $HOME/.dotfiles/install.sh | awk '{print $3}' | tr -d '-')/scripts/launcher.sh
 
 # Audio/Brightness Control
 bindsym XF86AudioRaiseVolume exec --no-startup-id "pactl set-sink-mute @DEFAULT_SINK@ false; pactl set-sink-volume @DEFAULT_SINK@ +1%"

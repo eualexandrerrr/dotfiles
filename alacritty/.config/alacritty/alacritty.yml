@@ -17,16 +17,16 @@ window:
 
 font:
   normal:
-    family: Terminus
+    family: Iosevka Nerd Font
     style: Regular
   bold:
-    family: Terminus
+    family: Iosevka Nerd Font
     style: Bold
   italic:
-    family: Terminus
+    family: Iosevka Nerd Font
     style: Italic
   bold_italic:
-    family: Terminus
+    family: Iosevka Nerd Font
     style: Bold Italic
   size: 10.0
 
