@@ -21,7 +21,7 @@ bt4="KD-750"
 
 devices="$scan\n$bt1\n$bt2\n$bt3\n$bt4"
 
-chosen="$(echo -e $devices | rofi -no-config -no-lazy-grab -dmenu -i -theme ~/.config/polybar/$(grep "launch" $HOME/.dotfiles/install.sh | awk '{print $3}' | tr -d '-')/scripts/rofi/launcher.rasi))"
+chosen="$(echo -e $devices | rofi -dmenu -i)"
 case $chosen in
     $scan)
       bluetoothctl scan on
