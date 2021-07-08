@@ -1,79 +1,74 @@
 #!/usr/bin/env bash
 
-source $HOME/.colors &> /dev/null
+source $HOME/.Xcolors &> /dev/null
 source $HOME/.myTokens &> /dev/null
 
-[ ${1} ] && source $HOME/.dotfiles/setup/personalconfigs.sh && source $HOME/.dotfiles/setup/laptop-mode.sh
-
-sudo pacman -Syyu --noconfirm &> /dev/null
+sudo pacman -Syyu --noconfirm
 
 # Install YAY AUR Manager
-pwd=$(pwd)
-rm -rf $HOME/yay && git clone https://aur.archlinux.org/yay.git $HOME/yay && cd $HOME/yay && makepkg -si --noconfirm && rm -rf $HOME/yay
-cd $pwd
-
-# Load packages
-source $HOME/.dotfiles/setup/packages.sh
-
-# GPG Key Spotify
-curl -sS https://download.spotify.com/debian/pubkey_0D811D58.gpg | gpg --import -
+if [[ ! -f $(which yay) ]]; then
+  pwd=$(pwd)
+  sudo pacman -Sy base-devel --noconfirm
+  rm -rf $HOME/yay && git clone https://aur.archlinux.org/yay.git $HOME/yay && cd $HOME/yay && makepkg -si --noconfirm && rm -rf $HOME/yay
+  cd $pwd
+fi
 
 # Install packages
-for i in ${packages[@]}; do
-  sudo pacman -Sy ${i} --needed --noconfirm
-done
-
-for i in ${aur[@]}; do
-  yay -Sy ${i} --needed --noconfirm
-done
-
-# Winetricks
-#winetricks --force directx9 vcrun2005 vcrun2008 vcrun2010 vcrun2012 vcrun2013 vcrun2015 dotnet40 dotnet452 vb6 xact xna31 xna40 msl31 openal corefonts
-
-# gdrive
-pwd=$(pwd)
-cd $HOME
-wget https://github.com/prasmussen/gdrive/releases/download/2.1.1/gdrive_2.1.1_linux_amd64.tar.gz
-tar -xvzf gdrive*.tar.gz
-chmod +x gdrive
-install gdrive /usr/local/bin/gdrive
-rm -rf gdrive*
-cd $pwd
-
-# Atom packages
-atom="
-  atom-beautify
-  atom-material-syntax
-  color-picker
-  file-icons
-  flatten-json
-  ftp-remote-edit
-  highlight-selected
-  indent-sort
-  language-i3wm
-  mamutal91-shellscript-snippets-atom
-  markdown-writer
-  pigments
-  save-workspace"
-
-# apm install $atom --noconfirm
+echo "Install pkgs"
+source $HOME/.dotfiles/setup/packages.sh
+function installPkgs() {
+  for i in "${!array[@]}"; do
+    if [[ $USER == mamutal91 ]]; then
+      sudo pacman -S ${array[i]} ${array2[i]} --needed --noconfirm && continue || echo -e "\n${BOL_RED}The package is not in the official repositories\n${BOL_BLU}Trying with ${BOL_YEL}YAY${END}\n" && yay -S ${array[i]} ${array2[i]} --needed --noconfirm
+    else
+      sudo pacman -S ${array[i]} --needed --noconfirm && continue || echo -e "\n${BOL_RED}The package is not in the official repositories\n${BOL_BLU}Trying with ${BOL_YEL}YAY${END}\n" && yay -S ${array[i]} --needed --noconfirm
+    fi
+  done
+}
+installPkgs
 
 # Enable systemd services
 for services in \
     cronie \
     bluetooth \
     mpd \
+    mopidy \
+    libvirtd.service \
     laptop-mode.service \
     getty@ttyN.service; do
-    sudo systemctl enable $services
-    sudo systemctl start $services
+    sudo systemctl enable $services &> /dev/null
+    sudo systemctl start $services &> /dev/null
 done
 
 # Remove folder GO
-rm -rf $HOME/go
+rm -rf $HOME/go &> /dev/null
 
-bash $HOME/.dotfiles/setup/etc.sh
-bash $HOME/.dotfiles/setup/nvidia.sh
-bash $HOME/.dotfiles/install.sh
+for i in $(ls $HOME/.dotfiles/setup/*.sh); do
+  chmod +x $i
+  [[ $i == packages.sh ]] && continue
+  [[ $i == setup.sh ]] && continue
+  bash $i
+done
 
+if [[ $USER == mamutal91 ]]; then
+  for i in $(ls $HOME/.dotfiles/setup/personalconfigs/*.sh); do
+    chmod +x $i
+    [[ $i == packages.sh ]] && continue
+    [[ $i == setup.sh ]] && continue
+    bash $i
+  done
+fi
+
+# Fonts
+mkdir -p /usr/share/fonts/TTF &> /dev/null
+cp -rf $HOME/.dotfiles/assets/.config/assets/fonts/* /usr/share/fonts/TTF
+fc-cache -f -r -v
+
+# Permissions
+sudo chown -R $USER:$USER $HOME
+
+# Remove Kraken scripts
+[[ $USER != mamutal91 ]] && rm -rf $HOME/.dotfiles/allscripts/.config/scripts/kraken && rm -rf $HOME//.config/scripts/kraken
+
+# zsh default
 chsh -s $(which zsh)

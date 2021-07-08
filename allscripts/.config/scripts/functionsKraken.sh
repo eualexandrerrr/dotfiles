@@ -1,8 +1,12 @@
 #!/usr/bin/env bash
 
-source $HOME/.colors &> /dev/null
+source $HOME/.Xcolors &> /dev/null
 
 [ $(cat /etc/hostname) = mamutal91-v2 ] && HOME=/home/mamutal91
+
+b() {
+  $HOME/.config/scripts/kraken/builder.sh ${1} ${2} ${3} ${4}
+}
 
 fu() {
   if [[ -z ${1} ]]; then
@@ -29,7 +33,7 @@ push() {
   else
     repo=$(basename "$(pwd)")
   fi
-  github=github
+  githost=github
   org=AOSPK-DEV
   branch=eleven
 
@@ -40,7 +44,7 @@ push() {
   [ $repo = vendor_qcom_opensource_commonsys_bluetooth_ext ] && repo=vendor_qcom_opensource_bluetooth_ext
   [ $repo = vendor_qcom_opensource_commonsys_packages_apps_Bluetooth ] && repo=vendor_qcom_opensource_packages_apps_Bluetooth
   [ $repo = vendor_qcom_opensource_commonsys_system_bt ] && repo=vendor_qcom_opensource_system_bt
-  [ $repo = vendor_gapps ] && github=gitlab && org=AOSPK
+  [ $repo = vendor_google_gms ] && githost=gitlab && org=AOSPK
 
   [ $repo = device_xiaomi_lmi ] && org=AOSPK-Devices
   [ $repo = device_xiaomi_sm8250-common ] && org=AOSPK-Devices
@@ -61,10 +65,12 @@ push() {
       echo "${CYA}  push gerrit ${RED}-?${END} ${GRE}<topic>${END}${YEL}"
       echo "              -s [Submit automatic]"
       echo "              -v [Verified]"
+      echo "              -c [Specific SHA ID commit]"
       echo "${END}"
     else
       [[ ${2} == -s ]] && gerritPush="HEAD:refs/for/${branch}%submit"
       [[ ${2} == -v ]] && gerritPush="HEAD:refs/for/${branch}%l=Verified+1,l=Code-Review+2"
+      [[ ${2} == -c ]] && gerritPush="${3}:refs/for/${branch}"
       [[ -z ${2} ]] && gerritPush="HEAD:refs/for/${branch}"
 
       if [[ ! -d .git ]]; then
@@ -82,9 +88,9 @@ push() {
 
   # To GitHub/GitLab
   if [[ ${1} == -f ]]; then
-    echo "${BOL_BLU}Pushing to ${BOL_YEL}github.com/${BOL_RED}${org}/${MAG}${repo}${END} ${CYA}${branch}${END}"
+    echo "${BOL_BLU}Pushing to ${BOL_YEL}${githost}.com/${BOL_RED}${org}/${MAG}${repo}${END} ${CYA}${branch}${END}"
     gh repo create AOSPK-DEV/${repo} --private --confirm &> /dev/null
-    git push ssh://git@${github}.com/${org}/${repo} HEAD:refs/heads/${branch} --force
+    git push ssh://git@${githost}.com/${org}/${repo} HEAD:refs/heads/${branch} --force
   fi
 }
 

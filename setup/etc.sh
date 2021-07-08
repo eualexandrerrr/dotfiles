@@ -1,16 +1,15 @@
 #!/usr/bin/env bash
 
-HOSTNAME=$(cat /etc/hostname)
-
 # systemd Auto Login
 sudo rm -rf /etc/systemd/system/getty@tty1.service.d/override.conf
 sudo mkdir -p /etc/systemd/system/getty@tty1.service.d
 echo "[Service]
 ExecStart=
-ExecStart=-/usr/bin/agetty --autologin $USER --noclear %I $TERM" | sudo tee -a /etc/systemd/system/getty@tty1.service.d/override.conf > /dev/null
+ExecStart=-/usr/bin/agetty --autologin $USER --noclear %I $TERM" | sudo tee /etc/systemd/system/getty@tty1.service.d/override.conf &> /dev/null
 
 # Xorg
 sudo mkdir -p /etc/X11/xorg.conf.d &> /dev/null
+sudo rm -rf /etc/X11/xorg.conf.d/{10.evdev.conf,30-touchpad.conf,40-mouse-acceleration.conf}
 
 echo 'Section "InputClass"
     Identifier "evdev keyboard catchall"
@@ -20,22 +19,6 @@ echo 'Section "InputClass"
     Option "XkbLayout" "br"
     Option "XkbVariant" "abnt2"
 EndSection' | sudo tee /etc/X11/xorg.conf.d/10.evdev.conf &> /dev/null
-
-echo 'Section "OutputClass"
-    Identifier "amd"
-    MatchDriver "amdgpu"
-    Driver "modesetting"
-EndSection
-
-Section "OutputClass"
-    Identifier "nvidia"
-    MatchDriver "nvidia-drm"
-    Driver "nvidia"
-    Option "AllowEmptyInitialConfiguration"
-    Option "PrimaryGPU" "yes"
-    ModulePath "/usr/lib/nvidia/xorg"
-    ModulePath "/usr/lib/xorg/modules"
-EndSection' | sudo tee /etc/X11/xorg.conf.d/20-nvidia-drm-outputclass.conf &> /dev/null
 
 echo 'Section "InputClass"
     Identifier "touchpad"

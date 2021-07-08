@@ -1,25 +1,32 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
-iconpath="/usr/share/icons/Papirus-Dark/32x32/devices"
-icon="${iconpath}/camera-video.svg"
+icon="$HOME/.config/assets/icons"
 
-dir="$HOME/Videos/Screencasts/"
-if [[ ! -d $dir   ]]; then
-  mkdir -p $dir
+date=$(date +"%Y%m%d-%H%M")
+dir=$HOME/Videos/Screencasts
+[[ ! -d $dir ]] && mkdir -p $dir
+
+res=$(xrandr | awk '$0 ~ "*" {print $1}')
+
+if pidof ffmpeg; then
+    killall ffmpeg
+    dunstify -i $icon/stoprec.png "Stopped Recording!"
+else
+  if [[ ${1} == window ]]; then
+    slop=$(slop -f "%x %y %w %h")
+    read -r X Y W H < <(echo $slop)
+    width=${#W}
+
+    if [ $width -gt 0 ]; then
+      dunstify -i $icon/rec.png "Started Recording!"
+      ffmpeg -f x11grab -s "$W"x"$H" -framerate 60  -thread_queue_size 512  -i $DISPLAY.0+$X,$Y -f alsa -i pulse \
+        -vcodec libx264 -qp 18 -preset ultrafast \
+        $dir/w-${date}.mp4
+    fi
+  else
+    dunstify -i $icon/rec.png "Started Recording!"
+    ffmpeg -f x11grab -s "$res" -framerate 60  -thread_queue_size 512  -i $DISPLAY.0+$X,$Y -f alsa -i pulse \
+      -vcodec libx264 -qp 18 -preset ultrafast \
+      $dir/f-${date}.mp4
+  fi
 fi
-
-date=$(date +"%m-%d-%Y-%H%M")
-
-window=" Cropscreen"
-full=" Fullscreen"
-kill=" Stop recorder"
-
-devices="$window\n$full\n$kill"
-
-chosen="$(echo -e "$devices" | rofi -dmenu -i)"
-case $chosen in
-  $window) notify-send -i $icon "Screencast" "Cropped screen capture." && wf-recorder -g "$(slurp)" --audio -f "$dir/cropscreen-$date.mp4" ;;
-  $full) notify-send -i $icon "Screencast" "Full screen capture." && wf-recorder --audio -f "$dir/fullscreen-$date.mp4" ;;
-  $kill) pkill -2 wf-recorder && notify-send -i $icon "Screencast" "Recorder finished." ;;
-esac
-exit 0

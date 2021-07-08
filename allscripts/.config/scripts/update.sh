@@ -1,13 +1,10 @@
 #!/usr/bin/env bash
 
-source $HOME/.colors &> /dev/null
+source $HOME/.Xcolors &> /dev/null
 
-iconpath="/usr/share/icons/Papirus-Dark/32x32/devices"
-icon="${iconpath}/modem.svg"
+icon="$HOME/.config/assets/icons/pacman.png"
 
-HOSTNAME=$(cat /etc/hostname)
-
-if [[ $HOSTNAME == mamutal91-v2 || $HOSTNAME == buildersbr.ninja-v2 ]]; then
+if [[ $(cat /etc/hostname) == mamutal91-v2 || $(cat /etc/hostname) == buildersbr.ninja-v2 ]]; then
   echo "${GRE}Updating apt${END}"
   sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y
 else
@@ -21,8 +18,8 @@ else
   sudo pacman -Rncs $(pacman -Qdtq) --noconfirm
   yay -Rncs $(yay -Qdtq) --noconfirm
 
-  play $HOME/.config/sounds/completed.wav &> /dev/null
-  notify-send -i $icon "ArchLinux" "Successfully updated packages."
+  play $HOME/.config/assets/sounds/completed.wav &> /dev/null
+  dunstify -i $icon "ArchLinux" "Successfully updated packages."
 
   echo "${RED}Removing temp files...${END}"
   sudo rm -rf /tmp/* &> /dev/null

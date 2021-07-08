@@ -2,7 +2,7 @@
 
 clear
 
-source $HOME/.colors &> /dev/null
+source $HOME/.Xcolors &> /dev/null
 source $HOME/.botTokens &> /dev/null
 
 chatId="-1001397744652"

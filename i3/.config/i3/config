@@ -90,14 +90,16 @@ bindsym $control+$shift+r mode "resize"
 # Startup
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 exec_always --no-startup-id $HOME/.config/scripts/battery.sh
-
-exec_always --no-startup-id feh --bg-fill $HOME/.config/wallpapers/space.jpg
-exec_always --no-startup-id xrdb -merge $HOME/.Xresources
-exec --no-startup-id dunst
+exec_always --no-startup-id feh --bg-fill $HOME/.config/assets/wallpapers/mechanical-keyboard.jpg
+exec_always --no-startup-id xrdb -load $HOME/.Xresources
+exec_always --no-startup-id fc-cache -f -r -v
+exec_always --no-startup-id picom --config $HOME/.config/picom/picom.conf
+exec --no-startup-id dunst &
 exec --no-startup-id hwclock --systohc --utc && timedatectl set-ntp true
 exec --no-startup-id "pactl set-sink-mute @DEFAULT_SINK@ false; pactl set-sink-volume @DEFAULT_SINK@ 80%"
 exec --no-startup-id echo 206 | sudo tee /sys/class/backlight/amdgpu_bl1/brightness
 exec --no-startup-id sudo chown -R mamutal91:mamutal91 /home/mamutal91
+exec --no-startup-id xidlehook --not-when-audio --not-when-fullscreen --timer 600 '$HOME/.config/scripts/i3lock.sh
 
 # GTK theme
 set $theme Dracula
@@ -108,19 +110,20 @@ set $size_font 9
 
 # Shortcuts
 # Audio/Brightness Control
-bindsym XF86AudioRaiseVolume exec --no-startup-id "pactl set-sink-mute @DEFAULT_SINK@ false; pactl set-sink-volume @DEFAULT_SINK@ +1%"
-bindsym XF86AudioLowerVolume exec --no-startup-id "pactl set-sink-mute @DEFAULT_SINK@ false; pactl set-sink-volume @DEFAULT_SINK@ -1%"
+bindsym XF86AudioRaiseVolume exec --no-startup-id "pactl set-sink-mute @DEFAULT_SINK@ false; pactl set-sink-volume @DEFAULT_SINK@ +5%"
+bindsym XF86AudioLowerVolume exec --no-startup-id "pactl set-sink-mute @DEFAULT_SINK@ false; pactl set-sink-volume @DEFAULT_SINK@ -5%"
+bindsym $super+Up exec --no-startup-id "pactl set-sink-mute @DEFAULT_SINK@ false; pactl set-sink-volume @DEFAULT_SINK@ +5%"
+bindsym $super+Down exec --no-startup-id "pactl set-sink-mute @DEFAULT_SINK@ false; pactl set-sink-volume @DEFAULT_SINK@ -5%"
 bindsym XF86AudioMute exec --no-startup-id "pactl set-sink-mute 0 toggle"
 
-bindsym XF86MonBrightnessUp exec  --no-startup-id echo $((`cat /sys/class/backlight/amdgpu_bl1/brightness` + 5)) | sudo tee /sys/class/backlight/amdgpu_bl1/brightness
-bindsym XF86MonBrightnessDown exec  --no-startup-id echo $((`cat /sys/class/backlight/amdgpu_bl1/brightness` - 5)) | sudo tee /sys/class/backlight/amdgpu_bl1/brightness
+bindsym XF86MonBrightnessUp exec --no-startup-id echo $((`cat /sys/class/backlight/amdgpu_bl1/brightness` + 25)) | sudo tee /sys/class/backlight/amdgpu_bl1/brightness
+bindsym XF86MonBrightnessDown exec --no-startup-id echo $((`cat /sys/class/backlight/amdgpu_bl1/brightness` - 25)) | sudo tee /sys/class/backlight/amdgpu_bl1/brightness
+bindsym $super+Right exec --no-startup-id echo $((`cat /sys/class/backlight/amdgpu_bl1/brightness` + 25)) | sudo tee /sys/class/backlight/amdgpu_bl1/brightness
+bindsym $super+Left exec --no-startup-id echo $((`cat /sys/class/backlight/amdgpu_bl1/brightness` - 25)) | sudo tee /sys/class/backlight/amdgpu_bl1/brightness
 
 # Screenshot
 bindsym Print exec --no-startup-id $HOME/.config/scripts/screenshot.sh window
 bindsym $control+Print exec --no-startup-id $HOME/.config/scripts/screenshot.sh
-
-# Screencast
-bindsym $control+$shift+k exec --no-startup-id $HOME/.config/scripts/screencast.sh
 
 # Application shortcuts
 bindsym $super+Return exec --no-startup-id alacritty &; workspace $ws1
@@ -129,6 +132,16 @@ bindsym $super+F2 exec --no-startup-id google-chrome-stable &; workspace $ws2
 bindsym $super+F3 exec --no-startup-id kotatogram-desktop &; workspace $ws4
 
 # System shortcuts
+bindsym $super+d exec --no-startup-id $HOME/.config/rofi/applets/quicklinks.sh
+
+bindsym $super+b exec --no-startup-id $HOME/.config/rofi/applets/battery.sh
+bindsym $super+m exec --no-startup-id $HOME/.config/rofi/applets/mpd.sh
+bindsym $super+n exec --no-startup-id $HOME/.config/rofi/applets/networks.sh
+bindsym $super+p exec --no-startup-id $HOME/.config/rofi/applets/powermenu.sh
+bindsym $super+h exec --no-startup-id $HOME/.config/rofi/applets/time.sh
+bindsym $control+$shift+k exec --no-startup-id $HOME/.config/rofi/applets/screencast.sh
+
+bindsym $super+r exec --no-startup-id file=$(ls $HOME/.config/rofi/applets/*.sh | shuf -n 1) && file=$(basename $file .sh) && $HOME/.config/rofi/applets/$file.sh
 bindsym $super+BackSpace exec --no-startup-id alacritty -t testingscript -e $HOME/.config/scripts/scripter.sh &
 bindsym $super+k exec --no-startup-id $HOME/.config/scripts/ciMenu.sh &
 bindsym F10 exec --no-startup-id $HOME/.config/scripts/myMenu.sh &
@@ -136,44 +149,44 @@ bindsym F11 exec --no-startup-id $HOME/.dotfiles/install.sh
 
 # Get rules
 # xprop |awk '/^WM_CLASS/{sub(/.* =/, "instance:"); sub(/,/, "\nclass:"); print} /^WM_NAME/{sub(/.* =/, "title:"); print}'
-
 for_window [class=".*"] border pixel 0, focus
+for_window [title=".*"] border pixel 0, focus
 
 # Titles, windows, classs
-for_window [class="pop-up|bubble|task_dialog|Preferences"] floating enable, move position center, focus
-for_window [title="Open Folder*|Escolha*|Salvar*|Abrir arquivo"] floating enable, resize set 700 px 500 px, move position center, focus
-for_window [title="Media viewer|Progresso|Friends*|Novidades*|Pastas de biblioteca*"] floating enable, move position center, focus
+for_window [class="pop-up|bubble|task_dialog|Preferences"] floating enable, move position center
+for_window [title="Open Folder*|Escolha*|Salvar*|Abrir arquivo"] floating enable, move position center
+for_window [title="Media viewer|Progresso|Friends*|Novidades*|Pastas de biblioteca*"] floating enable, move position center
+for_window [title="Fazer login nas Contas do Google*"] floating enable, move position center
+for_window [title="mywindowfloat"] move to workspace $ws3, floating enable, resize set 700 px 330 px, move right -300px, move down 0px
+for_window [title="testingscript"] move to workspace $ws3, floating enable, resize set 800 px 500 px, move right -190px, move down 170px
 
 # Workspace 1 [terminal]
 for_window [class="Alacritty"] focus
 
 # Workspace 2 [browser]
-for_window [class="Google-chrome"] move to workspace $ws2, focus
+for_window [class="Google-chrome"] move to workspace $ws2
 
 # Workspace 3 [atom]
-for_window [class="Atom"] move to workspace $ws3, focus
-for_window [class="Electron"] move to workspace $ws3, floating enable, focus
-for_window [title="mywindowfloat"] move to workspace $ws3, floating enable, resize set 700 px 330 px, move right -300px, move down 0px, focus, opacity 0.99
-for_window [title="testingscript"] move to workspace $ws3, floating enable, resize set 800 px 500 px, move right -300px, move down 0px, focus, opacity 0.99
+for_window [class="Atom"] move to workspace $ws3
+for_window [class="Electron"] move to workspace $ws3, floating enable
 
 # Workspace 4 [telegram]
-for_window [class="KotatogramDesktop"] move to workspace $ws4, focus
+for_window [class="KotatogramDesktop"] move to workspace $ws4
 
 # Workspace 5 [media]
-for_window [class="Spotify"] move to workspace $ws5, focus
+for_window [class="Spotify"] move to workspace $ws5
 
 # Workspace 6 [office]
-for_window [class="Wpspdf|Wpp|Wps|Et"] move to workspace $ws6, focus
+for_window [class="Wpspdf|Wpp|Wps|Et"] move to workspace $ws6
 
 # Workspace 7 [pc]
-for_window [class="lxappearance"] move to workspace $ws7, floating enable, focus
-for_window [class="Thunar|thunar|transmission-gtk"] move to workspace $ws7, floating enable, focus
-for_window [class="Filezilla"] move to workspace $ws7, focus
+for_window [class="lxappearance"] move to workspace $ws7, floating enable
+for_window [class="Thunar|thunar|transmission-gtk"] move to workspace $ws7, floating enable, resize set 800 px 550 px
+for_window [class="Filezilla"] move to workspace $ws7
 
-# Workspace 8 [art]
-for_window [class="imv|krita"] move to workspace $ws8, focus
-for_window [class="fireworks.exe"] move to workspace $ws8, focus
+# Workspace 8 [tools: {art, build, etc}]
+for_window [class="imv|krita"] move to workspace $ws8
 
 # Workspace 9 [games]
-for_window [class="Discord"] move to workspace $ws9, focus
-for_window [title="Steam"] move to workspace $ws9, focus
+for_window [class="Steam|steam_proton*|steam_app*|Discord|Zenity"] move to workspace $ws9
+for_window [title="Steam*|Rockstar Games Launcher"] move to workspace $ws9

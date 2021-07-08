@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-source $HOME/.colors &> /dev/null
+source $HOME/.Xcolors &> /dev/null
 
 workingDir=$(mktemp -d) && cd $workingDir
 

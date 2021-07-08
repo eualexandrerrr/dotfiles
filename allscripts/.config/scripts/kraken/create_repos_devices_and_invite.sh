@@ -2,7 +2,7 @@
 
 clear
 
-source $HOME/.colors &> /dev/null
+source $HOME/.Xcolors &> /dev/null
 source $HOME/.myTokens &> /dev/null
 
 workingDir=$(mktemp -d) && cd $workingDir

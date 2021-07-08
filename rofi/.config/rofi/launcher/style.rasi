@@ -1,0 +1,169 @@
+configuration {
+    lines:							15;
+    columns:						1;
+    font: 							"Iosevka Nerd Font 12";
+    bw: 							0;
+    location: 						0;
+    padding: 						0;
+    fixed-num-lines: 				true;
+    show-icons: 					false;
+    sidebar-mode: 					true;
+    separator-style: 				"none";
+    hide-scrollbar: 				true;
+    fullscreen: 					false;
+    fake-transparency: 				false;
+    scroll-method: 					0;
+    window-format: 					"[{w}] ··· {c} ···   {t}";
+    click-to-exit: 					true;
+    show-match: 					false;
+    combi-hide-mode-prefix: 		false;
+    display-window: 				"";
+    display-windowcd: 				"";
+    display-run: 					"";
+    display-ssh: 					"";
+    display-drun: 					"";
+    display-combi: 					"";
+}
+
+@import "~/.Xrasi"
+
+* {
+    background-color:             	@background;
+}
+
+window {
+    border: 						0px;
+    border-color: 					@accent;
+    border-radius: 					0px;
+    padding: 						30;
+    width: 							20%;
+}
+
+prompt {
+    spacing: 						0;
+    border: 						0;
+    text-color: 					@foreground;
+}
+
+textbox-prompt-colon {
+    expand: 						false;
+    str: 							" ";
+    margin:							0px 4px 0px 0px;
+    text-color: 					inherit;
+}
+
+entry {
+    spacing:    					0;
+    text-color: 					@foreground;
+}
+
+case-indicator {
+    spacing:    					0;
+    text-color: 					@foreground;
+}
+
+inputbar {
+    spacing:    					0px;
+    text-color: 					@foreground;
+    padding:    					1px;
+    children: 						[ prompt,textbox-prompt-colon,entry,case-indicator ];
+}
+
+mainbox {
+    border: 						0px;
+    border-color: 					@accent;
+    padding: 						6;
+}
+
+listview {
+    fixed-height: 					0;
+    border: 						0px;
+    border-color: 					@accent;
+    spacing: 						4px;
+    scrollbar: 						false;
+    padding: 						5px 5px 0px 5px;
+}
+
+element {
+    border: 						0px;
+    border-radius: 					4px;
+    padding: 						5px;
+}
+element normal.normal {
+    background-color: 				@background;
+    text-color:       				@foreground;
+}
+element normal.urgent {
+    background-color: 				@background;
+    text-color:       				@red;
+}
+element normal.active {
+    background-color: 				@green;
+    text-color:       				@background;
+}
+element selected.normal {
+    background-color: 				@foreground;
+    text-color:       				@background;
+}
+element selected.urgent {
+    background-color: 				@background;
+    text-color:       				@red;
+}
+element selected.active {
+    background-color: 				@foreground;
+    text-color:       				@background;
+}
+element alternate.normal {
+    background-color: 				@background;
+    text-color:       				@foreground;
+}
+element alternate.urgent {
+    background-color: 				@background;
+    text-color:       				@foreground;
+}
+element alternate.active {
+    background-color: 				@background;
+    text-color:       				@foreground;
+}
+
+sidebar {
+    border:       					0px;
+    border-color: 					@accent;
+    border-radius: 					0px;
+}
+
+button {
+    background-color:             	@foreground;
+    margin: 						5px;
+    padding: 						5px;
+    text-color: 					@background;
+    border: 						0px;
+    border-radius: 					4px;
+    border-color: 					@foreground;
+}
+
+button selected {
+    background-color:             	@accent;
+    text-color: 					@foreground;
+    border: 						0px;
+    border-radius: 					4px;
+    border-color: 					@foreground;
+}
+
+scrollbar {
+    width:        					4px;
+    border:       					0px;
+    handle-color: 					@foreground;
+    handle-width: 					8px;
+    padding:      					0;
+}
+
+message {
+    border: 						0px;
+    border-color: 					@accent;
+    padding: 						1px;
+}
+
+textbox {
+    text-color: 					@foreground;
+}

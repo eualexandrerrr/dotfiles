@@ -1,23 +1,18 @@
 #!/usr/bin/env bash
 
-iconpath="/usr/share/icons/Papirus-Dark/32x32/devices"
-icon="${iconpath}/camera.svg"
+icon="$HOME/.config/assets/icons/screenshot.png"
 
+date=$(date +"%Y%m%d-%H:%M:%S")
 dir="$HOME/Images/Screenshots/"
-if [[ ! -d $dir   ]]; then
-  mkdir -p $dir
-fi
-
-date=$(date +"%m-%d-%Y-%H%M")
+[[ ! -d $dir ]] && mkdir -p $dir
 
 if [[ ${1} == "window" ]]; then
-  img="$dir/window-$date.png"
-  maim -s $img
-  xclip -selection clipboard -t image/png -i $img
-  notify-send -i $icon "Screenshot" "Cropped capture."
+  maim -s "$dir/w-$date.png"
+  xclip -selection clipboard -t image/png -i "$dir/w-$date.png"
+  dunstify -i $icon "Screenshot" "Cropped capture.\nw-$window-$date.png"
 else
-  img="$dir/full-$date.png"
-  maim $img
-  xclip -selection clipboard -t image/png -i $img
-  notify-send -i $icon "Screenshot" "Fullscreen capture."
+  maim "$dir/f-$date.png"
+  sleep 0
+  xclip -selection clipboard -t image/png -i "$dir/f-$date.png"
+  dunstify -i $icon "Screenshot" "Fullscreen capture.\nf-$window-$date.png"
 fi

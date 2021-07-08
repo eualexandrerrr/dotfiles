@@ -1,12 +1,10 @@
 #!/usr/bin/env bash
 
-source $HOME/.colors &> /dev/null
+source $HOME/.Xcolors &> /dev/null
 
-iconpath="/usr/share/icons/Papirus-Dark/32x32/devices"
-icon="${iconpath}/computer.svg"
+icon="$HOME/.config/assets/icons/backup.png"
 
-play $HOME/.config/sounds/gitcron.wav &> /dev/null
-notify-send -i $icon "GitCron" "Starting backups..."
+dunstify -i $icon "GitCron" "Starting backups..." &> /dev/null
 
 clear
 
@@ -26,35 +24,6 @@ if [[ $(cat /etc/hostname) == odin ]]; then
   cd $pwd
 fi
 
-# My notebook
-if [[ $(cat /etc/hostname) == odin ]]; then
-  #MyApps
-  apps=("Atom" "filezilla" "Thunar")
-
-  for i in ${apps[@]}; do
-    echo -e "${BOL_RED}Copying configs ${i}${END}"
-    cp -rf $HOME/.config/${i} $HOME/GitHub/myapps
-
-    if [[ $i == Atom ]]; then
-      echo -e "${BOL_GRE}Copying .atom${END}"
-      mkdir -p $HOME/GitHub/myapps/.atom
-      cp -rf $HOME/.atom/* $HOME/GitHub/myapps/.atom
-    fi
-
-    pwd=$(pwd)
-    cd $HOME/GitHub/myapps
-    status=$(git add . -n)
-    if [[ -n $status   ]]; then
-      m="Autocommit Git-Cron: ${i}"
-      git add .
-      git commit -m "${m}" --signoff --author "Alexandre Rangel <mamutal91@aospk.org>" --date "$(date)"
-      git push
-    fi
-    cd $pwd
-
-  done
-fi
-
 # Kraken
 if [[ $(cat /etc/hostname) == mamutal91-v2 ]]; then
   m="Autocommit Git-Cron"
@@ -64,25 +33,14 @@ if [[ $(cat /etc/hostname) == mamutal91-v2 ]]; then
   cp -rf /mnt/roms/sites/docker/gerrit /home/mamutal91/.gerrit
   cd /home/mamutal91/.gerrit
   git add . && git commit -m "${m}" --signoff --author "Alexandre Rangel <mamutal91@aospk.org>" --date "$(date)" && git push -f
-
-  sudo rm -rf /home/mamutal91/.jenkins
-  git clone ssh://git@gitlab.com/AOSPK/jenkins -b backup /home/mamutal91/.jenkins
-  rm -rf /home/mamutal91/.jenkins/*
-  cd /mnt/roms/backupJenkins && sudo cp -rf * /home/mamutal91/.jenkins
-  cd /home/mamutal91/.jenkins
-  git add . && git commit -m "${m}" --signoff --author "Alexandre Rangel <mamutal91@aospk.org>" --date "$(date)" && git push -f
   cd $pwd
 fi
 
-# BuildersBR
-if [[ $(cat /etc/hostname) == buildersbr.ninja-v2 ]]; then
-  m="Autocommit Git-Cron"
-  pwd=$(pwd)
-  sudo rm -rf /home/mamutal91/.jenkins
-  git clone ssh://git@gitlab.com/buildersbr/jenkins -b backup /home/mamutal91/.jenkins
-  rm -rf /home/mamutal91/.jenkins/*
-  cd /mnt/roms/backupJenkins && sudo cp -rf * /home/mamutal91/.jenkins
-  cd /home/mamutal91/.jenkins
-  git add . && git commit -m "${m}" --signoff --author "Alexandre Rangel <mamutal91@aospk.org>" --date "$(date)" && git push -f
-  cd $pwd
-fi
+function myapps() {
+  [[ $(cat /etc/hostname) != odin ]] && exit
+  mkdir -p /mnt/storage/myapps &> /dev/null
+
+  cp -rf $HOME/.config/{Atom,filezilla,Thunar} /mnt/storage/myapps
+  cp -rf $HOME/.atom /mnt/storage/myapps
+}
+myapps

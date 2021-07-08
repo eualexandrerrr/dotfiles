@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-source $HOME/.colors &> /dev/null
+source $HOME/.Xcolors &> /dev/null
 
 clear
 
@@ -42,7 +42,7 @@ go() {
     [[ $repoName == hardware_qcom_display ]] && continue
     [[ $repoName == hardware_qcom_media ]] && continue
     [[ $repoName == hardware_qcom_wlan ]] && continue
-    [[ $repoName == vendor_gapps ]] && continue
+    [[ $repoName == vendor_google_gms ]] && continue
     [[ $repoName == vendor_nxp_opensource_halimpl ]] && continue
     [[ $repoName == vendor_nxp_opensource_hidlimpl ]] && continue
     [[ $repoName == external_chromium-webview ]] && continue

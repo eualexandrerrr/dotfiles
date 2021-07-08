@@ -2,33 +2,39 @@
 
 clear
 
-source $HOME/.colors &> /dev/null
-rm -rf $HOME/.bash_profile .bashrc .config/mimeapps.list
+if [[ ! -d $HOME/.dotfiles ]]; then
+  echo "For you to use this dotfiles, it must be located in your HOME, and hidden, the correct path is: ~/.dotfiles"
+  exit
+fi
+
+source $HOME/.Xcolors &> /dev/null
+rm -rf $HOME/.bash_profile .bashrc .xinitrc .config/mimeapps.list
 
 # Stow
 cd $HOME/.dotfiles
-for DOTFILES in $(find . -maxdepth 1  -not -name ".*" ! -name "setup" -type d -printf '%f\n'); do
-  stow --adopt $DOTFILES || echo -e "${BOL_RED}Error on gnu/stow${END}"
-  echo "${RED}$DOTFILES ${GRE}stowed.${END}"
+for dotfiles in $(find . -maxdepth 1  -not -name ".*" ! -name "setup" -type d -printf '%f\n'); do
+  stow --adopt $dotfiles || echo -e "${BOL_RED}Error on gnu/stow${END}"
+  echo "${RED}$dotfiles ${GRE}stowed.${END}"
 done
 
-# GTK
-echo "${RED}gtk ${GRE}configured.${END}"
-bash $HOME/.dotfiles/setup/gtk.sh
+# Styles
+echo "${RED}styles, themes and gtk ${GRE}configured.${END}"
+bash $HOME/.dotfiles/setup/theme_generator_colors.sh
+bash $HOME/.dotfiles/setup/theme_generator_gtk.sh
+bash $HOME/.dotfiles/polybar/.config/polybar/scripts/style-switch-generator.sh
 
 # etc
 echo "${RED}/etc/ ${GRE}configured.${END}"
 bash $HOME/.dotfiles/setup/etc.sh
 
 # Settings to use on my /root
-[ $USER = mamutal91 ] && sudo cp -rf $HOME/.dotfiles/home/.nanorc /root &> /dev/null
+sudo cp -rf $HOME/.dotfiles/home/.nanorc /root &> /dev/null
 
 # Copy my tokens
 [ $(cat /etc/hostname) = mamutal91-v2 ] && rm -rf $HOME/.mytokensfolder && git clone ssh://git@github.com/mamutal91/mytokens $HOME/.mytokensfolder && cp -rf $HOME/.mytokensfolder/.myTokens $HOME &> /dev/null
 [ $(cat /etc/hostname) = odin ] && cp -rf $HOME/GitHub/mytokens/.myTokens $HOME &> /dev/null
 
 # Restart sway
-play $HOME/.config/sounds/completed.wav &> /dev/null
-source $HOME/.config/polybar/launch.sh
-i3-msg restart
-exit
+i3-msg reload &> /dev/null
+fc-cache -f -r -v && bash $HOME/.config/polybar/launch.sh &> /dev/null
+exit 0

@@ -21,25 +21,30 @@ export EDITOR="nano"
 export LS_COLORS="$LS_COLORS:ow=1;34:tw=1;34:"
 export TERM="xterm-256color"
 export STUDIO_JDK=/usr/lib/jvm/java-11-openjdk
-export PATH="$HOME/.bin:$PATH"
+export PATH="/usr/share/:$PATH"
 
-# sudo easy
+# Aliases
 alias chmod="sudo chmod"
 alias cp="sudo cp"
 alias docker="sudo docker"
 alias mount="sudo mount"
 #alias mv="sudo rsync -av --progress --remove-source-files"
 alias pacman="sudo pacman"
+alias pacman-key="sudo pacman-key"
 alias pkill="sudo pkill"
 alias rm="sudo rm"
 alias rsync="sudo rsync"
 alias sed="sudo sed"
 alias systemctl="sudo systemctl"
 alias umount="sudo umount"
+alias xprop="xprop | awk '/^WM_CLASS/{sub(/.* =/, \"instance:\"); sub(/,/, \"\nclass:\"); print} /^WM_NAME/{sub(/.* =/, \"title:\"); print}'"
 
-# paths
-alias x="cd /mnt/roms/jobs/KrakenDev"
-alias c="cd $HOME/GitHub"
+# Paths
+if [[ $(cat /etc/hostname) == odin ]]; then
+  alias x="cd /mnt/storage/Kraken"
+else
+  alias x="cd /mnt/roms/jobs/KrakenDev"
+fi
 
 source $HOME/.config/scripts/functions.sh
-source $HOME/.config/scripts/functionsKraken.sh
+[[ $USER == mamutal91 ]] && source $HOME/.config/scripts/functionsKraken.sh
