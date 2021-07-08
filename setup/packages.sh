@@ -15,7 +15,7 @@ array=(
 
   # fonts
   noto-fonts-emoji ttf-dejavu terminus-font ttf-liberation ttf-iosevka-term-ss07 ttf-fantasque-sans-mono ttf-material-design-icons nerd-fonts-iosevka
-  ttf-icomoon-feather ttf-icomoon-feather ttf-fantasque-sans-mono
+  ttf-icomoon-feather ttf-icomoon-feather ttf-fantasque-sans-mono ttf-font-awesome
 
   # xorg
   xorg-server xorg-xrandr xorg-xbacklight xorg-xinit xorg-xprop xorg-server-devel xorg-xsetroot xclip xautolock xidlehook xorg-xdpyinfo xgetres
