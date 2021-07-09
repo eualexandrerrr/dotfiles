@@ -3,6 +3,8 @@
 source $HOME/.Xcolors &> /dev/null
 source $HOME/.myTokens &> /dev/null
 
+clear
+
 sudo pacman -Syyu --noconfirm
 
 # Install YAY AUR Manager
@@ -13,19 +15,23 @@ if [[ ! -f $(which yay) ]]; then
   cd $pwd
 fi
 
-# Install packages
-echo "Install pkgs"
+# Load packages
 source $HOME/.dotfiles/setup/packages.sh
-function installPkgs() {
-  for i in "${!array[@]}"; do
-    if [[ $USER == mamutal91 ]]; then
-      sudo pacman -S ${array[i]} ${array2[i]} --needed --noconfirm && continue || echo -e "\n${BOL_RED}The package is not in the official repositories\n${BOL_BLU}Trying with ${BOL_YEL}YAY${END}\n" && yay -S ${array[i]} ${array2[i]} --needed --noconfirm
-    else
-      sudo pacman -S ${array[i]} --needed --noconfirm && continue || echo -e "\n${BOL_RED}The package is not in the official repositories\n${BOL_BLU}Trying with ${BOL_YEL}YAY${END}\n" && yay -S ${array[i]} --needed --noconfirm
-    fi
-  done
+
+aurMsg() {
+  echo -e "${BOL_RED}\nThe ${BOL_YEL}$i ${BOL_RED}package is not in the official ${BOL_GRE}ArchLinux ${BOL_RED}repositories...\n${BOL_RED}Searching ${BOL_BLU}AUR ${BOL_RED}package ${BOL_RED}with ${BOL_BLU}yay${END}\n"
 }
-installPkgs
+
+echo -e "\n${BOL_RED}Installing dependencies!${END}\n"
+for i in "${dependencies[@]}"; do
+  sudo pacman -S ${i} --needed --noconfirm && continue || aurMsg && yay -S ${i} --needed --noconfirm
+done
+
+if [[ $USER == mamutal91 ]]; then
+  for i in "${mypackages[@]}"; do
+    sudo pacman -S ${i} --needed --noconfirm && continue || aurMsg && yay -S ${i} --needed --noconfirm
+  done
+fi
 
 # Enable systemd services
 for services in \
@@ -43,25 +49,21 @@ done
 # Remove folder GO
 rm -rf $HOME/go &> /dev/null
 
-for i in $(ls $HOME/.dotfiles/setup/*.sh); do
+for i in $(ls $HOME/.dotfiles/setup/scripts/*.sh); do
   chmod +x $i
-  [[ $i == packages.sh ]] && continue
-  [[ $i == setup.sh ]] && continue
   bash $i
 done
 
 if [[ $USER == mamutal91 ]]; then
   for i in $(ls $HOME/.dotfiles/setup/personalconfigs/*.sh); do
     chmod +x $i
-    [[ $i == packages.sh ]] && continue
-    [[ $i == setup.sh ]] && continue
     bash $i
   done
 fi
 
 # Fonts
-mkdir -p /usr/share/fonts/TTF &> /dev/null
-cp -rf $HOME/.dotfiles/assets/.config/assets/fonts/* /usr/share/fonts/TTF
+sudo mkdir -p /usr/share/fonts/TTF &> /dev/null
+sudo cp -rf $HOME/.dotfiles/assets/.config/assets/fonts/* /usr/share/fonts/TTF
 fc-cache -f -r -v
 
 # Permissions

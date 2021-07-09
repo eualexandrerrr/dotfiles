@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
-formatStyle=square
-rofi_command="rofi -theme $HOME/.config/rofi/applets/styles/${formatStyle}/battery.rasi"
+rofi_command="rofi -theme $HOME/.config/rofi/applets/styles/battery.rasi"
 
 ## Get data
 BATTERY="$(acpi | awk -F ' ' '{print $4}' | tr -d \%,)"

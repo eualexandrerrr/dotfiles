@@ -15,9 +15,9 @@ configuration {
 
 window {
     transparency:                   "real";
-    border-radius:                  40px;
+    border-radius:                  0px;
     location:                       center;
-	width:							500px;
+	width:							400px;
     x-offset:                       0px;
     y-offset:                       0px;
 }
@@ -27,23 +27,22 @@ prompt {
     padding:                        10px;
 	background-color: 				@background-light;
 	text-color: 					@accent;
-    border:                  		0px 0px 2px 0px;
-    border-radius:                  25px;
+    border:                  		2px 2px 2px 2px;
+    border-radius:                  0px;
     border-color:                  	@accent;
 }
 
 textbox-prompt-colon {
 	expand: 						false;
-	str: 							" MPD ";
+	str: 							"  Bluetooth ";
 	background-color: 				@accent;
 	text-color: 					@background;
     padding:                        12px 10px 0px 10px;
-    border-radius:                  25px;
 }
 
 inputbar {
 	children: 						[ textbox-prompt-colon, prompt ];
-    spacing:                        12px;
+    spacing:                        0px;
     background-color:               @background;
     text-color:                     @foreground;
     expand:                         false;
@@ -75,7 +74,7 @@ element {
     background-color:               @background-light;
     text-color:                     @foreground;
     orientation:                    vertical;
-    border-radius:                  100%;
+    border-radius:                  0px;
 }
 
 element-text {
@@ -90,7 +89,7 @@ element normal.urgent,
 element alternate.urgent {
     background-color:               @off;
     text-color:                     @background;
-    border-radius:                  100%;
+    border-radius:                  0px;
 }
 
 element normal.active,
@@ -100,11 +99,11 @@ element alternate.active {
 }
 
 element selected {
-    background-color:               @background-light;
-    text-color:                     @accent;
-    border:                  		0px 0px 2px 0px;
-    border-radius:                  100%;
-    border-color:                  	@accent;
+    background-color:               @accent;
+    text-color:                     @background;
+    border:                  		0px;
+    border-radius:                  0px;
+    border-color:                  	@border;
 }
 
 element selected.urgent {

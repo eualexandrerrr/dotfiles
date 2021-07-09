@@ -39,8 +39,16 @@ fi
 function myapps() {
   [[ $(cat /etc/hostname) != odin ]] && exit
   mkdir -p /mnt/storage/myapps &> /dev/null
-
-  cp -rf $HOME/.config/{Atom,filezilla,Thunar} /mnt/storage/myapps
-  cp -rf $HOME/.atom /mnt/storage/myapps
+  if [[ ${1} == restore ]]; then
+    sudo chown -R mamutal91:mamutal91 /mnt/storage/myapps/{Atom,filezilla,Thunar,.atom}
+    sudo rm -rf /mnt/storage/myapps/{Atom,filezilla,Thunar}
+    sudo mkdir -p /mnt/storage/myapps/{Atom,filezilla,Thunar}
+    sudo cp -rf /mnt/storage/myapps/{Atom,filezilla,Thunar} $HOME/.config
+    sudo cp -rf /mnt/storage/myapps/.atom $HOME
+    sudo chown -R mamutal91:mamutal91 $HOME/.config/{Atom,filezilla,Thunar,../.atom}
+  else
+    cp -rf $HOME/.config/{Atom,filezilla,Thunar} /mnt/storage/myapps
+    cp -rf $HOME/.atom /mnt/storage/myapps
+  fi
 }
 myapps

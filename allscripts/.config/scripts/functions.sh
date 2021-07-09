@@ -23,7 +23,7 @@ dot() {
 }
 
 bkp() {
-  bash $HOME/.config/scripts/gitcron.sh
+  bash $HOME/.config/scripts/gitcron.sh ${1}
   ssh mamutal91@86.109.7.111 "bash $HOME/.config/scripts/gitcron.sh"
   ssh mamutal91@147.75.80.89 "bash $HOME/.config/scripts/gitcron.sh"
 }

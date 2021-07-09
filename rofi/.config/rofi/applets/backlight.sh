@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
-formatStyle=square
-rofi_command="rofi -theme $HOME/.config/rofi/applets/styles/${formatStyle}/backlight.rasi"
+rofi_command="rofi -theme $HOME/.config/rofi/applets/styles/backlight.rasi"
 
 # Error msg
 msg() {

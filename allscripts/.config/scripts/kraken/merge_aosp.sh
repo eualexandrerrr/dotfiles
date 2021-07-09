@@ -164,7 +164,7 @@ source $HOME/.colors &>/dev/null
 workingDir=/mnt/roms/jobs/KrakenDev
 
 # The tag you want to merge in goes here
-branchAOSP=android-11.0.0_r38
+branchAOSP=android-11.0.0_r39
 branchKraken=eleven
 
 # Google source url

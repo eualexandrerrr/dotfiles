@@ -1,18 +1,17 @@
 #!/usr/bin/env bash
 
-formatStyle=square
-rofi_command="rofi -theme $HOME/.config/rofi/applets/styles/${formatStyle}/powermenu.rasi"
+rofi_command="rofi -theme $HOME/.config/rofi/applets/styles/powermenu.rasi"
 
 uptime=$(uptime -p | sed -e 's/up //g')
 cpu=$(sh ~/.config/rofi/bin/usedcpu)
 memory=$(sh ~/.config/rofi/bin/usedram)
 
 # Options
-shutdown=""
-reboot=""
-lock=""
-suspend=""
-logout=""
+shutdown=""
+reboot=""
+lock=""
+suspend=""
+logout=""
 
 # Confirmation
 confirm_exit() {
@@ -28,7 +27,7 @@ msg() {
 # Variable passed to rofi
 options="$shutdown\n$reboot\n$lock\n$suspend\n$logout"
 
-chosen="$(echo -e "$options" | $rofi_command -p "UP - $uptime" -dmenu -selected-row 2)"
+chosen="$(echo -e "$options" | $rofi_command -p "Uptime: $uptime" -dmenu -selected-row 2)"
 case $chosen in
     $shutdown)
     ans=$(confirm_exit &)

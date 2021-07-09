@@ -17,7 +17,7 @@ window {
     transparency:                   "real";
     border-radius:                  0px;
     location:                       center;
-	width:							250px;
+	width:							420px;
     x-offset:                       0px;
     y-offset:                       0px;
 }
@@ -34,7 +34,7 @@ prompt {
 
 textbox-prompt-colon {
 	expand: 						false;
-	str: 							" Screencast ";
+	str: 							" 􏢱 System ";
 	background-color: 				@accent;
 	text-color: 					@background;
     padding:                        12px 10px 0px 10px;
@@ -55,7 +55,7 @@ inputbar {
 }
 
 listview {
-    columns:						3;
+    columns:						5;
     lines:							1;
     spacing:                        12px;
     cycle:                          true;

@@ -134,12 +134,12 @@ bindsym $super+F3 exec --no-startup-id kotatogram-desktop &; workspace $ws4
 # System shortcuts
 bindsym $super+d exec --no-startup-id $HOME/.config/rofi/applets/quicklinks.sh
 
-bindsym $super+b exec --no-startup-id $HOME/.config/rofi/applets/battery.sh
+bindsym $super+b exec --no-startup-id $HOME/.config/rofi/applets/bluetooth.sh
 bindsym $super+m exec --no-startup-id $HOME/.config/rofi/applets/mpd.sh
 bindsym $super+n exec --no-startup-id $HOME/.config/rofi/applets/networks.sh
 bindsym $super+p exec --no-startup-id $HOME/.config/rofi/applets/powermenu.sh
 bindsym $super+h exec --no-startup-id $HOME/.config/rofi/applets/time.sh
-bindsym $control+$shift+k exec --no-startup-id $HOME/.config/rofi/applets/screencast.sh
+bindsym $control+$shift+k exec --no-startup-id simplescreenrecorder &
 
 bindsym $super+r exec --no-startup-id file=$(ls $HOME/.config/rofi/applets/*.sh | shuf -n 1) && file=$(basename $file .sh) && $HOME/.config/rofi/applets/$file.sh
 bindsym $super+BackSpace exec --no-startup-id alacritty -t testingscript -e $HOME/.config/scripts/scripter.sh &
@@ -153,40 +153,41 @@ for_window [class=".*"] border pixel 0, focus
 for_window [title=".*"] border pixel 0, focus
 
 # Titles, windows, classs
-for_window [class="pop-up|bubble|task_dialog|Preferences"] floating enable, move position center
-for_window [title="Open Folder*|Escolha*|Salvar*|Abrir arquivo"] floating enable, move position center
-for_window [title="Media viewer|Progresso|Friends*|Novidades*|Pastas de biblioteca*"] floating enable, move position center
-for_window [title="Fazer login nas Contas do Google*"] floating enable, move position center
-for_window [title="mywindowfloat"] move to workspace $ws3, floating enable, resize set 700 px 330 px, move right -300px, move down 0px
-for_window [title="testingscript"] move to workspace $ws3, floating enable, resize set 800 px 500 px, move right -190px, move down 170px
+for_window [class="pop-up|bubble|task_dialog|Preferences"] floating enable, move position center, focus
+for_window [title="Open Folder*|Escolha*|Salvar*|Abrir arquivo"] floating enable, move position center, resize set 700 px 480 px, move right -300px, , move down 0px, focus
+for_window [title="Media viewer|Progresso|Friends*|Novidades*|Pastas de biblioteca*"] floating enable, move position center, focus
+for_window [title="Fazer login nas Contas do Google*|Login - *"] floating enable, move position center, focus
+for_window [title="mywindowfloat"] move to workspace $ws3, floating enable, resize set 700 px 330 px, move right -300px, move down 0px, focus
+for_window [title="testingscript"] move to workspace $ws3, floating enable, resize set 800 px 500 px, move right -190px, move down 170px, focus
 
 # Workspace 1 [terminal]
 for_window [class="Alacritty"] focus
 
 # Workspace 2 [browser]
-for_window [class="Google-chrome"] move to workspace $ws2
+for_window [class="Google-chrome"] move to workspace $ws2, focus
 
 # Workspace 3 [atom]
-for_window [class="Atom"] move to workspace $ws3
-for_window [class="Electron"] move to workspace $ws3, floating enable
+for_window [class="Atom"] move to workspace $ws3, focus
+for_window [class="Electron"] move to workspace $ws3, floating enable, focus
 
 # Workspace 4 [telegram]
-for_window [class="KotatogramDesktop"] move to workspace $ws4
+for_window [class="KotatogramDesktop"] move to workspace $ws4, focus
 
 # Workspace 5 [media]
-for_window [class="Spotify"] move to workspace $ws5
+for_window [class="Spotify"] move to workspace $ws5, focus
 
 # Workspace 6 [office]
-for_window [class="Wpspdf|Wpp|Wps|Et"] move to workspace $ws6
+for_window [class="Wpspdf|Wpp|Wps|Et"] move to workspace $ws6, focus
 
 # Workspace 7 [pc]
-for_window [class="lxappearance"] move to workspace $ws7, floating enable
-for_window [class="Thunar|thunar|transmission-gtk"] move to workspace $ws7, floating enable, resize set 800 px 550 px
-for_window [class="Filezilla"] move to workspace $ws7
+for_window [class="lxappearance"] move to workspace $ws7, floating enable, focus
+for_window [class="Thunar|thunar|transmission-gtk"] move to workspace $ws7, floating enable, resize set 800 px 550 px, focus
+for_window [class="Filezilla"] move to workspace $ws7, focus
 
 # Workspace 8 [tools: {art, build, etc}]
-for_window [class="imv|krita"] move to workspace $ws8
+for_window [class="imv|krita"] move to workspace $ws8, focus
+for_window [class="SimpleScreenRecorder"] move to workspace $ws8, floating enable, focus
 
 # Workspace 9 [games]
-for_window [class="Steam|steam_proton*|steam_app*|Discord|Zenity"] move to workspace $ws9
-for_window [title="Steam*|Rockstar Games Launcher"] move to workspace $ws9
+for_window [class="Steam|steam_proton*|steam_app*|Discord|Zenity"] move to workspace $ws9, focus
+for_window [title="Steam*|Rockstar Games Launcher"] move to workspace $ws9, focus

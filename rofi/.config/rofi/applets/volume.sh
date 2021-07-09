@@ -1,50 +1,26 @@
 #!/usr/bin/env bash
 
-formatStyle=square
-rofi_command="rofi -theme $HOME/.config/rofi/applets/styles/${formatStyle}/volume.rasi"
-
-## Get Volume
-#volume=$(amixer get Master | tail -n 1 | awk -F ' ' '{print $5}' | tr -d '[]%')
-mute=$(amixer get Master | tail -n 1 | awk -F ' ' '{print $6}' | tr -d '[]%')
-
-active=""
-urgent=""
-
-if [[ $mute == *"off"* ]]; then
-    active="-a 1"
-else
-    urgent="-u 1"
-fi
-
-if [[ $mute == *"off"* ]]; then
-    active="-a 1"
-else
-    urgent="-u 1"
-fi
-
-if [[ $mute == *"on"* ]]; then
-    volume="$(amixer get Master | tail -n 1 | awk -F ' ' '{print $5}' | tr -d '[]%')%"
-else
-    volume="Mute"
-fi
+rofi_command="rofi -theme $HOME/.config/rofi/applets/styles/volume.rasi"
 
 ## Icons
-iconUp=""
-iconDown=""
-iconMute=""
+iconUp=""
+iconDown=""
+iconMute=""
 
 options="$iconUp\n$iconMute\n$iconDown"
 
 ## Main
-chosen="$(echo -e "$options" | $rofi_command -p "$volume" -dmenu $active $urgent -selected-row 0)"
+chosen="$(echo -e "$options" | $rofi_command -p "$(pactl list sinks | grep '^[[:space:]]Volume:' | head -n 2 | tail -n 1 | sed -e 's,.* \([0-9][0-9]*\)%.*,\1,')%" -dmenu $active $urgent -selected-row 0)"
 case $chosen in
     $iconUp)
-        amixer -Mq set Master,0 5%+ unmute && dunstify -u low -t 1500 "Volume Up $iconUp"
+        pactl set-sink-mute @DEFAULT_SINK@ false
+        pactl set-sink-volume @DEFAULT_SINK@ +15%
         ;;
     $iconDown)
-        amixer -Mq set Master,0 5%- unmute && dunstify -u low -t 1500 "Volume Down $iconDown"
+        pactl set-sink-mute @DEFAULT_SINK@ false
+        pactl set-sink-volume @DEFAULT_SINK@ -15%
         ;;
     $iconMute)
-        amixer -q set Master toggle
+        pactl set-sink-mute @DEFAULT_SINK@ true
         ;;
 esac

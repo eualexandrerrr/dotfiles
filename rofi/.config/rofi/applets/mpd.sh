@@ -1,21 +1,20 @@
 #!/usr/bin/env bash
 
-formatStyle=square
-rofi_command="rofi -theme $HOME/.config/rofi/applets/styles/${formatStyle}/mpd.rasi"
+rofi_command="rofi -theme $HOME/.config/rofi/applets/styles/mpd.rasi"
 
 # Gets the current status of mpd (for us to parse it later on)
 status="$(mpc status)"
 # Defines the Play / Pause option content
 if [[ $status == *"[playing]"* ]]; then
-    play_pause=""
+    play_pause=""
 else
-    play_pause=""
+    play_pause=""
 fi
 active=""
 urgent=""
 
 # Display if repeat mode is on / off
-tog_repeat=""
+tog_repeat=""
 if [[ $status == *"repeat: on"* ]]; then
     active="-a 4"
 elif [[ $status == *"repeat: off"* ]]; then
@@ -25,7 +24,7 @@ else
 fi
 
 # Display if random mode is on / off
-tog_random=""
+tog_random=""
 if [[ $status == *"random: on"* ]]; then
     [ -n "$active" ] && active+=",5" || active="-a 5"
 elif [[ $status == *"random: off"* ]]; then
@@ -33,9 +32,9 @@ elif [[ $status == *"random: off"* ]]; then
 else
     tog_random=" Parsing error"
 fi
-stop=""
-next=""
-previous=""
+stop=""
+next=""
+previous=""
 
 # Variable passed to rofi
 options="$previous\n$play_pause\n$stop\n$next\n$tog_repeat\n$tog_random"

@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
-formatStyle=square
-rofi_command="rofi -theme $HOME/.config/rofi/applets/styles/${formatStyle}/network.rasi"
+rofi_command="rofi -theme $HOME/.config/rofi/applets/styles/network.rasi"
 
 ## Get info
 IFACE="$(nmcli | grep -i interface | awk '/interface/ {print $2}')"
@@ -49,10 +48,10 @@ case $chosen in
     fi
         ;;
     $bmon)
-        termite -e bmon
+        alacritty -e bmon
         ;;
     $launch_cli)
-        termite -e nmtui
+        alacritty -e nmtui
         ;;
     $launch)
         nm-connection-editor

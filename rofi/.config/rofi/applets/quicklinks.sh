@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
-formatStyle=square
-rofi_command="rofi -theme $HOME/.config/rofi/applets/styles/${formatStyle}/quicklinks.rasi"
+rofi_command="rofi -theme $HOME/.config/rofi/applets/styles/quicklinks.rasi"
 
 # Error msg
 msg() {

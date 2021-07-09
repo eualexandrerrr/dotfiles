@@ -95,8 +95,8 @@ push() {
 }
 
 m() {
-  tag=${1} # android-11.0.0_r38
-  [[ -z ${1} ]] && echo "Error" && sleep 200 && exit
+  tag=android-11.0.0_r39
+  echo $tag
   git add . && git commit --amend --no-edit
   sleep 2
 
@@ -107,16 +107,27 @@ m() {
   cd $pwd
 
   pathRepo=$(pwd | cut -c26-)
+  [[ $pathRepo == build/make ]] && pathRepo=build
+  [[ $pathRepo == packages/apps/PermissionController ]] && pathRepo=packages_apps_PackageInstaller
+  [[ $pathRepo == vendor/qcom/opensource/commonsys-intf/bluetooth ]] && pathRepo=vendor_qcom_opensource_bluetooth-commonsys-intf
+  [[ $pathRepo == vendor/qcom/opensource/commonsys-intf/display ]] && pathRepo=vendor_qcom_opensource_display-commonsys-intf
+  [[ $pathRepo == vendor/qcom/opensource/commonsys/bluetooth/ext ]] && pathRepo=vendor_qcom_opensource_bluetooth_ext
+  [[ $pathRepo == vendor/qcom/opensource/commonsys/packages/apps/Bluetooth ]] && pathRepo=vendor_qcom_opensource_packages_apps_Bluetooth
+  [[ $pathRepo == vendor/qcom/opensource/commonsys/system/bt ]] && pathRepo=vendor_qcom_opensource_system_bt
 
   msgMerge="Merge tag '${tag}' of https://android.googlesource.com/platform/${pathRepo} into HEAD"
 
   echo $msgMerge > /tmp/NEW_COMMITMSG
   cat /tmp/NEW_COMMITMSG
 
-  sudo sed -i '1d' /tmp/COMMIT_EDITMSG
-  sed -i "s/haggertk/AOSPK-DEV/g" /tmp/COMMIT_EDITMSG
-  sed -i "s/android_//g" /tmp/COMMIT_EDITMSG
-  sed -i "s/lineage-18.1/eleven/g" /tmp/COMMIT_EDITMSG
+  # Insere uma linha antes da linha que possui uma palavra específica, no caso insere uma linha com o conteúdo "Nova linha", antes das linhas que possuem a palavra Podemos
+
+  sed -i '/haggertk/d' /tmp/COMMIT_EDITMSG
+
+  #  sudo sed -i '1d' /tmp/COMMIT_EDITMSG
+  #  sed -i "s/haggertk/AOSPK-DEV/g" /tmp/COMMIT_EDITMSG
+  #  sed -i "s/android_//g" /tmp/COMMIT_EDITMSG
+  #  sed -i "s/lineage-18.1/eleven/g" /tmp/COMMIT_EDITMSG
   cat /tmp/COMMIT_EDITMSG >> /tmp/NEW_COMMITMSG
 
   echo -e "\n\nCONTEÚDO:\n$(cat /tmp/NEW_COMMITMSG)"

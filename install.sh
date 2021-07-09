@@ -19,13 +19,13 @@ done
 
 # Styles
 echo "${RED}styles, themes and gtk ${GRE}configured.${END}"
-bash $HOME/.dotfiles/setup/theme_generator_colors.sh
-bash $HOME/.dotfiles/setup/theme_generator_gtk.sh
+bash $HOME/.dotfiles/setup/scripts/theme_generator_colors.sh
+bash $HOME/.dotfiles/setup/scripts/theme_generator_gtk.sh
 bash $HOME/.dotfiles/polybar/.config/polybar/scripts/style-switch-generator.sh
 
 # etc
 echo "${RED}/etc/ ${GRE}configured.${END}"
-bash $HOME/.dotfiles/setup/etc.sh
+bash $HOME/.dotfiles/setup/scripts/etc.sh
 
 # Settings to use on my /root
 sudo cp -rf $HOME/.dotfiles/home/.nanorc /root &> /dev/null
@@ -36,5 +36,6 @@ sudo cp -rf $HOME/.dotfiles/home/.nanorc /root &> /dev/null
 
 # Restart sway
 i3-msg reload &> /dev/null
-fc-cache -f -r -v && bash $HOME/.config/polybar/launch.sh &> /dev/null
+fc-cache -f -r -v &> /dev/null
+bash $HOME/.config/polybar/launch.sh &> /dev/null
 exit 0

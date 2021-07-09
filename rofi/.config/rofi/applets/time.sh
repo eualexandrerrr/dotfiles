@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
-formatStyle=square
-rofi_command="rofi -theme $HOME/.config/rofi/applets/styles/${formatStyle}/time.rasi"
+rofi_command="rofi -theme $HOME/.config/rofi/applets/styles/time.rasi"
 
 ## Get time and date
 TIME="$(date +"%I:%M %p")"
