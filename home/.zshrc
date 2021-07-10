@@ -24,8 +24,10 @@ export STUDIO_JDK=/usr/lib/jvm/java-11-openjdk
 export PATH="/usr/share/:$PATH"
 
 # Aliases
+alias nano="sudo nano"
 alias chmod="sudo chmod"
 alias cp="sudo cp"
+alias mkdir="sudo mkdir"
 alias docker="sudo docker"
 alias mount="sudo mount"
 #alias mv="sudo rsync -av --progress --remove-source-files"
@@ -38,6 +40,7 @@ alias sed="sudo sed"
 alias systemctl="sudo systemctl"
 alias umount="sudo umount"
 alias xprop="xprop | awk '/^WM_CLASS/{sub(/.* =/, \"instance:\"); sub(/,/, \"\nclass:\"); print} /^WM_NAME/{sub(/.* =/, \"title:\"); print}'"
+alias notify-send="dunstify"
 
 # Paths
 if [[ $(cat /etc/hostname) == odin ]]; then
@@ -46,5 +49,8 @@ else
   alias x="cd /mnt/roms/jobs/KrakenDev"
 fi
 
-source $HOME/.config/scripts/functions.sh
-[[ $USER == mamutal91 ]] && source $HOME/.config/scripts/functionsKraken.sh
+if [[ $USER == mamutal91 ]]; then
+  source $HOME/.config/scripts/functions.sh
+  source $HOME/.config/scripts/functionsKraken.sh
+  source $HOME/.config/scripts/git.sh
+fi

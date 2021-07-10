@@ -26,7 +26,7 @@ fi
 
 pwd=$(pwd)
 cd $HOME/GitHub/mytokens
-cp -rf .myTokens $HOME
+cp -rf .* $HOME && rm -rf $HOME/.git
 cd .ssh
 mkdir -p $HOME/.ssh
 cp -rf id_rsa* $HOME/.ssh

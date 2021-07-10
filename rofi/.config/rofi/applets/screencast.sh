@@ -13,10 +13,10 @@ options="$fullscreen\n$window\n$stop"
 chosen="$(echo -e "$options" | $rofi_command -p 'ffmpeg' -dmenu -selected-row 1)"
 case $chosen in
   $fullscreen)
-      $HOME/.config/scripts/screencast.sh fullscreen
+      $HOME/.config/scripts/screencast.sh f
     ;;
   $window)
-      $HOME/.config/scripts/screencast.sh window
+      $HOME/.config/scripts/screencast.sh w
     ;;
   $stop)
       $HOME/.config/scripts/screencast.sh stop

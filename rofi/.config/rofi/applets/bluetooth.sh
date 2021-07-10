@@ -2,20 +2,38 @@
 
 rofi_command="rofi -theme $HOME/.config/rofi/applets/styles/bluetooth.rasi"
 
-bluetoothctl power on
-bluetoothctl agent on
-bluetoothctl default-agent
-
 # Error msg
 msg() {
   rofi -theme "$HOME/.config/rofi/message.rasi" -e "$1"
 }
 
-bt() {
-  #  bluetoothctl trust ${1}
-  #  bluetoothctl pair ${1}
-  bluetoothctl scan off
+btConnect() {
+  bluetoothctl power on
+  bluetoothctl agent on
+  bluetoothctl default-agent
+  dunstify -i $HOME/.config/assets/icons/bluetooth.png "Bluetooth" "Scanning devices"
+  timeout 5s bluetoothctl scan on
   bluetoothctl connect ${1}
+  if [[ $? -eq 0 ]]; then
+    dunstify -i $HOME/.config/assets/icons/bluetooth-${2}.png "Bluetooth" "${2} connected"
+  else
+    dunstify -i $HOME/.config/assets/icons/bluetooth.png "Bluetooth" "Connection failed!"
+    exit 1
+  fi
+
+}
+
+btOn() {
+  bluetoothctl power on
+  bluetoothctl agent on
+  bluetoothctl default-agent
+  timeout 10s bluetoothctl scan on
+  dunstify -i $HOME/.config/assets/icons/bluetooth.png "Bluetooth" "Scanned devices"
+}
+
+btOff() {
+  bluetoothctl power off
+  dunstify -i $HOME/.config/assets/icons/bluetooth.png "Bluetooth" "Device off"
 }
 
 scan=""
@@ -24,13 +42,13 @@ bt1=""
 bt2=""
 
 # Variable passed to rofi
-options="$scan\n$disconect\n$bt1\n$bt2"
+options="$bt1\n$bt2\n$scan\n$disconect"
 
 chosen="$(echo -e $options | $rofi_command -p "Stay rock'n'roll" -dmenu -selected-row 0)"
 case $chosen in
-  $scan) bluetoothctl scan on ;;
-  $disconect) bluetoothctl disconect ;;
-  $bt1) bt "78:44:05:BE:8A:7E" ;; # JBL T450BT
-  $bt2) bt "70:99:1C:51:45:9B" ;; # JBL GO 2
+  $scan) btOn ;;
+  $disconect) btOff ;;
+  $bt1) btConnect "78:44:05:BE:8A:7E" headphone ;; # JBL T450BT
+  $bt2) btConnect "70:99:1C:51:45:9B" JBLGo2 ;; # JBL GO 2
 esac
 exit 0

@@ -1,0 +1,14 @@
+'.source.shell':
+  'Comparação de if comum':
+    'prefix': 'if'
+    'body': """
+if [[  ]]; then
+
+fi
+"""
+
+  'Faz source automático no arquivo de stylos':
+    'prefix': 'styles'
+    'body': """
+source $HOME/.Xstyles &> /dev/null
+"""

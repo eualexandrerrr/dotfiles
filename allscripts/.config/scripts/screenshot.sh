@@ -7,12 +7,12 @@ dir="$HOME/Images/Screenshots/"
 [[ ! -d $dir ]] && mkdir -p $dir
 
 if [[ ${1} == "window" ]]; then
-  maim -s "$dir/w-$date.png"
+  maim -s --format png "$dir/w-$date.png"
   xclip -selection clipboard -t image/png -i "$dir/w-$date.png"
-  dunstify -i $icon "Screenshot" "Cropped capture.\nw-$window-$date.png"
+  dunstify -i $icon "Screenshot" "Cropped capture.\n w-$date.png"
 else
-  maim "$dir/f-$date.png"
-  sleep 0
+  maim --format png "$dir/f-$date.png"
+  sleep 2
   xclip -selection clipboard -t image/png -i "$dir/f-$date.png"
-  dunstify -i $icon "Screenshot" "Fullscreen capture.\nf-$window-$date.png"
+  dunstify -i $icon "Screenshot" "Fullscreen capture.\n f-$date.png"
 fi

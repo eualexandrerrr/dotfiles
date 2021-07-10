@@ -6,6 +6,7 @@ dependencies=(
   alacritty nano nano-syntax-highlighting neofetch vlc gpicview simplescreenrecorder
   thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman
   papirus-icon-theme capitaine-cursors dracula-gtk-theme
+  zsh-syntax-highlighting oh-my-zsh-git
 
   maim ffmpeg imagemagick slop
 
@@ -27,7 +28,7 @@ mypackages=(
 
   atom discord diff-so-fancy filezilla git htop jdk-openjdk jq krita man man-pages-pt_br google-chrome github-cli-git gitlab-glab-bin
   rsync stow shfmt tree transmission-gtk
-  zsh-syntax-highlighting zip kotatogram-desktop-bin oh-my-zsh-git translate-shell-git
+   zip kotatogram-desktop-bin  translate-shell-git
 
   bluez bluez-libs bluez-tools bluez-utils
 

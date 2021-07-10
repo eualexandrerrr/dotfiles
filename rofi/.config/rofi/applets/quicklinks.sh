@@ -26,7 +26,7 @@ case $chosen in
         sudo pkill picom && steam &
         ;;
     $spotify)
-        spotify &
+        echo 1;
         ;;
     $telegram)
         kotatogram-desktop &
