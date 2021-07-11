@@ -5,6 +5,8 @@ dependencies=(
   pulseaudio alsa-firmware alsa-utils alsa-plugins pulseaudio pulseaudio-bluetooth pavucontrol sox
   bluez bluez-libs bluez-tools bluez-utils
 
+  nordic-theme-git
+
   i3-gaps i3lock feh rofi dunst picom polybar alacritty nano nano-syntax-highlighting neofetch vlc gpicview zsh zsh-syntax-highlighting oh-my-zsh-git maim ffmpeg imagemagick slop
   thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman
   papirus-icon-theme capitaine-cursors dracula-gtk-theme
