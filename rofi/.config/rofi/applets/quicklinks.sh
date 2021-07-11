@@ -23,7 +23,7 @@ case $chosen in
         atom &
         ;;
     $steam)
-        sudo pkill picom && steam &
+        steam &
         ;;
     $spotify)
         echo 1;

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 source $HOME/.Xcolors &> /dev/null
-source $HOME/.myTokens &> /dev/null
+source $HOME/.mytokens/.myTokens &> /dev/null
 
 if [[ ! -f $HOME/.jenkins-cli.jar ]]; then
   cd $HOME

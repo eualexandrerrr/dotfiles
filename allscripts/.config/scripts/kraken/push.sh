@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Adjust the following variables as necessary
 
-source $HOME/.myTokens &> /dev/null
+source $HOME/.mytokens/.myTokens &> /dev/null
 
 pwd=$(pwd)
 

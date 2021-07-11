@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 source $HOME/.Xcolors &> /dev/null
-source $HOME/.myTokens &> /dev/null
+source $HOME/.mytokens/.myTokens &> /dev/null
 
 myGitUser="Alexandre Rangel <mamutal91@aospk.org>"
 
@@ -106,10 +106,11 @@ cm() {
   else
     if [[ $(git status --porcelain) ]]; then
       pwdFolder=${PWD##*/}
+      translate
       if [[ ${1} ]]; then
         gitadd && git commit --message "${msg}" --signoff --date "$(date)" --author "${1}" && gitpush
       else
-        gitadd && git commit --message "${msg}" --signoff --date "$(date)" --author "${myGitUSer}" && gitpush
+        gitadd && git commit --message "${msg}" --signoff --date "$(date)" --author "${myGitUser}" && gitpush
       fi
     else
       echo "${BOL_RED}There are no local changes!!! leaving...${END}" && break &> /dev/null

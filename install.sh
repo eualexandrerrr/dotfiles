@@ -31,8 +31,16 @@ bash $HOME/.dotfiles/setup/scripts/etc.sh
 sudo cp -rf $HOME/.dotfiles/home/.nanorc /root &> /dev/null
 
 # Copy my tokens
-[ $(cat /etc/hostname) = mamutal91-v2 ] && rm -rf $HOME/.mytokensfolder && git clone ssh://git@github.com/mamutal91/mytokens $HOME/.mytokensfolder && cp -rf $HOME/.mytokensfolder/.myTokens $HOME &> /dev/null
-[ $(cat /etc/hostname) = odin ] && cp -rf $HOME/GitHub/mytokens/.myTokens $HOME &> /dev/null
+if [[ $USER == mamutal91 ]]; then
+  if [[ $(cat /etc/hostname) == mamutal91-v2 ]]; then
+    git clone ssh://git@github.com/mamutal91/mytokens $HOME
+    cp -rf $HOME/mytokens $HOME
+  else
+    cp -rf $HOME/GitHub/mytokens $HOME
+  fi
+  rm -rf $HOME/.mytokens
+  mv $HOME/mytokens $HOME/.mytokens
+fi
 
 # Restart sway
 i3-msg reload &> /dev/null

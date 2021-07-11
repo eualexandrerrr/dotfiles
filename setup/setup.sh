@@ -1,9 +1,14 @@
 #!/usr/bin/env bash
 
 source $HOME/.Xcolors &> /dev/null
-source $HOME/.myTokens &> /dev/null
+source $HOME/.mytokens/.myTokens &> /dev/null
 
 clear
+
+if [[ ! -d $HOME/.dotfiles ]]; then
+  echo "For you to use this dotfiles, it must be located in your HOME, and hidden, the correct path is: ~/.dotfiles"
+  exit
+fi
 
 sudo pacman -Syyu --noconfirm
 
@@ -22,7 +27,7 @@ aurMsg() {
   echo -e "${BOL_RED}\nThe ${BOL_YEL}$i ${BOL_RED}package is not in the official ${BOL_GRE}ArchLinux ${BOL_RED}repositories...\n${BOL_RED}Searching ${BOL_BLU}AUR ${BOL_RED}package ${BOL_RED}with ${BOL_BLU}yay${END}\n"
 }
 
-echo -e "\n${BOL_RED}Installing dependencies!${END}\n"
+echo -e "\n${BOL_MAG}Installing dependencies!${END}\n"
 for i in "${dependencies[@]}"; do
   sudo pacman -S ${i} --needed --noconfirm && continue || aurMsg && yay -S ${i} --needed --noconfirm
 done
@@ -31,6 +36,12 @@ if [[ $USER == mamutal91 ]]; then
   for i in "${mypackages[@]}"; do
     sudo pacman -S ${i} --needed --noconfirm && continue || aurMsg && yay -S ${i} --needed --noconfirm
   done
+  # Configs
+  sudo sed -i "s/#unix_sock_group/unix_sock_group/g" /etc/libvirt/libvirtd.conf
+  sudo sed -i "s/#unix_sock_rw_perms/unix_sock_rw_perms/g" /etc/libvirt/libvirtd.conf
+
+  sudo grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=grub
+  sudo grub-mkconfig -o /boot/grub/grub.cfg
 fi
 
 # Enable systemd services
@@ -49,18 +60,6 @@ done
 # Remove folder GO
 rm -rf $HOME/go &> /dev/null
 
-for i in $(ls $HOME/.dotfiles/setup/scripts/*.sh); do
-  chmod +x $i
-  bash $i
-done
-
-if [[ $USER == mamutal91 ]]; then
-  for i in $(ls $HOME/.dotfiles/setup/personalconfigs/*.sh); do
-    chmod +x $i
-    bash $i
-  done
-fi
-
 # Fonts
 sudo mkdir -p /usr/share/fonts/TTF &> /dev/null
 sudo cp -rf $HOME/.dotfiles/assets/.config/assets/fonts/* /usr/share/fonts/TTF
@@ -74,3 +73,18 @@ sudo chown -R $USER:$USER $HOME
 
 # zsh default
 chsh -s $(which zsh)
+
+# Last scripts
+for i in $(ls $HOME/.dotfiles/setup/scripts/*.sh); do
+  chmod +x $i
+  bash $i
+done
+
+if [[ $USER == mamutal91 ]]; then
+  for i in $(ls $HOME/.dotfiles/setup/personalconfigs/*.sh); do
+    chmod +x $i
+    bash $i
+  done
+fi
+
+bash $HOME/.dotfiles/install.sh

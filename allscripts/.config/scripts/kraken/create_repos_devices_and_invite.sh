@@ -3,7 +3,7 @@
 clear
 
 source $HOME/.Xcolors &> /dev/null
-source $HOME/.myTokens &> /dev/null
+source $HOME/.mytokens/.myTokens &> /dev/null
 
 workingDir=$HOME/GitHub
 

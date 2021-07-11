@@ -9,7 +9,7 @@ Xpolybar=$HOME/.Xpolybar
 # Definir um tema padrão pois não pode faltar
 if [[ ! -f $Xrasi ]]; then
   echo "${RED}Xrasi ${GRE}created."
-  echo '@import "~/.config/styles/berry.rasi"'   | sudo tee $Xrasi
+  echo '@import "~/.config/styles/dark.rasi"' | sudo tee $Xrasi
   cat $Xrasi
 fi
 

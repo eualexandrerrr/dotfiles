@@ -3,11 +3,16 @@
 clear
 
 source $HOME/.Xcolors &> /dev/null
-source $HOME/.myTokens &> /dev/null
+source $HOME/.mytokens/.myTokens &> /dev/null
 
-#workingDir=$(mktemp -d) && cd $workingDir
-#git clone https://github.com/AOSPK/official_devices
-workingDir=$HOME/GitHub
+chatId="-1001485974314"
+
+workingDir=$(mktemp -d) && cd $workingDir
+git clone https://github.com/AOSPK/official_devices
+
+# Criando message
+msg=/tmp/message
+echo -e "Devices with more than 30 days without releases\n" > $msg
 
 jsonDevices=${workingDir}/official_devices/devices.json
 jsonMaintainers=${workingDir}/official_devices/team/maintainers.json
@@ -20,6 +25,7 @@ for codename in $(jq '.[] | select(.name|test("^")) | .codename' $jsonDevices | 
     deprecated=$(jq -r ".[] | select(.codename == \"${codename}\") | .deprecated" $jsonDevices)
 
     maintainerGithub=$(jq -r ".[] | select(.devices[].codename == \"${codename}\") | .github_username" $jsonMaintainers)
+    maintainerTelegram=$(jq -r ".[] | select(.devices[].codename == \"${codename}\") | .telegram_username" $jsonMaintainers)
     maintainerName=$(jq -r ".[] | select(.devices[].codename == \"${codename}\") | .name" $jsonMaintainers)
 
     deviceRepo="device_${brandDevice,,}_${codename}"
@@ -47,7 +53,12 @@ for codename in $(jq '.[] | select(.name|test("^")) | .codename' $jsonDevices | 
         echo -e "${BOL_GRE}Days without releases ${BOL_MAG}${daysWithout}${END}"
       else
         haveBuild=false
-        echo Nenhuma build
+        echo "Never released"
+        echo -e "${codename} # Never released @${maintainerTelegram}" >> $msg
+      fi
+
+      if [[ ${daysWithout} -gt 30 ]]; then
+        echo -e "${codename} # ${daysWithout} @${maintainerTelegram}" >> $msg
       fi
       cd $pwd
     fi
@@ -55,3 +66,23 @@ for codename in $(jq '.[] | select(.name|test("^")) | .codename' $jsonDevices | 
     echo -e "${BOL_CYA}\n--------- END ---------${END}\n"
 
 done
+
+cat $msg
+
+msg="$(cat $msg)"
+
+sendMessage() {
+  curl "https://api.telegram.org/bot${botTelegramToken}/sendMessage" \
+    -d chat_id="$chatId" \
+    --data-urlencode text="$msg" \
+    --data-urlencode parse_mode="markdown" \
+    --data-urlencode disable_web_page_preview="true"
+}
+
+echo "Finished successfully."
+read -r -p "${BOL_RED}Post in my group maintainers? [Y/n] [enter=no]" confirmPost
+if [[ ! $confirmPost =~ ^(y|Y) ]]; then
+  exit
+else
+  sendMessage
+fi

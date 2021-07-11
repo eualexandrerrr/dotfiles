@@ -95,7 +95,7 @@ exec_always --no-startup-id xrdb -load $HOME/.Xresources
 exec_always --no-startup-id fc-cache -f -r -v
 exec_always --no-startup-id picom --config $HOME/.config/picom/picom.conf
 exec --no-startup-id dunst &
-exec --no-startup-id spotifyd --config-path $HOME/.spotifyUserAndPass.conf &
+exec --no-startup-id spotifyd --config-path $HOME/.mytokens/.spotifyUserAndPass.conf &
 exec --no-startup-id hwclock --systohc --utc && timedatectl set-ntp true
 exec --no-startup-id "pactl set-sink-mute @DEFAULT_SINK@ false; pactl set-sink-volume @DEFAULT_SINK@ 80%"
 exec --no-startup-id echo 206 | sudo tee /sys/class/backlight/amdgpu_bl1/brightness
@@ -163,7 +163,7 @@ for_window [title="mywindowfloat"] move to workspace $ws3, floating enable, resi
 for_window [title="testingscript"] move to workspace $ws3, floating enable, resize set 800 px 500 px, move right -190px, move down 170px, focus
 
 # Workspace 1 [terminal]
-for_window [class="Kitty"] focus
+for_window [class="Alacritty"] focus
 
 # Workspace 2 [browser]
 for_window [class="Google-chrome"] move to workspace $ws2, focus
@@ -188,8 +188,8 @@ for_window [class="Filezilla"] move to workspace $ws7, focus
 
 # Workspace 8 [tools: {art, build, etc}]
 for_window [class="imv|krita"] move to workspace $ws8, focus
-for_window [class="SimpleScreenRecorder"] move to workspace $ws8, floating enable, focus
 
 # Workspace 9 [games]
-for_window [class="Steam|steam_proton*|steam_app*|Discord|Zenity"] move to workspace $ws9, focus
+for_window [class="Steam|steam_proton*|steam_app*|discord|Zenity"] move to workspace $ws9, focus
 for_window [title="Steam*|Rockstar Games Launcher"] move to workspace $ws9, focus
+for_window [title="Steam Library Folders|Create or select new Steam library folder:*|Criar/Selecionar nova pasta de biblioteca Steam:*|Pastas de biblioteca Steam*"] move to workspace $ws9, floating enable, focus

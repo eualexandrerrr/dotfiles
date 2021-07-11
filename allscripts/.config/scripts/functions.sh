@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 source $HOME/.Xcolors &> /dev/null
-source $HOME/.myTokens &> /dev/null
+source $HOME/.mytokens/.myTokens &> /dev/null
 
 infra() {
   echo -e "\n${BLU}Recloning ${CYA}infra ${BLU}to have the latest changes...${END}"
@@ -15,8 +15,8 @@ qemu() {
 spotify() {
   echo "Starting daemon!"
   killall spotifyd
-  spotifyd --config-path $HOME/.spotifyUserAndPass.conf &
-  spt --config .spotifyClientId.conf
+  spotifyd --config-path $HOME/.mytokens/.spotifyUserAndPass.conf &
+  spt --config $HOME/.mytokens/.spotifyClientId.conf
 }
 dot() {
   if [[ ${1} ]]; then
