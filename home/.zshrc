@@ -43,13 +43,10 @@ alias xprop="xprop | awk '/^WM_CLASS/{sub(/.* =/, \"instance:\"); sub(/,/, \"\nc
 alias notify-send="dunstify"
 
 # Paths
-if [[ $(cat /etc/hostname) == odin ]]; then
-  alias x="cd /mnt/storage/Kraken"
-else
-  alias x="cd /mnt/roms/jobs/KrakenDev"
-fi
+[[ $(cat /etc/hostname) == odin ]] && alias x="cd /mnt/storage/Kraken" || alias x="cd /mnt/roms/jobs/KrakenDev"
 
 if [[ $USER == mamutal91 ]]; then
+  git config --global user.email "mamutal91@gmail.com" && git config --global user.name "Alexandre Rangel"
   source $HOME/.config/scripts/functions.sh
   source $HOME/.config/scripts/functionsKraken.sh
   source $HOME/.config/scripts/git.sh
