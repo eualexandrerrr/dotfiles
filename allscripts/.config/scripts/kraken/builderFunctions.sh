@@ -16,6 +16,12 @@ codename=lmi
 
 s() {
   cd $ROM
+  rm -rf .repo/local_manifests
+  sudo rm -rf device/{xiaomi,samsung,motorola,oneplus} &> /dev/null
+  sudo rm -rf kernel/{xiaomi,samsung,motorola,oneplus} &> /dev/null
+  sudo rm -rf vendor/{xiaomi,samsung,motorola,oneplus} &> /dev/null
+  sudo rm -rf hardware/{xiaomi,samsung,motorola,oneplus} &> /dev/null
+  sudo rm -rf hardware/qcom-caf/*-* &> /dev/null
   repo init -u ssh://git@github.com/AOSPK-DEV/manifest -b eleven
   repo sync -c -j1 --no-clone-bundle --current-branch --no-tags --force-sync
 }

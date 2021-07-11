@@ -7,10 +7,6 @@ source $HOME/.dotfiles/allscripts/.config/scripts/kraken/builderFunctions.sh
 
 [ $(cat /etc/hostname) = mamutal91-v2 ] && HOME=/home/mamutal91
 
-b() {
-  $HOME/.config/scripts/kraken/builder.sh ${1} ${2} ${3} ${4}
-}
-
 fu() {
   if [[ -z ${1} ]]; then
     echo -e "${BLU}Usage:\n"
