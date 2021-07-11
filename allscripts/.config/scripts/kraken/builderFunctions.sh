@@ -17,7 +17,7 @@ codename=lmi
 s() {
   cd $ROM
   repo init -u ssh://git@github.com/AOSPK-DEV/manifest -b eleven
-  repo sync -c -j$(nproc --all) --no-clone-bundle --current-branch --no-tags --force-sync
+  repo sync -c -j1 --no-clone-bundle --current-branch --no-tags --force-sync
 }
 
 b() {
