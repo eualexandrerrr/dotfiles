@@ -2,6 +2,9 @@
 
 source $HOME/.Xcolors &> /dev/null
 
+
+source $HOME/.dotfiles/allscripts/.config/scripts/kraken/builderFunctions.sh
+
 [ $(cat /etc/hostname) = mamutal91-v2 ] && HOME=/home/mamutal91
 
 b() {
