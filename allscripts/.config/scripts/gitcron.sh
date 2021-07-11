@@ -33,6 +33,6 @@ if [[ $(cat /etc/hostname) == mamutal91-v2 ]]; then
   cp -rf /mnt/roms/sites/docker/gerrit /home/mamutal91/.gerrit
   cd /home/mamutal91/.gerrit
   git config --global user.email "bot@aospk.org" && git config --global user.name "Kraken Project Bot"
-  git add . && git commit -m "${m}" --signoff --author "Alexandre Rangel <mamutal91@aospk.org>" --date "$(date)" && git push -f
+  git add . && git commit -m "${m}" --signoff --author "Kraken Project Bot <bot@aospk.org>" --date "$(date)" && git push -f
   cd $pwd
 fi
