@@ -32,7 +32,7 @@ createRepo() {
     [[ $repoCheckName == vendor_ ]] && organization=TheBootloops || organization=AOSPK-Devices
 
     curl -H "Authorization: token ${githubToken}" --data "{\"name\":\"${reposToCreate}\"}" https://api.github.com/orgs/$organization/repos &> /dev/null
-    gh api -X PUT repos/${organization}/${reposToCreate}/collaborators/${maintainerGithub} -f permission=admin &> /dev/null
+    gh api -X PUT "repos/${organization}/${reposToCreate}/collaborators/${maintainerGithub}" -f permission="admin" &> /dev/null
     gh api -XPATCH "repos/${organization}/${repoName}" -f default_branch="eleven" &> /dev/null
 
     echo "${BOL_BLU}Creating repo ${BOL_MAG}$organization/$reposToCreate ${BOL_BLU}and inviting ${BOL_MAG}${maintainerGithub}${END}"
