@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+clear
+
 source $HOME/.Xcolors &> /dev/null
 
 pwd=$(pwd)

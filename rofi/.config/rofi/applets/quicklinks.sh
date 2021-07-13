@@ -10,12 +10,12 @@ msg() {
 atom=""
 steam=""
 spotify=""
-telegram=""
+fancontrol=""
 mail=""
 youtube=""
 
 # Variable passed to rofi
-options="$atom\n$steam\n$spotify\n$telegram\n$mail\n$youtube"
+options="$atom\n$steam\n$spotify\n$fancontrol\n$mail\n$youtube"
 
 chosen="$(echo -e "$options" | $rofi_command -p "Fast click" -dmenu -selected-row 0)"
 case $chosen in
@@ -28,8 +28,8 @@ case $chosen in
     $spotify)
         echo 1;
         ;;
-    $telegram)
-        kotatogram-desktop &
+    $fancontrol)
+        $HOME/.config/scripts/fancontrol.sh
         ;;
     $mail)
         google-chrome-stable https://www.gmail.com &

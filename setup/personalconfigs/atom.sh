@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-atom="
+atomPkgs=(
   atom-beautify
   atom-material-syntax
   color-picker
@@ -13,6 +13,9 @@ atom="
   mamutal91-shellscript-snippets-atom
   markdown-writer
   pigments
-  save-workspace"
+  save-workspace
+)
 
-apm install $atom --noconfirm
+for i in "${atomPkgs[@]}"; do
+  apm install ${i} --no-confirm
+done
