@@ -27,17 +27,21 @@ s() {
 }
 
 b() {
+  nbfc set -s 100
   cd $ROM
   args
   . build/envsetup.sh
   lunch aosp_${codename}-userdebug
   make -j$(nproc --all) bacon 2>&1 | tee log.txt
+  nbfc set -s 50
 }
 
 clean() {
+  nbfc set -s 100
   cd $ROM
   args
   . build/envsetup.sh
   lunch aosp_${codename}-userdebug
   [[ ${1} == f ]] && make clean || make installclean
+  nbfc set -s 50
 }

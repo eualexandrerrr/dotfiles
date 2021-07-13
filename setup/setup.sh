@@ -40,6 +40,11 @@ if [[ $USER == mamutal91 ]]; then
   sudo sed -i "s/#unix_sock_group/unix_sock_group/g" /etc/libvirt/libvirtd.conf
   sudo sed -i "s/#unix_sock_rw_perms/unix_sock_rw_perms/g" /etc/libvirt/libvirtd.conf
 
+  # Copy fan config control
+  sudo cp -rf .dotfiles/assets/.config/assets/fans/Acer\ Nitro\ 5\ AN515-43.xml /opt/nbfc/Configs
+  nbfc config -a "Acer Nitro 5 AN515-43"
+
+  # Generate grub
   sudo grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=grub
   sudo grub-mkconfig -o /boot/grub/grub.cfg
 fi
@@ -52,6 +57,7 @@ for services in \
     mopidy \
     libvirtd.service \
     laptop-mode.service \
+    nbfc \
     getty@ttyN.service; do
     sudo systemctl enable $services &> /dev/null
     sudo systemctl start $services &> /dev/null
