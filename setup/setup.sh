@@ -69,10 +69,7 @@ rm -rf $HOME/go &> /dev/null
 # Fonts
 sudo mkdir -p /usr/share/fonts/TTF &> /dev/null
 sudo cp -rf $HOME/.dotfiles/assets/.config/assets/fonts/* /usr/share/fonts/TTF
-fc-cache -f -r -v
-
-# Permissions
-sudo chown -R $USER:$USER $HOME
+fc-cache -f -r -v &> /dev/null
 
 # Remove Kraken scripts
 [[ $USER != mamutal91 ]] && rm -rf $HOME/.dotfiles/allscripts/.config/scripts/kraken && rm -rf $HOME//.config/scripts/kraken

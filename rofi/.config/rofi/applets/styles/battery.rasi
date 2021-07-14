@@ -78,7 +78,7 @@ element {
 }
 
 element-text {
-	font:							"Iosevka Nerd Font 20";
+	font:							"Terminus 20";
     expand:                         true;
     horizontal-align:               0.5;
     vertical-align:                 0;

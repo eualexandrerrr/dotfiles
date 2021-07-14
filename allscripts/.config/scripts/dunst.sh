@@ -5,7 +5,7 @@ dunst                                                            \
     -geometry 300x250-40+120                                     \
     -format '<span foreground="'#1dde6b'" weight="bold" stretch="ultra-condensed">%s</span>\n<span foreground="'$color3'" stretch="ultra-condensed">%b</span>'\
     -indicate_hidden true                                        \
-    -font "Iosevka Term SS07 11"                                 \
+    -font "Terminus 10"                                 \
     -follow mouse                                                \
     -padding 15                                                  \
     -transparency 0                                              \
@@ -52,4 +52,4 @@ dunst                                                            \
     -cb  "#e7d726"                                           \
     -cfr "#e34c4e"                                               \
     -ch  "#ffffff"                                               \
-    -icon_path "$HOME/.local/share/icons/Papirus-Dark/128x128/actions:$HOME/.local/share/icons/Papirus-Dark/128x128/devices:$HOME/.local/share/icons/Papirus-Dark/128x128/apps:$HOME/.local/share/icons/Papirus-Dark/128x128/status:$HOME/.local/share/icons/Papirus-Dark/128x128/filesystems:$HOME/.local/share/icons/Papirus-Dark/128x128/mimetypes:$HOME/.local/share/icons/Papirus-Dark/128x128/emblems:$HOME/.local/share/icons/Papirus-Dark/128x128/places:$HOME/.local/share/icons/Papirus-Dark/128x128/stock" >/dev/null 2>&1 &
+    -icon_path "$HOME/.local/share/icons/Flatery-Dark/128x128/actions:$HOME/.local/share/icons/Flatery-Dark/128x128/devices:$HOME/.local/share/icons/Flatery-Dark/128x128/apps:$HOME/.local/share/icons/Flatery-Dark/128x128/status:$HOME/.local/share/icons/Flatery-Dark/128x128/filesystems:$HOME/.local/share/icons/Flatery-Dark/128x128/mimetypes:$HOME/.local/share/icons/Flatery-Dark/128x128/emblems:$HOME/.local/share/icons/Flatery-Dark/128x128/places:$HOME/.local/share/icons/Flatery-Dark/128x128/stock" >/dev/null 2>&1 &

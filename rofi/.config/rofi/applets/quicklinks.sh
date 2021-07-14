@@ -26,7 +26,7 @@ case $chosen in
         steam &
         ;;
     $spotify)
-        echo 1;
+        spotify &
         ;;
     $fancontrol)
         $HOME/.config/scripts/fancontrol.sh

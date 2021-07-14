@@ -5,7 +5,7 @@ stylesScript=$HOME/.Xstyle-switch.sh
 echo '#!/usr/bin/env bash' > $stylesScript
 echo >> $stylesScript
 echo 'changeStyle() {' >> $stylesScript
-echo '  sudo chown -R $USER:$USER $HOME && chmod +x $HOME/.Xrasi && echo "@import \"~/.config/styles/${1}.rasi\"" > $HOME/.Xrasi' >> $stylesScript
+echo '  chmod +x $HOME/.Xrasi && echo "@import \"~/.config/styles/${1}.rasi\"" > $HOME/.Xrasi' >> $stylesScript
 echo '  $HOME/.dotfiles/install.sh &> /dev/null' >> $stylesScript
 echo '}' >> $stylesScript
 echo >> $stylesScript

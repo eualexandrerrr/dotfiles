@@ -5,16 +5,14 @@ dependencies=(
   pulseaudio alsa-firmware alsa-utils alsa-plugins pulseaudio pulseaudio-bluetooth pavucontrol sox
   bluez bluez-libs bluez-tools bluez-utils
 
-  nordic-theme-git
-
   i3-gaps i3lock feh rofi dunst picom polybar alacritty nano nano-syntax-highlighting neofetch vlc gpicview zsh zsh-syntax-highlighting oh-my-zsh-git maim ffmpeg imagemagick slop
   thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman
-  papirus-icon-theme capitaine-cursors dracula-gtk-theme
+
+  flatery-icon-theme-git vimix-cursors dracula-gtk-theme
 
   google-chrome kotatogram-desktop-bin
 
-  noto-fonts-emoji ttf-dejavu terminus-font ttf-liberation ttf-iosevka-term-ss07 ttf-fantasque-sans-mono ttf-material-design-icons
-  nerd-fonts-iosevka ttf-icomoon-feather ttf-icomoon-feather ttf-fantasque-sans-mono ttf-font-awesome
+  terminus-font noto-fonts-emoji ttf-dejavu ttf-liberation ttf-icomoon-feather ttf-font-awesome
 
   xorg-server xorg-xrandr xorg-xbacklight xorg-xinit xorg-xprop xorg-server-devel xorg-xsetroot xclip xsel xautolock xidlehook xorg-xdpyinfo xgetres
 )
@@ -36,7 +34,7 @@ mypackages=(
 
   qemu virt-manager virt-viewer dnsmasq vde2 bridge-utils openbsd-netcat libguestfs
 
-  spotifyd-full-git spotify-tui
+  spotify-snap
 
   python-ruamel-yaml
   selinux-python

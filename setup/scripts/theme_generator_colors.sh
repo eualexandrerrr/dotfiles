@@ -71,9 +71,10 @@ createXresources() {
   sed -i "1d" $Xresources
   sed -i "7d" $Xresources
   sed -i "s/^  /*./" $Xresources
-  sed -i '1 i\! Main colors' $Xresources
+  echo "! }}}" >> $Xresources
+  sed -i '1 i\! Main colors {{{' $Xresources
 
-  echo -e "\n! Colors
+  echo -e "\n! Colors {{{
   *.white:            $white;
   *.black:            $black;
   *.red:              $red;
@@ -89,16 +90,25 @@ createXresources() {
   *.orange:           $orange;
   *.brown:            $brown;
   *.gray:             $gray;
-  *.indigo:           $indigo;" | tee -a $Xresources
+  *.indigo:           $indigo;
+  ! }}}" | tee -a $Xresources
 
   echo -e "\n! Fonts {{{
-  Xft.antialias: true
-  Xft.hinting:   true
-  Xft.rgba:      rgb
+  Xft.autohint: 0
+  Xft.lcdfilter: lcddefault
   Xft.hintstyle: hintslight
-  Xft.dpi:       96
+  Xft.hinting: 1
+  Xft.antialias: 1
+  Xft.rgba: rgb
+  Xft.dpi: 96
+  ! }}}
+
+  ! Cursor {{{
+  Xcursor.theme: $(grep 'set $cursor' $HOME/.config/i3/config | awk '{ print $3 }')
+  Xcursor.size: 20
   ! }}}" | tee -a $Xresources
 }
+
 [[ ! -f $Xresources ]] && echo "${RED}Xresources ${GRE}created." && createXresources &> /dev/null
 
 sed -i "s/^ //" $Xresources

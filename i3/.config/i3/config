@@ -5,7 +5,7 @@
 set $term alacritty
 
 # Font
-font pango: Terminus, 10
+font pango:Cantarell 9
 
 # use super/alt/control key
 set $super Mod4
@@ -91,24 +91,33 @@ bindsym $control+$shift+r mode "resize"
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 exec_always --no-startup-id $HOME/.config/scripts/battery.sh
 exec_always --no-startup-id feh --bg-fill $HOME/.config/assets/wallpapers/mechanical-keyboard.jpg
-exec_always --no-startup-id xrdb -load $HOME/.Xresources
+exec_always --no-startup-id xrdb -merge $HOME/.Xresources
 exec_always --no-startup-id fc-cache -f -r -v
 exec_always --no-startup-id picom --config $HOME/.config/picom/picom.conf
 exec_always --no-startup-id dunst -config $HOME/.config/dunst/dunstrc &
 exec_always --no-startup-id nbfc set -s 50
 exec_always --no-startup-id spotifyd --config-path $HOME/.mytokens/.spotifyUserAndPass.conf &
 exec_always --no-startup-id xidlehook --not-when-audio --not-when-fullscreen --timer 600 '$HOME/.config/scripts/i3lock.sh'
+exec_always --no-startup-id kotatogram-desktop -startintray &
 exec --no-startup-id hwclock --systohc --utc && timedatectl set-ntp true
 exec --no-startup-id "pactl set-sink-mute @DEFAULT_SINK@ false; pactl set-sink-volume @DEFAULT_SINK@ 80%"
 exec --no-startup-id echo 206 | sudo tee /sys/class/backlight/amdgpu_bl1/brightness
-exec --no-startup-id sudo chown -R mamutal91:mamutal91 /home/mamutal91
 
 # GTK theme
 set $theme Dracula
-set $icon Papirus-Dark
-set $cursor capitaine-cursors
+set $icon Flatery-Dark
+set $cursor vimix-cursors
 set $font Cantarell
+set $mono Terminus
 set $size_font 9
+
+exec --no-startup-id gsettings set org.gnome.desktop.interface gtk-theme $theme
+exec --no-startup-id gsettings set org.gnome.desktop.interface icon-theme $icon
+exec --no-startup-id gsettings set org.gnome.desktop.interface cursor-theme $icon
+exec --no-startup-id gsettings set org.gnome.desktop.interface cursor-size 20
+exec --no-startup-id gsettings set org.gnome.desktop.interface icon-theme $icon
+exec --no-startup-id gsettings set org.gnome.desktop.interface font-name $font
+exec --no-startup-id gsettings set org.gnome.desktop.interface monospace-font-name $mono
 
 # Shortcuts
 # Audio/Brightness Control

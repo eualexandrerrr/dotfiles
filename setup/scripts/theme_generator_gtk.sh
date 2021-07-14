@@ -8,12 +8,13 @@ GTK_ICON=$(grep 'set $icon' $I3 | awk '{ print $3 }')
 GTK_CURSOR=$(grep 'set $cursor' $I3 | awk '{ print $3 }')
 GTK_FONT=$(grep 'set $font' $I3 | awk '{ print $3 }')
 GTK_FONT2=$(grep 'set $font' $I3 | awk '{ print $4 }')
+GTK_FONT3=$(grep 'set $font' $I3 | awk '{ print $5 }')
 GTK_FONT_SIZE=$(grep 'set $size_font' $I3 | awk '{ print $3 }')
 
 THEME_GTK="gtk-theme-name=$GTK_THEME\n
 gtk-icon-theme-name=$GTK_ICON\n
 gtk-cursor-theme-name=$GTK_CURSOR\n
-gtk-font-name=$GTK_FONT $GTK_FONT2 $GTK_FONT_SIZE"
+gtk-font-name=$GTK_FONT $GTK_FONT2 $GTK_FONT3 $GTK_FONT_SIZE"
 
 THEME_PLUS="gtk-cursor-theme-size=0\n
 gtk-toolbar-style=GTK_TOOLBAR_BOTH\n

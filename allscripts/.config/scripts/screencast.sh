@@ -5,7 +5,7 @@ name="ScreenCast"
 preset="ultrafast"
 ext="mp4"
 date=$(date +%H-%M-%S)
-icon="/usr/share/icons/Papirus-Dark/devices/48/camera-video.svg"
+icon="/usr/share/icons/Flatery-Dark/devices/48/camera-video.svg"
 res=$(xrandr | grep '*' | awk 'NR==1{print $1}')
 trimStart=3
 trimEnd=2

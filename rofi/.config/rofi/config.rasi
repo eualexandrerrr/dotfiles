@@ -2,5 +2,5 @@
 
 configuration {
   show-icons:         true;
-  icon-theme:         "Papirus-Dark";
+  icon-theme:         "Flatery-Dark";
 }

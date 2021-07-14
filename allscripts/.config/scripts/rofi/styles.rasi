@@ -1,7 +1,7 @@
 configuration {
 	font:							"Terminus 9";
     show-icons:                     true;
-	icon-theme: 					"Papirus-Dark";
+	icon-theme: 					"Flatery-Dark";
     display-drun: 					"";
     drun-display-format:            "{name}";
     disable-history:                false;
