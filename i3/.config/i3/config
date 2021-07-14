@@ -94,7 +94,7 @@ exec_always --no-startup-id feh --bg-fill $HOME/.config/assets/wallpapers/mechan
 exec_always --no-startup-id xrdb -load $HOME/.Xresources
 exec_always --no-startup-id fc-cache -f -r -v
 exec_always --no-startup-id picom --config $HOME/.config/picom/picom.conf
-exec --no-startup-id dunst &
+exec --no-startup-id dunst -config $HOME/.config/dunst/dunstrc &
 exec --no-startup-id spotifyd --config-path $HOME/.mytokens/.spotifyUserAndPass.conf &
 exec --no-startup-id hwclock --systohc --utc && timedatectl set-ntp true
 exec --no-startup-id "pactl set-sink-mute @DEFAULT_SINK@ false; pactl set-sink-volume @DEFAULT_SINK@ 80%"
