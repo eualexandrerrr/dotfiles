@@ -7,23 +7,12 @@ source $HOME/.dotfiles/allscripts/.config/scripts/kraken/builderFunctions.sh
 
 [ $(cat /etc/hostname) = mamutal91-v2 ] && HOME=/home/mamutal91
 
-fu() {
-  if [[ -z ${1} ]]; then
-    echo -e "${BLU}Usage:\n"
-    echo "${CYA}  fu ${GRE}<function>${END}${YEL}"
-    echo "              lmi"
-    echo "              gerrit"
-    echo "              down"
-    echo "              manifest"
-    echo "              sync_repos"
-    echo "${END}"
-  else
-    [[ ${1} == lmi ]] && ssh mamutal91@86.109.7.111 "bash $HOME/.config/scripts/kraken/lmi.sh ${1}"
-    [[ ${1} == gerrit ]] && ssh mamutal91@86.109.7.111 "cd /mnt/roms/sites/docker/docker-files/gerrit && sudo ./repl.sh"
-    [[ ${1} == down ]] && rm -rf /mnt/roms/sites/private/builds/**/*.zip &> /dev/null
-    [[ ${1} == manifest ]] && ssh mamutal91@86.109.7.111 "cd $HOME && git clone ssh://git@github.com/AOSPK/manifest && cd $HOME/manifest && git push ssh://git@github.com/AOSPK-DEV/manifest HEAD:refs/heads/eleven --force"
-    [[ ${1} == sync_repos ]] && ssh mamutal91@86.109.7.111 "bash $HOME/.config/scripts/kraken/sync_repos.sh"
-  fi
+gerrit() {
+  ssh mamutal91@86.109.7.111 "cd /mnt/roms/sites/docker/docker-files/gerrit && sudo ./repl.sh"
+}
+
+down() {
+  ssh mamutal91@86.109.7.111 "rm -rf /mnt/roms/sites/private/builds/**/*.zip &> /dev/null"
 }
 
 push() {
