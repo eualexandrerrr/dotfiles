@@ -12,7 +12,7 @@ if [[ ${1} == "window" ]]; then
   dunstify -i $icon "Screenshot" "Cropped capture.\n w-$date.png"
 else
   maim --format png "$dir/f-$date.png"
-  sleep 2
+  sleep 1
   xclip -selection clipboard -t image/png -i "$dir/f-$date.png"
   dunstify -i $icon "Screenshot" "Fullscreen capture.\n f-$date.png"
 fi
