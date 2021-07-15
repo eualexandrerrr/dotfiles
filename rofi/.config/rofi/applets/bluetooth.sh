@@ -42,12 +42,10 @@ bt1=""
 bt2=""
 
 # Variable passed to rofi
-options="$bt1\n$bt2\n$scan\n$disconect"
+options="$bt1\n$bt2"
 
-chosen="$(echo -e $options | $rofi_command -p "Stay rock'n'roll" -dmenu -selected-row 0)"
+chosen="$(echo -e $options | $rofi_command -p "Rock'n'roll" -dmenu -selected-row 0)"
 case $chosen in
-  $scan) btOn ;;
-  $disconect) btOff ;;
   $bt1) btConnect "78:44:05:BE:8A:7E" headphone ;; # JBL T450BT
   $bt2) btConnect "70:99:1C:51:45:9B" JBLGo2 ;; # JBL GO 2
 esac

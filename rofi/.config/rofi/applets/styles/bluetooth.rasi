@@ -17,7 +17,7 @@ window {
     transparency:                   "real";
     border-radius:                  0px;
     location:                       center;
-	width:							400px;
+	width:							280px;
     x-offset:                       0px;
     y-offset:                       0px;
 }
@@ -34,7 +34,7 @@ prompt {
 
 textbox-prompt-colon {
 	expand: 						false;
-	str: 							"  Bluetooth ";
+	str: 							" Bluetooth ";
 	background-color: 				@accent;
 	text-color: 					@background;
     padding:                        12px 10px 0px 10px;

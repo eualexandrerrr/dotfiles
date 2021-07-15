@@ -34,7 +34,7 @@ prompt {
 
 textbox-prompt-colon {
 	expand: 						false;
-	str: 							"  Time ";
+	str: 							" Time ";
 	background-color: 				@accent;
 	text-color: 					@background;
     padding:                        12px 10px 0px 10px;
