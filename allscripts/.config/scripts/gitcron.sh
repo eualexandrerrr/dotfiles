@@ -22,6 +22,10 @@ if [[ $(cat /etc/hostname) == odin ]]; then
     git push
   fi
   cd $pwd
+  echo "${BOL_MAG}Copying ${BOL_RED}$HOME ${BOL_MAG}to ${BOL_GRE}/mnt/storage/mamutal91${END}"
+  rm -rf $HOME/.cache
+  mkdir -p /mnt/storage/mamutal91
+  sudo cp -rf /home/mamutal91/.* /mnt/storage/mamutal91
 fi
 
 # Kraken
