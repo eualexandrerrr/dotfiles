@@ -5,8 +5,6 @@ clear
 source $HOME/.Xcolors &> /dev/null
 source $HOME/.mytokens/.myTokens &> /dev/null
 
-workingDir=$HOME/GitHub
-
 workingDir=$(mktemp -d) && cd $workingDir
 git clone ssh://git@github.com/AOSPK/official_devices
 
