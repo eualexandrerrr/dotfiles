@@ -64,8 +64,8 @@ echo -e "${BOL_BLU}Executing command via ci-cli...\n${END}${GRE}"
 [ ${1} = stopOnlySync ] && echo -e "Stopping jobs and synchronizing source...${RED}" && $stop $JOB && $onlySync
 [ ${1} = stopJobs ] && echo -e "Stopping $JOB job running...${RED}" && $stop $JOB
 [ ${1} = stopClear ] && echo -e "Stopping jobs and clearing jobs from the queue...${RED}" && $clear
-[ ${1} = enableJobs ] && echo -e "Enabling jobs...${RED}" && $enable Kraken && $enable PA
-[ ${1} = disableJobs ] && echo -e "Disabling jobs...${RED}" && $disable Kraken && $disable PA
+[ ${1} = enableJobs ] && echo -e "Enabling jobs...${RED}" && $enable KrakenMaintainers && $enable PA
+[ ${1} = disableJobs ] && echo -e "Disabling jobs...${RED}" && $disable KrakenMaintainers && $disable PA
 
 echo -e "\n${BOL_BLU}Exiting..."
 sleep 1
