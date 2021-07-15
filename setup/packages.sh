@@ -5,7 +5,7 @@ dependencies=(
   pulseaudio alsa-firmware alsa-utils alsa-plugins pulseaudio pulseaudio-bluetooth pavucontrol sox
   bluez bluez-libs bluez-tools bluez-utils
 
-  i3-gaps i3lock feh rofi dunst picom polybar alacritty nano nano-syntax-highlighting neofetch vlc gpicview zsh zsh-syntax-highlighting oh-my-zsh-git maim ffmpeg imagemagick slop
+  i3-gaps i3lock feh rofi dunst picom polybar alacritty stow nano nano-syntax-highlighting neofetch vlc gpicview zsh zsh-syntax-highlighting oh-my-zsh-git maim ffmpeg imagemagick slop
   thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman
 
   flatery-icon-theme-git vimix-cursors dracula-gtk-theme
@@ -26,7 +26,7 @@ mypackages=(
   steam wine winetricks lib32-gnutls
 
   atom discord diff-so-fancy filezilla git htop jdk-openjdk jq krita man man-pages-pt_br github-cli-git gitlab-glab-bin
-  rsync stow shfmt tree transmission-gtk zip translate-shell-git
+  rsync shfmt tree transmission-gtk zip translate-shell-git
 
   android-tools hfsprogs gvfs gvfs-mtp btrfs-progs dosfstools exfat-utils f2fs-tools e2fsprogs jfsutils nilfs-utils ntfs-3g reiserfsprogs udftools xfsprogs ntfs-3g
 
