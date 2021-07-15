@@ -55,7 +55,7 @@ function generateBanner() {
 
   ffmpeg -i $bannerModel -vf "drawtext=text='${brandDevice}':fontcolor=white:fontsize=28:x=170:y=363:" $outputTmp1 &> /dev/null
   ffmpeg -i $outputTmp1 -vf "drawtext=text='${nameDevice}':fontcolor=white:fontsize=45:x=170:y=403:" $outputTmp2 &> /dev/null
-  ffmpeg -i $outputTmp2 -vf "drawtext=text='${maintainerGithub}':fontcolor=white:fontsize=30:x=230:y=456:" $outputTmp3 &> /dev/null
+  ffmpeg -i $outputTmp2 -vf "drawtext=text='${maintainerGithub}':fontcolor=white:fontsize=25:x=230:y=461:" $outputTmp3 &> /dev/null
 
   cp -rf /tmp/${codename}.png ${workingDir}/official_devices/images/banners/
 }
