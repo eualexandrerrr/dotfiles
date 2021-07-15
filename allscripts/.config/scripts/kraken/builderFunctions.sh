@@ -27,12 +27,14 @@ s() {
 }
 
 b() {
+  [[ -z ${1} ]] && task=bacon || task=${1}
+  echo $task
   nbfc set -s 100
   cd $ROM
   args
   . build/envsetup.sh
   lunch aosp_${codename}-userdebug
-  make -j$(nproc --all) bacon 2>&1 | tee log.txt
+  make -j$(nproc --all) ${task} 2>&1 | tee log.txt
   nbfc set -s 50
 }
 
