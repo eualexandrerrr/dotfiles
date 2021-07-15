@@ -37,29 +37,29 @@ $ startx
 
 | Key1 | Key2 | Key3 | Description |
 |--|--|--|--|
-| Super | Enter | --- | Terminal
-| Super | D | --- | Quick shortcuts defined by me
-| Super | B | --- | Connect my bluetooth devices
-| Super | P | --- | Power menu
-| Super | F2 | --- | Google Chrome
-| Super | F3 | --- | Telegram
-| Control | Shift | K | Opens the screencast (screen recorder)
-| Print | --- | --- | Cropped Screenshot
-| Control | Print | --- | Full Screen Screenshot
+| Super | Enter | --- | Terminal |
+| Super | D | --- | Quick shortcuts defined by me |
+| Super | B | --- | Connect my bluetooth devices |
+| Super | P | --- | Power menu |
+| Super | F2 | --- | Google Chrome |
+| Super | F3 | --- | Telegram |
+| Control | Shift | K | Opens the screencast (screen recorder) |
+| Print | --- | --- | Cropped Screenshot |
+| Control | Print | --- | Full Screen Screenshot |
 
 #### Workspace usage shortcuts
 | Key1 | Key2 | Key3 | Description |
 |--|--|--|--|
-| Super | W | --- | Close current window
-| Super | Tab | --- | Next workspace
-| Super | {0 to 9} | --- | Workspace change
-| Control | Shift | {0 to 9} | Move the current window to another workspace corresponding to the number
+| Super | W | --- | Close current window |
+| Super | Tab | --- | Next workspace |
+| Super | {0 to 9} | --- | Workspace change |
+| Control | Shift | {0 to 9} | Move the current window to another workspace corresponding to the number |
 
 #### How to resize floating windows
 | Key1 | Key2 | Key3 | Description |
 |--|--|--|--|
-| Control | Shift | Space | Window in floating mode (To move it, hold Super, click and drag the window)
-| Control | Shift | R | Activates resize mode, use keyboard arrow keys to set size
+| Control | Shift | Space | Window in floating mode (To move it, hold Super, click and drag the window) |
+| Control | Shift | R | Activates resize mode, use keyboard arrow keys to set size |
 
 ## Polybar
 #### Available modules
