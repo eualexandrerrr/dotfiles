@@ -12,7 +12,13 @@ month=$(echo ${dateFull} | cut -c4-5)
 day=$(echo ${dateFull} | cut -c5-6)
 
 echo $year
-img=/home/mamutal91/.dotfiles/allscripts/.config/scripts/kraken/images/banner_lmi.jpg
+
+pwd=$(pwd)
+cd /tmp
+rm -rf lmi.png
+wget https://github.com/AOSPK/official_devices/raw/master/images/banners/lmi.png
+img=/tmp/lmi.png
+cd $pwd
 
 codename=lmi
 

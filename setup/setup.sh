@@ -74,9 +74,6 @@ fc-cache -f -r -v &> /dev/null
 # Remove Kraken scripts
 [[ $USER != mamutal91 ]] && rm -rf $HOME/.dotfiles/allscripts/.config/scripts/kraken && rm -rf $HOME//.config/scripts/kraken
 
-# zsh default
-chsh -s $(which zsh)
-
 # Last scripts
 for i in $(ls $HOME/.dotfiles/setup/scripts/*.sh); do
   chmod +x $i

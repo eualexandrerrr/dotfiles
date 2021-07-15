@@ -27,9 +27,6 @@ bash $HOME/.dotfiles/polybar/.config/polybar/scripts/style-switch-generator.sh
 echo "${RED}/etc/ ${GRE}configured.${END}"
 bash $HOME/.dotfiles/setup/scripts/etc.sh
 
-# Settings to use on my /root
-sudo cp -rf $HOME/.dotfiles/home/.nanorc /root &> /dev/null
-
 # Copy my tokens
 if [[ $USER == mamutal91 ]]; then
   if [[ $(cat /etc/hostname) == mamutal91-v2 ]]; then

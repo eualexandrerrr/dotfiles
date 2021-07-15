@@ -12,12 +12,6 @@ qemu() {
   $HOME/.config/scripts/qemu.sh ${1}
 }
 
-spotify() {
-  echo "Starting daemon!"
-  killall spotifyd
-  spotifyd --config-path $HOME/.mytokens/.spotifyUserAndPass.conf &
-  spt --config $HOME/.mytokens/.spotifyClientId.conf
-}
 dot() {
   if [[ ${1} ]]; then
     cd $HOME && rm -rf .dotfiles && git clone ssh://git@github.com/mamutal91/dotfiles .dotfiles && source $HOME/.zshrc

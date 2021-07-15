@@ -96,7 +96,6 @@ exec_always --no-startup-id fc-cache -f -r -v
 exec_always --no-startup-id picom --config $HOME/.config/picom/picom.conf
 exec_always --no-startup-id dunst -config $HOME/.config/dunst/dunstrc &
 exec_always --no-startup-id nbfc set -s 50
-exec_always --no-startup-id spotifyd --config-path $HOME/.mytokens/.spotifyUserAndPass.conf &
 exec_always --no-startup-id xidlehook --not-when-audio --not-when-fullscreen --timer 600 '$HOME/.config/scripts/i3lock.sh'
 exec_always --no-startup-id kotatogram-desktop -startintray &
 exec --no-startup-id hwclock --systohc --utc && timedatectl set-ntp true
