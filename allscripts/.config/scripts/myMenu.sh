@@ -47,7 +47,7 @@ case $chosen in
   $repo12) alacritty -t mywindowfloat -e $HOME/.config/scripts/runCI.sh buildSync ;;
   $repo13) alacritty -t mywindowfloat -e $HOME/.config/scripts/runCI.sh buildSyncClean ;;
   $repo14) alacritty -t mywindowfloat -e $HOME/.config/scripts/runCI.sh buildSyncInstallclean ;;
-  $repo15) alacritty -t mywindowfloat -e $HOME/.configpathRepo/scripts/runCI.sh makeClean ;;
+  $repo15) alacritty -t mywindowfloat -e $HOME/.config/scripts/runCI.sh makeClean ;;
   $repo16) alacritty -t mywindowfloat -e $HOME/.config/scripts/runCI.sh stopOnlySync ;;
   $repo17) alacritty -t mywindowfloat -e $HOME/.config/scripts/runCI.sh stopJobs ;;
   $repo18) alacritty -t mywindowfloat -e $HOME/.config/scripts/runCI.sh stopClear ;;
