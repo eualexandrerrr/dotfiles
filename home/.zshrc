@@ -24,13 +24,6 @@ export STUDIO_JDK=/usr/lib/jvm/java-11-openjdk
 export PATH="/usr/share/:$PATH"
 
 # Aliases
-alias nano="sudo nano"
-alias chmod="sudo chmod"
-alias cp="sudo cp"
-alias mkdir="sudo mkdir"
-alias docker="sudo docker"
-alias mount="sudo mount"
-#alias mv="sudo rsync -av --progress --remove-source-files"
 alias pacman="sudo pacman"
 alias pacman-key="sudo pacman-key"
 alias pkill="sudo pkill"
@@ -38,7 +31,6 @@ alias rm="sudo rm"
 alias rsync="sudo rsync"
 alias sed="sudo sed"
 alias systemctl="sudo systemctl"
-alias umount="sudo umount"
 alias xprop="xprop | awk '/^WM_CLASS/{sub(/.* =/, \"instance:\"); sub(/,/, \"\nclass:\"); print} /^WM_NAME/{sub(/.* =/, \"title:\"); print}'"
 alias notify-send="dunstify"
 
