@@ -32,7 +32,7 @@ push() {
   [ $repo = vendor_qcom_opensource_commonsys_bluetooth_ext ] && repo=vendor_qcom_opensource_bluetooth_ext
   [ $repo = vendor_qcom_opensource_commonsys_packages_apps_Bluetooth ] && repo=vendor_qcom_opensource_packages_apps_Bluetooth
   [ $repo = vendor_qcom_opensource_commonsys_system_bt ] && repo=vendor_qcom_opensource_system_bt
-  [ $repo = vendor_google_gms ] && githost=gitlab && org=AOSPK
+  [ $repo = vendor_gapps ] && githost=gitlab && org=AOSPK
 
   [ $repo = device_xiaomi_lmi ] && org=AOSPK-Devices
   [ $repo = device_xiaomi_sm8250-common ] && org=AOSPK-Devices
