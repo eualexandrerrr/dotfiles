@@ -23,6 +23,7 @@ case $chosen in
         atom &
         ;;
     $steam)
+        nbfc set -s 100
         steam &
         ;;
     $spotify)
