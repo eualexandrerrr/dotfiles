@@ -97,7 +97,6 @@ exec_always --no-startup-id picom --config $HOME/.config/picom/picom.conf
 exec_always --no-startup-id dunst -config $HOME/.config/dunst/dunstrc &
 exec_always --no-startup-id nbfc set -s 50
 exec_always --no-startup-id xidlehook --not-when-audio --not-when-fullscreen --timer 600 '$HOME/.config/scripts/i3lock.sh'
-exec_always --no-startup-id kotatogram-desktop -startintray &
 exec --no-startup-id hwclock --systohc --utc && timedatectl set-ntp true
 exec --no-startup-id "pactl set-sink-mute @DEFAULT_SINK@ false; pactl set-sink-volume @DEFAULT_SINK@ 80%"
 exec --no-startup-id echo 206 | sudo tee /sys/class/backlight/amdgpu_bl1/brightness
@@ -167,7 +166,7 @@ for_window [title=".*"] border pixel 0, focus
 for_window [class="pop-up|bubble|task_dialog|Preferences"] floating enable, move position center, focus
 for_window [title="Open Folder*|Escolha*|Salvar*|Abrir arquivo"] floating enable, move position center, resize set 700 px 480 px, move right -300px, , move down 0px, focus
 for_window [title="Media viewer|Progresso|Friends*|Novidades*|Pastas de biblioteca*"] floating enable, move position center, focus
-for_window [title="Fazer login nas Contas do Google*|Login - *|Lista de amigos"] floating enable, move position center, focus
+for_window [title="Lista de amigos"] floating enable, move position center, focus
 for_window [title="mywindowfloat"] move to workspace $ws3, floating enable, resize set 700 px 330 px, move right -300px, move down 0px, focus
 for_window [title="testingscript"] move to workspace $ws3, floating enable, resize set 800 px 500 px, move right -190px, move down 170px, focus
 
