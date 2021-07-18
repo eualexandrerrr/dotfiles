@@ -151,7 +151,7 @@ bindsym $super+p exec --no-startup-id $HOME/.config/rofi/applets/powermenu.sh
 bindsym $super+h exec --no-startup-id $HOME/.config/rofi/applets/time.sh
 bindsym $control+$shift+k exec --no-startup-id $HOME/.config/rofi/applets/screencast.sh
 
-bindsym $super+r exec --no-startup-id file=$(ls $HOME/.config/rofi/applets/*.sh | shuf -n 1) && file=$(basename $file .sh) && $HOME/.config/rofi/applets/$file.sh
+bindsym $super+r exec --no-startup-id $HOME/.Xeasy-menu.sh &
 bindsym $super+BackSpace exec --no-startup-id alacritty -t testingscript -e $HOME/.config/scripts/scripter.sh &
 bindsym $super+k exec --no-startup-id $HOME/.config/scripts/ciMenu.sh &
 bindsym F10 exec --no-startup-id $HOME/.config/scripts/myMenu.sh &

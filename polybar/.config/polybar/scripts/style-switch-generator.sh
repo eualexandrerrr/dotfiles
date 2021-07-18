@@ -35,7 +35,7 @@ done
 cd $pwd
 
 echo 'esac' >> $stylesScript
-echo 'bash $HOME/.dotfiles/instal.sh' >> $stylesScript
+echo 'bash $HOME/.dotfiles/install.sh' >> $stylesScript
 
 # END
 chmod +x $stylesScript
