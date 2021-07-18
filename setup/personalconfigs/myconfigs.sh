@@ -16,7 +16,7 @@ rm -rf $HOME/.zsh_history* && cd $HOME && wget https://raw.githubusercontent.com
 cd $pwd
 
 # Dirs
-mkdir -p $HOME/{Images,Videos,GitHub} &> /dev/null
+mkdir -p $HOME/{Pictures,Videos,GitHub} &> /dev/null
 
 # My Tokens
 rm -rf $HOME/GitHub/mytokens

@@ -3,7 +3,7 @@
 icon="$HOME/.config/assets/icons/screenshot.png"
 
 date=$(date +"%Y%m%d-%H:%M:%S")
-dir="$HOME/Images/Screenshots/"
+dir="$HOME/Pictures/Screenshots/"
 [[ ! -d $dir ]] && mkdir -p $dir
 
 if [[ ${1} == "window" ]]; then
