@@ -19,7 +19,7 @@ editDescription() {
     -H "Accept: application/json" \
     -X PATCH \
     --data "{ \"name\": \"${deviceRepo}\", \"description\":\"${brandDevice} ${nameDevice} maintained by @${maintainerGithub}\" }" \
-    https://api.github.com/repos/AOSPK-Devices/${deviceRepo} &> /dev/null
+    https://api.github.com/repos/AOSPK-Devices/${deviceRepo}
 }
 
 createRepo() {
@@ -29,9 +29,9 @@ createRepo() {
     repoCheckName=$(echo $reposToCreate | cut -c1-7)
     [[ $repoCheckName == vendor_ ]] && organization=TheBootloops || organization=AOSPK-Devices
 
-    curl -H "Authorization: token ${githubToken}" --data "{\"name\":\"${reposToCreate}\"}" https://api.github.com/orgs/$organization/repos &> /dev/null
-    gh api -X PUT "repos/${organization}/${reposToCreate}/collaborators/${maintainerGithub}" -f permission="admin" &> /dev/null
-    gh api -XPATCH "repos/${organization}/${repoName}" -f default_branch="eleven" &> /dev/null
+    curl -H "Authorization: token ${githubToken}" --data "{\"name\":\"${reposToCreate}\"}" https://api.github.com/orgs/$organization/repos
+    gh api -X PUT "repos/${organization}/${reposToCreate}/collaborators/${maintainerGithub}" -f permission="admin"
+    gh api -XPATCH "repos/${organization}/${repoName}" -f default_branch="eleven"
 
     echo "${BOL_BLU}Creating repo ${BOL_MAG}$organization/$reposToCreate ${BOL_BLU}and inviting ${BOL_MAG}${maintainerGithub}${END}"
 
@@ -51,9 +51,9 @@ function generateBanner() {
 
   rm -rf $outputTmp1 $outputTmp2 $outputTmp3
 
-  ffmpeg -i $bannerModel -vf "drawtext=text='${brandDevice}':fontcolor=white:fontsize=28:x=170:y=363:" $outputTmp1 &> /dev/null
-  ffmpeg -i $outputTmp1 -vf "drawtext=text='${nameDevice}':fontcolor=white:fontsize=45:x=170:y=403:" $outputTmp2 &> /dev/null
-  ffmpeg -i $outputTmp2 -vf "drawtext=text='${maintainerGithub}':fontcolor=white:fontsize=25:x=230:y=461:" $outputTmp3 &> /dev/null
+  ffmpeg -i $bannerModel -vf "drawtext=text='${brandDevice}':fontcolor=white:fontsize=28:x=170:y=363:" $outputTmp1
+  ffmpeg -i $outputTmp1 -vf "drawtext=text='${nameDevice}':fontcolor=white:fontsize=45:x=170:y=403:" $outputTmp2
+  ffmpeg -i $outputTmp2 -vf "drawtext=text='${maintainerGithub}':fontcolor=white:fontsize=25:x=230:y=461:" $outputTmp3
 
   cp -rf /tmp/${codename}.png ${workingDir}/official_devices/images/banners/
 }
@@ -96,8 +96,8 @@ for codename in $(jq '.[] | select(.name|test("^")) | .codename' $jsonDevices | 
       echo -e "${BOL_BLU}${BLU}$brandDevice $nameDevice ${BOL_MAG}($codename)${END}"
       echo -e "${BOL_GRE}${GRE}$maintainerName ($maintainerGithub)"
       echo -e "${BOL_YEL}Repositories:\n${YEL}$repositories"
-      createRepo
-      generateBanner
+      createRepo &> /dev/null
+      generateBanner &> /dev/null
     fi
 
     echo -e "${BOL_CYA}\n--------- END ---------${END}\n"
