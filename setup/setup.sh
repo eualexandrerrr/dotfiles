@@ -32,7 +32,7 @@ for i in "${dependencies[@]}"; do
   sudo pacman -S ${i} --needed --noconfirm && continue || aurMsg && yay -S ${i} --needed --noconfirm
 done
 
-if [[ $USER == mamutal91 ]]; then
+if [[ $HOST == odin ]]; then
   for i in "${mypackages[@]}"; do
     sudo pacman -S ${i} --needed --noconfirm && continue || aurMsg && yay -S ${i} --needed --noconfirm
   done
@@ -80,7 +80,7 @@ for i in $(ls $HOME/.dotfiles/setup/scripts/*.sh); do
   bash $i
 done
 
-if [[ $USER == mamutal91 ]]; then
+if [[ $HOST == odin ]]; then
   for i in $(ls $HOME/.dotfiles/setup/personalconfigs/*.sh); do
     chmod +x $i
     bash $i
