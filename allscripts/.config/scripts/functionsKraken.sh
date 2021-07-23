@@ -8,11 +8,11 @@ source $HOME/.dotfiles/allscripts/.config/scripts/kraken/builderFunctions.sh
 [ $(cat /etc/hostname) = mamutal91-v2 ] && HOME=/home/mamutal91
 
 gerrit() {
-  ssh mamutal91@86.109.7.111 "cd /mnt/roms/sites/docker/docker-files/gerrit && sudo ./repl.sh"
+  ssh mamutal91@65.21.193.29 "cd /mnt/roms/sites/docker/docker-files/gerrit && sudo ./repl.sh"
 }
 
 down() {
-  ssh mamutal91@86.109.7.111 "rm -rf /mnt/roms/sites/private/builds/**/*.zip &> /dev/null"
+  ssh mamutal91@65.21.193.29 "rm -rf /mnt/roms/sites/private/builds/**/*.zip &> /dev/null"
 }
 
 push() {
@@ -181,7 +181,7 @@ hals() {
 
     cd $pwd
   else
-    ssh mamutal91@86.109.7.111 "source $HOME/.zshrc && hals"
+    ssh mamutal91@65.21.193.29 "source $HOME/.zshrc && hals"
   fi
 }
 
@@ -195,6 +195,6 @@ www() {
     sudo npm i && sudo npm run build
     cd $HOME
   else
-    ssh mamutal91@86.109.7.111 "source $HOME/.zshrc && www"
+    ssh mamutal91@65.21.193.29 "source $HOME/.zshrc && www"
   fi
 }
