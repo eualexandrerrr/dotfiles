@@ -9,7 +9,7 @@ if [[ ! -f $HOME/.jenkins-cli.jar ]]; then
   mv jenkins-cli.jar .jenkins-cli.jar
 fi
 
-cli="java -jar $HOME/.jenkins-cli.jar -s http://86.109.7.111:8080 -auth ${myUserCI}:${ciKrakenToken} -webSocket"
+cli="java -jar $HOME/.jenkins-cli.jar -s http://75.119.145.181:8090 -auth ${myUserCI}:${ciKrakenToken} -webSocket"
 
 JOB=KrakenDev
 codename=lmi
