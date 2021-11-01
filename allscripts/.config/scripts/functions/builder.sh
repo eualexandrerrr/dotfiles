@@ -27,7 +27,7 @@ s() {
   mkdir -p $rom &> /dev/null
   cd $rom && clear
   nbfc set -s 100
-  repo init -u https://github.com/AOSPK/manifest -b twelve
+  repo init -u ssh://git@github.com/AOSPK-Next/manifest -b twelve
   repo sync -c --no-clone-bundle --current-branch --no-tags --force-sync -j$(nproc --all) 2>&1 | tee log.txt
   if [[ $? -eq 0 ]]; then
     echo "${BOL_GRE}Repo Sync success${END}"

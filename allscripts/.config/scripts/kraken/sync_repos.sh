@@ -2,65 +2,66 @@
 
 source $HOME/.Xcolors &> /dev/null
 
+cd /tmp
+rm -rf aosp.xml custom.xml &> /dev/null
+wget https://raw.githubusercontent.com/AOSPK/manifest/twelve/aosp.xml &> /dev/null
+wget https://raw.githubusercontent.com/AOSPK/manifest/twelve/custom.xml &> /dev/null
+
 clear
 
-replace() {
-  [[ $repoPath == build_make ]] && repoName=build
-  [[ $repoPath == packages_apps_PermissionController ]] && repoName=packages_apps_PackageInstaller
-  [[ $repoPath == vendor_qcom_opensource_commonsys-intf_bluetooth ]] && repoName=vendor_qcom_opensource_bluetooth-commonsys-intf
-  [[ $repoPath == vendor_qcom_opensource_commonsys-intf_display ]] && repoName=vendor_qcom_opensource_display-commonsys-intf
-  [[ $repoPath == vendor_qcom_opensource_commonsys_bluetooth_ext ]] && repoName=vendor_qcom_opensource_bluetooth_ext
-  [[ $repoPath == vendor_qcom_opensource_commonsys_packages_apps_Bluetooth ]] && repoName=vendor_qcom_opensource_packages_apps_Bluetooth
-  [[ $repoPath == vendor_qcom_opensource_commonsys_system_bt ]] && repoName=vendor_qcom_opensource_system_bt
-}
+repoSync() {
+  repo=($(grep -Po 'name=\"\K[^"]+(?=\")' /tmp/${1}.xml))
 
-remote=aospk
-branch=twelve
+  for repo in ${repo[@]}; do
+    branch="twelve"
+    [[ $repo == "aospk" ]] && continue
+    [[ $repo == "aospk-gitlab" ]] && continue
+    [[ $repo == "hub-devices" ]] && continue
+    [[ $repo == "blobs" ]] && continue
+    [[ $repo == "github" ]] && continue
+    [[ $repo == "gitlab" ]] && continue
+    [[ $repo == "manifest" ]] && continue
 
-workingDir=/mnt/roms/jobs/Kraken
-orgDeOrigem=AOSPK
-orgDeDestino=AOSPK-Next
+    [[ $repo == "hardware_qcom_bootctrl" ]] && branch="twelve-caf"
+    [[ $repo == "hardware_qcom_wlan" ]] && branch="twelve-caf"
 
-cd $workingDir
-echo -e '[Repo] $ Syncing...'
+    # Pular esses repositorios se for o custom.xml, no aosp.xml pode sincornizar, pois será a branch principal
+    if [[ ${1} == "custom" ]]; then
+      [[ $repo == "hardware_qcom_audio" ]] && continue
+      [[ $repo == "hardware_qcom_display" ]] && continue
+      [[ $repo == "hardware_qcom_media" ]] && continue
+    fi
 
-repo init -u git://github.com/AOSPK/manifest -b twelve >> /dev/null
-repo sync -c -j$(nproc --all) --no-clone-bundle --current-branch --no-tags --force-sync >> /dev/null
-
-go() {
-  for repo in $(grep "remote=\"${remote}\"" ${workingDir}/manifest/${1}.xml | awk '{print $2 $3}'); do
-    cd $workingDir
-    repoPath=$(echo $repo | cut -d'"' -f2)
-    repoName=$(echo $repo | cut -d'"' -f4)
-
-    replace
-    [[ $repoName == manifest ]] && continue
-    [[ $repoName == device_qcom_sepolicy ]] && continue
-    [[ $repoName == hardware_qcom_audio ]] && continue
-    [[ $repoName == hardware_qcom_bootctrl ]] && continue
-    [[ $repoName == hardware_qcom_bt ]] && continue
-    [[ $repoName == hardware_qcom_display ]] && continue
-    [[ $repoName == hardware_qcom_media ]] && continue
-    [[ $repoName == hardware_qcom_wlan ]] && continue
-    [[ $repoName == vendor_gapps ]] && continue
-    [[ $repoName == vendor_nxp_opensource_halimpl ]] && continue
-    [[ $repoName == vendor_nxp_opensource_hidlimpl ]] && continue
-    [[ $repoName == external_chromium-webview ]] && continue
-
-    # Executar tarefas
-    cd $repoPath
-    echo
-    echo $repoName
-    gh repo create AOSPK/${repoName} --public --confirm &> /dev/null
+    echo -e "\n${BOL_RED}REPO_AOSP : ${BOL_GRE}${repo}${END}"
+    echo -e "${BOL_RED}BRANCH    : ${BOL_GRE}${branch}${END}"
+    cd /tmp
+    rm -rf $repo
+    git clone ssh://git@github.com/AOSPK/${repo} -b ${branch} $repo
+    cd $repo
     gh repo create AOSPK-Next/${repoName} --private --confirm &> /dev/null
-    git remote add old https://github.com/${orgDeOrigem}/${repoName} &> /dev/null
-    git fetch --unshallow old &> /dev/null
-    git push ssh://git@github.com/${orgDeDestino}/${repoName} HEAD:refs/heads/${branch} --force
-    cd $workingDir
+    git push ssh://git@github.com/AOSPK-Next/${repo} HEAD:refs/heads/${branch} --force
   done
 }
 
-go aosp
-go custom
+repoSync custom
+repoSync aosp
 
-cd $pwd
+repoSyncHAL() {
+  hals=($(grep hardware_qcom_audio /tmp/custom.xml | awk '{ print $6 }' | cut -c22-300 | tr -d '"="'))
+
+  for hal in ${hals[@]}; do
+    branch="twelve"
+    repos=('audio' 'media' 'display')
+    for repo in ${repos[@]}; do
+      echo -e "${BOL_RED}REPO_AOSP: ${BOL_GRE}${repo}${END}"
+      cd /tmp
+      rm -rf ${repo}_${branch}-caf-${hal}
+      git clone ssh://git@github.com/AOSPK/hardware_qcom_${repo} -b ${branch}-caf-${hal} ${repo}_${branch}-caf-${hal}
+      cd ${repo}_${branch}-caf-${hal}
+      gh repo create AOSPK-Next/${repoName} --private --confirm &> /dev/null
+      git push ssh://git@github.com/AOSPK-Next/hardware_qcom_${repo} HEAD:refs/heads/${branch}-caf-${hal} --force
+    done
+  done
+}
+
+repoSyncHAL
