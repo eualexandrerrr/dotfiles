@@ -21,20 +21,21 @@ getRepo() {
 }
 
 mc() {
-  echo -e "\n${BOL_MAG}-----------------------------------------\n"
-  echo -e "${BOL_GRE}Changes:${END}"
   lastCommit=$(git log --format="%H" -n 1)
   for i in $(git diff-tree --no-commit-id --name-only -r $lastCommit); do
     cat ${i} | grep 'ARROW\|arrow\|ARROW_\|com.arrow' ${i} &> /dev/null
     if [[ $? -eq 0 ]]; then
+      echo -e "${BOL_GRE}Changes:${END}"
+      haveArrowString=true
       echo -e "${BOL_RED}  * DETECTED:    ${i}${END}"
       ag --color-line-number=30 -i arrow ${i}
+      sed -i "s/.arrow./.kraken./" ${i}
+      sed -i "s/ArrowUtils/KrakenUtils/" ${i}
+      sed -i "s/ARROW/KRAKEN/" ${i}
       echo
-    else
-      echo -e "${BOL_GRE} No detected - ${BOL_CYA}${i}${END}"
     fi
   done
-  echo -e "\n${BOL_MAG}-----------------------------------------\n"
+  [[ $haveArrowString == true ]] && echo -e "\n${BOL_MAG}-----------------------------------------\n"
 }
 
 mmc() {
