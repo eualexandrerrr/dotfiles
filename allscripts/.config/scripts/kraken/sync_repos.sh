@@ -63,10 +63,10 @@ repoSyncHAL() {
     for repo in ${repos[@]}; do
       echo -e "${BOL_RED}REPO_AOSP: ${BOL_GRE}${repo}${END}"
       cd $HOME/tmp
-      rm -rf ${repo}_${branch}-caf-${hal}
-      git clone ssh://git@github.com/AOSPK/hardware_qcom_${repo} -b ${branch}-caf-${hal} ${repo}_${branch}-caf-${hal}
-      cd ${repo}_${branch}-caf-${hal}
-      gh repo create AOSPK-Next/${repo} --private --confirm &> /dev/null
+      rm -rf hardware_qcom_${repo}_${branch}-caf-${hal}
+      git clone ssh://git@github.com/AOSPK/hardware_qcom_${repo} -b ${branch}-caf-${hal} hardware_qcom_${repo}_${branch}-caf-${hal}
+      cd hardware_qcom_${repo}_${branch}-caf-${hal}
+      gh repo create AOSPK-Next/hardware_qcom_${repo} --private --confirm &> /dev/null
       git push ssh://git@github.com/AOSPK-Next/hardware_qcom_${repo} HEAD:refs/heads/${branch}-caf-${hal} --force
     done
   done
