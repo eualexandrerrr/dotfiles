@@ -52,5 +52,4 @@ if [[ $USER == mamutal91 ]]; then
   source $HOME/.config/scripts/functions/builder.sh
   source $HOME/.config/scripts/functions/general.sh
   source $HOME/.config/scripts/functions/git.sh
-  source $HOME/.config/scripts/functions/upstreamAndHals.sh
 fi

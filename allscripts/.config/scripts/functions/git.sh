@@ -71,6 +71,20 @@ gitRules() {
   [[ $repo == buildersbr ]] && buildersbr && exit
   [[ $repo == shellscript-atom-snippets ]] && export ATOM_ACCESS_TOKEN=${atomToken} && apm publish minor && sleep 5 && apm update mamutal91-shellscript-snippets-atom --no-confirm
   [[ $repo == mytokens ]] && cp -rf $HOME/GitHub/mytokens $HOME/.mytokens &> /dev/null
+
+  [[ $repo == hardware_xiaomi ]] && org=AOSPK-Devices && orgBase=ArrowOS-Devices
+  [[ $repo == hardware_motorola ]] && org=AOSPK-Devices && orgBase=ArrowOS-Devices
+  [[ $repo == hardware_oneplus ]] && org=AOSPK-Devices && orgBase=ArrowOS-Devices
+
+  [[ $repo == device_xiaomi_lmi ]] && org=AOSPK-Devices
+  [[ $repo == device_xiaomi_sm8250-common ]] && org=AOSPK-Devices
+  [[ $repo == kernel_xiaomi_sm8250 ]] && org=AOSPK-Devices
+  [[ $repo == vendor_xiaomi_lmi ]] && org=TheBootloops
+  [[ $repo == vendor_xiaomi_sm8250-common ]] && org=TheBootloops
+
+  [[ $repo == hardware_qcom_wlan ]] && branchBase="${branchBase}-caf" && branch="${branch}-caf"
+  [[ $repo == hardware_qcom_bt ]] && branchBase="${branchBase}-caf" && branch="${branch}-caf"
+  [[ $repo == hardware_qcom_bootctrl ]] && branchBase="${branchBase}-caf" && branch="${branch}-caf"
 }
 
 gitBlacklist() {
@@ -93,8 +107,6 @@ f() {
     if [[ $org == AOSPK ]]; then
       git fetch ssh://git@github.com/${1} ${2}
     else
-      gitHost=github
-      [ ${1} = the-muppets/proprietary_vendor_xiaomi ] && gitHost=gitlab
       git fetch https://${gitHost}.com/${1} ${2}
     fi
   fi
@@ -105,26 +117,41 @@ p() {
   if [[ ${argumentPick} == "git" ]]; then
     bash $HOME/.dotfiles/allscripts/.config/scripts/functions/cherry-pick.sh ${1} ${2} ${3} ${4}
     mc
-    breack &> /dev/null
+    return 0
   else
     git cherry-pick ${1}
     mc
   fi
 }
 
-pc() {
-  git add . && git cherry-pick --continue
-  mc
+add() {
+  git add .
 }
 
-rcontinue() {
-  git add . && git rebase --continue
+pc() {
+  if git status | grep cherry-pick;then
+    git add .
+    git cherry-pick --continue
+  else
+    if git status | grep rebase;then
+      git add .
+      git commit --amend
+      git rebase --continue
+    fi
+  fi
+  return 0
   mc
 }
 
 ab() {
-  git cherry-pick --abort
-  git rebase --abort
+  if git status | grep cherry-pick;then
+    git cherry-pick --abort
+  else
+    if git status | grep rebase;then
+      git rebase --abort
+    fi
+  fi
+  return 0
   mc
 }
 
@@ -236,13 +263,11 @@ push() {
 
       [[ $repo == vendor_gapps ]] && gitHost=gitlab
 
-      gh repo create ${org}/${repo} --private --confirm &> /dev/null
       git push ssh://git@${gitHost}.com/${org}/${repo} HEAD:refs/heads/${branch} --force
       gh api -XPATCH "repos/${org}/${repo}" -f default_branch="${branch}" &> /dev/null
 
       if [[ ${2} == main ]]; then
         echo -e " ${BOL_BLU}\nPushing to ${BOL_YEL}AOSPK/${MAG}${repo}${END}\n"
-        gh repo create AOSPK/${repo} --public --confirm &> /dev/null
         git push ssh://git@github.com/AOSPK/${repo} HEAD:refs/heads/${branch} --force
         gh api -XPATCH "repos/AOSPK/${repo}" -f default_branch="${branch}" &> /dev/null
       fi
@@ -312,4 +337,59 @@ push() {
       fi
     fi
   fi
+}
+
+#!/usr/bin/env bash
+
+source $HOME/.Xcolors &> /dev/null
+
+upstream() {
+  workingDir=$(mktemp -d) && cd $workingDir
+
+  branchBase=arrow-12.0
+
+  echo -e "\n${BOL_BLU}Cloning ${BOL_RED}${repo} ${BOL_BLU}branch ${BOL_YEL}${branchBase} ${BOL_BLU}to ${BOL_YEL}${branch}${END}\n"
+  if [[ ${4} == "aosp" ]]; then
+    echo "${BOL_RED}Forget everything above, I'm cloning it is straight from AOSP${END}"
+    repoAOSP=$(echo $repo | sed "s/_/\//g")
+    [[ $repoAOSP == hardware/libhardware/legacy ]] && repoAOSP="hardware/libhardware_legacy"
+    git clone https://android.googlesource.com/platform/${repoAOSP} -b android-12.0.0_r2 ${repo}
+  else
+    git clone https://github.com/${orgBase}/android_${repo} -b ${branchBase} ${repo}
+  fi
+  cd ${repo}
+  repo=$(echo $repo | sed -e "s/arrow/custom/g")
+  repo=$(echo $repo | sed -e "s/Arrow/Custom/g")
+  repo=$(echo $repo | sed -e "s/vendor_custom/vendor_aosp/g")
+  gitRules
+
+  echo -e "\n\n REPO: $repo\n BRANCH: $branch\n ORG: $org\n BASE: $orgBase"
+  gh repo create ${org}/${repo} --public --confirm
+  gh repo create AOSPK-Next/${repo} --private --confirm
+  git push ssh://git@github.com/${org}/${repo} HEAD:refs/heads/${branch} --force
+  git push ssh://git@github.com/AOSPK-Next/${repo} HEAD:refs/heads/${branch} --force
+  gh api -XPATCH "repos/${org}/${repo}" -f default_branch="${branch}" &> /dev/null
+  gh api -XPATCH "repos/AOSPK-Next/${repo}" -f default_branch="${branch}" &> /dev/null
+  rm -rf $workingDir
+}
+
+up() {
+  upstream ${1} arrow-12.0 twelve ${2}
+}
+
+hals() {
+    pwd=$(pwd)
+    branch=(
+      msm8998
+      sdm660
+      sdm845
+      sm8150
+      sm8250
+      sm8350
+    )
+    for i in "${branch[@]}"; do
+      $HOME/.dotfiles/allscripts/.config/scripts/kraken/hal/hal.sh ${i}
+    done
+#    $HOME/.dotfiles/allscripts/.config/scripts/kraken/hal/devicesettings-custom.sh
+    cd $pwd
 }
