@@ -6,6 +6,8 @@ source $HOME/.myTokens/tokens.sh &> /dev/null
 myGitUserFull="Alexandre Rangel <mamutal91@gmail.com>"
 myGitUser="mamutal91"
 
+githost=github
+
 getRepo() {
   repoCheck=$(pwd | cut -c-20)
 
@@ -25,13 +27,10 @@ mc() {
   for i in $(git diff-tree --no-commit-id --name-only -r $lastCommit); do
     cat ${i} | grep 'ARROW\|arrow\|ARROW_\|com.arrow' ${i} &> /dev/null
     if [[ $? -eq 0 ]]; then
-      echo -e "${BOL_GRE}Changes:${END}"
+      echo -e "${BOL_GRE}\nChanges:${END}"
       haveArrowString=true
       echo -e "${BOL_RED}  * DETECTED:    ${i}${END}"
       ag --color-line-number=30 -i arrow ${i}
-      sed -i "s/.arrow./.kraken./" ${i}
-      sed -i "s/ArrowUtils/KrakenUtils/" ${i}
-      sed -i "s/ARROW/KRAKEN/" ${i}
       echo
     fi
   done
@@ -72,6 +71,8 @@ gitRules() {
   [[ $repo == shellscript-atom-snippets ]] && export ATOM_ACCESS_TOKEN=${atomToken} && apm publish minor && sleep 5 && apm update mamutal91-shellscript-snippets-atom --no-confirm
   [[ $repo == mytokens ]] && cp -rf $HOME/GitHub/mytokens $HOME/.mytokens &> /dev/null
 
+  [[ $repo == build_make ]] && repo=build
+
   [[ $repo == hardware_xiaomi ]] && org=AOSPK-Devices && orgBase=ArrowOS-Devices
   [[ $repo == hardware_motorola ]] && org=AOSPK-Devices && orgBase=ArrowOS-Devices
   [[ $repo == hardware_oneplus ]] && org=AOSPK-Devices && orgBase=ArrowOS-Devices
@@ -85,11 +86,13 @@ gitRules() {
   [[ $repo == hardware_qcom_wlan ]] && branchBase="${branchBase}-caf" && branch="${branch}-caf"
   [[ $repo == hardware_qcom_bt ]] && branchBase="${branchBase}-caf" && branch="${branch}-caf"
   [[ $repo == hardware_qcom_bootctrl ]] && branchBase="${branchBase}-caf" && branch="${branch}-caf"
+
+  [[ $repo == vendor_gapps ]] && githost=gitlab && org=AOSPK
 }
 
 gitBlacklist() {
-  [[ $repo == manifest ]] && echo "${BOL_RED}Blacklist detected, no push!!!${END}" && break &> /dev/null
-  [[ $repo == official_devices ]] && echo "${BOL_RED}Blacklist detected, no push!!!${END}" && break &> /dev/null
+  [[ $repo == manifest ]] && echo "${BOL_RED}Blacklist detected, no push!!!${END}" && return 0
+  [[ $repo == official_devices ]] && echo "${BOL_RED}Blacklist detected, no push!!!${END}" && return 0
 }
 
 st()  {
@@ -98,6 +101,7 @@ st()  {
 }
 
 f() {
+  gitRules
   if [[ -z ${1} ]]; then
     repo=$(pwd | cut -c21-300)
     repo=$(echo $repo | sed "s:/:_:g")
@@ -107,7 +111,7 @@ f() {
     if [[ $org == AOSPK ]]; then
       git fetch ssh://git@github.com/${1} ${2}
     else
-      git fetch https://${gitHost}.com/${1} ${2}
+      git fetch https://${githost}.com/${1} ${2}
     fi
   fi
 }
@@ -244,7 +248,7 @@ push() {
     exit 1
   }
 
-  gitHost=github
+  githost=github
   org=AOSPK-Next
   gerrit=gerrit.aospk.org
   branch=twelve
@@ -261,14 +265,12 @@ push() {
       echo -e " ${MAG}REPO    : ${BLU}$repo"
       echo -e " ${MAG}BRANCH  : ${CYA}$branch${END}\n"
 
-      [[ $repo == vendor_gapps ]] && gitHost=gitlab
-
-      git push ssh://git@${gitHost}.com/${org}/${repo} HEAD:refs/heads/${branch} --force
+      git push ssh://git@${githost}.com/${org}/${repo} HEAD:refs/heads/${branch} --force
       gh api -XPATCH "repos/${org}/${repo}" -f default_branch="${branch}" &> /dev/null
 
       if [[ ${2} == main ]]; then
         echo -e " ${BOL_BLU}\nPushing to ${BOL_YEL}AOSPK/${MAG}${repo}${END}\n"
-        git push ssh://git@github.com/AOSPK/${repo} HEAD:refs/heads/${branch} --force
+        git push ssh://git@${githost}.com/AOSPK/${repo} HEAD:refs/heads/${branch} --force
         gh api -XPATCH "repos/AOSPK/${repo}" -f default_branch="${branch}" &> /dev/null
       fi
     fi
@@ -366,8 +368,8 @@ upstream() {
   echo -e "\n\n REPO: $repo\n BRANCH: $branch\n ORG: $org\n BASE: $orgBase"
   gh repo create ${org}/${repo} --public --confirm
   gh repo create AOSPK-Next/${repo} --private --confirm
-  git push ssh://git@github.com/${org}/${repo} HEAD:refs/heads/${branch} --force
-  git push ssh://git@github.com/AOSPK-Next/${repo} HEAD:refs/heads/${branch} --force
+  git push ssh://git@${githost}.com/${org}/${repo} HEAD:refs/heads/${branch} --force
+  git push ssh://git@${githost}.com/AOSPK-Next/${repo} HEAD:refs/heads/${branch} --force
   gh api -XPATCH "repos/${org}/${repo}" -f default_branch="${branch}" &> /dev/null
   gh api -XPATCH "repos/AOSPK-Next/${repo}" -f default_branch="${branch}" &> /dev/null
   rm -rf $workingDir
