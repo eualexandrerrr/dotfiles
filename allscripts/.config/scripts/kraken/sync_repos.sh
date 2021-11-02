@@ -2,7 +2,8 @@
 
 source $HOME/.Xcolors &> /dev/null
 
-cd /tmp
+mkdir -p $HOME/tmp
+cd $HOME/tmp
 rm -rf aosp.xml custom.xml &> /dev/null
 wget https://raw.githubusercontent.com/AOSPK/manifest/twelve/aosp.xml &> /dev/null
 wget https://raw.githubusercontent.com/AOSPK/manifest/twelve/custom.xml &> /dev/null
@@ -10,7 +11,7 @@ wget https://raw.githubusercontent.com/AOSPK/manifest/twelve/custom.xml &> /dev/
 clear
 
 repoSync() {
-  repo=($(grep -Po 'name=\"\K[^"]+(?=\")' /tmp/${1}.xml))
+  repo=($(grep -Po 'name=\"\K[^"]+(?=\")' $HOME/tmp/${1}.xml))
 
   for repo in ${repo[@]}; do
     branch="twelve"
@@ -34,11 +35,11 @@ repoSync() {
 
     echo -e "\n${BOL_RED}REPO_AOSP : ${BOL_GRE}${repo}${END}"
     echo -e "${BOL_RED}BRANCH    : ${BOL_GRE}${branch}${END}"
-    cd /tmp
+    cd $HOME/tmp
     rm -rf $repo
-    git clone ssh://git@github.com/AOSPK/${repo} -b ${branch} $repo
+    git clone ssh://git@github.com/AOSPK/${repo} -b ${branch} $repo --single-branch
     cd $repo
-    gh repo create AOSPK-Next/${repoName} --private --confirm &> /dev/null
+    gh repo create AOSPK-Next/${repo} --private --confirm &> /dev/null
     git push ssh://git@github.com/AOSPK-Next/${repo} HEAD:refs/heads/${branch} --force
   done
 }
@@ -47,18 +48,18 @@ repoSync custom
 repoSync aosp
 
 repoSyncHAL() {
-  hals=($(grep hardware_qcom_audio /tmp/custom.xml | awk '{ print $6 }' | cut -c22-300 | tr -d '"="'))
+  hals=($(grep hardware_qcom_audio $HOME/tmp/custom.xml | awk '{ print $6 }' | cut -c22-300 | tr -d '"="'))
 
   for hal in ${hals[@]}; do
     branch="twelve"
     repos=('audio' 'media' 'display')
     for repo in ${repos[@]}; do
       echo -e "${BOL_RED}REPO_AOSP: ${BOL_GRE}${repo}${END}"
-      cd /tmp
+      cd $HOME/tmp
       rm -rf ${repo}_${branch}-caf-${hal}
       git clone ssh://git@github.com/AOSPK/hardware_qcom_${repo} -b ${branch}-caf-${hal} ${repo}_${branch}-caf-${hal}
       cd ${repo}_${branch}-caf-${hal}
-      gh repo create AOSPK-Next/${repoName} --private --confirm &> /dev/null
+      gh repo create AOSPK-Next/${repo} --private --confirm &> /dev/null
       git push ssh://git@github.com/AOSPK-Next/hardware_qcom_${repo} HEAD:refs/heads/${branch}-caf-${hal} --force
     done
   done
