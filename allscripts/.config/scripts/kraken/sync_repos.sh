@@ -33,6 +33,13 @@ repoSync() {
       [[ $repo == "hardware_qcom_media" ]] && continue
     fi
 
+    [[ $repo == "vendor_gapps" ]] && continue
+    [[ $repo == "vendor_nxp_opensource_hidlimpl" ]] && continue
+    [[ $repo == "vendor_nxp_opensource_halimpl" ]] && continue
+
+    [[ $repo == "frameworks_base" ]] && continue
+    [[ $repo == "packages_apps_Settings" ]] && continue
+
     echo -e "\n${BOL_RED}REPO_AOSP : ${BOL_GRE}${repo}${END}"
     echo -e "${BOL_RED}BRANCH    : ${BOL_GRE}${branch}${END}"
     cd $HOME/tmp
@@ -66,3 +73,15 @@ repoSyncHAL() {
 }
 
 repoSyncHAL
+
+repoBig() {
+  branch=twelve
+  cd $HOME/tmp
+  git clone ssh://git@github.com/AOSPK/${repoBig} -b ${branch} ${repoBig} --single-branch
+  cd ${repoBig}
+  gh repo create AOSPK-Next/${repoBig} --private --confirm &> /dev/null
+  git push ssh://git@github.com/AOSPK-Next/${repoBig} HEAD:refs/heads/${branch} --force
+}
+
+repoBig packages_apps_Settings
+repoBig frameworks_base
