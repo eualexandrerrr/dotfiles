@@ -119,9 +119,10 @@ f() {
 p() {
   argumentPick=${1}
   if [[ ${argumentPick} == "git" ]]; then
-    bash $HOME/.dotfiles/allscripts/.config/scripts/functions/cherry-pick.sh ${1} ${2} ${3} ${4}
+    git fetch ${3} ${4}
+    git cherry-pick FETCH_HEAD
     mc
-    return 0
+    return 1
   else
     git cherry-pick ${1}
     mc
