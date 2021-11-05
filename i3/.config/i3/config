@@ -132,6 +132,8 @@ bindsym XF86MonBrightnessDown exec --no-startup-id echo $((`cat /sys/class/backl
 bindsym $super+Right exec --no-startup-id echo $((`cat /sys/class/backlight/amdgpu_bl1/brightness` + 25)) | sudo tee /sys/class/backlight/amdgpu_bl1/brightness
 bindsym $super+Left exec --no-startup-id echo $((`cat /sys/class/backlight/amdgpu_bl1/brightness` - 25)) | sudo tee /sys/class/backlight/amdgpu_bl1/brightness
 
+bindsym $control+$alt+Delete exec --no-startup-id pkill -15 Xorg
+
 # Screenshot
 bindsym Print exec --no-startup-id $HOME/.config/scripts/screenshot.sh window
 bindsym $control+Print exec --no-startup-id $HOME/.config/scripts/screenshot.sh
