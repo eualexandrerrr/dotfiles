@@ -9,17 +9,9 @@ myGitUser="mamutal91"
 githost=github
 
 getRepo() {
-  repoCheck=$(pwd | cut -c-20)
-
-  if [[ $repoCheck == "/home/mamutal91/GitH" ]]; then
-    repo=$(pwd | cut -c24-300 | sed "s:/:_:g")
-  elif [[ $repoCheck == "/mnt/storage/Kraken/" ]]; then
-    repo=$(pwd | cut -c21-300 | sed "s:/:_:g")
-  elif [[ $repoCheck == "/mnt/roms/Jobs/KrakenD" ]]; then
-    repo=$(pwd | cut -c24-300 | sed "s:/:_:g")
-  else
-    repo=$(pwd | cut -c17-300 | sed "s:/:_:g")
-  fi
+  repo=$(git remote -v | grep AOSPK | awk '{print $2}' | uniq)
+  echo "$repo" | grep -q "AOSPK-Next" && orgRepo=AOSPK-Next || orgRepo=AOSPK
+  repo=$(git remote -v | grep AOSPK | awk '{print $2}' | uniq | sed -e "s|ssh://git@github.com/${orgRepo}/||")
 }
 
 mc() {
