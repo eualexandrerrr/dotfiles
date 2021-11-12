@@ -75,6 +75,7 @@ repoSyncHAL() {
 repoSyncHAL
 
 repoBig() {
+  repoBig=${1}
   branch=twelve
   cd $HOME/tmp
   git clone ssh://git@github.com/AOSPK/${repoBig} -b ${branch} ${repoBig} --single-branch
