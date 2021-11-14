@@ -126,11 +126,11 @@ add() {
 }
 
 pc() {
-  if git status | grep cherry-pick;then
+  if git status | grep cherry-pick; then
     git add .
     git cherry-pick --continue
   else
-    if git status | grep rebase;then
+    if git status | grep rebase; then
       git add .
       git commit --amend
       git rebase --continue
@@ -141,10 +141,10 @@ pc() {
 }
 
 ab() {
-  if git status | grep cherry-pick;then
+  if git status | grep cherry-pick; then
     git cherry-pick --abort
   else
-    if git status | grep rebase;then
+    if git status | grep rebase; then
       git rebase --abort
     fi
   fi
@@ -296,25 +296,26 @@ push() {
       \?) # For invalid option
         usage
         ;;
-      esac
-    done
+    esac
+  done
 
-  if [[ -z ${1} && -d .git ]] ; then
+  if [[ -z ${1} && -d .git ]]; then
     usage
   else
     if [[ ! -d .git ]]; then
       echo -e "${BOL_RED}You are not in a .git repository: ${YEL}$(pwd)${END}\n"
     else
 
-    echo -e " ${BOL_BLU}\nPushing to ${BOL_YEL}${gerrit}/${MAG}${repo}${END}\n"
-    echo -e " ${MAG}PROJECT : ${YEL}$gerrit"
-    echo -e " ${MAG}REPO    : ${BLU}$repo"
-    echo -e " ${MAG}BRANCH  : ${CYA}$branch"
-    [[ ! -z $iDcommit ]] && echo -e " ${MAG}COMMIT  : ${RED}${iDcommit}${END}"
-    [[ ! -z $topicGerrit ]] && echo -e " ${MAG}TOPIC   : ${RED}${topicGerrit}${END}\n" || echo -e " ${MAG}TOPIC   : ${RED}null${END}"
+      echo -e " ${BOL_BLU}\nPushing to ${BOL_YEL}${gerrit}/${MAG}${repo}${END}\n"
+      echo -e " ${MAG}PROJECT : ${YEL}$gerrit"
+      echo -e " ${MAG}REPO    : ${BLU}$repo"
+      echo -e " ${MAG}BRANCH  : ${CYA}$branch"
+      [[ -n $iDcommit ]] && echo -e " ${MAG}COMMIT  : ${RED}${iDcommit}${END}"
+      [[ -n $topicGerrit ]] && echo -e " ${MAG}TOPIC   : ${RED}${topicGerrit}${END}\n" || echo -e " ${MAG}TOPIC   : ${RED}null${END}"
 
-    gitdir=$(git rev-parse --git-dir); scp -p -P 29418 ${myGitUser}@${gerrit}:hooks/commit-msg ${gitdir}/hooks/ &> /dev/null
-    git commit --amend --no-edit &> /dev/null
+      gitdir=$(git rev-parse --git-dir)
+                                       scp -p -P 29418 ${myGitUser}@${gerrit}:hooks/commit-msg ${gitdir}/hooks/ &> /dev/null
+      git commit --amend --no-edit &> /dev/null
 
       [[ -z $iDcommit ]] && optHead=HEAD || optHead=$iDcommit
 
@@ -325,7 +326,7 @@ push() {
           git push ssh://${myGitUser}@${gerrit}:29418/${repo} ${optHead}:refs/for/${branch}%topic=$topicGerrit
         fi
       else
-        if [[ ! -z $topicGerrit ]]; then
+        if [[ -n $topicGerrit   ]]; then
           argsGerrit=$(echo $argsGerrit,topic=$topicGerrit)
         fi
         git push ssh://${myGitUser}@${gerrit}:29418/${repo} ${optHead}:refs/for/${branch}%${argsGerrit}
@@ -341,7 +342,13 @@ source $HOME/.Xcolors &> /dev/null
 upstream() {
   workingDir=$(mktemp -d) && cd $workingDir
 
-  branchBase=arrow-12.0
+  repo=${1}
+
+  orgBase=ArrowOS
+  branchBase=${2}
+  branch=${3}
+  org=AOSPK
+  githost=github
 
   echo -e "\n${BOL_BLU}Cloning ${BOL_RED}${repo} ${BOL_BLU}branch ${BOL_YEL}${branchBase} ${BOL_BLU}to ${BOL_YEL}${branch}${END}\n"
   if [[ ${4} == "aosp" ]]; then
@@ -381,10 +388,10 @@ hals() {
       sm8150
       sm8250
       sm8350
-    )
+  )
     for i in "${branch[@]}"; do
       $HOME/.dotfiles/allscripts/.config/scripts/kraken/hal/hal.sh ${i}
-    done
-#    $HOME/.dotfiles/allscripts/.config/scripts/kraken/hal/devicesettings-custom.sh
+  done
+  #    $HOME/.dotfiles/allscripts/.config/scripts/kraken/hal/devicesettings-custom.sh
     cd $pwd
 }
