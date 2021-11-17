@@ -97,13 +97,11 @@ dot() {
   else
     echo -e "\n${BLU}Recloning ${CYA}dotfiles ${BLU}to have the latest changes...${END}"
     #    ssh mamutal91@88.99.4.77 "cd $HOME && rm -rf .dotfiles && git clone ssh://git@github.com/mamutal91/dotfiles .dotfiles && bash $HOME/.dotfiles/install.sh && source $HOME/.zshrc"
-    #    ssh mamutal91@138.201.224.156 "cd $HOME && rm -rf .dotfiles && git clone ssh://git@github.com/mamutal91/dotfiles .dotfiles && bash $HOME/.dotfiles/install.sh && source $HOME/.zshrc"
   fi
 }
 
 bkp() {
   bash $HOME/.config/scripts/gitcron.sh
-  ssh mamutal91@88.99.4.77 "bash $HOME/.config/scripts/gitcron.sh"
 }
 
 update() {
