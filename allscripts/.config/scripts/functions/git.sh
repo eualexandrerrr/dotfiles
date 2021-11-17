@@ -235,6 +235,7 @@ push() {
     echo -e "              -c [Specific SHA ID commit]"
     echo -e "              -n [Nothin]"
     echo -e "              -p [Specifc project]"
+    echo -e "              -f [AOSPK-Next]"
     echo -e "${BOL_RED}              Use Project, example: ${BOL_YEL}: push gerrit -p ArrowOS arrow-12.0 topic"
     echo -e "${END}"
     exit 1
@@ -260,7 +261,9 @@ push() {
       git push ssh://git@${githost}.com/${org}/${repo} HEAD:refs/heads/${branch} --force
       gh api -XPATCH "repos/${org}/${repo}" -f default_branch="${branch}" &> /dev/null
 
-      if [[ ${2} == main ]]; then
+      argMain=${2}
+      argMain=main
+      if [[ $argMain == main ]]; then
         echo -e " ${BOL_BLU}\nPushing to ${BOL_YEL}AOSPK/${MAG}${repo}${END}\n"
         git push ssh://git@${githost}.com/AOSPK/${repo} HEAD:refs/heads/${branch} --force
         gh api -XPATCH "repos/AOSPK/${repo}" -f default_branch="${branch}" &> /dev/null
