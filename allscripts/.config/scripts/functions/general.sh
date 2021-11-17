@@ -38,13 +38,13 @@ jenkins() {
 }
 
 dockerfiles() {
-  echo -e "\n${BLU}Recloning ${CYA}docker-files ${BLU}to have the latest changes...${END}"
-  ssh mamutal91@88.99.4.77 "cd $HOME && sudo rm -rf /mnt/docker-files && git clone ssh://git@github.com/AOSPK/docker-files /mnt/docker-files && source $HOME/.zshrc && jenkins &> /dev/null"
+  #  echo -e "\n${BLU}Recloning ${CYA}docker-files ${BLU}to have the latest changes...${END}"
+  #  ssh mamutal91@88.99.4.77 "cd $HOME && sudo rm -rf /mnt/docker-files && git clone ssh://git@github.com/AOSPK/docker-files /mnt/docker-files && source $HOME/.zshrc && jenkins &> /dev/null"
 }
 
 buildersbr() {
-  echo -e "\n${BLU}Recloning ${CYA}buildersbr ${BLU}to have the latest changes...${END}"
-  ssh mamutal91@138.201.224.156 "cd $HOME && sudo rm -rf /mnt/roms/buildersbr && git clone ssh://git@github.com/buildersbr/buildersbr /mnt/roms/buildersbr"
+  #  echo -e "\n${BLU}Recloning ${CYA}buildersbr ${BLU}to have the latest changes...${END}"
+  #  ssh mamutal91@138.201.224.156 "cd $HOME && sudo rm -rf /mnt/roms/buildersbr && git clone ssh://git@github.com/buildersbr/buildersbr /mnt/roms/buildersbr"
 }
 
 www() {
@@ -105,8 +105,8 @@ dot() {
     cd $HOME && rm -rf .dotfiles && git clone ssh://git@github.com/mamutal91/dotfiles .dotfiles && source $HOME/.zshrc
   else
     echo -e "\n${BLU}Recloning ${CYA}dotfiles ${BLU}to have the latest changes...${END}"
-    ssh mamutal91@88.99.4.77 "cd $HOME && rm -rf .dotfiles && git clone ssh://git@github.com/mamutal91/dotfiles .dotfiles && bash $HOME/.dotfiles/install.sh && source $HOME/.zshrc"
-    ssh mamutal91@138.201.224.156 "cd $HOME && rm -rf .dotfiles && git clone ssh://git@github.com/mamutal91/dotfiles .dotfiles && bash $HOME/.dotfiles/install.sh && source $HOME/.zshrc"
+    #    ssh mamutal91@88.99.4.77 "cd $HOME && rm -rf .dotfiles && git clone ssh://git@github.com/mamutal91/dotfiles .dotfiles && bash $HOME/.dotfiles/install.sh && source $HOME/.zshrc"
+    #    ssh mamutal91@138.201.224.156 "cd $HOME && rm -rf .dotfiles && git clone ssh://git@github.com/mamutal91/dotfiles .dotfiles && bash $HOME/.dotfiles/install.sh && source $HOME/.zshrc"
   fi
 }
 
