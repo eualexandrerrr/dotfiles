@@ -59,7 +59,6 @@ mmc() {
 gitRules() {
   [[ $repo == .dotfiles ]] && dot && exit
   [[ $repo == docker-files ]] && dockerfiles && exit
-  [[ $repo == buildersbr ]] && buildersbr && exit
   [[ $repo == shellscript-atom-snippets ]] && export ATOM_ACCESS_TOKEN=${atomToken} && apm publish minor && sleep 5 && apm update mamutal91-shellscript-snippets-atom --no-confirm
   [[ $repo == mytokens ]] && cp -rf $HOME/GitHub/mytokens $HOME/.mytokens &> /dev/null
 
