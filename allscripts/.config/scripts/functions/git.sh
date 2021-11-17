@@ -366,7 +366,11 @@ upstream() {
   gitRules
 
   echo -e "\n\n REPO: $repo\n BRANCH: $branch\n ORG: $org\n BASE: $orgBase"
-  gh repo create ${org}/${repo} --public --confirm
+  if wget https://github.com/$org/$repo --no-check-certificate -o /dev/null; then
+    echo Repo already exist
+  else
+    gh repo create ${org}/${repo} --public --confirm
+  fi
   gh repo create AOSPK-Next/${repo} --private --confirm
   git push ssh://git@${githost}.com/${org}/${repo} HEAD:refs/heads/${branch} --force
   git push ssh://git@${githost}.com/AOSPK-Next/${repo} HEAD:refs/heads/${branch} --force
