@@ -27,15 +27,9 @@ newuser() {
   sudo chmod 600 ${user}/.ssh/authorized_keys &> /dev/null
 }
 
-jenkins() {
-  cd /mnt/docker-files/jenkins
-  docker-compose build
-  docker-compose up -d
-}
-
 dockerfiles() {
   echo -e "\n${BLU}Recloning ${CYA}docker-files ${BLU}to have the latest changes...${END}"
-  ssh mamutal91@88.198.53.190 "cd $HOME && sudo rm -rf /mnt/docker-files && git clone ssh://git@github.com/AOSPK/docker-files /mnt/docker-files && source $HOME/.zshrc && jenkins &> /dev/null"
+  ssh mamutal91@88.198.53.190 "cd $HOME && sudo rm -rf /mnt/docker-files && git clone ssh://git@github.com/AOSPK/docker-files /mnt/docker-files"
 }
 
 www() {
