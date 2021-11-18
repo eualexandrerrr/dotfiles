@@ -34,8 +34,8 @@ jenkins() {
 }
 
 dockerfiles() {
-  #  echo -e "\n${BLU}Recloning ${CYA}docker-files ${BLU}to have the latest changes...${END}"
-  #  ssh mamutal91@88.99.4.77 "cd $HOME && sudo rm -rf /mnt/docker-files && git clone ssh://git@github.com/AOSPK/docker-files /mnt/docker-files && source $HOME/.zshrc && jenkins &> /dev/null"
+  echo -e "\n${BLU}Recloning ${CYA}docker-files ${BLU}to have the latest changes...${END}"
+  ssh mamutal91@88.198.53.190 "cd $HOME && sudo rm -rf /mnt/docker-files && git clone ssh://git@github.com/AOSPK/docker-files /mnt/docker-files && source $HOME/.zshrc && jenkins &> /dev/null"
 }
 
 www() {
@@ -51,7 +51,7 @@ www() {
 }
 
 gerrit() {
-  ssh mamutal91@88.99.4.77 "cd /mnt/docker-files/gerrit && sudo docker-compose build && sudo docker-compose up -d"
+  ssh mamutal91@88.198.53.190 "cd /mnt/docker-files/gerrit && sudo docker-compose build && sudo docker-compose up -d"
 }
 
 qemu() {
@@ -96,7 +96,7 @@ dot() {
     cd $HOME && rm -rf .dotfiles && git clone ssh://git@github.com/mamutal91/dotfiles .dotfiles && source $HOME/.zshrc
   else
     echo -e "\n${BLU}Recloning ${CYA}dotfiles ${BLU}to have the latest changes...${END}"
-    #    ssh mamutal91@88.99.4.77 "cd $HOME && rm -rf .dotfiles && git clone ssh://git@github.com/mamutal91/dotfiles .dotfiles && bash $HOME/.dotfiles/install.sh && source $HOME/.zshrc"
+    ssh mamutal91@88.198.53.190 "cd $HOME && rm -rf .dotfiles && git clone ssh://git@github.com/mamutal91/dotfiles .dotfiles && bash $HOME/.dotfiles/install.sh && source $HOME/.zshrc"
   fi
 }
 

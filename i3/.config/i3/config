@@ -99,7 +99,6 @@ bindsym $control+$shift+r mode "resize"
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 exec_always --no-startup-id $HOME/.config/scripts/battery.sh
 exec_always --no-startup-id feh --bg-fill $HOME/.config/assets/wallpapers/neon.png
-exec --no-startup-id fc-cache -f -r -v
 exec_always --no-startup-id picom --config $HOME/.config/picom/picom.conf
 exec_always --no-startup-id dunst -config $HOME/.config/dunst/dunstrc &
 exec_always --no-startup-id nbfc set -s 50
@@ -157,7 +156,7 @@ bindsym $control+$shift+k exec --no-startup-id $HOME/.config/rofi/applets/screen
 
 bindsym $super+BackSpace exec --no-startup-id alacritty -t testingscript -e $HOME/.config/scripts/scripter.sh &
 bindsym $super+k exec --no-startup-id $HOME/.config/scripts/ciMenu.sh &
-bindsym F10 exec --no-startup-id $HOME/.config/scripts/myMenu.sh &
+#bindsym F10 exec --no-startup-id $HOME/.config/scripts/myMenu.sh &
 bindsym F11 exec --no-startup-id $HOME/.dotfiles/install.sh
 
 # Get rules

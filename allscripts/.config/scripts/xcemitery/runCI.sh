@@ -3,7 +3,7 @@
 source $HOME/.Xcolors &> /dev/null
 source $HOME/.myTokens/tokens.sh &> /dev/null
 
-IP=88.99.4.77:8080
+IP=88.198.53.190:8080
 
 if [[ ! -f $HOME/.jenkins-cli.jar ]]; then
   cd $HOME
