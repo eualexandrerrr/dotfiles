@@ -45,7 +45,7 @@ lunchC() {
 }
 
 apkAndimg() {
-  pathPrebuilts=$HOME/Builds
+  pathPrebuilts=/mnt/storage/Builds
   rm -rf ${pathPrebuilts}/{apk,img} &> /dev/null
   mkdir -p ${pathPrebuilts}/{apk,apk/accents,apk/overlay,img} &> /dev/null
   rm -rf obj/*/*/*.apk
