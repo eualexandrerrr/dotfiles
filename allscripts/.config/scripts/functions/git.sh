@@ -262,7 +262,6 @@ push() {
       gh api -XPATCH "repos/${org}/${repo}" -f default_branch="${branch}" &> /dev/null
 
       argMain=${2}
-      argMain=main
       if [[ $argMain == main ]]; then
         echo -e " ${BOL_BLU}\nPushing to ${BOL_YEL}AOSPK/${MAG}${repo}${END}\n"
         git push ssh://git@${githost}.com/AOSPK/${repo} HEAD:refs/heads/${branch} --force
