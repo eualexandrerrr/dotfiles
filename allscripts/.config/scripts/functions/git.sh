@@ -345,20 +345,33 @@ upstream() {
 
   repo=${1}
 
-  orgBase=ArrowOS
+  orgBaseName=ArrowOS
+  orgBase=ArrowOS/android_
   branchBase=${2}
   branch=${3}
   org=AOSPK
   githost=github
 
-  echo -e "\n${BOL_BLU}Cloning ${BOL_RED}${repo} ${BOL_BLU}branch ${BOL_YEL}${branchBase} ${BOL_BLU}to ${BOL_YEL}${branch}${END}\n"
+  if [[ ${4} == "pe" ]]; then
+    orgBaseName=PixelExperience
+    orgBase=PixelExperience/
+    branchBase=twelve
+  fi
+
+  if [[ ${4} == "los" ]]; then
+    orgBaseName=LineageOS
+    orgBase=LineageOS/android_
+    branchBase=lineage-19.0
+  fi
+
+  echo -e "\n${BOL_BLU}Cloning ${BOL_MAG}${orgBaseName}/${BOL_RED}${repo} ${BOL_BLU}branch ${BOL_YEL}${branchBase} ${BOL_BLU}to ${BOL_YEL}${branch}${END}\n"
   if [[ ${4} == "aosp" ]]; then
     echo "${BOL_RED}Forget everything above, I'm cloning it is straight from AOSP${END}"
     repoAOSP=$(echo $repo | sed "s/_/\//g")
     [[ $repoAOSP == hardware/libhardware/legacy ]] && repoAOSP="hardware/libhardware_legacy"
     git clone https://android.googlesource.com/platform/${repoAOSP} -b android-12.0.0_r2 ${repo}
   else
-    git clone https://github.com/${orgBase}/android_${repo} -b ${branchBase} ${repo}
+    git clone https://github.com/${orgBase}${repo} -b ${branchBase} ${repo} --single-branch
   fi
   cd ${repo}
   repo=$(echo $repo | sed -e "s/arrow/custom/g")
@@ -366,7 +379,6 @@ upstream() {
   repo=$(echo $repo | sed -e "s/vendor_custom/vendor_aosp/g")
   gitRules
 
-  echo -e "\n\n REPO: $repo\n BRANCH: $branch\n ORG: $org\n BASE: $orgBase"
   if wget https://github.com/$org/$repo --no-check-certificate -o /dev/null; then
     echo Repo already exist
   else

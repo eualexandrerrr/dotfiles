@@ -78,6 +78,7 @@ repoBig() {
   repoBig=${1}
   branch=twelve
   cd $HOME/tmp
+  rm -rf ${repoBig}
   git clone ssh://git@github.com/AOSPK/${repoBig} -b ${branch} ${repoBig} --single-branch
   cd ${repoBig}
   gh repo create AOSPK-Next/${repoBig} --private --confirm &> /dev/null
