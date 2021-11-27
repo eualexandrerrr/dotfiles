@@ -54,7 +54,7 @@ qemu() {
 
 sideload() {
   buildHour=${1}
-  pathBuilds=/mnt/storage/Builds
+  pathBuilds=/mnt/nvme/Builds
   if [[ -z ${1} ]]; then
     clear
     ls -1 $pathBuilds

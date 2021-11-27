@@ -175,7 +175,7 @@ gitpush() {
   repo=${PWD##*/}
   pwd=$(pwd | cut -c-19)
 
-  if [[ $pwd == /mnt/storage/Kraken ]]; then
+  if [[ $pwd == /mnt/nvme/Kraken ]]; then
     echo "\n${BOL_RED}No push!${END}\n"
   else
     if [[ ${1} == force ]]; then

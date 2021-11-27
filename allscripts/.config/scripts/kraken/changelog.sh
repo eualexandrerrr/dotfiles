@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-cd /mnt/storage/Kraken
+cd /mnt/nvme/Kraken
 
 changelog=changelog.txt
 

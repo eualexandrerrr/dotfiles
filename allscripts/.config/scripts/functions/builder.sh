@@ -3,7 +3,7 @@
 source $HOME/.Xcolors &> /dev/null
 source $HOME/.myTokens/tokens.sh &> /dev/null
 
-rom="/mnt/storage/Kraken"
+rom="/mnt/nvme/Kraken"
 codename=lmi
 buildtype=userdebug
 
@@ -15,10 +15,10 @@ argsC() {
 ccacheC() {
   export USE_CCACHE=1
   export CCACHE_EXEC=/usr/bin/ccache
-  export CCACHE_DIR=/mnt/storage/ccache
+  export CCACHE_DIR=/mnt/nvme/ccache
   ccache -M 100G -F 0
   sudo mkdir -p /home/mamutal91/.ccache &> /dev/null
-  sudo mount --bind /mnt/storage/ccache ~/.ccache
+  sudo mount --bind /mnt/nvme/ccache ~/.ccache
 }
 
 s() {
@@ -45,7 +45,7 @@ lunchC() {
 }
 
 apkAndimg() {
-  pathPrebuilts=/mnt/storage/Builds
+  pathPrebuilts=/mnt/nvme/Builds
   rm -rf ${pathPrebuilts}/{apk,img} &> /dev/null
   mkdir -p ${pathPrebuilts}/{apk,apk/accents,apk/overlay,img} &> /dev/null
   rm -rf obj/*/*/*.apk
@@ -59,12 +59,12 @@ apkAndimg() {
 
 moveBuild() {
   pwd=$(pwd)
-  pathBuilds=/mnt/storage/Builds
+  pathBuilds=/mnt/nvme/Builds
   mkdir -p $pathBuilds
-  cd /mnt/storage/Kraken/out/target/product/lmi
+  cd /mnt/nvme/Kraken/out/target/product/lmi
   mv Kraken-12-*-*.zip $pathBuilds
   apkAndimg &> /dev/null
-  rm -rf /mnt/storage/Kraken/out/target/product/lmi/{*.md5sum,*.json}
+  rm -rf /mnt/nvme/Kraken/out/target/product/lmi/{*.md5sum,*.json}
   cd $pwd
 }
 
