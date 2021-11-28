@@ -7,11 +7,6 @@ rom="/mnt/nvme/Kraken"
 codename=lmi
 buildtype=userdebug
 
-argsC() {
-  export TARGET_BOOT_ANIMATION_RES=1080
-  export KRAKEN_BUILD_TYPE=OFFICIAL
-}
-
 ccacheC() {
   export USE_CCACHE=1
   export CCACHE_EXEC=/usr/bin/ccache
@@ -74,7 +69,6 @@ b() {
   cd $rom && clear
   nbfc set -s 100
   cp -rf log.txt old_log.txt
-  argsC
   ccacheC &> /dev/null
   task=${1}
   [[ -z $task ]] && task=bacon
@@ -130,7 +124,6 @@ b() {
 clean() {
   cd $rom && clear
   nbfc set -s 100
-  argsC
   lunchC
   if [[ ${1} == "-f" ]]; then
     echo -e "${BOL_MAG}make clean${END}"
