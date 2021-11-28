@@ -12,8 +12,6 @@ if [[ ! -d $HOME/.dotfiles ]]; then
   exit
 fi
 
-sudo pacman -Syyu --noconfirm
-
 # Install YAY AUR Manager
 if [[ ! -f $(which yay) ]]; then
   pwd=$(pwd)
@@ -21,6 +19,9 @@ if [[ ! -f $(which yay) ]]; then
   rm -rf $HOME/yay && git clone https://aur.archlinux.org/yay.git $HOME/yay && cd $HOME/yay && makepkg -si --noconfirm && rm -rf $HOME/yay
   cd $pwd
 fi
+
+# pacman keys
+sudo pacman-key --populate archlinux
 
 # Load packages
 source $HOME/.dotfiles/setup/packages.sh
