@@ -2,7 +2,7 @@
 
 clear
 
-sudo pacman -Syyu
+sudo pacman -Syyu --noconfirm
 
 aospPkgs=(
   base-devel repo android-tools android-udev git wget multilib-devel cmake svn clang lzip patchelf inetutils python2-distlib
