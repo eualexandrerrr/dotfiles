@@ -32,11 +32,10 @@ set $ws7 "7 "
 set $ws8 "8 "
 set $ws9 "9 "
 
-# Use $super+Mouse to drag floating windows to their wanted position
-floating_modifier $super
+# Use $alt+Mouse to drag floating windows to their wanted position
+floating_modifier $alt
 
 # Close window
-bindsym $super+w kill
 bindsym $alt+w kill
 
 # Move windows
@@ -46,21 +45,21 @@ bindsym $control+$shift+Up move up
 bindsym $control+$shift+Right move right
 
 # Enter fullscreen mode with window focused
-bindsym $super+f fullscreen toggle
+bindsym $alt+f fullscreen toggle
 
 # Floating window
 bindsym $control+$shift+space floating toggle
 
 # Workspaces
-bindsym $super+1 workspace $ws1
-bindsym $super+2 workspace $ws2
-bindsym $super+3 workspace $ws3
-bindsym $super+4 workspace $ws4
-bindsym $super+5 workspace $ws5
-bindsym $super+6 workspace $ws6
-bindsym $super+7 workspace $ws7
-bindsym $super+8 workspace $ws8
-bindsym $super+9 workspace $ws9
+bindsym $alt+1 workspace $ws1
+bindsym $alt+2 workspace $ws2
+bindsym $alt+3 workspace $ws3
+bindsym $alt+4 workspace $ws4
+bindsym $alt+5 workspace $ws5
+bindsym $alt+6 workspace $ws6
+bindsym $alt+7 workspace $ws7
+bindsym $alt+8 workspace $ws8
+bindsym $alt+9 workspace $ws9
 
 # Move to workspace
 bindsym $control+$shift+1 move container to workspace $ws1; workspace $ws1
@@ -74,7 +73,6 @@ bindsym $control+$shift+8 move container to workspace $ws8; workspace $ws8
 bindsym $control+$shift+9 move container to workspace $ws9; workspace $ws9
 
 # Next workspaces
-bindsym $super+Tab workspace next
 bindsym $alt+Tab workspace next
 
 # i3-gaps
@@ -122,40 +120,40 @@ exec --no-startup-id gsettings set org.gnome.desktop.interface monospace-font-na
 # Audio/Brightness Control
 bindsym XF86AudioRaiseVolume exec --no-startup-id "pactl set-sink-mute @DEFAULT_SINK@ false; pactl set-sink-volume @DEFAULT_SINK@ +5%"
 bindsym XF86AudioLowerVolume exec --no-startup-id "pactl set-sink-mute @DEFAULT_SINK@ false; pactl set-sink-volume @DEFAULT_SINK@ -5%"
-bindsym $super+Up exec --no-startup-id "pactl set-sink-mute @DEFAULT_SINK@ false; pactl set-sink-volume @DEFAULT_SINK@ +5%"
-bindsym $super+Down exec --no-startup-id "pactl set-sink-mute @DEFAULT_SINK@ false; pactl set-sink-volume @DEFAULT_SINK@ -5%"
+bindsym $alt+Up exec --no-startup-id "pactl set-sink-mute @DEFAULT_SINK@ false; pactl set-sink-volume @DEFAULT_SINK@ +5%"
+bindsym $alt+Down exec --no-startup-id "pactl set-sink-mute @DEFAULT_SINK@ false; pactl set-sink-volume @DEFAULT_SINK@ -5%"
 bindsym XF86AudioMute exec --no-startup-id "pactl set-sink-mute 0 toggle"
 
 bindsym XF86MonBrightnessUp exec --no-startup-id echo $((`cat /sys/class/backlight/amdgpu_bl1/brightness` + 25)) | sudo tee /sys/class/backlight/amdgpu_bl1/brightness
 bindsym XF86MonBrightnessDown exec --no-startup-id echo $((`cat /sys/class/backlight/amdgpu_bl1/brightness` - 25)) | sudo tee /sys/class/backlight/amdgpu_bl1/brightness
-bindsym $super+Right exec --no-startup-id echo $((`cat /sys/class/backlight/amdgpu_bl1/brightness` + 25)) | sudo tee /sys/class/backlight/amdgpu_bl1/brightness
-bindsym $super+Left exec --no-startup-id echo $((`cat /sys/class/backlight/amdgpu_bl1/brightness` - 25)) | sudo tee /sys/class/backlight/amdgpu_bl1/brightness
+bindsym $alt+Right exec --no-startup-id echo $((`cat /sys/class/backlight/amdgpu_bl1/brightness` + 25)) | sudo tee /sys/class/backlight/amdgpu_bl1/brightness
+bindsym $alt+Left exec --no-startup-id echo $((`cat /sys/class/backlight/amdgpu_bl1/brightness` - 25)) | sudo tee /sys/class/backlight/amdgpu_bl1/brightness
 
 bindsym $control+$alt+Delete exec --no-startup-id pkill -15 Xorg
 
 # Screenshot
 bindsym Print exec --no-startup-id $HOME/.config/scripts/screenshot.sh window
 bindsym $control+Print exec --no-startup-id $HOME/.config/scripts/screenshot.sh
-bindsym $super+Print exec --no-startup-id $HOME/.config/scripts/screenshot.sh
+bindsym $alt+Print exec --no-startup-id $HOME/.config/scripts/screenshot.sh
 
 # Application shortcuts
-bindsym $super+Return exec --no-startup-id alacritty &; workspace $ws1
-bindsym $super+e exec --no-startup-id thunar &; workspace $ws7
-bindsym $super+F2 exec --no-startup-id google-chrome-stable &; workspace $ws2
-bindsym $super+F3 exec --no-startup-id telegram-desktop &; workspace $ws4
+bindsym $alt+Return exec --no-startup-id alacritty &; workspace $ws1
+bindsym $alt+e exec --no-startup-id thunar &; workspace $ws7
+bindsym $alt+F2 exec --no-startup-id google-chrome-stable &; workspace $ws2
+bindsym $alt+F3 exec --no-startup-id telegram-desktop &; workspace $ws4
 
 # System shortcuts
-bindsym $super+d exec --no-startup-id $HOME/.config/rofi/applets/quicklinks.sh
+bindsym $alt+d exec --no-startup-id $HOME/.config/rofi/applets/quicklinks.sh
 
-bindsym $super+b exec --no-startup-id $HOME/.config/rofi/applets/bluetooth.sh
-bindsym $super+m exec --no-startup-id $HOME/.config/rofi/applets/mpd.sh
-bindsym $super+n exec --no-startup-id $HOME/.config/rofi/applets/networks.sh
-bindsym $super+p exec --no-startup-id $HOME/.config/rofi/applets/powermenu.sh
-bindsym $super+h exec --no-startup-id $HOME/.config/rofi/applets/time.sh
+bindsym $alt+b exec --no-startup-id $HOME/.config/rofi/applets/bluetooth.sh
+bindsym $alt+m exec --no-startup-id $HOME/.config/rofi/applets/mpd.sh
+bindsym $alt+n exec --no-startup-id $HOME/.config/rofi/applets/networks.sh
+bindsym $alt+p exec --no-startup-id $HOME/.config/rofi/applets/powermenu.sh
+bindsym $alt+h exec --no-startup-id $HOME/.config/rofi/applets/time.sh
 bindsym $control+$shift+k exec --no-startup-id $HOME/.config/rofi/applets/screencast.sh
 
-bindsym $super+BackSpace exec --no-startup-id alacritty -t testingscript -e $HOME/.config/scripts/scripter.sh &
-bindsym $super+k exec --no-startup-id $HOME/.config/scripts/ciMenu.sh &
+bindsym $alt+BackSpace exec --no-startup-id alacritty -t testingscript -e $HOME/.config/scripts/scripter.sh &
+bindsym $alt+k exec --no-startup-id $HOME/.config/scripts/ciMenu.sh &
 bindsym F10 exec --no-startup-id $HOME/.config/scripts/myMenu.sh &
 bindsym F11 exec --no-startup-id $HOME/.dotfiles/install.sh
 
