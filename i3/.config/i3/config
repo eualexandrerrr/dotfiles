@@ -153,7 +153,6 @@ bindsym $alt+h exec --no-startup-id $HOME/.config/rofi/applets/time.sh
 bindsym $control+$shift+k exec --no-startup-id $HOME/.config/rofi/applets/screencast.sh
 
 bindsym $alt+BackSpace exec --no-startup-id alacritty -t testingscript -e $HOME/.config/scripts/scripter.sh &
-bindsym $alt+k exec --no-startup-id $HOME/.config/scripts/ciMenu.sh &
 bindsym F10 exec --no-startup-id $HOME/.config/scripts/myMenu.sh &
 bindsym F11 exec --no-startup-id $HOME/.dotfiles/install.sh
 
