@@ -6,7 +6,7 @@ sudo pacman -Syyu --noconfirm
 
 aospPkgs=(
   base-devel repo android-tools android-udev git wget multilib-devel cmake svn clang lzip patchelf inetutils python2-distlib
-  ncurses5-compat-libs lib32-ncurses5-compat-libs aosp-devel xml2 lineageos-devel android-tools android-udev
+  ncurses5-compat-libs lib32-ncurses5-compat-libs aosp-devel xml2 lineageos-devel android-tools android-udev ccache
 )
 
 aurMsg() {
