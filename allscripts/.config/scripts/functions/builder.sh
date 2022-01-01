@@ -86,7 +86,13 @@ b() {
   makeC() {
     [[ -z $task ]] && task=bacon
     make -j${cores} ${task} 2>&1 | tee log.txt
-    if [[ $? -eq 0 ]]; then
+
+    buildResult=SUCCESS
+    logBuild=$(grep '####' $rom/log.txt)
+    [[ $(echo $logBuild | grep "failed") ]] && buildResult=FAILED
+    [[ $(echo $logBuild | grep "success") ]] && buildResult=SUCCESS
+
+    if [[ $buildResult == "SUCCESS" ]]; then
       echo "${BOL_GRE}Build success${END}"
       moveBuild &> /dev/null
       dunstify -i $iconSuccess "Builder" "Build success"
