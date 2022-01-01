@@ -16,7 +16,7 @@ mc() {
   if echo $PWD | grep "$HOME/Kraken" &> /dev/null; then
     lastCommit=$(git log --format="%H" -n 1)
     for i in $(git diff-tree --no-commit-id --name-only -r $lastCommit); do
-      cat ${i} | grep 'ARROW\|arrow\|ARROW_\|com.arrow' ${i} &> /dev/null
+      cat ${i} | grep 'ARROW\|arrow\|ARROW_\|org.pixelexperience' ${i} &> /dev/null
       if [[ $? -eq 0 ]]; then
         echo -e "${BOL_GRE}\nChanges:${END}"
         haveArrowString=true
@@ -353,24 +353,21 @@ push() {
   fi
 }
 
-#!/usr/bin/env bash
-
-source $HOME/.Xcolors &> /dev/null
-
 upstream() {
   workingDir=$(mktemp -d) && cd $workingDir
 
+  orgBaseName=PixelExperience
+  orgBase=PixelExperience/
+
   repo=${1}
-  orgBaseName=ArrowOS
-  orgBase=ArrowOS/android_
   branchBase=${2}
   branch=${3}
   org=AOSPK
   githost=github
 
   if [[ ${4} == "arrow" ]]; then
-    orgBaseName=PixelExperience
-    orgBase=PixelExperience/
+    orgBaseName=ArrowOS
+    orgBase=ArrowOS/android_
     branchBase=twelve
   fi
 
@@ -392,9 +389,9 @@ upstream() {
     git clone https://github.com/${orgBase}${repo} -b ${branchBase} ${repo} --single-branch
   fi
   cd ${repo}
-  repo=$(echo $repo | sed -e "s/arrow/custom/g")
-  repo=$(echo $repo | sed -e "s/Arrow/Custom/g")
-  repo=$(echo $repo | sed -e "s/vendor_custom/vendor_aosp/g")
+#  repo=$(echo $repo | sed -e "s/arrow/custom/g")
+#  repo=$(echo $repo | sed -e "s/Arrow/Custom/g")
+#  repo=$(echo $repo | sed -e "s/vendor_custom/vendor_aosp/g")
   gitRules
 
   mainOrg() {
@@ -426,7 +423,7 @@ upstream() {
 }
 
 up() {
-  upstream ${1} arrow-12.0 twelve ${2}
+  upstream ${1} twelve twelve ${2}
 }
 
 hals() {

@@ -7,15 +7,9 @@ grep -Po 'name=\"\K[^"]+(?=\")' $HOME/AOSPK/manifest/snippets/aosp.xml >> $tmp
 grep -Po 'name=\"\K[^"]+(?=\")' $HOME/AOSPK/manifest/snippets/extras.xml >> $tmp
 
 # Tags
-url="https://review.arrowos.net/q/project:ArrowOS/android_"
+url="https://gerrit.pixelexperience.org/q/project:"
 url=${url//\//\\/}
-branch="+branch:arrow-12.0+status:merged"
-
-# Replace
-sed -i "s/Customizer/LineageCustomizer/g" $tmp
-sed -i "s/custom/arrow/g" $tmp
-sed -i "s/Custom/Arrow/g" $tmp
-sed -i "s/aosp/arrow/g" $tmp
+branch="+branch:twelve+status:merged"
 
 cat $tmp > $HOME/bookmarks_names.txt
 
