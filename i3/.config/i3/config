@@ -191,7 +191,8 @@ for_window [class="Wpspdf|Wpp|Wps|Et"] move to workspace $ws6, focus
 
 # Workspace 7 [pc]
 for_window [class="lxappearance"] move to workspace $ws7, floating enable, focus
-for_window [class="Thunar|thunar|transmission-gtk"] move to workspace $ws7, floating enable, resize set 800 px 550 px, move right -190px, focus
+for_window [class="Thunar|thunar"] move to workspace $ws7, floating enable, resize set 800 px 550 px, move right -190px, focus
+for_window [class="qBittorrent"] move to workspace $ws7, focus
 for_window [class="Filezilla"] move to workspace $ws7, focus
 
 # Workspace 8 [tools: {art, build, etc}]
