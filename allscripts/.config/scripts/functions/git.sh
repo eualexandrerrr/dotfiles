@@ -175,7 +175,8 @@ gitadd() {
   case $(basename "$(pwd)") in
     aosp | vendor_aosp)
       git add .
-      git reset build/tools/roomservice.py
+      echo "${BLUE}INCLUDE roomservice.py${END}"
+#      git reset build/tools/roomservice.py
       ;;
     *)
       git add .
