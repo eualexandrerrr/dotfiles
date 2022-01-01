@@ -4,8 +4,11 @@
 source $HOME/.myTokens/tokens.sh &> /dev/null
 source $HOME/.Xcolors &> /dev/null
 
+repo=frameworks_base
+repoPath=frameworks/base
+
 if [[ $(cat /etc/hostname) == "odin" ]]; then
-  cd $HOME/Kraken/frameworks/base
+  cd $HOME/Kraken/${repoPath}
 fi
 
 git remote remove push &> /dev/null
@@ -31,9 +34,9 @@ fi
 
 echo "${BOL_GRE}${org} - ${branch}${END}"
 
-gh repo create ${org}/frameworks_base --${typeRepo} --confirm
+gh repo create ${org}/${repo} --${typeRepo} --confirm
 
-git remote add push ssh://git@github.com/${org}/frameworks_base
+git remote add push ssh://git@github.com/${org}/${repo}
 
 REMOTE=push
 BRANCH=$(git rev-parse --abbrev-ref HEAD)
