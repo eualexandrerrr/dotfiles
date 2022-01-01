@@ -168,7 +168,6 @@ for_window [title="Media viewer|Progresso|Friends*|Novidades*|Pastas de bibliote
 for_window [title="Lista de amigos"] floating enable, move position center, focus
 for_window [title="mywindowfloat"] move to workspace $ws3, floating enable, resize set 850 px 400 px, move right -300px, move down 0px, focus
 for_window [title="testingscript"] move to workspace $ws3, floating enable, resize set 800 px 500 px, move right -190px, move down 170px, focus
-for_window [class="Yad"] floating enable, resize set 800 px 100 px, focus
 
 # Workspace 1 [terminal]
 for_window [class="Alacritty"] focus
@@ -190,7 +189,6 @@ for_window [class="Spotify"] move to workspace $ws5, focus
 for_window [class="Wpspdf|Wpp|Wps|Et"] move to workspace $ws6, focus
 
 # Workspace 7 [pc]
-for_window [class="lxappearance"] move to workspace $ws7, floating enable, focus
 for_window [class="Thunar|thunar"] move to workspace $ws7, floating enable, resize set 800 px 550 px, move right -190px, focus
 for_window [class="qBittorrent"] move to workspace $ws7, focus
 for_window [class="Filezilla"] move to workspace $ws7, focus
