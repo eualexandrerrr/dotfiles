@@ -60,7 +60,7 @@ sideload() {
     ls -1 $pathBuilds
   else
     if [ "${pathBuilds}" ]; then
-      zipPath=$(ls -tr "${pathBuilds}"/Kraken-12-*-*-${buildHour}-lmi*.zip | tail -1)
+      zipPath=$(ls -tr "${pathBuilds}"/Kraken*${buildHour}*.zip | tail -1)
       if [ ! -f $zipPath ]; then
         echo "Nothing to eat"
         return 1
