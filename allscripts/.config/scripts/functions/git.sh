@@ -13,6 +13,7 @@ getRepo() {
 }
 
 mc() {
+  echo MC disabled
 #  if echo $PWD | grep "$HOME/Kraken" &> /dev/null; then
 #    lastCommit=$(git log --format="%H" -n 1)
 #    for i in $(git diff-tree --no-commit-id --name-only -r $lastCommit); do
