@@ -13,20 +13,20 @@ getRepo() {
 }
 
 mc() {
-  if echo $PWD | grep "$HOME/Kraken" &> /dev/null; then
-    lastCommit=$(git log --format="%H" -n 1)
-    for i in $(git diff-tree --no-commit-id --name-only -r $lastCommit); do
-      cat ${i} | grep 'ARROW\|arrow\|ARROW_\|org.pixelexperience' ${i} &> /dev/null
-      if [[ $? -eq 0 ]]; then
-        echo -e "${BOL_GRE}\nChanges:${END}"
-        haveArrowString=true
-        echo -e "${BOL_RED}  * DETECTED:    ${i}${END}"
-        ag --color-line-number=30 -i arrow ${i}
-        echo
-      fi
-    done
-    [[ $haveArrowString == true ]] && echo -e "\n${BOL_MAG}-----------------------------------------\n"
-  fi
+#  if echo $PWD | grep "$HOME/Kraken" &> /dev/null; then
+#    lastCommit=$(git log --format="%H" -n 1)
+#    for i in $(git diff-tree --no-commit-id --name-only -r $lastCommit); do
+#      cat ${i} | grep 'ARROW\|arrow\|ARROW_\|org.pixelexperience' ${i} &> /dev/null
+#      if [[ $? -eq 0 ]]; then
+#        echo -e "${BOL_GRE}\nChanges:${END}"
+#        haveArrowString=true
+#        echo -e "${BOL_RED}  * DETECTED:    ${i}${END}"
+#        ag --color-line-number=30 -i arrow ${i}
+#        echo
+#      fi
+#    done
+#    [[ $haveArrowString == true ]] && echo -e "\n${BOL_MAG}-----------------------------------------\n"
+#  fi
 }
 
 mmc() {
@@ -69,19 +69,15 @@ gitRules() {
 
   [[ $repo == build_make ]] && repo=build
 
-  [[ $repo == hardware_xiaomi ]] && org=AOSPK-Devices && orgBase=ArrowOS-Devices
-  [[ $repo == hardware_motorola ]] && org=AOSPK-Devices && orgBase=ArrowOS-Devices
-  [[ $repo == hardware_oneplus ]] && org=AOSPK-Devices && orgBase=ArrowOS-Devices
+  [[ $repo == hardware_xiaomi ]] && org=AOSPK-Devices && orgBase=PixelExperience-Devices
+  [[ $repo == hardware_motorola ]] && org=AOSPK-Devices && orgBase=PixelExperience-Devices
+  [[ $repo == hardware_oneplus ]] && org=AOSPK-Devices && orgBase=PixelExperience-Devices
 
   [[ $repo == device_xiaomi_lmi ]] && org=AOSPK-Devices
   [[ $repo == device_xiaomi_sm8250-common ]] && org=AOSPK-Devices
   [[ $repo == kernel_xiaomi_sm8250 ]] && org=AOSPK-Devices
   [[ $repo == vendor_xiaomi_lmi ]] && org=TheBootloops
   [[ $repo == vendor_xiaomi_sm8250-common ]] && org=TheBootloops
-
-  [[ $repo == hardware_qcom_wlan ]] && branchBase="${branchBase}-caf" && branch="${branch}-caf"
-  [[ $repo == hardware_qcom_bt ]] && branchBase="${branchBase}-caf" && branch="${branch}-caf"
-  [[ $repo == hardware_qcom_bootctrl ]] && branchBase="${branchBase}-caf" && branch="${branch}-caf"
 
   [[ $repo == vendor_gapps ]] && githost=gitlab && org=AOSPK
 }
@@ -95,11 +91,7 @@ f() {
   getRepo
   gitRules
   if [[ -z ${1} ]]; then
-    repo=$(echo $repo | sed "s:/:_:g")
-    repo=$(echo $repo | sed -e "s/custom/arrow/g")
-    repo=$(echo $repo | sed -e "s/Custom/Arrow/g")
-    repo=$(echo $repo | sed -e "s/vendor_aosp/vendor_custom/g")
-    git fetch https://github.com/ArrowOS/android_${repo} arrow-12.0
+    git fetch https://github.com/PixelExperience/${repo} twelve
   else
     org=$(echo ${1} | cut -c1-5)
     if [[ $org == AOSPK ]]; then
@@ -252,7 +244,7 @@ push() {
     echo -e "              -n [Nothin]"
     echo -e "              -p [Specifc project]"
     echo -e "              -f [AOSPK-Next]"
-    echo -e "${BOL_RED}              Use Project, example: ${BOL_YEL}: push gerrit -p ArrowOS arrow-12.0 topic"
+    echo -e "${BOL_RED}              Use Project, example: ${BOL_YEL}: push gerrit -p LineageOS lineage-19.0 topic"
     echo -e "${END}"
     exit 1
   }
@@ -390,9 +382,6 @@ upstream() {
     git clone https://github.com/${orgBase}${repo} -b ${branchBase} ${repo} --single-branch
   fi
   cd ${repo}
-#  repo=$(echo $repo | sed -e "s/arrow/custom/g")
-#  repo=$(echo $repo | sed -e "s/Arrow/Custom/g")
-#  repo=$(echo $repo | sed -e "s/vendor_custom/vendor_aosp/g")
   gitRules
 
   mainOrg() {
