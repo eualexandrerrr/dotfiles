@@ -59,27 +59,33 @@ sideload() {
     clear
     ls -1 $pathBuilds
   else
-    if [ "${pathBuilds}" ]; then
+    if [[ ${1} == "-r" ]]; then
+      buildHour=${2}
       zipPath=$(ls -tr "${pathBuilds}"/Kraken-*${buildHour}*.zip | tail -1)
-      if [ ! -f $zipPath ]; then
-        echo "Nothing to eat"
-        return 1
-      fi
-      echo "Waiting for device..."
-      adb wait-for-device-recovery
-      echo "Found device"
-      if (adb shell getprop org.kraken.device | grep -q "${CUSTOM_BUILD}"); then
-        echo "Rebooting to sideload for install"
-        adb reboot sideload-auto-reboot
-        adb wait-for-sideload
-        adb sideload $zipPath
-      else
-        echo "The connected device does not appear to be ${BOL_RED}${CUSTOM_BUILD}${END}, run away!"
-      fi
-        return $?
+      adb sideload $zipPath
     else
-        echo "Nothing to eat"
-        return 1
+      if [ "${pathBuilds}" ]; then
+        if [ ! -f $zipPath ]; then
+          echo "Nothing to eat"
+          return 1
+        fi
+        zipPath=$(ls -tr "${pathBuilds}"/Kraken-*${buildHour}*.zip | tail -1)
+        echo "Waiting for device..."
+        adb wait-for-device-recovery
+        echo "Found device"
+        if (adb shell getprop org.kraken.device | grep -q "${CUSTOM_BUILD}"); then
+          echo "Rebooting to sideload for install"
+          adb reboot sideload-auto-reboot
+          adb wait-for-sideload
+          adb sideload $zipPath
+        else
+          echo "The connected device does not appear to be ${BOL_RED}${CUSTOM_BUILD}${END}, run away!"
+        fi
+          return $?
+      else
+          echo "Nothing to eat"
+          return 1
+      fi
     fi
   fi
 }
