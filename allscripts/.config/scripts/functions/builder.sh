@@ -44,6 +44,7 @@ lunchC() {
 }
 
 apkAndimg() {
+  cd out/target/product/lmi
   pathPrebuilts=$HOME/Builds
   rm -rf ${pathPrebuilts}/{apk,img} &> /dev/null
   mkdir -p ${pathPrebuilts}/{apk,apk/accents,apk/overlay,img} &> /dev/null
