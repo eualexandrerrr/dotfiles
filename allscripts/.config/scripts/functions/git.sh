@@ -326,7 +326,7 @@ push() {
       [[ -n $topicGerrit ]] && echo -e " ${MAG}TOPIC   : ${RED}${topicGerrit}${END}\n" || echo -e " ${MAG}TOPIC   : ${RED}null${END}"
 
       gitdir=$(git rev-parse --git-dir)
-                                       scp -p -P 29418 ${myGitUser}@${gerrit}:hooks/commit-msg ${gitdir}/hooks/ &> /dev/null
+      scp -p -P 29418 ${myGitUser}@${gerrit}:hooks/commit-msg ${gitdir}/hooks/ &> /dev/null
       git commit --amend --no-edit &> /dev/null
 
       [[ -z $iDcommit ]] && optHead=HEAD || optHead=$iDcommit
