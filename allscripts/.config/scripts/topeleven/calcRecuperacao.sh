@@ -35,7 +35,7 @@ calcular() {
     echo -e "${BLU} Ciclos a serem feitos  : ${YEL} ${RED}$CICLOS"
     echo -e "${BLU} Porcentagem a recuperar: ${YEL} ${CYA}$PORCENTAGEM%"
 
-    echo -e "${BLU} \n Exemplos de recuperações\n"
+    echo -e "${BLU} \n Exemplos de recuperação\n"
 
     j20=$(( 20 + $PORCENTAGEM ))
     j30=$(( 30 + $PORCENTAGEM ))
@@ -56,4 +56,4 @@ calcular() {
     echo -e "${BLU} Jogador 5: ${YEL}70 ${BLU}>${GRE} $j70 ${RED}# Diff: ${BOL_RED}$jr70"
   fi
 }
-calcular 01-03 10:40
+calcular ${1} ${2}
