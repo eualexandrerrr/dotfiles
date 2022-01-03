@@ -30,7 +30,7 @@ sx() {
       sed -i "s/The XXX Project/The PixelExperience Project/" ${i} &> /dev/null
     done
     echo -e "\n${BOL_RED}Status:${END}"
-    git status  
+    git status
   fi
 }
 
@@ -92,13 +92,13 @@ sideload() {
         echo "Waiting for device..."
         adb wait-for-device-recovery
         echo "Found device"
-        if (adb shell getprop org.kraken.device | grep -q "${CUSTOM_BUILD}"); then
+        if (adb shell getprop org.kraken.device | grep -q "${KRAKEN_BUILD}"); then
           echo "Rebooting to sideload for install"
           adb reboot sideload-auto-reboot
           adb wait-for-sideload
           adb sideload $zipPath
         else
-          echo "The connected device does not appear to be ${BOL_RED}${CUSTOM_BUILD}${END}, run away!"
+          echo "The connected device does not appear to be ${BOL_RED}${KRAKEN_BUILD}${END}, run away!"
         fi
           return $?
       else
