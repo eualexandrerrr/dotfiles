@@ -69,6 +69,7 @@ gitRules() {
   [[ $repo == mytokens ]] && cp -rf $HOME/GitHub/mytokens $HOME/.mytokens &> /dev/null
 
   [[ $repo == build_make ]] && repo=build
+  [[ $repo == packages_apps_Updates ]] && repo=packages_apps_Updater
 
   [[ $repo == hardware_xiaomi ]] && org=AOSPK-Devices && orgBase=PixelExperience-Devices
   [[ $repo == hardware_motorola ]] && org=AOSPK-Devices && orgBase=PixelExperience-Devices
