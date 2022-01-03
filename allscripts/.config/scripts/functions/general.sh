@@ -19,19 +19,15 @@ sx() {
   echo -e "${BOL_RED}Verificando strings da PE${END}\n"
   ag -S pixelexp . --ignore-dir=out
   find . -name "pixelexp*"
-  if [[ ${1} == -f ]]; then
-    for i in $(ag -S pixelexp . -l --ignore-dir=out); do
-      sed -i "s/The PixelExperience Project/The XXX Project/" ${i} &> /dev/null
-      sed -i "s/PixelExperience/Kraken/" ${i} &> /dev/null
-      sed -i "s/pixelExperience/kraken/" ${i} &> /dev/null
-      sed -i "s/Pixelexperience/Kraken/" ${i} &> /dev/null
-      sed -i "s/org.pixelexperience/org.pixelexperience/" ${i} &> /dev/null
-      sed -i "s/pixelexperience/kraken/" ${i} &> /dev/null
-      sed -i "s/The XXX Project/The PixelExperience Project/" ${i} &> /dev/null
-    done
-    echo -e "\n${BOL_RED}Status:${END}"
-    git status
-  fi
+  for i in $(ag -S pixelexp . -l --ignore-dir=out); do
+    sed -i "s/The PixelExperience Project/The XXX Project/" ${i}
+    sed -i "s/PixelExperience/Kraken/" ${i}
+    sed -i "s/pixelExperience/kraken/" ${i}
+    sed -i "s/Pixelexperience/Kraken/" ${i}
+    sed -i "s/org.pixelexperience/org.pixelexperience/" ${i}
+    sed -i "s/pixelexperience/kraken/" ${i}
+    sed -i "s/The XXX Project/The PixelExperience Project/" ${i}
+  done
 }
 
 newuser() {
