@@ -108,7 +108,7 @@ b() {
   elif [[ $task == "Settings" ]]; then
     makeBuild=true
     task=Settings
-  elif [[ $task == "recovery" ]]; then
+  elif [[ $task == "recoveryimage" ]]; then
     makeBuild=true
     task=recoveryimage
   elif [[ $task == "bootimage" ]]; then
@@ -117,6 +117,7 @@ b() {
   else
     makeBuild=true
     task=bacon
+    echo "${BOL_BLU}I love bacon${END}"
   fi
 
   [[ $makeBuild == "true" ]] && makeC
