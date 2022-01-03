@@ -26,6 +26,7 @@ sx() {
     sed -i "s/Pixelexperience/Kraken/" ${i}
     sed -i "s/org.pixelexperience/org.pixelexperience/" ${i}
     sed -i "s/pixelexperience/kraken/" ${i}
+    sed -i "s/pixelexperience.org/aospk.org/" ${i}
     sed -i "s/The XXX Project/The PixelExperience Project/" ${i}
   done
 }
