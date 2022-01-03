@@ -28,7 +28,7 @@ mypackages=(
   steam wine winetricks lib32-gnutls
 
   atom silver-searcher-git discord diff-so-fancy filezilla git htop jdk-openjdk jq man man-pages-pt_br github-cli-git vkd3d lib32-vkd3d
-  rsync shfmt tree qbittorrent zip scrcpy python-pip crowdin-cli lutris-git optipng
+  rsync shfmt tree qbittorrent zip scrcpy python-pip crowdin-cli lutris-git optipng bfg
 
   android-tools hfsprogs gvfs gvfs-mtp btrfs-progs dosfstools exfat-utils f2fs-tools e2fsprogs jfsutils nilfs-utils ntfs-3g reiserfsprogs udftools xfsprogs
 
