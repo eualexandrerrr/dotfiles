@@ -61,7 +61,7 @@ moveBuild() {
   mkdir -p $pathBuilds
   mv $HOME/Kraken/out/target/product/*/Kraken-12-*-*.zip $pathBuilds
   [[ $codename == lmi ]] && apkAndimg &> /dev/null
-  rm -rf $HOME/Kraken/out/target/product/*/{*.md5sum,*sha256sum,*ota*.zip}
+  rm -rf $HOME/Kraken/out/target/product/*/{*.md5sum,*.sha256sum,*ota*.zip}
 }
 
 b() {
