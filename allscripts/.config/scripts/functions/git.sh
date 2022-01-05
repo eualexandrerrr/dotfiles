@@ -76,10 +76,10 @@ gitRules() {
   [[ $repo == hardware_oneplus ]] && org=AOSPK-Devices && orgBase=PixelExperience-Devices
 
   [[ $repo == device_xiaomi_lmi ]] && org=AOSPK-Devices
-  [[ $repo == device_xiaomi_sm8250-common ]] && org=AOSPK-Devices
-  [[ $repo == kernel_xiaomi_sm8250 ]] && org=AOSPK-Devices
-  [[ $repo == vendor_xiaomi_lmi ]] && org=TheBootloops
-  [[ $repo == vendor_xiaomi_sm8250-common ]] && org=TheBootloops
+  [[ $repo == device_xiaomi_sm8250-common ]] && org=AOSPK-Devices && branch=twelve-su
+  [[ $repo == kernel_xiaomi_sm8250 ]] && org=AOSPK-Devices && branch=twelve-ay
+  [[ $repo == vendor_xiaomi_lmi ]] && org=TheBootloops && branch=twelve-su
+  [[ $repo == vendor_xiaomi_sm8250-common ]] && org=TheBootloops && branch=twelve-su
 
   [[ $repo == vendor_gapps ]] && githost=gitlab && org=AOSPK
 }
@@ -95,7 +95,11 @@ f() {
   if [[ -z ${1} ]]; then
     org=github
     [[ $repo == "vendor_gapps" ]] && org=gitlab
-    git fetch https://${org}.com/PixelExperience/${repo} twelve
+    if [[ $repo == "kernel_xiaomi_sm8250" ]]; then
+      git fetch https://${org}.com/Official-Ayrton990/android_kernel_xiaomi_sm8250 upstreamed-common
+    else
+      git fetch https://${org}.com/PixelExperience/${repo} twelve
+    fi
   else
     org=$(echo ${1} | cut -c1-5)
     if [[ $org == AOSPK ]]; then
@@ -275,6 +279,7 @@ push() {
         git push ssh://git@${githost}.com/${org}/${repo} HEAD:refs/heads/${branch} --force
         gh api -XPATCH "repos/${org}/${repo}" -f default_branch="${branch}" &> /dev/null
         argMain=${2}
+        [[ $repo == device_xiaomi_lmi ]] && git push ssh://git@github.com/AOSPK-Devices/device_xiaomi_lmi HEAD:refs/heads/twelve-su --force
       else
         argMain="main"
       fi
