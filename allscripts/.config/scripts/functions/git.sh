@@ -93,7 +93,9 @@ f() {
   getRepo
   gitRules
   if [[ -z ${1} ]]; then
-    git fetch https://github.com/PixelExperience/${repo} twelve
+    org=github
+    [[ $repo == "vendor_gapps" ]] && org=gitlab
+    git fetch https://${org}.com/PixelExperience/${repo} twelve
   else
     org=$(echo ${1} | cut -c1-5)
     if [[ $org == AOSPK ]]; then
@@ -265,15 +267,17 @@ push() {
       echo -e "${BOL_RED}You are not in a .git repository \n${YEL} # $PWD${END}"
       return 0
     else
-      echo -e " ${BOL_BLU}\nPushing to ${BOL_YEL}${org}/${MAG}${repo}${END}\n"
-      echo -e " ${MAG}PROJECT : ${YEL}$org"
-      echo -e " ${MAG}REPO    : ${BLU}$repo"
-      echo -e " ${MAG}BRANCH  : ${CYA}$branch${END}\n"
-
-      git push ssh://git@${githost}.com/${org}/${repo} HEAD:refs/heads/${branch} --force
-      gh api -XPATCH "repos/${org}/${repo}" -f default_branch="${branch}" &> /dev/null
-
-      argMain=${2}
+      if [[ $repo != "vendor_gapps" ]]; then
+        echo -e " ${BOL_BLU}\nPushing to ${BOL_YEL}${org}/${MAG}${repo}${END}\n"
+        echo -e " ${MAG}PROJECT : ${YEL}$org"
+        echo -e " ${MAG}REPO    : ${BLU}$repo"
+        echo -e " ${MAG}BRANCH  : ${CYA}$branch${END}\n"
+        git push ssh://git@${githost}.com/${org}/${repo} HEAD:refs/heads/${branch} --force
+        gh api -XPATCH "repos/${org}/${repo}" -f default_branch="${branch}" &> /dev/null
+        argMain=${2}
+      else
+        argMain="main"
+      fi
       if [[ $argMain == main ]]; then
         echo -e " ${BOL_BLU}\nPushing to ${BOL_YEL}AOSPK/${MAG}${repo}${END}\n"
         git push ssh://git@${githost}.com/AOSPK/${repo} HEAD:refs/heads/${branch} --force
