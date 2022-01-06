@@ -13,21 +13,20 @@ getRepo() {
 }
 
 mc() {
-  echo MC disabled
-#  if echo $PWD | grep "$HOME/Kraken" &> /dev/null; then
-#    lastCommit=$(git log --format="%H" -n 1)
-#    for i in $(git diff-tree --no-commit-id --name-only -r $lastCommit); do
-#      cat ${i} | grep 'ARROW\|arrow\|ARROW_\|org.pixelexperience' ${i} &> /dev/null
-#      if [[ $? -eq 0 ]]; then
-#        echo -e "${BOL_GRE}\nChanges:${END}"
-#        haveArrowString=true
-#        echo -e "${BOL_RED}  * DETECTED:    ${i}${END}"
-#        ag --color-line-number=30 -i arrow ${i}
-#        echo
-#      fi
-#    done
-#    [[ $haveArrowString == true ]] && echo -e "\n${BOL_MAG}-----------------------------------------\n"
-#  fi
+  if echo $PWD | grep "$HOME/Kraken" &> /dev/null; then
+    lastCommit=$(git log --format="%H" -n 1)
+    for i in $(git diff-tree --no-commit-id --name-only -r $lastCommit); do
+      cat ${i} | grep 'CUSTOM\|custom\|CUSTOM_\|org.pixelexperience\|pixelexp' ${i} &> /dev/null
+      if [[ $? -eq 0 ]]; then
+        echo -e "${BOL_GRE}\nChanges:${END}"
+        haveArrowString=true
+        echo -e "${BOL_RED}  * DETECTED:    ${i}${END}"
+        ag --color-line-number=30 -i arrow ${i}
+        echo
+      fi
+    done
+    [[ $haveArrowString == true ]] && echo -e "\n${BOL_MAG}-----------------------------------------\n"
+  fi
 }
 
 mmc() {
