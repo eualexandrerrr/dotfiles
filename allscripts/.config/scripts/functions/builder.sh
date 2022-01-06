@@ -118,15 +118,14 @@ b() {
   else
     makeBuild=true
     task=bacon
-    echo "${BOL_BLU}I love bacon${END}"
   fi
 
   [[ $makeBuild == "true" ]] && makeC
 
   nbfc set -s 50
 
-  # Desligar o notebook se $1 for poweroff, porém, esperar 100 segundos para que esfrie os componentes
-  [[ ${1} == poweroff ]] && sleep 100 && sudo poweroff
+  # Desligar o notebook se algum argumento for poweroff, porém, esperar 100 segundos para que esfrie os componentes
+  [[ $@ == poweroff ]] && sleep 100 && nbfc set -s 50 && sudo poweroff
 }
 
 clean() {
