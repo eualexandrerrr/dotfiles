@@ -75,11 +75,11 @@ gitRules() {
   [[ $repo == hardware_motorola ]] && org=AOSPK-Devices && orgBase=PixelExperience-Devices
   [[ $repo == hardware_oneplus ]] && org=AOSPK-Devices && orgBase=PixelExperience-Devices
 
-  [[ $repo == device_xiaomi_lmi ]] && org=AOSPK-Devices
-  [[ $repo == device_xiaomi_sm8250-common ]] && org=AOSPK-Devices && branch=twelve-su
-  [[ $repo == kernel_xiaomi_sm8250 ]] && org=AOSPK-Devices && branch=twelve-ay
-  [[ $repo == vendor_xiaomi_lmi ]] && org=TheBootloops && branch=twelve-su
-  [[ $repo == vendor_xiaomi_sm8250-common ]] && org=TheBootloops && branch=twelve-su
+  [[ $repo == device_xiaomi_lmi ]] && upPEOrg=yes && org=AOSPK-Devices
+  [[ $repo == device_xiaomi_sm8250-common ]] && upPEOrg=yes && org=AOSPK-Devices && branch=twelve
+  [[ $repo == kernel_xiaomi_sm8250 ]] && upPEOrg=yes && org=AOSPK-Devices && branch=twelve
+  [[ $repo == vendor_xiaomi_lmi ]] && upPEOrg=yes && org=TheBootloops && branch=twelve
+  [[ $repo == vendor_xiaomi_sm8250-common ]] && upPEOrg=yes && org=TheBootloops && branch=twelve
 
   [[ $repo == vendor_gapps ]] && githost=gitlab && org=AOSPK
 }
@@ -279,7 +279,14 @@ push() {
         git push ssh://git@${githost}.com/${org}/${repo} HEAD:refs/heads/${branch} --force
         gh api -XPATCH "repos/${org}/${repo}" -f default_branch="${branch}" &> /dev/null
         argMain=${2}
-        [[ $repo == device_xiaomi_lmi ]] && git push ssh://git@github.com/AOSPK-Devices/device_xiaomi_lmi HEAD:refs/heads/twelve-su --force
+        [[ $repo == device_xiaomi_lmi ]] && git push ssh://git@github.com/AOSPK-Devices/device_xiaomi_lmi HEAD:refs/heads/twelve --force
+
+        # PE
+        [[ $repo == device_xiaomi_lmi ]] && git push ssh://git@github.com/PixelExperience-Devices/device_xiaomi_lmi HEAD:refs/heads/twelve --force
+        [[ $repo == device_xiaomi_sm8250-common ]] && git push ssh://git@github.com/PixelExperience-Devices/device_xiaomi_sm8250-common HEAD:refs/heads/twelve --force
+        [[ $repo == kernel_xiaomi_sm8250 ]] && git push ssh://git@github.com/PixelExperience-Devices/kernel_xiaomi_sm8250 HEAD:refs/heads/twelve --force
+        [[ $repo == vendor_xiaomi_lmi ]] && git push ssh://git@gitlab.pixelexperience.org/android/vendor-blobs/vendor_xiaomi_lmi HEAD:refs/heads/twelve --force
+        [[ $repo == vendor_xiaomi_sm8250-common ]] && git push ssh://git@gitlab.pixelexperience.org/android/vendor-blobs/vendor_xiaomi_sm8250-common HEAD:refs/heads/twelve --force
       else
         argMain="main"
       fi
