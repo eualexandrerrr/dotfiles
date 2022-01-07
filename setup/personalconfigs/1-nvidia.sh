@@ -33,7 +33,7 @@ Section "OutputClass"
     Driver "nvidia"
     Option "AllowEmptyInitialConfiguration"
     Option "PrimaryGPU" "yes"
-    Option "Backlight"  "amdgpu_bl1"
+    Option "Backlight"  "amdgpu_bl0"
     ModulePath "/usr/lib/nvidia/xorg"
     ModulePath "/usr/lib/xorg/modules"
 EndSection' | sudo tee /etc/X11/xorg.conf.d/20-nvidia-drm-outputclass.conf
