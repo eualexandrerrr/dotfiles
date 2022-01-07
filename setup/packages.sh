@@ -25,7 +25,7 @@ mypackages=(
 
   nvidia nvidia-utils nvidia-settings nvidia-utils nvidia-dkms nvidia-prime opencl-nvidia nbfc-git
   mesa mesa-demos vulkan-tools lib32-nvidia-utils lib32-opencl-nvidia lib32-virtualgl lib32-nvidia-utils lib32-libvdpau lib32-opencl-nvidia lib32-mesa
-  steam wine winetricks lib32-gnutls
+  steam wine winetricks lib32-gnutls wps-office ttf-wps-fonts
 
   atom silver-searcher-git discord diff-so-fancy filezilla git htop jdk-openjdk jq man man-pages-pt_br github-cli-git vkd3d lib32-vkd3d
   rsync shfmt tree qbittorrent zip scrcpy python-pip crowdin-cli lutris-git optipng bfg
