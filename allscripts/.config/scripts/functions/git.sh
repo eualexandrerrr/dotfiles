@@ -276,7 +276,7 @@ push() {
         echo -e " ${MAG}REPO    : ${BLU}$repo"
         echo -e " ${MAG}BRANCH  : ${CYA}$branch${END}\n"
         git push ssh://git@${githost}.com/${org}/${repo} HEAD:refs/heads/${branch} --force
-        gh api -XPATCH "repos/${org}/${repo}" -f default_branch="${branch}" &> /dev/null
+        gh api -XPATCH "repos/${org}/${repo}" -f default_branch="${branch}" &> /dev/null # BRANCH DEFAUL
         argMain=${2}
         [[ $repo == device_xiaomi_lmi ]] && git push ssh://git@github.com/AOSPK-Devices/device_xiaomi_lmi HEAD:refs/heads/twelve --force
 
@@ -338,6 +338,7 @@ push() {
       echo -e " ${MAG}PROJECT : ${YEL}$gerrit"
       echo -e " ${MAG}REPO    : ${BLU}$repo"
       echo -e " ${MAG}BRANCH  : ${CYA}$branch"
+      gh api -XPATCH "repos/${org}/${repo}" -f default_branch="${branch}" &> /dev/null # BRANCH DEFAUL
       [[ -n $iDcommit ]] && echo -e " ${MAG}COMMIT  : ${RED}${iDcommit}${END}"
       [[ -n $topicGerrit ]] && echo -e " ${MAG}TOPIC   : ${RED}${topicGerrit}${END}\n" || echo -e " ${MAG}TOPIC   : ${RED}null${END}"
 
