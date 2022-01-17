@@ -16,18 +16,39 @@ agg() {
 }
 
 sx() {
-  echo -e "${BOL_RED}Verificando strings da PE${END}\n"
-  ag -S pixelexp . --ignore-dir=out
-  find . -name "pixelexp*"
-  for i in $(ag -S pixelexp . -l --ignore-dir=out); do
-    sed -i "s/The PixelExperience Project/The XXX Project/" ${i}
-    sed -i "s/PixelExperience/Kraken/" ${i}
-    sed -i "s/pixelExperience/kraken/" ${i}
-    sed -i "s/Pixelexperience/Kraken/" ${i}
-    sed -i "s/org.pixelexperience/org.pixelexperience/" ${i}
-    sed -i "s/pixelexperience/kraken/" ${i}
-    sed -i "s/pixelexperience.org/aospk.org/" ${i}
-    sed -i "s/The XXX Project/The PixelExperience Project/" ${i}
+  echo -e "${BOL_RED}Verificando strings da ArrowOS${END}\n"
+  ag -S arrow . --ignore-dir=out
+  find . -name "arrow*"
+  for i in $(ag -S arrow . -l --ignore-dir=out); do
+    sed -i "s:The ArrowOS Project:The XXX Project:" $i
+    sed -i "s:ArrowOS:Kraken:" $i
+    sed -i "s:ArrowOS:kraken:" $i
+    sed -i "s:ArrowOS:Kraken:" $i
+    sed -i "s:org.arrowos:org.kraken:" $i
+    sed -i "s:org.arrow:org.kraken:" $i
+    sed -i "s:ro.arrow:ro.kraken:" $i
+    sed -i "s:arrowos:kraken:" $i
+    sed -i "s:arrowos.net:aospk.org:" $i
+    sed -i "s:The XXX Project:The ArrowOS Project:" $i
+
+    sed -i "s:vendor.arrow:vendor.aosp:" $i
+    sed -i "s:hardware.arrow:hardware.kraken:" $i
+
+    sed -i "s:vendor/arrow:vendor/aosp:" $i
+    sed -i "s:hardware/arrow:hardware/kraken:" $i
+    sed -i "s:device/arrow:device/kraken:" $i
+    sed -i "s:packages/apps/ArrowPrebuilts:packages/apps/KrakenPrebuilts:" $i
+
+    sed -i "s:^arrow:^kraken:" $i
+    sed -i "s:arrow_prebuilts:kraken_prebuilts:" $i
+
+    sed -i "s:ARROW_TARGET_PACKAGE:KRAKEN_TARGET_PACKAGE):" $i
+    sed -i "s:ARROW_BUILD:KRAKEN_BUILD:" $i
+    sed -i "s:ARROW_VERSION:KRAKEN_VERSION:" $i
+    sed -i "s:ARROW_BUILD_TYPE:KRAKEN_BUILD_TYPE:" $i
+    sed -i "s:ARROW_DEVICE:KRAKEN_DEVICE:" $i
+    sed -i "s:ARROW_PREBUILTS:KRAKEN_PREBUILTS:" $i
+    sed -i "s:ARROW_VERSION:KRAKEN_VERSION:" $i
   done
 }
 

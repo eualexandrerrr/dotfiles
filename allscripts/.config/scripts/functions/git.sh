@@ -16,7 +16,7 @@ mc() {
   if echo $PWD | grep "$HOME/Kraken" &> /dev/null; then
     lastCommit=$(git log --format="%H" -n 1)
     for i in $(git diff-tree --no-commit-id --name-only -r $lastCommit); do
-      cat ${i} | grep 'CUSTOM\|custom\|CUSTOM_\|org.pixelexperience\|pixelexp' ${i} &> /dev/null
+      cat ${i} | grep 'ARROW\|arrow\|ARROW_\|org.arrow\|ro.arrow\|arrowos' ${i} &> /dev/null
       if [[ $? -eq 0 ]]; then
         echo -e "${BOL_GRE}\nChanges:${END}"
         haveArrowString=true
@@ -57,8 +57,9 @@ mmc() {
 }
 
 gitBlacklist() {
-  [[ $repo == manifest ]] && echo "${BOL_RED}Blacklist detected, no push!!!${END}" && export noPush=true
-  [[ $repo == official_devices ]] && echo "${BOL_RED}Blacklist detected, no push!!!${END}" && export noPush=true
+  echo "No Blacklist"
+#  [[ $repo == manifest ]] && echo "${BOL_RED}Blacklist detected, no push!!!${END}" && export noPush=true
+#  [[ $repo == official_devices ]] && echo "${BOL_RED}Blacklist detected, no push!!!${END}" && export noPush=true
 }
 
 gitRules() {
@@ -70,9 +71,9 @@ gitRules() {
   [[ $repo == build_make ]] && repo=build
   [[ $repo == packages_apps_Updates ]] && repo=packages_apps_Updater
 
-  [[ $repo == hardware_xiaomi ]] && org=AOSPK-Devices && orgBase=PixelExperience-Devices
-  [[ $repo == hardware_motorola ]] && org=AOSPK-Devices && orgBase=PixelExperience-Devices
-  [[ $repo == hardware_oneplus ]] && org=AOSPK-Devices && orgBase=PixelExperience-Devices
+  [[ $repo == hardware_xiaomi ]] && org=AOSPK-Devices && orgBase=ArrowOS-Devices
+  [[ $repo == hardware_motorola ]] && org=AOSPK-Devices && orgBase=ArrowOS-Devices
+  [[ $repo == hardware_oneplus ]] && org=AOSPK-Devices && orgBase=ArrowOS-Devices
 
   [[ $repo == device_xiaomi_lmi ]] && upPEOrg=yes && org=AOSPK-Devices
   [[ $repo == device_xiaomi_sm8250-common ]] && upPEOrg=yes && org=AOSPK-Devices && branch=twelve
@@ -97,7 +98,7 @@ f() {
     if [[ $repo == "kernel_xiaomi_sm8250" ]]; then
       git fetch https://${org}.com/Official-Ayrton990/android_kernel_xiaomi_sm8250 upstreamed-common
     else
-      git fetch https://${org}.com/PixelExperience/${repo} twelve
+      git fetch https://${org}.com/ArrowOS/android_${repo} twelve
     fi
   else
     org=$(echo ${1} | cut -c1-5)
@@ -367,8 +368,8 @@ push() {
 upstream() {
   workingDir=$(mktemp -d) && cd $workingDir
 
-  orgBaseName=PixelExperience
-  orgBase=PixelExperience/
+  orgBaseName=ArrowOS
+  orgBase=ArrowOS/android_
 
   repo=${1}
   branchBase=${2}
@@ -376,9 +377,9 @@ upstream() {
   org=AOSPK
   githost=github
 
-  if [[ ${4} == "arrow" ]]; then
-    orgBaseName=ArrowOS
-    orgBase=ArrowOS/android_
+  if [[ ${4} == "pe" ]]; then
+    orgBaseName=PixelExperience
+    orgBase=PixelExperience/
     branchBase=twelve
   fi
 
