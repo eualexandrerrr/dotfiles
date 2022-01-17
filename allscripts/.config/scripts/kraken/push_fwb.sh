@@ -7,34 +7,22 @@ source $HOME/.Xcolors &> /dev/null
 repo=frameworks_base
 repoPath=frameworks/base
 
-if [[ $(cat /etc/hostname) == "odin" ]]; then
-  cd $HOME/Kraken/${repoPath}
-fi
-
 git remote remove push &> /dev/null
 
 if [[ -z "$1" ]]; then
   echo "${BOL_RED}\$1${BOL_YEL} org não existe"
   exit 1
-else
-  org=${1}
-  if [[ ${org} == AOSPK ]]; then
-    typeRepo=public
-  else
-    typeRepo=private
-  fi
 fi
 
 if [[ -z "$2" ]]; then
   echo "${BOL_RED}\$2${BOL_YEL} branch não existe"
   exit 1
-else
-  branch=${2}
 fi
 
-echo "${BOL_GRE}${org} - ${branch}${END}"
+org=$1
+branch=$2
 
-gh repo create ${org}/${repo} --${typeRepo} --confirm
+echo "${BOL_GRE}${org} - ${branch}${END}"
 
 git remote add push ssh://git@github.com/${org}/${repo}
 
