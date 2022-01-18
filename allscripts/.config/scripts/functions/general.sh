@@ -39,7 +39,8 @@ sx() {
     sed -i "s:device/arrow:device/kraken:" $i
     sed -i "s:packages/apps/ArrowPrebuilts:packages/apps/KrakenPrebuilts:" $i
 
-    sed -i "s:^arrow:^kraken:" $i
+    sed -i "s:arrow_\"):aosp_\"):g" $i
+    sed -i "s:arrow_//:aosp_//:g" $i
     sed -i "s:arrow_prebuilts:kraken_prebuilts:" $i
 
     sed -i "s:ARROW_TARGET_PACKAGE:KRAKEN_TARGET_PACKAGE:" $i
