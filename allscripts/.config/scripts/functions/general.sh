@@ -42,7 +42,7 @@ sx() {
     sed -i "s:^arrow:^kraken:" $i
     sed -i "s:arrow_prebuilts:kraken_prebuilts:" $i
 
-    sed -i "s:ARROW_TARGET_PACKAGE:KRAKEN_TARGET_PACKAGE):" $i
+    sed -i "s:ARROW_TARGET_PACKAGE:KRAKEN_TARGET_PACKAGE:" $i
     sed -i "s:ARROW_BUILD:KRAKEN_BUILD:" $i
     sed -i "s:ARROW_VERSION:KRAKEN_VERSION:" $i
     sed -i "s:ARROW_BUILD_TYPE:KRAKEN_BUILD_TYPE:" $i
