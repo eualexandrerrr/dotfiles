@@ -22,8 +22,6 @@ sx() {
   for i in $(ag -S arrow . -l --ignore-dir=out); do
     sed -i "s:The ArrowOS Project:The XXX Project:" $i
     sed -i "s:ArrowOS:Kraken:" $i
-    sed -i "s:ArrowOS:kraken:" $i
-    sed -i "s:ArrowOS:Kraken:" $i
     sed -i "s:org.arrowos:org.kraken:" $i
     sed -i "s:org.arrow:org.kraken:" $i
     sed -i "s:ro.arrow:ro.kraken:" $i
@@ -38,6 +36,7 @@ sx() {
     sed -i "s:hardware/arrow:hardware/kraken:" $i
     sed -i "s:device/arrow:device/kraken:" $i
     sed -i "s:packages/apps/ArrowPrebuilts:packages/apps/KrakenPrebuilts:" $i
+    sed -i "s:ArrowPrebuilts.sh:KrakenPrebuilts.sh:" $i
 
     sed -i "s:arrow_\"):aosp_\"):g" $i
     sed -i "s:arrow_//:aosp_//:g" $i
