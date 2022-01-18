@@ -96,12 +96,12 @@ bindsym $control+$shift+r mode "resize"
 
 # Startup
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
-exec_always --no-startup-id $HOME/.config/scripts/battery.sh
+exec_always --no-startup-id $HOME/.config/scripts/dot/battery.sh
 exec_always --no-startup-id feh --bg-fill $HOME/.config/assets/wallpapers/neon.png
 exec_always --no-startup-id picom --config $HOME/.config/picom/picom.conf
 exec_always --no-startup-id dunst -config $HOME/.config/dunst/dunstrc &
 exec_always --no-startup-id nbfc set -s 50
-exec_always --no-startup-id xidlehook --not-when-audio --not-when-fullscreen --timer 600 '$HOME/.config/scripts/i3lock.sh'
+exec_always --no-startup-id xidlehook --not-when-audio --not-when-fullscreen --timer 600 '$HOME/.config/scripts/dot/i3lock.sh'
 exec_always --no-startup-id sudo timedatectl set-ntp true && sudo hwclock --systohc
 exec_always --no-startup-id telegram-desktop &
 exec --no-startup-id "pactl set-sink-mute @DEFAULT_SINK@ false; pactl set-sink-volume @DEFAULT_SINK@ 80%"
@@ -133,8 +133,8 @@ bindsym $alt+Left exec --no-startup-id echo $((`cat /sys/class/backlight/amdgpu_
 bindsym $control+$alt+Delete exec --no-startup-id pkill -15 Xorg
 
 # Screenshot
-bindsym Print exec --no-startup-id $HOME/.config/scripts/screenshot.sh window
-bindsym $control+Print exec --no-startup-id $HOME/.config/scripts/screenshot.sh
+bindsym Print exec --no-startup-id $HOME/.config/scripts/dot/screenshot.sh window
+bindsym $control+Print exec --no-startup-id $HOME/.config/scripts/dot/screenshot.sh
 
 # Application shortcuts
 bindsym $super+Return exec --no-startup-id alacritty &; workspace $ws1
@@ -152,8 +152,8 @@ bindsym $super+p exec --no-startup-id $HOME/.config/rofi/applets/powermenu.sh
 bindsym $super+h exec --no-startup-id $HOME/.config/rofi/applets/time.sh
 bindsym $control+$shift+k exec --no-startup-id $HOME/.config/rofi/applets/screencast.sh
 
-bindsym $super+BackSpace exec --no-startup-id alacritty -t testingscript -e $HOME/.config/scripts/scripter.sh &
-bindsym F10 exec --no-startup-id $HOME/.config/scripts/myMenu.sh &
+bindsym $super+BackSpace exec --no-startup-id alacritty -t testingscript -e $HOME/.config/scripts/dot/scripter.sh &
+bindsym F10 exec --no-startup-id $HOME/.config/scripts/dot/myMenu.sh &
 bindsym F11 exec --no-startup-id $HOME/.dotfiles/install.sh
 
 # Get rules

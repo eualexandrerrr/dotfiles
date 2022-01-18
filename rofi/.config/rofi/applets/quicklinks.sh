@@ -23,6 +23,6 @@ case $chosen in
   $discord) discord --enable-accelerated-mjpeg-decode --enable-accelerated-video --ignore-gpu-blacklist --enable-native-gpu-memory-buffers --enable-gpu-rasterization & ;;
   $steam) nbfc set -s 100 && steam & ;;
   $spotify) spotify & ;;
-  $fancontrol) $HOME/.config/scripts/fancontrol.sh ;;
+  $fancontrol) $HOME/.config/scripts/dot/fancontrol.sh ;;
   $youtube) google-chrome-stable https://www.youtube.com & ;;
 esac

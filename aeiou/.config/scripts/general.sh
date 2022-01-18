@@ -86,7 +86,7 @@ gerrit() {
 }
 
 qemu() {
-  $HOME/.config/scripts/qemu.sh ${1}
+  $HOME/.config/scripts/dot/qemu.sh ${1}
 }
 
 sideload() {
@@ -137,9 +137,9 @@ dot() {
 }
 
 bkp() {
-  bash $HOME/.config/scripts/gitcron.sh
+  bash $HOME/.config/scripts/dot/gitcron.sh
 }
 
 update() {
-  $HOME/.config/scripts/update.sh
+  $HOME/.config/scripts/dot/update.sh
 }

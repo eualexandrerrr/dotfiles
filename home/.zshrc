@@ -46,7 +46,7 @@ alias d="cd /mnt/docker-files"
 
 if [[ $USER == mamutal91 ]]; then
   git config --global user.email "mamutal91@gmail.com" && git config --global user.name "Alexandre Rangel"
-  source $HOME/.config/scripts/functions/builder.sh
-  source $HOME/.config/scripts/functions/general.sh
-  source $HOME/.config/scripts/functions/git.sh
+  source $HOME/.config/scripts/builder.sh
+  source $HOME/.config/scripts/general.sh
+  source $HOME/.config/scripts/git.sh
 fi
