@@ -377,6 +377,12 @@ upstream() {
   org=AOSPK
   githost=github
 
+  if [[ ${4} == "main" ]]; then
+    orgBaseName=AOSPK-Next
+    orgBase=AOSPK-Next/
+    branchBase=twelve
+  fi
+
   if [[ ${4} == "pe" ]]; then
     orgBaseName=PixelExperience
     orgBase=PixelExperience/

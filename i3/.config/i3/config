@@ -143,14 +143,7 @@ bindsym $super+F2 exec --no-startup-id google-chrome-stable &; workspace $ws2
 bindsym $super+F3 exec --no-startup-id telegram-desktop &; workspace $ws4
 
 # System shortcuts
-bindsym $super+d exec --no-startup-id $HOME/.config/rofi/applets/quicklinks.sh
-
-bindsym $super+b exec --no-startup-id $HOME/.config/rofi/applets/bluetooth.sh
-bindsym $super+m exec --no-startup-id $HOME/.config/rofi/applets/mpd.sh
-bindsym $super+n exec --no-startup-id $HOME/.config/rofi/applets/networks.sh
-bindsym $super+p exec --no-startup-id $HOME/.config/rofi/applets/powermenu.sh
-bindsym $super+h exec --no-startup-id $HOME/.config/rofi/applets/time.sh
-bindsym $control+$shift+k exec --no-startup-id $HOME/.config/rofi/applets/screencast.sh
+bindsym $super+d exec --no-startup-id $HOME/.config/polybar/scripts/launcher.sh
 
 bindsym $super+BackSpace exec --no-startup-id alacritty -t testingscript -e $HOME/.config/scripts/dot/scripter.sh &
 bindsym F10 exec --no-startup-id $HOME/.config/scripts/dot/myMenu.sh &
