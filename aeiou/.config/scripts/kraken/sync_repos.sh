@@ -46,7 +46,7 @@ repoSync() {
     rm -rf $repo
     git clone ssh://git@github.com/AOSPK/${repo} -b ${branch} $repo --single-branch
     cd $repo
-    gh repo create AOSPK-Next/${repo} --private --confirm &> /dev/null
+    gh repo create AOSPK-Next/${repo} --private &> /dev/null
     git push ssh://git@github.com/AOSPK-Next/${repo} HEAD:refs/heads/${branch} --force
   done
 }
@@ -66,7 +66,7 @@ repoSyncHAL() {
       rm -rf hardware_qcom_${repo}_${branch}-caf-${hal}
       git clone ssh://git@github.com/AOSPK/hardware_qcom_${repo} -b ${branch}-caf-${hal} hardware_qcom_${repo}_${branch}-caf-${hal}
       cd hardware_qcom_${repo}_${branch}-caf-${hal}
-      gh repo create AOSPK-Next/hardware_qcom_${repo} --private --confirm &> /dev/null
+      gh repo create AOSPK-Next/hardware_qcom_${repo} --private &> /dev/null
       git push ssh://git@github.com/AOSPK-Next/hardware_qcom_${repo} HEAD:refs/heads/${branch}-caf-${hal} --force
     done
   done
@@ -81,7 +81,7 @@ repoBig() {
   rm -rf ${repoBig}
   git clone ssh://git@github.com/AOSPK/${repoBig} -b ${branch} ${repoBig} --single-branch
   cd ${repoBig}
-  gh repo create AOSPK-Next/${repoBig} --private --confirm &> /dev/null
+  gh repo create AOSPK-Next/${repoBig} --private &> /dev/null
   git push ssh://git@github.com/AOSPK-Next/${repoBig} HEAD:refs/heads/${branch} --force
 }
 
