@@ -18,7 +18,7 @@ else
   echo -e "${BOL_BLU}There are no unused packages to remove${END}"
 fi
 
-echo -e "${BOL_RED}Removing /tmp files...${END}"
+echo -e "${BOL_RED}Removing /tmp/ files... ${BOL_GRE}($(du -sh /tmp | awk '{ print $1 }'))${END}"
 sudo rm -rf /tmp/* &> /dev/null
 
 play $HOME/.config/assets/sounds/completed.wav &> /dev/null
