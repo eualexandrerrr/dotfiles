@@ -97,7 +97,7 @@ f() {
     if [[ $repo == "kernel_xiaomi_sm8250" ]]; then
       git fetch https://${org}.com/Official-Ayrton990/android_kernel_xiaomi_sm8250 upstreamed-common
     else
-      git fetch https://${org}.com/ArrowOS/android_${repo} twelve
+      git fetch https://${org}.com/ArrowOS/android_${repo} arrow-12.0
     fi
   else
     org=$(echo ${1} | cut -c1-5)
