@@ -8,7 +8,7 @@ codename=lmi
 buildtype=userdebug
 
 argsC() {
-#  echo -e "${BOL_RED}SELINUX_IGNORE_NEVERALLOWS=true${END}\n" && export SELINUX_IGNORE_NEVERALLOWS=true
+  echo -e "${BOL_RED}SELINUX_IGNORE_NEVERALLOWS=true${END}\n" && export SELINUX_IGNORE_NEVERALLOWS=true
 }
 
 proxyC() {
@@ -40,7 +40,7 @@ ccacheC() {
 
 s() {
   if [[ ${1} == "proxy" ]]; then
-    proxyC  
+    proxyC
   fi
   iconSuccess="$HOME/.config/assets/icons/success.png"
   iconFail="$HOME/.config/assets/icons/fail.png"
