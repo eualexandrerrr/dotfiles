@@ -39,14 +39,15 @@ ccacheC() {
 }
 
 s() {
-  proxyC
+  if [[ ${1} == "proxy" ]]; then
+    proxyC  
+  fi
   iconSuccess="$HOME/.config/assets/icons/success.png"
   iconFail="$HOME/.config/assets/icons/fail.png"
   mkdir -p $rom &> /dev/null
   cd $rom && clear
   nbfc set -s 100
-  repo init -u https://github.com/AOSPK-Next/manifest -b twelve
-#  repo init -u ssh://git@github.com/AOSPK-Next/manifest -b twelve
+  repo init -u ssh://git@github.com/AOSPK-Next/manifest -b twelve
   repo sync -c --no-clone-bundle --current-branch --no-tags --force-sync -j$(nproc --all)
   if [[ $? -eq 0 ]]; then
     echo "${BOL_GRE}Repo Sync success${END}"
