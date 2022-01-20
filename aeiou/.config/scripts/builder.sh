@@ -30,12 +30,12 @@ proxyC() {
 }
 
 ccacheC() {
-  sudo mkdir /home/mamutal91/.ccacherom &> /dev/null
-  sudo mount --bind /home/mamutal91/.ccache /home/mamutal91/.ccacherom
+  sudo mkdir -p /mnt/ccache
+  sudo mount --bind /home/mamutal91/.cache /mnt/ccache
   export USE_CCACHE=1
+  export CCACHE_DIR=/mnt/ccache
   export CCACHE_EXEC=/usr/bin/ccache
-  export CCACHE_DIR=/home/mamutal91/.ccacherom
-  ccache -M 100G -F 0
+  ccache -M 100G
 }
 
 s() {
