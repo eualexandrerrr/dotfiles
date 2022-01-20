@@ -11,24 +11,6 @@ argsC() {
   echo -e "${BOL_RED}SELINUX_IGNORE_NEVERALLOWS=true${END}\n" && export SELINUX_IGNORE_NEVERALLOWS=true
 }
 
-proxyC() {
-  ip="192.168.132.155:44355"
-  git config --global socks.proxy ${ip}
-  git config --global ssh.proxy http://${ip}
-  git config --global http.proxy http://${ip}
-  git config --global https.proxy http://${ip}
-  export http_proxy="http://${ip}/"
-  export ftp_proxy="ftp://${ip}/"
-  export rsync_proxy="rsync://${ip}/"
-  export no_proxy="localhost,127.0.0.1,192.168.1.1,::1,*.local"
-  export HTTP_PROXY="http://${ip}/"
-  export FTP_PROXY="ftp://${ip}/"
-  export RSYNC_PROXY="rsync://${ip}/"
-  export NO_PROXY="localhost,127.0.0.1,192.168.1.1,::1,*.local"
-  export https_proxy="http://${ip}/"
-  export HTTPS_PROXY="http://${ip}/"
-}
-
 ccacheC() {
   sudo mkdir -p /mnt/ccache
   sudo mount --bind /home/mamutal91/.cache /mnt/ccache
@@ -39,9 +21,6 @@ ccacheC() {
 }
 
 s() {
-  if [[ ${1} == "proxy" ]]; then
-    proxyC
-  fi
   iconSuccess="$HOME/.config/assets/icons/success.png"
   iconFail="$HOME/.config/assets/icons/fail.png"
   mkdir -p $rom &> /dev/null
