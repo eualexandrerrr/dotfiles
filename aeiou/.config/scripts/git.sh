@@ -130,7 +130,6 @@ pp() {
   push -f main
 }
 
-
 add() {
   git add .
 }
@@ -171,16 +170,7 @@ translate() {
 }
 
 gitadd() {
-  case $(basename "$(pwd)") in
-    aosp | vendor_aosp)
-      git add .
-      echo "${BLUE}INCLUDE roomservice.py${END}"
-#      git reset build/tools/roomservice.py
-      ;;
-    *)
-      git add .
-      ;;
-  esac
+  git add .
 }
 
 gitpush() {
@@ -443,13 +433,13 @@ up() {
 hals() {
   pwd=$(pwd)
   branch=(
-  msm8996
-  msm8998
-  sdm660
-  sdm845
-  sm8150
-  sm8250
-  sm8350
+    msm8996
+    msm8998
+    sdm660
+    sdm845
+    sm8150
+    sm8250
+    sm8350
   )
   for i in "${branch[@]}"; do
     $HOME/.dotfiles/aeiou/.config/scripts/kraken/hal/hal.sh ${i}
