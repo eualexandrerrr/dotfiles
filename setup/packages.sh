@@ -40,11 +40,3 @@ mypackages=(
   selinux-python
   laptop-mode-tools acpi
 )
-
-builder=(
-  android-tools android-udev base-devel git wget multilib-devel cmake svn clang lzip patchelf inetutils ccache \
-  gcc-multilib gcc-libs-multilib binutils libtool-multilib lib32-libusb \
-  lib32-readline lib32-glibc lib32-zlib python2 perl git gnupg flex bison gperf zip unzip sdl squashfs-tools \
-  ncurses libpng zlib libusb libusb-compat readline inetutils android-sdk-platform-tools android-udev esd-oss pngcrush \
-  repo tcp_wrappers termcap perl-switch
-)
