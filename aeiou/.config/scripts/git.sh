@@ -437,7 +437,7 @@ upstream() {
 }
 
 up() {
-  upstream ${1} twelve twelve ${2}
+  upstream ${1} arrow-12.0 twelve ${2}
 }
 
 hals() {

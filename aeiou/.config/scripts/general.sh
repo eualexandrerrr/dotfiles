@@ -16,39 +16,44 @@ agg() {
 }
 
 sx() {
-  echo -e "${BOL_RED}Verificando strings da ArrowOS${END}\n"
   ag -S arrow . --ignore-dir=out
   find . -name "arrow*"
+  echo -e "\n${BOL_RED}Verificando strings da ArrowOS${END}\n"
   for i in $(ag -S arrow . -l --ignore-dir=out); do
-    sed -i "s:The ArrowOS Project:The XXX Project:" $i
-    sed -i "s:ArrowOS:Kraken:" $i
-    sed -i "s:org.arrowos:org.kraken:" $i
-    sed -i "s:org.arrow:org.kraken:" $i
-    sed -i "s:ro.arrow:ro.kraken:" $i
-    sed -i "s:arrowos:kraken:" $i
-    sed -i "s:arrowos.net:aospk.org:" $i
-    sed -i "s:The XXX Project:The ArrowOS Project:" $i
+    echo -e "${GRE}${i}${END}"
+    sed -i "s:The ArrowOS Project:The XXX Project:g" $i
+    sed -i "s:ArrowOS:Kraken:g" $i
+    sed -i "s:org.arrowos:org.kraken:g" $i
+    sed -i "s:org.arrow:org.kraken:g" $i
+    sed -i "s:ro.arrow:ro.kraken:g" $i
+    sed -i "s:com.arrow:com.kraken:g" $i
+    sed -i "s:arrowos:kraken:g" $i
+    sed -i "s:arrowos.net:aospk.org:g" $i
+    sed -i "s:The XXX Project:The ArrowOS Project:g" $i
+    sed -i "s:Project Kraken:Project ArrowOS:g" $i
 
-    sed -i "s:vendor.arrow:vendor.aosp:" $i
-    sed -i "s:hardware.arrow:hardware.kraken:" $i
+    sed -i "s:arrow_version:kraken_version:g" $i
 
-    sed -i "s:vendor/arrow:vendor/aosp:" $i
-    sed -i "s:hardware/arrow:hardware/kraken:" $i
-    sed -i "s:device/arrow:device/kraken:" $i
-    sed -i "s:packages/apps/ArrowPrebuilts:packages/apps/KrakenPrebuilts:" $i
-    sed -i "s:ArrowPrebuilts.sh:KrakenPrebuilts.sh:" $i
+    sed -i "s:vendor.arrow:vendor.aosp:g" $i
+    sed -i "s:hardware.arrow:hardware.kraken:g" $i
+
+    sed -i "s:vendor/arrow:vendor/aosp:g" $i
+    sed -i "s:hardware/arrow:hardware/kraken:g" $i
+    sed -i "s:device/arrow:device/kraken:g" $i
+    sed -i "s:packages/apps/ArrowPrebuilts:packages/apps/KrakenPrebuilts:g" $i
+    sed -i "s:ArrowPrebuilts.sh:KrakenPrebuilts.sh:g" $i
 
     sed -i "s:arrow_\"):aosp_\"):g" $i
     sed -i "s:arrow_//:aosp_//:g" $i
-    sed -i "s:arrow_prebuilts:kraken_prebuilts:" $i
+    sed -i "s:arrow_prebuilts:kraken_prebuilts:g" $i
 
-    sed -i "s:ARROW_TARGET_PACKAGE:KRAKEN_TARGET_PACKAGE:" $i
-    sed -i "s:ARROW_BUILD:KRAKEN_BUILD:" $i
-    sed -i "s:ARROW_VERSION:KRAKEN_VERSION:" $i
-    sed -i "s:ARROW_BUILD_TYPE:KRAKEN_BUILD_TYPE:" $i
-    sed -i "s:ARROW_DEVICE:KRAKEN_DEVICE:" $i
-    sed -i "s:ARROW_PREBUILTS:KRAKEN_PREBUILTS:" $i
-    sed -i "s:ARROW_VERSION:KRAKEN_VERSION:" $i
+    sed -i "s:ARROW_TARGET_PACKAGE:KRAKEN_TARGET_PACKAGE:g" $i
+    sed -i "s:ARROW_BUILD:KRAKEN_BUILD:g" $i
+    sed -i "s:ARROW_VERSION:KRAKEN_VERSION:g" $i
+    sed -i "s:ARROW_BUILD_TYPE:KRAKEN_BUILD_TYPE:g" $i
+    sed -i "s:ARROW_DEVICE:KRAKEN_DEVICE:g" $i
+    sed -i "s:ARROW_PREBUILTS:KRAKEN_PREBUILTS:g" $i
+    sed -i "s:ARROW_VERSION:KRAKEN_VERSION:g" $i
   done
 }
 
