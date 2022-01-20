@@ -49,7 +49,7 @@ copyTokens() {
   mkdir -p $HOME/.myTokens
   cd $HOME/GitHub/mytokens
   cp -rf tokens.sh $HOME/.myTokens
-  chmod +x $HOME/.myTokens
+  chmod +x $HOME/.myTokens/tokens.sh
   cd $pwd
 }
 
