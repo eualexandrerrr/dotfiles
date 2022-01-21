@@ -7,7 +7,7 @@ grep -Po 'name=\"\K[^"]+(?=\")' $HOME/AOSPK/manifest/snippets/aosp.xml >> $tmp
 grep -Po 'name=\"\K[^"]+(?=\")' $HOME/AOSPK/manifest/snippets/extras.xml >> $tmp
 
 # Tags
-url="https://gerrit.pixelexperience.org/q/project:"
+url="https://review.arrowos.net/q/project:ArrowOS/"
 url=${url//\//\\/}
 branch="+branch:twelve+status:merged"
 

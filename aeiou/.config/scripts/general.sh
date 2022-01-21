@@ -5,9 +5,9 @@ source $HOME/.myTokens/tokens.sh &> /dev/null
 
 c() {
   if [[ ${2} == open ]]; then
-    google-chrome-stable https://gerrit.pixelexperience.org/q/project:${1}+branch:twelve+status:open
+    google-chrome-stable https://review.arrowos.net/q/project:ArrowOS/android_${1}+branch:twelve+status:open
   else
-    google-chrome-stable https://gerrit.pixelexperience.org/q/project:${1}+branch:twelve+status:merged
+    google-chrome-stable https://review.arrowos.net/q/project:ArrowOS/android_${1}+branch:twelve+status:merged
   fi
 }
 
