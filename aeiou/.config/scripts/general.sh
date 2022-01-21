@@ -115,7 +115,7 @@ sideload() {
         echo "Waiting for device..."
         adb wait-for-device-recovery
         echo "Found device"
-        if (adb shell getprop org.kraken.device | grep -q "${KRAKEN_BUILD}"); then
+        if (adb shell getprop ro.kraken.device | grep -q "${KRAKEN_BUILD}"); then
           echo "Rebooting to sideload for install"
           adb reboot sideload-auto-reboot
           adb wait-for-sideload
