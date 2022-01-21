@@ -57,7 +57,7 @@ mmc() {
 }
 
 gitBlacklist() {
-  echo "No Blacklist"
+  echo "\n${CYA}No Blacklist${END}"
 #  [[ $repo == manifest ]] && echo "${BOL_RED}Blacklist detected, no push!!!${END}" && export noPush=true
 #  [[ $repo == official_devices ]] && echo "${BOL_RED}Blacklist detected, no push!!!${END}" && export noPush=true
 }
@@ -118,6 +118,12 @@ p() {
     return 1
   else
     git cherry-pick ${1}
+    if [ $? -eq 0 ]; then
+      echo "${BOL_GRE}Pick success${END}"
+    else
+      git cherry-pick -m 1 ${1}
+      echo "${BOL_RED}Merge pick${END}"
+    fi
     mc
   fi
 }
