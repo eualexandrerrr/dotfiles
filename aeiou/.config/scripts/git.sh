@@ -13,20 +13,22 @@ getRepo() {
 }
 
 mc() {
-  if echo $PWD | grep "$HOME/Kraken" &> /dev/null; then
-    lastCommit=$(git log --format="%H" -n 1)
-    for i in $(git diff-tree --no-commit-id --name-only -r $lastCommit); do
-      cat ${i} | grep 'ARROW\|arrow\|ARROW_\|org.arrow\|ro.arrow\|arrowos' ${i} &> /dev/null
-      if [[ $? -eq 0 ]]; then
-        echo -e "${BOL_GRE}\nChanges:${END}"
-        haveArrowString=true
-        echo -e "${BOL_RED}  * DETECTED:    ${i}${END}"
-        ag --color-line-number=30 -i arrow ${i}
-        echo
-      fi
-    done
-    [[ $haveArrowString == true ]] && echo -e "\n${BOL_MAG}-----------------------------------------\n"
-  fi
+  echo -e "\n${YEL}Checking strings...${END}\n"
+  lastCommit=$(git log --format="%H" -n 1)
+  for i in $(git diff-tree --no-commit-id --name-only -r $lastCommit); do
+    # FIND
+    find . -type f -name '*arrow*' \
+      ! -name '*ic_arrow_*.xml' \
+      ! -name '*arrow_left*.xml' \
+      ! -name '*arrow_right*.xml' \
+      ! -name '*arrow_down*.xml'
+      # end FIND
+    ag -S arrow $i \
+      --ignore "*narrow*"
+    if [ $? -eq 0 ]; then
+      echo -e "\n${BOL_RED} $i ${END}"
+    fi
+  done
 }
 
 mmc() {
@@ -119,10 +121,10 @@ p() {
   else
     git cherry-pick ${1}
     if [ $? -eq 0 ]; then
-      echo "${BOL_GRE}Pick success${END}"
+      echo -e "\n${BOL_GRE}Cherry-pick success${END}"
     else
       git cherry-pick -m 1 ${1}
-      echo "${BOL_RED}Merge pick${END}"
+      echo -e "\n${BOL_RED}Merge cherry-pick${END}"
     fi
     mc
   fi
