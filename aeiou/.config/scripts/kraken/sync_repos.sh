@@ -4,8 +4,8 @@ source $HOME/.Xcolors &> /dev/null
 source $HOME/.config/scripts/git.sh
 
 array=(
-$(grep -Po 'path=\"\K[^"]+(?=\")' $HOME/manifest/extras.xml)
-$(grep -Po 'path=\"\K[^"]+(?=\")' $HOME/manifest/aosp.xml)
+  $(grep -Po 'path=\"\K[^"]+(?=\")' $HOME/manifest/aosp.xml)
+  $(grep -Po 'path=\"\K[^"]+(?=\")' $HOME/manifest/extras.xml)
 )
 
 for i in ${array[@]}; do
@@ -37,5 +37,5 @@ for i in ${array[@]}; do
   git push ssh://git@github.com/AOSPK/${repo} HEAD:refs/heads/${branch} --force
   git push ssh://git@github.com/AOSPK-Next/${repo} HEAD:refs/heads/${branch} --force
 
-  echo
+  echo -e "\n${MAG}---------${END}\n"
 done
