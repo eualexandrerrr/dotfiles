@@ -47,7 +47,7 @@ for i in "${dependencies[@]}"; do
 done
 
 
-if [[ $HOST == odin ]]; then
+if [[ $HOST == modinx ]]; then
   for i in "${mypackages[@]}"; do
     sudo pacman -S ${i} --needed --noconfirm && continue || aurMsg && yay -S ${i} --needed --noconfirm
     checkInstallPkg
@@ -91,7 +91,7 @@ fc-cache -f -r -v &> /dev/null
 # Remove Kraken scripts
 [[ $USER != mamutal91 ]] && rm -rf $HOME/.dotfiles/aew/.config/scripts/kraken && rm -rf $HOME/.config/scripts/kraken
 
-if [[ $HOST == odin ]]; then
+if [[ $HOST == modinx ]]; then
   for i in $(ls $HOME/.dotfiles/setup/personalconfigs/*.sh); do
     chmod +x $i
     bash $i

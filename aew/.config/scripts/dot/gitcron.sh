@@ -9,7 +9,7 @@ dunstify -i $icon "GitCron" "Starting backups..." &> /dev/null
 clear
 
 # My history
-if [[ $(cat /etc/hostname) == odin ]]; then
+if [[ $(cat /etc/hostname) == modinx ]]; then
   pwd=$(pwd)
   cd $HOME/GitHub/myhistory
   cp -rf $HOME/.zsh_history $HOME/GitHub/myhistory

@@ -181,7 +181,7 @@ tree
 function kernelAndVendor() {
   cd $workingDir
 
-  if [[ $(cat /etc/hostname) == odin ]]; then
+  if [[ $(cat /etc/hostname) == modinx ]]; then
     echo -e "${BOL_RED}\nVENDOR??? RODE ESSE SCRIPT SOMENTE NO SERVIDOR PARA NÃO CONSUMIR A INTERNET${END}"
     exit
   fi
@@ -231,7 +231,7 @@ function kernelAndVendor() {
   sed -i "s/lineage/${projectNameKernel}/g" arch/arm64/configs/vendor/vangogh_defconfig
   sed -i "s/lineage/${projectNameKernel}/g" arch/arm64/configs/vendor/mikona_defconfig
   sed -i "s/lineage/${projectNameKernel}/g" arch/arm64/configs/vendor/milito_defconfig
-  
+
   git add . && git commit --message "ARM64: configs: xiaomi: Set localversion to ${projectName}" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>"
 
   git push ssh://git@github.com/${pushToGitHubTree}/kernel_xiaomi_sm8250 HEAD:refs/heads/${branch} --force
