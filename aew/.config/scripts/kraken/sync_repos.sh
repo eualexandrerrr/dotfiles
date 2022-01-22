@@ -5,6 +5,7 @@ source $HOME/.config/scripts/git.sh
 
 array=(
   $(grep -Po 'path=\"\K[^"]+(?=\")' $HOME/manifest/aosp.xml)
+  $(grep -Po 'path=\"\K[^"]+(?=\")' $HOME/manifest/caf.xml)
   $(grep -Po 'path=\"\K[^"]+(?=\")' $HOME/manifest/extras.xml)
 )
 
