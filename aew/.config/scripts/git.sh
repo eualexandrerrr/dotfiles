@@ -18,8 +18,7 @@ mc() {
   for i in $(git diff-tree --no-commit-id --name-only -r $lastCommit); do
     # FIND
     find $i -type f -name '*arrow*'
-    ag -S arrow $i \
-      --ignore "*narrow*"
+    ag -S arrow $i
     if [ $? -eq 0 ]; then
       echo -e "\n${BOL_RED} $i ${END}"
     fi
