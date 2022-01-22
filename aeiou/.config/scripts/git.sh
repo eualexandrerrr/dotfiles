@@ -396,7 +396,7 @@ upstream() {
     echo "${BOL_RED}Forget everything above, I'm cloning it is straight from AOSP${END}"
     repoAOSP=$(echo $repo | sed "s/_/\//g")
     [[ $repoAOSP == hardware/libhardware/legacy ]] && repoAOSP="hardware/libhardware_legacy"
-    tagAOSP=$(grep "default revision" $HOME/Kraken/manifest/default.xml | tr -d '"' | cut -c31-100)
+    tagAOSP=$(grep "default revision" $HOME/manifest/default.xml | tr -d '"' | cut -c31-100)
     echo -e "${BOL_RED}\n### ${BOL_YEL} ${tagAOSP}\n${END}"
     git clone https://android.googlesource.com/platform/${repoAOSP} -b ${tagAOSP} ${repo} &> /dev/null
   else
@@ -428,7 +428,7 @@ upstream() {
     gh api -XPATCH "repos/AOSPK-Next/${repo}" -f default_branch="${branch}" &> /dev/null
   }
 
-  mainOrg
+  # mainOrg
   nextOrg
 
   rm -rf $workingDir
