@@ -21,16 +21,18 @@ for i in ${array[@]}; do
   [[ $repo == "hardware_qcom_audio" ]] && continue
   [[ $repo == "hardware_qcom_media" ]] && continue
   [[ $repo == "hardware_qcom_display" ]] && continue
+
+  [[ $repo == "hardware_qcom_bootctrl" ]] && continue
+  [[ $repo == "hardware_qcom_wlan" ]] && continue
+
   [[ $repo == "vendor_nxp_opensource_halimpl" ]] && continue
   [[ $repo == "vendor_nxp_opensource_hidlimpl" ]] && continue
 
   [[ $repo == "official_devices" ]] && continue
   [[ $repo == "vendor_gapps" ]] && continue
 
-  [[ $repo == "packages_apps_Settings" ]] && continue
-
-  [[ $repo == "hardware_qcom_bootctrl" ]] && branch="twelve-caf"
-  [[ $repo == "hardware_qcom_wlan" ]] && branch="twelve-caf"
+  [[ $repo == "hardware_qcom_bootctrl" ]] && continue
+  [[ $repo == "hardware_qcom_wlan" ]] && continue
 
   git push ssh://git@github.com/AOSPK/${repo} HEAD:refs/heads/${branch} --force
   git push ssh://git@github.com/AOSPK-Next/${repo} HEAD:refs/heads/${branch} --force
