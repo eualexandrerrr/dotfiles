@@ -17,12 +17,7 @@ mc() {
   lastCommit=$(git log --format="%H" -n 1)
   for i in $(git diff-tree --no-commit-id --name-only -r $lastCommit); do
     # FIND
-#    find . -type f -name '*arrow*' \
-#      ! -name '*ic_arrow_*.xml' \
-#      ! -name '*arrow_left*.xml' \
-#      ! -name '*arrow_right*.xml' \
-#      ! -name '*arrow_down*.xml'
-#      # end FIND
+    find $i -type f -name '*arrow*'
     ag -S arrow $i \
       --ignore "*narrow*"
     if [ $? -eq 0 ]; then
