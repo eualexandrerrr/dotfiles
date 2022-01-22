@@ -450,7 +450,7 @@ hals() {
     sm8350
   )
   for i in "${branch[@]}"; do
-    $HOME/.dotfiles/aeiou/.config/scripts/kraken/hal/hal.sh ${i}
+    $HOME/.dotfiles/aew/.config/scripts/kraken/hal/hal.sh ${i}
   done
   cd $pwd
 }
