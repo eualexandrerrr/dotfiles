@@ -3,11 +3,19 @@
 source $HOME/.Xcolors &> /dev/null
 source $HOME/.myTokens/tokens.sh &> /dev/null
 
+
 c() {
   if [[ ${2} == open ]]; then
     google-chrome-stable https://review.arrowos.net/q/project:ArrowOS/android_${1}+branch:twelve+status:open
   else
-    google-chrome-stable https://review.arrowos.net/q/project:ArrowOS/android_${1}+branch:twelve+status:merged
+    up ${1} aosp
+    mkdir -p $HOME/Repos
+    cd $HOME/Repos
+    rm -rf ${1}
+    git clone ssh://git@github.com/AOSPK-Next/${1} -b twelve --single-branch
+    cd ${1}
+    clear
+    f
   fi
 }
 

@@ -32,8 +32,6 @@ for i in ${array[@]}; do
   [[ $repo == "hardware_qcom_bootctrl" ]] && branch="twelve-caf"
   [[ $repo == "hardware_qcom_wlan" ]] && branch="twelve-caf"
 
-  git add . && git commit --amend --no-edit
-
   git push ssh://git@github.com/AOSPK/${repo} HEAD:refs/heads/${branch} --force
   git push ssh://git@github.com/AOSPK-Next/${repo} HEAD:refs/heads/${branch} --force
 

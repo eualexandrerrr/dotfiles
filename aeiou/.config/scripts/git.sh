@@ -17,12 +17,12 @@ mc() {
   lastCommit=$(git log --format="%H" -n 1)
   for i in $(git diff-tree --no-commit-id --name-only -r $lastCommit); do
     # FIND
-    find . -type f -name '*arrow*' \
-      ! -name '*ic_arrow_*.xml' \
-      ! -name '*arrow_left*.xml' \
-      ! -name '*arrow_right*.xml' \
-      ! -name '*arrow_down*.xml'
-      # end FIND
+#    find . -type f -name '*arrow*' \
+#      ! -name '*ic_arrow_*.xml' \
+#      ! -name '*arrow_left*.xml' \
+#      ! -name '*arrow_right*.xml' \
+#      ! -name '*arrow_down*.xml'
+#      # end FIND
     ag -S arrow $i \
       --ignore "*narrow*"
     if [ $? -eq 0 ]; then
@@ -398,7 +398,7 @@ upstream() {
     [[ $repoAOSP == hardware/libhardware/legacy ]] && repoAOSP="hardware/libhardware_legacy"
     tagAOSP=$(grep "default revision" $HOME/manifest/default.xml | tr -d '"' | cut -c31-100)
     echo -e "${BOL_RED}\n### ${BOL_YEL} ${tagAOSP}\n${END}"
-    git clone https://android.googlesource.com/platform/${repoAOSP} -b ${tagAOSP} ${repo} &> /dev/null
+    git clone https://android.googlesource.com/platform/${repoAOSP} -b ${tagAOSP} ${repo}
   else
     echo -e "\n${BOL_BLU}Cloning ${BOL_MAG}${orgBaseName}/${BOL_RED}${repo} ${BOL_BLU}branch ${BOL_YEL}${branchBase}${END}\n"
     git clone https://github.com/${orgBase}${repo} -b ${branchBase} ${repo} --single-branch
@@ -428,7 +428,7 @@ upstream() {
     gh api -XPATCH "repos/AOSPK-Next/${repo}" -f default_branch="${branch}" &> /dev/null
   }
 
-  # mainOrg
+  mainOrg
   nextOrg
 
   rm -rf $workingDir
