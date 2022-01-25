@@ -8,7 +8,7 @@ c() {
   if [[ ${2} == los ]]; then
     google-chrome-stable https://review.lineageos.org/q/project:LineageOS/android_${1}+branch:lineage-19.0+status:merged
   else
-    google-chrome-stable https://review.arrowos.net/q/project:ArrowOS/android_${1}+branch:twelve+status:merged
+    google-chrome-stable https://review.arrowos.net/q/project:ArrowOS/android_${1}+branch:arrow-12.0+status:merged
   fi
 }
 

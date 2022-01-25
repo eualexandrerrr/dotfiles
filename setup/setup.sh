@@ -58,7 +58,7 @@ if [[ $HOST == modinx ]]; then
   sudo sed -i "s/#unix_sock_rw_perms/unix_sock_rw_perms/g" /etc/libvirt/libvirtd.conf
 
   # Copy fan config control
-  sudo cp -rf .dotfiles/assets/.config/assets/fans/Acer\ Nitro\ 5\ AN515-43.xml /opt/nbfc/Configs
+  sudo cp -rf $HOME/.dotfiles/assets/.config/assets/fans/Acer\ Nitro\ 5\ AN515-43.xml /opt/nbfc/Configs
   nbfc config -a "Acer Nitro 5 AN515-43"
 
   # Generate grub
