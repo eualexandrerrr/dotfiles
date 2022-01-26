@@ -13,43 +13,18 @@ getRepo() {
 }
 
 mc() {
-  echo -e "\n${GRE}Checking files...${END}"
-  find . -name "*arrow*" $(printf "! -name %s " $(cat $HOME/.dotfiles/aew/.config/scripts/kraken/ignore_files.txt))
-  echo -e "${YEL}Checking strings...${END}\n"
-  lastCommit=$(git log --format="%H" -n 1)
-  for i in $(git diff-tree --no-commit-id --name-only -r $lastCommit); do
-    ag -S arrow $i
-    if [ $? -eq 0 ]; then
-      echo -e "\n${BOL_RED} $i ${END}"
-    fi
-  done
-}
-
-mmc() {
-  echo -e "${BOL_GRE}Changes:${END}"
-  lastComcit=$(git log --format="%H" -n 1)
-
-  for i in $(find -L . | cut -c3-300); do
-    check=$(echo ${i} | cut -c-2)
-    if [[ $check == "./" ]]; then
-      continue
-    else
-      if [[ -d ${i} ]]; then
-        # is a directory
-        continue
-      else
-        cat ${i} | grep 'ARROW\|arrow\|ARROW_\|com.arrow' ${i} &> /dev/null
-        if [[ $? -eq 0 ]]; then
-          echo -e "${BOL_RED}\n  * DETECTED:    ${i}${END}"
-          ag --color-line-number=30 -i arrow ${i}
-          echo
-        else
-          echo -e "${BOL_GRE} No detected - ${BOL_CYA}${i}${END}"
-        fi
+  if [[ $(echo $PWD | cut -c1-22) == "/home/mamutal91/Kraken" ]]; then
+    echo -e "\n${GRE}Checking files...${END}"
+    find . -name "*arrow*" $(printf "! -name %s " $(cat $HOME/.dotfiles/aew/.config/scripts/kraken/ignore_files.txt))
+    echo -e "${YEL}Checking strings...${END}\n"
+    lastCommit=$(git log --format="%H" -n 1)
+    for i in $(git diff-tree --no-commit-id --name-only -r $lastCommit); do
+      ag -S arrow $i
+      if [ $? -eq 0 ]; then
+        echo -e "\n${BOL_RED} $i ${END}"
       fi
-    fi
-  done
-  echo -e "\n${BOL_RED}-----------------------------------------\n"
+    done
+  fi
 }
 
 gitBlacklist() {
