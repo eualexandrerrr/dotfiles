@@ -61,10 +61,10 @@ apkAndimg() {
 moveBuild() {
   pathBuilds=$HOME/Builds
   mkdir -p $pathBuilds
-  mv $HOME/Kraken/out/target/product/*/Kraken-12-*-*.zip $pathBuilds
-  mv $HOME/Kraken/out/target/product/*/Kraken-12-*-*.json $pathBuilds/json
+  mv $HOME/Kraken/out/target/product/**/Kraken-12-*-*.zip $pathBuilds
+  mv $HOME/Kraken/out/target/product/**/Kraken-12-*-*.json $pathBuilds/json
   apkAndimg
-  rm -rf $HOME/Kraken/out/target/product/*/{*.md5sum,*.sha256sum,*ota*.zip,*.json}
+  rm -rf $HOME/Kraken/out/target/product/**/{*.md5sum,*.sha256sum,*ota*.zip,*.json}
 }
 
 b() {
