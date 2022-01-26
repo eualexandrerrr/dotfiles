@@ -3,7 +3,6 @@
 source $HOME/.Xcolors &> /dev/null
 source $HOME/.myTokens/tokens.sh &> /dev/null
 
-
 c() {
   if [[ ${2} == los ]]; then
     google-chrome-stable https://review.lineageos.org/q/project:LineageOS/android_${1}+branch:lineage-19.0+status:merged

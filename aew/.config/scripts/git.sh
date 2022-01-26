@@ -28,9 +28,8 @@ mc() {
 }
 
 gitBlacklist() {
-  echo "\n${CYA}No Blacklist${END}"
 #  [[ $repo == manifest ]] && echo "${BOL_RED}Blacklist detected, no push!!!${END}" && export noPush=true
-#  [[ $repo == official_devices ]] && echo "${BOL_RED}Blacklist detected, no push!!!${END}" && export noPush=true
+  [[ $repo == official_devices ]] && echo "${BOL_RED}Blacklist detected, no push!!!${END}" && export noPush=true
 }
 
 gitRules() {
