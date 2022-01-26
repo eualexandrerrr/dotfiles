@@ -44,6 +44,7 @@ lunchC() {
 }
 
 apkAndimg() {
+  pwd=$(pwd)
   cd out/target/product/lmi
   pathPrebuilts=$HOME/Builds
   rm -rf ${pathPrebuilts}/{apk,img,json} &> /dev/null
@@ -54,6 +55,7 @@ apkAndimg() {
   cp -R */*/*/*.apk ${pathPrebuilts}/apk
   cp -R */*/*/*/*.apk ${pathPrebuilts}/apk
   cp -R *.img ${pathPrebuilts}/img
+  cd $pwd
 }
 
 moveBuild() {
