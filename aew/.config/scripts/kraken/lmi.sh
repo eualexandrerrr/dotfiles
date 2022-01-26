@@ -40,9 +40,11 @@ tree() {
 
   sed -i "s/lineage_/aosp_/g" AndroidProducts.mk
 
-  rm -rf overlay-lineage
-  sed -i '/overlay-lineage/d' device.mk
-  sed -i 's/overlay \\/overlay/' device.mk
+  sed -i "s:\$(LOCAL_PATH)/overlay-lineage:\$(LOCAL_PATH)/overlay-kraken:g" device.mk
+  mv overlay-lineage overlay-kraken
+  rm -rf overlay-kraken/lineage-sdk
+#  sed -i '/overlay-lineage/d' device.mk
+#  sed -i 's/overlay \\/overlay/' device.mk
 
   mv lineage_lmi.mk aosp_lmi.mk
   sed -i "s/lineage_/aosp_/g" aosp_lmi.mk
@@ -96,18 +98,29 @@ tree() {
   git add . && git commit --message "lmi: Add the default gesture" --author "Alexandre Rangel <mamutal91@gmail.com>"
 
   # UDFPS
-#  sed -i '$d' overlay/frameworks/base/packages/SystemUI/res/values/config.xml
-#  echo "
-#    <!-- Color of the UDFPS pressed view -->
-#    <color name=\"config_udfpsColor\">#ffffff</color>
-#
-#    <!-- HBM type of UDFPS overlay.
-#        0 - GLOBAL HBM
-#        1 - LOCAL HBM
-#    -->
-#    <integer name=\"config_udfps_hbm_type\">0</integer>
-#</resources>" | tee -a overlay/frameworks/base/packages/SystemUI/res/values/config.xml
-#  git add . && git commit --message "lmi: Re-add color and type HBM udfps" --author "TheScarastic <warabhishek@gmail.com>"
+  sed -i '$d' overlay-kraken/frameworks/base/packages/SystemUI/res/values/config.xml
+  echo "
+    <!-- Udfps vendor code -->
+    <integer name=\"config_udfps_vendor_code\">22</integer>
+
+</resources>" | tee -a overlay-kraken/frameworks/base/packages/SystemUI/res/values/config.xml
+  git add . && git commit --message "lmi: Add udfps vendor code" --author "TheScarastic <warabhishek@gmail.com>"
+
+  # PADDING
+  sed -i '$d' overlay/frameworks/base/packages/SystemUI/res/values/dimens.xml
+  echo "
+    <!-- The absolute side margins of quick settings -->
+    <dimen name=\"rounded_corner_content_padding\">70px</dimen>
+
+</resources>" | tee -a overlay/frameworks/base/packages/SystemUI/res/values/dimens.xml
+
+  msgPadding="lmi: Increase rounded corner content padding
+
+* Android 12 requires a big space on right side to
+ show privacy chips. So let's do the same for left
+ keeping the design consistency."
+
+  git add . && git commit --message "$msgPadding" --author "Mesquita <mesquita@aospa.co>"
 
   git push ssh://git@github.com/${pushToGitHubTree}/device_xiaomi_lmi HEAD:refs/heads/${branch} --force
 
@@ -116,9 +129,11 @@ tree() {
   git clone https://github.com/${orgRebase}/android_device_xiaomi_sm8250-common -b ${branchRebase} device_xiaomi_sm8250-common
   cd device_xiaomi_sm8250-common
 
-  rm -rf overlay-lineage
-  sed -i '/overlay-lineage/d' kona.mk
-  sed -i 's/overlay \\/overlay/' kona.mk
+  sed -i "s:\$(LOCAL_PATH)/overlay-lineage:\$(LOCAL_PATH)/overlay-kraken:g" kona.mk
+  mv overlay-lineage overlay-kraken
+  rm -rf overlay-kraken/lineage-sdk
+#  sed -i '/overlay-lineage/d' kona.mk
+#  sed -i 's/overlay \\/overlay/' kona.mk
 
   sed -i "s:vendor/lineage:vendor/aosp:g" kona.mk
   sed -i "s:vendor/lineage:vendor/aosp:g" BoardConfigCommon.mk
