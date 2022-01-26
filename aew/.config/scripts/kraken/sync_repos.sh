@@ -19,6 +19,8 @@ for i in ${array[@]}; do
 
   echo -e "${BOL_GRE}$i\n${BOL_BLU}$repo${END}\n"
 
+  [[ $repo == "manifest" ]] && continue
+
   [[ $repo == "hardware_qcom_audio" ]] && continue
   [[ $repo == "hardware_qcom_media" ]] && continue
   [[ $repo == "hardware_qcom_display" ]] && continue
