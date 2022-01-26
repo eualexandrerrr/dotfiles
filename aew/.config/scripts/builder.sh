@@ -46,7 +46,7 @@ lunchC() {
 apkAndimg() {
   cd out/target/product/lmi
   pathPrebuilts=$HOME/Builds
-  rm -rf ${pathPrebuilts}/{apk,img} &> /dev/null
+  rm -rf ${pathPrebuilts}/{apk,img,json} &> /dev/null
   mkdir -p ${pathPrebuilts}/{apk,apk/accents,apk/overlay,img} &> /dev/null
   rm -rf obj/*/*/*.apk
   rm -rf symbols/*/*/*.apk
@@ -60,8 +60,9 @@ moveBuild() {
   pathBuilds=$HOME/Builds
   mkdir -p $pathBuilds
   mv $HOME/Kraken/out/target/product/*/Kraken-12-*-*.zip $pathBuilds
-  [[ $codename == lmi ]] && apkAndimg &> /dev/null
-  rm -rf $HOME/Kraken/out/target/product/*/{*.md5sum,*.sha256sum,*ota*.zip}
+  mv $HOME/Kraken/out/target/product/*/Kraken-12-*-*.json $pathBuilds/json
+  apkAndimg
+  rm -rf $HOME/Kraken/out/target/product/*/{*.md5sum,*.sha256sum,*ota*.zip,*.json}
 }
 
 b() {
