@@ -159,6 +159,10 @@ tree() {
   sed -i "s/BUILD_BROKEN_VENDOR_PROPERTY_NAMESPACE := true/BUILD_BROKEN_VENDOR_PROPERTY_NAMESPACE := true\nBUILD_BROKEN_MISSING_REQUIRED_MODULES := true/g" BoardConfigCommon.mk
   git add . && git commit --message "sm8250-common: Add build broken rule" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>"
 
+  # Parts
+  sed -i "s/org.lineageos.settings.resources/org.kraken.settings.resources/g" parts/Android.bp
+  git add . && git commit --message "sm8250-common: Use our parts resources" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>"
+
   git push ssh://git@github.com/${pushToGitHubTree}/device_xiaomi_sm8250-common HEAD:refs/heads/${branch} --force
 }
 tree
