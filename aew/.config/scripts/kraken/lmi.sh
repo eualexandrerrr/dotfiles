@@ -10,25 +10,11 @@ git config --global user.name "Alexandre Rangel"
 branch=twelve
 branchRebase=lineage-19.0
 branchRebaseKernel=lineage-19.0
+pushToGitHubTree=AOSPK-Devices
+remoteBlobs=blobs
+projectName=Kraken
 
-if [[ ${1} == pe ]]; then
-  pushToGitHubTree=mamutal91
-  pushToGitHubVendor=mamutal91
-  projectName=PE
-  projectNameKernel=pe
-  remoteBlobs=pixel-devices-blobs
-  repoHardwareXiaomi=LineageOS/android_hardware_xiaomi
-  repoHardwareXiaomiBranch=lineage-19.0
-else
-  pushToGitHubTree=AOSPK-Devices
-  pushToGitHubVendor=TheBootloops
-  projectName=Kraken
-  projectNameKernel=kraken
-  remoteBlobs=blobs
-  repoHardwareXiaomi=AOSPK/hardware_xiaomi
-  repoHardwareXiaomiBranch=twelve
-fi
-
+# ORG DE BASE!!!
 orgRebase=xiaomi-sm8250-devs
 
 if [[ $orgRebase = xiaomi-sm8250-devs ]]; then
@@ -63,41 +49,42 @@ tree() {
   sed -i "s:vendor/lineage:vendor/aosp:g" aosp_lmi.mk
   sed -i "s/Lineage stuff/${projectName} stuff/g" aosp_lmi.mk
 
-  if [[ $projectName == PE ]]; then
-    echo -e "\nNo change name include mk vendor aosp\n"
-  else
-    sed -i "s/common_full_phone.mk/common.mk/g" aosp_lmi.mk
-  fi
+  sed -i "s/PRODUCT_MODEL := POCO F2 Pro/PRODUCT_MODEL := POCO F2 Pro\n\nKRAKEN_BUILD_TYPE := OFFICIAL\nTARGET_BOOT_ANIMATION_RES := 1080/g" aosp_lmi.mk
+
+  sed -i "s/common_full_phone.mk/common.mk/g" aosp_lmi.mk
 
   rm -rf lineage.dependencies
   echo '[
   {
     "repository": "device_xiaomi_sm8250-common",
-    "target_path": "device/xiaomi/sm8250-common"
+    "target_path": "device/xiaomi/sm8250-common",
+    "branch": "twelve"
   },
   {
     "remote": "blobs",
     "repository": "vendor_xiaomi_lmi",
     "target_path": "vendor/xiaomi/lmi",
-    "branch": "twelve"
+    "branch": "twelve-su"
   }
 ]' > aosp.dependencies
 
   echo "[
   {
     \"repository\": \"device_xiaomi_sm8250-common\",
-    \"target_path\": \"device/xiaomi/sm8250-common\"
+    \"target_path\": \"device/xiaomi/sm8250-common\",
+    \"branch\": \"twelve-su\"
   },
   {
     \"remote\": \"${remoteBlobs}\",
     \"repository\": \"vendor_xiaomi_lmi\",
     \"target_path\": \"vendor/xiaomi/lmi\",
-    \"branch\": \"twelve\"
+    \"branch\": \"twelve-su\"
   }
 ]"
 
   git add . && git commit --message "lmi: $bringup" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>"
 
+  # Default gesture
   sed -i '$ d' overlay/frameworks/base/core/res/res/values/config.xml
   echo '
     <!-- Controls the navigation bar interaction mode:
@@ -109,18 +96,18 @@ tree() {
   git add . && git commit --message "lmi: Add the default gesture" --author "Alexandre Rangel <mamutal91@gmail.com>"
 
   # UDFPS
-  sed -i '$d' overlay/frameworks/base/packages/SystemUI/res/values/config.xml
-  echo "
-    <!-- Color of the UDFPS pressed view -->
-    <color name=\"config_udfpsColor\">#ffffff</color>
-
-    <!-- HBM type of UDFPS overlay.
-        0 - GLOBAL HBM
-        1 - LOCAL HBM
-    -->
-    <integer name=\"config_udfps_hbm_type\">0</integer>
-</resources>" | tee -a overlay/frameworks/base/packages/SystemUI/res/values/config.xml
-  git add . && git commit --message "lmi: Re-add color and type HBM udfps" --author "TheScarastic <warabhishek@gmail.com>"
+#  sed -i '$d' overlay/frameworks/base/packages/SystemUI/res/values/config.xml
+#  echo "
+#    <!-- Color of the UDFPS pressed view -->
+#    <color name=\"config_udfpsColor\">#ffffff</color>
+#
+#    <!-- HBM type of UDFPS overlay.
+#        0 - GLOBAL HBM
+#        1 - LOCAL HBM
+#    -->
+#    <integer name=\"config_udfps_hbm_type\">0</integer>
+#</resources>" | tee -a overlay/frameworks/base/packages/SystemUI/res/values/config.xml
+#  git add . && git commit --message "lmi: Re-add color and type HBM udfps" --author "TheScarastic <warabhishek@gmail.com>"
 
   git push ssh://git@github.com/${pushToGitHubTree}/device_xiaomi_lmi HEAD:refs/heads/${branch} --force
 
@@ -146,13 +133,12 @@ tree() {
     \"remote\": \"${remoteBlobs}\",
     \"repository\": \"vendor_xiaomi_sm8250-common\",
     \"target_path\": \"vendor/xiaomi/sm8250-common\",
-    \"branch\": \"twelve\"
+    \"branch\": \"twelve-su\"
   },
   {
-    \"remote\": \"github\",
-    \"repository\": \"${repoHardwareXiaomi}\",
+    \"repository\": \"hardware_xiaomi\",
     \"target_path\": \"hardware/xiaomi\",
-    \"branch\": \"${repoHardwareXiaomiBranch}\"
+    \"branch\": \"twelve\"
   }
 ]" > aosp.dependencies
 
