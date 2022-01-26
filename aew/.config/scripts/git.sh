@@ -13,11 +13,11 @@ getRepo() {
 }
 
 mc() {
-  echo -e "\n${YEL}Checking strings...${END}\n"
+  echo -e "\n${GRE}Checking files...${END}"
+  find . -name "*arrow*" $(printf "! -name %s " $(cat $HOME/.dotfiles/aew/.config/scripts/kraken/ignore_files.txt))
+  echo -e "${YEL}Checking strings...${END}\n"
   lastCommit=$(git log --format="%H" -n 1)
   for i in $(git diff-tree --no-commit-id --name-only -r $lastCommit); do
-    # FIND
-    find $i -type f -name '*arrow*'
     ag -S arrow $i
     if [ $? -eq 0 ]; then
       echo -e "\n${BOL_RED} $i ${END}"
