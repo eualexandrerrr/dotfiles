@@ -102,7 +102,6 @@ pp() {
   clear
   f
   git cherry-pick -m 1 ${1}
-  git add . && git commit --amend --author "Alexandre Rangel <mamutal91@gmail.com>" --no-edit
   push -f main
 }
 
@@ -121,7 +120,6 @@ pc() {
       git rebase --continue
     fi
   fi
-  return 0
   mc
 }
 
