@@ -9,9 +9,14 @@ cd $HOME
 git config --global user.email "mamutal91@gmail.com" && git config --global user.name "Alexandre Rangel"
 
 # zsh history
-pwd=$(pwd)
-rm -rf $HOME/.zsh_history* && cd $HOME && wget https://raw.githubusercontent.com/mamutal91/myhistory/master/.zsh_history
-cd $pwd
+if [[ ! -e $HOME/.zsh_history ]]; then
+  pwd=$(pwd)
+  rm -rf $HOME/.zsh_history* && cd $HOME && wget https://raw.githubusercontent.com/mamutal91/myhistory/master/.zsh_history
+  cd $pwd
+else
+  echo -e "${BOL_RED}\n VOCÊ PRECISA BAIXAR O HISTÓRICO DO ZSH"
+  echo -e "${BOL_GRE}rm -rf \$HOME/.zsh_history* && cd \$HOME && wget https://raw.githubusercontent.com/mamutal91/myhistory/master/.zsh_history"
+fi
 
 # Dirs
 mkdir -p $HOME/{Pictures,Videos,GitHub} &> /dev/null
