@@ -1,3 +1,6 @@
+bcm23550-sparrow.dts
+qcom-apq8064-arrow-sd-600eval-pins.dtsi
+qcom-apq8064-arrow-sd-600eval.dts
 arrow_toast_rounded_background.xml
 arrow_tip_view_bg.xml
 arrow_tip_view_content.xml
