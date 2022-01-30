@@ -16,7 +16,7 @@ fi
 source $ZSH/oh-my-zsh.sh
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-export BROWSER="/usr/bin/google-chrome-stable"
+export BROWSER="/usr/bin/google-chrome-unstable"
 export EDITOR="nano"
 export TERM="xterm-256color"
 export STUDIO_JDK=/usr/lib/jvm/java-11-openjdk

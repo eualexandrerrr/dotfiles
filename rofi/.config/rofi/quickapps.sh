@@ -19,5 +19,5 @@ case $chosen in
   $steam) nbfc set -s 100 && steam & ;;
   $spotify) spotify & ;;
   $fancontrol) $HOME/.config/scripts/dot/fancontrol.sh ;;
-  $youtube) google-chrome-stable https://www.youtube.com & ;;
+  $youtube) google-chrome-unstable https://www.youtube.com & ;;
 esac

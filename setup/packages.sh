@@ -11,7 +11,7 @@ dependencies=(
 
   flatery-icon-theme-git xcursor-breeze dracula-gtk-theme-git
 
-  google-chrome telegram-desktop
+  google-chrome-dev telegram-desktop
 
   terminus-font noto-fonts-emoji ttf-dejavu ttf-liberation ttf-icomoon-feather ttf-font-awesome
 
