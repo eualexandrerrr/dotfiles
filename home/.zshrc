@@ -19,8 +19,9 @@ source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 export BROWSER="/usr/bin/google-chrome-unstable"
 export EDITOR="nano"
 export TERM="xterm-256color"
-export STUDIO_JDK=/usr/lib/jvm/java-11-openjdk
+export STUDIO_JDK="/usr/lib/jvm/java-11-openjdk"
 export PATH="/usr/share/:$PATH"
+export CCACHE_EXEC="/usr/bin/ccache"
 
 # Aliases
 alias poweroff="nbfc set -s 50 && sleep 3 && sudo poweroff"
