@@ -1,28 +1,16 @@
 #!/usr/bin/env bash
 
-# Desabilitar antes
-sudo swapoff /dev/zram0
-sudo rmmod zram
-sudo systemctl disable zram.service
-
-# Inicio
-sudo modprobe zram
-sudo sh -c "echo 'lz4' > /sys/block/zram0/comp_algorithm"
-sudo sh -c "echo '16G' > /sys/block/zram0/disksize"
-sudo mkswap --label zram0 /dev/zram0
-sudo swapon --priority 100 /dev/zram0
-
-echo '[Unit]
-Description=zRam block devices swapping
-
-[Service]
-Type=oneshot
-ExecStart=/usr/bin/bash -c "modprobe zram && echo lz4 > /sys/block/zram0/comp_algorithm && echo 16G > /sys/block/zram0/disksize && mkswap --label zram0 /dev/zram0 && swapon --priority 100 /dev/zram0"
-ExecStop=/usr/bin/bash -c "swapoff /dev/zram0 && rmmod zram"
-RemainAfterExit=yes
-
-[Install]
-WantedBy=multi-user.target' | sudo tee /etc/systemd/system/zram.service &> /dev/null
-
-sudo systemctl enable zram
-sudo systemctl start zram
+cat << EOF > /etc/systemd/swap.conf
+#  This file is part of systemd-swap.
+#
+# Entries in this file show the systemd-swap defaults as
+# specified in /usr/share/systemd-swap/swap-default.conf
+# You can change settings by editing this file.
+# Defaults can be restored by simply deleting this file.
+#
+# See swap.conf(5) and /usr/share/systemd-swap/swap-default.conf for details.
+zram_enabled=1
+zswap_enabled=0
+swapfc_enabled=0
+zram_size=\$(( RAM_SIZE / 4 ))
+EOF

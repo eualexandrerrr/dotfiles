@@ -180,7 +180,7 @@ treeCOMMON() {
 function kernelAndVendor() {
   cd $workingDir
 
-  if [[ $(cat /etc/hostname) == modinx ]]; then
+  if [[ $(cat /etc/hostname) == nitro5 ]]; then
     echo -e "${BOL_RED}\nVENDOR??? RODE ESSE SCRIPT SOMENTE NO SERVIDOR PARA NÃO CONSUMIR A INTERNET${END}"
     exit
   fi

@@ -9,7 +9,7 @@ dunstify -i $icon "GitCron" "Starting backups..."
 clear
 
 # My history
-if [[ $(cat /etc/hostname) == modinx ]]; then
+if [[ $(cat /etc/hostname) == nitro5 ]]; then
   pwd=$(pwd)
   cd $HOME/GitHub/myhistory
   cp -rf $HOME/.zsh_history $HOME/GitHub/myhistory

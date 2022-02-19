@@ -67,7 +67,7 @@ InstallPkgs() {
 }
 InstallPkgs
 
-if [[ $HOST == "modinx" ]]; then
+if [[ $HOST == "nitro5" ]]; then
   echo -e "\n${BOL_GRE}Installing packages ATOM${END}\n${MAG}"
   bash $HOME/.dotfiles/setup/atom.sh
   echo -e "${END}"
@@ -81,15 +81,15 @@ if [[ $HOST == "modinx" ]]; then
   nbfc config -a "Acer Nitro 5 AN515-43"
 
   # Personal configs
-  echo -e "\n${BOL_GRE}Running scripts for ${CYA}modinx${END}\n"
-  for i in $(ls $HOME/.dotfiles/setup/modinx/*.sh); do
+  echo -e "\n${BOL_GRE}Running scripts for ${CYA}nitro5${END}\n"
+  for i in $(ls $HOME/.dotfiles/setup/nitro5/*.sh); do
     chmod +x $i
     bash $i
   done
 fi
 
 # Enable systemd services
-echo -e "\n${BOL_GRE}Enabling services ${CYA}modinx${END}\n"
+echo -e "\n${BOL_GRE}Enabling services ${CYA}nitro5${END}\n"
 for services in \
   cronie \
   bluetooth \

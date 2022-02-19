@@ -28,7 +28,7 @@ export PATH="/usr/share/:$PATH"
 export CCACHE_EXEC="/usr/bin/ccache"
 
 export BUILD_USERNAME="mamutal91"
-export BUILD_HOSTNAME="modinx"
+export BUILD_HOSTNAME="nitro5"
 
 # Aliases
 alias atom="atom --in-progress-gpu --no-sandbox -n=false"
