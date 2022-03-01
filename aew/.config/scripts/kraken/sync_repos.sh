@@ -32,7 +32,6 @@ for i in ${array[@]}; do
   [[ $repo == "vendor_nxp_opensource_hidlimpl" ]] && continue
 
   [[ $repo == "official_devices" ]] && continue
-  [[ $repo == "vendor_gapps" ]] && continue
 
   [[ $repo == "hardware_qcom_bootctrl" ]] && continue
   [[ $repo == "hardware_qcom_wlan" ]] && continue

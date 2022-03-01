@@ -50,7 +50,7 @@ gitRules() {
   [[ $repo == vendor_xiaomi_lmi ]] && upPEOrg=yes && org=TheBootloops && branch=twelve
   [[ $repo == vendor_xiaomi_sm8250-common ]] && upPEOrg=yes && org=TheBootloops && branch=twelve
 
-  [[ $repo == vendor_gapps ]] && githost=gitlab && org=AOSPK
+  [[ $repo == vendor_gapps ]] && githost=gitlab && org=AOSPK-Next
 }
 
 st()  {
@@ -234,27 +234,26 @@ push() {
       echo -e "${BOL_RED}You are not in a .git repository \n${YEL} # $PWD${END}"
       return 0
     else
-      if [[ $repo != "vendor_gapps" ]]; then
-        echo -e " ${BOL_BLU}\nPushing to ${BOL_YEL}${org}/${MAG}${repo}${END}\n"
-        echo -e " ${MAG}PROJECT : ${YEL}$org"
-        echo -e " ${MAG}REPO    : ${BLU}$repo"
-        echo -e " ${MAG}BRANCH  : ${CYA}$branch${END}\n"
-        git push ssh://git@${githost}.com/${org}/${repo} HEAD:refs/heads/${branch} --force
-        gh api -XPATCH "repos/${org}/${repo}" -f default_branch="${branch}" &> /dev/null # BRANCH DEFAUL
-        argMain=${2}
-        [[ $repo == device_xiaomi_lmi ]] && git push ssh://git@github.com/AOSPK-Devices/device_xiaomi_lmi HEAD:refs/heads/twelve --force
-
-        # PE
-#        [[ $repo == device_xiaomi_lmi ]] && git push ssh://git@github.com/PixelExperience-Devices/device_xiaomi_lmi HEAD:refs/heads/twelve --force
-#        [[ $repo == device_xiaomi_sm8250-common ]] && git push ssh://git@github.com/PixelExperience-Devices/device_xiaomi_sm8250-common HEAD:refs/heads/twelve --force
-#        [[ $repo == kernel_xiaomi_sm8250 ]] && git push ssh://git@github.com/PixelExperience-Devices/kernel_xiaomi_sm8250 HEAD:refs/heads/twelve --force
-#        [[ $repo == vendor_xiaomi_lmi ]] && git push ssh://git@gitlab.pixelexperience.org/android/vendor-blobs/vendor_xiaomi_lmi HEAD:refs/heads/twelve --force
-#        [[ $repo == vendor_xiaomi_sm8250-common ]] && git push ssh://git@gitlab.pixelexperience.org/android/vendor-blobs/vendor_xiaomi_sm8250-common HEAD:refs/heads/twelve --force
+      echo -e " ${BOL_BLU}\n 🆙 Pushing...${END}\n"
+      echo -e " ${MAG}PROJECT : ${YEL}$org"
+      echo -e " ${MAG}REPO    : ${GRE}$repo"
+      echo -e " ${MAG}BRANCH  : ${CYA}${branch}${END}"
+      if [[ ${githost} == "github" ]]; then
+        echo -e " ${MAG}HOST    : ${BLU}${githost}.com${END}"
+        echo -e " ${MAG}LINK    : ${BOL_BLU}https://github.com/${org}/${repo}/commits/${branch}${END}\n"
       else
-        argMain="main"
+        echo -e " ${MAG}HOST    : ${RED}${githost}.com${END}"
+        echo -e " ${MAG}LINK    : ${BOL_BLU}https://gitlab.com/${org}/${repo}/-/commits/${branch}${END}\n"
       fi
+
+      git push ssh://git@${githost}.com/${org}/${repo} HEAD:refs/heads/${branch} --force
+      gh api -XPATCH "repos/${org}/${repo}" -f default_branch="${branch}" &> /dev/null # BRANCH DEFAUL
+      [[ $repo == device_xiaomi_lmi ]] && git push ssh://git@github.com/AOSPK-Devices/device_xiaomi_lmi HEAD:refs/heads/twelve --force
+
+      argMain=${2}
+
       if [[ $argMain == main ]]; then
-        echo -e " ${BOL_BLU}\nPushing to ${BOL_YEL}AOSPK/${MAG}${repo}${END}\n"
+        echo -e " ${BOL_BLU}\n ⛔ Pushing to ${BOL_RED}main org${END} ${BOL_YEL}AOSPK/${BOL_GRE}${repo}${END}\n"
         git push ssh://git@${githost}.com/AOSPK/${repo} HEAD:refs/heads/${branch} --force
         gh api -XPATCH "repos/AOSPK/${repo}" -f default_branch="${branch}" &> /dev/null
       fi
