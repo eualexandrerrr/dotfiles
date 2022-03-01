@@ -19,7 +19,7 @@ mc() {
     echo -e "${YEL}Checking strings...${END}\n"
     lastCommit=$(git log --format="%H" -n 1)
     for i in $(git diff-tree --no-commit-id --name-only -r $lastCommit); do
-      ag -S arrow $i
+      ag -S arrow $i --hidden
       if [ $? -eq 0 ]; then
         echo -e "\n${BOL_RED} $i ${END}"
       fi

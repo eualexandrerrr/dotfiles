@@ -12,7 +12,7 @@ c() {
 }
 
 agg() {
-  ag -S ${1} .
+  ag -S ${1} . --hidden
 }
 
 newuser() {
