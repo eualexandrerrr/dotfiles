@@ -19,7 +19,7 @@ else
 fi
 
 # Dirs
-mkdir -p $HOME/{Pictures,Videos,GitHub} &> /dev/null
+mkdir -p $HOME/{Images,Videos,GitHub} &> /dev/null
 
 # My Tokens
 checkTokens() {

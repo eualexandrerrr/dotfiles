@@ -77,6 +77,7 @@ b() {
   task=${1}
   [[ -z $task ]] && task=bacon
   cores=$(nproc --all)
+  cores=6
   echo -e "${BOL_MAG}\nYou are building:"
   echo -e "${BOL_YEL}Task   : ${BOL_CYA}${task}"
   echo -e "${BOL_YEL}Device : ${BOL_CYA}${codename}"
