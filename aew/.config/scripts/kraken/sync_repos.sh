@@ -12,6 +12,7 @@ array=(
 for i in ${array[@]}; do
 
   branch="twelve"
+  githost="github"
 
   cd $HOME/Kraken/${i}
 
@@ -36,8 +37,10 @@ for i in ${array[@]}; do
   [[ $repo == "hardware_qcom_bootctrl" ]] && continue
   [[ $repo == "hardware_qcom_wlan" ]] && continue
 
-  git push ssh://git@github.com/AOSPK/${repo} HEAD:refs/heads/${branch} --force
-  git push ssh://git@github.com/AOSPK-Next/${repo} HEAD:refs/heads/${branch} --force
+  [[ $repo == "vendor_gapps" ]] && githost=gitlab
+
+  git push ssh://git@${githost}.com/AOSPK/${repo} HEAD:refs/heads/${branch} --force
+  git push ssh://git@${githost}.com/AOSPK-Next/${repo} HEAD:refs/heads/${branch} --force
 
   echo -e "\n${MAG}---------${END}\n"
 done
