@@ -68,6 +68,7 @@ moveBuild() {
 }
 
 b() {
+
   iconSuccess="$HOME/.config/assets/icons/success.png"
   iconFail="$HOME/.config/assets/icons/fail.png"
   cd $rom && clear
@@ -94,6 +95,7 @@ b() {
   makeC() {
     [[ -z $task ]] && task=bacon
     make -j${cores} ${task} 2>&1 | tee log.txt
+
 
     buildResult=SUCCESS
     logBuild=$(grep '####' $rom/log.txt)
@@ -129,6 +131,21 @@ b() {
   fi
 
   [[ $makeBuild == "true" ]] && makeC
+
+  msg="  *Task:* ${task}
+  *Codename:* ${codename}
+  *Result:* ${buildResult}
+  *Finish:* $(date +"%H:%M")"
+
+    sendTelegramMsg() {
+      curl "https://api.telegram.org/bot${mamutal91_botToken}/sendMessage" \
+        -d chat_id="-1001702262779" \
+        -d disable_notification="false" \
+        --data-urlencode text="${msg}" \
+        --data-urlencode parse_mode="markdown" \
+        --data-urlencode disable_web_page_preview="true"
+    }
+  sendTelegramMsg &> /dev/null
 
   nbfc set -s 50
 
