@@ -163,6 +163,11 @@ gitpush() {
     fi
   fi
   gitRules
+  if [[ $githost == "github" ]]; then
+    echo -e " ${BOL_BLU}https://github.com/${org}/${repo}/commit/$(git log --format="%H" -n 1)${END}"
+  else
+    echo -e " ${BOL_BLU}https://gitlab.com/$org/${repo}/-/commit/$(git log --format="%H" -n 1)${END}"
+  fi
 }
 
 cm() {
