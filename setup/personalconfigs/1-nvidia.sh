@@ -2,6 +2,9 @@
 
 sudo mkdir -p /etc/pacman.d/hooks
 
+rm -rf /etc/X11/xorg.conf.d/20-nvidia-drm-outputclass.conf
+rm -rf /etc/modprobe.d/blacklist-nvidia-nouveau.conf
+
 echo "[Trigger]
 Operation=Install
 Operation=Upgrade
