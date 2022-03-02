@@ -1,9 +1,17 @@
 #!/usr/bin/env bash
 
+sudo rm -rf /etc/X11/xorg.conf.d/20-nvidia-drm-outputclass.conf
+sudo rm -rf /etc/modprobe.d/blacklist-nvidia-nouveau.conf
+
 sudo mkdir -p /etc/pacman.d/hooks
 
-rm -rf /etc/X11/xorg.conf.d/20-nvidia-drm-outputclass.conf
-rm -rf /etc/modprobe.d/blacklist-nvidia-nouveau.conf
+pwd=$(pwd)
+  rm -rf /tmp/nvidia-all
+  mkdir -p /tmp
+  git clone https://github.com/Frogging-Family/nvidia-all.git /tmp/nvidia-all
+  cd /tmp/nvidia-all
+  makepkg -si
+cd $pwd
 
 echo "[Trigger]
 Operation=Install
