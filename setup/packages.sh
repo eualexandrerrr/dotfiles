@@ -26,9 +26,6 @@ mypackages=(
   archlinux-keyring gnupg cronie net-tools
   noip
 
-  # ZenKernel
-  linux-zen linux-zen-headers
-
   # Video/games
   nvidia-lts nvidia-utils nvidia-settings nvidia-utils nvidia-dkms nvidia-prime opencl-nvidia nbfc-git
   mesa mesa-demos vulkan-tools lib32-nvidia-utils lib32-opencl-nvidia lib32-virtualgl lib32-nvidia-utils lib32-libvdpau lib32-opencl-nvidia lib32-mesa
