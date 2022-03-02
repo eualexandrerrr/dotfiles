@@ -61,10 +61,10 @@ apkAndimg() {
 moveBuild() {
   pathBuilds=$HOME/Builds
   mkdir -p $pathBuilds
-  mv $HOME/Kraken/out/target/product/**/Kraken-12-*-*.zip $pathBuilds
-  mv $HOME/Kraken/out/target/product/**/Kraken-12-*-*.json $pathBuilds/json
+  mv $HOME/Kraken/out/target/product/${codename}/Kraken-12-*-*.zip $pathBuilds
+  mv $HOME/Kraken/out/target/product/${codename}/Kraken-12-*-*.json $pathBuilds/json
   apkAndimg
-  rm -rf $HOME/Kraken/out/target/product/**/{*.md5sum,*.sha256sum,*ota*.zip,*.json}
+  rm -rf $HOME/Kraken/out/target/product/${codename}/{*.md5sum,*.sha256sum,*ota*.zip,*.json}
 }
 
 b() {
@@ -76,8 +76,12 @@ b() {
   ccacheC
   task=${1}
   [[ -z $task ]] && task=bacon
+  [[ $task == "poweroff" ]] && task=bacon
   cores=$(nproc --all)
-#  cores=7
+  if [[ $@ == "poweroff" ]]; then
+    export poweroff="yes"
+    echo -e "\n${BOL_RED}Eu vou desligar após compilar${END}"
+  fi
   echo -e "${BOL_MAG}\nYou are building:"
   echo -e "${BOL_YEL}Task   : ${BOL_CYA}${task}"
   echo -e "${BOL_YEL}Device : ${BOL_CYA}${codename}"
@@ -129,7 +133,11 @@ b() {
   nbfc set -s 50
 
   # Desligar o notebook se algum argumento for poweroff, porém, esperar 100 segundos para que esfrie os componentes
-  [[ $@ == poweroff ]] && sleep 100 && nbfc set -s 50 && sudo poweroff
+  if [[ $poweroff == "yes" ]]; then
+    sleep 60
+    nbfc set -s 50
+    sudo poweroff
+  fi
 }
 
 clean() {
