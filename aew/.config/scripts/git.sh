@@ -53,6 +53,19 @@ gitRules() {
   [[ $repo == vendor_gapps ]] && githost=gitlab && org=AOSPK-Next
 }
 
+gitLastCommitURL() {
+  if [[ $(echo $PWD | cut -c1-22) == "/home/mamutal91/Kraken" ]]; then
+    if [[ $githost == "github" ]]; then
+      echo -e "\n 🔗 ${GRE}Commit\n ${BLU}https://github.com/${org}/${repo}/commit/$(git log --format="%H" -n 1)${END}\n"
+    else
+      echo -e "\n 🔗 ${GRE}Commit\n ${BLU}https://gitlab.com/$org/${repo}/-/commit/$(git log --format="%H" -n 1)${END}\n"
+    fi
+  else
+    userGit=$(cat .git/config | grep url | cut -d "/" -f4)
+    echo -e "\n 🔗 ${GRE}Commit\n ${BLU}https://github.com/${userGit}/${repo}/commit/$(git log --format="%H" -n 1)${END}\n"
+  fi
+}
+
 st()  {
   git status
   mc
@@ -163,11 +176,6 @@ gitpush() {
     fi
   fi
   gitRules
-  if [[ $githost == "github" ]]; then
-    echo -e " ${BOL_BLU}https://github.com/${org}/${repo}/commit/$(git log --format="%H" -n 1)${END}"
-  else
-    echo -e " ${BOL_BLU}https://gitlab.com/$org/${repo}/-/commit/$(git log --format="%H" -n 1)${END}"
-  fi
 }
 
 cm() {
@@ -225,16 +233,16 @@ push() {
     exit 1
   }
 
-  githost=github
-  org=AOSPK-Next
-  gerrit=gerrit.aospk.org
-  branch=twelve
+  export githost=github
+  export org=AOSPK-Next
+  export gerrit=gerrit.aospk.org
+  export branch=twelve
 
   getRepo
   gitRules
   gitBlacklist
 
-  pushGitHub() {
+  pushGit() {
     if [[ ! -d .git ]]; then
       echo -e "${BOL_RED}You are not in a .git repository \n${YEL} # $PWD${END}"
       return 0
@@ -245,10 +253,10 @@ push() {
       echo -e " ${MAG}BRANCH  : ${CYA}${branch}${END}"
       if [[ ${githost} == "github" ]]; then
         echo -e " ${MAG}HOST    : ${BLU}${githost}.com${END}"
-        echo -e " ${MAG}LINK    : ${BOL_BLU}https://github.com/${org}/${repo}/commits/${branch}${END}\n"
+        echo -e " ${MAG}LINK    : ${BLU}https://github.com/${org}/${repo}/commits/${branch}${END}\n"
       else
         echo -e " ${MAG}HOST    : ${RED}${githost}.com${END}"
-        echo -e " ${MAG}LINK    : ${BOL_BLU}https://gitlab.com/${org}/${repo}/-/commits/${branch}${END}\n"
+        echo -e " ${MAG}LINK    : ${BLU}https://gitlab.com/${org}/${repo}/-/commits/${branch}${END}\n"
       fi
 
       git push ssh://git@${githost}.com/${org}/${repo} HEAD:refs/heads/${branch} --force
@@ -263,6 +271,7 @@ push() {
         gh api -XPATCH "repos/AOSPK/${repo}" -f default_branch="${branch}" &> /dev/null
       fi
     fi
+    gitLastCommitURL
   }
 
   while getopts "svnc:t:fp:" option; do
@@ -283,7 +292,7 @@ push() {
         topicGerrit=$OPTARG
         ;;
       f)
-        pushGitHub ${1} ${2}
+        pushGit ${1} ${2}
         return 0
         ;;
       p)
