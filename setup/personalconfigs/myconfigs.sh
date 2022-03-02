@@ -14,8 +14,8 @@ if [[ ! -e $HOME/.zsh_history ]]; then
   rm -rf $HOME/.zsh_history* && cd $HOME && wget https://raw.githubusercontent.com/mamutal91/myhistory/master/.zsh_history
   cd $pwd
 else
-  echo -e "${BOL_RED}\n VOCÊ PRECISA BAIXAR O HISTÓRICO DO ZSH"
-  echo -e "${BOL_GRE}rm -rf \$HOME/.zsh_history* && cd \$HOME && wget https://raw.githubusercontent.com/mamutal91/myhistory/master/.zsh_history"
+  echo -e "${BOL_RED}\n VOCÊ PRECISA BAIXAR O HISTÓRICO DO ZSH${END}"
+  echo -e "${BOL_GRE}rm -rf \$HOME/.zsh_history* && cd \$HOME && wget https://raw.githubusercontent.com/mamutal91/myhistory/master/.zsh_history${END}"
 fi
 
 # Dirs
@@ -24,11 +24,11 @@ mkdir -p $HOME/{Images,Videos,GitHub} &> /dev/null
 # My Tokens
 checkTokens() {
   if [[ -d $HOME/.ssh ]]; then
-    echo ".ssh já existe"
+    echo -e "\n${BOL_RED} .ssh já existe${END}"
   else
     sudo rm -rf $HOME/GitHub/mytokens
     sudo rm -rf $HOME/.ssh/id_*
-    git clone https://gitlab.com/mamutal91/mytokens $HOME/GitHub/mytokens
+    git clone ssh://git@gitlab.com/mamutal91/mytokens $HOME/GitHub/mytokens
   fi
 }
 checkTokens
@@ -61,12 +61,13 @@ copyTokens() {
 copyTokens
 # Clone my important repos
 cloneRepos() {
-  rm -rf $HOME/GitHub/{myarch,myhistory,docker-files,shellscript-atom-snippets} && rm -rf $HOME/.scripter
+  rm -rf $HOME/GitHub/{myarch,myhistory,docker-files,shellscript-atom-snippets,crowdin} && rm -rf $HOME/.scripter
   git clone ssh://git@github.com/mamutal91/scripter $HOME/.scripter
   git clone ssh://git@github.com/AOSPK/docker-files $HOME/GitHub/docker-files
   git clone ssh://git@github.com/mamutal91/myarch $HOME/GitHub/myarch
   git clone ssh://git@github.com/mamutal91/myhistory $HOME/GitHub/myhistory
   git clone ssh://git@github.com/mamutal91/shellscript-atom-snippets $HOME/GitHub/shellscript-atom-snippets
+  git clone ssh://git@github.com/AOSPK/crowdin $HOME/GitHub/crowdin
 }
 cloneRepos
 
