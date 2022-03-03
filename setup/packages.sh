@@ -31,7 +31,7 @@ mypackages=(
   nbfc-git
   steam wine winetricks lib32-gnutls wps-office ttf-wps-fonts
 
-  atom silver-searcher-git discord diff-so-fancy filezilla git htop jdk-openjdk jq man man-pages-pt_br
+  atom silver-searcher-git discord diff-so-fancy filezilla git gotop jdk-openjdk jq man man-pages-pt_br
   github-cli
   vkd3d lib32-vkd3d
   rsync shfmt tree qbittorrent zip scrcpy

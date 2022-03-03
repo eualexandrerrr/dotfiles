@@ -13,7 +13,7 @@
 - [zsh](https://www.zsh.org) + [oh-my-zsh](https://github.com/ohmyzsh/ohmyzsh) + [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting) (terminal sexy <39)
 - [alacritty](https://github.com/alacritty/alacritty) (A cross-platform, GPU-accelerated terminal emulator)
 - [grim](https://github.com/emersion/grim) + [ffmpeg](https://github.com/FFmpeg/FFmpeg) + [slurp](https://github.com/emersion/slurp) + [xclip](https://github.com/astrand/xclip) (screenshots and screencasts)
-- [htop](https://github.com/htop-dev/htop) (an interactive process viewer)
+- [gotop](https://github.com/cjbassi/gotop) (an interactive process viewer)
 
 ## How to use?
 
