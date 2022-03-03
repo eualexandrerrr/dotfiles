@@ -105,7 +105,7 @@ exec_always --no-startup-id xidlehook --not-when-audio --not-when-fullscreen --t
 exec_always --no-startup-id sudo timedatectl set-ntp true && sudo hwclock --systohc
 exec_always --no-startup-id kotatogram-desktop &
 exec --no-startup-id "pactl set-sink-mute @DEFAULT_SINK@ false; pactl set-sink-volume @DEFAULT_SINK@ 80%"
-exec --no-startup-id echo 206 | sudo tee /sys/class/backlight/amdgpu_bl1/brightness
+exec --no-startup-id echo 206 | sudo tee /sys/class/backlight/amdgpu_bl0/brightness
 
 # GTK theme set
 exec --no-startup-id gsettings set org.gnome.desktop.interface gtk-theme $theme
@@ -125,10 +125,10 @@ bindsym $super+Up exec --no-startup-id "pactl set-sink-mute @DEFAULT_SINK@ false
 bindsym $super+Down exec --no-startup-id "pactl set-sink-mute @DEFAULT_SINK@ false; pactl set-sink-volume @DEFAULT_SINK@ -5%"
 bindsym XF86AudioMute exec --no-startup-id "pactl set-sink-mute 0 toggle"
 
-bindsym XF86MonBrightnessUp exec --no-startup-id echo $((`cat /sys/class/backlight/amdgpu_bl1/brightness` + 25)) | sudo tee /sys/class/backlight/amdgpu_bl1/brightness
-bindsym XF86MonBrightnessDown exec --no-startup-id echo $((`cat /sys/class/backlight/amdgpu_bl1/brightness` - 25)) | sudo tee /sys/class/backlight/amdgpu_bl1/brightness
-bindsym $alt+Right exec --no-startup-id echo $((`cat /sys/class/backlight/amdgpu_bl1/brightness` + 25)) | sudo tee /sys/class/backlight/amdgpu_bl1/brightness
-bindsym $alt+Left exec --no-startup-id echo $((`cat /sys/class/backlight/amdgpu_bl1/brightness` - 25)) | sudo tee /sys/class/backlight/amdgpu_bl1/brightness
+bindsym XF86MonBrightnessUp exec --no-startup-id echo $((`cat /sys/class/backlight/amdgpu_bl0/brightness` + 25)) | sudo tee /sys/class/backlight/amdgpu_bl0/brightness
+bindsym XF86MonBrightnessDown exec --no-startup-id echo $((`cat /sys/class/backlight/amdgpu_bl0/brightness` - 25)) | sudo tee /sys/class/backlight/amdgpu_bl0/brightness
+bindsym $alt+Right exec --no-startup-id echo $((`cat /sys/class/backlight/amdgpu_bl0/brightness` + 25)) | sudo tee /sys/class/backlight/amdgpu_bl0/brightness
+bindsym $alt+Left exec --no-startup-id echo $((`cat /sys/class/backlight/amdgpu_bl0/brightness` - 25)) | sudo tee /sys/class/backlight/amdgpu_bl0/brightness
 
 bindsym $control+$alt+Delete exec --no-startup-id pkill -15 Xorg
 
