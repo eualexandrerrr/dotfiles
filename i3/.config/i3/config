@@ -167,6 +167,7 @@ for_window [class="Alacritty"] focus
 
 # Workspace 2 [browser]
 for_window [class="Google-chrome"] move to workspace $ws2, focus
+for_window [title="Sign In - Google Accounts - Google Chrome"] move to workspace $ws2, floating enable, focus
 
 # Workspace 3 [atom]
 for_window [class="Atom"] move to workspace $ws3, focus
