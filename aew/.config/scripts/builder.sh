@@ -132,10 +132,10 @@ b() {
 
   [[ $makeBuild == "true" ]] && makeC
 
-  msg="  *Task:* ${task}
-  *Codename:* ${codename}
-  *Result:* ${buildResult}
-  *Finish:* $(date +"%H:%M")"
+  msg="*Task:* ${task}
+*Codename:* ${codename}
+*Result:* ${buildResult}
+*Finish:* $(date +"%H:%M")"
 
     sendTelegramMsg() {
       curl "https://api.telegram.org/bot${mamutal91_botToken}/sendMessage" \
