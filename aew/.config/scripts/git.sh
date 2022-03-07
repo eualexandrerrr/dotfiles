@@ -18,9 +18,11 @@ mc() {
     echo -e "${YEL}Checking strings...${END}\n"
     lastCommit=$(git log --format="%H" -n 1)
     for i in $(git diff-tree --no-commit-id --name-only -r $lastCommit); do
-      ag -S arrow $i --hidden
-      if [ $? -eq 0 ]; then
-        echo -e "\n${BOL_RED} $i ${END}"
+      if [[ -d $i ]]; then # Confere se o arquivo existe, pois se estiver na lista de modificados, porém for apagado, vai gerar erro!
+        ag -S arrow $i #--hidden
+        if [ $? -eq 0 ]; then
+          echo -e "\n${BOL_RED} $i ${END}"
+        fi
       fi
     done
   fi
