@@ -37,6 +37,8 @@ gitRules() {
   [[ $repo == docker-files ]] && dockerfiles && exit
   [[ $repo == shellscript-atom-snippets ]] && source $HOME/.myTokens/tokens.sh && export ATOM_ACCESS_TOKEN=${atomToken} && echo $ATOM_ACCESS_TOKEN && apm publish minor && sleep 5 && apm update mamutal91-shellscript-snippets-atom --no-confirm
 
+  [[ $repo == official_devices ]] && branch=master
+
   [[ $repo == build_make ]] && repo=build
   [[ $repo == packages_apps_Updates ]] && repo=packages_apps_Updater
 
