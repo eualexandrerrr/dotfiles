@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-source $HOME/.Xcolors &> /dev/null
+source $HOME/.Xconfigs # My general configs
 
 icon="$HOME/.config/assets/icons/backup.png"
 

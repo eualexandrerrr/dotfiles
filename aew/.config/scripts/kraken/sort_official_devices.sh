@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-source $HOME/.Xcolors &> /dev/null
+source $HOME/.Xconfigs # My general configs
 
 devices=$HOME/GitHub/official_devices/devices.json
 maintainers=$HOME/GitHub/official_devices/team/maintainers.json

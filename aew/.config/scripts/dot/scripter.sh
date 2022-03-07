@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-source $HOME/.colors &>/dev/null
+source $HOME/.Xconfigs # My general configs
 
 echo -e "${BOL_BLU}Starting script...${END}\n"
 chmod +x $HOME/.scripter/scripter.sh

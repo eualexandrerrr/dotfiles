@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
-source $HOME/.Xcolors &> /dev/null
-source $HOME/.myTokens/tokens.sh &> /dev/null
+source $HOME/.Xconfigs # My general configs
 
 rom="$HOME/Kraken"
 codename=lmi

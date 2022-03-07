@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-source $HOME/.myTokens/tokens.sh &> /dev/null
+source $HOME/.Xconfigs # My general configs
 
 count=$(curl -u username:${githubNotification} https://api.github.com/notifications | jq '. | length')
 

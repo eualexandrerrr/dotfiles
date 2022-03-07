@@ -2,7 +2,7 @@
 
 clear
 
-source $HOME/.Xcolors &> /dev/null
+source $HOME/.Xconfigs # My general configs
 
 builder=(
   ncurses ncurses5-compat-libs lib32-ncurses5-compat-libs aosp-devel xml2 lineageos-devel \

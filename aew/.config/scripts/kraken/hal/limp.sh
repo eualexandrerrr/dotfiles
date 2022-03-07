@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-source $HOME/.Xcolors &> /dev/null
+source $HOME/.Xconfigs # My general configs
 
 limps=(
   "vendor_nxp_opensource_halimpl twelve-pn5xx"

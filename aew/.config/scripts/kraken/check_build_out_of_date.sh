@@ -2,8 +2,7 @@
 
 clear
 
-source $HOME/.Xcolors &> /dev/null
-source $HOME/.myTokens/tokens.sh &> /dev/null
+source $HOME/.Xconfigs # My general configs
 
 chatId="-1001485974314"
 

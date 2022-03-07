@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-source $HOME/.Xcolors &> /dev/null
+source $HOME/.Xconfigs # My general configs
 
 org=xiaomi-sm8250-devs
 branch=lineage-19.0

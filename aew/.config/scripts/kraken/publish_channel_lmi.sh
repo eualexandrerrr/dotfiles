@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
+source $HOME/.Xconfigs # My general configs
+
 zipBuild=${1}
 codename=${2}
-
-source $HOME/.myTokens/tokens.sh &> /dev/null
 
 chatId="-1001485974314"
 

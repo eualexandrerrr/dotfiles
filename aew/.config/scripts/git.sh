@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
-source $HOME/.Xcolors &> /dev/null
-source $HOME/.myTokens/tokens.sh &> /dev/null
+source $HOME/.Xconfigs # My general configs
 
 myGitUserFull="Alexandre Rangel <mamutal91@gmail.com>"
 myGitUser="mamutal91"
@@ -35,7 +34,15 @@ gitBlacklist() {
 gitRules() {
   [[ $repo == .dotfiles ]] && dot && exit
   [[ $repo == docker-files ]] && dockerfiles && exit
-  [[ $repo == shellscript-atom-snippets ]] && source $HOME/.myTokens/tokens.sh && export ATOM_ACCESS_TOKEN=${atomToken} && echo $ATOM_ACCESS_TOKEN && apm publish minor && sleep 5 && apm update mamutal91-shellscript-snippets-atom --no-confirm
+
+  if [[ $repo == shellscript-atom-snippets ]]; then
+    source $HOME/.myTokens/tokens.sh
+    export ATOM_ACCESS_TOKEN=${atomToken}
+    echo $ATOM_ACCESS_TOKEN
+    apm publish minor
+    sleep 5
+    apm update mamutal91-shellscript-snippets-atom --no-confirm
+  fi
 
   [[ $repo == official_devices ]] && branch=master
 

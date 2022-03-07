@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 # Adjust the following variables as necessary
 
-source $HOME/.myTokens/tokens.sh &> /dev/null
-source $HOME/.Xcolors &> /dev/null
+source $HOME/.Xconfigs # My general configs
 
 repo=frameworks_base
 repoPath=frameworks/base

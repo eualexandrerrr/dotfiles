@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+source $HOME/.Xcolors
+source $HOME/.myTokens/tokens.sh

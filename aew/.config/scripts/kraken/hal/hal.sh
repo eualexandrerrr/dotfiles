@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-source $HOME/.Xcolors &> /dev/null
+source $HOME/.Xconfigs # My general configs
 
 workingDir=$(mktemp -d) && cd $workingDir
 

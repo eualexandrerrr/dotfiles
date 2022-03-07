@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
+source $HOME/.Xconfigs # My general configs
+
 clear
-source $HOME/.Xcolors &> /dev/null
+
 pwd=$(pwd)
 cd $HOME
 

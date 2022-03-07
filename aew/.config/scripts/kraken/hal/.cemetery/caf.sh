@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-source $HOME/.colors &>/dev/null 
+source $HOME/.Xconfigs # My general configs
 
 repos=(
     hardware_qcom_bootctrl

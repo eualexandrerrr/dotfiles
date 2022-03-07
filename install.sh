@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+source $HOME/.Xconfigs # My general configs
+
 clear
 
 if [[ ! -d $HOME/.dotfiles ]]; then
@@ -7,7 +9,6 @@ if [[ ! -d $HOME/.dotfiles ]]; then
   exit
 fi
 
-source $HOME/.Xcolors &> /dev/null
 rm -rf $HOME/.bash_profile .bashrc .xinitrc .config/mimeapps.list
 
 # Stow

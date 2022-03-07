@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
-source $HOME/.Xcolors &> /dev/null
-source $HOME/.config/scripts/git.sh
+source $HOME/.Xconfigs # My general configs
 
 array=(
   $(grep -Po 'path=\"\K[^"]+(?=\")' $HOME/manifest/aosp.xml)
