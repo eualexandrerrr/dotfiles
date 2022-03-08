@@ -68,13 +68,28 @@ moveBuild() {
 
 b() {
 
+  if [[ $@ == "pe" ]]; then
+    cd $HOME/PixelExperience
+    echo -e "\n${BOL_RED}PixelExperience${END}"
+  else
+    cd $HOME/Kraken
+    echo -e "\n${BOL_RED}PixelExperience${END}"
+  fi
+
   iconSuccess="$HOME/.config/assets/icons/success.png"
   iconFail="$HOME/.config/assets/icons/fail.png"
-  cd $rom && clear
   nbfc set -s 100
   cp -rf log.txt old_log.txt &> /dev/null
   ccacheC
-  task=${1}
+
+  if [[ ${1} == pe ]]; then
+    task=${2}
+    cleanforce=${2}
+  else
+    task=${1}
+    cleanforce=${1}
+  fi
+
   [[ -z $task ]] && task=bacon
   [[ $task == "poweroff" ]] && task=bacon
   cores=$(nproc --all)
@@ -159,7 +174,7 @@ clean() {
   cd $rom && clear
   nbfc set -s 100
   lunchC
-  if [[ ${1} == "-f" ]]; then
+  if [[ ${cleanforce} == "-f" ]]; then
     echo -e "${BOL_MAG}make clean${END}"
     make clean
   else

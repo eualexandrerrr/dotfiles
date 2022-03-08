@@ -67,7 +67,7 @@ sideload() {
     ls -1 $pathBuilds
   else
     if [[ ${1} == "magisk" ]]; then
-      sudo adb sideload $HOME/Downloads/Magisk-v24.1.apk
+      sudo adb sideload $HOME/Downloads/Magisk-v24.2.apk
     else
       if [ "${pathBuilds}" ]; then
         if [ ! -f $zipPath ]; then
