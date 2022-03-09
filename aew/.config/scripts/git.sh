@@ -64,14 +64,11 @@ gitRules() {
   [[ $repo == hardware_xiaomi ]] && org=MammothOS-Devices && orgBase=ArrowOS-Devices
   [[ $repo == hardware_motorola ]] && org=MammothOS-Devices && orgBase=ArrowOS-Devices
   [[ $repo == hardware_oneplus ]] && org=MammothOS-Devices && orgBase=ArrowOS-Devices
-  [[ $repo == device_xiaomi_extras ]] && org=MammothOS-Devices && branch=twelve
+  [[ $repo == device_xiaomi_extras ]] && org=MammothOS-Devices && branch=thirteen
 
-  [[ $repo == device_xiaomi_lmi ]] && org=MammothOS-Devices && branch=twelve
-  [[ $repo == device_xiaomi_sm8250-common ]] && org=MammothOS-Devices && branch=twelve
-  [[ $repo == kernel_xiaomi_sm8250 ]] && org=MammothOS-Devices && branch=twelve
-  [[ $repo == kernel_xiaomi_lmi ]] && org=MammothOS-Devices && branch=twelve
-  [[ $repo == vendor_xiaomi_lmi ]] && org=TheBootloops && branch=twelve
-  [[ $repo == vendor_xiaomi_sm8250-common ]] && org=TheBootloops && branch=twelve
+  [[ $repo == device_xiaomi_veux ]] && org=mamutal91 && branch=thirteen
+  [[ $repo == device_xiaomi_veux-kernel ]] && org=mamutal91 && branch=thirteen
+  [[ $repo == vendor_xiaomi_veux ]] && org=mamutal91 && branch=thirteen
 
   [[ $repo == vendor_gapps ]] && githost=gitlab && org=MammothOS-Next
 }
@@ -106,7 +103,7 @@ f() {
     if [[ $repo == "kernel_xiaomi_sm8250" ]]; then
       git fetch https://github.com/Official-Ayrton990/android_kernel_xiaomi_sm8250 upstreamed-common
     elif [[ $repo == "vendor_gapps" ]]; then
-      git fetch https://gitlab.com/PixelExperience/vendor_gapps twelve
+      git fetch https://gitlab.com/PixelExperience/vendor_gapps thirteen
     else
       git fetch https://github.com/ArrowOS/android_${repo} arrow-12.1
     fi
@@ -266,9 +263,9 @@ push() {
   }
 
   export githost=github
-  export org=AOSPK-Next
+  export org=PixelStuffs
   export gerrit=gerrit.aospk.org
-  export branch=twelve
+  export branch=thirteen
 
   getRepo
   gitRules
@@ -293,7 +290,7 @@ push() {
 
       git push ssh://git@${githost}.com/${org}/${repo} HEAD:refs/heads/${branch} --force
       gh api -XPATCH "repos/${org}/${repo}" -f default_branch="${branch}" &> /dev/null # BRANCH DEFAUL
-      [[ $repo == device_xiaomi_lmi ]] && git push ssh://git@github.com/MammothOS-Devices/device_xiaomi_lmi HEAD:refs/heads/twelve --force
+      [[ $repo == device_xiaomi_lmi ]] && git push ssh://git@github.com/MammothOS-Devices/device_xiaomi_lmi HEAD:refs/heads/thirteen --force
 
       argMain=${2}
 
@@ -388,13 +385,13 @@ upstream() {
   if [[ ${4} == "main" ]]; then
     orgBaseName=MammothOS-Next
     orgBase=MammothOS-Next/
-    branchBase=twelve
+    branchBase=thirteen
   fi
 
   if [[ ${4} == "pe" ]]; then
     orgBaseName=PixelExperience
     orgBase=PixelExperience/
-    branchBase=twelve
+    branchBase=thirteen
   fi
 
   if [[ ${4} == "los" ]]; then
@@ -446,7 +443,7 @@ upstream() {
 }
 
 up() {
-  upstream ${1} arrow-12.1 twelve ${2}
+  upstream ${1} arrow-12.1 thirteen ${2}
 }
 
 hals() {

@@ -15,7 +15,7 @@ replace() {
 }
 
 remote=aospk
-branch=twelve
+branch=thirteen
 
 go() {
   cd /mnt/roms/jobs/Kraken

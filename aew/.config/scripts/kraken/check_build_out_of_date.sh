@@ -38,8 +38,8 @@ for codename in $(jq '.[] | select(.name|test("^")) | .codename' $jsonDevices | 
 
       pwd=$(pwd)
 
-      if [[ -d $workingDir/official_devices/changelogs/twelve/gapps/${codename} ]]; then
-        cd $workingDir/official_devices/changelogs/twelve/gapps/${codename}
+      if [[ -d $workingDir/official_devices/changelogs/thirteen/gapps/${codename} ]]; then
+        cd $workingDir/official_devices/changelogs/thirteen/gapps/${codename}
         haveBuild=true
         for builds in $(ls); do
           year=$(echo $builds | cut -c17-20)

@@ -44,7 +44,7 @@ for i in "${commitsIds[@]}"; do
       cd $pwd
     fi
     git add . && git commit --amend --no-edit
-    git push ssh://git@github.com/mamutal91/${repo} HEAD:refs/heads/twelve --force &> /dev/null
+    git push ssh://git@github.com/mamutal91/${repo} HEAD:refs/heads/thirteen --force &> /dev/null
   fi
   mv lineage_lmi.mk aosp_lmi.mk &> /dev/null
   mv lineage.dependencies aosp.dependencies &> /dev/null
@@ -60,8 +60,8 @@ for i in "${commitsIds[@]}"; do
       sed -i "s:lineage_:aosp_:g" ${i}
       sed -i "s:android_device_xiaomi_sm8250-common:device_xiaomi_sm8250-common:g" ${i}
       sed -i "s:android_kernel_xiaomi_sm8250:kernel_xiaomi_sm8250:g" ${i}
-      sed -i "s:lineage-18.1:twelve:g" ${i}
-      sed -i "s:lineage-19.1:twelve:g" ${i}
+      sed -i "s:lineage-18.1:thirteen:g" ${i}
+      sed -i "s:lineage-19.1:thirteen:g" ${i}
       sed -i "s:common_full_phone.mk:common.mk:g" ${i}
       sed -i "s:Lineage stuff:AOSP stuff:g" ${i}
     done
@@ -69,4 +69,4 @@ for i in "${commitsIds[@]}"; do
   sedS &> /dev/null
   git add . && git commit -s --amend --no-edit
 done
-git push ssh://git@github.com/mamutal91/${repo} HEAD:refs/heads/twelve --force &> /dev/null
+git push ssh://git@github.com/mamutal91/${repo} HEAD:refs/heads/thirteen --force &> /dev/null

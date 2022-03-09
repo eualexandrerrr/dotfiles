@@ -23,7 +23,6 @@ source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 export BROWSER="/usr/bin/google-chrome-stable"
 export EDITOR="nano"
 export TERM="xterm-256color"
-export STUDIO_JDK="/usr/lib/jvm/java-11-openjdk"
 export PATH="/usr/share/:$PATH"
 export CCACHE_EXEC="/usr/bin/ccache"
 
@@ -32,7 +31,6 @@ export BUILD_HOSTNAME="nitro5"
 
 # Aliases
 alias nvidia="bash $HOME/.dotfiles/setup/nvidia.sh"
-alias atom="atom --in-progress-gpu --no-sandbox -n=false"
 alias poweroff="sudo poweroff"
 alias reboot="sudo poweroff --reboot"
 alias pacman="sudo pacman"
@@ -45,13 +43,10 @@ alias sed="sudo sed"
 alias systemctl="sudo systemctl"
 alias xprop="xprop | awk '/^WM_CLASS/{sub(/.* =/, \"instance:\"); sub(/,/, \"\nclass:\"); print} /^WM_NAME/{sub(/.* =/, \"title:\"); print}'"
 alias notify-send="dunstify"
-alias docker="sudo docker"
-alias docker-compose="sudo docker-compose"
 
 # Paths
-alias x="clear && cd $HOME/PixelExperience"
-alias out="clear && cd $HOME/PixelExperience/out/target/product/veux && ls -1"
-alias d="cd /mnt/docker-files"
+alias x="clear && cd $HOME/PixelStuffs"
+alias out="clear && cd $HOME/PixelStuffs/out/target/product/veux && ls -1"
 
 if [[ $USER == mamutal91 ]]; then
   git config --global user.email "mamutal91@gmail.com" && git config --global user.name "Alexandre Rangel"

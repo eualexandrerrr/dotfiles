@@ -169,7 +169,7 @@ function push() {
   cd $WORKING_DIR/$1
   project_name=$(git remote -v | head -n1 | awk '{print $2}' | sed 's/.*\///' | sed 's/\.git//')
   #  git remote add gerrit ssh://$username@gerrit.aospk.org:29418/$project_name
-  git push ssh://git@github.com/MammothOS-Next/${project_name} HEAD:refs/heads/twelve-${BRANCH} --force
+  git push ssh://git@github.com/MammothOS-Next/${project_name} HEAD:refs/heads/thirteen-${BRANCH} --force
   if [ $? -ne 0 ]; then # If merge failed
     pushedF+=($1) # Add to the list
   else

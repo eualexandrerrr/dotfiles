@@ -189,6 +189,7 @@ for_window [title="Zoom Meeting|Participants*"] move to workspace $ws6, floating
 
 # Workspace 7 [pc]
 for_window [class="Thunar|thunar"] move to workspace $ws7, floating enable, resize set 800 px 550 px, move right -190px, focus
+for_window [title="Progresso da operação de arquivo*"] floating enable, focus
 for_window [class="qBittorrent"] move to workspace $ws7, focus
 for_window [class="Filezilla"] move to workspace $ws7, focus
 

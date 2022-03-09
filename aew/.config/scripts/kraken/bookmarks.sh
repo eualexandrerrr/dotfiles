@@ -9,7 +9,7 @@ grep -Po 'name=\"\K[^"]+(?=\")' $HOME/MammothOS/manifest/snippets/extras.xml >> 
 # Tags
 url="https://review.arrowos.net/q/project:ArrowOS/"
 url=${url//\//\\/}
-branch="+branch:twelve+status:merged"
+branch="+branch:thirteen+status:merged"
 
 cat $tmp > $HOME/bookmarks_names.txt
 

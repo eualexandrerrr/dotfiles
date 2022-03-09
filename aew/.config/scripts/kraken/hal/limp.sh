@@ -3,10 +3,10 @@
 source $HOME/.Xconfigs # My general configs
 
 limps=(
-  "vendor_nxp_opensource_halimpl twelve-pn5xx"
-  "vendor_nxp_opensource_hidlimpl twelve-pn5xx"
-  "vendor_nxp_opensource_halimpl twelve-sn100x"
-  "vendor_nxp_opensource_hidlimpl twelve-sn100x"
+  "vendor_nxp_opensource_halimpl thirteen-pn5xx"
+  "vendor_nxp_opensource_hidlimpl thirteen-pn5xx"
+  "vendor_nxp_opensource_halimpl thirteen-sn100x"
+  "vendor_nxp_opensource_hidlimpl thirteen-sn100x"
 )
 
 for i in "${limps[@]}"; do
@@ -14,7 +14,7 @@ for i in "${limps[@]}"; do
 
   repo=$(echo ${i} | awk '{ print $1 }')
   branch=$(echo ${i} | awk '{ print $2 }')
-  branchBase=$(sed "s:twelve:arrow-12.1:g" <<< $branch)
+  branchBase=$(sed "s:thirteen:arrow-12.1:g" <<< $branch)
 
   echo -e "\n${BOL_GRE}Repo   : ${repo}${END}"
   echo -e "${BOL_GRE}Branch : ${branch}${END}"

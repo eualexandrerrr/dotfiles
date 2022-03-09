@@ -9,7 +9,7 @@ repos=(
 )
 
 branchLOS="arrow-12.1-caf"
-branchKK="twelve-caf"
+branchKK="thirteen-caf"
 
 tmp="/tmp/kraken-hals"
 rm -rf $tmp && mkdir -p $tmp
@@ -31,5 +31,5 @@ done
 
 if [[ ${i} = hardware_qcom_bootctrl || ${i} = hardware_qcom_bt || ${i} = hardware_qcom_wlan ]]; then
   branchLOS="arrow-12.1-caf"
-  branchKK="twelve-caf"
+  branchKK="thirteen-caf"
 fi

@@ -7,7 +7,7 @@ pwd=$(pwd)
 git config --global user.email "mamutal91@gmail.com"
 git config --global user.name "Alexandre Rangel"
 
-branch=twelve
+branch=thirteen
 branchRebase=lineage-19.1
 branchRebaseKernel=lineage-19.1
 pushToGitHubTree=MammothOS-Devices

@@ -30,7 +30,7 @@ createRepo() {
 
     curl -H "Authorization: token ${githubToken}" --data "{\"name\":\"${reposToCreate}\"}" https://api.github.com/orgs/$organization/repos
     gh api -X PUT "repos/${organization}/${reposToCreate}/collaborators/${maintainerGithub}" -f permission="admin"
-    gh api -XPATCH "repos/${organization}/${repoName}" -f default_branch="twelve"
+    gh api -XPATCH "repos/${organization}/${repoName}" -f default_branch="thirteen"
 
     echo "${BOL_BLU}Creating repo ${BOL_MAG}$organization/$reposToCreate ${BOL_BLU}and inviting ${BOL_MAG}${maintainerGithub}${END}"
 

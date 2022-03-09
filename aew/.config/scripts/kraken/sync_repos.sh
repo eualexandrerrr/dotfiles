@@ -10,7 +10,7 @@ array=(
 
 for i in ${array[@]}; do
 
-  branch="twelve"
+  branch="thirteen"
   githost="github"
 
   cd $HOME/Kraken/${i}

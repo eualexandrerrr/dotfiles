@@ -11,7 +11,7 @@ repos=(
 )
 
 branchBase="arrow-12.1-caf-${1}"
-branchKraken="twelve-caf-${1}"
+branchKraken="thirteen-caf-${1}"
 branchBaseLos="lineage-19.1-caf-${1}"
 branchBaseLosOld="lineage-19.0-caf-${1}"
 
