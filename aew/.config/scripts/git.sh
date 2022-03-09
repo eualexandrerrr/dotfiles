@@ -86,19 +86,19 @@ f() {
   getRepo
   gitRules
   if [[ -z ${1} ]]; then
-    org=github
-    [[ $repo == "vendor_gapps" ]] && org=gitlab
     if [[ $repo == "kernel_xiaomi_sm8250" ]]; then
-      git fetch https://${org}.com/Official-Ayrton990/android_kernel_xiaomi_sm8250 upstreamed-common
+      git fetch https://github.com/Official-Ayrton990/android_kernel_xiaomi_sm8250 upstreamed-common
+    elif [[ $repo == "vendor_gapps" ]]; then
+      git fetch https://gitlab.com/PixelExperience/vendor_gapps twelve
     else
-      git fetch https://${org}.com/ArrowOS/android_${repo} arrow-12.0
+      git fetch https://github.com/ArrowOS/android_${repo} arrow-12.0
     fi
   else
     org=$(echo ${1} | cut -c1-5)
     if [[ $org == AOSPK ]]; then
       git fetch ssh://git@github.com/${1} ${2}
     else
-      git fetch https://${githost}.com/${1} ${2}
+      git fetch https://github.com/${1} ${2}
     fi
   fi
 }
@@ -126,7 +126,8 @@ pp() {
   clear
   f
   git cherry-pick -m 1 ${1}
-  push -f main
+  git add . && git commit --amend --author "${myGitUserFull}" --no-edit
+  push -f
 }
 
 add() {
