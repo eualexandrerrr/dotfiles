@@ -1,8 +1,6 @@
 [alias]
     find = log --graph --oneline --all --decorate --date-order --regexp-ignore-case --extended-regexp --grep
-    fuck-it = reset --hard
     last = log -1
-    latest = for-each-ref --sort=committerdate refs/heads/ --format='%(committerdate:short) %(refname:short)'
     lg = log --color --graph --pretty=custom --abbrev-commit
     quicklog = log --oneline --decorate -10 --pretty=custom
     quicklog-long = log --oneline --decorate --pretty=custom
@@ -10,7 +8,7 @@
     search = grep --line-number --ignore-case -E -I
     today = diff --stat 'HEAD@{midnight}'
     yesterday = diff --stat 'HEAD@{yesterday}' 'HEAD@{midnight}'
-    clone = git clone -s
+    clone = git clone -s --single-branch
 
 [color "branch"]
     current = yellow bold
