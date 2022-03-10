@@ -55,11 +55,11 @@ gitRules() {
   [[ $repo == hardware_motorola ]] && org=AOSPK-Devices && orgBase=ArrowOS-Devices
   [[ $repo == hardware_oneplus ]] && org=AOSPK-Devices && orgBase=ArrowOS-Devices
 
-  [[ $repo == device_xiaomi_lmi ]] && upPEOrg=yes && org=AOSPK-Devices
-  [[ $repo == device_xiaomi_sm8250-common ]] && upPEOrg=yes && org=AOSPK-Devices && branch=twelve
-  [[ $repo == kernel_xiaomi_sm8250 ]] && upPEOrg=yes && org=AOSPK-Devices && branch=twelve
-  [[ $repo == vendor_xiaomi_lmi ]] && upPEOrg=yes && org=TheBootloops && branch=twelve
-  [[ $repo == vendor_xiaomi_sm8250-common ]] && upPEOrg=yes && org=TheBootloops && branch=twelve
+  [[ $repo == device_xiaomi_lmi ]] && org=AOSPK-Devices && branch=twelve
+  [[ $repo == device_xiaomi_sm8250-common ]] && org=AOSPK-Devices && branch=twelve
+  [[ $repo == kernel_xiaomi_sm8250 ]] && org=AOSPK-Devices && branch=twelve
+  [[ $repo == vendor_xiaomi_lmi ]] && org=TheBootloops && branch=twelve
+  [[ $repo == vendor_xiaomi_sm8250-common ]] && org=TheBootloops && branch=twelve
 
   [[ $repo == vendor_gapps ]] && githost=gitlab && org=AOSPK-Next
 }

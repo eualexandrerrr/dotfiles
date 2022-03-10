@@ -32,8 +32,8 @@ bringup="Initial changes for ${projectName}"
 
 workingDir=$(mktemp -d) && cd $workingDir
 
-tree() {
-  git clone https://github.com/${orgRebase}/android_device_xiaomi_lmi -b ${branchRebase} device_xiaomi_lmi
+treeLMI() {
+  git clone https://github.com/${orgRebase}/android_device_xiaomi_lmi -b ${branchRebase} device_xiaomi_lmi --single-branch
 
   # Tree
   cd ${workingDir}/device_xiaomi_lmi
@@ -59,28 +59,24 @@ tree() {
   echo '[
   {
     "repository": "device_xiaomi_sm8250-common",
-    "target_path": "device/xiaomi/sm8250-common",
-    "branch": "twelve"
+    "target_path": "device/xiaomi/sm8250-common"
   },
   {
     "remote": "blobs",
     "repository": "vendor_xiaomi_lmi",
-    "target_path": "vendor/xiaomi/lmi",
-    "branch": "twelve-su"
+    "target_path": "vendor/xiaomi/lmi"
   }
 ]' > aosp.dependencies
 
   echo "[
   {
     \"repository\": \"device_xiaomi_sm8250-common\",
-    \"target_path\": \"device/xiaomi/sm8250-common\",
-    \"branch\": \"twelve-su\"
+    \"target_path\": \"device/xiaomi/sm8250-common\"
   },
   {
     \"remote\": \"${remoteBlobs}\",
     \"repository\": \"vendor_xiaomi_lmi\",
-    \"target_path\": \"vendor/xiaomi/lmi\",
-    \"branch\": \"twelve-su\"
+    \"target_path\": \"vendor/xiaomi/lmi\"
   }
 ]"
 
@@ -123,10 +119,12 @@ tree() {
   git add . && git commit --message "$msgPadding" --author "Mesquita <mesquita@aospa.co>"
 
   git push ssh://git@github.com/${pushToGitHubTree}/device_xiaomi_lmi HEAD:refs/heads/${branch} --force
+}
 
+treeCOMMON() {
   # Common
   cd ${workingDir}
-  git clone https://github.com/${orgRebase}/android_device_xiaomi_sm8250-common -b ${branchRebase} device_xiaomi_sm8250-common
+  git clone https://github.com/${orgRebase}/android_device_xiaomi_sm8250-common -b ${branchRebase} device_xiaomi_sm8250-common --single-branch
   cd device_xiaomi_sm8250-common
 
   sed -i "s:\$(LOCAL_PATH)/overlay-lineage:\$(LOCAL_PATH)/overlay-kraken:g" kona.mk
@@ -134,6 +132,9 @@ tree() {
   rm -rf overlay-kraken/lineage-sdk
 #  sed -i '/overlay-lineage/d' kona.mk
 #  sed -i 's/overlay \\/overlay/' kona.mk
+
+  sed -i "s:ifneq (\$(WITH_GMS),true):ifneq (\$(KRAKEN_GAPPS),true):g" BoardConfigCommon.mk
+  sed -i "s/org.lineageos.settings.resources/org.kraken.settings.resources/g" parts/Android.bp
 
   sed -i "s:vendor/lineage:vendor/aosp:g" kona.mk
   sed -i "s:vendor/lineage:vendor/aosp:g" BoardConfigCommon.mk
@@ -147,13 +148,11 @@ tree() {
   {
     \"remote\": \"${remoteBlobs}\",
     \"repository\": \"vendor_xiaomi_sm8250-common\",
-    \"target_path\": \"vendor/xiaomi/sm8250-common\",
-    \"branch\": \"twelve-su\"
+    \"target_path\": \"vendor/xiaomi/sm8250-common\"
   },
   {
     \"repository\": \"hardware_xiaomi\",
-    \"target_path\": \"hardware/xiaomi\",
-    \"branch\": \"twelve\"
+    \"target_path\": \"hardware/xiaomi\"
   }
 ]" > aosp.dependencies
 
@@ -174,13 +173,8 @@ tree() {
   sed -i "s/BUILD_BROKEN_VENDOR_PROPERTY_NAMESPACE := true/BUILD_BROKEN_VENDOR_PROPERTY_NAMESPACE := true\nBUILD_BROKEN_MISSING_REQUIRED_MODULES := true/g" BoardConfigCommon.mk
   git add . && git commit --message "sm8250-common: Add build broken rule" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>"
 
-  # Parts
-  sed -i "s/org.lineageos.settings.resources/org.kraken.settings.resources/g" parts/Android.bp
-  git add . && git commit --message "sm8250-common: Use our parts resources" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>"
-
   git push ssh://git@github.com/${pushToGitHubTree}/device_xiaomi_sm8250-common HEAD:refs/heads/${branch} --force
 }
-tree
 
 # Kernel and Vendor
 function kernelAndVendor() {
@@ -191,7 +185,7 @@ function kernelAndVendor() {
     exit
   fi
 
-  git clone https://gitlab.com/${orgRebaseVendor}/${repoVendor}_vendor_xiaomi -b ${branchRebaseVendor} vendor_xiaomi
+  git clone https://gitlab.com/${orgRebaseVendor}/${repoVendor}_vendor_xiaomi -b ${branchRebaseVendor} vendor_xiaomi --single-branch
   cp -rf vendor_xiaomi vendor_xiaomi_lmi
   cp -rf vendor_xiaomi vendor_xiaomi_sm8250-common
 
@@ -241,6 +235,10 @@ function kernelAndVendor() {
 
   git push ssh://git@github.com/${pushToGitHubTree}/kernel_xiaomi_sm8250 HEAD:refs/heads/${branch} --force
 }
+
+treeLMI
+treeCOMMON
+
 kernelAndVendor
 
 cd $pwd

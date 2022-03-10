@@ -27,8 +27,10 @@ mypackages=(
   noip
 
   # Video/games
-  nvidia-lts nvidia-utils nvidia-settings nvidia-utils nvidia-dkms nvidia-prime opencl-nvidia nbfc-git
-  mesa mesa-demos vulkan-tools lib32-nvidia-utils lib32-opencl-nvidia lib32-virtualgl lib32-nvidia-utils lib32-libvdpau lib32-opencl-nvidia lib32-mesa
+#  nvidia-lts nvidia-utils nvidia-settings nvidia-utils nvidia-dkms nvidia-prime opencl-nvidia
+#  vulkan-tools lib32-nvidia-utils lib32-opencl-nvidia lib32-virtualgl lib32-nvidia-utilslib32-opencl-nvidia
+  mesa mesa-demos lib32-mesa lib32-libvdpau
+  nbfc-git
   steam wine winetricks lib32-gnutls wps-office ttf-wps-fonts
 
   atom silver-searcher-git discord diff-so-fancy filezilla git htop jdk-openjdk jq man man-pages-pt_br github-cli-git vkd3d lib32-vkd3d
