@@ -143,7 +143,7 @@ bindsym $super+F2 exec --no-startup-id google-chrome-unstable &; workspace $ws2
 bindsym $super+F3 exec --no-startup-id telegram-desktop &; workspace $ws4
 
 # System shortcuts
-bindsym $super+d exec --no-startup-id $HOME/.config/rofi/quickapps.sh
+bindsym $super+d exec --no-startup-id $HOME/.config/rofi/launcher/launcher.sh
 
 bindsym $super+BackSpace exec --no-startup-id alacritty -t testingscript -e $HOME/.config/scripts/dot/scripter.sh &
 bindsym F10 exec --no-startup-id $HOME/.config/scripts/dot/myMenu.sh &
