@@ -68,7 +68,11 @@ sideload() {
           echo "Nothing to eat"
           return 1
         fi
-        zipPath=$(ls -tr "${pathBuilds}"/Kraken-*${buildHour}*.zip | tail -1)
+        if [[ ${1} == "magisk" ]]; then
+          zipPath=$HOME/Downloads/Magisk-v24.1.apk
+        else
+          zipPath=$(ls -tr "${pathBuilds}"/Kraken-*${buildHour}*.zip | tail -1)
+        fi
         echo "Waiting for device..."
         adb wait-for-device-recovery
         echo "Found device"

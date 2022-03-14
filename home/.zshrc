@@ -23,6 +23,9 @@ export STUDIO_JDK="/usr/lib/jvm/java-11-openjdk"
 export PATH="/usr/share/:$PATH"
 export CCACHE_EXEC="/usr/bin/ccache"
 
+export BUILD_USERNAME=mamutal91
+export BUILD_HOSTNAME=modinx
+
 # Aliases
 alias poweroff="nbfc set -s 50 && sleep 3 && sudo poweroff"
 alias reboot="nbfc set -s 50 && sleep 1 && sudo poweroff --reboot"
