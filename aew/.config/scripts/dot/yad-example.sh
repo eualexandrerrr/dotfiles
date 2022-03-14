@@ -5,8 +5,8 @@ form=$(
         --text="Qual repositório deseja abrir?" --text-align="center" \
         --form \
         --field="Repo  : " "" \
-        --button gtk-add --buttons-layout="center" \
-        )
+        --button gtk-add --buttons-layout="center"
+)
 
 repo=$(echo "$form" | cut -d "|" -f 1)
 

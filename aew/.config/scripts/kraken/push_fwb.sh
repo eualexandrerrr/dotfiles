@@ -8,12 +8,12 @@ repoPath=frameworks/base
 
 git remote remove push &> /dev/null
 
-if [[ -z "$1" ]]; then
+if [[ -z $1   ]]; then
   echo "${BOL_RED}\$1${BOL_YEL} org não existe"
   exit 1
 fi
 
-if [[ -z "$2" ]]; then
+if [[ -z $2   ]]; then
   echo "${BOL_RED}\$2${BOL_YEL} branch não existe"
   exit 1
 fi

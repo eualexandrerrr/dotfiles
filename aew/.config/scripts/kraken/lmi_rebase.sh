@@ -53,18 +53,18 @@ for i in "${commitsIds[@]}"; do
   sed -i "s:overlay-lineage:overlay-${project}:g" kona.mk &> /dev/null
   sed -i "s:overlay-lineage:overlay-${project}:g" device.mk &> /dev/null
   sedS() {
-  for i in $(ls *); do
-    sed -i "s:vendor/lineage:vendor/aosp/:g" ${i}
-    sed -i "s:vendor/lineage:vendor/aosp/:g" ${i}
-    sed -i "s:lineage_:aosp_:g" ${i}
-    sed -i "s:lineage_:aosp_:g" ${i}
-    sed -i "s:android_device_xiaomi_sm8250-common:device_xiaomi_sm8250-common:g" ${i}
-    sed -i "s:android_kernel_xiaomi_sm8250:kernel_xiaomi_sm8250:g" ${i}
-    sed -i "s:lineage-18.1:twelve:g" ${i}
-    sed -i "s:lineage-19.0:twelve:g" ${i}
-    sed -i "s:common_full_phone.mk:common.mk:g" ${i}
-    sed -i "s:Lineage stuff:AOSP stuff:g" ${i}
-  done
+    for i in $(ls *); do
+      sed -i "s:vendor/lineage:vendor/aosp/:g" ${i}
+      sed -i "s:vendor/lineage:vendor/aosp/:g" ${i}
+      sed -i "s:lineage_:aosp_:g" ${i}
+      sed -i "s:lineage_:aosp_:g" ${i}
+      sed -i "s:android_device_xiaomi_sm8250-common:device_xiaomi_sm8250-common:g" ${i}
+      sed -i "s:android_kernel_xiaomi_sm8250:kernel_xiaomi_sm8250:g" ${i}
+      sed -i "s:lineage-18.1:twelve:g" ${i}
+      sed -i "s:lineage-19.0:twelve:g" ${i}
+      sed -i "s:common_full_phone.mk:common.mk:g" ${i}
+      sed -i "s:Lineage stuff:AOSP stuff:g" ${i}
+    done
   }
   sedS &> /dev/null
   git add . && git commit -s --amend --no-edit

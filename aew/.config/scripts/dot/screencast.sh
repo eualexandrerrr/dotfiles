@@ -13,10 +13,13 @@ trimMin=$((trimStart + trimEnd))
 
 app=("ffmpeg" "xrandr" "pacmd")
 for APP in ${app[@]}; do
-  command -v $APP >/dev/null 2>&1 || { echo >&2 "O aplicativo $APP não está instalado. Abortando."; exit 1; }
+  command -v $APP > /dev/null 2>&1 || {
+                                       echo >&2 "O aplicativo $APP não está instalado. Abortando."
+                                                                                                      exit 1
+  }
 done
 
-list_descendants () {
+list_descendants()  {
   local children=$(ps -o pid= --ppid "$1")
   for pid in $children; do
     list_descendants "$pid"
@@ -26,9 +29,9 @@ list_descendants () {
 
 notifycommand="$HOME/bin/notify.sh ScreenCast ${icon} $name"
 
-[[ -z "$DESKTOP_SESSION" ]] && notifycommand="notify-send -h int:transient:1 -i $icon $name"
+[[ -z $DESKTOP_SESSION   ]] && notifycommand="notify-send -h int:transient:1 -i $icon $name"
 
-[[ -z "$DISPLAY" ]] && DISPLAY=:0
+[[ -z $DISPLAY   ]] && DISPLAY=:0
 
 path="${HOME}/Videos/Screencasts"
 
@@ -37,8 +40,7 @@ file="s-${date}.${ext}"
 [ ! -d $path ] && mkdir -p $path
 
 #if pgrep -x "ffmpeg" > /dev/null;
-if pgrep -x "ffmpeg" > /dev/null && test -f "/tmp/videodown.pid" && test -f "/tmp/screencast.step1.${ext}";
-then
+if pgrep -x "ffmpeg" > /dev/null && test -f "/tmp/videodown.pid" && test -f "/tmp/screencast.step1.${ext}"; then
 
   [ -f /tmp/screencast.step2.${ext} ] && rm -f /tmp/screencast.step2.${ext}
   [ -f /tmp/screencast.final.${ext} ] && rm -f /tmp/screencast.final.${ext}

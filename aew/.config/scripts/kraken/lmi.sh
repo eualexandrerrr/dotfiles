@@ -17,13 +17,13 @@ projectName=Kraken
 # ORG DE BASE!!!
 orgRebase=xiaomi-sm8250-devs
 
-if [[ $orgRebase = xiaomi-sm8250-devs ]]; then
+if [[ $orgRebase == xiaomi-sm8250-devs ]]; then
   orgRebaseVendor=SebaUbuntu
   repoVendor=android
   branchRebaseVendor=lineage-18.1
 fi
 
-if [[ $orgRebase = ArrowOS ]]; then
+if [[ $orgRebase == ArrowOS ]]; then
   orgRebaseVendor=the-muppets
   repoVendor=proprietary
 fi
@@ -40,11 +40,11 @@ treeLMI() {
 
   sed -i "s/lineage_/aosp_/g" AndroidProducts.mk
 
-  sed -i "s:\$(LOCAL_PATH)/overlay-lineage:\$(LOCAL_PATH)/overlay-kraken:g" device.mk
+  sed -i 's:$(LOCAL_PATH)/overlay-lineage:$(LOCAL_PATH)/overlay-kraken:g'   device.mk
   mv overlay-lineage overlay-kraken
   rm -rf overlay-kraken/lineage-sdk
-#  sed -i '/overlay-lineage/d' device.mk
-#  sed -i 's/overlay \\/overlay/' device.mk
+  #  sed -i '/overlay-lineage/d' device.mk
+  #  sed -i 's/overlay \\/overlay/' device.mk
 
   mv lineage_lmi.mk aosp_lmi.mk
   sed -i "s/lineage_/aosp_/g" aosp_lmi.mk
@@ -95,20 +95,20 @@ treeLMI() {
 
   # UDFPS
   sed -i '$d' overlay-kraken/frameworks/base/packages/SystemUI/res/values/config.xml
-  echo "
+  echo '
     <!-- Udfps vendor code -->
-    <integer name=\"config_udfps_vendor_code\">22</integer>
+    <integer name="config_udfps_vendor_code">22</integer>
 
-</resources>" | tee -a overlay-kraken/frameworks/base/packages/SystemUI/res/values/config.xml
+</resources>' | tee -a overlay-kraken/frameworks/base/packages/SystemUI/res/values/config.xml
   git add . && git commit --message "lmi: Add udfps vendor code" --author "TheScarastic <warabhishek@gmail.com>"
 
   # PADDING
   sed -i '$d' overlay/frameworks/base/packages/SystemUI/res/values/dimens.xml
-  echo "
+  echo '
     <!-- The absolute side margins of quick settings -->
-    <dimen name=\"rounded_corner_content_padding\">70px</dimen>
+    <dimen name="rounded_corner_content_padding">70px</dimen>
 
-</resources>" | tee -a overlay/frameworks/base/packages/SystemUI/res/values/dimens.xml
+</resources>' | tee -a overlay/frameworks/base/packages/SystemUI/res/values/dimens.xml
 
   msgPadding="lmi: Increase rounded corner content padding
 
@@ -127,13 +127,13 @@ treeCOMMON() {
   git clone https://github.com/${orgRebase}/android_device_xiaomi_sm8250-common -b ${branchRebase} device_xiaomi_sm8250-common --single-branch
   cd device_xiaomi_sm8250-common
 
-  sed -i "s:\$(LOCAL_PATH)/overlay-lineage:\$(LOCAL_PATH)/overlay-kraken:g" kona.mk
+  sed -i 's:$(LOCAL_PATH)/overlay-lineage:$(LOCAL_PATH)/overlay-kraken:g'   kona.mk
   mv overlay-lineage overlay-kraken
   rm -rf overlay-kraken/lineage-sdk
-#  sed -i '/overlay-lineage/d' kona.mk
-#  sed -i 's/overlay \\/overlay/' kona.mk
+  #  sed -i '/overlay-lineage/d' kona.mk
+  #  sed -i 's/overlay \\/overlay/' kona.mk
 
-  sed -i "s:ifneq (\$(WITH_GMS),true):ifneq (\$(KRAKEN_GAPPS),true):g" BoardConfigCommon.mk
+  sed -i 's:ifneq ($(WITH_GMS),true):ifneq ($(KRAKEN_GAPPS),true):g'   BoardConfigCommon.mk
   sed -i "s/org.lineageos.settings.resources/org.kraken.settings.resources/g" parts/Android.bp
 
   sed -i "s:vendor/lineage:vendor/aosp:g" kona.mk

@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-
 pathROMRecovery="$HOME/Kraken/bootable/recovery"
 pathImgsRebranded="$HOME/recovery"
 

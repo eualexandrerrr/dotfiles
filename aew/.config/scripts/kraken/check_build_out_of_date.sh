@@ -32,7 +32,7 @@ for codename in $(jq '.[] | select(.name|test("^")) | .codename' $jsonDevices | 
 
     if [[ $deprecated == true ]]; then
       echo -e "${BOL_BLU}${BLU}$brandDevice $nameDevice ${BOL_MAG}($codename)${END} ${BOL_RED}DEPRECATED!!!${END}"
-    else
+  else
       echo -e "${BOL_BLU}${BLU}$brandDevice $nameDevice ${BOL_MAG}($codename)${END}"
       echo -e "${BOL_GRE}${GRE}$maintainerName ($maintainerGithub)"
 
@@ -48,19 +48,19 @@ for codename in $(jq '.[] | select(.name|test("^")) | .codename' $jsonDevices | 
           lastBuild="${year}-${month}-${day}"
           date=$(date +"%Y-%m-%d")
           daysWithout=$((($(date -d $date +%s) - $(date -d $lastBuild +%s)) / 86400))
-        done
+      done
         echo -e "${BOL_GRE}Days without releases ${BOL_MAG}${daysWithout}${END}"
-      else
+    else
         haveBuild=false
         echo "Never released"
         echo -e "${codename} # Never released @${maintainerTelegram}" >> $msg
-      fi
+    fi
 
       if [[ ${daysWithout} -gt 30 ]]; then
         echo -e "${codename} # ${daysWithout} @${maintainerTelegram}" >> $msg
-      fi
-      cd $pwd
     fi
+      cd $pwd
+  fi
 
     echo -e "${BOL_CYA}\n--------- END ---------${END}\n"
 

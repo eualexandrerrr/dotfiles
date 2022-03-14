@@ -7,7 +7,7 @@ codename=lmi
 buildtype=userdebug
 
 argsC() {
-#  echo -e "${BOL_RED}SELINUX_IGNORE_NEVERALLOWS=true${END}\n" && export SELINUX_IGNORE_NEVERALLOWS=true
+  #  echo -e "${BOL_RED}SELINUX_IGNORE_NEVERALLOWS=true${END}\n" && export SELINUX_IGNORE_NEVERALLOWS=true
 }
 
 ccacheC() {
@@ -95,7 +95,6 @@ b() {
     [[ -z $task ]] && task=bacon
     make -j${cores} ${task} 2>&1 | tee log.txt
 
-
     buildResult=SUCCESS
     logBuild=$(grep '####' $rom/log.txt)
     [[ $(echo $logBuild | grep "failed") ]] && buildResult=FAILED
@@ -143,7 +142,7 @@ b() {
         --data-urlencode text="${msg}" \
         --data-urlencode parse_mode="markdown" \
         --data-urlencode disable_web_page_preview="true"
-    }
+  }
   sendTelegramMsg &> /dev/null
 
   nbfc set -s 50

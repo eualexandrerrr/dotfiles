@@ -11,12 +11,12 @@ for i in ${array[@]}; do
 
   changeVisibility() {
     curl \
-    -H "Authorization: Token ${githubToken}" \
-    -H "Content-Type:application/json" \
-    -H "Accept: application/json" \
-    -X PATCH \
-    --data "{ \"visibility\": \"${visibility}\" }" \
-    https://api.github.com/repos/AOSPK-Next/${i}
+      -H "Authorization: Token ${githubToken}" \
+      -H "Content-Type:application/json" \
+      -H "Accept: application/json" \
+      -X PATCH \
+      --data "{ \"visibility\": \"${visibility}\" }" \
+      https://api.github.com/repos/AOSPK-Next/${i}
   }
   changeVisibility
 

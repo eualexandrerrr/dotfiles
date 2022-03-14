@@ -53,13 +53,12 @@ COLOR_RED='\033[0;31m'
 COLOR_BLANK='\033[0m'
 
 function is_in_blacklist() {
-  for j in ${blacklist[@]}
-  do
+  for j in ${blacklist[@]}; do
     if [ "$j" == "$1" ]; then
-      return 0;
+      return 0
     fi
   done
-  return 1;
+  return 1
 }
 
 function warn_user() {
@@ -67,7 +66,7 @@ function warn_user() {
   read -r -p "Do you want to continue? [y/N] " response
   if [[ $response =~ ^([yY][eE][sS]|[yY])$ ]]; then
     if [[ -f /tmp/gu.tmp ]]; then
-      username=`cat /tmp/gu.tmp`
+      username=$(cat /tmp/gu.tmp)
       echo "found username: $username"
     else
       echo "Please enter your gerrit username"
@@ -81,11 +80,10 @@ function warn_user() {
 }
 
 function get_repos() {
-  declare -a repos=( $(repo list | cut -d: -f1) )
+  declare -a repos=($( repo list | cut -d: -f1))
   curl --output /tmp/rebase.tmp $REPO --silent # Download the html source of the Android source page
   # Since their projects are listed, we can grep for them
-  for i in ${repos[@]}
-  do
+  for i in ${repos[@]}; do
     if grep -q "$i" /tmp/rebase.tmp; then # If Google has it and
       if grep -q "$i" $WORKING_DIR/manifest/aosp.xml; then # If we have it in our manifest and
         if grep "$i" $WORKING_DIR/manifest/aosp.xml | grep -q 'remote="aospk"'; then # If we track our own copy of it
@@ -102,8 +100,7 @@ function get_repos() {
 }
 
 function delete_upstream() {
-  for i in ${upstream[@]}
-  do
+  for i in ${upstream[@]}; do
     rm -rf $i
   done
 }
@@ -140,8 +137,7 @@ function print_result() {
   else
     echo -e $COLOR_RED
     echo -e "These repos have merge errors: \n"
-    for i in ${failed[@]}
-    do
+    for i in ${failed[@]}; do
       echo -e "$i"
     done
     echo -e $COLOR_BLANK
@@ -150,32 +146,29 @@ function print_result() {
   echo ""
   echo "${GRE}======== "$BRANCH" has been merged successfully to these repos ========${END}"
   echo ""
-  for i in ${success[@]}
-  do
+  for i in ${success[@]}; do
     echo -e "$i"
   done
 
   echo ""
   echo "${BLU}======== "$BRANCH" has been pushed successfully to these repos ========${END}"
   echo ""
-  for i in ${pushedP[@]}
-  do
+  for i in ${pushedP[@]}; do
     echo -e "$i"
   done
 
   echo ""
   echo "${RED}======== "$BRANCH" push has failed to these repos ========${END}"
   echo ""
-  for i in ${pushedF[@]}
-  do
+  for i in ${pushedF[@]}; do
     echo -e "$i"
   done
 }
 
 function push() {
   cd $WORKING_DIR/$1
-  project_name=`git remote -v | head -n1 | awk '{print $2}' | sed 's/.*\///' | sed 's/\.git//'`
-#  git remote add gerrit ssh://$username@gerrit.aospk.org:29418/$project_name
+  project_name=$(git remote -v | head -n1 | awk '{print $2}' | sed 's/.*\///' | sed 's/\.git//')
+  #  git remote add gerrit ssh://$username@gerrit.aospk.org:29418/$project_name
   git push ssh://git@github.com/AOSPK-Next/${project_name} HEAD:refs/heads/twelve-${BRANCH} --force
   if [ $? -ne 0 ]; then # If merge failed
     pushedF+=($1) # Add to the list
@@ -188,8 +181,7 @@ function gerrit_push() {
   echo "IT IS RECOMMENDED THAT YOU HAVE AN ACCOUNT ON OUR GERRIT AND ADDED YOUR SSH KEYS!!"
   warn_user
   get_repos
-  for i in ${upstream[@]}
-  do
+  for i in ${upstream[@]}; do
     echo $i
     #push $i
   done
@@ -219,8 +211,7 @@ else
   force_sync
 
   # Merge every repo in upstream
-  for i in ${upstream[@]}
-  do
+  for i in ${upstream[@]}; do
     merge $i
   done
 

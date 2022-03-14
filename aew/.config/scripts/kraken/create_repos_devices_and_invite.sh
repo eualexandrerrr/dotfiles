@@ -13,16 +13,16 @@ jsonMaintainers=${workingDir}/official_devices/team/maintainers.json
 editDescription() {
   echo "${BOL_BLU}Editing description repo ${BOL_MAG}${organization}/${deviceRepo}${END}"
   curl \
-  -H "Authorization: Token ${githubToken}" \
-  -H "Content-Type:application/json" \
-  -H "Accept: application/json" \
-  -X PATCH \
-  --data "{ \"name\": \"${deviceRepo}\", \"description\":\"${brandDevice} ${nameDevice} maintained by @${maintainerGithub}\" }" \
-  https://api.github.com/repos/AOSPK-Devices/${deviceRepo}
+    -H "Authorization: Token ${githubToken}" \
+    -H "Content-Type:application/json" \
+    -H "Accept: application/json" \
+    -X PATCH \
+    --data "{ \"name\": \"${deviceRepo}\", \"description\":\"${brandDevice} ${nameDevice} maintained by @${maintainerGithub}\" }" \
+    https://api.github.com/repos/AOSPK-Devices/${deviceRepo}
 }
 
 createRepo() {
-  reposToCreate=( $(echo $repositories | awk '{ print $1 '}) $(echo $repositories | awk '{ print $2 '}) $(echo $repositories | awk '{ print $3 '}) $(echo $repositories | awk '{ print $4 '}) $(echo $repositories | awk '{ print $5 '}) $(echo $repositories | awk '{ print $6 '}) $(echo $repositories | awk '{ print $7 '}) )
+  reposToCreate=($( echo $repositories | awk '{ print $1 '}) $(echo $repositories | awk '{ print $2 '}) $(echo $repositories | awk '{ print $3 '}) $(echo $repositories | awk '{ print $4 '}) $(echo $repositories | awk '{ print $5 '}) $(echo $repositories | awk '{ print $6 '}) $(echo $repositories | awk '{ print $7 '}))
   for reposToCreate in "${reposToCreate[@]}"; do
 
     repoCheckName=$(echo $reposToCreate | cut -c1-7)

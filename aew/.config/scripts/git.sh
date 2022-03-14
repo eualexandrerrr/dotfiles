@@ -13,13 +13,20 @@ getRepo() {
 
 mc() {
   if [[ $(echo $PWD | cut -c1-22) == "/home/mamutal91/Kraken" ]]; then
+    roms=(arrow pixelexp awaken statix)
+
     echo -e "\n${GRE}Checking files...${END}"
-    find . -name "*arrow*" $(printf "! -name %s " $(cat $HOME/.dotfiles/aew/.config/scripts/kraken/ignore_files.txt))
+
+    for i in ${find[@]}; do
+      find . -name "*${i}*" $(printf "! -name %s " $(cat $HOME/.dotfiles/aew/.config/scripts/kraken/ignore_files.txt))
+    done
     echo -e "${YEL}Checking strings...${END}\n"
     lastCommit=$(git log --format="%H" -n 1)
     for i in $(git diff-tree --no-commit-id --name-only -r $lastCommit); do
       if [[ -d $i ]]; then # Confere se o arquivo existe, pois se estiver na lista de modificados, porém for apagado, vai gerar erro!
-        ag -S arrow $i #--hidden
+        for i in ${roms[@]}; do
+          ag -S arrow $i #--hidden
+        done
         if [ $? -eq 0 ]; then
           echo -e "\n${BOL_RED} $i ${END}"
         fi
@@ -29,7 +36,7 @@ mc() {
 }
 
 gitBlacklist() {
-#  [[ $repo == manifest ]] && echo "${BOL_RED}Blacklist detected, no push!!!${END}" && export noPush=true
+  #  [[ $repo == manifest ]] && echo "${BOL_RED}Blacklist detected, no push!!!${END}" && export noPush=true
   [[ $repo == official_devices ]] && echo "${BOL_RED}Blacklist detected, no push!!!${END}" && export noPush=true
 }
 
@@ -77,7 +84,7 @@ gitLastCommitURL() {
   fi
 }
 
-st()  {
+st() {
   git status
   mc
 }
@@ -344,7 +351,7 @@ push() {
           git push ssh://${myGitUser}@${gerrit}:29418/${repo} ${optHead}:refs/for/${branch}%topic=$topicGerrit
         fi
       else
-        if [[ -n $topicGerrit   ]]; then
+        if [[ -n $topicGerrit ]]; then
           argsGerrit=$(echo $argsGerrit,topic=$topicGerrit)
         fi
         git push ssh://${myGitUser}@${gerrit}:29418/${repo} ${optHead}:refs/for/${branch}%${argsGerrit}

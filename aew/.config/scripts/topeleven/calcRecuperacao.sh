@@ -22,9 +22,9 @@ calcular() {
     CURRENT=$(date +%s -d "$ano-$mes-$dia $hora:$min:$sec")
     TARGET=$(date +%s -d "$ano-$dataJogo $horaJogo:$sec")
 
-    MINUTES=$(( ($TARGET - $CURRENT) / 60 ))
-    CICLOS=$(( $MINUTES / 180 ))
-    PORCENTAGEM=$(( $CICLOS * 6 ))
+    MINUTES=$(((TARGET - CURRENT) / 60))
+    CICLOS=$((MINUTES / 180))
+    PORCENTAGEM=$((CICLOS * 6))
 
     echo -e "${BOL_BLU}\n # TopEleven\n${END}"
 
@@ -37,17 +37,17 @@ calcular() {
 
     echo -e "${BLU} \n Exemplos de recuperação\n"
 
-    j20=$(( 20 + $PORCENTAGEM ))
-    j30=$(( 30 + $PORCENTAGEM ))
-    j50=$(( 50 + $PORCENTAGEM ))
-    j60=$(( 60 + $PORCENTAGEM ))
-    j70=$(( 70 + $PORCENTAGEM ))
+    j20=$((20 + PORCENTAGEM))
+    j30=$((30 + PORCENTAGEM))
+    j50=$((50 + PORCENTAGEM))
+    j60=$((60 + PORCENTAGEM))
+    j70=$((70 + PORCENTAGEM))
 
-    jr20=$(( 100 - $j20 ))
-    jr30=$(( 100 - $j30 ))
-    jr50=$(( 100 - $j50 ))
-    jr60=$(( 100 - $j60 ))
-    jr70=$(( 100 - $j70 ))
+    jr20=$((100 - j20))
+    jr30=$((100 - j30))
+    jr50=$((100 - j50))
+    jr60=$((100 - j60))
+    jr70=$((100 - j70))
 
     echo -e "${BLU} Jogador 1: ${YEL}20 ${BLU}>${RED} $j20 ${RED}# Diff: ${BOL_RED}$jr20"
     echo -e "${BLU} Jogador 2: ${YEL}30 ${BLU}>${YEL} $j30 ${RED}# Diff: ${BOL_RED}$jr30"

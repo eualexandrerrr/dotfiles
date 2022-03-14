@@ -12,7 +12,7 @@ source $HOME/.Xconfigs # My general configs
 producao=$1
 producao=$(echo $producao | cut -c1-5)
 
-if [[ -z "$producao" ]]; then
+if [[ -z $producao   ]]; then
   echo "${BOL_RED}Por favor diga o valor da comissão, examplo: ${BOL_GRE}45000${END}"
   exit 1
 fi
@@ -36,18 +36,18 @@ if [[ $porcentagem == "fail" ]]; then
 else
   ticket="1100"
   adiantamento="800"
-  beneficios=$((ticket+adiantamento))
+  beneficios=$((ticket + adiantamento))
 
   restanteSalario="1200"
   DSR="350"
   pernoite="600"
   descontos="1250"
-  somaExtras=$((restanteSalario+DSR+pernoite-descontos))
+  somaExtras=$((restanteSalario + DSR + pernoite - descontos))
 
-  comissao=$((producao*porcentagem/100))
+  comissao=$((producao * porcentagem / 100))
 
-  liquido=$((comissao+somaExtras))
-  bruto=$((liquido+beneficios))
+  liquido=$((comissao + somaExtras))
+  bruto=$((liquido + beneficios))
 
   echo -e "${BOL_CYA}Produção: R\$ ${producao},00"
   echo -e "${BOL_MAG}Comissão: R\$ ${comissao},00 (${porcentagem}%)\n"

@@ -1,55 +1,55 @@
 #!/usr/bin/env bash
 
 pidof dunst && killall dunst
-dunst                                                            \
-    -geometry 300x250-40+120                                     \
-    -format '<span foreground="'#1dde6b'" weight="bold" stretch="ultra-condensed">%s</span>\n<span foreground="'$color3'" stretch="ultra-condensed">%b</span>'\
-    -indicate_hidden true                                        \
-    -font "Terminus 10"                                 \
-    -follow mouse                                                \
-    -padding 15                                                  \
-    -transparency 0                                              \
-    -notification_height 150                                     \
-    -separator_height 0                                          \
-    -padding 15                                                  \
-    -horizontal_padding 15                                       \
-    -frame_width 3                                               \
-    -sort yes                                                    \
-    -idle_threshold 0                                            \
-    -line_height 1                                               \
-    -markup full                                                 \
-    -alignment center                                            \
-    -vertical_alignment center                                   \
-    -show_age_threshold 60                                       \
-    -word_wrap                                                   \
-    -ellipsize end                                               \
-    -stack_duplicates true                                       \
-    -hide_duplicate_count true                                   \
-    -show_indicators=false                                       \
-    -icon_position left                                          \
-    -max_icon_size 0                                             \
-    -sticky_history yes                                          \
-    -history_length 20                                           \
-    -always_run_script false                                     \
-    -title = Dunst                                               \
-    -class = Dunst                                               \
-    -corner_radius 10                                            \
-    -mouse_left_click close_current                              \
-    -mouse_middle_click close_current                            \
-    -mouse_right_click close_all                                 \
-    -per_monitor_dpi false                                       \
-    -close ctrl+space                                            \
-    -close_all ctrl+shift+space                                  \
-    -lf  "#510ee2"                                               \
-    -lb  "#1c1c1c"                                           \
-    -lh  "#ffffff"                                               \
-    -lfr "#c2c2c2"                                               \
-    -nf  "#510ee2"                                               \
-    -nb  "#27cd9f"                                           \
-    -nh  "#ffffff"                                               \
-    -nfr "#c2c2c2"                                               \
-    -cf  "#510ee2"                                               \
-    -cb  "#e7d726"                                           \
-    -cfr "#e34c4e"                                               \
-    -ch  "#ffffff"                                               \
-    -icon_path "$HOME/.local/share/icons/Flatery-Dark/128x128/actions:$HOME/.local/share/icons/Flatery-Dark/128x128/devices:$HOME/.local/share/icons/Flatery-Dark/128x128/apps:$HOME/.local/share/icons/Flatery-Dark/128x128/status:$HOME/.local/share/icons/Flatery-Dark/128x128/filesystems:$HOME/.local/share/icons/Flatery-Dark/128x128/mimetypes:$HOME/.local/share/icons/Flatery-Dark/128x128/emblems:$HOME/.local/share/icons/Flatery-Dark/128x128/places:$HOME/.local/share/icons/Flatery-Dark/128x128/stock" >/dev/null 2>&1 &
+dunst \
+    -geometry 300x250-40+120 \
+    -format '<span foreground="' \
+    -indicate_hidden true \
+    -font "Terminus 10" \
+    -follow mouse \
+    -padding 15 \
+    -transparency 0 \
+    -notification_height 150 \
+    -separator_height 0 \
+    -padding 15 \
+    -horizontal_padding 15 \
+    -frame_width 3 \
+    -sort yes \
+    -idle_threshold 0 \
+    -line_height 1 \
+    -markup full \
+    -alignment center \
+    -vertical_alignment center \
+    -show_age_threshold 60 \
+    -word_wrap \
+    -ellipsize end \
+    -stack_duplicates true \
+    -hide_duplicate_count true \
+    -show_indicators=false \
+    -icon_position left \
+    -max_icon_size 0 \
+    -sticky_history yes \
+    -history_length 20 \
+    -always_run_script false \
+    -title = Dunst \
+    -class = Dunst \
+    -corner_radius 10 \
+    -mouse_left_click close_current \
+    -mouse_middle_click close_current \
+    -mouse_right_click close_all \
+    -per_monitor_dpi false \
+    -close ctrl+space \
+    -close_all ctrl+shift+space \
+    -lf  "#510ee2" \
+    -lb  "#1c1c1c" \
+    -lh  "#ffffff" \
+    -lfr "#c2c2c2" \
+    -nf  "#510ee2" \
+    -nb  "#27cd9f" \
+    -nh  "#ffffff" \
+    -nfr "#c2c2c2" \
+    -cf  "#510ee2" \
+    -cb  "#e7d726" \
+    -cfr "#e34c4e" \
+    -ch  "#ffffff" \
+    -icon_path "$HOME/.local/share/icons/Flatery-Dark/128x128/actions:$HOME/.local/share/icons/Flatery-Dark/128x128/devices:$HOME/.local/share/icons/Flatery-Dark/128x128/apps:$HOME/.local/share/icons/Flatery-Dark/128x128/status:$HOME/.local/share/icons/Flatery-Dark/128x128/filesystems:$HOME/.local/share/icons/Flatery-Dark/128x128/mimetypes:$HOME/.local/share/icons/Flatery-Dark/128x128/emblems:$HOME/.local/share/icons/Flatery-Dark/128x128/places:$HOME/.local/share/icons/Flatery-Dark/128x128/stock" > /dev/null 2>&1 & #1dde6b'" weight="bold" stretch="ultra-condensed">%s</span>\n<span foreground="'$color3'" stretch="ultra-condensed">%b</span>'\
