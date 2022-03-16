@@ -95,7 +95,7 @@ InstallPkgs() {
   else
     InstallPacAur ${dependencies[@]}
     InstallPacAur ${mypackages[@]}
-#    InstallPacAur ${builder[@]}
+    InstallPacAur ${builder[@]}
   fi
 }
 InstallPkgs

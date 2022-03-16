@@ -266,7 +266,7 @@ push() {
   }
 
   export githost=github
-  export org=MammothOS-Next
+  export org=AOSPK-Next
   export gerrit=gerrit.aospk.org
   export branch=twelve
 

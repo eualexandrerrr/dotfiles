@@ -2,13 +2,13 @@
 
 source $HOME/.Xconfigs # My general configs
 
-rom="$HOME/Kraken"
+rom="$HOME/ArrowOS"
 codename=lmi
 buildtype=userdebug
 
 files() {
   clear
-  lastLine=$(cat $HOME/Kraken/log.txt | awk 'END{print}')
+  lastLine=$(cat $HOME/ArrowOS/log.txt | awk 'END{print}')
 
   percents=$(echo $lastLine | awk '{ print $3}' | tr -d "]" | sed "s:/: :g")
 
@@ -23,8 +23,6 @@ argsC() {
   #  echo -e "${BOL_RED}SKIP_ABI_CHECKS=true${END}\n" && export SKIP_ABI_CHECKS=true
   export ARROW_GAPPS=true
   export ARROW_OFFICIAL=true
-  export KRAKEN_GAPPS=true
-  export KRAKEN_OFFICIAL=true
 }
 
 ccacheC() {
@@ -43,25 +41,18 @@ s() {
   cleanforce=${1}
 
   # SELECT ROM
-  if [[ ${1} == "arrow" ]]; then
+  if [[ ${1} == "pe" ]]; then
+    ROM=$HOME/pe
+    mkdir -p $ROM
+    cd $ROM
+    echo -e "\n${BOL_RED}PixelExperience${END}"
+    task=${2}
+    cleanforce=${2}
+  else
     ROM=$HOME/ArrowOS
     mkdir -p $ROM
     cd $ROM
     echo -e "\n${BOL_RED}ArrowOS${END}"
-    task=${2}
-    cleanforce=${2}
-  elif [[ ${1} == "statix" ]]; then
-    ROM=$HOME/StatiXOS
-    mkdir -p $ROM
-    cd $ROM
-    echo -e "\n${BOL_RED}StatiXOS${END}"
-    task=${2}
-    cleanforce=${2}
-  else
-    ROM=$HOME/Kraken
-    mkdir -p $ROM
-    cd $ROM
-    echo -e "\n${BOL_RED}Kraken${END}"
     task=${2}
     cleanforce=${2}
   fi
@@ -72,12 +63,12 @@ s() {
   clear
 
   sudo nbfc set -s 100
-  if [[ ${1} == "arrow" ]]; then
+  if [[ ${1} == "pe" ]]; then
+    echo -e "${BOL_MAG}\nYou are syncing the ${BOL_CYA}PixelExperience${END}\n"
+    repo init -u https://github.com/PixelExperience/manifest -b twelve
+  else
     echo -e "${BOL_MAG}\nYou are syncing the ${BOL_CYA}ArrowOS${END}\n"
     repo init -u https://github.com/ArrowOS/android_manifest -b arrow-12.1
-  else
-    echo -e "${BOL_MAG}\nYou are syncing the ${BOL_CYA}Kraken${END}\n"
-    repo init -u ssh://git@github.com/MammothOS-Next/manifest -b twelve
   fi
   repo sync -c --no-clone-bundle --current-branch --no-tags --force-sync -j$(nproc --all)
   if [[ $? -eq 0 ]]; then
@@ -108,36 +99,29 @@ apkAndimg() {
 moveBuild() {
   pathBuilds=$HOME/Builds
   mkdir -p $pathBuilds
-  mv $HOME/Kraken/out/target/product/${codename}/Kraken-*-*.zip $pathBuilds
+  mv $HOME/ArrowOS/out/target/product/${codename}/ArrowOS-*-*.zip $pathBuilds
   mv $HOME/ArrowOS/out/target/product/${codename}/ArrowOS*.zip $pathBuilds
-  mv $HOME/Kraken/out/target/product/${codename}/Kraken-*-*.json $pathBuilds/json
+  mv $HOME/ArrowOS/out/target/product/${codename}/ArrowOS-*-*.json $pathBuilds/json
   apkAndimg
-  rm -rf $HOME/Kraken/out/target/product/${codename}/{*.md5sum,*.sha256sum,*ota*.zip,*.json}
+  rm -rf $HOME/ArrowOS/out/target/product/${codename}/{*.md5sum,*.sha256sum,*ota*.zip,*.json}
 }
 
 b() {
   clear
 
   # SELECT ROM
-  if [[ ${1} == "arrow" ]]; then
-    ROM=$HOME/ArrowOS
+  if [[ ${1} == "pe" ]]; then
+    ROM=$HOME/PixelExperience
     mkdir -p $ROM
     cd $ROM
     echo -e "\n${BOL_RED}ArrowOS${END}"
     task=${2}
     cleanforce=${2}
-  elif [[ ${1} == "statix" ]]; then
-    ROM=$HOME/StatiXOS
-    mkdir -p $ROM
-    cd $ROM
-    echo -e "\n${BOL_RED}StatiXOS${END}"
-    task=${2}
-    cleanforce=${2}
   else
-    ROM=$HOME/Kraken
+    ROM=$HOME/ArrowOS
     mkdir -p $ROM
     cd $ROM
-    echo -e "\n${BOL_RED}Kraken${END}"
+    echo -e "\n${BOL_RED}ArrowOS${END}"
     task=${1}
     cleanforce=${1}
   fi
@@ -165,12 +149,10 @@ b() {
   argsC
 
   . build/envsetup.sh
-  if [[ ${1} == "arrow" ]]; then
-    lunch arrow_${codename}-${buildtype}
-  elif [[ ${1} == "statix" ]]; then
-    lunch statix_${codename}-${buildtype}
-  else
+  if [[ ${1} == "pe" ]]; then
     lunch aosp_${codename}-${buildtype}
+  else
+    lunch arrow_${codename}-${buildtype}
   fi
 
   makeC() {
@@ -188,7 +170,7 @@ b() {
       dunstify -i $iconSuccess "Builder" "Build success"
     else
       echo -e "${BOL_RED}Build failure${END}\n\n"
-      ag -S "error:" $HOME/Kraken/log.txt
+      ag -S "error:" $HOME/ArrowOS/log.txt
       dunstify -i $iconFail "Builder" "Build failure"
     fi
   }
