@@ -23,6 +23,7 @@ branch=$2
 
 echo "${BOL_GRE}${org} - ${branch}${END}"
 
+git remote remove push
 git remote add push ssh://git@github.com/${org}/${repo}
 
 REMOTE=push
