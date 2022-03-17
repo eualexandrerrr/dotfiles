@@ -11,6 +11,13 @@ if [[ ! -d $HOME/.dotfiles ]]; then
   exit
 fi
 
+# Update packages and keys
+sudo pacman -Syyu --noconfirm
+sudo pacman-key --populate archlinux
+
+# Load packages
+source $HOME/.dotfiles/setup/packages.sh
+
 # Install YAY AUR Manager
 if [[ ! -f $(which yay) ]]; then
   pwd=$(pwd)
@@ -19,38 +26,56 @@ if [[ ! -f $(which yay) ]]; then
   cd $pwd
 fi
 
-# pacman keys
-sudo pacman-key --populate archlinux
-
-# Load packages
-source $HOME/.dotfiles/setup/packages.sh
-
-aurMsg() {
-  echo -e "${BOL_BLU}\nThe ${BOL_YEL}$i ${BOL_BLU}package is not in the official ${BOL_GRE}ArchLinux ${BOL_BLU}repositories...\n${BOL_BLU}Searching ${BOL_BLU}AUR ${BOL_BLU}package ${BOL_BLU}with ${BOL_BLU}yay${END}\n"
-}
-
-checkInstallPkg() {
-  if [[ $? -eq 0 ]]; then
-    echo "${BOL_GRE}${i} installed${END}"
+checkIfPackageInstalled() {
+  if [ $? -eq 0 ]; then
+    echo -e "\n${BOL_GRE}The package ${BOL_MAG}${i} ${BOL_GRE}was successfully installed\n${END}"
   else
-    echo " ${BOL_RED}#*#*#*#*#*#*#*"
-    echo "${CYA}${i} ${BOL_RED}FAILURE${END}"
-    exit 1
+    echo -e "\n${BOL_RED}The package ${BOL_MAG}${i} ${BOL_RED}failure\n\nTry AGAIN!!!\n${END}"
+    sleep 2000000000000
   fi
 }
 
-echo -e "\n${BOL_MAG}Installing dependencies!${END}\n"
-for i in "${dependencies[@]}"; do
-  sudo pacman -S ${i} --needed --noconfirm && continue || aurMsg && yay -S ${i} --needed --noconfirm
-  checkInstallPkg
-done
-
-
-if [[ $HOST == modinx ]]; then
-  for i in "${mypackages[@]}"; do
-    sudo pacman -S ${i} --needed --noconfirm && continue || aurMsg && yay -S ${i} --needed --noconfirm
-    checkInstallPkg
+installDependencies() {
+  for i in "${dependencies[@]}"; do
+    if sudo pacman -Ss ${i} &> /dev/null; then
+      sudo pacman -S ${i} --noconfirm
+      checkIfPackageInstalled
+    else
+      yay -S ${i} --noconfirm
+      checkIfPackageInstalled
+    fi
   done
+}
+
+installMyPackages() {
+  for i in "${mypackages[@]}"; do
+    if sudo pacman -Ss ${i} &> /dev/null; then
+      sudo pacman -S ${i} --noconfirm
+      checkIfPackageInstalled
+    else
+      yay -S ${i} --noconfirm
+      checkIfPackageInstalled
+    fi
+  done
+}
+
+installBuilder() {
+  for i in "${builder[@]}"; do
+    if sudo pacman -Ss ${i} &> /dev/null; then
+      sudo pacman -S ${i} --noconfirm
+      checkIfPackageInstalled
+    else
+      yay -S ${i} --noconfirm
+      checkIfPackageInstalled
+    fi
+  done
+}
+
+installDependencies
+
+if [[ $HOST == "modinx" ]]; then
+  installMyPackages
+  installBuilder
 
   # Configs
   sudo sed -i "s/#unix_sock_group/unix_sock_group/g" /etc/libvirt/libvirtd.conf
@@ -60,27 +85,24 @@ if [[ $HOST == modinx ]]; then
   sudo cp -rf $HOME/.dotfiles/assets/.config/assets/fans/Acer\ Nitro\ 5\ AN515-43.xml /opt/nbfc/Configs
   nbfc config -a "Acer Nitro 5 AN515-43"
 
-  # Generate grub
-  sudo grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=grub
-  sudo grub-mkconfig -o /boot/grub/grub.cfg
+  # Personal configs
+  for i in $(ls $HOME/.dotfiles/setup/modinx/*.sh); do
+    chmod +x $i
+    bash $i
+  done
 fi
 
 # Enable systemd services
 for services in \
     cronie \
     bluetooth \
-    mpd \
-    mopidy \
     libvirtd.service \
     laptop-mode.service \
     nbfc \
     getty@ttyN.service; do
-    sudo systemctl enable $services &> /dev/null
-    sudo systemctl start $services &> /dev/null
+    sudo systemctl enable $services
+    sudo systemctl start $services
 done
-
-# Remove folder GO
-rm -rf $HOME/go &> /dev/null
 
 # Fonts
 sudo mkdir -p /usr/share/fonts/TTF &> /dev/null
@@ -90,13 +112,21 @@ fc-cache -f -r -v &> /dev/null
 # Remove Kraken scripts
 [[ $USER != mamutal91 ]] && rm -rf $HOME/.dotfiles/aew/.config/scripts/kraken && rm -rf $HOME/.config/scripts/kraken
 
-if [[ $HOST == modinx ]]; then
-  for i in $(ls $HOME/.dotfiles/setup/personalconfigs/*.sh); do
-    chmod +x $i
-    bash $i
-  done
-fi
-
+# Permissions
 sudo chown -R $USER:$USER /home/$USER
 
+# Generate grub
+sudo grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=grub
+sudo grub-mkconfig -o /boot/grub/grub.cfg
+
+# Remove folder GO
+rm -rf $HOME/go &> /dev/null
+
+# My configs
+bash $HOME/.dotfiles/setup/myconfigs.sh
+
+# Chaotic kernel
+bash $HOME/.dotfiles/setup/chaotic-kernel.sh
+
+# Stow
 bash $HOME/.dotfiles/install.sh
