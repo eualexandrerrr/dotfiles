@@ -16,7 +16,7 @@ ccacheC() {
   export USE_CCACHE=1
   export CCACHE_DIR=/mnt/ccache
   export CCACHE_EXEC=/usr/bin/ccache
-  ccache -M 100G
+  ccache -M 200G
 }
 
 s() {
