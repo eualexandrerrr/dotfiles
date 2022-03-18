@@ -1,5 +1,24 @@
 #!/usr/bin/env bash
 
+# graphics driver
+nvidia=$(lspci | grep -e VGA -e 3D | grep 'NVIDIA' 2> /dev/null || echo '')
+if [[ -n $nvidia ]]; then
+  if [[ ! -n $(grep nvidia /etc/default/grub) ]]; then
+    sudo sed -i 's/acpi_backlight=vendor/acpi_backlight=vendor nvidia-drm.modeset=1/g' /etc/default/grub
+  fi
+  pwd=$(pwd)
+    rm -rf /tmp/nvidia-all
+    mkdir -p /tmp
+    git clone https://github.com/Frogging-Family/nvidia-all.git /tmp/nvidia-all
+    cd /tmp/nvidia-all
+    makepkg -si
+  cd $pwd
+  sudo pacman -Sy mesa mesa-demos vulkan-tools lib32-mesa lib32-virtualgl lib32-libvdpau --noconfirm
+  sed -i "s/MODULES=()/MODULES=(nvidia nvidia_modeset nvidia_uvm nvidia_drm)/g" /etc/mkinitcpio.conf
+  mkinitcpio -p linux-lts
+  mkinitcpio -p linux
+fi
+
 sudo rm -rf /etc/X11/xorg.conf.d/20-nvidia-drm-outputclass.conf
 sudo rm -rf /etc/modprobe.d/blacklist-nvidia-nouveau.conf
 

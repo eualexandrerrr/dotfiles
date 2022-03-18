@@ -19,21 +19,7 @@ if [[ $(cat /etc/hostname) == modinx ]]; then
     m="Autocommit Git-Cron"
     git add .
     git commit -m "${m}" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>" --date "$(date)"
-    git push
+    git push ssh://git@gitlab.com/mamutal91/myhistory HEAD:refs/heads/master # --force
   fi
-  cd $pwd
-fi
-
-# Kraken
-if [[ $(cat /etc/hostname) == archlinux-latest-64-minimal ]]; then
-  m="Autocommit Git-Cron"
-  pwd=$(pwd)
-  sudo rm -rf /home/mamutal91/.gerrit
-  git clone ssh://git@github.com/AOSPK/gerrit -b backup /home/mamutal91/.gerrit
-  sudo cp -rf /mnt/roms/sites/docker/gerrit /home/mamutal91/.gerrit
-  cd /home/mamutal91/.gerrit
-  git config --global user.email "bot@aospk.org" && git config --global user.name "Kraken Project Bot"
-  git add . && git commit -m "${m}" --signoff --author "Kraken Project Bot <bot@aospk.org>" --date "$(date)" && git push -f
-  git config --global user.email "mamutal91@gmail.com" && git config --global user.name "Alexandre Rangel"
   cd $pwd
 fi

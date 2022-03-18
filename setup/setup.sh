@@ -77,6 +77,8 @@ if [[ $HOST == "modinx" ]]; then
   installMyPackages
   installBuilder
 
+  bash $HOME/.dotfiles/setup/atom.sh
+
   # Configs
   sudo sed -i "s/#unix_sock_group/unix_sock_group/g" /etc/libvirt/libvirtd.conf
   sudo sed -i "s/#unix_sock_rw_perms/unix_sock_rw_perms/g" /etc/libvirt/libvirtd.conf
@@ -110,7 +112,7 @@ sudo cp -rf $HOME/.dotfiles/assets/.config/assets/fonts/* /usr/share/fonts/TTF
 fc-cache -f -r -v &> /dev/null
 
 # Remove Kraken scripts
-[[ $USER != mamutal91 ]] && rm -rf $HOME/.dotfiles/aew/.config/scripts/kraken && rm -rf $HOME/.config/scripts/kraken
+[[ $USER != "mamutal91" ]] && rm -rf $HOME/.dotfiles/aew/.config/scripts/kraken && rm -rf $HOME/.config/scripts/kraken
 
 # Permissions
 sudo chown -R $USER:$USER /home/$USER
@@ -119,14 +121,37 @@ sudo chown -R $USER:$USER /home/$USER
 sudo grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=grub
 sudo grub-mkconfig -o /boot/grub/grub.cfg
 
+# My configs
+if [[ $USER == "mamutal91" ]]; then
+  echo -e "\n${BOL_MAG}Você deseja reconfigurar suas ${BOL_CYA}configurações pessoais? ${GRE}(y/n) ${RED}[enter=no] ${END}\n"; read answer
+  if [[ $answer != ${answer#[Yys]} ]]; then
+    echo -e "${BOL_GRE}Ok, reconfigurando ${BOL_MAG}configurações pessoais${END}\n"
+    bash $HOME/.dotfiles/setup/myconfigs.sh
+  else
+    echo -e "${BOL_RED}Ok, não irei reconfigurar suas ${BOL_MAG}configurações pessoais${END}\n"
+  fi
+
+  # Nvidia
+  echo -e "\n${BOL_MAG}Você deseja instalar o driver da ${BOL_CYA}nvidia? ${GRE}(y/n) ${RED}[enter=no] ${END}\n"; read answer
+  if [[ $answer != ${answer#[Yys]} ]]; then
+    echo -e "${BOL_GRE}Ok, instalando drivers da ${BOL_MAG}nvidia${END}\n"
+    bash $HOME/.dotfiles/setup/nvidia.sh
+  else
+    echo -e "${BOL_RED}Ok, não irei instalar o driver da ${BOL_MAG}nvidia${END}\n"
+  fi
+
+  # Chaotic kernel
+  echo -e "\n${BOL_MAG}Você deseja instalar o kernel da ${BOL_CYA}chaotic? ${GRE}(y/n) ${RED}[enter=no] ${END}\n"; read answer
+  if [[ $answer != ${answer#[Yys]} ]]; then
+    echo -e "${BOL_GRE}Ok, instalando kernel da ${BOL_MAG}chaotic${END}\n"
+    bash $HOME/.dotfiles/setup/chaotic-kernel.sh
+  else
+    echo -e "${BOL_RED}Ok, não irei instalar o kernel da ${BOL_MAG}chaotic${END}\n"
+  fi
+fi
+
 # Remove folder GO
 rm -rf $HOME/go &> /dev/null
-
-# My configs
-bash $HOME/.dotfiles/setup/myconfigs.sh
-
-# Chaotic kernel
-bash $HOME/.dotfiles/setup/chaotic-kernel.sh
 
 # Stow
 bash $HOME/.dotfiles/install.sh
