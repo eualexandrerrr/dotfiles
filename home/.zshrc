@@ -31,6 +31,7 @@ export BUILD_USERNAME="mamutal91"
 export BUILD_HOSTNAME="nitro5"
 
 # Aliases
+alias nvidia="bash $HOME/.dotfiles/setup/nvidia.sh"
 alias atom="atom --in-progress-gpu --no-sandbox -n=false"
 alias poweroff="nbfc set -s 50 && sudo poweroff"
 alias reboot="nbfc set -s 50 && sudo poweroff --reboot"
