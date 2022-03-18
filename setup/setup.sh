@@ -26,58 +26,51 @@ if [[ ! -f $(which yay) ]]; then
   cd $pwd
 fi
 
-checkIfPackageInstalled() {
-  if [ $? -eq 0 ]; then
-    echo -e "\n${BOL_GRE}The package ${BOL_MAG}${i} ${BOL_GRE}was successfully installed\n${END}"
+# Install packages
+InstallPacAur() {
+  failed=()
+  success=()
+
+  packages=("$@")
+  for package in "${packages[@]}"; do
+    echo -e "\n${BLU}PACKAGE: ${BOL_BLU}${package}${END}"
+    sudo pacman -S --needed --noconfirm ${package} &> /dev/null
+    RESULT=$?
+    if [[ $RESULT -eq 0 ]]; then
+      echo -e "${GRE}Pacman successfully installed ${MAG}${package}${END}"
+      success+=($package)
+    else
+      echo -e "${RED}Pacman failed to install ${MAG}${package}${END} ${RED}trying to install with ${YEL}AUR${END}"
+      yay -S --needed --noconfirm ${package} &> /dev/null
+      RESULT=$?
+      if [[ $RESULT -eq 0 ]]; then
+        echo -e "${GRE}AUR successfully installed ${MAG}${package}${END}"
+        success+=($package)
+      else
+        echo -e "\n${BOL_RED} * Error:\n ${BOL_RED}* ${RED}AUR failed to install ${YEL}${package}${END}"
+        failed+=($package)
+      fi
+    fi
+  done
+}
+
+echo -e "\n${BOL_GRE}Installing packages${END}\n${MAG}"
+
+InstallPkgs() {
+  if [[ $USER != "mamutal91" ]]; then
+    InstallPacAur ${dependencies[@]}
   else
-    echo -e "\n${BOL_RED}The package ${BOL_MAG}${i} ${BOL_RED}failure\n\nTry AGAIN!!!\n${END}"
-    sleep 2000000000000
+    InstallPacAur ${dependencies[@]}
+    InstallPacAur ${mypackages[@]}
+    InstallPacAur ${builder[@]}
   fi
 }
-
-installDependencies() {
-  for i in "${dependencies[@]}"; do
-    if sudo pacman -Ss ${i} &> /dev/null; then
-      sudo pacman -S ${i} --noconfirm
-      checkIfPackageInstalled
-    else
-      yay -S ${i} --noconfirm
-      checkIfPackageInstalled
-    fi
-  done
-}
-
-installMyPackages() {
-  for i in "${mypackages[@]}"; do
-    if sudo pacman -Ss ${i} &> /dev/null; then
-      sudo pacman -S ${i} --noconfirm
-      checkIfPackageInstalled
-    else
-      yay -S ${i} --noconfirm
-      checkIfPackageInstalled
-    fi
-  done
-}
-
-installBuilder() {
-  for i in "${builder[@]}"; do
-    if sudo pacman -Ss ${i} &> /dev/null; then
-      sudo pacman -S ${i} --noconfirm
-      checkIfPackageInstalled
-    else
-      yay -S ${i} --noconfirm
-      checkIfPackageInstalled
-    fi
-  done
-}
-
-installDependencies
+InstallPkgs
 
 if [[ $HOST == "modinx" ]]; then
-  installMyPackages
-  installBuilder
-
+  echo -e "\n${BOL_GRE}Installing packages ATOM${END}\n${MAG}"
   bash $HOME/.dotfiles/setup/atom.sh
+  echo -e "${END}"
 
   # Configs
   sudo sed -i "s/#unix_sock_group/unix_sock_group/g" /etc/libvirt/libvirtd.conf
@@ -88,6 +81,7 @@ if [[ $HOST == "modinx" ]]; then
   nbfc config -a "Acer Nitro 5 AN515-43"
 
   # Personal configs
+  echo -e "\n${BOL_GRE}Running scripts for ${CYA}modinx${END}\n"
   for i in $(ls $HOME/.dotfiles/setup/modinx/*.sh); do
     chmod +x $i
     bash $i
@@ -95,6 +89,7 @@ if [[ $HOST == "modinx" ]]; then
 fi
 
 # Enable systemd services
+echo -e "\n${BOL_GRE}Enabling services ${CYA}modinx${END}\n"
 for services in \
   cronie \
   bluetooth \
@@ -107,6 +102,7 @@ for services in \
 done
 
 # Fonts
+echo -e "\n${BOL_GRE}Copying fonts${END}\n"
 sudo mkdir -p /usr/share/fonts/TTF &> /dev/null
 sudo cp -rf $HOME/.dotfiles/assets/.config/assets/fonts/* /usr/share/fonts/TTF
 fc-cache -f -r -v &> /dev/null
@@ -115,6 +111,7 @@ fc-cache -f -r -v &> /dev/null
 [[ $USER != "mamutal91" ]] && rm -rf $HOME/.dotfiles/aew/.config/scripts/kraken && rm -rf $HOME/.config/scripts/kraken
 
 # Permissions
+echo -e "\n${BOL_GRE}Set permissions${END}\n"
 sudo chown -R $USER:$USER /home/$USER
 
 # My configs
@@ -128,16 +125,6 @@ if [[ $USER == "mamutal91" ]]; then
     echo -e "${BOL_RED}Ok, não irei reconfigurar suas ${BOL_MAG}configurações pessoais${END}\n"
   fi
 
-  # Nvidia
-  echo -e "\n${BOL_MAG}Você deseja instalar o driver da ${BOL_CYA}nvidia? ${GRE}(y/n) ${RED}[enter=no] ${END}\n"
-  read answer
-  if [[ $answer != ${answer#[Yys]} ]]; then
-    echo -e "${BOL_GRE}Ok, instalando drivers da ${BOL_MAG}nvidia${END}\n"
-    bash $HOME/.dotfiles/setup/nvidia.sh
-  else
-    echo -e "${BOL_RED}Ok, não irei instalar o driver da ${BOL_MAG}nvidia${END}\n"
-  fi
-
   # Chaotic kernel
   echo -e "\n${BOL_MAG}Você deseja instalar o kernel da ${BOL_CYA}chaotic? ${GRE}(y/n) ${RED}[enter=no] ${END}\n"
   read answer
@@ -149,13 +136,43 @@ if [[ $USER == "mamutal91" ]]; then
   fi
 fi
 
+# Nvidia
+echo -e "\n${BOL_MAG}Você deseja instalar o driver da ${BOL_CYA}nvidia? ${GRE}(y/n) ${RED}[enter=no] ${END}\n"
+read answer
+if [[ $answer != ${answer#[Yys]} ]]; then
+  echo -e "${BOL_GRE}Ok, instalando drivers da ${BOL_MAG}nvidia${END}\n"
+  bash $HOME/.dotfiles/setup/nvidia.sh
+else
+  echo -e "${BOL_RED}Ok, não irei instalar o driver da ${BOL_MAG}nvidia${END}\n"
+fi
+
 # Generate grub
-sudo mkinitcpio -P
-sudo grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=grub
-sudo grub-mkconfig -o /boot/grub/grub.cfg
+echo -e "\n${BOL_MAG}Você deseja instalar gerar novamente o ${BOL_CYA}mkinitcpio/grub? ${GRE}(y/n) ${RED}[enter=no] ${END}\n"
+read answer
+if [[ $answer != ${answer#[Yys]} ]]; then
+  echo -e "${BOL_GRE}Ok, gerando ${BOL_MAG}mkinitcpio/grub${END}\n"
+  sudo mkinitcpio -P
+  sudo grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=grub
+  sudo grub-mkconfig -o /boot/grub/grub.cfg
+else
+  echo -e "${BOL_RED}Ok, não irei gerar o ${BOL_MAG}mkinitcpio/grub${END}\n"
+fi
 
 # Remove folder GO
 rm -rf $HOME/go &> /dev/null
 
 # Stow
 bash $HOME/.dotfiles/install.sh
+
+# Resultados finais
+echo -e "\n\n${BOL_GRE}Packages success:${GRE}\n"
+for i in ${success[@]}; do
+  echo -e "$i"
+done
+echo -e "${END}"
+
+echo -e "\n\n${BOL_RED}Packages failed:${RED}\n"
+for i in ${failed[@]}; do
+  echo -e "$i"
+done
+echo -e "${END}"

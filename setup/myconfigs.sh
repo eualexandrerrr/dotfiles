@@ -53,13 +53,15 @@ copyTokens() {
 copyTokens
 
 # Clone my important repos
-repos=(myhistory myarch docker-files shellscript-atom-snippets crowdin)
+repos=(myhistory myarch docker-files shellscript-atom-snippets crowdin scripter)
 
 for repo in ${repos[@]}; do
   gitUser=mamutal91
+  gitFolder=$HOME/GitHub/${repo}
 
-  [[ $repo == "docker-files" ]] && gitUser=AOSPK
-  [[ $repo == "crowdin" ]] && gitUser=AOSPK
+  [[ $repo == "docker-files" ]] && gitUser="AOSPK"
+  [[ $repo == "crowdin" ]] && gitUser="AOSPK"
+  [[ $repo == "scripter" ]] && gitFolder="$HOME/.scripter"
 
   echo -e "\n${BOL_GRE}Cloning ${MAG}${repo}${END}"
   rm -rf $HOME/GitHub/${repo}
@@ -68,7 +70,7 @@ for repo in ${repos[@]}; do
     git clone https://gitlab.com/mamutal91/myhistory $HOME/GitHub/myhistory
     sed -i "s|https://gitlab|ssh://git@gitlab|g" $HOME/GitHub/myhistory/.git/config
   else
-    git clone ssh://git@github.com/${gitUser}/${repo} $HOME/GitHub/${repo}
+    git clone ssh://git@github.com/${gitUser}/${repo} ${gitFolder}
   fi
 done
 

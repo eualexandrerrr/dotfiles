@@ -9,11 +9,6 @@ if [[ ! -n $(grep nvidia /etc/mkinitcpio.conf) ]]; then
   sudo sed -i "s/MODULES=()/MODULES=(nvidia nvidia_modeset nvidia_uvm nvidia_drm)/g" /etc/mkinitcpio.conf
 fi
 
-sudo rm -rf /etc/X11/xorg.conf.d/20-nvidia-drm-outputclass.conf
-sudo rm -rf /etc/modprobe.d/blacklist-nvidia-nouveau.conf
-
-sudo mkdir -p /etc/pacman.d/hooks
-
 pwd=$(pwd)
   rm -rf /tmp/nvidia-all
   mkdir -p /tmp
@@ -22,8 +17,13 @@ pwd=$(pwd)
   makepkg -si
   sudo pacman -Sy mesa mesa-demos vulkan-tools lib32-mesa lib32-virtualgl lib32-libvdpau --noconfirm
   rm -rf /tmp/nvidia-all
-  mkinitcpio -P
+  sudo mkinitcpio -P
 cd $pwd
+
+sudo rm -rf /etc/X11/xorg.conf.d/20-nvidia-drm-outputclass.conf
+sudo rm -rf /etc/modprobe.d/blacklist-nvidia-nouveau.conf
+
+sudo mkdir -p /etc/pacman.d/hooks
 
 echo "[Trigger]
 Operation=Install
