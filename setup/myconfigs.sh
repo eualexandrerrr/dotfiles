@@ -14,7 +14,7 @@ git config --global user.email "mamutal91@gmail.com" && git config --global user
 mkdir -p $HOME/{Images,Videos,GitHub,.ssh} &> /dev/null
 
 # My Tokens
-checkTokens() {
+tokens() {
     sudo rm -rf $HOME/GitHub/mytokens
     sudo rm -rf $HOME/.ssh/id_*
     echo -e "\n${BOL_GRE}Será necessário autenticar a conta do ${BOL_MAG}GITLAB ${BOL_GRE}mamualmente...${END}\n"
@@ -48,7 +48,7 @@ checkTokens() {
 
     cd $pwd
 }
-checkTokens
+tokens
 
 # Clone my important repos
 repos=(myhistory myarch docker-files shellscript-atom-snippets crowdin scripter)
