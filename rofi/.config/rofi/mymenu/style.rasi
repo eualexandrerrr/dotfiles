@@ -1,8 +1,8 @@
 configuration {
 		font:									 "Terminus 10";
-    show-icons:            true;
+    show-icons:            false;
 		icon-theme: 					 "Papirus";
-    display-drun: 				 "Applications";
+		display-drun:					 "";
     drun-display-format:   "{name}";
     disable-history:       false;
 		sidebar-mode: 				 false;

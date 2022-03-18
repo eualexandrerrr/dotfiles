@@ -10,10 +10,8 @@ repo05="05.   shellscript-atom-snippets"
 
 menu="$repo01\n$repo02\n$repo03\n$repo04\n$repo05"
 
-theme="style_2"
+chosen="$(echo -e "$menu" | rofi -dmenu -theme $HOME/.config/rofi/mymenu/style.rasi)"
 
-chosen="$(echo -e "$menu" | rofi -dmenu -theme $HOME/.config/rofi/myMenu/style.rasi)"
-# -theme $HOME/.config/rofi/style-menu.rasi
 case $chosen in
   $repo01) alacritty -t mywindowfloat --working-directory $HOME/.dotfiles ;;
   $repo02) alacritty -t mywindowfloat --working-directory $github/docker-files ;;

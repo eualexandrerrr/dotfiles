@@ -147,7 +147,7 @@ bindsym $super+F4 exec --no-startup-id atom --in-progress-gpu --no-sandbox -n=fa
 bindsym $super+d exec --no-startup-id $HOME/.config/rofi/launcher/launcher.sh
 
 bindsym $super+BackSpace exec --no-startup-id alacritty -t testingscript -e $HOME/.config/scripts/dot/scripter.sh &
-bindsym F10 exec --no-startup-id $HOME/.config/scripts/dot/myMenu.sh &
+bindsym F10 exec --no-startup-id $HOME/.config/rofi/mymenu/mymenu.sh &
 bindsym F11 exec --no-startup-id $HOME/.dotfiles/install.sh
 
 # Get rules
