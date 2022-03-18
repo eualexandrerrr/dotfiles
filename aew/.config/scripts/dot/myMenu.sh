@@ -12,7 +12,7 @@ menu="$repo01\n$repo02\n$repo03\n$repo04\n$repo05"
 
 theme="style_2"
 
-chosen="$(echo -e "$menu" | rofi -no-config -no-lazy-grab -dmenu -i -p)"
+chosen="$(echo -e "$menu" | rofi -dmenu -theme $HOME/.config/rofi/myMenu/style.rasi)"
 # -theme $HOME/.config/rofi/style-menu.rasi
 case $chosen in
   $repo01) alacritty -t mywindowfloat --working-directory $HOME/.dotfiles ;;
