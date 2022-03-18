@@ -31,8 +31,8 @@ export BUILD_USERNAME=mamutal91
 export BUILD_HOSTNAME=modinx
 
 # Aliases
-alias poweroff="nbfc set -s 50 && sleep 3 && sudo poweroff"
-alias reboot="nbfc set -s 50 && sleep 1 && sudo poweroff --reboot"
+alias poweroff="nbfc set -s 50 && sudo poweroff"
+alias reboot="nbfc set -s 50 && sudo poweroff --reboot"
 alias pacman="sudo pacman"
 alias pacman-key="sudo pacman-key"
 alias mkinitcpio="sudo mkinitcpio"

@@ -141,6 +141,7 @@ bindsym $super+Return exec --no-startup-id alacritty &; workspace $ws1
 bindsym $super+e exec --no-startup-id thunar &; workspace $ws7
 bindsym $super+F2 exec --no-startup-id google-chrome-unstable &; workspace $ws2
 bindsym $super+F3 exec --no-startup-id telegram-desktop &; workspace $ws4
+bindsym $super+F4 exec --no-startup-id atom --in-progress-gpu --no-sandbox &; workspace $ws3
 
 # System shortcuts
 bindsym $super+d exec --no-startup-id $HOME/.config/rofi/launcher/launcher.sh
