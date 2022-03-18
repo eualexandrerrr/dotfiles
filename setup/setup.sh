@@ -96,14 +96,14 @@ fi
 
 # Enable systemd services
 for services in \
-    cronie \
-    bluetooth \
-    libvirtd.service \
-    laptop-mode.service \
-    nbfc \
-    getty@ttyN.service; do
-    sudo systemctl enable $services
-    sudo systemctl start $services
+  cronie \
+  bluetooth \
+  libvirtd.service \
+  laptop-mode.service \
+  nbfc \
+  getty@ttyN.service; do
+  sudo systemctl enable $services
+  sudo systemctl start $services
 done
 
 # Fonts
@@ -119,7 +119,8 @@ sudo chown -R $USER:$USER /home/$USER
 
 # My configs
 if [[ $USER == "mamutal91" ]]; then
-  echo -e "\n${BOL_MAG}Você deseja reconfigurar suas ${BOL_CYA}configurações pessoais? ${GRE}(y/n) ${RED}[enter=no] ${END}\n"; read answer
+  echo -e "\n${BOL_MAG}Você deseja reconfigurar suas ${BOL_CYA}configurações pessoais? ${GRE}(y/n) ${RED}[enter=no] ${END}\n"
+  read answer
   if [[ $answer != ${answer#[Yys]} ]]; then
     echo -e "${BOL_GRE}Ok, reconfigurando ${BOL_MAG}configurações pessoais${END}\n"
     bash $HOME/.dotfiles/setup/myconfigs.sh
@@ -128,7 +129,8 @@ if [[ $USER == "mamutal91" ]]; then
   fi
 
   # Nvidia
-  echo -e "\n${BOL_MAG}Você deseja instalar o driver da ${BOL_CYA}nvidia? ${GRE}(y/n) ${RED}[enter=no] ${END}\n"; read answer
+  echo -e "\n${BOL_MAG}Você deseja instalar o driver da ${BOL_CYA}nvidia? ${GRE}(y/n) ${RED}[enter=no] ${END}\n"
+  read answer
   if [[ $answer != ${answer#[Yys]} ]]; then
     echo -e "${BOL_GRE}Ok, instalando drivers da ${BOL_MAG}nvidia${END}\n"
     bash $HOME/.dotfiles/setup/nvidia.sh
@@ -137,7 +139,8 @@ if [[ $USER == "mamutal91" ]]; then
   fi
 
   # Chaotic kernel
-  echo -e "\n${BOL_MAG}Você deseja instalar o kernel da ${BOL_CYA}chaotic? ${GRE}(y/n) ${RED}[enter=no] ${END}\n"; read answer
+  echo -e "\n${BOL_MAG}Você deseja instalar o kernel da ${BOL_CYA}chaotic? ${GRE}(y/n) ${RED}[enter=no] ${END}\n"
+  read answer
   if [[ $answer != ${answer#[Yys]} ]]; then
     echo -e "${BOL_GRE}Ok, instalando kernel da ${BOL_MAG}chaotic${END}\n"
     bash $HOME/.dotfiles/setup/chaotic-kernel.sh
@@ -147,7 +150,7 @@ if [[ $USER == "mamutal91" ]]; then
 fi
 
 # Generate grub
-mkinitcpio -P
+sudo mkinitcpio -P
 sudo grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=grub
 sudo grub-mkconfig -o /boot/grub/grub.cfg
 
