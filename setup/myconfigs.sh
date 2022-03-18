@@ -15,63 +15,59 @@ mkdir -p $HOME/{Images,Videos,GitHub,.ssh} &> /dev/null
 
 # My Tokens
 checkTokens() {
-  if test -f "$HOME/.ssh/id_ed25519"; then
-    echo -e "\n${BOL_RED} .ssh já existe${END}\n"
-  else
     sudo rm -rf $HOME/GitHub/mytokens
     sudo rm -rf $HOME/.ssh/id_*
-    echo -e "\n${BOL_GRE}É NECESSÁRIO AUTENTICAR SUA CONTA ${BOL_MAG}GITLAB ${BOL_GRE}MANUALMENTE${END}\n"
+    echo -e "\n${BOL_GRE}Será necessário autenticar a conta do ${BOL_MAG}GITLAB ${BOL_GRE}mamualmente...${END}\n"
     git clone https://gitlab.com/mamutal91/mytokens $HOME/GitHub/mytokens
+    sed -i "s|https://gitlab|ssh://git@gitlab|g" $HOME/GitHub/mytokens/.git/config
     if [ $? -eq 0 ]; then
       echo -e "\n${BOL_GRE}The repo ${BOL_MAG}mytokens ${BOL_GRE}was successfully cloned\n${END}"
     else
       echo -e "\n${BOL_RED}The repo ${BOL_MAG}mytokens ${BOL_RED}cloned failure\n\nTry AGAIN!!!\n${END}"
       sleep 2000000000000
     fi
+
+    sleep 2
+
     pwd=$(pwd)
+
     sudo chown -R mamutal91:mamutal91 $HOME/.ssh
     sudo chmod 700 $HOME/.ssh
+
     cd $HOME/GitHub/mytokens/keys
     cp -rf * $HOME/.ssh
     sudo chmod 644 $HOME/.ssh/*.pub
     sudo chmod 600 $HOME/.ssh/id_ed25519
     sudo chmod 600 $HOME/.ssh/authorized_keys
     eval "$(ssh-agent -s)"
+
+    mkdir -p $HOME/.myTokens
+    cd $HOME/GitHub/mytokens
+    cp -rf tokens.sh $HOME/.myTokens
+    chmod +x $HOME/.myTokens/tokens.sh
+
     cd $pwd
-  fi
 }
 checkTokens
-
-copyTokens() {
-  pwd=$(pwd)
-  mkdir -p $HOME/.myTokens
-  cd $HOME/GitHub/mytokens
-  cp -rf tokens.sh $HOME/.myTokens
-  chmod +x $HOME/.myTokens/tokens.sh
-  cd $pwd
-}
-copyTokens
 
 # Clone my important repos
 repos=(myhistory myarch docker-files shellscript-atom-snippets crowdin scripter)
 
 for repo in ${repos[@]}; do
-  gitUser=mamutal91
-  gitFolder=$HOME/GitHub/${repo}
+  gitUser="mamutal91"
+  gitHost="github"
+  gitFolder="$HOME/GitHub/${repo}"
 
   [[ $repo == "docker-files" ]] && gitUser="AOSPK"
   [[ $repo == "crowdin" ]] && gitUser="AOSPK"
+  [[ $repo == "myhistory" ]] && gitHost="gitlab"
   [[ $repo == "scripter" ]] && gitFolder="$HOME/.scripter"
 
   echo -e "\n${BOL_GRE}Cloning ${MAG}${repo}${END}"
   rm -rf $HOME/GitHub/${repo}
-  if [[ $repo == "myhistory" ]]; then
-    echo -e "\n${BOL_GRE}É NECESSÁRIO AUTENTICAR SUA CONTA ${BOL_MAG}GITLAB ${BOL_GRE}MANUALMENTE${END}\n"
-    git clone https://gitlab.com/mamutal91/myhistory $HOME/GitHub/myhistory
-    sed -i "s|https://gitlab|ssh://git@gitlab|g" $HOME/GitHub/myhistory/.git/config
-  else
-    git clone ssh://git@github.com/${gitUser}/${repo} ${gitFolder}
-  fi
+  rm -rf $HOME/.scripter
+
+  git clone ssh://git@${gitHost}.com/${gitUser}/${repo} ${gitFolder}
 done
 
 # zsh history
