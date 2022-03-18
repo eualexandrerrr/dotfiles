@@ -14,7 +14,7 @@ for i in "${limps[@]}"; do
 
   repo=$(echo ${i} | awk '{ print $1 }')
   branch=$(echo ${i} | awk '{ print $2 }')
-  branchBase=$(sed "s:twelve:arrow-12.0:g" <<< $branch)
+  branchBase=$(sed "s:twelve:arrow-12.1:g" <<< $branch)
 
   echo -e "\n${BOL_GRE}Repo   : ${repo}${END}"
   echo -e "${BOL_GRE}Branch : ${branch}${END}"

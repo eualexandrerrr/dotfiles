@@ -8,8 +8,8 @@ git config --global user.email "mamutal91@gmail.com"
 git config --global user.name "Alexandre Rangel"
 
 branch=twelve
-branchRebase=lineage-19.0
-branchRebaseKernel=lineage-19.0
+branchRebase=lineage-19.1
+branchRebaseKernel=lineage-19.1
 pushToGitHubTree=AOSPK-Devices
 remoteBlobs=blobs
 projectName=Kraken

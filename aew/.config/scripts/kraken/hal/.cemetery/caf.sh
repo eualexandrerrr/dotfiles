@@ -8,7 +8,7 @@ repos=(
     hardware_qcom_wlan
 )
 
-branchLOS="arrow-12.0-caf"
+branchLOS="arrow-12.1-caf"
 branchKK="twelve-caf"
 
 tmp="/tmp/kraken-hals"
@@ -30,6 +30,6 @@ for i in "${repos[@]}"; do
 done
 
 if [[ ${i} = hardware_qcom_bootctrl || ${i} = hardware_qcom_bt || ${i} = hardware_qcom_wlan ]]; then
-  branchLOS="arrow-12.0-caf"
+  branchLOS="arrow-12.1-caf"
   branchKK="twelve-caf"
 fi

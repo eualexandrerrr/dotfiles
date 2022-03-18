@@ -10,9 +10,9 @@ repos=(
     hardware_qcom_media
 )
 
-branchBase="arrow-12.0-caf-${1}"
+branchBase="arrow-12.1-caf-${1}"
 branchKraken="twelve-caf-${1}"
-branchBaseLos="lineage-19.0-caf-${1}"
+branchBaseLos="lineage-19.1-caf-${1}"
 
 for i in ${repos[@]}; do
   rm -rf ${i}

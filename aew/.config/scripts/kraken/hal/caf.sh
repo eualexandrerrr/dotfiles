@@ -20,5 +20,5 @@ caf() {
   done
 }
 
-caf arrow-12.0 twelve
-caf arrow-12.0-caf twelve-caf
+caf arrow-12.1 twelve
+caf arrow-12.1-caf twelve-caf

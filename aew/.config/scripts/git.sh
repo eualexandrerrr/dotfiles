@@ -100,7 +100,7 @@ f() {
     elif [[ $repo == "vendor_gapps" ]]; then
       git fetch https://gitlab.com/PixelExperience/vendor_gapps twelve
     else
-      git fetch https://github.com/ArrowOS/android_${repo} arrow-12.0
+      git fetch https://github.com/ArrowOS/android_${repo} arrow-12.1
     fi
   else
     org=$(echo ${1} | cut -c1-5)
@@ -252,7 +252,7 @@ push() {
     echo -e "              -n [Nothin]"
     echo -e "              -p [Specifc project]"
     echo -e "              -f [AOSPK-Next]"
-    echo -e "${BOL_RED}              Use Project, example: ${BOL_YEL}: push gerrit -p LineageOS lineage-19.0 topic"
+    echo -e "${BOL_RED}              Use Project, example: ${BOL_YEL}: push gerrit -p LineageOS lineage-19.1 topic"
     echo -e "${END}"
     exit 1
   }
@@ -392,7 +392,7 @@ upstream() {
   if [[ ${4} == "los" ]]; then
     orgBaseName=LineageOS
     orgBase=LineageOS/android_
-    branchBase=lineage-19.0
+    branchBase=lineage-19.1
   fi
 
   if [[ ${4} == "aosp" ]]; then
@@ -438,7 +438,7 @@ upstream() {
 }
 
 up() {
-  upstream ${1} arrow-12.0 twelve ${2}
+  upstream ${1} arrow-12.1 twelve ${2}
 }
 
 hals() {
