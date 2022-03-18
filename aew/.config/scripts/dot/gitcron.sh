@@ -4,7 +4,7 @@ source $HOME/.Xconfigs # My general configs
 
 icon="$HOME/.config/assets/icons/backup.png"
 
-dunstify -i $icon "GitCron" "Starting backups..." &> /dev/null
+dunstify -i $icon "GitCron" "Starting backups..."
 
 clear
 
@@ -16,7 +16,8 @@ if [[ $(cat /etc/hostname) == modinx ]]; then
   status=$(git add . -n)
   if [[ -n $status   ]]; then
     echo -e "${BOL_GRE}Copying .zsh_history${END}"
-    m="Autocommit Git-Cron"
+    c=$(echo $(git add . -n | tr '\r\n' ' '))
+    m="Autocommit Git-Cron: changes: $c"
     git add .
     git commit -m "${m}" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>" --date "$(date)"
     git push
