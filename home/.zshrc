@@ -21,7 +21,7 @@ source $ZSH/oh-my-zsh.sh
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 export BROWSER="/usr/bin/google-chrome-unstable"
-export EDITOR="nano"
+export EDITOR="atom --in-progress-gpu --no-sandbox -n=false"
 export TERM="xterm-256color"
 export STUDIO_JDK="/usr/lib/jvm/java-11-openjdk"
 export PATH="/usr/share/:$PATH"
@@ -31,6 +31,7 @@ export BUILD_USERNAME="mamutal91"
 export BUILD_HOSTNAME="modinx"
 
 # Aliases
+alias atom="atom --in-progress-gpu --no-sandbox -n=false"
 alias poweroff="nbfc set -s 50 && sudo poweroff"
 alias reboot="nbfc set -s 50 && sudo poweroff --reboot"
 alias pacman="sudo pacman"
@@ -43,10 +44,8 @@ alias sed="sudo sed"
 alias systemctl="sudo systemctl"
 alias xprop="xprop | awk '/^WM_CLASS/{sub(/.* =/, \"instance:\"); sub(/,/, \"\nclass:\"); print} /^WM_NAME/{sub(/.* =/, \"title:\"); print}'"
 alias notify-send="dunstify"
-alias atom="atom -n=false"
 alias docker="sudo docker"
 alias docker-compose="sudo docker-compose"
-alias h="cat /etc/hostname"
 
 # Paths
 alias x="cd $HOME/Kraken"

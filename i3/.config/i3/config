@@ -141,7 +141,7 @@ bindsym $super+Return exec --no-startup-id alacritty &; workspace $ws1
 bindsym $super+e exec --no-startup-id thunar &; workspace $ws7
 bindsym $super+F2 exec --no-startup-id google-chrome-unstable &; workspace $ws2
 bindsym $super+F3 exec --no-startup-id telegram-desktop &; workspace $ws4
-bindsym $super+F4 exec --no-startup-id atom --in-progress-gpu --no-sandbox &; workspace $ws3
+bindsym $super+F4 exec --no-startup-id atom --in-progress-gpu --no-sandbox -n=false &; workspace $ws3
 
 # System shortcuts
 bindsym $super+d exec --no-startup-id $HOME/.config/rofi/launcher/launcher.sh
@@ -182,6 +182,8 @@ for_window [class="Spotify"] move to workspace $ws5, focus
 
 # Workspace 6 [office]
 for_window [class="Wpspdf|Wpp|Wps|Et"] move to workspace $ws6, focus
+for_window [class="zoom"] move to workspace $ws6, focus
+for_window [title="Zoom Meeting"] move to workspace $ws6, floating enable, focus
 
 # Workspace 7 [pc]
 for_window [class="Thunar|thunar"] move to workspace $ws7, floating enable, resize set 800 px 550 px, move right -190px, focus

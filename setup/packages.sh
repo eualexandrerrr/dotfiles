@@ -51,6 +51,7 @@ mypackages=(
   python-ruamel-yaml
   #!  selinux-python
   laptop-mode-tools acpi
+  zoom
 )
 
 builder=(
