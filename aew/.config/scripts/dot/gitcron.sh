@@ -19,7 +19,7 @@ if [[ $(cat /etc/hostname) == modinx ]]; then
     m="Autocommit Git-Cron"
     git add .
     git commit -m "${m}" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>" --date "$(date)"
-    git push ssh://git@gitlab.com/mamutal91/myhistory HEAD:refs/heads/master # --force
+    git push
   fi
   cd $pwd
 fi

@@ -66,6 +66,7 @@ for repo in ${repos[@]}; do
   if [[ $repo == "myhistory" ]]; then
     echo -e "\n${BOL_GRE}É NECESSÁRIO AUTENTICAR SUA CONTA ${BOL_MAG}GITLAB ${BOL_GRE}MANUALMENTE${END}\n"
     git clone https://gitlab.com/mamutal91/myhistory $HOME/GitHub/myhistory
+    sed -i "s|https://gitlab|ssh://git@gitlab|g" $HOME/GitHub/myhistory/.git/config
   else
     git clone ssh://git@github.com/${gitUser}/${repo} $HOME/GitHub/${repo}
   fi
