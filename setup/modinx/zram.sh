@@ -22,6 +22,7 @@ ExecStop=/usr/bin/bash -c "swapoff /dev/zram0 && rmmod zram"
 RemainAfterExit=yes
 
 [Install]
-WantedBy=multi-user.target' | sudo tee /etc/systemd/system/zram.service
+WantedBy=multi-user.target' | sudo tee /etc/systemd/system/zram.service &> /dev/null
 
 sudo systemctl enable zram
+sudo systemctl start zram

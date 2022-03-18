@@ -117,10 +117,6 @@ fc-cache -f -r -v &> /dev/null
 # Permissions
 sudo chown -R $USER:$USER /home/$USER
 
-# Generate grub
-sudo grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=grub
-sudo grub-mkconfig -o /boot/grub/grub.cfg
-
 # My configs
 if [[ $USER == "mamutal91" ]]; then
   echo -e "\n${BOL_MAG}Você deseja reconfigurar suas ${BOL_CYA}configurações pessoais? ${GRE}(y/n) ${RED}[enter=no] ${END}\n"; read answer
@@ -149,6 +145,11 @@ if [[ $USER == "mamutal91" ]]; then
     echo -e "${BOL_RED}Ok, não irei instalar o kernel da ${BOL_MAG}chaotic${END}\n"
   fi
 fi
+
+# Generate grub
+mkinitcpio -P
+sudo grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=grub
+sudo grub-mkconfig -o /boot/grub/grub.cfg
 
 # Remove folder GO
 rm -rf $HOME/go &> /dev/null
