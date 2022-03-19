@@ -37,8 +37,8 @@ sed -i '$d' ${archPath}/profiledef.sh
 echo -e "  [\"/var/lib/iwd\"]=\"0:0:0700\"\n)" | tee -a ${archPath}/profiledef.sh &> /dev/null
 
 # Criando um script que aparecerá no /root da iso
-echo -e "\nsleep 5
-git clone https://github.com/mamutal91/myarch /root/myarch" | tee -a ${archPath}/airootfs/root/.automated_script.sh &> /dev/null
+echo -e "\n\nsleep 5
+git clone https://github.com/mamutal91/myarch /root/myarch\n" | tee -a ${archPath}/airootfs/root/.automated_script.sh &> /dev/null
 
 cat ${archPath}/airootfs/root/myarch.sh
 
