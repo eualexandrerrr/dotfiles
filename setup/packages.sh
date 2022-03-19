@@ -28,7 +28,7 @@ mypackages=(
   amd-ucode lm_sensors zenpower-dkms
 
   mesa mesa-demos lib32-mesa lib32-libvdpau
-  nbfc-git
+  dmidecode nbfc-linux-git
   steam wine winetricks lib32-gnutls wps-office ttf-wps-fonts
 
   atom silver-searcher-git discord diff-so-fancy filezilla git gotop jdk-openjdk jq man man-pages-pt_br

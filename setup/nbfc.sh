@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 
-sudo cp -rf $HOME/.dotfiles/assets/.config/assets/fans/Acer\ Nitro\ 5\ AN515-43.xml /opt/nbfc/Configs
+sudo cp -rf $HOME/.dotfiles/assets/.config/assets/fans/Acer\ Nitro\ 5\ AN515-43.json /usr/share/nbfc/configs/
 
-sudo systemctl enable nbfc
-sudo systemctl start nbfc
+nbfcService="nbfc"
 
-nbfc config -a "Acer Nitro 5 AN515-43"
+sudo systemctl enable $nbfcService
+sudo systemctl start $nbfcService
+
+sudo nbfc config -a "Acer Nitro 5 AN515-43"

@@ -24,7 +24,7 @@ s() {
   iconFail="$HOME/.config/assets/icons/fail.png"
   mkdir -p $rom &> /dev/null
   cd $rom && clear
-  nbfc set -s 100
+  sudo nbfc set -s 100
   repo init -u ssh://git@github.com/AOSPK-Next/manifest -b twelve
   repo sync -c --no-clone-bundle --current-branch --no-tags --force-sync -j$(nproc --all)
   if [[ $? -eq 0 ]]; then
@@ -34,7 +34,7 @@ s() {
     echo "${BOL_RED}Repo Sync failure${END}"
     dunstify -i $iconFail "Builder" "Sync failure"
   fi
-  nbfc set -s 50
+  sudo nbfc set -s 50
 }
 
 lunchC() {
@@ -78,7 +78,7 @@ b() {
 
   iconSuccess="$HOME/.config/assets/icons/success.png"
   iconFail="$HOME/.config/assets/icons/fail.png"
-  nbfc set -s 100
+  sudo nbfc set -s 100
   cp -rf log.txt old_log.txt &> /dev/null
   ccacheC
 
@@ -160,19 +160,19 @@ b() {
   }
   sendTelegramMsg &> /dev/null
 
-  nbfc set -s 50
+  sudo nbfc set -s 50
 
   # Desligar o notebook se algum argumento for poweroff, porém, esperar 100 segundos para que esfrie os componentes
   if [[ $poweroff == "yes" ]]; then
     sleep 60
-    nbfc set -s 50
+    sudo nbfc set -s 50
     sudo poweroff
   fi
 }
 
 clean() {
   cd $rom && clear
-  nbfc set -s 100
+  sudo nbfc set -s 100
   lunchC
   if [[ ${cleanforce} == "-f" ]]; then
     echo -e "${BOL_MAG}make clean${END}"
@@ -181,5 +181,5 @@ clean() {
     echo -e "${BOL_MAG}make installclean${END}"
     make installclean
   fi
-  nbfc set -s 50
+  sudo nbfc set -s 50
 }
