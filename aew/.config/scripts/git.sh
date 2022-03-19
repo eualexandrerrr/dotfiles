@@ -94,6 +94,7 @@ st() {
 f() {
   getRepo
   gitRules
+  [[ $repo == "vendor_aosp" ]] && repo=vendor_arrow
   if [[ -z ${1} ]]; then
     if [[ $repo == "kernel_xiaomi_sm8250" ]]; then
       git fetch https://github.com/Official-Ayrton990/android_kernel_xiaomi_sm8250 upstreamed-common
@@ -431,7 +432,7 @@ upstream() {
     gh api -XPATCH "repos/AOSPK-Next/${repo}" -f default_branch="${branch}" &> /dev/null
   }
 
-  mainOrg
+  #mainOrg
   nextOrg
 
   rm -rf $workingDir
