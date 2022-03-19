@@ -37,7 +37,7 @@ mypackages=(
   rsync shfmt tree qbittorrent zip scrcpy
 
   crowdin-cli
-  lutris-git optipng bfg
+  optipng bfg
 
   makepkg-optimize
   python python-pip python-pipenv-to-requirements python-pipx python-pip-api python-pipreqs python-pipenv python-pip-shims

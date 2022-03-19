@@ -94,6 +94,14 @@ st() {
 f() {
   getRepo
   gitRules
+  clear
+  git fetch ssh://git@github.com/AOSPK/${repo} twelve
+}
+
+
+ff() { ################################################
+  getRepo
+  gitRules
   [[ $repo == "vendor_aosp" ]] && repo=vendor_arrow
   if [[ -z ${1} ]]; then
     if [[ $repo == "kernel_xiaomi_sm8250" ]]; then

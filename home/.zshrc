@@ -49,7 +49,7 @@ alias docker="sudo docker"
 alias docker-compose="sudo docker-compose"
 
 # Paths
-alias x="cd $HOME/Kraken"
+alias x="clear && cd $HOME/Kraken"
 alias out="clear && cd $HOME/Kraken/out/target/product/lmi && ls -1"
 alias d="cd /mnt/docker-files"
 
