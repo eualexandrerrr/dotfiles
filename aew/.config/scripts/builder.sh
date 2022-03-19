@@ -68,13 +68,7 @@ moveBuild() {
 
 b() {
 
-  if [[ $@ == "pe" ]]; then
-    cd $HOME/PixelExperience
-    echo -e "\n${BOL_RED}PixelExperience${END}"
-  else
-    cd $HOME/Kraken
-    echo -e "\n${BOL_RED}PixelExperience${END}"
-  fi
+  cd $HOME/Kraken
 
   iconSuccess="$HOME/.config/assets/icons/success.png"
   iconFail="$HOME/.config/assets/icons/fail.png"
@@ -82,13 +76,8 @@ b() {
   cp -rf log.txt old_log.txt &> /dev/null
   ccacheC
 
-  if [[ ${1} == pe ]]; then
-    task=${2}
-    cleanforce=${2}
-  else
-    task=${1}
-    cleanforce=${1}
-  fi
+  task=${1}
+  cleanforce=${2}
 
   [[ -z $task ]] && task=bacon
   [[ $task == "poweroff" ]] && task=bacon
