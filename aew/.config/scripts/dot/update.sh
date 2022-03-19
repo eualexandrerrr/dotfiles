@@ -29,4 +29,6 @@ updatePackages() {
   dunstify -i $icon "ArchLinux" "Successfully updated packages."
 }
 
-updatePackages | tee -a $HOME/.pacman_logs/$date
+rm -rf $HOME/.pacman_logs/${date}.log
+
+updatePackages | sudo tee $HOME/.pacman_logs/${date}.log
