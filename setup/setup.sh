@@ -11,6 +11,21 @@ if [[ ! -d $HOME/.dotfiles ]]; then
   exit
 fi
 
+if [[ $USER == "mamutal91" ]]; then
+  echo -e "\n${BOL_MAG}Você deseja reconfigurar suas ${BOL_CYA}configurações pessoais? ${GRE}(y/n) ${RED}[enter=no] ${END}\n"
+  read answerMyConfigs
+
+  echo -e "\n${BOL_MAG}Você deseja instalar o kernel da ${BOL_CYA}chaotic? ${GRE}(y/n) ${RED}[enter=no] ${END}\n"
+  read answerChaotic
+
+  echo -e "\n${BOL_MAG}Você deseja instalar o driver da ${BOL_CYA}nvidia? ${GRE}(y/n) ${RED}[enter=no] ${END}\n"
+  read answerNvidia
+
+  # Generate grub
+  echo -e "\n${BOL_MAG}Você deseja instalar gerar novamente o ${BOL_CYA}mkinitcpio/grub? ${GRE}(y/n) ${RED}[enter=no] ${END}\n"
+  read answerGrub
+fi
+
 # Chaotic
 sudo sed -i '/chaotic/d' /etc/pacman.conf
 sudo pacman-key --recv-key FBA220DFC880C036 --keyserver keyserver.ubuntu.com
@@ -80,12 +95,12 @@ InstallPkgs() {
   else
     InstallPacAur ${dependencies[@]}
     InstallPacAur ${mypackages[@]}
-    InstallPacAur ${builder[@]}
+#    InstallPacAur ${builder[@]}
   fi
 }
 InstallPkgs
 
-if [[ $HOST == "nitro5" ]]; then
+if [[ $HOST == "odin" ]]; then
   echo -e "\n${BOL_GRE}Installing packages ATOM${END}\n${MAG}"
   bash $HOME/.dotfiles/setup/atom.sh
   echo -e "${END}"
@@ -94,15 +109,15 @@ if [[ $HOST == "nitro5" ]]; then
   bash $HOME/.dotfiles/setup/nbfc.sh
 
   # Personal configs
-  echo -e "\n${BOL_GRE}Running scripts for ${CYA}nitro5${END}\n"
-  for i in $(ls $HOME/.dotfiles/setup/nitro5/*.sh); do
+  echo -e "\n${BOL_GRE}Running scripts for ${CYA}odin${END}\n"
+  for i in $(ls $HOME/.dotfiles/setup/odin/*.sh); do
     chmod +x $i
     bash $i
   done
 fi
 
 # Enable systemd services
-echo -e "\n${BOL_GRE}Enabling services ${CYA}nitro5${END}\n"
+echo -e "\n${BOL_GRE}Enabling services ${CYA}odin${END}\n"
 for services in \
   cronie \
   bluetooth \
@@ -126,46 +141,36 @@ sudo chown -R $USER:$USER /home/$USER
 
 # My configs
 if [[ $USER == "mamutal91" ]]; then
-  echo -e "\n${BOL_MAG}Você deseja reconfigurar suas ${BOL_CYA}configurações pessoais? ${GRE}(y/n) ${RED}[enter=no] ${END}\n"
-  read answer
-  if [[ $answer != ${answer#[Yys]} ]]; then
+  if [[ $answerMyConfigs != ${answerMyConfigs#[Yys]} ]]; then
     echo -e "${BOL_GRE}Ok, reconfigurando ${BOL_MAG}configurações pessoais${END}\n"
     bash $HOME/.dotfiles/setup/myconfigs.sh
   else
     echo -e "${BOL_RED}Ok, não irei reconfigurar suas ${BOL_MAG}configurações pessoais${END}\n"
   fi
 
-  # Chaotic kernel
-  echo -e "\n${BOL_MAG}Você deseja instalar o kernel da ${BOL_CYA}chaotic? ${GRE}(y/n) ${RED}[enter=no] ${END}\n"
-  read answer
-  if [[ $answer != ${answer#[Yys]} ]]; then
+  if [[ $answerChaotic != ${answerChaotic#[Yys]} ]]; then
     echo -e "${BOL_GRE}Ok, instalando kernel da ${BOL_MAG}chaotic${END}\n"
     bash $HOME/.dotfiles/setup/chaotic-kernel.sh
   else
     echo -e "${BOL_RED}Ok, não irei instalar o kernel da ${BOL_MAG}chaotic${END}\n"
   fi
-fi
 
-# Nvidia
-echo -e "\n${BOL_MAG}Você deseja instalar o driver da ${BOL_CYA}nvidia? ${GRE}(y/n) ${RED}[enter=no] ${END}\n"
-read answer
-if [[ $answer != ${answer#[Yys]} ]]; then
-  echo -e "${BOL_GRE}Ok, instalando drivers da ${BOL_MAG}nvidia${END}\n"
-  bash $HOME/.dotfiles/setup/nvidia.sh
-else
-  echo -e "${BOL_RED}Ok, não irei instalar o driver da ${BOL_MAG}nvidia${END}\n"
-fi
+  # Nvidia
+  if [[ $answerNvidia != ${answerNvidia#[Yys]} ]]; then
+    echo -e "${BOL_GRE}Ok, instalando drivers da ${BOL_MAG}nvidia${END}\n"
+    bash $HOME/.dotfiles/setup/nvidia.sh
+  else
+    echo -e "${BOL_RED}Ok, não irei instalar o driver da ${BOL_MAG}nvidia${END}\n"
+  fi
 
-# Generate grub
-echo -e "\n${BOL_MAG}Você deseja instalar gerar novamente o ${BOL_CYA}mkinitcpio/grub? ${GRE}(y/n) ${RED}[enter=no] ${END}\n"
-read answer
-if [[ $answer != ${answer#[Yys]} ]]; then
-  echo -e "${BOL_GRE}Ok, gerando ${BOL_MAG}mkinitcpio/grub${END}\n"
-  sudo mkinitcpio -P
-  sudo grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=grub
-  sudo grub-mkconfig -o /boot/grub/grub.cfg
-else
-  echo -e "${BOL_RED}Ok, não irei gerar o ${BOL_MAG}mkinitcpio/grub${END}\n"
+  if [[ $answerGrub != ${answerGrub#[Yys]} ]]; then
+    echo -e "${BOL_GRE}Ok, gerando ${BOL_MAG}mkinitcpio/grub${END}\n"
+    sudo mkinitcpio -P
+    sudo grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=grub
+    sudo grub-mkconfig -o /boot/grub/grub.cfg
+  else
+    echo -e "${BOL_RED}Ok, não irei gerar o ${BOL_MAG}mkinitcpio/grub${END}\n"
+  fi
 fi
 
 # Remove folder GO
