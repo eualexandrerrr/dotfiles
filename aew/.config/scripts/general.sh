@@ -10,6 +10,10 @@ c() {
   fi
 }
 
+iso() {
+  bash $HOME/.dotfiles/aew/.config/scripts/archiso.sh
+}
+
 agg() {
   ag -S ${1} . --hidden
 }
@@ -45,10 +49,6 @@ www() {
 
 gerrit() {
   ssh mamutal91@88.198.53.190 "cd /mnt/docker-files/gerrit && sudo docker-compose build && sudo docker-compose up -d"
-}
-
-qemu() {
-  $HOME/.config/scripts/dot/qemu.sh ${1}
 }
 
 sideload() {

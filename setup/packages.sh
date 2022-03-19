@@ -38,13 +38,12 @@ mypackages=(
 
   translate-shell-git
 
+  makepkg-optimize
   python python-pip python-pipenv-to-requirements python-pipx python-pip-api python-pipreqs python-pipenv python-pip-shims
 
   android-tools hfsprogs gvfs gvfs-mtp btrfs-progs dosfstools f2fs-tools e2fsprogs jfsutils nilfs-utils ntfs-3g reiserfsprogs udftools xfsprogs
 
   openssh python-setuptools sbc unrar unzip wget
-
-  qemu virt-manager virt-viewer dnsmasq vde2 bridge-utils openbsd-netcat libguestfs
 
   selinux-python
 

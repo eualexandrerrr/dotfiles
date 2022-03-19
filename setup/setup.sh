@@ -26,6 +26,12 @@ if [[ ! -f $(which yay) ]]; then
   cd $pwd
 fi
 
+# Fonts
+echo -e "\n${BOL_GRE}Copying fonts${END}\n"
+sudo mkdir -p /usr/share/fonts/TTF &> /dev/null
+sudo cp -rf $HOME/.dotfiles/assets/.config/assets/fonts/* /usr/share/fonts/TTF
+fc-cache -f -r -v &> /dev/null
+
 # Install packages
 InstallPacAur() {
   failed=()
@@ -34,14 +40,14 @@ InstallPacAur() {
   packages=("$@")
   for package in "${packages[@]}"; do
     echo -e "\n${BLU}PACKAGE: ${BOL_BLU}${package}${END}"
-    sudo pacman -S --needed --noconfirm ${package} &> /dev/null
+    sudo pacman -S --needed --noconfirm ${package}
     RESULT=$?
     if [[ $RESULT -eq 0 ]]; then
       echo -e "${GRE}Pacman successfully installed ${MAG}${package}${END}"
       success+=($package)
     else
       echo -e "${RED}Pacman failed to install ${MAG}${package}${END} ${RED}trying to install with ${YEL}AUR${END}"
-      yay -S --needed --noconfirm ${package} &> /dev/null
+      yay -S --needed --noconfirm ${package}
       RESULT=$?
       if [[ $RESULT -eq 0 ]]; then
         echo -e "${GRE}AUR successfully installed ${MAG}${package}${END}"
@@ -72,10 +78,6 @@ if [[ $HOST == "nitro5" ]]; then
   bash $HOME/.dotfiles/setup/atom.sh
   echo -e "${END}"
 
-  # Configs
-  sudo sed -i "s/#unix_sock_group/unix_sock_group/g" /etc/libvirt/libvirtd.conf
-  sudo sed -i "s/#unix_sock_rw_perms/unix_sock_rw_perms/g" /etc/libvirt/libvirtd.conf
-
   # Copy fan config control
   sudo cp -rf $HOME/.dotfiles/assets/.config/assets/fans/Acer\ Nitro\ 5\ AN515-43.xml /opt/nbfc/Configs
   nbfc config -a "Acer Nitro 5 AN515-43"
@@ -100,12 +102,6 @@ for services in \
   sudo systemctl enable $services
   sudo systemctl start $services
 done
-
-# Fonts
-echo -e "\n${BOL_GRE}Copying fonts${END}\n"
-sudo mkdir -p /usr/share/fonts/TTF &> /dev/null
-sudo cp -rf $HOME/.dotfiles/assets/.config/assets/fonts/* /usr/share/fonts/TTF
-fc-cache -f -r -v &> /dev/null
 
 # Remove Kraken scripts
 [[ $USER != "mamutal91" ]] && rm -rf $HOME/.dotfiles/aew/.config/scripts/kraken && rm -rf $HOME/.config/scripts/kraken

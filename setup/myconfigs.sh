@@ -11,7 +11,7 @@ cd $HOME
 git config --global user.email "mamutal91@gmail.com" && git config --global user.name "Alexandre Rangel"
 
 # Dirs
-mkdir -p $HOME/{Images,Videos,GitHub,.ssh} &> /dev/null
+mkdir -p $HOME/{Images,Downloads/Arch,Videos,GitHub,.ssh} &> /dev/null
 
 # My Tokens
 tokens() {
@@ -51,7 +51,7 @@ tokens() {
 tokens
 
 # Clone my important repos
-repos=(myhistory myarch docker-files shellscript-atom-snippets crowdin scripter)
+repos=(myhistory mywifi myarch docker-files shellscript-atom-snippets crowdin scripter)
 
 for repo in ${repos[@]}; do
   gitUser="mamutal91"
@@ -61,6 +61,7 @@ for repo in ${repos[@]}; do
   [[ $repo == "docker-files" ]] && gitUser="AOSPK"
   [[ $repo == "crowdin" ]] && gitUser="AOSPK"
   [[ $repo == "myhistory" ]] && gitHost="gitlab"
+  [[ $repo == "mywifi" ]] && gitHost="gitlab"
   [[ $repo == "scripter" ]] && gitFolder="$HOME/.scripter"
 
   echo -e "\n${BOL_GRE}Cloning ${MAG}${repo}${END}"
@@ -70,8 +71,14 @@ for repo in ${repos[@]}; do
   git clone ssh://git@${gitHost}.com/${gitUser}/${repo} ${gitFolder}
 done
 
-# zsh history
+echo -e "\n${BOL_GRE}Restaurando meu ${BOL_MAG}.zsh_history${END}\n"
 cd $HOME/GitHub/myhistory
 rm -rf $HOME/.zsh_history && cp -rf .zsh_history $HOME
+
+echo -e "\n${BOL_GRE}Restaurando minhas redes ${BOL_MAG}Wifi${END}\n"
+sudo rm -rf /var/lib/iwd/*
+sudo mkdir -p /var/lib/iwd
+sudo chmod 700 /var/lib/iwd
+sudo cp -rf $HOME/GitHub/mywifi/iwd/*.psk /var/lib/iwd
 
 cd $pwd
