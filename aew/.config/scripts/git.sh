@@ -84,6 +84,10 @@ gitLastCommitURL() {
   fi
 }
 
+cl() {
+  git log -1
+}
+
 st() {
   git status
   mc
@@ -198,7 +202,6 @@ gitpush() {
 }
 
 cm() {
-  export EDITOR="nanocm"
   if [[ ! -d .git ]]; then
     echo -e "${BOL_RED}You are not in a .git repository \n${YEL} # $PWD${END}"
     return 0
@@ -219,15 +222,13 @@ cm() {
 }
 
 amend() {
-  export EDITOR="nanocm"
   getRepo
-  author=$(echo ${1} | awk '{ print $1 }' | cut -c1)
   if [[ ! -d .git ]]; then
     echo -e "${BOL_RED}You are not in a .git repository \n${YEL} # $PWD${END}"
     return 0
   else
-    if [[ ${author} == "'" ]]; then
-      gitadd && git commit --amend --date "$(date)" --author "${1}"
+    if [[ ${1} ]]; then
+      gitadd && git commit --amend --date "$(date)" --author "${1} ${2} ${3}"
       gitpush force
     else
       lastAuthorName=$(git log -1 --pretty=format:'%an')
