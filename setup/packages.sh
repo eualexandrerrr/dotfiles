@@ -42,6 +42,8 @@ mypackages=(
 
   android-tools hfsprogs gvfs gvfs-mtp btrfs-progs dosfstools f2fs-tools e2fsprogs jfsutils nilfs-utils ntfs-3g reiserfsprogs udftools xfsprogs
 
+  qemu virt-manager virt-viewer dnsmasq vde2 bridge-utils openbsd-netcat libguestfs
+
   openssh python-setuptools sbc unrar unzip wget
 
   selinux-python
