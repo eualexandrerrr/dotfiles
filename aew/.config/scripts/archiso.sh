@@ -37,10 +37,10 @@ sed -i '$d' ${archPath}/profiledef.sh
 echo -e "  [\"/var/lib/iwd\"]=\"0:0:0700\"\n)" | tee -a ${archPath}/profiledef.sh &> /dev/null
 
 # Criando um script que aparecerá no /root da iso
-echo -e "\n\nsleep 5
+echo -e "\n\n
+loadkeys br-abnt2
+sleep 5
 git clone https://github.com/mamutal91/myarch /root/myarch\n" | tee -a ${archPath}/airootfs/root/.automated_script.sh &> /dev/null
-
-cat ${archPath}/airootfs/root/myarch.sh
 
 sudo rm -rf $HOME/Downloads/Arch/*.iso
 sudo mkarchiso -v -w $(mktemp -d) -o $HOME/Downloads/Arch ${archPath}
