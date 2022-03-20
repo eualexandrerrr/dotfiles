@@ -52,7 +52,7 @@ fi
 
 installNvidia() {
   pwd=$(pwd)
-    sudo pacman -Sy mesa mesa-demos vulkan-tools lib32-mesa lib32-virtualgl lib32-libvdpau --noconfirm
+    sudo pacman -Sy mesa mesa-demos mesa-utils vulkan-tools lib32-mesa lib32-virtualgl lib32-libvdpau --noconfirm
     rm -rf $HOME/nvidia-all
     git clone https://github.com/Frogging-Family/nvidia-all.git $HOME/nvidia-all
     cd $HOME/nvidia-all
