@@ -56,7 +56,7 @@ builder=(
   ncurses ncurses5-compat-libs lib32-ncurses5-compat-libs aosp-devel lineageos-devel curl
   bc rsync lib32-ncurses lib32-gcc-libs schedtool
   android-tools android-udev base-devel wget multilib-devel cmake svn clang lzip patchelf inetutils ccache
-  gcc gcc-multilib gcc-libs-multilib binutils libtool-multilib lib32-libusb
+  gcc gcc-multilib gcc-libs-multilib binutils libtool-multilib lib32-libusb libxcrypt-compat
   lib32-readline lib32-glibc lib32-zlib python2 perl git gnupg flex bison gperf zip unzip sdl squashfs-tools
   libpng zlib libusb libusb-compat readline inetutils android-sdk-platform-tools android-udev esd-oss pngcrush
   repo tcp_wrappers perl-switch wxgtk2 libxslt xml2 termcap
