@@ -75,7 +75,7 @@ s() {
     repo init -u https://github.com/PixelExperience/manifest -b twelve
   else
     echo -e "${BOL_MAG}\nYou are syncing the ${BOL_CYA}ArrowOS${END}\n"
-    repo init -u https://github.com/ArrowOS/android_manifest -b arrow-12.1
+    repo init -u https://github.com/ArrowOS/android_manifest -b arrow-13.0
   fi
   repo sync --force-sync --current-branch --no-tags --no-clone-bundle --optimized-fetch --prune -j$(nproc --all)
   if [[ $? -eq 0 ]]; then
