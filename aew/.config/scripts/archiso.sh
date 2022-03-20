@@ -25,33 +25,31 @@ upstreamArchiso() {
 }
 
 addPkgs() {
-  echo git >> ${archPath}/packages.x86_64
-  echo reflector >> ${archPath}/packages.x86_64
+  echo "git" | tee -a ${archPath}/packages.x86_64
+  echo "reflector" | tee -a ${archPath}/packages.x86_64
+  echo "expect" | tee -a ${archPath}/packages.x86_64
 }
 
 addOhMyZsh() {
-  echo "Adding oh-my-zsh"
-  mkdir -p ${archPath}/airootfs/root/.oh-my-zsh
-  [ -f /tmp/oh-my-zsh.tar.gz ] || curl -s -L -o /tmp/oh-my-zsh.tar.gz https://github.com/robbyrussell/oh-my-zsh/archive/master.tar.gz
-  [ -d /tmp/ohmyzsh-master ] || (cd /tmp && tar xf oh-my-zsh.tar.gz)
-  cp -rf /tmp/ohmyzsh-master ${archPath}/airootfs/root/.oh-my-zsh
+  pwd=$(pwd)
+  sudo rm -rf /tmp/*
+  curl -s -L -o /tmp/oh-my-zsh.tar.gz https://github.com/robbyrussell/oh-my-zsh/archive/master.tar.gz
+  cd /tmp
+  tar xf oh-my-zsh.tar.gz
+  mv ohmyzsh-master .oh-my-zsh
+  mv .oh-my-zsh ${archPath}/airootfs/root/
+  cd $pwd
 
-  sed -i 's/grml-zsh-config//g' ${archPath}/packages.x86_64
-
-cat << EOF | tee ${archPath}/airootfs/root/.zshrc
-export PATH=\$HOME/bin:\$PATH
-export PATH="\$PATH:\$(ruby -e 'puts Gem.user_dir')/bin"
-export TERMINAL=xst
-export EDITOR=nano
-export GPG_TTY=\$(tty)
-export GPG_AGENT_INFO=""
-export ZSH=\$HOME/.oh-my-zsh/ohmyzsh-master
-# Oh-my-zsh
-ZSH_THEME="robbyrussell"
+echo "ZSH_THEME=\"robbyrussell\"
 DISABLE_UPDATE_PROMPT=true
 DISABLE_AUTO_UPDATE=true
-source \$ZSH/oh-my-zsh.sh
-EOF
+export PATH=\$HOME/bin:\$PATH
+export TERMINAL=xst
+export EDITOR=nano
+export GPG_TTY=$(tty)
+export GPG_AGENT_INFO=""
+export ZSH=\$HOME/.oh-my-zsh
+source \$ZSH/oh-my-zsh.sh" | tee ${archPath}/airootfs/root/.zshrc
 }
 
 pacmanConfigs() {
@@ -62,7 +60,7 @@ pacmanConfigs() {
   sed -i 's/#TotalDownload/TotalDownload/' ${archPath}/pacman.conf
   sed -i 's/#CheckSpace/CheckSpace/' ${archPath}/pacman.conf
   sed -i "s/#VerbosePkgLists/VerbosePkgLists/g" ${archPath}/pacman.conf
-  sed -i "s/#ParallelDownloads = 5/ParallelDownloads = 3/g" ${archPath}/pacman.conf
+  sed -i "s/#ParallelDownloads = 5/ParallelDownloads = 20/g" ${archPath}/pacman.conf
 }
 
 myWifi() {
@@ -93,12 +91,15 @@ penBootable() {
 run() {
   tmpTrash
   upstreamArchiso
-#  addPkgs
+  addPkgs
   addOhMyZsh
   pacmanConfigs
   myWifi
   scriptStartup
   build
-  penBootable
 }
 run "$@"
+
+source $HOME/.dotfiles/aew/.config/scripts/general.sh
+#qemu
+penBootable
