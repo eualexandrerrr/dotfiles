@@ -91,7 +91,7 @@ if [[ $HOST == "nitro5" ]]; then
   echo -e "${END}"
 
   # Copy fan config control
-  bash $HOME./.dotfiles/setup/nbfc.sh
+  bash $HOME/.dotfiles/setup/nbfc.sh
 
   # Personal configs
   echo -e "\n${BOL_GRE}Running scripts for ${CYA}nitro5${END}\n"

@@ -24,12 +24,16 @@ s() {
 
   # SELECT ROM
   if [[ ${1} == "arrow" ]]; then
-    cd $HOME/ArrowOS
+    ROM=$HOME/ArrowOS
+    mkdir -p $ROM
+    cd $ROM
     echo -e "\n${BOL_RED}ArrowOS${END}"
     task=${2}
     cleanforce=${2}
   else
-    cd $HOME/Kraken
+    ROM=$HOME/Kraken
+    mkdir -p $ROM
+    cd $ROM
     echo -e "\n${BOL_RED}Kraken${END}"
     task=${1}
     cleanforce=${1}
@@ -37,11 +41,15 @@ s() {
 
   iconSuccess="$HOME/.config/assets/icons/success.png"
   iconFail="$HOME/.config/assets/icons/fail.png"
-  mkdir -p $rom &> /dev/null
+
+  clear
+
   sudo nbfc set -s 100
   if [[ ${1} == "arrow" ]]; then
+    echo -e "${BOL_MAG}\nYou are syncing the ${BOL_CYA}ArrowOS${END}\n"
     repo init -u https://github.com/ArrowOS/android_manifest -b arrow-12.1
   else
+    echo -e "${BOL_MAG}\nYou are syncing the ${BOL_CYA}Kraken${END}\n"
     repo init -u ssh://git@github.com/AOSPK-Next/manifest -b twelve
   fi
   repo sync -c --no-clone-bundle --current-branch --no-tags --force-sync -j$(nproc --all)
@@ -88,12 +96,16 @@ b() {
 
   # SELECT ROM
   if [[ ${1} == "arrow" ]]; then
-    cd $HOME/ArrowOS
+    ROM=$HOME/ArrowOS
+    mkdir -p $ROM
+    cd $ROM
     echo -e "\n${BOL_RED}ArrowOS${END}"
     task=${2}
     cleanforce=${2}
   else
-    cd $HOME/Kraken
+    ROM=$HOME/Kraken
+    mkdir -p $ROM
+    cd $ROM
     echo -e "\n${BOL_RED}Kraken${END}"
     task=${1}
     cleanforce=${1}
@@ -129,7 +141,7 @@ b() {
     make -j${cores} ${task} 2>&1 | tee log.txt
 
     buildResult=SUCCESS
-    logBuild=$(grep '####' $rom/log.txt)
+    logBuild=$(grep '####' $ROM/log.txt)
     [[ $(echo $logBuild | grep "failed") ]] && buildResult=FAILED
     [[ $(echo $logBuild | grep "success") ]] && buildResult=SUCCESS
 
@@ -189,7 +201,7 @@ b() {
 }
 
 clean() {
-  cd $rom && clear
+  cd $ROM && clear
   sudo nbfc set -s 100
   lunchC
   if [[ ${cleanforce} == "-f" ]]; then
