@@ -165,6 +165,7 @@ for_window [title="testingscript"] move to workspace $ws3, floating enable, resi
 
 # Workspace 1 [terminal]
 for_window [class="Alacritty"] focus
+for_window [class="Qemu-system-x86_64"] move to workspace $ws1, floating enable, focus
 
 # Workspace 2 [browser]
 for_window [class="Google-chrome"] move to workspace $ws2, focus

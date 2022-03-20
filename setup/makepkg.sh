@@ -3,13 +3,18 @@
 yay -S ananicy-cpp irqbalance memavaild nohang preload prelockd uresourced --noconfirm
 
 sudo systemctl disable systemd-oomd
-sudo systemctl enable ananicy-cpp
-sudo systemctl enable irqbalance
-sudo systemctl enable memavaild
-sudo systemctl enable nohang
-sudo systemctl enable preload
-sudo systemctl enable prelockd
-sudo systemctl enable uresourced
+
+for services in \
+  ananicy-cpp \
+  irqbalance \
+  memavaild \
+  nohang \
+  preload \
+  prelockd \
+  uresourced; do
+  sudo systemctl enable $services
+  sudo systemctl start $services
+done
 
 sudo sed -i 's|CFLAGS="-march=x86-64 -mtune=generic -O2 -pipe -fno-plt -fexceptions|CFLAGS="-march=native -mtune=native -O2 -pipe -fno-plt -fexceptions|g' /etc/makepkg.conf
 sudo sed -i 's|.*#RUSTFLAGS=.*|RUSTFLAGS="-C opt-level=2 -C target-cpu=native"|' /etc/makepkg.conf

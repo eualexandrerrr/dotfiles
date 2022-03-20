@@ -18,6 +18,12 @@ agg() {
   ag -S ${1} . --hidden
 }
 
+qemu() {
+  sudo sed -i "s/#unix_sock_group/unix_sock_group/g" /etc/libvirt/libvirtd.conf
+  sudo sed -i "s/#unix_sock_rw_perms/unix_sock_rw_perms/g" /etc/libvirt/libvirtd.conf
+  $HOME/.config/scripts/dot/qemu.sh ${1}
+}
+
 newuser() {
   clear
   user=${1}

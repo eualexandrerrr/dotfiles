@@ -23,6 +23,7 @@ dependencies=(
 
 mypackages=(
   archlinux-keyring gnupg cronie net-tools
+  translate-shell-git
 
   mesa mesa-demos lib32-mesa lib32-libvdpau
   nbfc-git
@@ -35,8 +36,6 @@ mypackages=(
 
   crowdin-cli
   lutris-git optipng bfg
-
-  translate-shell-git
 
   makepkg-optimize
   python python-pip python-pipenv-to-requirements python-pipx python-pip-api python-pipreqs python-pipenv python-pip-shims
