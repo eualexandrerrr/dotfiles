@@ -48,6 +48,13 @@ s() {
     echo -e "\n${BOL_RED}PixelExperience${END}"
     task=${2}
     cleanforce=${2}
+  elif [[ ${1} == "pixys" ]]; then
+    ROM=$HOME/PixysOS
+    mkdir -p $ROM
+    cd $ROM
+    echo -e "\n${BOL_RED}PixysOS${END}"
+    task=${2}
+    cleanforce=${2}
   else
     ROM=$HOME/ArrowOS
     mkdir -p $ROM
@@ -70,7 +77,7 @@ s() {
     echo -e "${BOL_MAG}\nYou are syncing the ${BOL_CYA}ArrowOS${END}\n"
     repo init -u https://github.com/ArrowOS/android_manifest -b arrow-12.1
   fi
-  repo sync -c --no-clone-bundle --current-branch --no-tags --force-sync -j$(nproc --all)
+  repo sync --force-sync --current-branch --no-tags --no-clone-bundle --optimized-fetch --prune -j$(nproc --all)
   if [[ $? -eq 0 ]]; then
     echo -e "${BOL_GRE}Repo Sync success${END}"
     dunstify -i $iconSuccess "Builder" "Sync success"
@@ -115,6 +122,13 @@ b() {
     mkdir -p $ROM
     cd $ROM
     echo -e "\n${BOL_RED}ArrowOS${END}"
+    task=${2}
+    cleanforce=${2}
+  elif [[ ${1} == "pixys" ]]; then
+    ROM=$HOME/PixysOS
+    mkdir -p $ROM
+    cd $ROM
+    echo -e "\n${BOL_RED}PixysOS${END}"
     task=${2}
     cleanforce=${2}
   else
@@ -227,6 +241,8 @@ clean() {
   . build/envsetup.sh
   if [[ ${1} == "arrow" ]]; then
     lunch arrow_${codename}-${buildtype}
+  elif [[ ${1} == "pixys" ]]; then
+    lunch pixys_${codename}-${buildtype}
   else
     lunch aosp_${codename}-${buildtype}
   fi
