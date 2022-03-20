@@ -21,12 +21,29 @@ ccacheC() {
 }
 
 s() {
+
+  # SELECT ROM
+  if [[ ${1} == "arrow" ]]; then
+    cd $HOME/ArrowOS
+    echo -e "\n${BOL_RED}ArrowOS${END}"
+    task=${2}
+    cleanforce=${2}
+  else
+    cd $HOME/Kraken
+    echo -e "\n${BOL_RED}Kraken${END}"
+    task=${1}
+    cleanforce=${1}
+  fi
+
   iconSuccess="$HOME/.config/assets/icons/success.png"
   iconFail="$HOME/.config/assets/icons/fail.png"
   mkdir -p $rom &> /dev/null
-  cd $rom && clear
   sudo nbfc set -s 100
-  repo init -u ssh://git@github.com/AOSPK-Next/manifest -b twelve
+  if [[ ${1} == "arrow" ]]; then
+    repo init -u https://github.com/ArrowOS/android_manifest -b arrow-12.1
+  else
+    repo init -u ssh://git@github.com/AOSPK-Next/manifest -b twelve
+  fi
   repo sync -c --no-clone-bundle --current-branch --no-tags --force-sync -j$(nproc --all)
   if [[ $? -eq 0 ]]; then
     echo "${BOL_GRE}Repo Sync success${END}"
@@ -69,7 +86,18 @@ moveBuild() {
 
 b() {
 
-  cd $HOME/Kraken
+  # SELECT ROM
+  if [[ ${1} == "arrow" ]]; then
+    cd $HOME/ArrowOS
+    echo -e "\n${BOL_RED}ArrowOS${END}"
+    task=${2}
+    cleanforce=${2}
+  else
+    cd $HOME/Kraken
+    echo -e "\n${BOL_RED}Kraken${END}"
+    task=${1}
+    cleanforce=${1}
+  fi
 
   iconSuccess="$HOME/.config/assets/icons/success.png"
   iconFail="$HOME/.config/assets/icons/fail.png"
