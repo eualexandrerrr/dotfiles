@@ -429,7 +429,7 @@ upstream() {
     gh api -XPATCH "repos/AOSPK-Next/${repo}" -f default_branch="${branch}" &> /dev/null
   }
 
-  #mainOrg
+  mainOrg
   nextOrg
 
   rm -rf $workingDir

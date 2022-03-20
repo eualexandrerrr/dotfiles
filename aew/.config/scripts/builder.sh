@@ -135,13 +135,13 @@ b() {
 *Result:* ${buildResult}
 *Finish:* $(date +"%H:%M")"
 
-    sendTelegramMsg() {
-      curl "https://api.telegram.org/bot${mamutal91_botToken}/sendMessage" \
-        -d chat_id="-1001702262779" \
-        -d disable_notification="false" \
-        --data-urlencode text="${msg}" \
-        --data-urlencode parse_mode="markdown" \
-        --data-urlencode disable_web_page_preview="true"
+  sendTelegramMsg() {
+    curl "https://api.telegram.org/bot${mamutal91_botToken}/sendMessage" \
+      -d chat_id="-1001702262779" \
+      -d disable_notification="false" \
+      --data-urlencode text="${msg}" \
+      --data-urlencode parse_mode="markdown" \
+      --data-urlencode disable_web_page_preview="true"
   }
   sendTelegramMsg &> /dev/null
 
