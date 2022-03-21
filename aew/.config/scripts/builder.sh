@@ -8,7 +8,7 @@ buildtype=userdebug
 
 argsC() {
   #  echo -e "${BOL_RED}SELINUX_IGNORE_NEVERALLOWS=true${END}\n" && export SELINUX_IGNORE_NEVERALLOWS=true
-  echo -e "${BOL_RED}SKIP_ABI_CHECKS=true${END}\n" && export SKIP_ABI_CHECKS=true
+  #  echo -e "${BOL_RED}SKIP_ABI_CHECKS=true${END}\n" && export SKIP_ABI_CHECKS=true
 }
 
 ccacheC() {
@@ -47,7 +47,7 @@ s() {
 
   clear
 
-  nbfc set -s 100
+  sudo nbfc set -s 100
   if [[ ${1} == "arrow" ]]; then
     echo -e "${BOL_MAG}\nYou are syncing the ${BOL_CYA}ArrowOS${END}\n"
     repo init -u https://github.com/ArrowOS/android_manifest -b arrow-12.1
@@ -63,7 +63,7 @@ s() {
     echo "${BOL_RED}Repo Sync failure${END}"
     dunstify -i $iconFail "Builder" "Sync failure"
   fi
-  nbfc set -s 50
+  sudo nbfc set -s 50
 }
 
 apkAndimg() {
@@ -111,7 +111,7 @@ b() {
 
   iconSuccess="$HOME/.config/assets/icons/success.png"
   iconFail="$HOME/.config/assets/icons/fail.png"
-  nbfc set -s 100
+  sudo nbfc set -s 100
   cp -rf log.txt old_log.txt &> /dev/null
   ccacheC
 
@@ -192,19 +192,19 @@ b() {
   }
   sendTelegramMsg &> /dev/null
 
-  nbfc set -s 50
+  sudo nbfc set -s 50
 
   # Desligar o notebook se algum argumento for poweroff, porém, esperar 100 segundos para que esfrie os componentes
   if [[ $poweroff == "yes" ]]; then
     sleep 60
-    nbfc set -s 50
+    sudo nbfc set -s 50
     sudo poweroff
   fi
 }
 
 clean() {
   cd $ROM && clear
-  nbfc set -s 100
+  sudo nbfc set -s 100
 
   . build/envsetup.sh
   if [[ ${1} == "arrow" ]]; then
@@ -220,5 +220,5 @@ clean() {
     echo -e "${BOL_MAG}make installclean${END}"
     make installclean
   fi
-  nbfc set -s 50
+  sudo nbfc set -s 50
 }
