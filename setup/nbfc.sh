@@ -7,4 +7,4 @@ nbfcService="nbfc"
 sudo systemctl enable $nbfcService
 sudo systemctl start $nbfcService
 
-sudo nbfc config -a "Acer Nitro 5 AN515-43"
+nbfc config -a "Acer Nitro 5 AN515-43"

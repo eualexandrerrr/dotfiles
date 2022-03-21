@@ -47,7 +47,7 @@ s() {
 
   clear
 
-  sudo nbfc set -s 100
+  nbfc set -s 100
   if [[ ${1} == "arrow" ]]; then
     echo -e "${BOL_MAG}\nYou are syncing the ${BOL_CYA}ArrowOS${END}\n"
     repo init -u https://github.com/ArrowOS/android_manifest -b arrow-12.1
@@ -63,7 +63,7 @@ s() {
     echo "${BOL_RED}Repo Sync failure${END}"
     dunstify -i $iconFail "Builder" "Sync failure"
   fi
-  sudo nbfc set -s 50
+  nbfc set -s 50
 }
 
 apkAndimg() {
@@ -111,7 +111,7 @@ b() {
 
   iconSuccess="$HOME/.config/assets/icons/success.png"
   iconFail="$HOME/.config/assets/icons/fail.png"
-  sudo nbfc set -s 100
+  nbfc set -s 100
   cp -rf log.txt old_log.txt &> /dev/null
   ccacheC
 
@@ -192,19 +192,19 @@ b() {
   }
   sendTelegramMsg &> /dev/null
 
-  sudo nbfc set -s 50
+  nbfc set -s 50
 
   # Desligar o notebook se algum argumento for poweroff, porém, esperar 100 segundos para que esfrie os componentes
   if [[ $poweroff == "yes" ]]; then
     sleep 60
-    sudo nbfc set -s 50
+    nbfc set -s 50
     sudo poweroff
   fi
 }
 
 clean() {
   cd $ROM && clear
-  sudo nbfc set -s 100
+  nbfc set -s 100
 
   . build/envsetup.sh
   if [[ ${1} == "arrow" ]]; then
@@ -220,5 +220,5 @@ clean() {
     echo -e "${BOL_MAG}make installclean${END}"
     make installclean
   fi
-  sudo nbfc set -s 50
+  nbfc set -s 50
 }
