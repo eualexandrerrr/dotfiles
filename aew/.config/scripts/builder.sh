@@ -77,7 +77,7 @@ s() {
     repo init -u https://github.com/ArrowOS/android_manifest -b arrow-12.1
   else
     echo -e "${BOL_MAG}\nYou are syncing the ${BOL_CYA}Kraken${END}\n"
-    repo init -u ssh://git@github.com/AOSPK-Next/manifest -b twelve
+    repo init -u ssh://git@github.com/MammothOS-Next/manifest -b twelve
   fi
   repo sync -c --no-clone-bundle --current-branch --no-tags --force-sync -j$(nproc --all)
   if [[ $? -eq 0 ]]; then

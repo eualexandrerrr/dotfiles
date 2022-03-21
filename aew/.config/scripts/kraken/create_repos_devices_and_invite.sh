@@ -5,7 +5,7 @@ clear
 source $HOME/.Xconfigs # My general configs
 
 workingDir=$(mktemp -d) && cd $workingDir
-git clone ssh://git@github.com/AOSPK/official_devices
+git clone ssh://git@github.com/MammothOS/official_devices
 
 jsonDevices=${workingDir}/official_devices/devices.json
 jsonMaintainers=${workingDir}/official_devices/team/maintainers.json
@@ -18,7 +18,7 @@ editDescription() {
     -H "Accept: application/json" \
     -X PATCH \
     --data "{ \"name\": \"${deviceRepo}\", \"description\":\"${brandDevice} ${nameDevice} maintained by @${maintainerGithub}\" }" \
-    https://api.github.com/repos/AOSPK-Devices/${deviceRepo}
+    https://api.github.com/repos/MammothOS-Devices/${deviceRepo}
 }
 
 createRepo() {
@@ -26,7 +26,7 @@ createRepo() {
   for reposToCreate in "${reposToCreate[@]}"; do
 
     repoCheckName=$(echo $reposToCreate | cut -c1-7)
-    [[ $repoCheckName == vendor_ ]] && organization=TheBootloops || organization=AOSPK-Devices
+    [[ $repoCheckName == vendor_ ]] && organization=TheBootloops || organization=MammothOS-Devices
 
     curl -H "Authorization: token ${githubToken}" --data "{\"name\":\"${reposToCreate}\"}" https://api.github.com/orgs/$organization/repos
     gh api -X PUT "repos/${organization}/${reposToCreate}/collaborators/${maintainerGithub}" -f permission="admin"

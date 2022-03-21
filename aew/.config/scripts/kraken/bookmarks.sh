@@ -3,8 +3,8 @@
 tmp=$(mktemp)
 
 # Extract
-grep -Po 'name=\"\K[^"]+(?=\")' $HOME/AOSPK/manifest/snippets/aosp.xml >> $tmp
-grep -Po 'name=\"\K[^"]+(?=\")' $HOME/AOSPK/manifest/snippets/extras.xml >> $tmp
+grep -Po 'name=\"\K[^"]+(?=\")' $HOME/MammothOS/manifest/snippets/aosp.xml >> $tmp
+grep -Po 'name=\"\K[^"]+(?=\")' $HOME/MammothOS/manifest/snippets/extras.xml >> $tmp
 
 # Tags
 url="https://review.arrowos.net/q/project:ArrowOS/"

@@ -22,8 +22,8 @@ for i in "${limps[@]}"; do
 
   git clone https://github.com/ArrowOS/android_${repo} -b ${branchBase} ${repo}
   cd ${repo}
-  git push ssh://git@github.com/AOSPK/${repo} HEAD:refs/heads/${branch} --force
-  git push ssh://git@github.com/AOSPK-Next/${repo} HEAD:refs/heads/${branch} --force
+  git push ssh://git@github.com/MammothOS/${repo} HEAD:refs/heads/${branch} --force
+  git push ssh://git@github.com/MammothOS-Next/${repo} HEAD:refs/heads/${branch} --force
 
   cd $workingDir
 done

@@ -38,8 +38,8 @@ for i in ${array[@]}; do
 
   [[ $repo == "vendor_gapps" ]] && githost=gitlab
 
-  git push ssh://git@${githost}.com/AOSPK/${repo} HEAD:refs/heads/${branch} --force
-  git push ssh://git@${githost}.com/AOSPK-Next/${repo} HEAD:refs/heads/${branch} --force
+  git push ssh://git@${githost}.com/MammothOS/${repo} HEAD:refs/heads/${branch} --force
+  git push ssh://git@${githost}.com/MammothOS-Next/${repo} HEAD:refs/heads/${branch} --force
 
   echo -e "\n${MAG}---------${END}\n"
 done

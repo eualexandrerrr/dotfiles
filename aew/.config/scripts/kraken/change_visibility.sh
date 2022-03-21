@@ -16,7 +16,7 @@ for i in ${array[@]}; do
       -H "Accept: application/json" \
       -X PATCH \
       --data "{ \"visibility\": \"${visibility}\" }" \
-      https://api.github.com/repos/AOSPK-Next/${i}
+      https://api.github.com/repos/MammothOS-Next/${i}
   }
   changeVisibility
 

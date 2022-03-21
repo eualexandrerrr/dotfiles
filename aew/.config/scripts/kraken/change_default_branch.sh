@@ -25,8 +25,8 @@ go() {
 
     replace
     echo -e "${RED}Changing default branch: ${GRE}${repoName}${END}"
-    gh api -XPATCH "repos/AOSPK/${repoName}" -f default_branch="${branch}" &> /dev/null
-    gh api -XPATCH "repos/AOSPK-Next/${repoName}" -f default_branch="${branch}" &> /dev/null
+    gh api -XPATCH "repos/MammothOS/${repoName}" -f default_branch="${branch}" &> /dev/null
+    gh api -XPATCH "repos/MammothOS-Next/${repoName}" -f default_branch="${branch}" &> /dev/null
   done
 }
 

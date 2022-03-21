@@ -10,7 +10,7 @@ git config --global user.name "Alexandre Rangel"
 branch=twelve
 branchRebase=lineage-19.1
 branchRebaseKernel=lineage-19.1
-pushToGitHubTree=AOSPK-Devices
+pushToGitHubTree=MammothOS-Devices
 remoteBlobs=blobs
 projectName=Kraken
 

@@ -8,8 +8,8 @@ c() {
   else
 #    google-chrome-stable https://review.arrowos.net/q/project:ArrowOS/android_${1}+branch:arrow-12.1+status:merged
 #    google-chrome-stable https://github.com/ArrowOS/android_${1}/commits/arrow-12.1
-    google-chrome-stable https://github.com/AOSPK/${1}/commits/twelve
-    google-chrome-stable https://github.com/AOSPK-Next/${1}/commits/twelve --new-window
+    google-chrome-stable https://github.com/MammothOS/${1}/commits/twelve
+    google-chrome-stable https://github.com/MammothOS-Next/${1}/commits/twelve --new-window
   fi
 }
 
@@ -41,14 +41,14 @@ newuser() {
 
 dockerfiles() {
   echo -e "\n${BLU}Recloning ${CYA}docker-files ${BLU}to have the latest changes...${END}"
-  #  ssh mamutal91@88.198.53.190 "cd $HOME && sudo rm -rf /mnt/docker-files && git clone ssh://git@github.com/AOSPK/docker-files /mnt/docker-files"
+  #  ssh mamutal91@88.198.53.190 "cd $HOME && sudo rm -rf /mnt/docker-files && git clone ssh://git@github.com/MammothOS/docker-files /mnt/docker-files"
 }
 
 www() {
   pwd=$(pwd)
   cd /mnt/
   rm -rf website
-  git clone ssh://git@github.com/AOSPK/website website
+  git clone ssh://git@github.com/MammothOS/website website
   cd website
   sudo docker-compose stop
   sudo docker-compose build

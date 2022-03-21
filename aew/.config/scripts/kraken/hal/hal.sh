@@ -48,10 +48,10 @@ for i in ${repos[@]}; do
   fi
 
   cd ${i}
-  echo -e "\n${BOL_CYA}Pushing to org ${BOL_MAG}AOSPK${END}"
-  git push ssh://git@github.com/AOSPK/${i} HEAD:refs/heads/${branchKraken} --force
-  echo -e "\n${BOL_CYA}Pushing to org ${BOL_MAG}AOSPK-Next${END}\n"
-  git push ssh://git@github.com/AOSPK-Next/${i} HEAD:refs/heads/${branchKraken} --force
+  echo -e "\n${BOL_CYA}Pushing to org ${BOL_MAG}MammothOS${END}"
+  git push ssh://git@github.com/MammothOS/${i} HEAD:refs/heads/${branchKraken} --force
+  echo -e "\n${BOL_CYA}Pushing to org ${BOL_MAG}MammothOS-Next${END}\n"
+  git push ssh://git@github.com/MammothOS-Next/${i} HEAD:refs/heads/${branchKraken} --force
 
   echo -e "\n${GRE}-----------------------------------------------"
 done

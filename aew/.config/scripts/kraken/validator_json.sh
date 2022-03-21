@@ -8,8 +8,8 @@ pwd=$(pwd)
 
 workingDir=$(mktemp -d) && cd $workingDir
 
-echo -e "${BOL_GRE}Cloning AOSPK/official_devices\n"
-git clone ssh://git@github.com/AOSPK/official_devices &> /dev/null
+echo -e "${BOL_GRE}Cloning MammothOS/official_devices\n"
+git clone ssh://git@github.com/MammothOS/official_devices &> /dev/null
 clear
 cd official_devices
 

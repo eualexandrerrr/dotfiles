@@ -9,7 +9,7 @@ source $HOME/.Xcolors &> /dev/null
 mkdir -p $HOME/Builds/ToPublish
 
 rm -rf /tmp/official_devices
-git clone ssh://git@github.com/AOSPK/official_devices /tmp/official_devices
+git clone ssh://git@github.com/MammothOS/official_devices /tmp/official_devices
 
 post_test=false
 post_build=false
@@ -154,8 +154,8 @@ commitOfficialDevices() {
     echo "Commit failure"
     ssh -t -t mamutal91@shell.sourceforge.net "rm -rf /home/frs/project/aospk/${android}/${codename}/${romtype}/${zipBuild}"
   fi
-  git push ssh://git@github.com/AOSPK-Next/official_devices HEAD:refs/heads/master --force
-  git push ssh://git@github.com/AOSPK/official_devices HEAD:refs/heads/master
+  git push ssh://git@github.com/MammothOS-Next/official_devices HEAD:refs/heads/master --force
+  git push ssh://git@github.com/MammothOS/official_devices HEAD:refs/heads/master
   echo -e "\nWaiting for the build to be available for download on SourceForge, this could take up to 12 minutes..."
   echo -e "started at: $(date)\nend: $(date --date='+12 minutes')"
   sleep $((60 * 12))

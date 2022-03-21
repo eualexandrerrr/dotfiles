@@ -15,16 +15,16 @@ day=$(echo ${dateFull} | cut -c5-6)
 pwd=$(pwd)
 cd /tmp
 rm -rf ${codename}.png
-wget https://github.com/AOSPK/official_devices/raw/master/images/banners/${codename}.png &> /dev/null
+wget https://github.com/MammothOS/official_devices/raw/master/images/banners/${codename}.png &> /dev/null
 img=/tmp/${codename}.png
 cd $pwd
 
-msg="#AOSPK #KRAKEN #ROM #Official #S #lmi
+msg="#MammothOS #KRAKEN #ROM #Official #S #lmi
 *The Kraken Project - OFFICIAL | Android 12.*
 *Updated:* ${day}/${month}/'${year}
 
 ▪️[Download](https://aospk.org/devices/lmi)
-▪️[Support](https://t.me/AOSPKChat)
+▪️[Support](https://t.me/MammothOSChat)
 
 *Required firmware:*
 • V12.5.3.0.RJKMIXM

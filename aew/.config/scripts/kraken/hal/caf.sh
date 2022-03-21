@@ -14,8 +14,8 @@ caf() {
     workingDir=$(mktemp -d) && cd $workingDir
     git clone https://github.com/ArrowOS/android_${i} -b ${branchArrow} ${i}
     cd ${i}
-    git push ssh://git@github.com/AOSPK/${i} HEAD:refs/heads/${branchKraken} --force
-    git push ssh://git@github.com/AOSPK-Next/${i} HEAD:refs/heads/${branchKraken} --force
+    git push ssh://git@github.com/MammothOS/${i} HEAD:refs/heads/${branchKraken} --force
+    git push ssh://git@github.com/MammothOS-Next/${i} HEAD:refs/heads/${branchKraken} --force
     cd $workingDir
   done
 }

@@ -2,6 +2,8 @@
 
 archPath="$HOME/GitHub/archiso"
 
+pendrive=sdb
+
 # Remova as últimas iso
 tmpTrash() {
   sudo rm -rf /tmp/tmp*
@@ -85,7 +87,7 @@ build() {
 
 penBootable() {
   iso=$(ls -1 $HOME/Downloads/Arch/*.iso)
-  sudo dd if=${iso} of=/dev/sdc status=progress && sync
+  sudo dd if=${iso} of=/dev/${pendrive} status=progress && sync
 }
 
 run() {

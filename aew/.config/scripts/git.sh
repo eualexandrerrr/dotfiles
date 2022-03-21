@@ -61,19 +61,19 @@ gitRules() {
   [[ $repo == build_make ]] && repo=build
   [[ $repo == packages_apps_Updates ]] && repo=packages_apps_Updater
 
-  [[ $repo == hardware_xiaomi ]] && org=AOSPK-Devices && orgBase=ArrowOS-Devices
-  [[ $repo == hardware_motorola ]] && org=AOSPK-Devices && orgBase=ArrowOS-Devices
-  [[ $repo == hardware_oneplus ]] && org=AOSPK-Devices && orgBase=ArrowOS-Devices
-  [[ $repo == device_xiaomi_extras ]] && org=AOSPK-Devices && branch=twelve
+  [[ $repo == hardware_xiaomi ]] && org=MammothOS-Devices && orgBase=ArrowOS-Devices
+  [[ $repo == hardware_motorola ]] && org=MammothOS-Devices && orgBase=ArrowOS-Devices
+  [[ $repo == hardware_oneplus ]] && org=MammothOS-Devices && orgBase=ArrowOS-Devices
+  [[ $repo == device_xiaomi_extras ]] && org=MammothOS-Devices && branch=twelve
 
-  [[ $repo == device_xiaomi_lmi ]] && org=AOSPK-Devices && branch=twelve
-  [[ $repo == device_xiaomi_sm8250-common ]] && org=AOSPK-Devices && branch=twelve
-  [[ $repo == kernel_xiaomi_sm8250 ]] && org=AOSPK-Devices && branch=twelve
-  [[ $repo == kernel_xiaomi_lmi ]] && org=AOSPK-Devices && branch=twelve
+  [[ $repo == device_xiaomi_lmi ]] && org=MammothOS-Devices && branch=twelve
+  [[ $repo == device_xiaomi_sm8250-common ]] && org=MammothOS-Devices && branch=twelve
+  [[ $repo == kernel_xiaomi_sm8250 ]] && org=MammothOS-Devices && branch=twelve
+  [[ $repo == kernel_xiaomi_lmi ]] && org=MammothOS-Devices && branch=twelve
   [[ $repo == vendor_xiaomi_lmi ]] && org=TheBootloops && branch=twelve
   [[ $repo == vendor_xiaomi_sm8250-common ]] && org=TheBootloops && branch=twelve
 
-  [[ $repo == vendor_gapps ]] && githost=gitlab && org=AOSPK-Next
+  [[ $repo == vendor_gapps ]] && githost=gitlab && org=MammothOS-Next
 }
 
 gitLastCommitURL() {
@@ -112,7 +112,7 @@ f() {
     fi
   else
     org=$(echo ${1} | cut -c1-5)
-    if [[ $org == AOSPK ]]; then
+    if [[ $org == MammothOS ]]; then
       git fetch ssh://git@github.com/${1} ${2}
     else
       git fetch https://github.com/${1} ${2}
@@ -259,14 +259,14 @@ push() {
     echo -e "              -c [Specific SHA ID commit]"
     echo -e "              -n [Nothin]"
     echo -e "              -p [Specifc project]"
-    echo -e "              -f [AOSPK-Next]"
+    echo -e "              -f [MammothOS-Next]"
     echo -e "${BOL_RED}              Use Project, example: ${BOL_YEL}: push gerrit -p LineageOS lineage-19.1 topic"
     echo -e "${END}"
     exit 1
   }
 
   export githost=github
-  export org=AOSPK-Next
+  export org=MammothOS-Next
   export gerrit=gerrit.aospk.org
   export branch=twelve
 
@@ -293,14 +293,14 @@ push() {
 
       git push ssh://git@${githost}.com/${org}/${repo} HEAD:refs/heads/${branch} --force
       gh api -XPATCH "repos/${org}/${repo}" -f default_branch="${branch}" &> /dev/null # BRANCH DEFAUL
-      [[ $repo == device_xiaomi_lmi ]] && git push ssh://git@github.com/AOSPK-Devices/device_xiaomi_lmi HEAD:refs/heads/twelve --force
+      [[ $repo == device_xiaomi_lmi ]] && git push ssh://git@github.com/MammothOS-Devices/device_xiaomi_lmi HEAD:refs/heads/twelve --force
 
       argMain=${2}
 
       if [[ $argMain == main ]]; then
-        echo -e " ${BOL_BLU}\n ⛔ Pushing to ${BOL_RED}main org${END} ${BOL_YEL}AOSPK/${BOL_GRE}${repo}${END}\n"
-        git push ssh://git@${githost}.com/AOSPK/${repo} HEAD:refs/heads/${branch} --force
-        gh api -XPATCH "repos/AOSPK/${repo}" -f default_branch="${branch}" &> /dev/null
+        echo -e " ${BOL_BLU}\n ⛔ Pushing to ${BOL_RED}main org${END} ${BOL_YEL}MammothOS/${BOL_GRE}${repo}${END}\n"
+        git push ssh://git@${githost}.com/MammothOS/${repo} HEAD:refs/heads/${branch} --force
+        gh api -XPATCH "repos/MammothOS/${repo}" -f default_branch="${branch}" &> /dev/null
       fi
     fi
     gitLastCommitURL
@@ -382,12 +382,12 @@ upstream() {
   repo=${1}
   branchBase=${2}
   branch=${3}
-  org=AOSPK
+  org=MammothOS
   githost=github
 
   if [[ ${4} == "main" ]]; then
-    orgBaseName=AOSPK-Next
-    orgBase=AOSPK-Next/
+    orgBaseName=MammothOS-Next
+    orgBase=MammothOS-Next/
     branchBase=twelve
   fi
 
@@ -421,7 +421,7 @@ upstream() {
     if git ls-remote ssh://git@github.com/${org}/${repo} &> /dev/null; then
       echo "${BOL_BLU}* Repo already exist ${CYA}(${org}/${repo})${END}"
     else
-      echo "${BOL_YEL}* Creating ${CYA}(AOSPK-Next/${repo})${END}"
+      echo "${BOL_YEL}* Creating ${CYA}(MammothOS-Next/${repo})${END}"
       gh repo create ${org}/${repo} --public
     fi
     git push ssh://git@${githost}.com/${org}/${repo} HEAD:refs/heads/${branch} --force
@@ -429,14 +429,14 @@ upstream() {
   }
 
   nextOrg() {
-    if git ls-remote ssh://git@github.com/AOSPK-Next/${repo} &> /dev/null; then
-      echo "${BOL_BLU}* Repo already exist ${CYA}(AOSPK-Next/${repo})${END}"
+    if git ls-remote ssh://git@github.com/MammothOS-Next/${repo} &> /dev/null; then
+      echo "${BOL_BLU}* Repo already exist ${CYA}(MammothOS-Next/${repo})${END}"
     else
-      echo "${BOL_YEL}* Creating ${CYA}(AOSPK-Next/${repo})${END}"
-      gh repo create AOSPK-Next/${repo} --private
+      echo "${BOL_YEL}* Creating ${CYA}(MammothOS-Next/${repo})${END}"
+      gh repo create MammothOS-Next/${repo} --private
     fi
-    git push ssh://git@${githost}.com/AOSPK-Next/${repo} HEAD:refs/heads/${branch} --force
-    gh api -XPATCH "repos/AOSPK-Next/${repo}" -f default_branch="${branch}" &> /dev/null
+    git push ssh://git@${githost}.com/MammothOS-Next/${repo} HEAD:refs/heads/${branch} --force
+    gh api -XPATCH "repos/MammothOS-Next/${repo}" -f default_branch="${branch}" &> /dev/null
   }
 
   #mainOrg

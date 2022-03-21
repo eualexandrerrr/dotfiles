@@ -58,8 +58,8 @@ for repo in ${repos[@]}; do
   gitHost="github"
   gitFolder="$HOME/GitHub/${repo}"
 
-  [[ $repo == "docker-files" ]] && gitUser="AOSPK"
-  [[ $repo == "crowdin" ]] && gitUser="AOSPK"
+  [[ $repo == "docker-files" ]] && gitUser="MammothOS"
+  [[ $repo == "crowdin" ]] && gitUser="MammothOS"
   [[ $repo == "myhistory" ]] && gitHost="gitlab"
   [[ $repo == "mywifi" ]] && gitHost="gitlab"
   [[ $repo == "scripter" ]] && gitFolder="$HOME/.scripter"

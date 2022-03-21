@@ -7,7 +7,7 @@ source $HOME/.Xconfigs # My general configs
 chatId="-1001485974314"
 
 workingDir=$(mktemp -d) && cd $workingDir
-git clone https://github.com/AOSPK/official_devices
+git clone https://github.com/MammothOS/official_devices
 
 # Criando message
 msg=/tmp/message
