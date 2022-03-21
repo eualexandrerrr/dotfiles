@@ -16,11 +16,13 @@ branchBaseLos="lineage-19.1-caf-${1}"
 
 for i in ${repos[@]}; do
   rm -rf ${i}
-  echo -e "${BOL_GRE}Repo    : ${BOL_YEL}${i}${END}"
-  echo -e "${BOL_GRE}ArrowOS : ${BOL_YEL}$branchBase${END}"
-  echo -e "${BOL_CYA}Kraken  : ${BOL_MAG}$branchKraken${END}"
+  echo -e "${BOL_GRE}Repo      : ${BOL_YEL}${i}${END}"
+  echo -e "${BOL_GRE}ArrowOS   : ${BOL_YEL}${branchBase}${END}"
+  echo -e "${BOL_GRE}LineageOS : ${BOL_YEL}${branchBaseLos}${END}"
+  echo -e "${BOL_CYA}Kraken    : ${BOL_MAG}${branchKraken}${END}"
 
-  git clone https://github.com/ArrowOS/android_${i} -b ${branchBase} ${i}
+  git clone https://github.com/LineageOS/android_${i} -b ${branchBaseLos} ${i}
+#  git clone https://github.com/ArrowOS/android_${i} -b ${branchBase} ${i}
   if [ $? -eq 0 ]; then
     echo "${BOL_GRE}Success${END}"
   else
