@@ -22,6 +22,9 @@ ccacheC() {
 
 s() {
 
+  task=${1}
+  cleanforce=${1}
+
   # SELECT ROM
   if [[ ${1} == "arrow" ]]; then
     ROM=$HOME/ArrowOS
@@ -35,8 +38,8 @@ s() {
     mkdir -p $ROM
     cd $ROM
     echo -e "\n${BOL_RED}Kraken${END}"
-    task=${1}
-    cleanforce=${1}
+    task=${2}
+    cleanforce=${2}
   fi
 
   iconSuccess="$HOME/.config/assets/icons/success.png"
@@ -61,11 +64,6 @@ s() {
     dunstify -i $iconFail "Builder" "Sync failure"
   fi
   sudo nbfc set -s 50
-}
-
-lunchC() {
-  . build/envsetup.sh
-  lunch aosp_${codename}-${buildtype}
 }
 
 apkAndimg() {
@@ -117,9 +115,6 @@ b() {
   cp -rf log.txt old_log.txt &> /dev/null
   ccacheC
 
-  task=${1}
-  cleanforce=${2}
-
   [[ -z $task ]] && task=bacon
   [[ $task == "poweroff" ]] && task=bacon
   cores=$(nproc --all)
@@ -135,7 +130,14 @@ b() {
   echo -e "${BOL_YEL}Pwd    : ${BOL_CYA}$PWD${END}"
   echo -e "\n"
   argsC
-  lunchC
+
+  . build/envsetup.sh
+  if [[ ${1} == "arrow" ]]; then
+    lunch arrow_${codename}-${buildtype}
+  else
+    lunch aosp_${codename}-${buildtype}
+  fi
+
   makeC() {
     [[ -z $task ]] && task=bacon
     make -j${cores} ${task} 2>&1 | tee log.txt
@@ -203,7 +205,14 @@ b() {
 clean() {
   cd $ROM && clear
   sudo nbfc set -s 100
-  lunchC
+
+  . build/envsetup.sh
+  if [[ ${1} == "arrow" ]]; then
+    lunch arrow_${codename}-${buildtype}
+  else
+    lunch aosp_${codename}-${buildtype}
+  fi
+
   if [[ ${cleanforce} == "-f" ]]; then
     echo -e "${BOL_MAG}make clean${END}"
     make clean
