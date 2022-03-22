@@ -9,6 +9,11 @@ githost=github
 
 getRepo() {
   repo=$(cat .git/config | grep url | cut -d "/" -f5)
+  repoTest=$(echo $repo | cut -c1-8)
+  if [[ $repoTest == "android_" ]]; then
+    repo=$(echo $repo | cut -c9-1000)
+    echo $repo
+  fi
 }
 
 mc() {
