@@ -1,3 +1,1 @@
 */20 * * * * bash $HOME/.config/scripts/dot/gitcron.sh
-#0 6 * * * bash /mnt/docker-files/backup.sh
-#*/5 * * * * bash $HOME/.dotfiles/aew/.config/scripts/kraken/create_repos_devices_and_invite.sh
