@@ -22,6 +22,7 @@ ccacheC() {
 }
 
 s() {
+  clear
 
   task=${1}
   cleanforce=${1}
@@ -100,6 +101,7 @@ moveBuild() {
 }
 
 b() {
+  clear
 
   # SELECT ROM
   if [[ ${1} == "arrow" ]]; then
@@ -150,6 +152,8 @@ b() {
   . build/envsetup.sh
   if [[ ${1} == "arrow" ]]; then
     lunch arrow_${codename}-${buildtype}
+  elif [[ ${1} == "statix" ]]; then
+    lunch statix_${codename}-${buildtype}
   else
     lunch aosp_${codename}-${buildtype}
   fi

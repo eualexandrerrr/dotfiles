@@ -10,19 +10,19 @@ repos=(
     hardware_qcom_media
 )
 
-branchBase="arrow-12.1-caf-${1}"
+branchBase="arrow-12.0-caf-${1}"
 branchKraken="twelve-caf-${1}"
-branchBaseLos="lineage-19.1-caf-${1}"
-branchBaseLosOld="lineage-19.0-caf-${1}"
+branchBaseLos="arrow-12.0-caf-${1}"
+branchBaseLosOld="arrow-12.0-caf-${1}"
 
 for i in ${repos[@]}; do
 
-#  [[ $branchBase == "arrow-12.1-caf-msm8998" ]] && continue
-#  [[ $branchBase == "arrow-12.1-caf-msm8996" ]] && continue
-#  [[ $branchBase == "arrow-12.1-caf-sdm660" ]] && continue
-#  [[ $branchBase == "arrow-12.1-caf-sdm845" ]] && continue
-#  [[ $branchBase == "arrow-12.1-caf-sm8150" ]] && continue
-#  [[ $branchBase == "arrow-12.1-caf-sm8250" ]] && continue
+#  [[ $branchBase == "arrow-12.0-caf-msm8998" ]] && continue
+#  [[ $branchBase == "arrow-12.0-caf-msm8996" ]] && continue
+#  [[ $branchBase == "arrow-12.0-caf-sdm660" ]] && continue
+#  [[ $branchBase == "arrow-12.0-caf-sdm845" ]] && continue
+#  [[ $branchBase == "arrow-12.0-caf-sm8150" ]] && continue
+#  [[ $branchBase == "arrow-12.0-caf-sm8250" ]] && continue
 
 #  [[ $i == "hardware_qcom_audio" ]] && continue
 #  [[ $i == "hardware_qcom_display" ]] && continue
