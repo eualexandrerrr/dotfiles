@@ -9,6 +9,7 @@ buildtype=userdebug
 argsC() {
   #  echo -e "${BOL_RED}SELINUX_IGNORE_NEVERALLOWS=true${END}\n" && export SELINUX_IGNORE_NEVERALLOWS=true
   #  echo -e "${BOL_RED}SKIP_ABI_CHECKS=true${END}\n" && export SKIP_ABI_CHECKS=true
+  export ARROW_GAPPS=true
 }
 
 ccacheC() {
@@ -31,6 +32,13 @@ s() {
     mkdir -p $ROM
     cd $ROM
     echo -e "\n${BOL_RED}ArrowOS${END}"
+    task=${2}
+    cleanforce=${2}
+  elif [[ ${1} == "statix" ]]; then
+    ROM=$HOME/StatiXOS
+    mkdir -p $ROM
+    cd $ROM
+    echo -e "\n${BOL_RED}StatiXOS${END}"
     task=${2}
     cleanforce=${2}
   else
@@ -99,6 +107,13 @@ b() {
     mkdir -p $ROM
     cd $ROM
     echo -e "\n${BOL_RED}ArrowOS${END}"
+    task=${2}
+    cleanforce=${2}
+  elif [[ ${1} == "statix" ]]; then
+    ROM=$HOME/StatiXOS
+    mkdir -p $ROM
+    cd $ROM
+    echo -e "\n${BOL_RED}StatiXOS${END}"
     task=${2}
     cleanforce=${2}
   else
