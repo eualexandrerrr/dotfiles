@@ -7,6 +7,8 @@ c() {
     google-chrome-unstable https://review.lineageos.org/q/project:LineageOS/android_${1}+branch:lineage-19.0+status:merged
   else
     google-chrome-unstable https://review.arrowos.net/q/project:ArrowOS/android_${1}+branch:arrow-12.0+status:merged
+    google-chrome-unstable https://github.com/ArrowOS/android_${1}/commits/arrow-12.0
+    google-chrome-unstable https://github.com/AOSPK-Next/${1}/commits/twelve --new-window
   fi
 }
 

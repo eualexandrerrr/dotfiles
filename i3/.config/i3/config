@@ -169,7 +169,7 @@ for_window [class="Qemu-system-x86_64"] move to workspace $ws1, floating enable,
 
 # Workspace 2 [browser]
 for_window [class="Google-chrome"] move to workspace $ws2, focus
-for_window [title="Sign In - Google Accounts - Google Chrome"] move to workspace $ws2, floating enable, focus
+for_window [title="Sign In - Google Accounts - Google Chrome|Checker Plus for Gmail"] move to workspace $ws2, floating enable, focus
 
 # Workspace 3 [atom]
 for_window [class="Atom"] move to workspace $ws3, focus

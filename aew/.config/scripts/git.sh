@@ -13,24 +13,22 @@ getRepo() {
 
 mc() {
   if [[ $(echo $PWD | cut -c1-22) == "/home/mamutal91/Kraken" ]]; then
-    roms=(arrow pixelexp awaken statix)
 
-    echo -e "\n${GRE}Checking files...${END}"
+    #        echo -e "\n${GRE}Checking files...${END}"
+    #        find . -name "*${i}*" $(printf "! -name %s " $(cat $HOME/.dotfiles/aew/.config/scripts/kraken/ignore_files.txt))
 
-    for i in ${find[@]}; do
-      find . -name "*${i}*" $(printf "! -name %s " $(cat $HOME/.dotfiles/aew/.config/scripts/kraken/ignore_files.txt))
-    done
-    echo -e "${YEL}Checking strings...${END}\n"
     lastCommit=$(git log --format="%H" -n 1)
+    echo -e "${YEL}Checking keywords from commit ${MAG}${lastCommit}${END}\n"
     for i in $(git diff-tree --no-commit-id --name-only -r $lastCommit); do
-      if [[ -d $i ]]; then # Confere se o arquivo existe, pois se estiver na lista de modificados, porém for apagado, vai gerar erro!
-        for i in ${roms[@]}; do
-          ag -S arrow $i #--hidden
-        done
-        if [ $? -eq 0 ]; then
-          echo -e "\n${BOL_RED} $i ${END}"
+      roms=(arrow pixelexp awaken statix)
+      for keywords in ${roms[@]}; do
+        if [[ -f $i ]]; then
+          if ag -S $keywords $i &> /dev/null; then
+              echo -e "\n${RED}$i${END}"
+              ag -S $keywords $i
+          fi
         fi
-      fi
+      done
     done
   fi
 }
@@ -130,6 +128,8 @@ p() {
       echo -e "\n${BOL_RED}Merge cherry-pick${END}"
     fi
     mc
+    echo -e "\n${MAG}Last commit name:"
+    git log --oneline -n 1
   fi
 }
 
@@ -149,11 +149,13 @@ pc() {
   if git status | grep cherry-pick; then
     git add .
     git cherry-pick --continue
+    mc
   else
     if git status | grep rebase; then
       git add .
       git commit --amend
       git rebase --continue
+      mc
     fi
   fi
   mc
