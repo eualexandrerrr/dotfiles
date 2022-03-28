@@ -4,12 +4,12 @@ source $HOME/.Xconfigs # My general configs
 
 c() {
   if [[ ${2} == los ]]; then
-    google-chrome-stable https://review.lineageos.org/q/project:LineageOS/android_${1}+branch:lineage-19.1+status:merged
+    google-chrome-unstable https://review.lineageos.org/q/project:LineageOS/android_${1}+branch:lineage-19.1+status:merged
   else
-#    google-chrome-stable https://review.arrowos.net/q/project:ArrowOS/android_${1}+branch:arrow-12.1+status:merged
-#    google-chrome-stable https://github.com/ArrowOS/android_${1}/commits/arrow-12.1
-    google-chrome-stable https://github.com/AOSPK/${1}/commits/twelve
-    google-chrome-stable https://github.com/AOSPK-Next/${1}/commits/twelve --new-window
+#    google-chrome-unstable https://review.arrowos.net/q/project:ArrowOS/android_${1}+branch:arrow-12.1+status:merged
+#    google-chrome-unstable https://github.com/ArrowOS/android_${1}/commits/arrow-12.1
+    google-chrome-unstable https://github.com/AOSPK/${1}/commits/twelve
+    google-chrome-unstable https://github.com/AOSPK-Next/${1}/commits/twelve --new-window
   fi
 }
 

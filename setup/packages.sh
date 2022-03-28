@@ -14,7 +14,7 @@ dependencies=(
 
   flatery-icon-theme-git xcursor-breeze dracula-gtk-theme-git
 
-  google-chrome kotatogram-desktop
+  google-chrome-dev kotatogram-desktop
 
   terminus-font noto-fonts-emoji ttf-dejavu ttf-liberation ttf-icomoon-feather ttf-font-awesome
 
