@@ -10,6 +10,7 @@ argsC() {
   #  echo -e "${BOL_RED}SELINUX_IGNORE_NEVERALLOWS=true${END}\n" && export SELINUX_IGNORE_NEVERALLOWS=true
   #  echo -e "${BOL_RED}SKIP_ABI_CHECKS=true${END}\n" && export SKIP_ABI_CHECKS=true
   export ARROW_GAPPS=true
+  export ARROW_BUILD_TYPE=OFFICIAL
 }
 
 ccacheC() {
