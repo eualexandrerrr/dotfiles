@@ -201,21 +201,6 @@ function kernelAndVendor() {
   git clone https://github.com/${orgRebase}/android_kernel_xiaomi_sm8250 -b ${branchRebaseKernel} kernel_xiaomi_sm8250
   cd ${workingDir}/kernel_xiaomi_sm8250
 
-  sed -i "s/lineageos/${projectNameKernel}/g" arch/arm64/configs/vendor/alioth_defconfig
-  sed -i "s/lineageos/${projectNameKernel}/g" arch/arm64/configs/vendor/apollo_defconfig
-  sed -i "s/lineageos/${projectNameKernel}/g" arch/arm64/configs/vendor/cas_defconfig
-  sed -i "s/lineageos/${projectNameKernel}/g" arch/arm64/configs/vendor/cmi_defconfig
-  sed -i "s/lineageos/${projectNameKernel}/g" arch/arm64/configs/vendor/elish_defconfig
-  sed -i "s/lineageos/${projectNameKernel}/g" arch/arm64/configs/vendor/enuma_defconfig
-  sed -i "s/lineageos/${projectNameKernel}/g" arch/arm64/configs/vendor/lmi_defconfig
-  sed -i "s/lineageos/${projectNameKernel}/g" arch/arm64/configs/vendor/monet_defconfig
-  sed -i "s/lineageos/${projectNameKernel}/g" arch/arm64/configs/vendor/picasso_defconfig
-  sed -i "s/lineageos/${projectNameKernel}/g" arch/arm64/configs/vendor/thyme_defconfig
-  sed -i "s/lineageos/${projectNameKernel}/g" arch/arm64/configs/vendor/umi_defconfig
-  sed -i "s/lineageos/${projectNameKernel}/g" arch/arm64/configs/vendor/vangogh_defconfig
-  sed -i "s/lineageos/${projectNameKernel}/g" arch/arm64/configs/vendor/mikona_defconfig
-  sed -i "s/lineageos/${projectNameKernel}/g" arch/arm64/configs/vendor/milito_defconfig
-
   sed -i "s/lineage/${projectNameKernel}/g" arch/arm64/configs/vendor/alioth_defconfig
   sed -i "s/lineage/${projectNameKernel}/g" arch/arm64/configs/vendor/apollo_defconfig
   sed -i "s/lineage/${projectNameKernel}/g" arch/arm64/configs/vendor/cas_defconfig
@@ -231,7 +216,7 @@ function kernelAndVendor() {
   sed -i "s/lineage/${projectNameKernel}/g" arch/arm64/configs/vendor/mikona_defconfig
   sed -i "s/lineage/${projectNameKernel}/g" arch/arm64/configs/vendor/milito_defconfig
 
-  git add . && git commit --message "ARM64: configs: xiaomi: Set localversion to ${projectName}" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>"
+  git add . && git commit --message "arch: ARM64: configs: xiaomi: Set localversion to ${projectName}" --signoff --author "Alexandre Rangel <mamutal91@gmail.com>"
 
   git push ssh://git@github.com/${pushToGitHubTree}/kernel_xiaomi_sm8250 HEAD:refs/heads/${branch} --force
 }
