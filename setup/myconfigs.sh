@@ -11,7 +11,7 @@ cd $HOME
 git config --global user.email "mamutal91@gmail.com" && git config --global user.name "Alexandre Rangel"
 
 # Dirs
-mkdir -p $HOME/{Images,Downloads/Arch,Videos,GitHub,.ssh,.pacman_logs} &> /dev/null
+mkdir -p $HOME/{Images,Downloads/Arch,Videos,GitHub,.ssh} &> /dev/null
 
 # My Tokens
 tokens() {
