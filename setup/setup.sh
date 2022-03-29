@@ -108,7 +108,7 @@ for services in \
   bluetooth \
   libvirtd.service \
   laptop-mode.service \
-  nbfc \
+  fstrim.timer \
   getty@ttyN.service; do
   sudo systemctl enable $services
   sudo systemctl start $services
