@@ -114,6 +114,9 @@ for services in \
   sudo systemctl start $services
 done
 
+# AMD CTRL https://github.com/kevinlekiller/amdctl/
+sudo modprobe msr
+
 # Remove Kraken scripts
 [[ $USER != "mamutal91" ]] && rm -rf $HOME/.dotfiles/aew/.config/scripts/kraken && rm -rf $HOME/.config/scripts/kraken
 

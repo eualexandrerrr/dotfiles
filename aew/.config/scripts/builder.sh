@@ -6,6 +6,18 @@ rom="$HOME/Kraken"
 codename=lmi
 buildtype=userdebug
 
+files() {
+  clear
+  lastLine=$(cat $HOME/Kraken/log.txt | awk 'END{print}')
+
+  percents=$(echo $lastLine | awk '{ print $3}' | tr -d "]" | sed "s:/: :g")
+
+  percent1=$(echo $percents | awk '{ print $1}')
+  percent2=$(echo $percents | awk '{ print $2}')
+
+  echo $((percent2-percent1)) remaining files
+}
+
 argsC() {
   #  echo -e "${BOL_RED}SELINUX_IGNORE_NEVERALLOWS=true${END}\n" && export SELINUX_IGNORE_NEVERALLOWS=true
   #  echo -e "${BOL_RED}SKIP_ABI_CHECKS=true${END}\n" && export SKIP_ABI_CHECKS=true
