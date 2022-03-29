@@ -69,10 +69,10 @@ s() {
   fi
   repo sync -c --no-clone-bundle --current-branch --no-tags --force-sync -j$(nproc --all)
   if [[ $? -eq 0 ]]; then
-    echo "${BOL_GRE}Repo Sync success${END}"
+    echo -e "${BOL_GRE}Repo Sync success${END}"
     dunstify -i $iconSuccess "Builder" "Sync success"
   else
-    echo "${BOL_RED}Repo Sync failure${END}"
+    echo -e "${BOL_RED}Repo Sync failure${END}"
     dunstify -i $iconFail "Builder" "Sync failure"
   fi
   sudo nbfc set -s 50
@@ -171,11 +171,12 @@ b() {
     [[ $(echo $logBuild | grep "success") ]] && buildResult=SUCCESS
 
     if [[ $buildResult == "SUCCESS" ]]; then
-      echo "${BOL_GRE}Build success${END}"
+      echo -e "${BOL_GRE}Build success${END}"
       moveBuild &> /dev/null
       dunstify -i $iconSuccess "Builder" "Build success"
     else
-      echo "${BOL_RED}Build failure${END}"
+      echo -e "${BOL_RED}Build failure${END}\n\n"
+      ag -S "error:" $HOME/Kraken/log.txt
       dunstify -i $iconFail "Builder" "Build failure"
     fi
   }
