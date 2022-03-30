@@ -49,8 +49,8 @@ alias docker="sudo docker"
 alias docker-compose="sudo docker-compose"
 
 # Paths
-alias x="clear && cd $HOME/Kraken"
-alias out="clear && cd $HOME/Kraken/out/target/product/lmi && ls -1"
+alias x="clear && cd $HOME/PixelExperience"
+alias out="clear && cd $HOME/PixelExperience/out/target/product/veux && ls -1"
 alias d="cd /mnt/docker-files"
 
 if [[ $USER == mamutal91 ]]; then

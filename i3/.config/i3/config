@@ -142,7 +142,7 @@ bindsym $super+Return exec --no-startup-id alacritty &; workspace $ws1
 bindsym $super+e exec --no-startup-id thunar &; workspace $ws7
 bindsym $super+F2 exec --no-startup-id google-chrome-stable &; workspace $ws2
 bindsym $super+F3 exec --no-startup-id kotatogram-desktop &; workspace $ws4
-bindsym $super+F4 exec --no-startup-id atom --in-progress-gpu --no-sandbox -n=false &; workspace $ws3
+bindsym $super+F4 exec --no-startup-id code; workspace $ws3
 
 # System shortcuts
 bindsym $super+d exec --no-startup-id $HOME/.config/rofi/launcher/launcher.sh
@@ -173,9 +173,8 @@ for_window [class="Google-chrome"] move to workspace $ws2, focus
 for_window [title="Sign In - Google Accounts - Google Chrome|Checker Plus for Gmail|Checker Plus for Google Drive - Popup page"] move to workspace $ws2, floating enable, focus
 for_window [title="Fazer login nas Contas do Google - Google Chrome"] move to workspace $ws2, floating enable, focus
 
-# Workspace 3 [atom]
-for_window [class="Atom"] move to workspace $ws3, focus
-for_window [class="Electron"] move to workspace $ws3, floating enable, focus
+# Workspace 3 [vscode]
+for_window [class="code-oss"] move to workspace $ws3, focus
 
 # Workspace 4 [telegram]
 for_window [class="KotatogramDesktop"] move to workspace $ws4, focus

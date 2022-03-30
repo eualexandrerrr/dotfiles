@@ -13,7 +13,7 @@ fi
 cli="java -jar $HOME/.jenkins-cli.jar -s http://${IP} -auth ${myUserCI}:${ciKrakenToken} -webSocket"
 
 JOB=KrakenMaintainers
-codename=lmi
+codename=veux
 codenameRandom=ysl
 
 build="$cli build $JOB -p codename=${codename}"
@@ -54,7 +54,7 @@ fi
 
 echo -e "${BOL_BLU}Executing command via ci-cli...\n${END}${GRE}"
 
-[ ${1} = build ] && echo -e "Building dirty for ${BLU}lmi${END}...${RED}" && $build
+[ ${1} = build ] && echo -e "Building dirty for ${BLU}veux${END}...${RED}" && $build
 [ ${1} = buildRandom ] && echo -e "Building dirty for ${BLU}${codenameRandom}${END}...${RED}" && $buildRandom
 [ ${1} = buildSync ] && echo -e "Synchronizing source to build dirty...${RED}" && $buildSync
 [ ${1} = buildSyncClean ] && echo -e "Cleaning build to build...${RED}" && $buildSyncClean

@@ -32,7 +32,8 @@ mypackages=(
   dmidecode nbfc-git i8kutils
   steam wine winetricks lib32-gnutls wps-office ttf-wps-fonts
 
-  atom the_silver_searcher discord diff-so-fancy filezilla git gotop jdk-openjdk jq man man-pages-pt_br
+  vscode
+  the_silver_searcher discord diff-so-fancy filezilla git gotop jdk-openjdk jq man man-pages-pt_br
   github-cli
   vkd3d lib32-vkd3d
   rsync shfmt tree qbittorrent zip scrcpy
@@ -63,5 +64,5 @@ builder=(
   gcc gcc-multilib gcc-libs-multilib binutils libtool-multilib lib32-libusb libxcrypt-compat
   lib32-readline lib32-glibc lib32-zlib python2 perl git gnupg flex bison gperf zip unzip sdl squashfs-tools
   libpng zlib libusb libusb-compat readline inetutils android-sdk-platform-tools android-udev esd-oss pngcrush
-  repo tcp_wrappers perl-switch wxgtk2 libxslt xml2 termcap
+  repo tcp_wrappers perl-switch wxgtk2 libxslt xml2 termcap jdk8-openjdk
 )
