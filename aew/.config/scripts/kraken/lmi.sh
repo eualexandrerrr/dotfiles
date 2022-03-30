@@ -118,6 +118,11 @@ treeLMI() {
 
   git add . && git commit --message "$msgPadding" --author "Mesquita <mesquita@aospa.co>"
 
+  # Kernel def config
+  sed -i "s:vendor/lmi_defconfig:lmi_defconfig:g" BoardConfig.mk
+
+  git add . && git commit --message "lmi: Update kernel def config" --author "Alexandre Rangel <mamutal91@gmail.com>"
+
   git push ssh://git@github.com/${pushToGitHubTree}/device_xiaomi_lmi HEAD:refs/heads/${branch} --force
 }
 
