@@ -139,7 +139,7 @@ bindsym $control+Print exec --no-startup-id $HOME/.config/scripts/dot/screenshot
 # Application shortcuts
 bindsym $super+Return exec --no-startup-id alacritty &; workspace $ws1
 bindsym $super+e exec --no-startup-id thunar &; workspace $ws7
-bindsym $super+F2 exec --no-startup-id google-chrome-unstable &; workspace $ws2
+bindsym $super+F2 exec --no-startup-id google-chrome-stable &; workspace $ws2
 bindsym $super+F3 exec --no-startup-id kotatogram-desktop &; workspace $ws4
 bindsym $super+F4 exec --no-startup-id atom --in-progress-gpu --no-sandbox -n=false &; workspace $ws3
 
