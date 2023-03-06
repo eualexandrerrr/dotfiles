@@ -95,14 +95,14 @@ InstallPkgs() {
   else
     InstallPacAur ${dependencies[@]}
     InstallPacAur ${mypackages[@]}
-    InstallPacAur ${builder[@]}
+#    InstallPacAur ${builder[@]}
   fi
 }
 InstallPkgs
 
 if [[ $HOST == "odin" ]]; then
-  echo -e "\n${BOL_GRE}Installing packages ATOM${END}\n${MAG}"
-  bash $HOME/.dotfiles/setup/atom.sh
+  echo -e "\n${BOL_GRE}Installing packages PULSAR${END}\n${MAG}"
+  bash $HOME/.dotfiles/setup/pulsar.sh
   echo -e "${END}"
 
   # Copy fan config control

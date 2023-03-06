@@ -14,7 +14,7 @@ dependencies=(
 
   flatery-icon-theme-git xcursor-breeze dracula-gtk-theme-git
 
-  google-chrome kotatogram-desktop
+  google-chrome telegram-desktop
 
   terminus-font noto-fonts-emoji ttf-dejavu ttf-liberation ttf-icomoon-feather ttf-font-awesome
 
@@ -30,9 +30,9 @@ mypackages=(
 
   mesa mesa-demos lib32-mesa lib32-libvdpau
   dmidecode nbfc-git i8kutils
-  steam wine winetricks lib32-gnutls wps-office ttf-wps-fonts
+  wine winetricks lib32-gnutls wps-office ttf-wps-fonts
 
-  vscode
+  pulsar-bin
   the_silver_searcher discord diff-so-fancy filezilla git gotop jdk-openjdk jq man man-pages-pt_br
   github-cli
   vkd3d lib32-vkd3d

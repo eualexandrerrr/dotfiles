@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-atomPkgs=(
+pulsarPkgs=(
   atom-beautify
   atom-material-syntax
   color-picker
@@ -18,10 +18,10 @@ atomPkgs=(
   language-docker
 )
 
-for i in "${atomPkgs[@]}"; do
-  if apm list | grep ${i}; then
+for i in "${pulsarPkgs[@]}"; do
+  if pulsar --package list | grep ${i}; then
     echo ${i} already installed, skiping...
   else
-    apm install ${i} --no-confirm
+    pulsar --package install ${i} --no-confirm
   fi
 done
