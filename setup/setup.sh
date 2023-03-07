@@ -15,8 +15,9 @@ if [[ $USER == "mamutal91" ]]; then
   echo -e "\n${BOL_MAG}Você deseja reconfigurar suas ${BOL_CYA}configurações pessoais? ${GRE}(y/n) ${RED}[enter=no] ${END}\n"
   read answerMyConfigs
 
-  echo -e "\n${BOL_MAG}Você deseja instalar o kernel da ${BOL_CYA}chaotic? ${GRE}(y/n) ${RED}[enter=no] ${END}\n"
-  read answerChaotic
+# Chaotic DISABLED FOR NOW
+#  echo -e "\n${BOL_MAG}Você deseja instalar o kernel da ${BOL_CYA}chaotic? ${GRE}(y/n) ${RED}[enter=no] ${END}\n"
+#  read answerChaotic
 
   echo -e "\n${BOL_MAG}Você deseja instalar o driver da ${BOL_CYA}nvidia? ${GRE}(y/n) ${RED}[enter=no] ${END}\n"
   read answerNvidia
@@ -95,7 +96,7 @@ InstallPkgs() {
   else
     InstallPacAur ${dependencies[@]}
     InstallPacAur ${mypackages[@]}
-#    InstallPacAur ${builder[@]}
+    InstallPacAur ${builder[@]}
   fi
 }
 InstallPkgs
@@ -148,7 +149,7 @@ if [[ $USER == "mamutal91" ]]; then
     echo -e "${BOL_RED}Ok, não irei reconfigurar suas ${BOL_MAG}configurações pessoais${END}\n"
   fi
 
-  # Chaotic DISABLED FOR NOW
+# Chaotic DISABLED FOR NOW
 #  if [[ $answerChaotic != ${answerChaotic#[Yys]} ]]; then
 #    echo -e "${BOL_GRE}Ok, instalando kernel da ${BOL_MAG}chaotic${END}\n"
 #    bash $HOME/.dotfiles/setup/chaotic-kernel.sh
