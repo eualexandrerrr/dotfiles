@@ -6,6 +6,10 @@ iso() {
   bash $HOME/.dotfiles/aew/.config/scripts/archiso.sh
 }
 
+isowindows() {
+  sudo ddrescue $HOME/Downloads/ReviOS-*.iso /dev/sdb --force -D
+}
+
 agg() {
   ag -S ${1} . --hidden
 }

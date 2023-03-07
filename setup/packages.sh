@@ -54,7 +54,7 @@ mypackages=(
 
   python-ruamel-yaml
   laptop-mode-tools acpi
-  woeusb
+  ddrescue
 )
 
 builder=(
