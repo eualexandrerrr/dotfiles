@@ -30,7 +30,6 @@ export BUILD_USERNAME="mamutal91"
 export BUILD_HOSTNAME="nitro5"
 
 # Aliases
-alias nvidia="bash $HOME/.dotfiles/setup/nvidia.sh"
 alias poweroff="sudo poweroff"
 alias reboot="sudo poweroff --reboot"
 alias pacman="sudo pacman"
@@ -43,12 +42,11 @@ alias sed="sudo sed"
 alias systemctl="sudo systemctl"
 alias xprop="xprop | awk '/^WM_CLASS/{sub(/.* =/, \"instance:\"); sub(/,/, \"\nclass:\"); print} /^WM_NAME/{sub(/.* =/, \"title:\"); print}'"
 alias notify-send="dunstify"
-alias ddrescue="sudo ddrescue"
 alias dd="sudo dd"
 
 # Paths
-alias x="clear && cd $HOME/PixelStuffs"
-alias out="clear && cd $HOME/PixelStuffs/out/target/product/veux && ls -1"
+alias x="clear && cd $HOME/EvoX"
+alias out="clear && cd $HOME/EvoX/out/target/product/veux && ls -1"
 
 if [[ $USER == mamutal91 ]]; then
   git config --global user.email "mamutal91@gmail.com" && git config --global user.name "Alexandre Rangel"

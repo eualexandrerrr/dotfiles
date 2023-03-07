@@ -51,7 +51,7 @@ tokens() {
 tokens
 
 # Clone my important repos
-repos=(myhistory mywifi myarch shellscript-atom-snippets scripter)
+repos=(myhistory mywifi myarch mamutal91 scripter)
 
 for repo in ${repos[@]}; do
   gitUser="mamutal91"

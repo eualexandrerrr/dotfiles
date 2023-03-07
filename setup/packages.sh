@@ -56,6 +56,7 @@ mypackages=(
 )
 
 devops=(
+  docker
 )
 
 builder=(
