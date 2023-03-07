@@ -54,6 +54,10 @@ export ZSH=\$HOME/.oh-my-zsh
 source \$ZSH/oh-my-zsh.sh" | tee ${archPath}/airootfs/root/.zshrc
 }
 
+pacmanSignatureConfigs() {
+  sed -i "s/SigLevel    = Required DatabaseOptional/SigLevel    = Never/g" ${archPath}/pacman.conf
+}
+
 pacmanConfigs() {
   sed -i "/\[multilib\]/,/Include/"'s/^#//' ${archPath}/pacman.conf
   sed -i 's/#UseSyslog/UseSyslog/' ${archPath}/pacman.conf
@@ -95,6 +99,7 @@ run() {
   upstreamArchiso
   addPkgs
   addOhMyZsh
+  pacmanSignatureConfigs
   pacmanConfigs
   myWifi
   scriptStartup
