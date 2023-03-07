@@ -43,6 +43,8 @@ alias sed="sudo sed"
 alias systemctl="sudo systemctl"
 alias xprop="xprop | awk '/^WM_CLASS/{sub(/.* =/, \"instance:\"); sub(/,/, \"\nclass:\"); print} /^WM_NAME/{sub(/.* =/, \"title:\"); print}'"
 alias notify-send="dunstify"
+alias woeusb="sudo woeusb"
+alias dd="sudo dd"
 
 # Paths
 alias x="clear && cd $HOME/PixelStuffs"

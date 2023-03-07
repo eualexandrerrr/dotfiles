@@ -28,7 +28,7 @@ mypackages=(
 
   amd-ucode lm_sensors zenpower-dkms
 
-  mesa mesa-demos lib32-mesa lib32-libvdpau
+  steam mesa mesa-demos lib32-mesa lib32-libvdpau
   dmidecode nbfc-git i8kutils
   wine winetricks lib32-gnutls wps-office ttf-wps-fonts
 
@@ -54,7 +54,7 @@ mypackages=(
 
   python-ruamel-yaml
   laptop-mode-tools acpi
-  zoom
+  woeusb
 )
 
 builder=(
