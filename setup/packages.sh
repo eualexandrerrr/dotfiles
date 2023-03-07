@@ -38,7 +38,6 @@ mypackages=(
   vkd3d lib32-vkd3d
   rsync shfmt tree qbittorrent zip scrcpy
 
-  crowdin-cli
   optipng bfg
 
   makepkg-optimize
@@ -54,7 +53,9 @@ mypackages=(
 
   python-ruamel-yaml
   laptop-mode-tools acpi
-  ddrescue
+)
+
+devops=(
 )
 
 builder=(

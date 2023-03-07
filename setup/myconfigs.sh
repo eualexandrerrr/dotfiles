@@ -51,15 +51,13 @@ tokens() {
 tokens
 
 # Clone my important repos
-repos=(myhistory mywifi myarch docker-files shellscript-atom-snippets crowdin scripter)
+repos=(myhistory mywifi myarch shellscript-atom-snippets scripter)
 
 for repo in ${repos[@]}; do
   gitUser="mamutal91"
   gitHost="github"
   gitFolder="$HOME/GitHub/${repo}"
 
-  [[ $repo == "docker-files" ]] && gitUser="MammothOS"
-  [[ $repo == "crowdin" ]] && gitUser="MammothOS"
   [[ $repo == "myhistory" ]] && gitHost="gitlab"
   [[ $repo == "mywifi" ]] && gitHost="gitlab"
   [[ $repo == "scripter" ]] && gitFolder="$HOME/.scripter"
