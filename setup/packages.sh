@@ -53,6 +53,7 @@ mypackages=(
 
   python-ruamel-yaml
   laptop-mode-tools acpi
+  woeusb-ng
 )
 
 devops=(
