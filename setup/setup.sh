@@ -148,12 +148,13 @@ if [[ $USER == "mamutal91" ]]; then
     echo -e "${BOL_RED}Ok, não irei reconfigurar suas ${BOL_MAG}configurações pessoais${END}\n"
   fi
 
-  if [[ $answerChaotic != ${answerChaotic#[Yys]} ]]; then
-    echo -e "${BOL_GRE}Ok, instalando kernel da ${BOL_MAG}chaotic${END}\n"
-    bash $HOME/.dotfiles/setup/chaotic-kernel.sh
-  else
-    echo -e "${BOL_RED}Ok, não irei instalar o kernel da ${BOL_MAG}chaotic${END}\n"
-  fi
+  # Chaotic DISABLED FOR NOW
+#  if [[ $answerChaotic != ${answerChaotic#[Yys]} ]]; then
+#    echo -e "${BOL_GRE}Ok, instalando kernel da ${BOL_MAG}chaotic${END}\n"
+#    bash $HOME/.dotfiles/setup/chaotic-kernel.sh
+#  else
+#    echo -e "${BOL_RED}Ok, não irei instalar o kernel da ${BOL_MAG}chaotic${END}\n"
+#  fi
 
   # Nvidia
   if [[ $answerNvidia != ${answerNvidia#[Yys]} ]]; then
