@@ -2,21 +2,21 @@
 
 source $HOME/.Xconfigs # My general configs
 
-magisk() {
-  sudo adb sideload $HOME/Builds/Magisk-v25.2.apk
-}
-
 sideload() {
-  lastBuild=$(cd $HOME/Builds && find -printf "%TY-%Tm-%Td %TT %p\n" | sort -n | awk '{ a=b ; b=$0 } END { print a }' | awk '{print $3}' | cut -c3-300)
+  if [[ ${1} == magisk ]]; then
+    zip="Magisk-v25.2.apk"
+  else
+    zip=$(cd $HOME/Builds && find -printf "%TY-%Tm-%Td %TT %p\n" | sort -n | awk '{ a=b ; b=$0 } END { print a }' | awk '{print $3}' | cut -c3-300)
+  fi
 
-  echo -e "${GRE}${lastBuild}${END}\n"
+  echo -e "${GRE}${zip}${END}\n"
   echo "Waiting for device..."
   adb wait-for-device-recovery
   echo "Rebooting to sideload for install"
   adb reboot sideload-auto-reboot
   adb wait-for-sideload
   echo -e "\n${RED}Rebooting to sideload for install${END}"
-  adb sideload $HOME/Builds/$lastBuild
+  adb sideload $HOME/Builds/$zip
 }
 
 tree() {

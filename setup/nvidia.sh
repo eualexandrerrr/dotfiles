@@ -62,4 +62,7 @@ installNvidia() {
     sudo mkinitcpio -P
   cd $pwd
 }
-installNvidia
+# installNvidia
+
+sudo pacman -Syu linux-headers nvidia-lts nvidia-utils nvidia-settings mesa mesa-demos mesa-utils vulkan-tools lib32-mesa lib32-virtualgl lib32-libvdpau --noconfirm
+sudo mkinitcpio -P
