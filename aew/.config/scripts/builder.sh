@@ -20,13 +20,13 @@ sideload() {
 }
 
 tree() {
-  cd $HOME/EvoX
+  cd $HOME/Paranoid
   echo $PWD
   rm -rf device/xiaomi vendor/xiaomi kernel/xiaomi kernel/xiaomi/sm6375
-  git clone ssh://git@github.com/mamutal91/device_xiaomi_veux -b thirteen device/xiaomi/veux
-  git clone ssh://git@github.com/mamutal91/device_xiaomi_veux-kernel -b thirteen device/xiaomi/veux-kernel
-  git clone https://github.com/mamutal91/kernel_xiaomi_sm6375 -s -b thirteen kernel/xiaomi/sm6375
-  git clone ssh://git@github.com/mamutal91/vendor_xiaomi_veux -b thirteen vendor/xiaomi/veux
+  git clone ssh://git@github.com/mamutal91/device_xiaomi_veux -s -b topaz device/xiaomi/veux
+  git clone ssh://git@github.com/mamutal91/device_xiaomi_veux-kernel -s -b topaz device/xiaomi/veux-kernel
+  git clone https://github.com/mamutal91/kernel_xiaomi_sm6375 -s -b topaz kernel/xiaomi/sm6375
+  git clone ssh://git@gitlab.com/mamutal91/vendor_xiaomi_veux -s -b topaz vendor/xiaomi/veux
 }
 
 ccacheC() {
@@ -40,25 +40,25 @@ ccacheC() {
 }
 
 s() {
-  mkdir -p $HOME/EvoX
-  cd $HOME/EvoX
-  echo -e "${GRE}EvoX${END} $PWD"
-  repo init -u https://github.com/Evolution-X/manifest -b tiramisu
+  mkdir -p $HOME/Paranoid
+  cd $HOME/Paranoid
+  echo -e "${GRE}Paranoid${END} $PWD"
+  repo init -u https://github.com/AOSPA/manifest -b topaz
   repo sync --force-sync --current-branch --no-tags --no-clone-bundle --optimized-fetch --prune -j$(nproc --all)
 }
 
 c() {
   ccacheC
-  cd $HOME/EvoX
-  echo -e "${GRE}EvoX${END} $PWD"
+  cd $HOME/Paranoid
+  echo -e "${GRE}Paranoid${END} $PWD"
 
   cp -rf log.txt old_log.txt &> /dev/null
 
-  . build/envsetup.sh && lunch evolution_veux-userdebug
-  make evolution -j$(nproc --all) 2>&1 | tee log.txt
+  ./rom-build.sh veux -i -t eng | tee log.txt
 
-  sleep 10
+  sleep 5
   mkdir -p $HOME/Builds
-  mv $HOME/EvoX/out/target/product/veux/evo*.zip $HOME/Builds
-  rm -rf $HOME/EvoX/out/target/product/veux/evo*
+  cp -rf $HOME/Paranoid/out/target/product/veux/aospa*.zip $HOME/Builds
+  rm -rf $HOME/Paranoid/out/target/product/veux/aospa* &> /dev/null
+  rm -rf $HOME/Builds/aospa_veux-ota-eng.mamutal91.zip
 }

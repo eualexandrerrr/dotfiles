@@ -45,8 +45,8 @@ alias notify-send="dunstify"
 alias dd="sudo dd"
 
 # Paths
-alias x="clear && cd $HOME/EvoX"
-alias out="clear && cd $HOME/EvoX/out/target/product/veux && ls -1"
+alias x="clear && cd $HOME/Paranoid"
+alias out="clear && cd $HOME/Paranoid/out/target/product/veux && ls -1"
 
 if [[ $USER == mamutal91 ]]; then
   git config --global user.email "mamutal91@gmail.com" && git config --global user.name "Alexandre Rangel"
