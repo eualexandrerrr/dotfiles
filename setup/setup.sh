@@ -16,8 +16,8 @@ if [[ $USER == "mamutal91" ]]; then
   read answerMyConfigs
 
 # Chaotic DISABLED FOR NOW
-#  echo -e "\n${BOL_MAG}Você deseja instalar o kernel da ${BOL_CYA}chaotic? ${GRE}(y/n) ${RED}[enter=no] ${END}\n"
-#  read answerChaotic
+  echo -e "\n${BOL_MAG}Você deseja instalar o kernel da ${BOL_CYA}chaotic? ${GRE}(y/n) ${RED}[enter=no] ${END}\n"
+  read answerChaotic
 
   echo -e "\n${BOL_MAG}Você deseja instalar o driver da ${BOL_CYA}nvidia? ${GRE}(y/n) ${RED}[enter=no] ${END}\n"
   read answerNvidia
@@ -28,13 +28,13 @@ if [[ $USER == "mamutal91" ]]; then
 fi
 
 # Chaotic DISABLED FOR NOW
-#sudo sed -i '/chaotic/d' /etc/pacman.conf
-#sudo pacman-key --recv-key FBA220DFC880C036 --keyserver keyserver.ubuntu.com
-#sudo pacman-key --lsign-key FBA220DFC880C036
-#sudo pacman -U 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst' 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst' --noconfirm
-#sudo pacman -Sy --noconfirm && sudo powerpill -Su --noconfirm && paru -Su --noconfirm
-#echo "[chaotic-aur]
-#Include = /etc/pacman.d/chaotic-mirrorlist" | sudo tee -a /etc/pacman.conf
+sudo sed -i '/chaotic/d' /etc/pacman.conf
+sudo pacman-key --recv-key FBA220DFC880C036 --keyserver keyserver.ubuntu.com
+sudo pacman-key --lsign-key FBA220DFC880C036
+sudo pacman -U 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst' 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst' --noconfirm
+sudo pacman -Sy --noconfirm && sudo powerpill -Su --noconfirm && paru -Su --noconfirm
+echo "[chaotic-aur]
+Include = /etc/pacman.d/chaotic-mirrorlist" | sudo tee -a /etc/pacman.conf
 
 # Update packages and keys
 sudo pacman -Syyu --noconfirm

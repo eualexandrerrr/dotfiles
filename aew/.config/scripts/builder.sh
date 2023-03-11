@@ -40,25 +40,49 @@ ccacheC() {
 }
 
 s() {
-  mkdir -p $HOME/Paranoid
-  cd $HOME/Paranoid
-  echo -e "${GRE}Paranoid${END} $PWD"
-  repo init -u https://github.com/AOSPA/manifest -b topaz
-  repo sync --force-sync --current-branch --no-tags --no-clone-bundle --optimized-fetch --prune -j$(nproc --all)
+  if [[ ${1} == "b" ]]; then
+    mkdir -p $HOME/Blaze
+    cd $HOME/Blaze
+    echo -e "${GRE}Blaze${END} $PWD"
+    repo init -u https://github.com/ProjectBlaze/manifest.git -b 13
+    repo sync --force-sync --current-branch --no-tags --no-clone-bundle --optimized-fetch --prune -j$(nproc --all)
+  else
+    mkdir -p $HOME/Paranoid
+    cd $HOME/Paranoid
+    echo -e "${GRE}Paranoid${END} $PWD"
+    repo init -u https://github.com/AOSPA/manifest -b topaz
+    repo sync --force-sync --current-branch --no-tags --no-clone-bundle --optimized-fetch --prune -j$(nproc --all)
+  fi
 }
 
 c() {
-  ccacheC
-  cd $HOME/Paranoid
-  echo -e "${GRE}Paranoid${END} $PWD"
+  if [[ ${1} == "b" ]]; then
+    cd $HOME/Blaze
+    ccacheC
+    echo -e "${GRE}Blaze${END} $PWD"
 
-  cp -rf log.txt old_log.txt &> /dev/null
+    cp -rf log.txt old_log.txt &> /dev/null
 
-  ./rom-build.sh veux -i -t eng | tee log.txt
+    . build/envsetup.sh && lunch blaze_veux-userdebug
+    make bacon -j$(nproc --all) 2>&1 | tee log.txt
 
-  sleep 5
-  mkdir -p $HOME/Builds
-  cp -rf $HOME/Paranoid/out/target/product/veux/aospa*.zip $HOME/Builds
-  rm -rf $HOME/Paranoid/out/target/product/veux/aospa* &> /dev/null
-  rm -rf $HOME/Builds/aospa_veux-ota-eng.mamutal91.zip
+    sleep 5
+    mkdir -p $HOME/Builds
+    cp -rf $HOME/Blaze/out/target/product/veux/*.zip $HOME/Builds
+    rm -rf $HOME/Blaze/out/target/product/veux/* &> /dev/null
+  else
+    cd $HOME/Paranoid
+    ccacheC
+    echo -e "${GRE}Paranoid${END} $PWD"
+
+    cp -rf log.txt old_log.txt &> /dev/null
+
+    ./rom-build.sh veux -t userdebug | tee log.txt
+
+    sleep 5
+    mkdir -p $HOME/Builds
+    cp -rf $HOME/Paranoid/out/target/product/veux/*.zip $HOME/Builds
+    rm -rf $HOME/Paranoid/out/target/product/veux/* &> /dev/null
+    rm -rf $HOME/Builds/aospa_veux-ota-eng.mamutal91.zip
+  fi
 }
