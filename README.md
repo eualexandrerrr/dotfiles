@@ -29,6 +29,7 @@ Configuração de desktop com RTX 3090. Hyprland em Lua, shell pelo
 | Login | `sddm` |
 | Prompt | `starship` |
 | Driver | `nvidia-open-dkms` |
+| Agente no terminal | `claude-code` (AUR) |
 
 ## Estrutura
 
@@ -157,6 +158,12 @@ Pacotes citados em READMEs de rice que **não existem** com esse nome:
 O `dgop` também não está no AUR — quem instala é o próprio nandoroid.
 
 ## Ressalvas
+
+- **`--skipreview` no `paru`.** O `install_aur` instala os pacotes do AUR sem exibir o
+  `PKGBUILD` antes de compilar. AUR é conteúdo enviado por usuário: o que vem de lá é
+  código de terceiro rodando com as permissões do `makepkg`. Sem o `--skipreview` o
+  script pararia esperando confirmação em cada um dos 16, o que inviabiliza rodar sozinho.
+  Se quiser conferir uma receita antes, o caminho é `paru -G <pacote>` e ler à mão.
 
 - **RedM não tem cliente Linux.** O launcher Enhanced depende do WebView2 e não sobe em
   Wine/Proton. O `install.sh` baixa o instalador oficial e cria um prefixo, mas é provável

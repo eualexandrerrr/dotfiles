@@ -206,18 +206,38 @@ enable_services() {
         sudo systemctl enable "$unit" >/dev/null 2>&1 && ok "$unit" || warn "$unit nao habilitado"
     done
 
-    if systemctl list-unit-files docker.socket >/dev/null 2>&1; then
-        sudo systemctl enable docker.socket >/dev/null 2>&1 && ok "docker.socket"
-    fi
-    if systemctl list-unit-files libvirtd.socket >/dev/null 2>&1; then
-        sudo systemctl enable libvirtd.socket >/dev/null 2>&1 && ok "libvirtd.socket"
-    fi
+    # O list-unit-files devolve 0 mesmo sem casar nada, entao ele nao servia de
+    # guarda. Trocado por um laco que sempre diz o que aconteceu: antes, socket
+    # ausente passava em silencio absoluto.
+    local sock
+    for sock in docker.socket libvirtd.socket; do
+        if sudo systemctl enable "$sock" >/dev/null 2>&1; then
+            ok "$sock"
+        else
+            warn "$sock nao habilitado, provavelmente nao instalado"
+        fi
+    done
 
-    if [[ ! -d /var/lib/mysql/mysql ]]; then
-        sudo mariadb-install-db --user=mysql --basedir=/usr --datadir=/var/lib/mysql >/dev/null
-        ok "mariadb inicializado"
+    # O guarda era so "o datadir nao existe". Numa maquina sem mariadb instalado
+    # o mariadb-install-db nem existe: o comando falha, e como ele e o unico do
+    # bloco (posicao em que o set -e NAO ignora a falha, diferente do lado
+    # esquerdo de um &&), derrubava o install.sh inteiro num passo opcional.
+    if command -v mariadb-install-db >/dev/null 2>&1; then
+        if [[ ! -d /var/lib/mysql/mysql ]]; then
+            if sudo mariadb-install-db --user=mysql --basedir=/usr --datadir=/var/lib/mysql >/dev/null 2>&1; then
+                ok "mariadb inicializado"
+            else
+                warn "mariadb-install-db falhou, seguindo"
+            fi
+        fi
+        if sudo systemctl enable mariadb.service >/dev/null 2>&1; then
+            ok "mariadb.service"
+        else
+            warn "mariadb.service nao habilitado"
+        fi
+    else
+        warn "mariadb nao instalado, pulando a inicializacao do banco"
     fi
-    sudo systemctl enable mariadb.service >/dev/null 2>&1 && ok "mariadb.service"
 
     local grp
     for grp in docker libvirt video input; do

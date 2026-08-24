@@ -121,6 +121,7 @@ ttf-nerd-fonts-symbols
 [repo-oficial:shell-cli]
 bat
 btop
+bubblewrap
 duf
 eza
 fastfetch
@@ -130,6 +131,8 @@ nano
 ncdu
 neovim
 ripgrep
+socat
+tmux
 zoxide
 zsh
 zsh-autosuggestions
@@ -199,6 +202,7 @@ zathura
 [aur]
 android-studio
 bun-bin
+claude-code
 cloudflare-warp-bin
 google-chrome
 insync
