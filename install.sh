@@ -5,8 +5,8 @@ set -euo pipefail
 DOTFILES_REPO="${DOTFILES_REPO:-https://github.com/eualexandrerrr/dotfiles.git}"
 DOTFILES_BRANCH="${DOTFILES_BRANCH:-main}"
 DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
-SURFACE_REPO="${SURFACE_REPO:-https://github.com/snes19xx/surface-dots.git}"
-SURFACE_DIR="${SURFACE_DIR:-$HOME/.cache/surface-dots}"
+NANDOROID_REPO="${NANDOROID_REPO:-https://github.com/na-ive/nandoroid-shell.git}"
+NANDOROID_DIR="${NANDOROID_DIR:-$HOME/.local/src/nandoroid-shell}"
 REDM_DIR="${REDM_DIR:-$HOME/Games/RedM}"
 REDM_URL="https://runtime.fivem.net/client/RedM.exe"
 
@@ -280,80 +280,28 @@ link_dotfiles() {
     ok "symlinks aplicados"
 }
 
-fetch_surface_assets() {
-    log "baixando binarios e midia do surface-dots"
-    if [[ -d $SURFACE_DIR/.git ]]; then
-        git -C "$SURFACE_DIR" pull --ff-only || warn "surface-dots nao atualizou"
+install_nandoroid() {
+    log "instalando o nandoroid-shell"
+    if [[ -d $NANDOROID_DIR/.git ]]; then
+        git -C "$NANDOROID_DIR" pull --ff-only || warn "nandoroid nao atualizou, seguindo com o que tem"
+        ok "nandoroid atualizado em $NANDOROID_DIR"
     else
-        mkdir -p "$(dirname "$SURFACE_DIR")"
-        git clone --depth 1 "$SURFACE_REPO" "$SURFACE_DIR"
+        mkdir -p "$(dirname "$NANDOROID_DIR")"
+        git clone --depth 1 "$NANDOROID_REPO" "$NANDOROID_DIR" || { warn "clone do nandoroid falhou"; return 0; }
+        ok "nandoroid clonado em $NANDOROID_DIR"
     fi
 
-    local src="$SURFACE_DIR/.config"
+    [[ -x $NANDOROID_DIR/install.sh ]] || { warn "install.sh do nandoroid nao encontrado"; return 0; }
 
-    if [[ -d $src/quickshell/bin ]]; then
-        mkdir -p "$HOME/.config/quickshell"
-        cp -rf "$src/quickshell/bin" "$HOME/.config/quickshell/"
-        chmod +x "$HOME/.config/quickshell/bin/now_playing" "$HOME/.config/quickshell/bin/papel" 2>/dev/null || true
-        ok "quickshell/bin"
-    fi
-    [[ -f $src/quickshell/profile.jpg ]] && cp -f "$src/quickshell/profile.jpg" "$HOME/.config/quickshell/" && ok "quickshell/profile.jpg"
+    warn "o instalador do nandoroid e interativo, responda as perguntas dele"
+    warn "quando ele perguntar sobre injetar no Hyprland, aceite: o hyprland.lua daqui ja faz o require"
+    ( cd "$NANDOROID_DIR" && ./install.sh ) || warn "instalador do nandoroid retornou erro"
+    ok "nandoroid instalado"
+}
 
-    if [[ -d $src/hypr ]]; then
-        mkdir -p "$HOME/.config/hypr"
-        [[ -d $src/hypr/images ]] && cp -rf "$src/hypr/images" "$HOME/.config/hypr/" && ok "hypr/images"
-        [[ -f $src/hypr/face.png ]] && cp -f "$src/hypr/face.png" "$HOME/.config/hypr/" && ok "hypr/face.png"
-        local lock
-        for lock in "$src"/hypr/hyprlock/*/; do
-            [[ -d $lock ]] || continue
-            mkdir -p "$HOME/.config/hypr/hyprlock/$(basename "$lock")"
-            cp -f "$lock"background.jpg "$HOME/.config/hypr/hyprlock/$(basename "$lock")/" 2>/dev/null || true
-        done
-        ok "hyprlock backgrounds"
-    fi
-
-    if [[ -d "$src/kitty/Typewriter Variable" ]]; then
-        mkdir -p "$HOME/.local/share/fonts"
-        cp -rf "$src/kitty/Typewriter Variable" "$HOME/.local/share/fonts/"
-        ok "fonte Typewriter Variable"
-    fi
-
-    if [[ -d $src/rofi ]]; then
-        mkdir -p "$HOME/.config/rofi"
-        [[ -d $src/rofi/icons ]] && cp -rf "$src/rofi/icons" "$HOME/.config/rofi/"
-        [[ -d $src/rofi/extra_pictures ]] && cp -rf "$src/rofi/extra_pictures" "$HOME/.config/rofi/"
-        cp -f "$src"/rofi/*.jpg "$src"/rofi/*.png "$HOME/.config/rofi/" 2>/dev/null || true
-        ok "midia do rofi"
-    fi
-
-    cp -f "$src"/fastfetch/*.png "$HOME/.config/fastfetch/" 2>/dev/null && ok "logos do fastfetch" || true
-
-    if [[ -d $src/gtk-theme ]]; then
-        mkdir -p "$HOME/.local/share/themes"
-        local tarball
-        for tarball in "$src"/gtk-theme/*.tar.gz; do
-            [[ -f $tarball ]] || continue
-            tar -xzf "$tarball" -C "$HOME/.local/share/themes"
-        done
-        ok "temas GTK"
-    fi
-
-    if [[ -d $SURFACE_DIR/cursor ]]; then
-        mkdir -p "$HOME/.local/share/icons"
-        local cur
-        for cur in "$SURFACE_DIR"/cursor/Saturnian-*/; do
-            [[ -d $cur ]] && cp -rf "$cur" "$HOME/.local/share/icons/"
-        done
-        ok "cursores Saturnian"
-    fi
-
-    if [[ -d $SURFACE_DIR/sddm/themes ]]; then
-        sudo mkdir -p /usr/share/sddm/themes
-        sudo cp -rf "$SURFACE_DIR"/sddm/themes/* /usr/share/sddm/themes/
-        ok "temas do sddm copiados"
-    fi
-
-    command -v fc-cache >/dev/null 2>&1 && fc-cache -f >/dev/null 2>&1 || true
+update_nandoroid() {
+    [[ -x $NANDOROID_DIR/update.sh ]] || return 0
+    ( cd "$NANDOROID_DIR" && ./update.sh )
 }
 
 configure_sddm() {
@@ -413,7 +361,7 @@ main() {
     enable_services
     fetch_dotfiles
     link_dotfiles
-    fetch_surface_assets
+    install_nandoroid
     configure_sddm
     setup_redm
     summary
