@@ -1,0 +1,22 @@
+.config/quickshell/bin/
+.config/quickshell/profile.jpg
+.config/quickshell/**/.cache/
+.config/quickshell/**/usersettings.json
+.config/quickshell/**/errors.log
+.config/quickshell/weather_api.conf
+
+.config/hypr/images/
+.config/hypr/sounds/
+.config/hypr/face.png
+.config/hypr/hyprlock/*/background.jpg
+
+.config/kitty/Typewriter Variable/
+
+.config/rofi/icons/
+.config/rofi/extra_pictures/
+.config/rofi/*.jpg
+.config/rofi/*.png
+
+.config/fastfetch/*.png
+
+.config/vdirsyncer/google_token
