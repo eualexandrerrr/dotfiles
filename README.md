@@ -128,6 +128,19 @@ Em outra máquina (ou depois de reinstalar), o `install.sh` chama sozinho:
 ~/.dotfiles/scripts/kde-apply.sh   # aplica e recarrega o kwin, sem precisar deslogar
 ```
 
+### O que fica de fora, e por quê
+
+A curadoria recusa tanto quanto aceita. Os casos e o motivo, todos verificados no arquivo:
+
+| Grupo | Por que não entra |
+|:--|:--|
+| `kdeglobals` `[Colors:*]`, `[ColorEffects:*]`, `[WM]` | 84 chaves da paleta, escritas ao aplicar o esquema de cores. É o tema, não decisão sua |
+| `kwinrc` `[Desktops]` | `Id_1` é UUID, e `Number`/`Rows` já caem no `IGNORAR_CHAVE` — capturaria nada |
+| `kwinrc` `[Tiling][uuid][uuid]` | indexado por UUID de tela e de desktop; não transfere pra outra máquina |
+| `dolphinrc` `[General]` | só `Version` e `ViewPropsTimestamp`, ambos já ignorados |
+| `spectaclerc` `[ImageSave]` | `lastImageSaveLocation` é estado puro — chegou a apontar pra um `/tmp` |
+| `gwenviewrc` | `Recent Files`, geometria de janela: estado |
+
 O `kde-capture.sh` não copia o `~/.config` inteiro: a lista `GRUPOS` dentro dele é a
 curadoria de quais `arquivo:grupo` valem versionar, e `IGNORAR_CHAVE` derruba o que é
 estado (`ColorSchemeHash`, `Id_*`, contadores). Pra versionar mais coisa, acrescente o par
@@ -144,7 +157,7 @@ O que está coberto hoje:
 | `kdeglobals` | `Icons`, `KDE` | ícones `Tela-dark`, estilo `kvantum-dark`, look-and-feel Windows Modern |
 | `kwinrc` | `Windows`, `org.kde.kdecoration2` | maximizada sem borda, borda `Tiny`, decoração Aurorae |
 | `plasmarc` | `Theme` | tema Plasma `breeze-dark` |
-| `kglobalshortcutsrc` | `services` | atalhos globais de aplicativo: `Ctrl+Alt+T` no ghostty, `Shift+Print` no recorte |
+| `kglobalshortcutsrc` | **todos** | o mapa de teclas inteiro: `kwin` (janelas), `plasmashell`, `ksmserver` (desligar/bloquear), `kmix` (volume), `org_kde_powerdevil` (brilho) e os lançadores em `services` |
 | `.local/share/dolphin/.../.directory` | `Dolphin` | `ViewMode=1`: pastas abrem em **Detalhes** |
 
 ### Capturas de tela

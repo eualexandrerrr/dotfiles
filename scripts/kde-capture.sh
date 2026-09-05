@@ -38,13 +38,17 @@ GRUPOS=(
     "powermanagementprofilesrc:AC*"
     "dolphinrc:MainWindow"
     "dolphinrc:IconsMode"
+    "dolphinrc:DetailsMode"
+    "dolphinrc:CompactMode"
     "dolphinrc:KFileDialog Settings"
     "kdeglobals:KFileDialog Settings"
     # modo de visualizacao do Dolphin; o GlobalViewProps do KDE ja e true por
     # padrao, entao esse arquivo vale pra todas as pastas
     ".local/share/dolphin/view_properties/global/.directory:Dolphin"
-    # atalhos globais de aplicativo: [services][<arquivo>.desktop]
-    "kglobalshortcutsrc:services"
+    # O mapa de teclas inteiro: [kwin] com o gerenciamento de janelas, [plasmashell],
+    # [ksmserver] com desligar/bloquear, [kmix] com volume, [org_kde_powerdevil] com
+    # brilho, e [services][*.desktop] com os lancadores.
+    "kglobalshortcutsrc:*"
 )
 
 # Chaves que sao estado ou derivadas, nunca entram no repo.
