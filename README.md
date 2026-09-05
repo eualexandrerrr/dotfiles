@@ -33,6 +33,7 @@ poucos arquivos de configuração que valem versionar.
 | Jogos e Wine | `steam`, `lutris`, `wine`, `winetricks`, `gamescope`, `mangohud` |
 | VMs | `qemu-full`, `libvirt`, `virt-manager` (plano B do RedM) |
 | Agente no terminal | `claude-code` (AUR) |
+| Segundo monitor | `widget-claude` em tela cheia, do repo [Utils](https://github.com/eualexandrerrr/Utils) — ver [Monitores](#monitores) |
 
 Barra, painéis, wallpaper e disposição de monitores continuam sendo do próprio Plasma e
 não são versionados: o KDE grava dezenas de arquivos em `~/.config` com estado misturado à
@@ -311,6 +312,37 @@ Dois monitores: principal 2560x1440 paisagem à direita, secundário 1920x1080 e
 Configure em **Configurações do Sistema → Tela e Monitor** no primeiro boot; o `kscreen` guarda
 a disposição por combinação de monitores em `~/.local/share/kscreen/`.
 
+### O segundo monitor é o painel
+
+O monitor vertical não é área de trabalho: ele é ocupado em tela cheia pelo **widget-claude** —
+cota do Claude Code, erros do Sentry, anotações do Discord, os dois consoles do txAdmin, relógio
+e temperaturas. Mora no repo [Utils](https://github.com/eualexandrerrr/Utils), pasta
+`widget-claude`, e sobe junto com a sessão gráfica.
+
+```bash
+git clone https://github.com/eualexandrerrr/Utils.git
+Utils/widget-claude/linux/instalar.sh
+```
+
+O instalador confere as dependências, resolve o Electron e escreve
+`~/.config/systemd/user/widget-claude.service`. O `Restart=on-failure` da unit faz o papel do
+watchdog que existia no Windows: queda volta sozinha, e fechar pelo X do painel é saída limpa —
+fica fechado até alguém mandar subir.
+
+```bash
+systemctl --user status widget-claude
+tail -f <pasta>/widget.log
+```
+
+Duas coisas que só valem aqui e custaram tempo pra descobrir:
+
+- **`--ozone-platform=x11` vai na linha de comando**, no `ExecStart` da unit. Não adianta ligar
+  por `app.commandLine` dentro do app: o Chromium escolhe a plataforma antes de rodar o `main.js`
+  e o switch é ignorado em silêncio. Sem a flag a janela nasce como cliente Wayland, o `setBounds`
+  não vale nada e o painel some atrás das outras janelas em vez de ocupar o monitor vertical.
+- **`electron` do pacman, não o do npm.** O binário que o npm baixa vem sem o setuid do
+  `chrome-sandbox`.
+
 ## Ressalvas
 
 - **`--skipreview` no `paru`.** Os pacotes do AUR são instalados sem exibir o `PKGBUILD`. AUR é
@@ -319,6 +351,12 @@ a disposição por combinação de monitores em `~/.local/share/kscreen/`.
 - **RedM no Linux é só pra desenvolvimento.** O client oficial não roda em Wine (anticheat). O client
   custom em insecure mode, o servidor local sem `svadhesive` e o plano B com GPU passthrough estão em
   [RedMLinux](https://github.com/eualexandrerrr/RedMLinux). Este repo só instala `wine`/`winetricks`.
+- **O roteador engole consultas AAAA.** Domínio sem registro IPv6 (`sentry.io`, `discord.com`)
+  trava 15-20 s no `getaddrinfo`, porque o `192.168.1.1` não responde nem o "não tem" — quem
+  pergunta fica esperando o timeout. O `fetch` do Node desiste antes (10 s), então o painel mostra
+  Sentry e Discord vazios enquanto o `curl` resolve na hora. Domínio **com** AAAA (`api.anthropic.com`)
+  não sofre. Ainda não corrigido: a saída é um resolvedor que responda NODATA — o `systemd-resolved`,
+  que o `nsswitch.conf` já prefere (`hosts: ... resolve ...`), está desabilitado.
 - Credenciais e variáveis de ambiente ficam em `dotfiles-private` (privado); o `.zshrc` carrega
   `~/.dotfiles-private/env.sh` se existir.
 
@@ -330,5 +368,7 @@ a disposição por combinação de monitores em `~/.local/share/kscreen/`.
 - 05/09/2026: MCP do Claude Code restaurados do backup do Windows via `scripts/mcp-restaurar.sh`.
 - 05/09/2026: configuração do KDE passou a ser versionada em `scripts/kde-settings.conf`,
   com `kde-capture.sh` / `kde-apply.sh` fazendo o ida e volta com a GUI.
+- 05/09/2026: o widget-claude (painel do segundo monitor, do repo `Utils`) foi portado do Windows
+  pro Linux e passou a subir por unit do systemd — ver [Monitores](#monitores).
 - 05/09/2026: `kitty` trocado por `ghostty` (terminal padrão do KDE, `TERMINAL` no `.zshrc`,
   lançador do painel e `terminfo` do live ISO do myarch).

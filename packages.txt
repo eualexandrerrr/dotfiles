@@ -163,6 +163,16 @@ libksysguard
 # Puxa o bluez junto, mas o bluetooth.service fica desabilitado.
 bluez-qt
 
+[repo-oficial:painel-segundo-monitor]
+# O monitor vertical e ocupado em tela cheia pelo widget-claude, que roda em
+# Electron. Preferimos o electron do pacman ao binario que o npm baixa: o do npm
+# vem sem o setuid do chrome-sandbox (o servico de rede do Chromium morre no
+# start) e sao 106 MB fora do controle de pacotes.
+electron
+# Temperatura de CPU do painel; a de GPU vem do nvidia-smi, que ja entra junto
+# com o nvidia-utils.
+lm_sensors
+
 [repo-oficial:apps]
 discord
 obsidian
