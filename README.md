@@ -20,7 +20,7 @@ poucos arquivos de configuração que valem versionar.
 | Camada | Programa |
 |:--|:--|
 | Desktop | KDE Plasma 6 em Wayland (`plasma-desktop`, sem `plasma-meta`) |
-| Login | `sddm` com greeter em `kwin_wayland`, tema Breeze |
+| Login | `sddm` com greeter em `kwin_wayland`, tema Breeze; login automatico (`Relogin=false`: so ao ligar o PC e na volta da VM w11) |
 | Terminal | `ghostty` (registrado como terminal padrão do KDE) |
 | Shell | `zsh` + `starship` + `zsh-autosuggestions` + `zsh-syntax-highlighting` |
 | Arquivos, imagens, PDF, prints | `dolphin`, `gwenview`, `okular`, `spectacle` |
@@ -88,7 +88,7 @@ Em ordem:
 4. NVIDIA: `modprobe.d`, módulos no `mkinitcpio`, parâmetros de kernel, `mkinitcpio -P`
 5. Serviços: `NetworkManager`, `sddm`, `power-profiles-daemon` (perfil `performance`), `ananicy-cpp`, `reflector.timer`, `docker.socket`, `libvirtd.socket`, `mariadb`; grupos do usuário
 6. Symlinks de `.config/*` e `home/*` (o que existir no destino vira `.bak-<data>`)
-7. `sddm` em Wayland com `kwin`, tema Breeze
+7. `sddm` em Wayland com `kwin`, tema Breeze e login automático do usuário
 8. Padrões do KDE: `kde/apply.sh` grava tudo que está no `kde-settings.conf`
 
 Reinicie no fim.

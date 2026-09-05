@@ -10,6 +10,20 @@ HERE="$(cd "$(dirname "$(readlink -f "$0")")" && pwd)"
 v() { virsh -c qemu:///system "$@"; }
 
 estado() { v domstate w11 2>/dev/null || echo "nao definida"; }
+
+# O Plasma lanca cada aplicativo num scope do systemd chamado app-<desktop-id>-<pid>.scope.
+# Isso da a lista exata do que o usuario abriu, ja com o id do .desktop pra reabrir depois.
+# O restore nativo do Plasma nao serve aqui: em Wayland o ksmserver salva count=0.
+salvar_apps() {
+    local lista="${XDG_STATE_HOME:-$HOME/.local/state}/w11-apps"
+    mkdir -p "$(dirname "$lista")"
+    systemctl --user list-units --type=scope --no-legend 'app-*.scope' 2>/dev/null \
+        | awk '{print $1}' \
+        | sed -n 's/^app-\(.*\)-[0-9]\+\.scope$/\1/p' \
+        | while read -r id; do systemd-escape -u -- "$id"; done \
+        > "$lista" || true
+    [[ -s $lista ]] || rm -f "$lista"
+}
 perfil() {
     if v dumpxml w11 2>/dev/null | grep -q "<hostdev mode='subsystem' type='pci'"; then echo 3090; else echo janela; fi
 }
@@ -24,7 +38,8 @@ case "${1:-}" in
   O Arch continua ligado. Mas a sessao do KDE FECHA: tudo que esta aberto
   (VS Code, navegador, terminais) vai fechar. Salve antes.
   A tela vai apagar e o Windows aparece em uns 10 segundos.
-  Para voltar: no Windows, Ctrl+Alt+L (ou desligar o Windows). O SDDM volta sozinho.
+  Para voltar: no Windows, Ctrl+Alt+L (ou desligar o Windows). O KDE volta
+  sozinho, sem pedir senha, e reabre os apps que estao abertos agora.
 
 TXT
         read -rp "  Enter para ir, Ctrl+C para cancelar " _
@@ -41,6 +56,9 @@ TXT
         if [[ $1 == janela ]] && ! grep -q 'hostdev PCI' /etc/libvirt/hooks/qemu.d/w11/prepare/begin/start.sh 2>/dev/null; then
             echo "hook /etc/libvirt/hooks/qemu.d/w11/prepare/begin/start.sh sem a checagem de perfil: ele derrubaria a tela do host. Reinstale os hooks do RedMLinux." >&2; exit 1
         fi
+        # No perfil 3090 o hook derruba a sessao do KDE pra soltar a placa: os apps morrem.
+        # Anota quem estava aberto pra que o vm/reabrir-apps.sh reabra no login de volta.
+        [[ $1 == 3090 ]] && salvar_apps
         v define "$HERE/w11-$1.xml" >/dev/null
         v start w11
         if [[ $1 == janela ]]; then

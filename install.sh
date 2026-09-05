@@ -410,12 +410,23 @@ link_dotfiles() {
 }
 
 configure_sddm() {
-    log "configurando sddm (greeter Wayland com kwin, tema breeze)"
+    log "configurando sddm (greeter Wayland com kwin, tema breeze, login automatico)"
     sudo mkdir -p /etc/sddm.conf.d
-    cat <<'EOF' | sudo tee /etc/sddm.conf.d/10-dotfiles.conf >/dev/null
+    # Login automatico. Relogin=false faz valer so na PRIMEIRA subida do sddm, que sao
+    # exatamente os dois casos desejados: ligar o PC, e a volta da VM w11 (o hook para e
+    # sobe o display-manager de novo). Sair da sessao na mao cai no greeter, com senha.
+    # O disco nao e criptografado, entao isso nao troca seguranca por conveniencia:
+    # quem tem o gabinete ja tinha os dados. Bloquear a tela (Meta+L) continua pedindo senha.
+    # Heredoc sem aspas de proposito: o $USER precisa expandir aqui.
+    cat <<EOF | sudo tee /etc/sddm.conf.d/10-dotfiles.conf >/dev/null
 [General]
 DisplayServer=wayland
 GreeterEnvironment=QT_WAYLAND_SHELL_INTEGRATION=layer-shell
+
+[Autologin]
+User=$USER
+Session=plasma.desktop
+Relogin=false
 
 [Wayland]
 CompositorCommand=kwin_wayland --drm --no-lockscreen --no-global-shortcuts --locale1
@@ -423,7 +434,7 @@ CompositorCommand=kwin_wayland --drm --no-lockscreen --no-global-shortcuts --loc
 [Theme]
 Current=breeze
 EOF
-    ok "/etc/sddm.conf.d/10-dotfiles.conf"
+    ok "/etc/sddm.conf.d/10-dotfiles.conf (login automatico de $USER)"
 }
 
 configure_kde_defaults() {

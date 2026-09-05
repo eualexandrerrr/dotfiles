@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Dotfiles: reabrir apps depois da VM w11
+Comment=Reabre o que estava aberto antes de a VM levar a 3090; num boot normal nao faz nada
+Exec=bash -c "\\$HOME/.dotfiles/vm/reabrir-apps.sh"
+X-KDE-autostart-after=panel
+NoDisplay=true

@@ -43,6 +43,38 @@ Recriar vazio: `sudo qemu-img create -f qcow2 /var/lib/libvirt/images/w11.qcow2 
 - Hooks do libvirt em `/etc/libvirt/hooks/qemu.d/w11/` — fonte em `eualexandrerrr/RedMLinux`, `plano-b-passthrough/install-hooks.sh`
 - Grupo IOMMU 16 tem só a 3090 e o áudio dela: isolamento limpo, sem ACS override
 
+## Em qual monitor o Windows aparece
+
+Os dois monitores estão na mesma 3090 (`DP-1` = ASUS XG27ACS, `DP-2` = LG UltraGear).
+No passthrough a placa inteira vai para a VM, então o **Windows** recebe as duas telas e
+escolhe sozinho qual é a principal — trocar os cabos não decide isso, e ainda embaralharia
+o layout do KDE, que é gravado por saída.
+
+Ajuste **dentro do Windows**, uma vez só (fica gravado no registro dele):
+Configurações → Sistema → Vídeo → clicar no ASUS → **"Tornar este meu vídeo principal"**.
+Melhor ainda: **"Mostrar somente em 1"** (o ASUS), assim o LG fica preto e o RedM não tem
+como abrir na tela errada nem o mouse escapar para ela.
+
+## A volta para o KDE
+
+O `sddm` está com **login automático** (`install.sh`, `configure_sddm`): a volta cai direto
+no Plasma, sem senha. `Relogin=false` limita isso à primeira subida do sddm — ligar o PC e
+voltar da VM. Sair da sessão na mão ainda cai no greeter com senha, e `Meta+L` continua
+bloqueando normalmente.
+
+Os apps, esses **morrem mesmo**: para soltar a 3090 o hook precisa derrubar a sessão
+(`loginctl terminate-user`), e com uma GPU só não há como o host continuar desenhando.
+O restore nativo do Plasma não resolve — em Wayland o `ksmserver` salva zero clientes
+(no 6.7.4, `saveCurrentSession` grava `count=0`), porque não existe o protocolo de
+gerenciamento de sessão que havia no X11.
+
+Então o `w11 3090` anota a lista antes de ligar, a partir dos scopes do systemd
+(`app-<desktop-id>-<pid>.scope`, que é como o Plasma lança cada aplicativo), em
+`~/.local/state/w11-apps`. No login de volta, `vm/reabrir-apps.sh` (autostart do KDE)
+reabre cada um e consome a lista — num boot normal o arquivo não existe e ele sai calado.
+Os apps reabrem vazios do ponto de vista do Plasma; quem restaura conteúdo é cada um por
+si (o Chrome com "continuar de onde parou", o VS Code com as janelas anteriores).
+
 ## Limitação conhecida
 
 Com **uma GPU só** não há Alt-Tab entre Linux e VM: enquanto a VM roda, o host fica sem
