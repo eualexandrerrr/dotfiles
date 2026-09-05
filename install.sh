@@ -217,7 +217,7 @@ configure_nvidia() {
 enable_services() {
     log "habilitando servicos"
     local unit
-    for unit in NetworkManager.service sddm.service power-profiles-daemon.service; do
+    for unit in NetworkManager.service sddm.service power-profiles-daemon.service ananicy-cpp.service reflector.timer; do
         sudo systemctl enable "$unit" >/dev/null 2>&1 && ok "$unit" || warn "$unit nao habilitado"
     done
 
@@ -250,6 +250,12 @@ enable_services() {
     done
 
     systemctl --user enable pipewire.socket pipewire-pulse.socket wireplumber.service >/dev/null 2>&1 || true
+
+    # Desktop ligado na tomada: perfil de energia em desempenho, sempre.
+    if command -v powerprofilesctl >/dev/null 2>&1; then
+        sudo systemctl start power-profiles-daemon.service >/dev/null 2>&1 || true
+        powerprofilesctl set performance >/dev/null 2>&1 && ok "perfil de energia: performance" || warn "power-profiles-daemon nao respondeu, ajuste no primeiro login"
+    fi
     ok "servicos prontos"
 }
 
