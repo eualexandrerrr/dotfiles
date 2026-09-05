@@ -30,9 +30,6 @@ OFICIAL_PEDIDOS=0; OFICIAL_NOVOS=(); OFICIAL_FALTANDO=()
 AUR_OK=(); AUR_JA=(); AUR_FALHA=()
 SERV_OK=(); SERV_FALHA=()
 CLAUDE_VER="nao instalado"
-WM_DIR="$HOME/.local/src/KDE-Windows-Modern"
-WM_REPO="https://github.com/Jeysef/KDE-Windows-Modern.git"
-WM_OK=(); WM_FALHA=()
 LINKS=0
 
 elapsed() { local s=$((SECONDS - T0)); printf '%02d:%02d' $((s/60)) $((s%60)); }
@@ -458,42 +455,23 @@ configure_kde_defaults() {
 }
 
 install_windows_modern() {
-    log "tema Windows Modern (Win11 pro Plasma 6): temas, icones, applets, layout"
-    mkdir -p "$(dirname "$WM_DIR")"
-    if [[ -d $WM_DIR/.git ]]; then
-        git -C "$WM_DIR" pull -q --ff-only || warn "pull do Windows-Modern nao aplicado"
-        ok "repo atualizado em $WM_DIR"
+    log "tema Windows Modern: copiando de vendor/windows-modern e compilando a bandeja"
+    local tema="$DOTFILES_DIR/scripts/tema-instalar.sh"
+    [[ -f $tema ]] || { warn "$tema ausente, tema pulado"; return 0; }
+
+    # --sem-aplicar: aqui so ficam os arquivos e o binario da bandeja. Aplicar o
+    # look-and-feel exige um Plasma rodando, e nesse ponto ainda nao ha sessao grafica --
+    # quem aplica e o scripts/kde-layout-once.sh, no primeiro login.
+    if DOTFILES_DIR="$DOTFILES_DIR" bash "$tema" --sem-aplicar; then
+        ok "tema instalado a partir do repo, sem clonar nada"
     else
-        git clone --depth 1 "$WM_REPO" "$WM_DIR" || { warn "clone do Windows-Modern falhou, tema pulado"; return 0; }
-        ok "repo clonado em $WM_DIR"
+        warn "tema-instalar.sh terminou com erro, confira o Windows Modern no primeiro login"
     fi
-    local shim
-    shim="$(mktemp -d)"
-    printf '#!/usr/bin/env bash\nexec sudo "$@"\n' > "$shim/pkexec"
-    chmod +x "$shim/pkexec"
-    local comp t
-    for comp in themes icons showdesk startmenu digitalclock sessionlock systray icontasks layout lookfeel; do
-        t=$SECONDS
-        printf '%s  --%s %s\n' "$BLU" "$END" "$comp"
-        if PATH="$shim:$PATH" WM_BATCH=1 bash "$WM_DIR/scripts/install-$comp.sh"; then
-            ok "$comp em $(( SECONDS-t ))s"
-            WM_OK+=("$comp")
-        else
-            warn "componente $comp do Windows-Modern falhou"
-            WM_FALHA+=("$comp")
-        fi
-    done
-    rm -rf "$shim"
-    kwriteconfig6 --file kdeglobals --group KDE --key widgetStyle kvantum-dark
-    kwriteconfig6 --file kdeglobals --group KDE --key LookAndFeelPackage org.kde.windowsmodern.dark
-    kwriteconfig6 --file kwinrc --group org.kde.kdecoration2 --key BorderSize Tiny
-    kwriteconfig6 --file kwinrc --group org.kde.kdecoration2 --key BorderSizeAuto false
-    ok "Windows Modern: ${#WM_OK[@]} componentes ok, ${#WM_FALHA[@]} falharam; tema e layout sao aplicados no primeiro login (scripts/kde-layout-once.sh)"
 }
 
 summary() {
     local cor=$GRN titulo="instalacao concluida sem pendencias"
-    if (( ${#OFICIAL_FALTANDO[@]} + ${#AUR_FALHA[@]} + ${#SERV_FALHA[@]} + ${#WM_FALHA[@]} )); then cor=$YEL; titulo="instalacao concluida COM pendencias"; fi
+    if (( ${#OFICIAL_FALTANDO[@]} + ${#AUR_FALHA[@]} + ${#SERV_FALHA[@]} )); then cor=$YEL; titulo="instalacao concluida COM pendencias"; fi
     printf '\n%s========================================================%s\n' "$cor" "$END"
     printf '%s  %s em %s%s\n' "$cor" "$titulo" "$(elapsed)" "$END"
     printf '%s========================================================%s\n\n' "$cor" "$END"
@@ -508,12 +486,11 @@ summary() {
     printf 'AUR:        %d instalados, %d ja estavam, %d falharam\n' "${#AUR_OK[@]}" "${#AUR_JA[@]}" "${#AUR_FALHA[@]}"
     printf 'servicos:   %d habilitados, %d falharam\n' "${#SERV_OK[@]}" "${#SERV_FALHA[@]}"
     printf 'claude:     %s\n' "$CLAUDE_VER"
-    printf 'win-modern: %d componentes ok, %d falharam\n' "${#WM_OK[@]}" "${#WM_FALHA[@]}"
+    printf 'tema:       Windows Modern de vendor/windows-modern (sem clone)\n'
     printf 'log:        %s\n\n' "$LOGFILE"
     if (( ${#OFICIAL_FALTANDO[@]} )); then printf '%s  oficiais faltando:%s %s\n' "$RED" "$END" "${OFICIAL_FALTANDO[*]}"; fi
     if (( ${#AUR_FALHA[@]} )); then printf '%s  AUR que falharam:%s %s\n  refazer: paru -S --needed %s\n' "$RED" "$END" "${AUR_FALHA[*]}" "${AUR_FALHA[*]}"; fi
     if (( ${#SERV_FALHA[@]} )); then printf '%s  servicos nao habilitados:%s %s\n' "$RED" "$END" "${SERV_FALHA[*]}"; fi
-    if (( ${#WM_FALHA[@]} )); then printf '%s  Windows Modern que falharam:%s %s\n  refazer: cd %s && ./install.sh <componente>\n' "$RED" "$END" "${WM_FALHA[*]}" "$WM_DIR"; fi
     if (( ${#WARNS[@]} )); then
         printf '\n%s  avisos durante a instalacao (%d):%s\n' "$YEL" "${#WARNS[@]}" "$END"
         printf '   - %s\n' "${WARNS[@]}"

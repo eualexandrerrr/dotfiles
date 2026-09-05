@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <style id="current-color-scheme" type="text/css">
+      .ColorScheme-Text { color:#FFFFFF; stop-color:#FFFFFF; }
+      .ColorScheme-Background { color:#2C2C2C; stop-color:#2C2C2C; }
+      .ColorScheme-Highlight { color:#60CDFF; stop-color:#60CDFF; }
+      .ColorScheme-ViewText { color:#FFFFFF; stop-color:#FFFFFF; }
+      .ColorScheme-ViewBackground { color:#2C2C2C; stop-color:#2C2C2C; }
+      .ColorScheme-ViewHover { color:#4A4A4A; stop-color:#4A4A4A; }
+      .ColorScheme-ViewFocus { color:#60CDFF; stop-color:#60CDFF; }
+      .ColorScheme-ButtonText { color:#FFFFFF; stop-color:#FFFFFF; }
+      .ColorScheme-ButtonBackground { color:#3D3D3D; stop-color:#3D3D3D; }
+      .ColorScheme-ButtonHover { color:#4A4A4A; stop-color:#4A4A4A; }
+      .ColorScheme-ButtonFocus { color:#60CDFF; stop-color:#60CDFF; }
+    </style>
+  </defs>
+
+  <g id="hint-stretch-borders">
+    <rect width="100" height="100" fill="none"/>
+  </g>
+
+  <rect id="hint-tile-center" x="0" y="0" width="5" height="5" fill="#ff6600"/>
+
+  <rect id="hint-left-margin" x="0" y="0" width="8" height="8" opacity="0"/>
+  <rect id="hint-top-margin" x="0" y="0" width="8" height="8" opacity="0"/>
+  <rect id="hint-right-margin" x="92" y="0" width="8" height="8" opacity="0"/>
+  <rect id="hint-bottom-margin" x="0" y="92" width="8" height="8" opacity="0"/>
+
+  <rect id="shadow-hint-top-margin" x="0" y="0" width="0" height="0"/>
+  <rect id="shadow-hint-bottom-margin" x="0" y="0" width="0" height="0"/>
+  <rect id="shadow-hint-left-margin" x="0" y="0" width="0" height="0"/>
+  <rect id="shadow-hint-right-margin" x="0" y="0" width="0" height="0"/>
+
+  <!-- 7px rounded corners (translucent dark) -->
+  <rect id="topleft" x="0" y="0" width="7" height="7" fill="#2C2C2C" fill-opacity="0.92"/>
+  <rect id="topright" x="93" y="0" width="7" height="7" fill="#2C2C2C" fill-opacity="0.92"/>
+  <rect id="bottomleft" x="0" y="93" width="7" height="7" fill="#2C2C2C" fill-opacity="0.92"/>
+  <rect id="bottomright" x="93" y="93" width="7" height="7" fill="#2C2C2C" fill-opacity="0.92"/>
+
+  <!-- 1px border -->
+  <rect id="top" x="7" y="0" width="86" height="1" fill="#3F3F3F"/>
+  <rect id="bottom" x="7" y="99" width="86" height="1" fill="#3F3F3F"/>
+  <rect id="left" x="0" y="7" width="1" height="86" fill="#3F3F3F"/>
+  <rect id="right" x="99" y="7" width="1" height="86" fill="#3F3F3F"/>
+
+  <!-- Center fill (translucent for acrylic effect) -->
+  <rect id="center" x="1" y="1" width="98" height="98" fill="#2C2C2C" fill-opacity="0.92"/>
+</svg>

@@ -1,0 +1,25 @@
+{
+    "KPackageStructure": "Plasma/Applet",
+    "KPlugin": {
+        "Authors": [
+            {
+                "Email": "jeysef@users.noreply.github.com",
+                "Name": "Jeysef"
+            }
+        ],
+        "BugReportUrl": "https://github.com/Jeysef/KDE-Windows-Modern/issues",
+        "Category": "Application Launchers",
+        "Description": "Windows 11-style start menu for WindowsModern KDE theme",
+        "EnabledByDefault": true,
+        "Icon": "start-here",
+        "Id": "org.kde.windowsmodern.startmenu",
+        "License": "GPL-3.0-or-later",
+        "Name": "Windows Modern Start Menu",
+        "Version": "1.0.0",
+        "Website": "https://github.com/Jeysef/KDE-Windows-Modern"
+    },
+    "X-Plasma-API-Minimum-Version": "6.0",
+    "X-Plasma-Provides": [
+        "org.kde.plasma.launchermenu"
+    ]
+}

@@ -24,6 +24,7 @@ set -euo pipefail
 
 BASE="${KDE_TESTE_DIR:-/tmp/kde-teste-$USER}"
 SOCK="kde-teste"
+LIMPAR=0
 LARGURA="${KDE_TESTE_LARGURA:-1600}"
 ALTURA="${KDE_TESTE_ALTURA:-900}"
 DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
@@ -51,10 +52,17 @@ subir() {
 
     [[ -n ${WAYLAND_DISPLAY:-} ]] || { printf 'sem WAYLAND_DISPLAY: rode de dentro da sessao grafica\n' >&2; exit 1; }
 
-    rm -rf "$BASE"
+    # So limpa quando pedido: sem isso cada "subir" jogaria fora o que ja foi aplicado
+    # na sessao anterior, e testar em duas etapas ficaria impossivel.
+    if (( LIMPAR )); then rm -rf "$BASE"; fi
     mkdir -p "$BASE"/{.config,.local/share,.local/state,.cache}
     # O repo entra por symlink: editar aqui e testar la, sem copiar nada.
     ln -sfn "$DOTFILES_DIR" "$BASE/.dotfiles"
+
+    # Bloqueio de tela numa sessao de teste so atrapalha: o greeter respawna sozinho e
+    # nao ha como destravar por fora, ja que ela nao e uma sessao do logind.
+    kwriteconfig6 --file "$BASE/.config/kscreenlockerrc" --group Daemon --key Autolock false
+    kwriteconfig6 --file "$BASE/.config/kscreenlockerrc" --group Daemon --key LockOnResume false
 
     dbus-daemon --session --address="unix:path=$DBUS_SOCK" --fork
 
@@ -103,8 +111,9 @@ parar() {
 
 case "${1:-subir}" in
     subir|"")  subir ;;
+    limpo)     LIMPAR=1; parar >/dev/null; subir ;;
     parar)     parar ;;
     estado)    estado ;;
     dentro)    shift; dentro "$@" ;;
-    *)         printf 'uso: %s [subir|parar|estado|dentro CMD...]\n' "$(basename "$0")" >&2; exit 1 ;;
+    *)         printf 'uso: %s [subir|limpo|parar|estado|dentro CMD...]\n' "$(basename "$0")" >&2; exit 1 ;;
 esac

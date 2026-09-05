@@ -1,0 +1,124 @@
+/*
+    SPDX-FileCopyrightText: 2020 Konrad Materka <materka@gmail.com>
+    SPDX-License-Identifier: GPL-2.0-or-later
+*/
+#pragma once
+#include <QAbstractListModel>
+#include <QConcatenateTablesProxyModel>
+#include <QList>
+#include <QPointer>
+#include <QSortFilterProxyModel>
+#include <qqmlregistration.h>
+#include <KPluginMetaData>
+#include <KService>
+#include <Plasma/Plasma>
+
+namespace Plasma { class Applet; }
+class PlasmoidRegistry;
+class SystemTraySettings;
+class StatusNotifierItemHost;
+
+class BaseModel : public QAbstractListModel {
+    Q_OBJECT
+public:
+    enum class BaseRole { ItemType = Qt::UserRole + 1, ItemId, CanRender, Category, Status, EffectiveStatus, LastBaseRole };
+    explicit BaseModel(QPointer<SystemTraySettings> settings, QObject *parent = nullptr);
+    QHash<int, QByteArray> roleNames() const override;
+private Q_SLOTS: void onConfigurationChanged();
+protected: Plasma::Types::ItemStatus calculateEffectiveStatus(bool canRender, Plasma::Types::ItemStatus status, QString itemId) const;
+private: QPointer<SystemTraySettings> m_settings; bool m_showAllItems; QStringList m_shownItems; QStringList m_hiddenItems;
+};
+
+class PlasmoidModel : public BaseModel {
+    Q_OBJECT
+public:
+    enum class Role { Applet = static_cast<int>(BaseModel::BaseRole::LastBaseRole) + 1, HasApplet };
+    explicit PlasmoidModel(const QPointer<SystemTraySettings> &settings, const QPointer<PlasmoidRegistry> &plasmoidRegistry, QObject *parent = nullptr);
+    QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
+    int rowCount(const QModelIndex &parent = QModelIndex()) const override;
+    QHash<int, QByteArray> roleNames() const override;
+public Q_SLOTS: void addApplet(Plasma::Applet *applet); void removeApplet(Plasma::Applet *applet);
+private Q_SLOTS: void appendRow(const KPluginMetaData &pluginMetaData); void removeRow(const QString &pluginId);
+private: struct Item { KPluginMetaData pluginMetaData; Plasma::Applet *applet = nullptr; };
+    int indexOfPluginId(const QString &pluginId) const;
+    QPointer<PlasmoidRegistry> m_plasmoidRegistry;
+    QList<Item> m_items;
+};
+
+class StatusNotifierModel : public BaseModel {
+    Q_OBJECT
+    QML_ELEMENT
+public:
+    enum class Role { DataEngineSource = static_cast<int>(BaseModel::BaseRole::LastBaseRole) + 100, AttentionIcon, AttentionIconName, AttentionMovieName, Category, Icon, IconName, IconThemePath, Id, ItemIsMenu, OverlayIconName, Status, Title, ToolTipSubTitle, ToolTipTitle, WindowId };
+    explicit StatusNotifierModel(QObject *parent = nullptr);
+    explicit StatusNotifierModel(QPointer<SystemTraySettings> settings, QObject *parent = nullptr);
+    QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
+    int rowCount(const QModelIndex &parent = QModelIndex()) const override;
+    QHash<int, QByteArray> roleNames() const override;
+public Q_SLOTS: void addSource(const QString &source); void removeSource(const QString &source); void dataUpdated(const QString &sourceName);
+private: int indexOfSource(const QString &source) const; void init();
+    StatusNotifierItemHost *m_sniHost = nullptr;
+    QList<QString> m_items;
+};
+
+/**
+ * @brief Data model for apps (really only flatpaks) running in background according to org.freedesktop.BackgroundMonitor
+ */
+class BackgroundAppsModel : public BaseModel {
+    Q_OBJECT
+public:
+    explicit BackgroundAppsModel(QPointer<SystemTraySettings> settings, QObject *parent = nullptr);
+
+    enum class Role {
+        Name = static_cast<int>(BaseModel::BaseRole::LastBaseRole) + 1000,
+        Icon,
+        Message,
+        FlatpakInstances
+    };
+
+    QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
+    int rowCount(const QModelIndex &parent = QModelIndex()) const override;
+    QHash<int, QByteArray> roleNames() const override;
+
+    Q_INVOKABLE void openBackgroundApp(const QModelIndex &index);
+    Q_INVOKABLE void stopBackgroundApp(const QModelIndex &index);
+
+private:
+    void backgroundAppsChanged(const QList<QVariantMap> &backgroundApps);
+
+    struct BackgroundApp {
+        QString appId;
+        QString message;
+        QStringList flatpakInstances;
+        KService::Ptr service;
+    };
+
+    QList<BackgroundApp> m_backgroundApps;
+};
+
+/**
+ * @brief Filters entries in BackgroundAppsModel such that apps that register a SNI don't appear twice
+ */
+class BackgroundAppsFilteredModel : public QSortFilterProxyModel {
+public:
+    explicit BackgroundAppsFilteredModel(BackgroundAppsModel *sourceModel, QObject *parent = nullptr);
+    bool filterAcceptsRow(int source_row, const QModelIndex &source_parent) const override;
+
+private:
+    struct Info {
+        QString flatpakInstance;
+        QString sniId;
+    };
+
+    QList<Info> m_flatpaksWithSni;
+};
+
+class SystemTrayModel : public QConcatenateTablesProxyModel {
+    Q_OBJECT
+public:
+    explicit SystemTrayModel(QObject *parent = nullptr);
+    QHash<int, QByteArray> roleNames() const override;
+    void addSourceModel(QAbstractItemModel *sourceModel);
+    Q_INVOKABLE QModelIndex mapToSource(const QModelIndex &index) const { return QConcatenateTablesProxyModel::mapToSource(index); }
+private: QHash<int, QByteArray> m_roleNames;
+};

@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 marca="$HOME/.config/.kde-layout-aplicado"
 [[ -e $marca ]] && exit 0
-wm="$HOME/.local/src/KDE-Windows-Modern"
 js="$HOME/.dotfiles/scripts/kde-layout.js"
 log="$HOME/kde-layout-once.log"
 exec > >(tee -a "$log") 2>&1
@@ -15,14 +14,13 @@ done
 # Teclado, mouse, tema, icones e terminal padrao: tudo do kde-settings.conf.
 bash "$HOME/.dotfiles/scripts/kde-apply.sh" || true
 
-if [[ -d $wm/scripts && -d $HOME/.local/share/plasma/look-and-feel/org.kde.windowsmodern.dark ]]; then
+# O tema vem de vendor/windows-modern; nada de clone nem da lib do upstream.
+tema="$HOME/.dotfiles/scripts/tema-instalar.sh"
+if [[ -f $tema ]]; then
     printf 'aplicando Windows Modern (dark)\n'
-    source "$wm/scripts/install-lib.sh"
-    post_kwin_borders || true
-    apply_lookandfeel org.kde.windowsmodern.dark reset || true
-    apply_kvantum_engine dark || true
+    bash "$tema" || printf 'tema-instalar.sh falhou\n'
     sleep 2
-    restart_plasmashell || true
+    systemctl --user restart plasma-plasmashell.service || true
     for _ in $(seq 1 60); do
         qdbus6 org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript "" >/dev/null 2>&1 && break
         sleep 1
@@ -39,14 +37,14 @@ if [[ -d $wm/scripts && -d $HOME/.local/share/plasma/look-and-feel/org.kde.windo
     if [[ -n $painel_id ]]; then
         kwriteconfig6 --file plasmashellrc --group PlasmaViews --group "Panel $painel_id" --key floating 1
         kwriteconfig6 --file plasmashellrc --group PlasmaViews --group "Panel $painel_id" --key panelOpacity 2
-        restart_plasmashell || true
+        systemctl --user restart plasma-plasmashell.service || true
         printf 'painel flutuante e translucido (Panel %s)\n' "$painel_id"
     else
         printf 'nao descobri o id do painel; ajuste em Configurar painel > Opacidade/Flutuante\n'
     fi
     touch "$marca"
 else
-    printf 'Windows Modern ausente, aplicando layout Breeze Dark proprio\n'
+    printf 'tema-instalar.sh ausente, caindo pro Breeze Dark\n'
     plasma-apply-lookandfeel -a org.kde.breezedark.desktop >/dev/null 2>&1 || true
     plasma-apply-colorscheme BreezeDark >/dev/null 2>&1 || true
     kwriteconfig6 --file kdeglobals --group Icons --key Theme Tela-dark

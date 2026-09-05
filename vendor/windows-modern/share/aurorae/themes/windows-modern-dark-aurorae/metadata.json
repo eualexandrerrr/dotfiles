@@ -1,0 +1,19 @@
+{
+  "KPlugin": {
+    "Authors": [
+      {
+        "Email": "jeysef@users.noreply.github.com",
+        "Name": "Jeysef"
+      }
+    ],
+    "Category": "Aurorae Themes",
+    "Dependencies": [],
+    "Description": "Windows Modern Dark flat window decoration for KDE Plasma 6. Based on Win11OS-kde by yeyushengfan258.",
+    "EnabledByDefault": true,
+    "Id": "windows-modern-dark-aurorae",
+    "License": "GPL-3.0-only",
+    "Name": "Windows Modern Dark Aurorae",
+    "Version": "1.0.0",
+    "Website": "https://github.com/Jeysef/KDE-Windows-Modern"
+  }
+}

@@ -68,7 +68,10 @@ dotfiles
 │   ├── kde-apply.sh          aplica o kde-settings.conf via kwriteconfig6
 │   ├── kde-layout-once.sh    primeiro login: tema Windows Modern, painel, layout
 │   ├── kde-sessao-teste.sh   Plasma inteiro numa janela, pra testar sem risco
+│   ├── tema-instalar.sh      instala o Windows Modern a partir do vendor
 │   └── kde-layout.js         layout do painel (script do Plasma)
+├── vendor
+│   └── windows-modern       o tema, versionado aqui (ver PROVENIENCIA.md)
 ├── install.sh                pós-instalação, idempotente
 └── packages.txt              pacotes por seção; [repo-oficial:*] vai pro pacman, [aur] pro paru
 ```
@@ -222,6 +225,43 @@ nesta máquina. Ele puxa o `bluez` como dependência, mas o `install.sh` não ha
 journalctl --user -b | grep "error when loading applet"   # deve vir vazio
 systemctl is-enabled bluetooth.service                    # disabled
 ```
+
+## O tema mora no repo
+
+O Windows Modern **não é clonado nem instalado pelo script do upstream**: os arquivos estão
+em `vendor/windows-modern`, e o `scripts/tema-instalar.sh` copia de lá.
+
+```bash
+scripts/tema-instalar.sh                # copia, compila a bandeja e aplica
+scripts/tema-instalar.sh --sem-aplicar  # só os arquivos (é o que o install.sh chama)
+```
+
+O clone raso do tema são 122 MB e o instalador dele mexe em dez componentes com `pkexec`.
+Vendorado são **6,2 MB** e a pós-instalação passa a funcionar sem rede depois do `pacman`.
+O que ficou de fora e por quê está em
+[`vendor/windows-modern/PROVENIENCIA.md`](vendor/windows-modern/PROVENIENCIA.md), junto do
+commit exato de onde veio. Licença GPL-3.0, com `LICENSE` e `ATTRIBUTION.md` no mesmo
+diretório.
+
+Um único componente é C++ — a bandeja do sistema. Vai o fonte (680 KB) e o `install.sh`
+compila com `cmake`; as dependências de build já estão no `packages.txt`.
+
+### As três camadas de configuração
+
+Vale entender porque nem tudo que o tema define aparece no `kde-settings.conf`:
+
+| Camada | Arquivo | Quem escreve |
+|:--|:--|:--|
+| padrões do tema | `~/.config/kdedefaults/kdeglobals` | `plasma-apply-lookandfeel` |
+| decisões deste repo | `~/.config/kdeglobals` | `kde-apply.sh` — **vence** |
+
+Por isso `ColorScheme` e `widgetStyle` não estão no `kde-settings.conf`: quem os fornece é
+o tema. O que está lá são os desvios, como `Icons=Tela-dark` sobrepondo o
+`Icons=windows-modern` que o tema pede — e é justamente por causa desse desvio que o tema
+de ícones do Windows Modern não foi vendorado.
+
+O `kde-capture.sh` lê os arquivos crus, então só enxerga a camada de cima. É o
+comportamento certo: o repo versiona decisão, não o que o tema já traz.
 
 ## Testar sem arriscar a sessão
 
