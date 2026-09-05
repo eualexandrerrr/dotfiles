@@ -320,6 +320,8 @@ enable_services() {
         warn "mariadb nao instalado, pulando a inicializacao do banco"
     fi
 
+    # input: dono dos /dev/input/event*. E o que deixa a trava de teclado do
+    # painel do segundo monitor pegar o teclado por EVIOCGRAB sem virar root.
     local grp
     for grp in docker libvirt video input; do
         getent group "$grp" >/dev/null 2>&1 || continue

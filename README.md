@@ -355,8 +355,10 @@ Duas coisas que só valem aqui e custaram tempo pra descobrir:
   trava 15-20 s no `getaddrinfo`, porque o `192.168.1.1` não responde nem o "não tem" — quem
   pergunta fica esperando o timeout. O `fetch` do Node desiste antes (10 s), então o painel mostra
   Sentry e Discord vazios enquanto o `curl` resolve na hora. Domínio **com** AAAA (`api.anthropic.com`)
-  não sofre. Ainda não corrigido: a saída é um resolvedor que responda NODATA — o `systemd-resolved`,
-  que o `nsswitch.conf` já prefere (`hosts: ... resolve ...`), está desabilitado.
+  não sofre. O painel contorna usando o `net.fetch` do Electron, que aguenta a espera em vez de
+  desistir — mas cada consulta ainda custa os 15 s. A correção de verdade é um resolvedor que
+  responda NODATA: o `systemd-resolved`, que o `nsswitch.conf` já prefere (`hosts: ... resolve ...`),
+  está desabilitado.
 - Credenciais e variáveis de ambiente ficam em `dotfiles-private` (privado); o `.zshrc` carrega
   `~/.dotfiles-private/env.sh` se existir.
 
