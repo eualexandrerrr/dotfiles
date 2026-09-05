@@ -156,6 +156,28 @@ Os caminhos vieram do Windows (`AppData\Roaming\npm\node_modules\...`) e viraram
 
 Sem o `FIRECRAWL_MCP_URL` exportado, o script pula o firecrawl e grava os outros 7.
 
+## Workspace do VS Code
+
+`~/Downloads/Workspaces/arch.code-workspace` abre `dotfiles` e `myarch` lado a lado, com
+terminal integrado em `zsh` e as tarefas prontas (`Ctrl+Shift+P` → *Run Task*):
+
+| Tarefa | O que faz |
+|:--|:--|
+| pós-instalação completa | `./install.sh` |
+| capturar / aplicar config do KDE | os dois lados do `kde-settings.conf` |
+| restaurar os 8 MCP | `mcp-restaurar.sh` + `claude mcp list` |
+| conferir sintaxe dos scripts | `bash -n` em tudo |
+| gerar a ISO | `sudo ./archiso/build.sh` do myarch |
+| espelho do Drive | retomar o download e ver progresso |
+
+`shellcheck` e `shfmt` estão no `packages.txt` porque as extensões recomendadas
+(`timonwong.shellcheck`, `foxundermoon.shell-format`) precisam dos binários. Antes de
+commitar script:
+
+```bash
+shellcheck -x -S warning install.sh scripts/*.sh
+```
+
 ## Monitores
 
 Dois monitores: principal 2560x1440 paisagem à direita, secundário 1920x1080 em retrato à esquerda.
