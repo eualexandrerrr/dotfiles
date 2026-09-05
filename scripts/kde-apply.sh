@@ -29,7 +29,14 @@ while IFS= read -r linha; do
     chave="${campos[-2]}"
     grupos=("${campos[@]:1:${#campos[@]}-3}")
 
-    args=(--file "$arquivo")
+    # Nome simples e ~/.config/<nome>; caminho com / e relativo ao $HOME (o KDE guarda
+    # coisa fora do ~/.config, como as view properties do Dolphin em ~/.local/share).
+    case "$arquivo" in
+        */*) alvo="$HOME/$arquivo"; mkdir -p "$(dirname "$alvo")" ;;
+        *)   alvo="$arquivo" ;;
+    esac
+
+    args=(--file "$alvo")
     for g in "${grupos[@]}"; do args+=(--group "$g"); done
     # O -- fecha as opcoes: sem ele, valor negativo (PointerAcceleration=-0.400)
     # vira flag e o kwriteconfig6 morre com "Unknown options: 0, ., 4, 0, 0".

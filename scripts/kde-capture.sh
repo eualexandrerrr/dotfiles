@@ -36,12 +36,25 @@ GRUPOS=(
     "dolphinrc:IconsMode"
     "dolphinrc:KFileDialog Settings"
     "kdeglobals:KFileDialog Settings"
+    # modo de visualizacao do Dolphin; o GlobalViewProps do KDE ja e true por
+    # padrao, entao esse arquivo vale pra todas as pastas
+    ".local/share/dolphin/view_properties/global/.directory:Dolphin"
     # atalhos globais de aplicativo: [services][<arquivo>.desktop]
     "kglobalshortcutsrc:services"
 )
 
 # Chaves que sao estado ou derivadas, nunca entram no repo.
 IGNORAR_CHAVE='^(ColorSchemeHash|Id_[0-9]+|Number|Rows|State|.*Timestamp.*|.*Version.*|.*Cache.*)$'
+
+# Nome simples e ~/.config/<nome>; um caminho com / e relativo ao $HOME. E assim que
+# entram arquivos que o KDE guarda fora do ~/.config, como as propriedades de
+# visualizacao do Dolphin em ~/.local/share.
+caminho_de() {
+    case "$1" in
+        */*) printf '%s/%s\n' "$HOME" "$1" ;;
+        *)   printf '%s/%s\n' "$CFG" "$1" ;;
+    esac
+}
 
 casa_grupo() {
     local grupo="$1" arquivo="$2" alvo padrao
@@ -72,7 +85,8 @@ mapfile -t arquivos < <(printf '%s\n' "${arquivos[@]}" | sort -u)
 
 total=0
 for arquivo in "${arquivos[@]}"; do
-    [[ -f "$CFG/$arquivo" ]] || continue
+    caminho="$(caminho_de "$arquivo")"
+    [[ -f "$caminho" ]] || continue
     n=0
     while IFS='|' read -r grupo_bruto chave valor; do
         [[ -n $grupo_bruto ]] || continue
@@ -103,7 +117,7 @@ for arquivo in "${arquivos[@]}"; do
             if (chave == "") next
             print grupo "|" chave "|" valor
         }
-    ' "$CFG/$arquivo")
+    ' "$caminho")
     (( n )) && printf '  %-28s %d chaves\n' "$arquivo" "$n" >&2
     total=$((total + n))
 done
