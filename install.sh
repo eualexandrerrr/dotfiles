@@ -23,12 +23,13 @@ RED=$'\e[1;31m'; GRN=$'\e[1;32m'; YEL=$'\e[1;33m'; BLU=$'\e[1;34m'; END=$'\e[0m'
 LOGFILE="${LOGFILE:-$HOME/dotfiles-install.log}"
 T0=$SECONDS
 STEP=0
-TOTAL_STEPS=12
-[[ ${SKIP_NVIDIA:-0} == 1 ]] && TOTAL_STEPS=10
+TOTAL_STEPS=13
+[[ ${SKIP_NVIDIA:-0} == 1 ]] && TOTAL_STEPS=11
 WARNS=()
 OFICIAL_PEDIDOS=0; OFICIAL_NOVOS=(); OFICIAL_FALTANDO=()
 AUR_OK=(); AUR_JA=(); AUR_FALHA=()
 SERV_OK=(); SERV_FALHA=()
+CLAUDE_VER="nao instalado"
 LINKS=0
 
 elapsed() { local s=$((SECONDS - T0)); printf '%02d:%02d' $((s/60)) $((s%60)); }
@@ -178,6 +179,27 @@ install_aur() {
     if (( ${#AUR_FALHA[@]} )); then
         warn "AUR que nao instalaram: ${AUR_FALHA[*]}"
         warn "depois rode: paru -S --needed ${AUR_FALHA[*]}"
+    fi
+}
+
+install_node_tools() {
+    log "node, npm global sem sudo e Claude Code"
+    export NPM_CONFIG_PREFIX="$HOME/.npm-global"
+    export PATH="$HOME/.npm-global/bin:$HOME/.local/bin:$PATH"
+    mkdir -p "$NPM_CONFIG_PREFIX/bin"
+    npm config set prefix "$NPM_CONFIG_PREFIX" >/dev/null 2>&1 || true
+    ok "node $(node --version 2>/dev/null || echo ?) / npm $(npm --version 2>/dev/null || echo ?), prefix global em $NPM_CONFIG_PREFIX"
+    if command -v claude >/dev/null 2>&1; then
+        ok "claude ja presente (via AUR ou npm)"
+    else
+        printf '  claude-code do AUR nao entrou, instalando via npm\n'
+        npm install -g @anthropic-ai/claude-code && ok "@anthropic-ai/claude-code instalado via npm" || warn "npm install -g @anthropic-ai/claude-code falhou"
+    fi
+    if command -v claude >/dev/null 2>&1; then
+        CLAUDE_VER="$(claude --version 2>/dev/null | head -1 || echo instalado)"
+        ok "claude: $CLAUDE_VER ($(command -v claude))"
+    else
+        warn "claude nao ficou disponivel; depois rode: npm install -g @anthropic-ai/claude-code"
     fi
 }
 
@@ -417,6 +439,7 @@ summary() {
     printf 'oficiais:   %d pedidos, %d pacotes novos no sistema, %d faltando\n' "$OFICIAL_PEDIDOS" "${#OFICIAL_NOVOS[@]}" "${#OFICIAL_FALTANDO[@]}"
     printf 'AUR:        %d instalados, %d ja estavam, %d falharam\n' "${#AUR_OK[@]}" "${#AUR_JA[@]}" "${#AUR_FALHA[@]}"
     printf 'servicos:   %d habilitados, %d falharam\n' "${#SERV_OK[@]}" "${#SERV_FALHA[@]}"
+    printf 'claude:     %s\n' "$CLAUDE_VER"
     printf 'log:        %s\n\n' "$LOGFILE"
     if (( ${#OFICIAL_FALTANDO[@]} )); then printf '%s  oficiais faltando:%s %s\n' "$RED" "$END" "${OFICIAL_FALTANDO[*]}"; fi
     if (( ${#AUR_FALHA[@]} )); then printf '%s  AUR que falharam:%s %s\n  refazer: paru -S --needed %s\n' "$RED" "$END" "${AUR_FALHA[*]}" "${AUR_FALHA[*]}"; fi
@@ -440,6 +463,7 @@ main() {
     install_official
     bootstrap_paru
     install_aur
+    install_node_tools
     configure_nvidia
     enable_services
     fetch_dotfiles
