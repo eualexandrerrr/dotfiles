@@ -30,6 +30,8 @@ GRUPOS=(
     "kwinrc:org.kde.kdecoration2"
     "kwinrc:Xwayland"
     "plasmarc:Theme"
+    # atraso pra aparecer a previa das janelas agrupadas na barra
+    "plasmarc:PlasmaToolTips"
     "kscreenlockerrc:Daemon"
     "powermanagementprofilesrc:AC*"
     "dolphinrc:MainWindow"

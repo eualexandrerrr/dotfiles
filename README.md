@@ -69,6 +69,7 @@ dotfiles
 │   ├── kde-layout-once.sh    primeiro login: tema Windows Modern, painel, layout
 │   ├── kde-sessao-teste.sh   Plasma inteiro numa janela, pra testar sem risco
 │   ├── tema-instalar.sh      instala o Windows Modern a partir do vendor
+│   ├── painel-ajustar.sh     repõe as decisões do painel (idempotente)
 │   └── kde-layout.js         layout do painel (script do Plasma)
 ├── vendor
 │   └── windows-modern       o tema, versionado aqui (ver PROVENIENCIA.md)
@@ -246,6 +247,42 @@ diretório.
 
 Um único componente é C++ — a bandeja do sistema. Vai o fonte (680 KB) e o `install.sh`
 compila com `cmake`; as dependências de build já estão no `packages.txt`.
+
+### Barra de tarefas
+
+```bash
+scripts/painel-ajustar.sh    # repõe tudo; rode quando o painel voltar ao padrão
+```
+
+O painel volta ao padrão **toda vez que um look-and-feel é aplicado**, então isso é um
+script idempotente e não uma configuração de uma vez só.
+
+| Decisão | Onde | Valor |
+|:--|:--|:--|
+| prévia das janelas agrupadas | `plasmarc` `[PlasmaToolTips] Delay` | `0.15` s (padrão `0.7`) |
+| alto-falante no ícone de quem toca som | applet, `indicateAudioStreams` | `false` |
+| ícones fixados | applet, `launchers` | dolphin, chrome, ghostty, discord, steam |
+| flutuante e translúcido | `plasmashellrc` | ver acima |
+
+A config de applet é escrita pela API de script do Plasma, não pelo `kde-settings.conf`:
+ela mora no `plasma-org.kde.plasma.desktop-appletsrc` com o **número do applet** no meio
+do caminho, e esse número muda a cada painel recriado.
+
+#### O badge de não lidas
+
+O número de mensagens não lidas usa a LauncherEntry API do Unity, que o Plasma expõe em
+`com.canonical.Unity`. Ele **só aparece em aplicativo fixado** — sem o launcher a contagem
+não tem onde grudar. Verificado emitindo o sinal na mão:
+
+```bash
+gdbus emit --session --object-path /com/canonical/unity/launcherentry/discord \
+  --signal com.canonical.Unity.LauncherEntry.Update \
+  "application://discord.desktop" "{'count': <int64 7>, 'count-visible': <true>}"
+```
+
+Sem o Discord fixado não aparece nada; fixado, o `7` aparece na hora. Por isso os
+`launchers` estão no `painel-ajustar.sh`. Se mesmo fixado o número não vier, o que falta é
+a opção dentro do próprio Discord — ela é estado da conta dele, não dá pra versionar aqui.
 
 ### As três camadas de configuração
 
