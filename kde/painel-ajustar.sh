@@ -51,11 +51,19 @@ for (var i = 0; i < ids.length; i++) {
 # ── opacidade e flutuante ────────────────────────────────────────────────────
 # Nao da pra fazer pela API de script: o setter de opacity nao grava nada e o de floating
 # so vale ate o plasmashell reiniciar. Os dois moram no plasmashellrc, lido no boot dele.
+#
+# floating=0 (encostado) e obrigatorio, nao gosto pessoal. Flutuante, a janela do painel
+# fica com 64px (48 de painel + 16 de folga), mas o KWin so reserva os 48: os 16 sobram
+# por cima da janela maximizada e comem o rodape dela. Medido no ASUS (tela em y=262,
+# altura 1440): janela maximizada terminava em 1654 e o painel comecava em 1638. O Plasma
+# deveria descolar o painel sozinho quando ha janela maximizada e nao descola aqui -- e
+# suspeito do monitor girado 90 graus na origem, que bagunca o indice de tela. Com
+# floating=0 o painel vai pra 1654 e a sobreposicao zera.
 painel_id="$(qdbus6 "${PS[@]}" 'print(panels()[0].id);' 2>/dev/null | tr -dc '0-9')"
 if [[ -n $painel_id ]]; then
-    kwriteconfig6 --file plasmashellrc --group PlasmaViews --group "Panel $painel_id" --key floating 1
+    kwriteconfig6 --file plasmashellrc --group PlasmaViews --group "Panel $painel_id" --key floating 0
     kwriteconfig6 --file plasmashellrc --group PlasmaViews --group "Panel $painel_id" --key panelOpacity 2
-    printf 'painel: flutuante e translucido (Panel %s)\n' "$painel_id"
+    printf 'painel: encostado e translucido (Panel %s)\n' "$painel_id"
 else
     printf 'painel: nao descobri o id\n' >&2
 fi
