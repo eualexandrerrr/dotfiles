@@ -87,6 +87,8 @@ ffmpeg
 fzf
 nano
 ripgrep
+shellcheck
+shfmt
 starship
 tmux
 zoxide

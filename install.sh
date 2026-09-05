@@ -383,6 +383,7 @@ link_dotfiles() {
         backup_conflict "$target"
         ln -sfn "$src" "$target"
         LINKS=$((LINKS+1))
+        # shellcheck disable=SC2088
         ok "~/$name"
     done
     shopt -u dotglob nullglob
@@ -415,10 +416,11 @@ configure_kde_defaults() {
         return 0
     fi
     local conf="$DOTFILES_DIR/scripts/kde-settings.conf"
+    local aplicar="$DOTFILES_DIR/scripts/kde-apply.sh"
     if [[ -f $conf ]]; then
         # Fonte unica: tudo que voce ajustou na GUI e capturou com scripts/kde-capture.sh.
         # Teclado (repeticao), mouse (aceleracao), tema, icones, terminal padrao, bordas.
-        DOTFILES_DIR="$DOTFILES_DIR" bash "$DOTFILES_DIR/scripts/kde-apply.sh" "$conf" \
+        DOTFILES_DIR="$DOTFILES_DIR" bash "$aplicar" "$conf" \
             && ok "kde-settings.conf aplicado" \
             || warn "kde-apply.sh terminou com erro, confira as Configuracoes do Sistema"
     else

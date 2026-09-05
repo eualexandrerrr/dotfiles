@@ -7,7 +7,7 @@ log="$HOME/kde-layout-once.log"
 exec > >(tee -a "$log") 2>&1
 printf '== %s kde-layout-once\n' "$(date '+%d/%m/%Y %H:%M:%S')"
 
-for i in $(seq 1 90); do
+for _ in $(seq 1 90); do
     qdbus6 org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript "" >/dev/null 2>&1 && break
     sleep 1
 done
@@ -23,7 +23,7 @@ if [[ -d $wm/scripts && -d $HOME/.local/share/plasma/look-and-feel/org.kde.windo
     apply_kvantum_engine dark || true
     sleep 2
     restart_plasmashell || true
-    for i in $(seq 1 60); do
+    for _ in $(seq 1 60); do
         qdbus6 org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript "" >/dev/null 2>&1 && break
         sleep 1
     done

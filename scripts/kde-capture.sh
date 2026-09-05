@@ -32,19 +32,22 @@ GRUPOS=(
     "plasmarc:Theme"
     "kscreenlockerrc:Daemon"
     "powermanagementprofilesrc:AC*"
-    "dolphinrc:General"
+    "dolphinrc:MainWindow"
+    "dolphinrc:IconsMode"
+    "dolphinrc:KFileDialog Settings"
     "kdeglobals:KFileDialog Settings"
 )
 
 # Chaves que sao estado ou derivadas, nunca entram no repo.
-IGNORAR_CHAVE='^(ColorSchemeHash|Id_[0-9]+|Number|Rows|State|Timestamp|.*Cache.*)$'
+IGNORAR_CHAVE='^(ColorSchemeHash|Id_[0-9]+|Number|Rows|State|.*Timestamp.*|.*Version.*|.*Cache.*)$'
 
 casa_grupo() {
     local grupo="$1" arquivo="$2" alvo padrao
     for alvo in "${GRUPOS[@]}"; do
         [[ ${alvo%%:*} == "$arquivo" ]] || continue
         padrao="${alvo#*:}"
-        # shellcheck disable=SC2053  -- glob proposital, o * no fim do padrao
+        # glob proposital: o * no fim do padrao casa os [Libinput][...] por dispositivo
+        # shellcheck disable=SC2053
         [[ $grupo == $padrao ]] && return 0
     done
     return 1
