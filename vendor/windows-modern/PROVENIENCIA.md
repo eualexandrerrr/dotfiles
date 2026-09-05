@@ -20,6 +20,17 @@ nenhum, então o que está aqui é idêntico ao que ele instalaria.
 | tema de ícones `windows-modern` | 28 MB | o ícone desta máquina é `Tela-dark`, no `kde-settings.conf` |
 | toda a variante `light` | 4,7 MB | a máquina roda `org.kde.windowsmodern.dark` |
 | applet `icontasks` do tema | — | o painel usa o `org.kde.plasma.icontasks` de fábrica |
+
+> **Cuidado com o `icontasks` do upstream.** O instalador dele não só adiciona: ele
+> **apaga** `/usr/share/plasma/plasmoids/org.kde.plasma.icontasks/` do pacote
+> `plasma-desktop` e põe no lugar um `.so` binário com o mesmo plugin id, órfão do
+> pacman. Além de deixar o sistema com dois arquivos faltando (`pacman -Qkk
+> plasma-desktop`), esse fork quebra a tradução em dois pontos: usa o domínio
+> `plasma_applet_org.kde.plasma.icontasks` em vez de `…taskmanager`, onde mora o
+> catálogo pt_BR do Arch, e removeu o `&` dos msgids (`&Pin to Task Manager` virou
+> `Pin to Task Manager`), então nem casaria se o domínio estivesse certo. Achado nesta
+> máquina em 05/09/2026, vindo de uma execução manual do instalador do upstream, não
+> deste repo. Corrigido com `pacman -S plasma-desktop` e removendo o `.so`.
 | `build/` do systray | 33 MB | artefato de compilação |
 | capturas, wallpapers, docs | — | não entram na configuração |
 

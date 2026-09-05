@@ -1,0 +1,42 @@
+# Override do /usr/share/applications/code.desktop (pacote visual-studio-code-bin).
+# So existe por causa do pt_BR: o upstream traduz a acao "New Empty Window" pra cs, de,
+# es, fr, it, ja, ko, ru, zh_CN e zh_TW, e esquece o portugues. Um .desktop em
+# ~/.local/share/applications sombreia o de /usr/share inteiro, entao este arquivo
+# CONGELA o resto do conteudo: se um update do VS Code mudar Exec, MimeType ou adicionar
+# acao nova, a mudanca fica invisivel ate alguem reconciliar aqui. Comparar com
+#
+#   diff <(grep -v '^#' ~/.dotfiles/links/local/share/applications/code.desktop) \
+#        /usr/share/applications/code.desktop
+#
+# Base: visual-studio-code-bin 1.136.1-1.
+[Desktop Entry]
+Name=Visual Studio Code
+Comment=Code Editing. Redefined.
+Comment[pt_BR]=Edição de código. Redefinida.
+GenericName=Text Editor
+GenericName[pt_BR]=Editor de texto
+Exec=code %F
+Icon=vscode
+Type=Application
+StartupNotify=false
+StartupWMClass=Code
+Categories=TextEditor;Development;IDE;
+MimeType=application/x-code-workspace;
+Actions=new-empty-window;
+Keywords=vscode;
+
+[Desktop Action new-empty-window]
+Name=New Empty Window
+Name[cs]=Nové prázdné okno
+Name[de]=Neues leeres Fenster
+Name[es]=Nueva ventana vacía
+Name[fr]=Nouvelle fenêtre vide
+Name[it]=Nuova finestra vuota
+Name[ja]=新しい空のウィンドウ
+Name[ko]=새 빈 창
+Name[pt_BR]=Nova janela vazia
+Name[ru]=Новое пустое окно
+Name[zh_CN]=新建空窗口
+Name[zh_TW]=開新空視窗
+Exec=code --new-window %F
+Icon=vscode
