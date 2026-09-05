@@ -3,9 +3,9 @@
 # tarefas. Idempotente -- rode sempre que o painel voltar ao padrao, o que acontece toda
 # vez que um look-and-feel e aplicado por cima.
 #
-#   scripts/painel-ajustar.sh
+#   kde/painel-ajustar.sh
 #
-# Chamado pelo scripts/kde-layout-once.sh depois que o tema entra.
+# Chamado pelo kde/layout-once.sh depois que o tema entra.
 
 set -euo pipefail
 

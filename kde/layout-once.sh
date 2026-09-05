@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 marca="$HOME/.config/.kde-layout-aplicado"
 [[ -e $marca ]] && exit 0
-js="$HOME/.dotfiles/scripts/kde-layout.js"
+js="$HOME/.dotfiles/kde/layout.js"
 log="$HOME/kde-layout-once.log"
 exec > >(tee -a "$log") 2>&1
 printf '== %s kde-layout-once\n' "$(date '+%d/%m/%Y %H:%M:%S')"
@@ -12,10 +12,10 @@ for _ in $(seq 1 90); do
 done
 
 # Teclado, mouse, tema, icones e terminal padrao: tudo do kde-settings.conf.
-bash "$HOME/.dotfiles/scripts/kde-apply.sh" || true
+bash "$HOME/.dotfiles/kde/apply.sh" || true
 
 # O tema vem de vendor/windows-modern; nada de clone nem da lib do upstream.
-tema="$HOME/.dotfiles/scripts/tema-instalar.sh"
+tema="$HOME/.dotfiles/kde/tema-instalar.sh"
 if [[ -f $tema ]]; then
     printf 'aplicando Windows Modern (dark)\n'
     bash "$tema" || printf 'tema-instalar.sh falhou\n'
@@ -28,7 +28,7 @@ if [[ -f $tema ]]; then
     sleep 3
     # Painel: opacidade, flutuante e gerenciador de tarefas. Fica num script proprio
     # porque o look-and-feel devolve o painel ao padrao toda vez que e aplicado.
-    bash "$HOME/.dotfiles/scripts/painel-ajustar.sh" || printf 'painel-ajustar.sh falhou\n'
+    bash "$HOME/.dotfiles/kde/painel-ajustar.sh" || printf 'painel-ajustar.sh falhou\n'
     touch "$marca"
 else
     printf 'tema-instalar.sh ausente, caindo pro Breeze Dark\n'

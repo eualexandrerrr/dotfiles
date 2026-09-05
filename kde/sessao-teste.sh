@@ -2,10 +2,10 @@
 # Sobe um Plasma completo dentro de uma janela, isolado da sessao real, pra testar o
 # dotfiles sem arriscar o que esta aberto. Se quebrar, fecha a janela e acabou.
 #
-#   scripts/kde-sessao-teste.sh              sobe a sessao
-#   scripts/kde-sessao-teste.sh dentro CMD   roda um comando dentro dela
-#   scripts/kde-sessao-teste.sh estado       diz se esta de pe
-#   scripts/kde-sessao-teste.sh parar        derruba
+#   kde/sessao-teste.sh              sobe a sessao
+#   kde/sessao-teste.sh dentro CMD   roda um comando dentro dela
+#   kde/sessao-teste.sh estado       diz se esta de pe
+#   kde/sessao-teste.sh parar        derruba
 #
 # O isolamento e triplo, e cada parte importa:
 #   HOME proprio      -- o Plasma grava dezenas de arquivos em ~/.config; sem isso o teste

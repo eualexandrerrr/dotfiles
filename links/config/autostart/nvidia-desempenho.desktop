@@ -2,6 +2,6 @@
 Type=Application
 Name=NVIDIA: desempenho máximo
 Comment=PowerMizer em "Prefer maximum performance" a cada login (roda via Xwayland)
-Exec=bash -c "\\$HOME/.dotfiles/scripts/nvidia-desempenho.sh"
+Exec=bash -c "\\$HOME/.dotfiles/bin/nvidia-desempenho.sh"
 X-KDE-autostart-after=panel
 NoDisplay=true

@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
-# Le a configuracao viva do KDE em ~/.config e regrava scripts/kde-settings.conf.
+# Le a configuracao viva do KDE em ~/.config e regrava kde/settings.conf.
 #
 # Rode isso depois de mexer nas Configuracoes do Sistema: o que voce ajustou na GUI
-# entra no repo e volta identico em qualquer maquina via scripts/kde-apply.sh.
+# entra no repo e volta identico em qualquer maquina via kde/apply.sh.
 #
-#   ~/.dotfiles/scripts/kde-capture.sh && git -C ~/.dotfiles diff
+#   ~/.dotfiles/kde/capture.sh && git -C ~/.dotfiles diff
 #
 # Nao versiona o ~/.config do KDE inteiro de proposito. O Plasma grava estado junto da
 # configuracao (posicao de janela, hash de tema, UUID de desktop virtual, cache de icone)
@@ -15,7 +15,7 @@ set -euo pipefail
 
 DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
 CFG="${XDG_CONFIG_HOME:-$HOME/.config}"
-OUT="$DOTFILES_DIR/scripts/kde-settings.conf"
+OUT="$DOTFILES_DIR/kde/settings.conf"
 
 # arquivo:grupo (o grupo aceita * no fim, pra casar os [Libinput][...] por dispositivo)
 GRUPOS=(
@@ -86,11 +86,11 @@ tmp="$(mktemp)"
 trap 'rm -f "$tmp"' EXIT
 
 {
-    printf '# Gerado por scripts/kde-capture.sh em %s. Nao edite na mao:\n' "$(date '+%d/%m/%Y %H:%M')"
+    printf '# Gerado por kde/capture.sh em %s. Nao edite na mao:\n' "$(date '+%d/%m/%Y %H:%M')"
     printf '# mexa nas Configuracoes do Sistema e rode o capture de novo.\n'
     printf '#\n'
     printf '# Formato: arquivo|grupo[|subgrupo...]|chave|valor\n'
-    printf '# Aplicado por scripts/kde-apply.sh (kwriteconfig6, um --group por nivel).\n'
+    printf '# Aplicado por kde/apply.sh (kwriteconfig6, um --group por nivel).\n'
 } > "$tmp"
 
 arquivos=()

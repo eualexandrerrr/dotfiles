@@ -41,40 +41,32 @@ configuração (posição de janela, hash de tema, UUID de desktop virtual), e c
 vira ruído que conflita a cada login.
 
 O que **é** versionado são as decisões: teclado, mouse, tema, ícones, terminal padrão,
-bordas de janela. Ficam em `scripts/kde-settings.conf`, uma chave por linha, geradas por
+bordas de janela. Ficam em `kde/settings.conf`, uma chave por linha, geradas por
 curadoria — ver [Configuração do KDE](#configuração-do-kde).
 
 ## Estrutura
 
 ```
 dotfiles
-├── .config
-│   ├── autostart
-│   │   ├── nvidia-desempenho.desktop
-│   │   └── kde-layout-once.desktop
-│   └── ghostty
-│       └── config
-├── home
-│   ├── .zshrc
-│   └── .zprofile
-├── local
-│   └── share
-│       └── applications
-│           └── spectacle-regiao-clipboard.desktop   lançador do Shift+Print
-├── scripts
-│   ├── mcp-restaurar.sh      recria os 8 MCP do Claude Code no ~/.claude.json
-│   ├── kde-settings.conf     decisões do KDE, uma chave por linha (gerado, não editar)
-│   ├── kde-capture.sh        lê o KDE vivo e regrava o kde-settings.conf
-│   ├── kde-apply.sh          aplica o kde-settings.conf via kwriteconfig6
-│   ├── kde-layout-once.sh    primeiro login: tema Windows Modern, painel, layout
-│   ├── kde-sessao-teste.sh   Plasma inteiro numa janela, pra testar sem risco
-│   ├── tema-instalar.sh      instala o Windows Modern a partir do vendor
+├── kde                       tudo do KDE
+│   ├── settings.conf         311 chaves (gerado pelo capture, não editar)
+│   ├── capture.sh            lê o KDE vivo e regrava o settings.conf
+│   ├── apply.sh              aplica o settings.conf via kwriteconfig6
+│   ├── layout-once.sh        primeiro login: tema, painel, layout
+│   ├── layout.js             layout do painel (script do Plasma)
 │   ├── painel-ajustar.sh     repõe as decisões do painel (idempotente)
+│   ├── tema-instalar.sh      instala o Windows Modern a partir do vendor
+│   └── sessao-teste.sh       Plasma inteiro numa janela, pra testar sem risco
+├── bin                       comandos
 │   ├── recorte-clipboard.sh  Shift+Print: região da tela → área de transferência
 │   ├── nvidia-desempenho.sh  GPU em performance máxima no login
-│   └── kde-layout.js         layout do painel (script do Plasma)
+│   └── mcp-restaurar.sh      recria os 8 MCP do Claude Code no ~/.claude.json
+├── links                     o que vira symlink no $HOME
+│   ├── home                  .zshrc, .zprofile
+│   ├── config                → ~/.config: autostart, ghostty
+│   └── local                 → ~/.local/share: lançador do Shift+Print
 ├── vendor
-│   └── windows-modern       o tema, versionado aqui (ver PROVENIENCIA.md)
+│   └── windows-modern        o tema, versionado aqui (ver PROVENIENCIA.md)
 ├── install.sh                pós-instalação, idempotente
 └── packages.txt              pacotes por seção; [repo-oficial:*] vai pro pacman, [aur] pro paru
 ```
@@ -97,7 +89,7 @@ Em ordem:
 5. Serviços: `NetworkManager`, `sddm`, `power-profiles-daemon` (perfil `performance`), `ananicy-cpp`, `reflector.timer`, `docker.socket`, `libvirtd.socket`, `mariadb`; grupos do usuário
 6. Symlinks de `.config/*` e `home/*` (o que existir no destino vira `.bak-<data>`)
 7. `sddm` em Wayland com `kwin`, tema Breeze
-8. Padrões do KDE: `scripts/kde-apply.sh` grava tudo que está no `kde-settings.conf`
+8. Padrões do KDE: `kde/apply.sh` grava tudo que está no `kde-settings.conf`
 
 Reinicie no fim.
 
@@ -117,7 +109,7 @@ Nada de editar `~/.config` na mão. O ciclo é: **mexer na GUI → capturar → 
 
 ```bash
 # ajuste o que quiser em Configurações do Sistema, depois:
-~/.dotfiles/scripts/kde-capture.sh
+~/.dotfiles/kde/capture.sh
 git -C ~/.dotfiles diff          # confira o que mudou
 git -C ~/.dotfiles commit -am "kde: ..."
 ```
@@ -125,7 +117,7 @@ git -C ~/.dotfiles commit -am "kde: ..."
 Em outra máquina (ou depois de reinstalar), o `install.sh` chama sozinho:
 
 ```bash
-~/.dotfiles/scripts/kde-apply.sh   # aplica e recarrega o kwin, sem precisar deslogar
+~/.dotfiles/kde/apply.sh   # aplica e recarrega o kwin, sem precisar deslogar
 ```
 
 ### O que fica de fora, e por quê
@@ -173,7 +165,7 @@ O app é o `spectacle`, que já vem no `packages.txt`.
 | `Shift+Print` | **recorta uma região e copia a imagem pro clipboard**, sem abrir janela |
 | `Meta+Shift+Print` | recorte que abre a janela do Spectacle (padrão do Plasma) |
 
-O `Shift+Print` chama `scripts/recorte-clipboard.sh`, por um lançador próprio em
+O `Shift+Print` chama `bin/recorte-clipboard.sh`, por um lançador próprio em
 `local/share/applications/`. O script captura num arquivo temporário e passa a imagem pelo
 `wl-copy`.
 
@@ -211,7 +203,7 @@ fixo em `spectacle -r`, sem `-b` e sem `-c`.
 
 ### Barra de tarefas
 
-Flutuante e translúcida, ajustado pelo `scripts/kde-layout-once.sh` no primeiro login:
+Flutuante e translúcida, ajustado pelo `kde/layout-once.sh` no primeiro login:
 
 | Chave | Valor | O que é |
 |:--|:--|:--|
@@ -236,7 +228,7 @@ qdbus6 org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript \
 ### Bandeja do sistema
 
 A bandeja do painel é o applet `org.kde.windowsmodern.systemtray`, compilado pelo
-`scripts/tema-instalar.sh` a partir do fonte em `vendor/windows-modern/src` — é o
+`kde/tema-instalar.sh` a partir do fonte em `vendor/windows-modern/src` — é o
 único componente do tema que não é arquivo puro.
 
 Ele importa `org.kde.bluezqt` sem guarda nenhuma, em
@@ -262,11 +254,11 @@ systemctl is-enabled bluetooth.service                    # disabled
 ## O tema mora no repo
 
 O Windows Modern **não é clonado nem instalado pelo script do upstream**: os arquivos estão
-em `vendor/windows-modern`, e o `scripts/tema-instalar.sh` copia de lá.
+em `vendor/windows-modern`, e o `kde/tema-instalar.sh` copia de lá.
 
 ```bash
-scripts/tema-instalar.sh                # copia, compila a bandeja e aplica
-scripts/tema-instalar.sh --sem-aplicar  # só os arquivos (é o que o install.sh chama)
+kde/tema-instalar.sh                # copia, compila a bandeja e aplica
+kde/tema-instalar.sh --sem-aplicar  # só os arquivos (é o que o install.sh chama)
 ```
 
 O clone raso do tema são 122 MB e o instalador dele mexe em dez componentes com `pkexec`.
@@ -294,7 +286,7 @@ porque o `GlobalViewProps` do Dolphin já é `true` por padrão.
 ### Barra de tarefas
 
 ```bash
-scripts/painel-ajustar.sh    # repõe tudo; rode quando o painel voltar ao padrão
+kde/painel-ajustar.sh    # repõe tudo; rode quando o painel voltar ao padrão
 ```
 
 O painel volta ao padrão **toda vez que um look-and-feel é aplicado**, então isso é um
@@ -359,10 +351,10 @@ comportamento certo: o repo versiona decisão, não o que o tema já traz.
 ## Testar sem arriscar a sessão
 
 ```bash
-scripts/kde-sessao-teste.sh              # sobe um Plasma dentro de uma janela
-scripts/kde-sessao-teste.sh dentro bash ~/.dotfiles/scripts/kde-apply.sh
-scripts/kde-sessao-teste.sh dentro spectacle -f -b -n -o /tmp/print.png
-scripts/kde-sessao-teste.sh parar
+kde/sessao-teste.sh              # sobe um Plasma dentro de uma janela
+kde/sessao-teste.sh dentro bash ~/.dotfiles/kde/apply.sh
+kde/sessao-teste.sh dentro spectacle -f -b -n -o /tmp/print.png
+kde/sessao-teste.sh parar
 ```
 
 O isolamento é triplo, e cada parte tem motivo:
@@ -420,7 +412,7 @@ vendorá-los junto do tema.
 ## MCP do Claude Code
 
 ```bash
-~/.dotfiles/scripts/mcp-restaurar.sh   # grava os 8 servidores no ~/.claude.json
+~/.dotfiles/bin/mcp-restaurar.sh   # grava os 8 servidores no ~/.claude.json
 claude mcp list                        # conferir
 ```
 
@@ -460,7 +452,7 @@ terminal integrado em `zsh` e as tarefas prontas (`Ctrl+Shift+P` → *Run Task*)
 commitar script:
 
 ```bash
-shellcheck -x -S warning install.sh scripts/*.sh
+shellcheck -x -S warning install.sh kde/*.sh bin/*.sh
 ```
 
 ## Monitores
@@ -546,8 +538,8 @@ Duas coisas que só valem aqui e custaram tempo pra descobrir:
 - Até 09/2026 o repo era Hyprland + Quickshell (nandoroid-shell). Trocado por KDE Plasma; a pilha
   antiga está no histórico do git (`git log --before=2026-09-05`).
 - Branch `backup/i3-x11-2023` guarda o rice de i3 + polybar.
-- 05/09/2026: MCP do Claude Code restaurados do backup do Windows via `scripts/mcp-restaurar.sh`.
-- 05/09/2026: configuração do KDE passou a ser versionada em `scripts/kde-settings.conf`,
+- 05/09/2026: MCP do Claude Code restaurados do backup do Windows via `bin/mcp-restaurar.sh`.
+- 05/09/2026: configuração do KDE passou a ser versionada em `kde/settings.conf`,
   com `kde-capture.sh` / `kde-apply.sh` fazendo o ida e volta com a GUI.
 - 05/09/2026: o widget-claude (painel do segundo monitor, do repo `Utils`) foi portado do Windows
   pro Linux e passou a subir por unit do systemd — ver [Monitores](#monitores).

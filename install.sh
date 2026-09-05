@@ -364,7 +364,7 @@ link_dotfiles() {
     mkdir -p "$HOME/.config"
 
     local src name target
-    for src in "$DOTFILES_DIR"/.config/*; do
+    for src in "$DOTFILES_DIR"/links/config/*; do
         [[ -e $src ]] || continue
         name="$(basename "$src")"
         target="$HOME/.config/$name"
@@ -375,7 +375,7 @@ link_dotfiles() {
     done
 
     shopt -s dotglob nullglob
-    for src in "$DOTFILES_DIR"/home/*; do
+    for src in "$DOTFILES_DIR"/links/home/*; do
         [[ -f $src ]] || continue
         name="$(basename "$src")"
         target="$HOME/$name"
@@ -390,9 +390,9 @@ link_dotfiles() {
     # Lancadores de atalho global. Vao um a um, nao o diretorio inteiro: o KDE e o
     # Chrome tambem escrevem .desktop em ~/.local/share/applications, e um symlink de
     # diretorio faria essas gravacoes caírem dentro do repo.
-    if [[ -d "$DOTFILES_DIR/local/share/applications" ]]; then
+    if [[ -d "$DOTFILES_DIR/links/local/share/applications" ]]; then
         mkdir -p "$HOME/.local/share/applications"
-        for src in "$DOTFILES_DIR"/local/share/applications/*.desktop; do
+        for src in "$DOTFILES_DIR"/links/local/share/applications/*.desktop; do
             [[ -f $src ]] || continue
             name="$(basename "$src")"
             target="$HOME/.local/share/applications/$name"
@@ -428,16 +428,16 @@ EOF
 }
 
 configure_kde_defaults() {
-    log "padroes do KDE a partir de scripts/kde-settings.conf"
+    log "padroes do KDE a partir de kde/settings.conf"
     mkdir -p "$HOME/.config"
     if ! command -v kwriteconfig6 >/dev/null 2>&1; then
         warn "kwriteconfig6 nao encontrado, ajuste teclado, terminal e tema nas Configuracoes do Sistema"
         return 0
     fi
-    local conf="$DOTFILES_DIR/scripts/kde-settings.conf"
-    local aplicar="$DOTFILES_DIR/scripts/kde-apply.sh"
+    local conf="$DOTFILES_DIR/kde/settings.conf"
+    local aplicar="$DOTFILES_DIR/kde/apply.sh"
     if [[ -f $conf ]]; then
-        # Fonte unica: tudo que voce ajustou na GUI e capturou com scripts/kde-capture.sh.
+        # Fonte unica: tudo que voce ajustou na GUI e capturou com kde/capture.sh.
         # Teclado (repeticao), mouse (aceleracao), tema, icones, terminal padrao, bordas.
         DOTFILES_DIR="$DOTFILES_DIR" bash "$aplicar" "$conf" \
             && ok "kde-settings.conf aplicado" \
@@ -451,17 +451,17 @@ configure_kde_defaults() {
         kwriteconfig6 --file kdeglobals --group General --key ColorScheme BreezeDark
         kwriteconfig6 --file plasmarc --group Theme --key name breeze-dark
     fi
-    ok "layout estilo Windows 11 sera aplicado no primeiro login por scripts/kde-layout-once.sh"
+    ok "layout estilo Windows 11 sera aplicado no primeiro login por kde/layout-once.sh"
 }
 
 install_windows_modern() {
     log "tema Windows Modern: copiando de vendor/windows-modern e compilando a bandeja"
-    local tema="$DOTFILES_DIR/scripts/tema-instalar.sh"
+    local tema="$DOTFILES_DIR/kde/tema-instalar.sh"
     [[ -f $tema ]] || { warn "$tema ausente, tema pulado"; return 0; }
 
     # --sem-aplicar: aqui so ficam os arquivos e o binario da bandeja. Aplicar o
     # look-and-feel exige um Plasma rodando, e nesse ponto ainda nao ha sessao grafica --
-    # quem aplica e o scripts/kde-layout-once.sh, no primeiro login.
+    # quem aplica e o kde/layout-once.sh, no primeiro login.
     if DOTFILES_DIR="$DOTFILES_DIR" bash "$tema" --sem-aplicar; then
         ok "tema instalado a partir do repo, sem clonar nada"
     else

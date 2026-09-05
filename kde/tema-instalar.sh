@@ -2,11 +2,11 @@
 # Instala o Windows Modern a partir de vendor/windows-modern, sem clonar nada e sem rodar
 # o instalador do upstream. Ver vendor/windows-modern/PROVENIENCIA.md.
 #
-#   scripts/tema-instalar.sh                instala e aplica
-#   scripts/tema-instalar.sh --sem-aplicar  so copia e compila
+#   kde/tema-instalar.sh                instala e aplica
+#   kde/tema-instalar.sh --sem-aplicar  so copia e compila
 #
 # Respeita XDG_DATA_HOME e XDG_CONFIG_HOME, entao roda dentro do
-# scripts/kde-sessao-teste.sh sem encostar na sessao de verdade.
+# kde/sessao-teste.sh sem encostar na sessao de verdade.
 
 set -euo pipefail
 
@@ -100,7 +100,7 @@ if (( APLICAR )); then
     # O look-and-feel pede o tema de icones "windows-modern", que nao vendoramos -- o
     # icone desta maquina e o Tela-dark. O kde-apply.sh repoe as decisoes do repo por
     # cima, entao ele tem que rodar DEPOIS.
-    bash "$DOTFILES_DIR/scripts/kde-apply.sh" || aviso "kde-apply.sh falhou"
+    bash "$DOTFILES_DIR/kde/apply.sh" || aviso "kde-apply.sh falhou"
     qdbus6 org.kde.KWin /KWin reconfigure >/dev/null 2>&1 || true
 fi
 

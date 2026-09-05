@@ -6,7 +6,7 @@
 # o npx resolve e cacheia sozinho, e atualiza sem mexer no config.
 #
 # Idempotente: rode de novo se o Claude Code sobrescrever o arquivo.
-#   ~/.dotfiles/scripts/mcp-restaurar.sh
+#   ~/.dotfiles/bin/mcp-restaurar.sh
 #
 # A URL do firecrawl carrega chave de API: vem de FIRECRAWL_MCP_URL, exportada pelo
 # ~/.dotfiles-private/env.sh (que o .zshrc ja carrega). Sem ela, o firecrawl e pulado.

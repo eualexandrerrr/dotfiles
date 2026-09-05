@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
-# Aplica scripts/kde-settings.conf no KDE via kwriteconfig6 e recarrega o kwin.
+# Aplica kde/settings.conf no KDE via kwriteconfig6 e recarrega o kwin.
 # Idempotente. Chamado pelo install.sh e pelo kde-layout-once.sh (primeiro login).
 #
-#   ~/.dotfiles/scripts/kde-apply.sh
+#   ~/.dotfiles/kde/apply.sh
 
 set -euo pipefail
 
 DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
-CONF="${1:-$DOTFILES_DIR/scripts/kde-settings.conf}"
+CONF="${1:-$DOTFILES_DIR/kde/settings.conf}"
 
 [[ -f $CONF ]] || { printf 'kde-apply: %s nao existe\n' "$CONF" >&2; exit 1; }
 command -v kwriteconfig6 >/dev/null 2>&1 || { printf 'kde-apply: kwriteconfig6 nao encontrado, pulando\n' >&2; exit 0; }
