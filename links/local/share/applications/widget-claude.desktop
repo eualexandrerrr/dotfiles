@@ -1,0 +1,13 @@
+[Desktop Entry]
+# Este .desktop existe por UM motivo: dar identidade ao painel para o KDE.
+# Sem ele o plasmanotifyrc ignora a regra [Applications][widget-claude] e as
+# notificacoes passam mesmo com ShowPopups=false. Testado nos dois estados.
+# NoDisplay porque quem sobe o painel e a unit do systemd, nao o menu.
+Type=Application
+Name=widget-claude
+Comment=Painel do segundo monitor
+Exec=systemctl --user start widget-claude.service
+Icon=utilities-system-monitor
+Terminal=false
+NoDisplay=true
+StartupWMClass=widget-claude

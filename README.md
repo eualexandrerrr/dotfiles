@@ -111,7 +111,7 @@ está versionado, sem passo intermediário.
 ```
 ~/.config/kdeglobals          -> links/config/kdeglobals
 ~/.config/kwinrc                 kcminputrc  kxkbrc  plasmarc  dolphinrc
-~/.config/kglobalshortcutsrc     kwinrulesrc  plasma-localerc
+~/.config/kglobalshortcutsrc     kwinrulesrc  plasma-localerc  plasmanotifyrc
 ~/.local/share/dolphin/view_properties/global/.directory
 ```
 
@@ -510,6 +510,26 @@ e temperaturas. Mora no repo [Utils](https://github.com/eualexandrerrr/Utils), p
 git clone https://github.com/eualexandrerrr/Utils.git
 Utils/widget-claude/linux/instalar.sh
 ```
+
+#### Sem notificação
+
+O painel avisa por notificação do sistema em quatro pontos — erro novo no Sentry, anotação
+nova no Discord e dois casos no `main.js` —, todos com `urgency: critical`. Ver o erro no
+próprio painel já basta; o popup por cima da tela não.
+
+```ini
+# links/config/plasmanotifyrc
+[Applications][widget-claude]
+ShowPopups=false
+```
+
+**Só a chave não resolve.** Sem um `.desktop` o KDE não consegue resolver a identidade do
+aplicativo e ignora a regra — medido: com a chave posta e sem `.desktop`, a notificação
+apareceu do mesmo jeito. Por isso existe `links/local/share/applications/widget-claude.desktop`,
+que serve só para isso, e é `NoDisplay` porque quem sobe o painel é a unit do systemd.
+
+Com os dois no lugar, testado nos três estados: notificação do `widget-claude` **não**
+aparece, e uma de outro aplicativo qualquer continua aparecendo.
 
 #### Fora da barra de tarefas
 
