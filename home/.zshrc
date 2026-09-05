@@ -29,8 +29,9 @@ alias dd="sudo dd"
 
 command -v eza     >/dev/null 2>&1 && alias ls="eza --icons --group-directories-first"
 command -v bat     >/dev/null 2>&1 && alias cat="bat --plain"
-# x: Claude Code sem parar pra pedir permissao a cada ferramenta.
-command -v claude  >/dev/null 2>&1 && alias x="claude --dangerously-skip-permissions"
+# x: Claude Code sem parar pra pedir permissao a cada ferramenta, sempre no Opus.
+# "opus" e apelido pro Opus mais novo; pra fixar no 5 exato seria claude-opus-5.
+command -v claude  >/dev/null 2>&1 && alias x="claude --dangerously-skip-permissions --model opus"
 command -v zoxide  >/dev/null 2>&1 && eval "$(zoxide init zsh)"
 command -v starship >/dev/null 2>&1 && eval "$(starship init zsh)"
 
