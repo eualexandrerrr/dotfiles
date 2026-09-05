@@ -137,7 +137,7 @@ O que está coberto hoje:
 
 | Arquivo | Grupo | O que é |
 |:--|:--|:--|
-| `kcminputrc` | `Keyboard` | repetição de teclas: **300 ms** de atraso, **50 Hz** (padrão do Plasma é 600 ms / 25 Hz) |
+| `kcminputrc` | `Keyboard` | repetição de teclas: **200 ms** de atraso, **50 Hz** (padrão do Plasma é 600 ms / 25 Hz) |
 | `kcminputrc` | `Libinput[...]` | aceleração do ponteiro e fator de rolagem, por dispositivo |
 | `kxkbrc` | `Layout` | teclado `br` (ABNT2) |
 | `kdeglobals` | `General` | terminal padrão `ghostty`, navegador `google-chrome` |
