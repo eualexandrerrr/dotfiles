@@ -56,6 +56,7 @@ dotfiles
 │   ├── .zshrc
 │   └── .zprofile
 ├── scripts
+│   ├── mcp-restaurar.sh      recria os 8 MCP do Claude Code no ~/.claude.json
 │   ├── kde-settings.conf     decisões do KDE, uma chave por linha (gerado, não editar)
 │   ├── kde-capture.sh        lê o KDE vivo e regrava o kde-settings.conf
 │   ├── kde-apply.sh          aplica o kde-settings.conf via kwriteconfig6
@@ -131,6 +132,30 @@ O que está coberto hoje:
 | `kwinrc` | `Windows`, `org.kde.kdecoration2` | maximizada sem borda, borda `Tiny`, decoração Aurorae |
 | `plasmarc` | `Theme` | tema Plasma `breeze-dark` |
 
+## MCP do Claude Code
+
+```bash
+~/.dotfiles/scripts/mcp-restaurar.sh   # grava os 8 servidores no ~/.claude.json
+claude mcp list                        # conferir
+```
+
+Os caminhos vieram do Windows (`AppData\Roaming\npm\node_modules\...`) e viraram
+`npx -y <pacote>`: nada global pra instalar, o npx resolve e cacheia. Precisa de `node`,
+`maestro` (AUR, já no `packages.txt`) e `jdk17-openjdk` — todos já entram no `install.sh`.
+
+| MCP | Comando |
+|:--|:--|
+| `chrome-devtools` | `npx -y chrome-devtools-mcp@latest` |
+| `playwright` | `npx -y @playwright/mcp@latest` com perfil em `~/Apps/_CLAUDE/.secrets/perfil-navegador` |
+| `firecrawl` | HTTP, URL vem de `FIRECRAWL_MCP_URL` (**chave de API**, mora no `dotfiles-private`) |
+| `obsidian` | `npx -y obsidian-mcp serve` no vault `~/Apps/_CLAUDE/Obsidian/Cérebro` |
+| `whatsapp` | `npx -y @kaptionai/mcp-extension` |
+| `n8n` | `npx -y n8n-mcp` |
+| `shadcn` | `npx -y shadcn@latest mcp` |
+| `maestro` | `maestro mcp` com `JAVA_HOME=/usr/lib/jvm/java-17-openjdk` |
+
+Sem o `FIRECRAWL_MCP_URL` exportado, o script pula o firecrawl e grava os outros 7.
+
 ## Monitores
 
 Dois monitores: principal 2560x1440 paisagem à direita, secundário 1920x1080 em retrato à esquerda.
@@ -153,6 +178,7 @@ a disposição por combinação de monitores em `~/.local/share/kscreen/`.
 - Até 09/2026 o repo era Hyprland + Quickshell (nandoroid-shell). Trocado por KDE Plasma; a pilha
   antiga está no histórico do git (`git log --before=2026-09-05`).
 - Branch `backup/i3-x11-2023` guarda o rice de i3 + polybar.
+- 05/09/2026: MCP do Claude Code restaurados do backup do Windows via `scripts/mcp-restaurar.sh`.
 - 05/09/2026: configuração do KDE passou a ser versionada em `scripts/kde-settings.conf`,
   com `kde-capture.sh` / `kde-apply.sh` fazendo o ida e volta com a GUI.
 - 05/09/2026: `kitty` trocado por `ghostty` (terminal padrão do KDE, `TERMINAL` no `.zshrc`,
