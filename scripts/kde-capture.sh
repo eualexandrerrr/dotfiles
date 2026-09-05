@@ -29,6 +29,8 @@ GRUPOS=(
     "kwinrc:Windows"
     "kwinrc:org.kde.kdecoration2"
     "kwinrc:Xwayland"
+    # espera antes do Alt+Tab aparecer
+    "kwinrc:TabBox"
     "plasmarc:Theme"
     # atraso pra aparecer a previa das janelas agrupadas na barra
     "plasmarc:PlasmaToolTips"

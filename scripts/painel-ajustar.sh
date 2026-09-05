@@ -25,6 +25,10 @@ qdbus6 "${PS[@]}" "" >/dev/null 2>&1 || { printf 'painel: plasmashell nao respon
 #                        a contagem nao tem onde grudar. Verificado emitindo o sinal na
 #                        mao -- sem fixar nao aparece nada, fixado aparece na hora.
 #   indicateAudioStreams o alto-falante sobreposto no icone de quem toca som.
+#   showToolTips         false troca as miniaturas grandes por uma lista compacta ao
+#                        passar o mouse num app com varias janelas. Nao ha ajuste de
+#                        tamanho: a miniatura e gridUnit*16, derivada da fonte, e a
+#                        lista e a unica alternativa menor que o applet oferece.
 qdbus6 "${PS[@]}" '
 var p = panels()[0];
 var ids = p.widgetIds;
@@ -40,6 +44,7 @@ for (var i = 0; i < ids.length; i++) {
     "applications:steam.desktop"
   ]);
   w.writeConfig("indicateAudioStreams", false);
+  w.writeConfig("showToolTips", false);
   print("tarefas: " + w.type + " id=" + w.id);
 }' >/dev/null 2>&1 || printf 'painel: nao consegui ajustar o gerenciador de tarefas\n' >&2
 

@@ -263,6 +263,18 @@ script idempotente e não uma configuração de uma vez só.
 | alto-falante no ícone de quem toca som | applet, `indicateAudioStreams` | `false` |
 | ícones fixados | applet, `launchers` | dolphin, chrome, ghostty, discord, steam |
 | flutuante e translúcido | `plasmashellrc` | ver acima |
+| prévia grande → lista compacta | applet, `showToolTips` | `false` |
+
+Alt+Tab e animações em geral:
+
+| Decisão | Onde | Valor |
+|:--|:--|:--|
+| espera antes do Alt+Tab aparecer | `kwinrc` `[TabBox] DelayTime` | `0` ms (padrão `90`) |
+| duração das animações do KDE | `kdeglobals` `[KDE] AnimationDurationFactor` | `0.5` (padrão `1.0`) |
+
+A miniatura da prévia é `Kirigami.Units.gridUnit * 16`, derivada da fonte — **não existe**
+ajuste de tamanho. `showToolTips=false` é a única alternativa menor que o applet oferece:
+troca as miniaturas lado a lado por uma lista de títulos.
 
 A config de applet é escrita pela API de script do Plasma, não pelo `kde-settings.conf`:
 ela mora no `plasma-org.kde.plasma.desktop-appletsrc` com o **número do applet** no meio
