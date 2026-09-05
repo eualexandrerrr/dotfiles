@@ -2,14 +2,18 @@
 # Pós-instalação do Arch: pacotes, NVIDIA, KDE Plasma, serviços e symlinks deste repo.
 # Idempotente: pode rodar de novo a qualquer hora.
 #
-#   SKIP_NVIDIA=1 ./install.sh    pula driver e parâmetros de kernel (VM, máquina sem NVIDIA)
+#   SKIP_NVIDIA=1 ./install.sh    força pular driver e parâmetros de kernel
+#   (sem a variável, detecta pelo PCI: sem placa NVIDIA = pula sozinho)
 
 set -euo pipefail
 
 DOTFILES_REPO="${DOTFILES_REPO:-https://github.com/eualexandrerrr/dotfiles.git}"
 DOTFILES_BRANCH="${DOTFILES_BRANCH:-main}"
 DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
-SKIP_NVIDIA="${SKIP_NVIDIA:-0}"
+# Sem SKIP_NVIDIA na chamada, decide pelo hardware: vendor 0x10de em algum device PCI = NVIDIA.
+if [[ -z ${SKIP_NVIDIA:-} ]]; then
+    if grep -qsx 0x10de /sys/bus/pci/devices/*/vendor 2>/dev/null; then SKIP_NVIDIA=0; else SKIP_NVIDIA=1; fi
+fi
 
 KERNEL_PARAMS=(nvidia_drm.modeset=1 nvidia.NVreg_PreserveVideoMemoryAllocations=1)
 NVIDIA_MODULES=(nvidia nvidia_modeset nvidia_uvm nvidia_drm)
@@ -213,7 +217,7 @@ configure_nvidia() {
 enable_services() {
     log "habilitando servicos"
     local unit
-    for unit in NetworkManager.service bluetooth.service sddm.service power-profiles-daemon.service; do
+    for unit in NetworkManager.service sddm.service power-profiles-daemon.service; do
         sudo systemctl enable "$unit" >/dev/null 2>&1 && ok "$unit" || warn "$unit nao habilitado"
     done
 

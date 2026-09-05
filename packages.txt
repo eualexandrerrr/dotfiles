@@ -14,10 +14,7 @@ pacman-contrib
 polkit
 reflector
 rsync
-tree
-unrar
 unzip
-wget
 xdg-user-dirs
 xdg-utils
 zip
@@ -37,11 +34,9 @@ nvidia-open-dkms
 nvidia-settings
 nvidia-utils
 vulkan-icd-loader
-vulkan-tools
 
 [repo-oficial:kde]
 ark
-bluedevil
 breeze-gtk
 dolphin
 ffmpegthumbs
@@ -52,12 +47,10 @@ kio-admin
 kitty
 kscreen
 kwallet-pam
-kwalletmanager
 okular
 plasma-desktop
 plasma-nm
 plasma-pa
-plasma-systemmonitor
 polkit-kde-agent
 power-profiles-daemon
 powerdevil
@@ -69,36 +62,26 @@ xdg-desktop-portal-kde
 xorg-xwayland
 
 [repo-oficial:desktop]
-bluez
-bluez-utils
 networkmanager
 pipewire
 pipewire-alsa
-pipewire-jack
 pipewire-pulse
 wireplumber
 
 [repo-oficial:fontes]
 noto-fonts
-noto-fonts-cjk
 noto-fonts-emoji
-noto-fonts-extra
 ttf-jetbrains-mono-nerd
 ttf-liberation
 
 [repo-oficial:shell-cli]
 bat
 btop
-duf
 eza
-fastfetch
 fd
 ffmpeg
 fzf
-htop
 nano
-ncdu
-neovim
 ripgrep
 starship
 tmux
@@ -109,13 +92,10 @@ zsh-completions
 zsh-syntax-highlighting
 
 [repo-oficial:dev-web]
-deno
 docker
 docker-buildx
 docker-compose
 github-cli
-go
-lazygit
 nodejs
 npm
 python
@@ -126,22 +106,17 @@ uv
 [repo-oficial:dev-mobile]
 android-tools
 android-udev
-gradle
-jdk-openjdk
 jdk17-openjdk
 scrcpy
 
 [repo-oficial:banco-infra]
 cloudflared
-dbeaver
 dnsmasq
-filezilla
 libvirt
 mariadb
 mariadb-clients
 qemu-full
 virt-manager
-wireguard-tools
 
 [repo-oficial:jogos]
 gamemode
@@ -150,32 +125,23 @@ lib32-gamemode
 lib32-mangohud
 lutris
 mangohud
-obs-studio
-protontricks
 steam
 wine
 winetricks
 
 [repo-oficial:apps]
 discord
-firefox
-libreoffice-fresh
-nvtop
 obsidian
 rclone
 spotify-launcher
-telegram-desktop
 
 [aur]
 android-studio
 bun-bin
 claude-code
-cloudflare-warp-bin
 google-chrome
 insync
 maestro-bin
 paru-bin
 ttf-ms-fonts
 visual-studio-code-bin
-watchman-bin
-zapzap

@@ -24,6 +24,7 @@ poucos arquivos de configuração que valem versionar.
 | Terminal | `kitty` (registrado como terminal padrão do KDE) |
 | Shell | `zsh` + `starship` + `zsh-autosuggestions` + `zsh-syntax-highlighting` |
 | Arquivos, imagens, PDF, prints | `dolphin`, `gwenview`, `okular`, `spectacle` |
+| Fora de propósito | Bluetooth, Wi-Fi no live, Firefox (Chrome cobre), LibreOffice, Telegram, OBS. `pacman -S` traz de volta |
 | Driver | `nvidia-open-dkms`, `nvidia_drm.modeset=1` |
 | Jogos e Wine | `steam`, `lutris`, `wine`, `winetricks`, `gamescope`, `mangohud` |
 | VMs | `qemu-full`, `libvirt`, `virt-manager` (plano B do RedM) |
@@ -63,7 +64,7 @@ Em ordem:
 2. Pacotes do `packages.txt` (repos oficiais)
 3. `paru` e os pacotes do AUR
 4. NVIDIA: `modprobe.d`, módulos no `mkinitcpio`, parâmetros de kernel, `mkinitcpio -P`
-5. Serviços: `NetworkManager`, `bluetooth`, `sddm`, `power-profiles-daemon`, `docker.socket`, `libvirtd.socket`, `mariadb`; grupos do usuário
+5. Serviços: `NetworkManager`, `sddm`, `power-profiles-daemon`, `docker.socket`, `libvirtd.socket`, `mariadb`; grupos do usuário
 6. Symlinks de `.config/*` e `home/*` (o que existir no destino vira `.bak-<data>`)
 7. `sddm` em Wayland com `kwin`, tema Breeze
 8. Padrões do KDE: teclado `br` (ABNT2) e `kitty` como terminal
@@ -74,7 +75,7 @@ Reinicie no fim.
 cat /sys/module/nvidia_drm/parameters/modeset   # tem que retornar Y
 ```
 
-Numa VM ou máquina sem NVIDIA:
+Sem placa NVIDIA no PCI (VM, outra máquina) o driver é pulado sozinho. Pra forçar:
 
 ```bash
 SKIP_NVIDIA=1 ./install.sh
