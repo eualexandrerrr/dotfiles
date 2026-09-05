@@ -24,6 +24,10 @@ GRUPOS=(
     "kcminputrc:Libinput*"
     "kxkbrc:Layout"
     "kdeglobals:General"
+    # idioma da interface. Sem essas duas chaves o KDE so cai no LANG, e a
+    # preferencia nunca fica declarada.
+    "kdeglobals:Locale"
+    "plasma-localerc:*"
     "kdeglobals:Icons"
     "kdeglobals:KDE"
     "kwinrc:Windows"

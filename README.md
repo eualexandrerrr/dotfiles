@@ -153,6 +153,8 @@ O que está coberto hoje:
 | `kcminputrc` | `Keyboard` | repetição de teclas: **200 ms** de atraso, **50 Hz** (padrão do Plasma é 600 ms / 25 Hz) |
 | `kcminputrc` | `Libinput[...]` | aceleração do ponteiro e fator de rolagem, por dispositivo |
 | `kxkbrc` | `Layout` | teclado `br` (ABNT2) |
+| `kdeglobals` | `Locale` | idioma da interface, `pt_BR` |
+| `plasma-localerc` | **todos** | idioma e formatos regionais |
 | `kdeglobals` | `General` | terminal padrão `ghostty`, navegador `google-chrome` |
 | `kdeglobals` | `Icons`, `KDE` | ícones `Tela-dark`, estilo `kvantum-dark`, look-and-feel Windows Modern |
 | `kwinrc` | `Windows`, `org.kde.kdecoration2` | maximizada sem borda, borda `Tiny`, decoração Aurorae |
@@ -390,6 +392,30 @@ host:   opacity=translucent  altura=48    (o kde-settings.conf deste repo)
 No Wayland o KWin **é** o servidor gráfico: todo cliente está conectado nele, então
 reiniciá-lo derruba tudo que estiver aberto. É justamente pra isso que existe a sessão
 aninhada.
+
+## Idioma
+
+```
+kdeglobals      [Locale] Language = pt_BR
+plasma-localerc [Translations] LANGUAGE = pt_BR
+plasma-localerc [Formats] LANG = pt_BR.UTF-8
+```
+
+As duas primeiras chaves **não existiam**: o KDE vinha só herdando o `LANG` do sistema, e a
+preferência de idioma nunca ficava declarada. Só o `[Formats]` estava lá, e ele cuida de
+data e número, não de tradução.
+
+Isso não é o que deixa parte da interface em inglês. As traduções estão instaladas — 414
+catálogos `pt_BR` em `/usr/share/locale` e o `qt6-translations`. O que sobra em inglês tem
+duas origens:
+
+| Origem | Situação |
+|:--|:--|
+| applets do Windows Modern | chamam `i18n()`, mas **não declaram domínio** de tradução e não trazem catálogo: 76 strings (55 no relógio, 21 no menu iniciar) |
+| apps de terceiros | ghostty, Discord, Chrome, VS Code — não têm `pt_BR`, e não há o que fazer daqui |
+
+O caso dos applets é o único que dá para resolver: seria escrever os catálogos e
+vendorá-los junto do tema.
 
 ## MCP do Claude Code
 
