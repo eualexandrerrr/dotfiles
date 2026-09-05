@@ -172,6 +172,30 @@ Spectacle — o `Exec` dela é fixo em `spectacle -r`, sem `-b` e sem `-c`.
 > `~/.local/share/applications` não muda o `Exec` já resolvido. No Wayland o KWin não pode
 > ser reiniciado sem derrubar a sessão, então o caminho é deslogar e logar.
 
+### Barra de tarefas
+
+Flutuante e translúcida, ajustado pelo `scripts/kde-layout-once.sh` no primeiro login:
+
+| Chave | Valor | O que é |
+|:--|:--|:--|
+| `floating` | `1` | descolada das bordas, cantos arredondados |
+| `panelOpacity` | `2` | `0` adaptativo, `1` opaco, **`2` translúcido** |
+
+As duas ficam no `~/.config/plasmashellrc`, em `[PlasmaViews][Panel <id>]`, e o
+plasmashell só as lê quando sobe. O acrílico atrás do translúcido vem do `blurEnabled`
+do KWin, que já é ligado por padrão.
+
+Não dá pra fazer isso pela API de script do Plasma, que é o jeito natural já que o painel
+inteiro nasce de um script: o setter de `opacity` **não grava nada** (mandar `adaptive`
+não muda nem o valor vivo nem o arquivo) e o de `floating` só vale até o plasmashell
+reiniciar. Era por isso que a barra voltava a ficar colada mesmo com o script anunciando
+*"painel flutuante ativado"* no log.
+
+```bash
+qdbus6 org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript \
+  'print(panels()[0].opacity + " " + panels()[0].floating);'   # translucent true
+```
+
 ### Bandeja do sistema
 
 A bandeja do painel é o applet `org.kde.windowsmodern.systemtray`, compilado do
