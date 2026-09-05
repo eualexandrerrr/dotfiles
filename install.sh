@@ -322,13 +322,17 @@ EOF
 }
 
 configure_kde_defaults() {
-    log "padroes do KDE: teclado ABNT2, kitty como terminal"
+    log "padroes do KDE: teclado ABNT2, kitty como terminal, icones Tela"
     mkdir -p "$HOME/.config"
     if command -v kwriteconfig6 >/dev/null 2>&1; then
         kwriteconfig6 --file kxkbrc --group Layout --key LayoutList br
         kwriteconfig6 --file kxkbrc --group Layout --key Use true
         kwriteconfig6 --file kdeglobals --group General --key TerminalApplication kitty
         kwriteconfig6 --file kdeglobals --group General --key TerminalService kitty.desktop
+        if [[ -d /usr/share/icons/Tela-dark ]]; then
+            kwriteconfig6 --file kdeglobals --group Icons --key Theme Tela-dark
+            ok "icones Tela-dark"
+        fi
         ok "kxkbrc e kdeglobals"
     else
         warn "kwriteconfig6 nao encontrado, ajuste teclado e terminal padrao nas Configuracoes do Sistema"

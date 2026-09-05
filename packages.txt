@@ -143,5 +143,6 @@ google-chrome
 insync
 maestro-bin
 paru-bin
+tela-icon-theme
 ttf-ms-fonts
 visual-studio-code-bin
