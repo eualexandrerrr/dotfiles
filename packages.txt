@@ -154,7 +154,6 @@ plasma-activities-stats
 libplasma
 plasma-workspace
 libksysguard
-libdbusmenu-qt6
 
 [repo-oficial:apps]
 discord
