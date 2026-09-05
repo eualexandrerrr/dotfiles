@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Dotfiles: layout do KDE (uma vez)
+Exec=bash -c "$HOME/.dotfiles/scripts/kde-layout-once.sh"
+X-KDE-autostart-after=panel
+NoDisplay=true

@@ -401,9 +401,16 @@ EOF
 }
 
 configure_kde_defaults() {
-    log "padroes do KDE: teclado ABNT2, kitty como terminal, icones Tela, cursor Capitaine"
+    log "padroes do KDE: tema escuro, teclado ABNT2, kitty como terminal, icones Tela, cursor Capitaine"
     mkdir -p "$HOME/.config"
     if command -v kwriteconfig6 >/dev/null 2>&1; then
+        kwriteconfig6 --file kdeglobals --group General --key ColorScheme BreezeDark
+        kwriteconfig6 --file kdeglobals --group KDE --key LookAndFeelPackage org.kde.breezedark.desktop
+        kwriteconfig6 --file kdeglobals --group KDE --key widgetStyle Breeze
+        kwriteconfig6 --file plasmarc --group Theme --key name breeze-dark
+        kwriteconfig6 --file kwinrc --group Windows --key BorderlessMaximizedWindows true
+        ok "tema Breeze Dark (cores, plasma e look-and-feel)"
+        ok "layout estilo Windows 11 (painel flutuante, icones centralizados) sera aplicado no primeiro login por scripts/kde-layout-once.sh"
         kwriteconfig6 --file kxkbrc --group Layout --key LayoutList br
         kwriteconfig6 --file kxkbrc --group Layout --key Use true
         kwriteconfig6 --file kdeglobals --group General --key TerminalApplication kitty
