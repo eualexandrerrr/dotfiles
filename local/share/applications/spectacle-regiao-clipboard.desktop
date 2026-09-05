@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=Recorte para a área de transferência
+Comment=Seleciona uma região da tela e copia a imagem direto para o clipboard
+Exec=/usr/bin/spectacle --region --background --copy-image --nonotify
+Icon=spectacle
+Terminal=false
+StartupNotify=false
+NoDisplay=true
+X-KDE-GlobalAccel-CommandShortcut=true

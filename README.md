@@ -56,6 +56,10 @@ dotfiles
 ├── home
 │   ├── .zshrc
 │   └── .zprofile
+├── local
+│   └── share
+│       └── applications
+│           └── spectacle-regiao-clipboard.desktop   lançador do Shift+Print
 ├── scripts
 │   ├── mcp-restaurar.sh      recria os 8 MCP do Claude Code no ~/.claude.json
 │   ├── kde-settings.conf     decisões do KDE, uma chave por linha (gerado, não editar)
@@ -133,27 +137,40 @@ O que está coberto hoje:
 | `kwinrc` | `Windows`, `org.kde.kdecoration2` | maximizada sem borda, borda `Tiny`, decoração Aurorae |
 | `plasmarc` | `Theme` | tema Plasma `breeze-dark` |
 | `kglobalshortcutsrc` | `services` | atalhos globais de aplicativo: `Ctrl+Alt+T` no ghostty, `Shift+Print` no recorte |
-| `spectaclerc` | `General` | o que o Spectacle faz depois de capturar |
 
 ### Capturas de tela
 
-O app é o `spectacle`, que já vem no `packages.txt`. Os atalhos:
+O app é o `spectacle`, que já vem no `packages.txt`.
 
 | Tecla | O que faz |
 |:--|:--|
 | `Print` | abre a janela do Spectacle (padrão do Plasma, intocado) |
-| `Shift+Print` | **recorta uma região e joga a imagem no clipboard** |
-| `Meta+Shift+Print` | idem, é o atalho padrão do Plasma pra mesma ação |
+| `Shift+Print` | **recorta uma região e copia a imagem pro clipboard**, sem abrir janela |
+| `Meta+Shift+Print` | recorte que abre a janela do Spectacle (padrão do Plasma) |
 
-`Shift+Print` era "capturar a área de trabalho inteira" no padrão do Plasma. Foi liberado
-e reapontado pra ação `RectangularRegionScreenShot`, com o `spectaclerc` mandando copiar a
-imagem (`clipboardGroup`) e fechar em seguida (`quitAfterSaveCopyExport`).
+O `Shift+Print` chama `local/share/applications/spectacle-regiao-clipboard.desktop`:
 
-Não é um lançador próprio de propósito: nesta versão o **KWin absorveu o kglobalaccel**, e
-atalho de comando novo (uma entrada `[services][*.desktop]` inédita) só é registrado quando
-o KWin sobe — no Wayland, isso quer dizer deslogar. Reaproveitar uma ação que o Spectacle já
-registra vale na hora, via `setForeignShortcut` no D-Bus. O `kde-apply.sh` grava o mesmo
-estado numa máquina nova, onde o login seguinte resolve o registro.
+```
+Exec=/usr/bin/spectacle --region --background --copy-image --nonotify
+```
+
+O `--copy-image` é obrigatório e **não** tem equivalente em arquivo de configuração. O
+`spectaclerc` tem `clipboardGroup=PostScreenshotCopyImage`, que a interface do Spectacle
+apresenta como *"depois de capturar: copiar a imagem"*, mas ele não é honrado no caminho
+do atalho: medido com marcador no clipboard, `spectacle -f -b -n` deixa o clipboard
+intacto e grava um arquivo, enquanto `spectacle -f -b -c -n` põe a imagem lá. Por isso o
+lançador próprio, e não o reaproveitamento da ação `RectangularRegionScreenShot` do
+Spectacle — o `Exec` dela é fixo em `spectacle -r`, sem `-b` e sem `-c`.
+
+`Shift+Print` era *"capturar a área de trabalho inteira"* no padrão do Plasma; a liberação
+é a linha `FullScreenScreenShot|none` no `kde-settings.conf`.
+
+> **Atalho novo só passa a valer no login seguinte.** Nesta versão o KWin absorveu o
+> kglobalaccel, e ele lê o `kglobalshortcutsrc` e resolve o `Exec` de cada lançador uma vez
+> só, quando sobe. Testado: `setForeignShortcut` no D-Bus não cria componente novo,
+> `kbuildsycoca6` e `reconfigure` não fazem reler, e sobrepor o `.desktop` em
+> `~/.local/share/applications` não muda o `Exec` já resolvido. No Wayland o KWin não pode
+> ser reiniciado sem derrubar a sessão, então o caminho é deslogar e logar.
 
 ### Bandeja do sistema
 

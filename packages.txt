@@ -91,6 +91,8 @@ shellcheck
 shfmt
 starship
 tmux
+# wl-copy / wl-paste: ler e escrever o clipboard do Wayland pelo terminal
+wl-clipboard
 zoxide
 zsh
 zsh-autosuggestions
