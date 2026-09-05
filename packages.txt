@@ -59,6 +59,8 @@ qt6-wayland
 sddm
 sddm-kcm
 spectacle
+tesseract-data-eng
+tesseract-data-por
 xdg-desktop-portal-kde
 xorg-xwayland
 

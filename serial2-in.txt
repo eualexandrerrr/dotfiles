@@ -1,0 +1,1 @@
+sudo -n true && echo SUDO_OK; cat /var/log/myarch-firstboot.log | tail -3; sudo systemctl enable myarch-firstboot.service && echo REENABLED
