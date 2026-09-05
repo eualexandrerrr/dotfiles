@@ -1,14 +1,15 @@
 #!/usr/bin/env bash
+# Pós-instalação do Arch: pacotes, NVIDIA, KDE Plasma, serviços e symlinks deste repo.
+# Idempotente: pode rodar de novo a qualquer hora.
+#
+#   SKIP_NVIDIA=1 ./install.sh    pula driver e parâmetros de kernel (VM, máquina sem NVIDIA)
 
 set -euo pipefail
 
 DOTFILES_REPO="${DOTFILES_REPO:-https://github.com/eualexandrerrr/dotfiles.git}"
 DOTFILES_BRANCH="${DOTFILES_BRANCH:-main}"
 DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
-NANDOROID_REPO="${NANDOROID_REPO:-https://github.com/na-ive/nandoroid-shell.git}"
-NANDOROID_DIR="${NANDOROID_DIR:-$HOME/.local/src/nandoroid-shell}"
-REDM_DIR="${REDM_DIR:-$HOME/Games/RedM}"
-REDM_URL="https://runtime.fivem.net/client/RedM.exe"
+SKIP_NVIDIA="${SKIP_NVIDIA:-0}"
 
 KERNEL_PARAMS=(nvidia_drm.modeset=1 nvidia.NVreg_PreserveVideoMemoryAllocations=1)
 NVIDIA_MODULES=(nvidia nvidia_modeset nvidia_uvm nvidia_drm)
@@ -51,8 +52,19 @@ read_section() {
     ' "$file"
 }
 
+# pacman 6.1 entrega ParallelDownloads ATIVO (valor 5). Um sed ancorado em ^# nao
+# casa nesse caso e falha calado. Cobre os tres estados: comentada, ativa, ausente.
+set_pacman_option() {
+    local key="$1" value="$2"
+    if grep -qE "^#?${key}" /etc/pacman.conf; then
+        sudo sed -i -E "s|^#?${key}.*|${key} = ${value}|" /etc/pacman.conf
+    else
+        sudo sed -i "/^\[options\]/a ${key} = ${value}" /etc/pacman.conf
+    fi
+}
+
 enable_multilib() {
-    log "habilitando multilib"
+    log "pacman: multilib, downloads paralelos, cor"
     if grep -qE '^\[multilib\]' /etc/pacman.conf; then
         ok "multilib ja ativo"
     else
@@ -60,12 +72,8 @@ enable_multilib() {
         printf '\n[multilib]\nInclude = /etc/pacman.d/mirrorlist\n' | sudo tee -a /etc/pacman.conf >/dev/null
         ok "multilib adicionado"
     fi
-    if ! grep -qE '^ParallelDownloads' /etc/pacman.conf; then
-        sudo sed -i 's/^#ParallelDownloads.*/ParallelDownloads = 10/' /etc/pacman.conf
-    fi
-    if ! grep -qE '^Color' /etc/pacman.conf; then
-        sudo sed -i 's/^#Color/Color/' /etc/pacman.conf
-    fi
+    set_pacman_option ParallelDownloads 10
+    grep -qE '^Color' /etc/pacman.conf || sudo sed -i 's/^#Color/Color/' /etc/pacman.conf
     sudo pacman -Syy --noconfirm >/dev/null
 }
 
@@ -80,6 +88,9 @@ install_official() {
     local file pkgs
     file="$(pkgfile)"
     mapfile -t pkgs < <(read_section "$file" '^repo-oficial')
+    if [[ $SKIP_NVIDIA == 1 ]]; then
+        mapfile -t pkgs < <(printf '%s\n' "${pkgs[@]}" | grep -vE '^(nvidia|lib32-nvidia|libva-nvidia|egl-wayland)')
+    fi
     [[ ${#pkgs[@]} -gt 0 ]] || die "nenhum pacote oficial lido de $file"
     log "instalando ${#pkgs[@]} pacotes dos repos oficiais"
     sudo pacman -S --noconfirm --needed "${pkgs[@]}"
@@ -102,16 +113,12 @@ bootstrap_paru() {
 }
 
 install_aur() {
-    local file pkgs
+    local file pkgs p
     file="$(pkgfile)"
-    mapfile -t pkgs < <(read_section "$file" '^aur$')
-    pkgs=("${pkgs[@]/paru-bin/}")
-    local clean=()
-    local p
-    for p in "${pkgs[@]}"; do [[ -n $p ]] && clean+=("$p"); done
-    [[ ${#clean[@]} -gt 0 ]] || { warn "nenhum pacote AUR na lista"; return 0; }
-    log "instalando ${#clean[@]} pacotes do AUR"
-    for p in "${clean[@]}"; do
+    mapfile -t pkgs < <(read_section "$file" '^aur$' | grep -vx paru-bin)
+    [[ ${#pkgs[@]} -gt 0 ]] || { warn "nenhum pacote AUR na lista"; return 0; }
+    log "instalando ${#pkgs[@]} pacotes do AUR"
+    for p in "${pkgs[@]}"; do
         if paru -Qq "$p" >/dev/null 2>&1; then
             ok "$p ja instalado"
         elif paru -S --noconfirm --needed --skipreview "$p"; then
@@ -163,6 +170,10 @@ add_kernel_params() {
 }
 
 configure_nvidia() {
+    if [[ $SKIP_NVIDIA == 1 ]]; then
+        warn "SKIP_NVIDIA=1: driver e parametros de kernel pulados"
+        return 0
+    fi
     log "configurando driver nvidia"
 
     printf 'options nvidia_drm modeset=1\noptions nvidia NVreg_PreserveVideoMemoryAllocations=1\n' \
@@ -190,11 +201,11 @@ configure_nvidia() {
     fi
 
     add_kernel_params
-
     sudo mkinitcpio -P
 
+    local unit
     for unit in nvidia-suspend.service nvidia-hibernate.service nvidia-resume.service; do
-        systemctl list-unit-files "$unit" >/dev/null 2>&1 && sudo systemctl enable "$unit" >/dev/null 2>&1 || true
+        sudo systemctl enable "$unit" >/dev/null 2>&1 || true
     done
     ok "driver nvidia configurado"
 }
@@ -202,13 +213,10 @@ configure_nvidia() {
 enable_services() {
     log "habilitando servicos"
     local unit
-    for unit in NetworkManager.service bluetooth.service sddm.service; do
+    for unit in NetworkManager.service bluetooth.service sddm.service power-profiles-daemon.service; do
         sudo systemctl enable "$unit" >/dev/null 2>&1 && ok "$unit" || warn "$unit nao habilitado"
     done
 
-    # O list-unit-files devolve 0 mesmo sem casar nada, entao ele nao servia de
-    # guarda. Trocado por um laco que sempre diz o que aconteceu: antes, socket
-    # ausente passava em silencio absoluto.
     local sock
     for sock in docker.socket libvirtd.socket; do
         if sudo systemctl enable "$sock" >/dev/null 2>&1; then
@@ -218,10 +226,6 @@ enable_services() {
         fi
     done
 
-    # O guarda era so "o datadir nao existe". Numa maquina sem mariadb instalado
-    # o mariadb-install-db nem existe: o comando falha, e como ele e o unico do
-    # bloco (posicao em que o set -e NAO ignora a falha, diferente do lado
-    # esquerdo de um &&), derrubava o install.sh inteiro num passo opcional.
     if command -v mariadb-install-db >/dev/null 2>&1; then
         if [[ ! -d /var/lib/mysql/mysql ]]; then
             if sudo mariadb-install-db --user=mysql --basedir=/usr --datadir=/var/lib/mysql >/dev/null 2>&1; then
@@ -230,11 +234,7 @@ enable_services() {
                 warn "mariadb-install-db falhou, seguindo"
             fi
         fi
-        if sudo systemctl enable mariadb.service >/dev/null 2>&1; then
-            ok "mariadb.service"
-        else
-            warn "mariadb.service nao habilitado"
-        fi
+        sudo systemctl enable mariadb.service >/dev/null 2>&1 && ok "mariadb.service" || warn "mariadb.service nao habilitado"
     else
         warn "mariadb nao instalado, pulando a inicializacao do banco"
     fi
@@ -300,63 +300,35 @@ link_dotfiles() {
     ok "symlinks aplicados"
 }
 
-install_nandoroid() {
-    log "instalando o nandoroid-shell"
-    if [[ -d $NANDOROID_DIR/.git ]]; then
-        git -C "$NANDOROID_DIR" pull --ff-only || warn "nandoroid nao atualizou, seguindo com o que tem"
-        ok "nandoroid atualizado em $NANDOROID_DIR"
-    else
-        mkdir -p "$(dirname "$NANDOROID_DIR")"
-        git clone --depth 1 "$NANDOROID_REPO" "$NANDOROID_DIR" || { warn "clone do nandoroid falhou"; return 0; }
-        ok "nandoroid clonado em $NANDOROID_DIR"
-    fi
-
-    [[ -x $NANDOROID_DIR/install.sh ]] || { warn "install.sh do nandoroid nao encontrado"; return 0; }
-
-    warn "o instalador do nandoroid e interativo, responda as perguntas dele"
-    warn "quando ele perguntar sobre injetar no Hyprland, aceite: o hyprland.lua daqui ja faz o require"
-    ( cd "$NANDOROID_DIR" && ./install.sh ) || warn "instalador do nandoroid retornou erro"
-    ok "nandoroid instalado"
-}
-
-update_nandoroid() {
-    [[ -x $NANDOROID_DIR/update.sh ]] || return 0
-    ( cd "$NANDOROID_DIR" && ./update.sh )
-}
-
 configure_sddm() {
-    log "configurando sddm"
-    local theme
-    theme="$(find /usr/share/sddm/themes -maxdepth 1 -mindepth 1 -type d -printf '%f\n' 2>/dev/null | head -1 || true)"
+    log "configurando sddm (greeter Wayland com kwin, tema breeze)"
     sudo mkdir -p /etc/sddm.conf.d
-    if [[ -n $theme ]]; then
-        printf '[Theme]\nCurrent=%s\n\n[General]\nDisplayServer=wayland\nGreeterEnvironment=QT_WAYLAND_SHELL_INTEGRATION=layer-shell\n' "$theme" \
-            | sudo tee /etc/sddm.conf.d/10-dotfiles.conf >/dev/null
-        ok "tema do sddm: $theme"
-    else
-        printf '[General]\nDisplayServer=wayland\nGreeterEnvironment=QT_WAYLAND_SHELL_INTEGRATION=layer-shell\n' \
-            | sudo tee /etc/sddm.conf.d/10-dotfiles.conf >/dev/null
-        warn "nenhum tema de sddm encontrado, usando o padrao"
-    fi
+    cat <<'EOF' | sudo tee /etc/sddm.conf.d/10-dotfiles.conf >/dev/null
+[General]
+DisplayServer=wayland
+GreeterEnvironment=QT_WAYLAND_SHELL_INTEGRATION=layer-shell
+
+[Wayland]
+CompositorCommand=kwin_wayland --drm --no-lockscreen --no-global-shortcuts --locale1
+
+[Theme]
+Current=breeze
+EOF
+    ok "/etc/sddm.conf.d/10-dotfiles.conf"
 }
 
-setup_redm() {
-    log "preparando RedM"
-    warn "RedM nao tem cliente Linux: o launcher Enhanced depende de WebView2 e nao sobe em Wine/Proton"
-    warn "o instalador oficial vai ser baixado, mas pode simplesmente nao abrir"
-    mkdir -p "$REDM_DIR"
-    if [[ -f $REDM_DIR/RedM.exe ]]; then
-        ok "RedM.exe ja baixado em $REDM_DIR"
-    elif curl -fL --retry 3 -o "$REDM_DIR/RedM.exe" "$REDM_URL"; then
-        ok "RedM.exe salvo em $REDM_DIR"
+configure_kde_defaults() {
+    log "padroes do KDE: teclado ABNT2, kitty como terminal"
+    mkdir -p "$HOME/.config"
+    if command -v kwriteconfig6 >/dev/null 2>&1; then
+        kwriteconfig6 --file kxkbrc --group Layout --key LayoutList br
+        kwriteconfig6 --file kxkbrc --group Layout --key Use true
+        kwriteconfig6 --file kdeglobals --group General --key TerminalApplication kitty
+        kwriteconfig6 --file kdeglobals --group General --key TerminalService kitty.desktop
+        ok "kxkbrc e kdeglobals"
     else
-        warn "download do RedM falhou"
-        return 0
+        warn "kwriteconfig6 nao encontrado, ajuste teclado e terminal padrao nas Configuracoes do Sistema"
     fi
-    if [[ ! -d $HOME/.wine-redm ]]; then
-        WINEPREFIX="$HOME/.wine-redm" WINEARCH=win64 wineboot -i >/dev/null 2>&1 || warn "wineboot falhou"
-    fi
-    ok "prefixo wine em ~/.wine-redm, rode: WINEPREFIX=~/.wine-redm wine $REDM_DIR/RedM.exe"
 }
 
 summary() {
@@ -364,10 +336,15 @@ summary() {
     printf '%s  instalacao concluida%s\n' "$GRN" "$END"
     printf '%s================================%s\n\n' "$GRN" "$END"
     printf 'dotfiles:  %s (branch %s)\n' "$DOTFILES_DIR" "$DOTFILES_BRANCH"
-    printf 'shell:     quickshell (qs) sobre Hyprland\n'
-    printf 'driver:    nvidia-open-dkms + %s\n\n' "${KERNEL_PARAMS[*]}"
+    printf 'desktop:   KDE Plasma (Wayland) via sddm\n'
+    if [[ $SKIP_NVIDIA == 1 ]]; then
+        printf 'driver:    pulado (SKIP_NVIDIA=1)\n\n'
+    else
+        printf 'driver:    nvidia-open-dkms + %s\n\n' "${KERNEL_PARAMS[*]}"
+        warn "confira depois do boot: cat /sys/module/nvidia_drm/parameters/modeset (tem que dar Y)"
+    fi
     warn "reinicie para carregar o kernel novo, o initramfs e os grupos do usuario"
-    warn "confira depois do boot: cat /sys/module/nvidia_drm/parameters/modeset (tem que dar Y)"
+    printf 'RedM em Wine (so dev): https://github.com/eualexandrerrr/RedMLinux (linux/setup-wine-redm.sh)\n'
 }
 
 main() {
@@ -381,9 +358,8 @@ main() {
     enable_services
     fetch_dotfiles
     link_dotfiles
-    install_nandoroid
     configure_sddm
-    setup_redm
+    configure_kde_defaults
     summary
 }
 

@@ -2,14 +2,13 @@
 
 # dotfiles
 
-**Arch Linux · Hyprland · Quickshell**
+**Arch Linux · KDE Plasma (Wayland) · NVIDIA**
 
-Configuração de desktop com RTX 3090. Hyprland em Lua, shell pelo
-[nandoroid-shell](https://github.com/na-ive/nandoroid-shell).
+Pós-instalação de uma máquina com RTX 3090: pacotes, driver, KDE, serviços e os
+poucos arquivos de configuração que valem versionar.
 
 [![Arch](https://img.shields.io/badge/Arch_Linux-1793D1?style=flat-square&logo=arch-linux&logoColor=white)](https://archlinux.org)
-[![Hyprland](https://img.shields.io/badge/Hyprland-58E1FF?style=flat-square&logo=hyprland&logoColor=black)](https://hypr.land)
-[![Quickshell](https://img.shields.io/badge/Quickshell-41CD52?style=flat-square&logo=qt&logoColor=white)](https://quickshell.outfoxxed.me)
+[![KDE](https://img.shields.io/badge/KDE_Plasma-1D99F3?style=flat-square&logo=kde&logoColor=white)](https://kde.org/plasma-desktop/)
 [![NVIDIA](https://img.shields.io/badge/nvidia--open--dkms-76B900?style=flat-square&logo=nvidia&logoColor=white)](https://wiki.archlinux.org/title/NVIDIA)
 
 </div>
@@ -20,75 +19,54 @@ Configuração de desktop com RTX 3090. Hyprland em Lua, shell pelo
 
 | Camada | Programa |
 |:--|:--|
-| Compositor | `hyprland` |
-| Shell, barra e painéis | [`nandoroid-shell`](https://github.com/na-ive/nandoroid-shell) sobre `quickshell` |
-| Cores dinâmicas | `matugen` (Material You a partir do wallpaper) |
-| Lançador | `fuzzel` |
-| Terminal | `kitty` |
-| Bloqueio e idle | `hyprlock` · `hypridle` |
-| Login | `sddm` |
-| Prompt | `starship` |
-| Driver | `nvidia-open-dkms` |
+| Desktop | KDE Plasma 6 em Wayland (`plasma-desktop`, sem `plasma-meta`) |
+| Login | `sddm` com greeter em `kwin_wayland`, tema Breeze |
+| Terminal | `kitty` (registrado como terminal padrão do KDE) |
+| Shell | `zsh` + `starship` + `zsh-autosuggestions` + `zsh-syntax-highlighting` |
+| Arquivos, imagens, PDF, prints | `dolphin`, `gwenview`, `okular`, `spectacle` |
+| Driver | `nvidia-open-dkms`, `nvidia_drm.modeset=1` |
+| Jogos e Wine | `steam`, `lutris`, `wine`, `winetricks`, `gamescope`, `mangohud` |
+| VMs | `qemu-full`, `libvirt`, `virt-manager` (plano B do RedM) |
 | Agente no terminal | `claude-code` (AUR) |
+
+Barra, painéis, atalhos, tema, wallpaper e monitores são do próprio Plasma e ficam nas
+Configurações do Sistema. Nada disso é versionado aqui de propósito: o KDE grava dezenas
+de arquivos em `~/.config` com estado misturado à configuração, e commitar isso vira ruído.
 
 ## Estrutura
 
 ```
 dotfiles
 ├── .config
-│   ├── hypr
-│   │   ├── hyprland.lua      monitores, env da nvidia, keybinds, regras
-│   │   ├── hyprlock.conf     tela de bloqueio
-│   │   └── hypridle.conf     timeouts de idle
 │   └── kitty
 │       ├── kitty.conf
 │       └── current-theme.conf
-├── home                      .zshrc, .zprofile
-├── install.sh                pós-instalação do Arch
-└── packages.txt              pacotes por repositório
+├── home
+│   ├── .zshrc
+│   └── .zprofile
+├── install.sh                pós-instalação, idempotente
+└── packages.txt              pacotes por seção; [repo-oficial:*] vai pro pacman, [aur] pro paru
 ```
-
-## Como isto se encaixa com o nandoroid
-
-O nandoroid **não toma conta do seu Hyprland**. Ele instala em
-`~/.local/src/nandoroid-shell`, gera `~/.config/hypr/nandoroid/nandoroid.lua`
-e espera que o seu config principal faça o `require`. Aqui isso já está feito:
-
-```lua
-pcall(require, "nandoroid/nandoroid")
-```
-
-O `pcall` é de propósito — se o nandoroid não estiver instalado ainda, o Hyprland
-sobe do mesmo jeito em vez de morrer no boot.
-
-Consequências práticas:
-
-- **Monitores, keybinds e regras de janela são seus**, ficam neste repo
-- **Barra, painéis, dashboard e tema são do nandoroid**, e atualizam pelo `update.sh` dele
-- O `.gitignore` ignora `.config/hypr/nandoroid/` e `.config/matugen/`, que são gerados
-
-Este repo **não redistribui código do nandoroid**. Ele é AGPL-3.0; copiar para cá
-tornaria este repositório AGPL também. O `install.sh` clona do upstream.
 
 ## Instalação
 
+Depois do [myarch](https://github.com/eualexandrerrr/myarch), logado como usuário:
+
 ```bash
-sudo pacman -Sy git --noconfirm
-git clone https://github.com/eualexandrerrr/dotfiles ~/.dotfiles
 cd ~/.dotfiles
 ./install.sh
 ```
 
-O script é **idempotente**. Em ordem:
+Em ordem:
 
-1. Habilita `multilib` e atualiza o sistema
-2. Instala os pacotes de `packages.txt` do repositório oficial
-3. Faz bootstrap do `paru` e instala os do AUR
-4. Configura a NVIDIA: `modprobe.d`, módulos no `mkinitcpio`, parâmetros de kernel, `mkinitcpio -P`
-5. Habilita serviços e adiciona seu usuário aos grupos
-6. Cria os symlinks deste repo
-7. Clona e roda o instalador do nandoroid — **essa parte é interativa**
-8. Configura o sddm
+1. `multilib`, `ParallelDownloads`, `Color` no `pacman.conf`, e `pacman -Syu`
+2. Pacotes do `packages.txt` (repos oficiais)
+3. `paru` e os pacotes do AUR
+4. NVIDIA: `modprobe.d`, módulos no `mkinitcpio`, parâmetros de kernel, `mkinitcpio -P`
+5. Serviços: `NetworkManager`, `bluetooth`, `sddm`, `power-profiles-daemon`, `docker.socket`, `libvirtd.socket`, `mariadb`; grupos do usuário
+6. Symlinks de `.config/*` e `home/*` (o que existir no destino vira `.bak-<data>`)
+7. `sddm` em Wayland com `kwin`, tema Breeze
+8. Padrões do KDE: teclado `br` (ABNT2) e `kitty` como terminal
 
 Reinicie no fim.
 
@@ -96,91 +74,31 @@ Reinicie no fim.
 cat /sys/module/nvidia_drm/parameters/modeset   # tem que retornar Y
 ```
 
-Para atualizar só o shell depois:
+Numa VM ou máquina sem NVIDIA:
 
 ```bash
-cd ~/.local/src/nandoroid-shell && ./update.sh
+SKIP_NVIDIA=1 ./install.sh
 ```
 
 ## Monitores
 
-Definido em `.config/hypr/hyprland.lua`:
-
-| | Saída | Modo | Posição | Transform |
-|:--|:--|:--|:--|:--|
-| Secundário — retrato, esquerda | `DP-2` | 1920x1080 | `0x0` | `1` |
-| Principal — paisagem, direita | `DP-1` | 2560x1440 | `1080x0` | — |
-
-Workspaces 1–5 no principal, 6–10 no secundário.
-
-> Os nomes `DP-1`/`DP-2` são um chute. Rode `hyprctl monitors` no primeiro boot e
-> corrija `monitor_main` e `monitor_side` no topo do arquivo. Há um terceiro bloco
-> `hl.monitor` genérico como rede de segurança. Se o retrato subir de cabeça pra
-> baixo, troque `transform = 1` por `3`.
-
-## Atalhos
-
-| Tecla | Ação |
-|:--|:--|
-| <kbd>Super</kbd> <kbd>Enter</kbd> | Terminal |
-| <kbd>Super</kbd> <kbd>E</kbd> | Arquivos |
-| <kbd>Super</kbd> <kbd>B</kbd> | Navegador |
-| <kbd>Super</kbd> <kbd>C</kbd> | Fechar janela |
-| <kbd>Super</kbd> <kbd>V</kbd> | Flutuar |
-| <kbd>Super</kbd> <kbd>F</kbd> | Tela cheia |
-| <kbd>Super</kbd> <kbd>G</kbd> | Agrupar |
-| <kbd>Super</kbd> <kbd>P</kbd> | Conta-gotas |
-| <kbd>Super</kbd> <kbd>S</kbd> | Workspace especial |
-| <kbd>Super</kbd> <kbd>L</kbd> | Bloquear |
-| <kbd>Super</kbd> <kbd>1..0</kbd> | Trocar de workspace |
-| <kbd>Super</kbd> <kbd>Shift</kbd> <kbd>1..0</kbd> | Mover janela pro workspace |
-| <kbd>Print</kbd> | Recorte pro swappy |
-| <kbd>Super</kbd> <kbd>Print</kbd> | Tela cheia pra área de transferência |
-| <kbd>Super</kbd> <kbd>Shift</kbd> <kbd>Print</kbd> | Gravar região |
-| <kbd>Alt</kbd> <kbd>F4</kbd> | Desligar |
-
-Os painéis do nandoroid têm os atalhos próprios deles, documentados no repo do projeto.
-
-## Mudanças do ecossistema
-
-Coisas que mudaram e invalidam tutorial antigo:
-
-| Antes | Agora |
-|:--|:--|
-| `hyprland.conf` em hyprlang | `hyprland.lua` em **Lua**, desde o Hyprland 0.55 |
-| `swww` | `awww` — mesmo projeto, declara `provides`/`replaces` |
-| `rofi-wayland` | absorvido pelo `rofi` 2.0 no repo oficial |
-| `p7zip` | `7zip` |
-| `hyprland-qtutils` | `hyprland-guiutils` |
-
-Pacotes citados em READMEs de rice que **não existem** com esse nome:
-`hyprland-plugins`, `colorreload-gtk-module`, `pulseaudio-utils` (`pactl` vem do `libpulse`).
-O `dgop` também não está no AUR — quem instala é o próprio nandoroid.
+Dois monitores: principal 2560x1440 paisagem à direita, secundário 1920x1080 em retrato à esquerda.
+Configure em **Configurações do Sistema → Tela e Monitor** no primeiro boot; o `kscreen` guarda
+a disposição por combinação de monitores em `~/.local/share/kscreen/`.
 
 ## Ressalvas
 
-- **`--skipreview` no `paru`.** O `install_aur` instala os pacotes do AUR sem exibir o
-  `PKGBUILD` antes de compilar. AUR é conteúdo enviado por usuário: o que vem de lá é
-  código de terceiro rodando com as permissões do `makepkg`. Sem o `--skipreview` o
-  script pararia esperando confirmação em cada um dos 16, o que inviabiliza rodar sozinho.
-  Se quiser conferir uma receita antes, o caminho é `paru -G <pacote>` e ler à mão.
+- **`--skipreview` no `paru`.** Os pacotes do AUR são instalados sem exibir o `PKGBUILD`. AUR é
+  conteúdo enviado por usuário rodando com as permissões do `makepkg`. Sem isso o script pararia
+  em cada um dos 12. Pra conferir uma receita antes: `paru -G <pacote>` e ler à mão.
+- **RedM no Linux é só pra desenvolvimento.** O client oficial não roda em Wine (anticheat). O client
+  custom em insecure mode, o servidor local sem `svadhesive` e o plano B com GPU passthrough estão em
+  [RedMLinux](https://github.com/eualexandrerrr/RedMLinux). Este repo só instala `wine`/`winetricks`.
+- Credenciais e variáveis de ambiente ficam em `dotfiles-private` (privado); o `.zshrc` carrega
+  `~/.dotfiles-private/env.sh` se existir.
 
-- **RedM não tem cliente Linux.** O launcher Enhanced depende do WebView2 e não sobe em
-  Wine/Proton. O `install.sh` baixa o instalador oficial e cria um prefixo, mas é provável
-  que não abra. RDR2 pela Steam roda normalmente via Proton.
-- O passo do nandoroid é **interativo** — ele faz perguntas sobre quais componentes injetar.
+## Histórico
 
-## Repositórios relacionados
-
-- [eualexandrerrr/myarch](https://github.com/eualexandrerrr/myarch) — instalador do Arch, gera o pendrive
-- `eualexandrerrr/dotfiles-private` — credenciais e variáveis de ambiente, privado
-
-## Créditos
-
-- [nandoroid-shell](https://github.com/na-ive/nandoroid-shell) — na-ive, AGPL-3.0
-- [Quickshell](https://quickshell.outfoxxed.me) — outfoxxed
-- [Hyprland](https://hypr.land) — vaxerski
-
-<div align="center">
-<sub>Branch <code>backup/i3-x11-2023</code> guarda o rice antigo de i3 + polybar.</sub>
-</div>
+- Até 09/2026 o repo era Hyprland + Quickshell (nandoroid-shell). Trocado por KDE Plasma; a pilha
+  antiga está no histórico do git (`git log --before=2026-09-05`).
+- Branch `backup/i3-x11-2023` guarda o rice de i3 + polybar.
