@@ -78,7 +78,7 @@ enable_multilib() {
     fi
     set_pacman_option ParallelDownloads 10
     grep -qE '^Color' /etc/pacman.conf || sudo sed -i 's/^#Color/Color/' /etc/pacman.conf
-    sudo pacman -Syy --noconfirm >/dev/null
+    sudo pacman -Syy --noconfirm
 }
 
 sync_system() {
@@ -127,6 +127,7 @@ install_aur() {
     mapfile -t pkgs < <(read_section "$file" '^aur$' | grep -vxE 'paru|paru-bin')
     [[ ${#pkgs[@]} -gt 0 ]] || { warn "nenhum pacote AUR na lista"; return 0; }
     log "instalando ${#pkgs[@]} pacotes do AUR"
+    local falhas=()
     for p in "${pkgs[@]}"; do
         if paru -Qq "$p" >/dev/null 2>&1; then
             ok "$p ja instalado"
@@ -134,8 +135,15 @@ install_aur() {
             ok "$p instalado"
         else
             warn "$p falhou, seguindo"
+            falhas+=("$p")
         fi
     done
+    if (( ${#falhas[@]} )); then
+        warn "AUR que nao instalaram: ${falhas[*]}"
+        warn "depois rode: paru -S --needed ${falhas[*]}"
+    else
+        ok "todos os pacotes do AUR instalados"
+    fi
 }
 
 add_kernel_params() {
