@@ -4,3 +4,6 @@ Seen=true
 [Applications][widget-claude]
 Seen=true
 ShowPopups=false
+
+[DoNotDisturb]
+NotificationSoundsMuted=false
