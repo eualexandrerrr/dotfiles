@@ -1,0 +1,51 @@
+# ─── Aparência ────────────────────────────────────────────────
+theme = Catppuccin Mocha
+
+font-family = JetBrainsMono Nerd Font
+font-size = 12
+font-feature = calt
+font-feature = liga
+font-thicken = true
+
+# Respiro interno — o que mais muda a sensação de "bonito"
+window-padding-x = 14
+window-padding-y = 10
+window-padding-balance = true
+
+# Transparência + blur (KDE Wayland suporta nativamente)
+background-opacity = 0.92
+background-blur-radius = 24
+
+# Cursor
+cursor-style = block
+cursor-style-blink = false
+adjust-cursor-thickness = 2
+
+# ─── Janela ───────────────────────────────────────────────────
+window-decoration = true
+window-theme = ghostty
+gtk-titlebar = true
+gtk-tabs-location = top
+window-inherit-working-directory = true
+confirm-close-surface = false
+
+# ─── Scrollback e comportamento ───────────────────────────────
+scrollback-limit = 100000
+copy-on-select = clipboard
+mouse-hide-while-typing = true
+link-url = true
+shell-integration = detect
+shell-integration-features = cursor,sudo,title
+
+# ─── Atalhos ──────────────────────────────────────────────────
+keybind = ctrl+shift+t=new_tab
+keybind = ctrl+shift+w=close_surface
+keybind = ctrl+shift+enter=new_split:right
+keybind = ctrl+shift+d=new_split:down
+keybind = ctrl+shift+h=goto_split:left
+keybind = ctrl+shift+l=goto_split:right
+keybind = ctrl+shift+k=goto_split:up
+keybind = ctrl+shift+j=goto_split:down
+keybind = ctrl+plus=increase_font_size:1
+keybind = ctrl+minus=decrease_font_size:1
+keybind = ctrl+zero=reset_font_size

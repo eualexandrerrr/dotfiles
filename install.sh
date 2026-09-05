@@ -408,33 +408,29 @@ EOF
 }
 
 configure_kde_defaults() {
-    log "padroes do KDE: tema escuro, teclado ABNT2, kitty como terminal, icones Tela, cursor Capitaine"
+    log "padroes do KDE a partir de scripts/kde-settings.conf"
     mkdir -p "$HOME/.config"
-    if command -v kwriteconfig6 >/dev/null 2>&1; then
-        kwriteconfig6 --file kdeglobals --group General --key ColorScheme BreezeDark
-        kwriteconfig6 --file kdeglobals --group KDE --key LookAndFeelPackage org.kde.breezedark.desktop
-        kwriteconfig6 --file kdeglobals --group KDE --key widgetStyle Breeze
-        kwriteconfig6 --file plasmarc --group Theme --key name breeze-dark
-        kwriteconfig6 --file kwinrc --group Windows --key BorderlessMaximizedWindows true
-        ok "tema Breeze Dark (cores, plasma e look-and-feel)"
-        ok "layout estilo Windows 11 (painel flutuante, icones centralizados) sera aplicado no primeiro login por scripts/kde-layout-once.sh"
+    if ! command -v kwriteconfig6 >/dev/null 2>&1; then
+        warn "kwriteconfig6 nao encontrado, ajuste teclado, terminal e tema nas Configuracoes do Sistema"
+        return 0
+    fi
+    local conf="$DOTFILES_DIR/scripts/kde-settings.conf"
+    if [[ -f $conf ]]; then
+        # Fonte unica: tudo que voce ajustou na GUI e capturou com scripts/kde-capture.sh.
+        # Teclado (repeticao), mouse (aceleracao), tema, icones, terminal padrao, bordas.
+        DOTFILES_DIR="$DOTFILES_DIR" bash "$DOTFILES_DIR/scripts/kde-apply.sh" "$conf" \
+            && ok "kde-settings.conf aplicado" \
+            || warn "kde-apply.sh terminou com erro, confira as Configuracoes do Sistema"
+    else
+        warn "$conf ausente, aplicando so o minimo (teclado br, terminal ghostty, Breeze Dark)"
         kwriteconfig6 --file kxkbrc --group Layout --key LayoutList br
         kwriteconfig6 --file kxkbrc --group Layout --key Use true
-        kwriteconfig6 --file kdeglobals --group General --key TerminalApplication kitty
-        kwriteconfig6 --file kdeglobals --group General --key TerminalService kitty.desktop
-        if [[ -d /usr/share/icons/Tela-dark ]]; then
-            kwriteconfig6 --file kdeglobals --group Icons --key Theme Tela-dark
-            ok "icones Tela-dark"
-        fi
-        if [[ -d /usr/share/icons/capitaine-cursors-white ]]; then
-            kwriteconfig6 --file kcminputrc --group Mouse --key cursorTheme capitaine-cursors-white
-            kwriteconfig6 --file kcminputrc --group Mouse --key cursorSize 24
-            ok "cursor capitaine-cursors-white"
-        fi
-        ok "kxkbrc e kdeglobals"
-    else
-        warn "kwriteconfig6 nao encontrado, ajuste teclado e terminal padrao nas Configuracoes do Sistema"
+        kwriteconfig6 --file kdeglobals --group General --key TerminalApplication ghostty
+        kwriteconfig6 --file kdeglobals --group General --key TerminalService com.mitchellh.ghostty.desktop
+        kwriteconfig6 --file kdeglobals --group General --key ColorScheme BreezeDark
+        kwriteconfig6 --file plasmarc --group Theme --key name breeze-dark
     fi
+    ok "layout estilo Windows 11 sera aplicado no primeiro login por scripts/kde-layout-once.sh"
 }
 
 install_windows_modern() {

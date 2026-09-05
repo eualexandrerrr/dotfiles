@@ -45,7 +45,7 @@ gwenview
 kde-gtk-config
 kdegraphics-thumbnailers
 kio-admin
-kitty
+ghostty
 kscreen
 kwallet-pam
 okular

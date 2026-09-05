@@ -12,12 +12,8 @@ for i in $(seq 1 90); do
     sleep 1
 done
 
-kwriteconfig6 --file kxkbrc --group Layout --key LayoutList br
-kwriteconfig6 --file kxkbrc --group Layout --key Use true
-kwriteconfig6 --file kdeglobals --group General --key TerminalApplication kitty
-kwriteconfig6 --file kdeglobals --group General --key TerminalService kitty.desktop
-kwriteconfig6 --file kcminputrc --group Mouse --key cursorTheme capitaine-cursors-white
-kwriteconfig6 --file kwinrc --group Windows --key BorderlessMaximizedWindows true
+# Teclado, mouse, tema, icones e terminal padrao: tudo do kde-settings.conf.
+bash "$HOME/.dotfiles/scripts/kde-apply.sh" || true
 
 if [[ -d $wm/scripts && -d $HOME/.local/share/plasma/look-and-feel/org.kde.windowsmodern.dark ]]; then
     printf 'aplicando Windows Modern (dark)\n'

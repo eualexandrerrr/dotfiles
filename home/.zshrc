@@ -14,7 +14,7 @@ source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 [[ -f /usr/share/fzf/completion.zsh ]]   && source /usr/share/fzf/completion.zsh
 
 export BROWSER="google-chrome-stable"
-export TERMINAL="kitty"
+export TERMINAL="ghostty"
 export EDITOR="nano"
 
 # Aliases

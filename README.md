@@ -21,7 +21,7 @@ poucos arquivos de configuração que valem versionar.
 |:--|:--|
 | Desktop | KDE Plasma 6 em Wayland (`plasma-desktop`, sem `plasma-meta`) |
 | Login | `sddm` com greeter em `kwin_wayland`, tema Breeze |
-| Terminal | `kitty` (registrado como terminal padrão do KDE) |
+| Terminal | `ghostty` (registrado como terminal padrão do KDE) |
 | Shell | `zsh` + `starship` + `zsh-autosuggestions` + `zsh-syntax-highlighting` |
 | Arquivos, imagens, PDF, prints | `dolphin`, `gwenview`, `okular`, `spectacle` |
 | Ícones | [Tela](https://github.com/vinceliuice/Tela-icon-theme) (`tela-icon-theme`, AUR), variante `Tela-dark` setada no `kdeglobals` |
@@ -33,21 +33,34 @@ poucos arquivos de configuração que valem versionar.
 | VMs | `qemu-full`, `libvirt`, `virt-manager` (plano B do RedM) |
 | Agente no terminal | `claude-code` (AUR) |
 
-Barra, painéis, atalhos, tema, wallpaper e monitores são do próprio Plasma e ficam nas
-Configurações do Sistema. Nada disso é versionado aqui de propósito: o KDE grava dezenas
-de arquivos em `~/.config` com estado misturado à configuração, e commitar isso vira ruído.
+Barra, painéis, wallpaper e disposição de monitores continuam sendo do próprio Plasma e
+não são versionados: o KDE grava dezenas de arquivos em `~/.config` com estado misturado à
+configuração (posição de janela, hash de tema, UUID de desktop virtual), e commitar isso
+vira ruído que conflita a cada login.
+
+O que **é** versionado são as decisões: teclado, mouse, tema, ícones, terminal padrão,
+bordas de janela. Ficam em `scripts/kde-settings.conf`, uma chave por linha, geradas por
+curadoria — ver [Configuração do KDE](#configuração-do-kde).
 
 ## Estrutura
 
 ```
 dotfiles
 ├── .config
-│   └── kitty
-│       ├── kitty.conf
-│       └── current-theme.conf
+│   ├── autostart
+│   │   ├── nvidia-desempenho.desktop
+│   │   └── kde-layout-once.desktop
+│   └── ghostty
+│       └── config
 ├── home
 │   ├── .zshrc
 │   └── .zprofile
+├── scripts
+│   ├── kde-settings.conf     decisões do KDE, uma chave por linha (gerado, não editar)
+│   ├── kde-capture.sh        lê o KDE vivo e regrava o kde-settings.conf
+│   ├── kde-apply.sh          aplica o kde-settings.conf via kwriteconfig6
+│   ├── kde-layout-once.sh    primeiro login: tema Windows Modern, painel, layout
+│   └── kde-layout.js         layout do painel (script do Plasma)
 ├── install.sh                pós-instalação, idempotente
 └── packages.txt              pacotes por seção; [repo-oficial:*] vai pro pacman, [aur] pro paru
 ```
@@ -70,7 +83,7 @@ Em ordem:
 5. Serviços: `NetworkManager`, `sddm`, `power-profiles-daemon` (perfil `performance`), `ananicy-cpp`, `reflector.timer`, `docker.socket`, `libvirtd.socket`, `mariadb`; grupos do usuário
 6. Symlinks de `.config/*` e `home/*` (o que existir no destino vira `.bak-<data>`)
 7. `sddm` em Wayland com `kwin`, tema Breeze
-8. Padrões do KDE: teclado `br` (ABNT2), `kitty` como terminal, ícones `Tela-dark`, cursor `capitaine-cursors-white`
+8. Padrões do KDE: `scripts/kde-apply.sh` grava tudo que está no `kde-settings.conf`
 
 Reinicie no fim.
 
@@ -83,6 +96,40 @@ Sem placa NVIDIA no PCI (VM, outra máquina) o driver é pulado sozinho. Pra for
 ```bash
 SKIP_NVIDIA=1 ./install.sh
 ```
+
+## Configuração do KDE
+
+Nada de editar `~/.config` na mão. O ciclo é: **mexer na GUI → capturar → commitar**.
+
+```bash
+# ajuste o que quiser em Configurações do Sistema, depois:
+~/.dotfiles/scripts/kde-capture.sh
+git -C ~/.dotfiles diff          # confira o que mudou
+git -C ~/.dotfiles commit -am "kde: ..."
+```
+
+Em outra máquina (ou depois de reinstalar), o `install.sh` chama sozinho:
+
+```bash
+~/.dotfiles/scripts/kde-apply.sh   # aplica e recarrega o kwin, sem precisar deslogar
+```
+
+O `kde-capture.sh` não copia o `~/.config` inteiro: a lista `GRUPOS` dentro dele é a
+curadoria de quais `arquivo:grupo` valem versionar, e `IGNORAR_CHAVE` derruba o que é
+estado (`ColorSchemeHash`, `Id_*`, contadores). Pra versionar mais coisa, acrescente o par
+`arquivo:grupo` nessa lista e rode o capture de novo.
+
+O que está coberto hoje:
+
+| Arquivo | Grupo | O que é |
+|:--|:--|:--|
+| `kcminputrc` | `Keyboard` | repetição de teclas: **450 ms** de atraso, **50 Hz** (padrão do Plasma é 600 ms / 25 Hz) |
+| `kcminputrc` | `Libinput[...]` | aceleração do ponteiro e fator de rolagem, por dispositivo |
+| `kxkbrc` | `Layout` | teclado `br` (ABNT2) |
+| `kdeglobals` | `General` | terminal padrão `ghostty`, navegador `google-chrome` |
+| `kdeglobals` | `Icons`, `KDE` | ícones `Tela-dark`, estilo `kvantum-dark`, look-and-feel Windows Modern |
+| `kwinrc` | `Windows`, `org.kde.kdecoration2` | maximizada sem borda, borda `Tiny`, decoração Aurorae |
+| `plasmarc` | `Theme` | tema Plasma `breeze-dark` |
 
 ## Monitores
 
@@ -106,3 +153,7 @@ a disposição por combinação de monitores em `~/.local/share/kscreen/`.
 - Até 09/2026 o repo era Hyprland + Quickshell (nandoroid-shell). Trocado por KDE Plasma; a pilha
   antiga está no histórico do git (`git log --before=2026-09-05`).
 - Branch `backup/i3-x11-2023` guarda o rice de i3 + polybar.
+- 05/09/2026: configuração do KDE passou a ser versionada em `scripts/kde-settings.conf`,
+  com `kde-capture.sh` / `kde-apply.sh` fazendo o ida e volta com a GUI.
+- 05/09/2026: `kitty` trocado por `ghostty` (terminal padrão do KDE, `TERMINAL` no `.zshrc`,
+  lançador do painel e `terminfo` do live ISO do myarch).

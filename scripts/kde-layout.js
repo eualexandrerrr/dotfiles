@@ -23,7 +23,7 @@ menu.writeConfig("compactMode", false);
 
 var tarefas = p.addWidget("org.kde.plasma.icontasks");
 tarefas.currentConfigGroup = ["General"];
-tarefas.writeConfig("launchers", ["applications:org.kde.dolphin.desktop", "applications:google-chrome.desktop", "applications:kitty.desktop", "applications:discord.desktop", "applications:steam.desktop"]);
+tarefas.writeConfig("launchers", ["applications:org.kde.dolphin.desktop", "applications:google-chrome.desktop", "applications:com.mitchellh.ghostty.desktop", "applications:discord.desktop", "applications:steam.desktop"]);
 tarefas.writeConfig("iconSpacing", 1);
 tarefas.writeConfig("showOnlyCurrentDesktop", false);
 
