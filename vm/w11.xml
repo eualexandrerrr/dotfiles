@@ -91,14 +91,6 @@
     </disk>
     <disk type='file' device='cdrom'>
       <driver name='qemu' type='raw'/>
-      <source file='/var/lib/libvirt/images/win11.iso'/>
-      <backingStore/>
-      <target dev='sda' bus='sata'/>
-      <readonly/>
-      <address type='drive' controller='0' bus='0' target='0' unit='0'/>
-    </disk>
-    <disk type='file' device='cdrom'>
-      <driver name='qemu' type='raw'/>
       <source file='/var/lib/libvirt/images/virtio-win.iso'/>
       <backingStore/>
       <target dev='sdb' bus='sata'/>
