@@ -216,22 +216,20 @@ add_kernel_params() {
     log "gravando parametros de kernel da nvidia"
     local applied=0 p entry
 
-    if [[ -d /boot/loader/entries ]] && command -v bootctl >/dev/null 2>&1; then
-        shopt -s nullglob
-        for entry in /boot/loader/entries/*.conf; do
-            grep -qE '^options ' "$entry" || continue
+    if sudo test -d /boot/loader/entries && command -v bootctl >/dev/null 2>&1; then
+        while IFS= read -r entry; do
+            sudo grep -qE '^options ' "$entry" || continue
             for p in "${KERNEL_PARAMS[@]}"; do
-                grep -qF -- "$p" "$entry" || sudo sed -i "s|^options .*|& $p|" "$entry"
+                sudo grep -qF -- "$p" "$entry" || sudo sed -i "s|^options .*|& $p|" "$entry"
             done
             applied=1
-            ok "systemd-boot: $(basename "$entry")"
-        done
-        shopt -u nullglob
+            ok "systemd-boot: $(basename "$entry") com os parametros"
+        done < <(sudo find /boot/loader/entries -maxdepth 1 -name '*.conf' 2>/dev/null)
     fi
 
-    if [[ -f /etc/kernel/cmdline ]]; then
+    if sudo test -f /etc/kernel/cmdline; then
         for p in "${KERNEL_PARAMS[@]}"; do
-            grep -qF -- "$p" /etc/kernel/cmdline || printf ' %s' "$p" | sudo tee -a /etc/kernel/cmdline >/dev/null
+            sudo grep -qF -- "$p" /etc/kernel/cmdline || printf ' %s' "$p" | sudo tee -a /etc/kernel/cmdline >/dev/null
         done
         applied=1
         ok "/etc/kernel/cmdline atualizado"
