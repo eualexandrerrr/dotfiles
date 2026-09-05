@@ -253,8 +253,9 @@ enable_services() {
 
     # Desktop ligado na tomada: perfil de energia em desempenho, sempre.
     if command -v powerprofilesctl >/dev/null 2>&1; then
-        sudo systemctl start power-profiles-daemon.service >/dev/null 2>&1 || true
-        powerprofilesctl set performance >/dev/null 2>&1 && ok "perfil de energia: performance" || warn "power-profiles-daemon nao respondeu, ajuste no primeiro login"
+        sudo mkdir -p /var/lib/power-profiles-daemon
+        printf '[State]\nProfile=performance\n' | sudo tee /var/lib/power-profiles-daemon/state.ini >/dev/null
+        ok "perfil de energia: performance (aplicado no proximo boot)"
     fi
     ok "servicos prontos"
 }
