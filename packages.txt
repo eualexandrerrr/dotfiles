@@ -146,7 +146,7 @@ claude-code
 google-chrome
 insync
 maestro-bin
-paru-bin
+paru
 cachyos-ananicy-rules-git
 tela-icon-theme
 ttf-ms-fonts

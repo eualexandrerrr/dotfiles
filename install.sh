@@ -103,23 +103,28 @@ install_official() {
 
 bootstrap_paru() {
     log "instalando paru"
-    if command -v paru >/dev/null 2>&1; then
+    if paru --version >/dev/null 2>&1; then
         ok "paru ja instalado: $(paru --version | head -1)"
         return 0
     fi
+    if pacman -Qq paru-bin >/dev/null 2>&1; then
+        warn "paru-bin instalado mas nao roda (libalpm desatualizado), trocando pelo paru compilado"
+        sudo pacman -Rns --noconfirm paru-bin
+    fi
+    sudo pacman -S --noconfirm --needed rust
     local build
     build="$(mktemp -d)"
-    git clone --depth 1 https://aur.archlinux.org/paru-bin.git "$build/paru-bin"
-    ( cd "$build/paru-bin" && makepkg -si --noconfirm --needed )
+    git clone --depth 1 https://aur.archlinux.org/paru.git "$build/paru"
+    ( cd "$build/paru" && makepkg -si --noconfirm --needed )
     rm -rf "$build"
-    command -v paru >/dev/null 2>&1 || die "paru nao ficou disponivel apos o build"
-    ok "paru instalado"
+    paru --version >/dev/null 2>&1 || die "paru nao roda apos o build"
+    ok "paru instalado: $(paru --version | head -1)"
 }
 
 install_aur() {
     local file pkgs p
     file="$(pkgfile)"
-    mapfile -t pkgs < <(read_section "$file" '^aur$' | grep -vx paru-bin)
+    mapfile -t pkgs < <(read_section "$file" '^aur$' | grep -vxE 'paru|paru-bin')
     [[ ${#pkgs[@]} -gt 0 ]] || { warn "nenhum pacote AUR na lista"; return 0; }
     log "instalando ${#pkgs[@]} pacotes do AUR"
     for p in "${pkgs[@]}"; do
