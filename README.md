@@ -105,13 +105,14 @@ SKIP_NVIDIA=1 ./install.sh
 
 ## Espelhamento ao vivo
 
-Dez arquivos do KDE são **symlink pra dentro do repo**: mexeu na interface gráfica, já
+Onze arquivos do KDE são **symlink pra dentro do repo**: mexeu na interface gráfica, já
 está versionado, sem passo intermediário.
 
 ```
 ~/.config/kdeglobals          -> links/config/kdeglobals
 ~/.config/kwinrc                 kcminputrc  kxkbrc  plasmarc  dolphinrc
 ~/.config/kglobalshortcutsrc     kwinrulesrc  plasma-localerc  plasmanotifyrc
+~/.config/powermanagementprofilesrc
 ~/.local/share/dolphin/view_properties/global/.directory
 ```
 
@@ -130,7 +131,7 @@ dele é o `kde/painel-ajustar.sh`.
 
 ### O que sobra do settings.conf
 
-Nada, na prática. Com os dez arquivos espelhados, o `apply.sh` não tem o que fazer:
+Nada, na prática. Com os onze arquivos espelhados, o `apply.sh` não tem o que fazer:
 
 ```
 kde-apply: 0 chaves aplicadas, 311 puladas por ja estarem espelhadas
@@ -140,6 +141,38 @@ O `apply.sh` agora **pula arquivo espelhado** — sem isso ele escreveria o `set
 por cima do que você acabou de mudar na GUI, desfazendo o ajuste. O `settings.conf` segue
 sendo gerado pelo `capture.sh` e continua servindo de leitura das decisões num arquivo só,
 mas já não é o mecanismo.
+
+## Energia
+
+Desktop na tomada: **nada de suspender, apagar a tela ou escurecer por inatividade**. O
+`powerdevil` 6.7 guarda isso em `powermanagementprofilesrc`, um grupo por perfil e chaves
+soltas dentro dele — o formato antigo de subgrupo (`[AC][SuspendSession]`, `suspendType`)
+foi migrado no Plasma 6 e não vale mais.
+
+```ini
+[AC]
+autoSuspendAction=0        # PowerButtonAction::NoAction (1 dorme, 2 hiberna, 8 desliga)
+dimDisplayWhenIdle=false
+turnOffDisplayWhenIdle=false
+```
+
+Não é só "timeout alto": lido no fonte do `powerdevil`, `autoSuspendAction=0` faz o
+`SuspendSession::loadAction` sair antes de registrar qualquer timeout de ociosidade, e
+`turnOffDisplayWhenIdle=false` descarrega a ação de DPMS inteira — inclusive o timeout
+separado que valeria com a sessão já bloqueada (`turnOffDisplayIdleTimeoutWhenLockedSec`).
+
+Só o grupo `[AC]`: sem bateria na máquina, é o único perfil que o `powerdevil` carrega, e
+assim o arquivo indo pra um notebook não deixa a bateria correndo solta.
+
+Aplica sem deslogar:
+
+```bash
+qdbus6 org.kde.Solid.PowerManagement /org/kde/Solid/PowerManagement reparseConfiguration
+```
+
+O **bloqueio de tela** é outro mecanismo (`kscreenlockerrc`, 5 min de padrão) e ficou como
+estava — o que muda é que, com o DPMS fora, a tela agora fica acesa mostrando o bloqueio
+em vez de apagar.
 
 ## Configuração do KDE
 
@@ -601,5 +634,7 @@ Duas coisas que só valem aqui e custaram tempo pra descobrir:
   com `kde-capture.sh` / `kde-apply.sh` fazendo o ida e volta com a GUI.
 - 05/09/2026: o widget-claude (painel do segundo monitor, do repo `Utils`) foi portado do Windows
   pro Linux e passou a subir por unit do systemd — ver [Monitores](#monitores).
+- 05/09/2026: `powermanagementprofilesrc` entrou no espelhamento — o PC não suspende, não
+  apaga e não escurece a tela por inatividade. Ver [Energia](#energia).
 - 05/09/2026: `kitty` trocado por `ghostty` (terminal padrão do KDE, `TERMINAL` no `.zshrc`,
   lançador do painel e `terminfo` do live ISO do myarch).
