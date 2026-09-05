@@ -1,0 +1,174 @@
+# Traducao pt_BR do menu iniciar do tema Windows Modern.
+# O tema upstream (Jeysef/KDE-Windows-Modern) nao traz catalogo nenhum, entao todo
+# i18n() caia na string-fonte em ingles mesmo com a sessao em pt_BR. Compilado pelo
+# kde/tema-instalar.sh para $XDG_DATA_HOME/locale/pt_BR/LC_MESSAGES/.
+msgid ""
+msgstr ""
+"Project-Id-Version: plasma_applet_org.kde.windowsmodern.startmenu\n"
+"Report-Msgid-Bugs-To: https://github.com/Jeysef/KDE-Windows-Modern/issues\n"
+"PO-Revision-Date: 2026-09-05\n"
+"Last-Translator: Alexandre Rangel <mamutal91@gmail.com>\n"
+"Language-Team: Portugues do Brasil\n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgctxt "@item:inmenu Open icon chooser dialog"
+msgid "Choose…"
+msgstr "Escolher…"
+
+msgctxt "@item:inmenu Reset icon to default"
+msgid "Clear Icon"
+msgstr "Limpar ícone"
+
+msgid "Actions"
+msgstr "Ações"
+
+msgid "Add to Favorites"
+msgstr "Adicionar aos favoritos"
+
+msgid "All"
+msgstr "Todos"
+
+msgid "All apps"
+msgstr "Todos os apps"
+
+msgid "All apps sort"
+msgstr "Ordem de todos os apps"
+
+msgid "Apps"
+msgstr "Apps"
+
+msgid "Back"
+msgstr "Voltar"
+
+msgid "Category"
+msgstr "Categoria"
+
+msgid "Center"
+msgstr "Centro"
+
+msgid "Center bottom"
+msgstr "Inferior centralizado"
+
+msgid "Default"
+msgstr "Padrão"
+
+msgid "Documents"
+msgstr "Documentos"
+
+msgid "Downloads"
+msgstr "Downloads"
+
+msgid "Edit Applications…"
+msgstr "Editar aplicativos…"
+
+msgid "Files"
+msgstr "Arquivos"
+
+msgid "Follow desktop theme"
+msgstr "Seguir o tema da área de trabalho"
+
+msgid "General"
+msgstr "Geral"
+
+msgid "Home"
+msgstr "Pasta pessoal"
+
+msgid "Icon:"
+msgstr "Ícone:"
+
+msgid "Left bottom"
+msgstr "Inferior à esquerda"
+
+msgid "Lock"
+msgstr "Bloquear"
+
+msgid "Log out"
+msgstr "Encerrar sessão"
+
+msgid "Menu position"
+msgstr "Posição do menu"
+
+msgid "Menu translucency"
+msgstr "Transparência do menu"
+
+msgid "Music"
+msgstr "Música"
+
+msgid "Name (A-Z)"
+msgstr "Nome (A-Z)"
+
+msgid "Name (Z-A)"
+msgstr "Nome (Z-A)"
+
+msgid "Newest first"
+msgstr "Mais recentes primeiro"
+
+msgid "Oldest first"
+msgstr "Mais antigos primeiro"
+
+msgid "On All Activities"
+msgstr "Em todas as atividades"
+
+msgid "On the Current Activity"
+msgstr "Na atividade atual"
+
+msgid "Opaque"
+msgstr "Opaco"
+
+msgid "Open"
+msgstr "Abrir"
+
+msgid "Pictures"
+msgstr "Imagens"
+
+msgid "Pinned"
+msgstr "Fixados"
+
+msgid "Places"
+msgstr "Locais"
+
+msgid "Recent Items"
+msgstr "Itens recentes"
+
+msgid "Remove from Favorites"
+msgstr "Remover dos favoritos"
+
+msgid "Restart"
+msgstr "Reiniciar"
+
+msgid "Run..."
+msgstr "Executar..."
+
+msgid "Search programs and files"
+msgstr "Pesquisar programas e arquivos"
+
+msgid "Settings"
+msgstr "Configurações"
+
+msgid "Show in Favorites"
+msgstr "Mostrar nos favoritos"
+
+msgid "Show places column"
+msgstr "Mostrar a coluna de locais"
+
+msgid "Shut down"
+msgstr "Desligar"
+
+msgid "Sleep"
+msgstr "Suspender"
+
+msgid "Terminal"
+msgstr "Terminal"
+
+msgid "This PC"
+msgstr "Este computador"
+
+msgid "Translucent"
+msgstr "Translúcido"
+
+msgid "Update"
+msgstr "Atualizações"
