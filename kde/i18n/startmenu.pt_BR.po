@@ -1,7 +1,14 @@
 # Traducao pt_BR do menu iniciar do tema Windows Modern.
 # O tema upstream (Jeysef/KDE-Windows-Modern) nao traz catalogo nenhum, entao todo
-# i18n() caia na string-fonte em ingles mesmo com a sessao em pt_BR. Compilado pelo
-# kde/tema-instalar.sh para $XDG_DATA_HOME/locale/pt_BR/LC_MESSAGES/.
+# i18n() caia na string-fonte em ingles mesmo com a sessao em pt_BR.
+#
+# Este .po e a fonte legivel; quem o sistema le e o .mo compilado, versionado em
+# links/local/share/locale/pt_BR/LC_MESSAGES/ e symlinkado pelo install.sh. Nao vai pro
+# vendor/ porque aquele diretorio e identico ao upstream de proposito (PROVENIENCIA.md).
+# Mexeu aqui, recompile:
+#
+#   msgfmt -o links/local/share/locale/pt_BR/LC_MESSAGES/plasma_applet_org.kde.windowsmodern.startmenu.mo \
+#          kde/i18n/startmenu.pt_BR.po
 msgid ""
 msgstr ""
 "Project-Id-Version: plasma_applet_org.kde.windowsmodern.startmenu\n"

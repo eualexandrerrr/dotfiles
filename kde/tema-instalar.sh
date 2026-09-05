@@ -34,23 +34,6 @@ cp -r "$VENDOR/config/." "$CFG/"
 # "Windows-modern" e nao "Windows-modernDark".
 kwriteconfig6 --file "$CFG/Kvantum/kvantum.kvconfig" --group General --key theme Windows-modern
 
-# O upstream nao traz catalogo de traducao nenhum, entao todo i18n() do menu iniciar caia
-# na string-fonte em ingles mesmo com a sessao em pt_BR. O dominio que o Plasma monta pra
-# um applet e "plasma_applet_" + o Id do metadata.json.
-DOMINIO="plasma_applet_org.kde.windowsmodern.startmenu"
-PO="$DOTFILES_DIR/kde/i18n/startmenu.pt_BR.po"
-if [[ -f $PO ]] && command -v msgfmt >/dev/null 2>&1; then
-    MO="$SHARE/locale/pt_BR/LC_MESSAGES/$DOMINIO.mo"
-    mkdir -p "$(dirname "$MO")"
-    if msgfmt -o "$MO" "$PO"; then
-        passo "menu iniciar em pt_BR ($MO)"
-    else
-        aviso "msgfmt falhou, menu iniciar fica em ingles"
-    fi
-elif [[ -f $PO ]]; then
-    aviso "msgfmt ausente (pacote gettext), menu iniciar fica em ingles"
-fi
-
 # ── 2. tela de bloqueio ──────────────────────────────────────────────────────
 # O kscreenlocker le a tela de bloqueio do pacote da shell ATUAL
 # (org.kde.plasma.desktop), nao de um pacote proprio. Pra trocar so o Meta+L montamos um
