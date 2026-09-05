@@ -20,10 +20,27 @@ NVIDIA_MODULES=(nvidia nvidia_modeset nvidia_uvm nvidia_drm)
 
 RED=$'\e[1;31m'; GRN=$'\e[1;32m'; YEL=$'\e[1;33m'; BLU=$'\e[1;34m'; END=$'\e[0m'
 
-log()  { printf '%s==>%s %s\n' "$BLU" "$END" "$*"; }
+LOGFILE="${LOGFILE:-$HOME/dotfiles-install.log}"
+T0=$SECONDS
+STEP=0
+TOTAL_STEPS=12
+[[ ${SKIP_NVIDIA:-0} == 1 ]] && TOTAL_STEPS=10
+WARNS=()
+OFICIAL_PEDIDOS=0; OFICIAL_NOVOS=(); OFICIAL_FALTANDO=()
+AUR_OK=(); AUR_JA=(); AUR_FALHA=()
+SERV_OK=(); SERV_FALHA=()
+LINKS=0
+
+elapsed() { local s=$((SECONDS - T0)); printf '%02d:%02d' $((s/60)) $((s%60)); }
+log()  { STEP=$((STEP+1)); printf '\n%s==>%s [%d/%d] %s %s(%s)%s\n' "$BLU" "$END" "$STEP" "$TOTAL_STEPS" "$*" "$YEL" "$(elapsed)" "$END"; }
 ok()   { printf '%s  ok%s %s\n' "$GRN" "$END" "$*"; }
-warn() { printf '%s  !!%s %s\n' "$YEL" "$END" "$*"; }
-die()  { printf '%serro:%s %s\n' "$RED" "$END" "$*" >&2; exit 1; }
+warn() { printf '%s  !!%s %s\n' "$YEL" "$END" "$*"; WARNS+=("[etapa $STEP] $*"); }
+die()  { printf '\n%serro:%s %s\n' "$RED" "$END" "$*" >&2; printf '%sparou na etapa %d/%d apos %s. Log completo: %s%s\n' "$RED" "$STEP" "$TOTAL_STEPS" "$(elapsed)" "$LOGFILE" "$END" >&2; exit 1; }
+on_err() { local rc=$? line=$1 cmd=$2; [[ $rc -eq 0 ]] && return; printf '\n%serro na linha %d (saida %d):%s %s\n' "$RED" "$line" "$rc" "$END" "$cmd" >&2; printf '%setapa %d/%d, %s decorridos. Log: %s%s\n' "$RED" "$STEP" "$TOTAL_STEPS" "$(elapsed)" "$LOGFILE" "$END" >&2; }
+trap 'on_err $LINENO "$BASH_COMMAND"' ERR
+
+exec > >(tee -a "$LOGFILE") 2>&1
+printf '%s==>%s dotfiles install.sh iniciado em %s, log em %s\n' "$BLU" "$END" "$(date '+%d/%m/%Y %H:%M:%S')" "$LOGFILE"
 
 need_sudo() {
     sudo -v || die "sudo obrigatorio"
@@ -97,8 +114,22 @@ install_official() {
     fi
     [[ ${#pkgs[@]} -gt 0 ]] || die "nenhum pacote oficial lido de $file"
     log "instalando ${#pkgs[@]} pacotes dos repos oficiais"
-    sudo pacman -S --noconfirm --needed "${pkgs[@]}"
-    ok "pacotes oficiais instalados"
+    OFICIAL_PEDIDOS=${#pkgs[@]}
+    local antes depois p
+    antes="$(pacman -Qq | sort)"
+    local ja=0
+    for p in "${pkgs[@]}"; do pacman -Qq "$p" >/dev/null 2>&1 && ja=$((ja+1)); done
+    printf '  ja presentes: %d, a instalar: %d\n' "$ja" "$((OFICIAL_PEDIDOS-ja))"
+    sudo pacman -S --noconfirm --needed "${pkgs[@]}" || warn "pacman devolveu erro na instalacao dos oficiais"
+    depois="$(pacman -Qq | sort)"
+    mapfile -t OFICIAL_NOVOS < <(comm -13 <(printf '%s\n' "$antes") <(printf '%s\n' "$depois"))
+    for p in "${pkgs[@]}"; do pacman -Qq "$p" >/dev/null 2>&1 || OFICIAL_FALTANDO+=("$p"); done
+    ok "${#OFICIAL_NOVOS[@]} pacotes novos entraram (com dependencias), $ja ja estavam"
+    if (( ${#OFICIAL_FALTANDO[@]} )); then
+        warn "oficiais que NAO instalaram: ${OFICIAL_FALTANDO[*]}"
+    else
+        ok "todos os ${OFICIAL_PEDIDOS} pacotes oficiais pedidos estao presentes"
+    fi
 }
 
 bootstrap_paru() {
@@ -127,22 +158,26 @@ install_aur() {
     mapfile -t pkgs < <(read_section "$file" '^aur$' | grep -vxE 'paru|paru-bin')
     [[ ${#pkgs[@]} -gt 0 ]] || { warn "nenhum pacote AUR na lista"; return 0; }
     log "instalando ${#pkgs[@]} pacotes do AUR"
-    local falhas=()
+    printf '  lista: %s\n' "${pkgs[*]}"
+    local i=0 n=${#pkgs[@]} t
     for p in "${pkgs[@]}"; do
+        i=$((i+1)); t=$SECONDS
+        printf '%s  --%s [%d/%d] %s\n' "$BLU" "$END" "$i" "$n" "$p"
         if paru -Qq "$p" >/dev/null 2>&1; then
             ok "$p ja instalado"
+            AUR_JA+=("$p")
         elif paru -S --noconfirm --needed --skipreview "$p"; then
-            ok "$p instalado"
+            ok "$p instalado em $(( (SECONDS-t)/60 ))m$(( (SECONDS-t)%60 ))s"
+            AUR_OK+=("$p")
         else
             warn "$p falhou, seguindo"
-            falhas+=("$p")
+            AUR_FALHA+=("$p")
         fi
     done
-    if (( ${#falhas[@]} )); then
-        warn "AUR que nao instalaram: ${falhas[*]}"
-        warn "depois rode: paru -S --needed ${falhas[*]}"
-    else
-        ok "todos os pacotes do AUR instalados"
+    ok "AUR: ${#AUR_OK[@]} instalados, ${#AUR_JA[@]} ja estavam, ${#AUR_FALHA[@]} falharam"
+    if (( ${#AUR_FALHA[@]} )); then
+        warn "AUR que nao instalaram: ${AUR_FALHA[*]}"
+        warn "depois rode: paru -S --needed ${AUR_FALHA[*]}"
     fi
 }
 
@@ -231,7 +266,7 @@ enable_services() {
     log "habilitando servicos"
     local unit
     for unit in NetworkManager.service sddm.service power-profiles-daemon.service ananicy-cpp.service reflector.timer; do
-        sudo systemctl enable "$unit" >/dev/null 2>&1 && ok "$unit" || warn "$unit nao habilitado"
+        if sudo systemctl enable "$unit" >/dev/null 2>&1; then ok "$unit"; SERV_OK+=("$unit"); else warn "$unit nao habilitado"; SERV_FALHA+=("$unit"); fi
     done
 
     local sock
@@ -307,6 +342,7 @@ link_dotfiles() {
         target="$HOME/.config/$name"
         backup_conflict "$target"
         ln -sfn "$src" "$target"
+        LINKS=$((LINKS+1))
         ok ".config/$name"
     done
 
@@ -317,11 +353,12 @@ link_dotfiles() {
         target="$HOME/$name"
         backup_conflict "$target"
         ln -sfn "$src" "$target"
+        LINKS=$((LINKS+1))
         ok "~/$name"
     done
     shopt -u dotglob nullglob
 
-    ok "symlinks aplicados"
+    ok "$LINKS symlinks aplicados"
 }
 
 configure_sddm() {
@@ -365,18 +402,34 @@ configure_kde_defaults() {
 }
 
 summary() {
-    printf '\n%s================================%s\n' "$GRN" "$END"
-    printf '%s  instalacao concluida%s\n' "$GRN" "$END"
-    printf '%s================================%s\n\n' "$GRN" "$END"
-    printf 'dotfiles:  %s (branch %s)\n' "$DOTFILES_DIR" "$DOTFILES_BRANCH"
-    printf 'desktop:   KDE Plasma (Wayland) via sddm\n'
+    local cor=$GRN titulo="instalacao concluida sem pendencias"
+    if (( ${#OFICIAL_FALTANDO[@]} + ${#AUR_FALHA[@]} + ${#SERV_FALHA[@]} )); then cor=$YEL; titulo="instalacao concluida COM pendencias"; fi
+    printf '\n%s========================================================%s\n' "$cor" "$END"
+    printf '%s  %s em %s%s\n' "$cor" "$titulo" "$(elapsed)" "$END"
+    printf '%s========================================================%s\n\n' "$cor" "$END"
+    printf 'dotfiles:   %s (branch %s), %d symlinks\n' "$DOTFILES_DIR" "$DOTFILES_BRANCH" "$LINKS"
+    printf 'desktop:    KDE Plasma (Wayland) via sddm\n'
     if [[ $SKIP_NVIDIA == 1 ]]; then
-        printf 'driver:    pulado (SKIP_NVIDIA=1)\n\n'
+        printf 'driver:     pulado (sem placa NVIDIA ou SKIP_NVIDIA=1)\n'
     else
-        printf 'driver:    nvidia-open-dkms + %s\n\n' "${KERNEL_PARAMS[*]}"
-        warn "confira depois do boot: cat /sys/module/nvidia_drm/parameters/modeset (tem que dar Y)"
+        printf 'driver:     nvidia-open-dkms + %s\n' "${KERNEL_PARAMS[*]}"
     fi
-    warn "reinicie para carregar o kernel novo, o initramfs e os grupos do usuario"
+    printf 'oficiais:   %d pedidos, %d pacotes novos no sistema, %d faltando\n' "$OFICIAL_PEDIDOS" "${#OFICIAL_NOVOS[@]}" "${#OFICIAL_FALTANDO[@]}"
+    printf 'AUR:        %d instalados, %d ja estavam, %d falharam\n' "${#AUR_OK[@]}" "${#AUR_JA[@]}" "${#AUR_FALHA[@]}"
+    printf 'servicos:   %d habilitados, %d falharam\n' "${#SERV_OK[@]}" "${#SERV_FALHA[@]}"
+    printf 'log:        %s\n\n' "$LOGFILE"
+    if (( ${#OFICIAL_FALTANDO[@]} )); then printf '%s  oficiais faltando:%s %s\n' "$RED" "$END" "${OFICIAL_FALTANDO[*]}"; fi
+    if (( ${#AUR_FALHA[@]} )); then printf '%s  AUR que falharam:%s %s\n  refazer: paru -S --needed %s\n' "$RED" "$END" "${AUR_FALHA[*]}" "${AUR_FALHA[*]}"; fi
+    if (( ${#SERV_FALHA[@]} )); then printf '%s  servicos nao habilitados:%s %s\n' "$RED" "$END" "${SERV_FALHA[*]}"; fi
+    if (( ${#WARNS[@]} )); then
+        printf '\n%s  avisos durante a instalacao (%d):%s\n' "$YEL" "${#WARNS[@]}" "$END"
+        printf '   - %s\n' "${WARNS[@]}"
+    fi
+    printf '\n'
+    if [[ $SKIP_NVIDIA != 1 ]]; then
+        printf '%s  ->%s confira depois do boot: cat /sys/module/nvidia_drm/parameters/modeset (tem que dar Y)\n' "$YEL" "$END"
+    fi
+    printf '%s  ->%s reinicie para carregar o kernel novo, o initramfs e os grupos do usuario\n' "$YEL" "$END"
     printf 'RedM em Wine (so dev): https://github.com/eualexandrerrr/RedMLinux (linux/setup-wine-redm.sh)\n'
 }
 
