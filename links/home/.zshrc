@@ -27,6 +27,11 @@ alias systemctl="sudo systemctl"
 alias rsync="sudo rsync"
 alias dd="sudo dd"
 
+# Deploy do servidor Michigan Roleplay. `noglob` deixa passar os alvos do script
+# sem aspas: deploy [peds], deploy alx_*, deploy ALL configs --ler
+[[ -f "$HOME/Downloads/MichiganRoleplay/DeployFiles/deploy.mjs" ]] && \
+    alias deploy="noglob node $HOME/Downloads/MichiganRoleplay/DeployFiles/deploy.mjs"
+
 command -v eza     >/dev/null 2>&1 && alias ls="eza --icons --group-directories-first"
 command -v bat     >/dev/null 2>&1 && alias cat="bat --plain"
 # x: Claude Code sem parar pra pedir permissao a cada ferramenta, sempre no Opus.
