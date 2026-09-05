@@ -20,8 +20,8 @@ Sem essa checagem (versão antiga dos hooks) o perfil janela também derruba a t
 sudo virsh -c qemu:///system define ~/.dotfiles/vm/w11-3090.xml
 ```
 
-O disco (`/var/lib/libvirt/images/w11.qcow2`) **não** está versionado — são centenas de GB.
-Recriar vazio: `sudo qemu-img create -f qcow2 /var/lib/libvirt/images/w11.qcow2 200G`.
+O disco (`/var/lib/libvirt/images/win11-redm.qcow2`) **não** está versionado — são centenas de GB.
+Recriar vazio: `sudo qemu-img create -f qcow2 /var/lib/libvirt/images/win11-redm.qcow2 200G`.
 
 ## O que está configurado, e por quê
 
