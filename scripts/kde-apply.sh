@@ -22,6 +22,10 @@ while IFS= read -r linha; do
 
     arquivo="${campos[0]}"
     valor="${campos[-1]}"
+    # O kglobalshortcutsrc separa atalhos alternativos com \t. O capture le o arquivo
+    # cru, entao a barra chega aqui literal; sem virar tab de verdade o kwriteconfig6
+    # escapa a barra (\\t no arquivo) e o KDE le a sequencia inteira como um atalho so.
+    valor="${valor//\\t/$'\t'}"
     chave="${campos[-2]}"
     grupos=("${campos[@]:1:${#campos[@]}-3}")
 

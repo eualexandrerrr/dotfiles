@@ -124,13 +124,35 @@ O que está coberto hoje:
 
 | Arquivo | Grupo | O que é |
 |:--|:--|:--|
-| `kcminputrc` | `Keyboard` | repetição de teclas: **450 ms** de atraso, **50 Hz** (padrão do Plasma é 600 ms / 25 Hz) |
+| `kcminputrc` | `Keyboard` | repetição de teclas: **300 ms** de atraso, **50 Hz** (padrão do Plasma é 600 ms / 25 Hz) |
 | `kcminputrc` | `Libinput[...]` | aceleração do ponteiro e fator de rolagem, por dispositivo |
 | `kxkbrc` | `Layout` | teclado `br` (ABNT2) |
 | `kdeglobals` | `General` | terminal padrão `ghostty`, navegador `google-chrome` |
 | `kdeglobals` | `Icons`, `KDE` | ícones `Tela-dark`, estilo `kvantum-dark`, look-and-feel Windows Modern |
 | `kwinrc` | `Windows`, `org.kde.kdecoration2` | maximizada sem borda, borda `Tiny`, decoração Aurorae |
 | `plasmarc` | `Theme` | tema Plasma `breeze-dark` |
+| `kglobalshortcutsrc` | `services` | atalhos globais de aplicativo: `Ctrl+Alt+T` no ghostty, `Shift+Print` no recorte |
+| `spectaclerc` | `General` | o que o Spectacle faz depois de capturar |
+
+### Capturas de tela
+
+O app é o `spectacle`, que já vem no `packages.txt`. Os atalhos:
+
+| Tecla | O que faz |
+|:--|:--|
+| `Print` | abre a janela do Spectacle (padrão do Plasma, intocado) |
+| `Shift+Print` | **recorta uma região e joga a imagem no clipboard** |
+| `Meta+Shift+Print` | idem, é o atalho padrão do Plasma pra mesma ação |
+
+`Shift+Print` era "capturar a área de trabalho inteira" no padrão do Plasma. Foi liberado
+e reapontado pra ação `RectangularRegionScreenShot`, com o `spectaclerc` mandando copiar a
+imagem (`clipboardGroup`) e fechar em seguida (`quitAfterSaveCopyExport`).
+
+Não é um lançador próprio de propósito: nesta versão o **KWin absorveu o kglobalaccel**, e
+atalho de comando novo (uma entrada `[services][*.desktop]` inédita) só é registrado quando
+o KWin sobe — no Wayland, isso quer dizer deslogar. Reaproveitar uma ação que o Spectacle já
+registra vale na hora, via `setForeignShortcut` no D-Bus. O `kde-apply.sh` grava o mesmo
+estado numa máquina nova, onde o login seguinte resolve o registro.
 
 ## MCP do Claude Code
 

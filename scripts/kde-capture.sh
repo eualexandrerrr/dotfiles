@@ -36,6 +36,9 @@ GRUPOS=(
     "dolphinrc:IconsMode"
     "dolphinrc:KFileDialog Settings"
     "kdeglobals:KFileDialog Settings"
+    "spectaclerc:General"
+    # atalhos globais de aplicativo: [services][<arquivo>.desktop]
+    "kglobalshortcutsrc:services"
 )
 
 # Chaves que sao estado ou derivadas, nunca entram no repo.
