@@ -20,6 +20,12 @@ PERFIL="$CLAUDE_DIR/.secrets/perfil-navegador"
 JAVA_HOME_ARCH="/usr/lib/jvm/java-17-openjdk"
 
 [[ -f $ALVO ]] || { printf 'restaurar-mcp: %s nao existe\n' "$ALVO" >&2; exit 1; }
+# O .zshrc so carrega o env.sh em shell interativo, entao uma task do VS Code, um cron
+# ou um `zsh -l -c` chegariam aqui sem a variavel. Busca direto na fonte.
+if [[ -z ${FIRECRAWL_MCP_URL:-} && -f "$HOME/.dotfiles-private/env.sh" ]]; then
+    # shellcheck disable=SC1091
+    source "$HOME/.dotfiles-private/env.sh"
+fi
 [[ -n ${FIRECRAWL_MCP_URL:-} ]] || printf 'restaurar-mcp: FIRECRAWL_MCP_URL vazia, firecrawl sera pulado (veja ~/.dotfiles-private/env.sh)\n' >&2
 [[ -d $VAULT ]] || printf 'restaurar-mcp: aviso, vault nao encontrado em %s\n' "$VAULT" >&2
 
