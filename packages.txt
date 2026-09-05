@@ -38,6 +38,7 @@ vulkan-icd-loader
 [repo-oficial:kde]
 ark
 breeze-gtk
+capitaine-cursors
 dolphin
 ffmpegthumbs
 gwenview

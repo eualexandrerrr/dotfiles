@@ -25,6 +25,7 @@ poucos arquivos de configuração que valem versionar.
 | Shell | `zsh` + `starship` + `zsh-autosuggestions` + `zsh-syntax-highlighting` |
 | Arquivos, imagens, PDF, prints | `dolphin`, `gwenview`, `okular`, `spectacle` |
 | Ícones | [Tela](https://github.com/vinceliuice/Tela-icon-theme) (`tela-icon-theme`, AUR), variante `Tela-dark` setada no `kdeglobals` |
+| Cursor | [Capitaine](https://github.com/keeferrourke/capitaine-cursors) (`capitaine-cursors`, repo oficial), variante clara `capitaine-cursors-white` no `kcminputrc` |
 | Fora de propósito | Bluetooth, Wi-Fi no live, Firefox (Chrome cobre), LibreOffice, Telegram, OBS. `pacman -S` traz de volta |
 | Driver | `nvidia-open-dkms`, `nvidia_drm.modeset=1` |
 | Jogos e Wine | `steam`, `lutris`, `wine`, `winetricks`, `gamescope`, `mangohud` |
@@ -68,7 +69,7 @@ Em ordem:
 5. Serviços: `NetworkManager`, `sddm`, `power-profiles-daemon`, `docker.socket`, `libvirtd.socket`, `mariadb`; grupos do usuário
 6. Symlinks de `.config/*` e `home/*` (o que existir no destino vira `.bak-<data>`)
 7. `sddm` em Wayland com `kwin`, tema Breeze
-8. Padrões do KDE: teclado `br` (ABNT2), `kitty` como terminal, ícones `Tela-dark`
+8. Padrões do KDE: teclado `br` (ABNT2), `kitty` como terminal, ícones `Tela-dark`, cursor `capitaine-cursors-white`
 
 Reinicie no fim.
 

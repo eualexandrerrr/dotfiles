@@ -322,7 +322,7 @@ EOF
 }
 
 configure_kde_defaults() {
-    log "padroes do KDE: teclado ABNT2, kitty como terminal, icones Tela"
+    log "padroes do KDE: teclado ABNT2, kitty como terminal, icones Tela, cursor Capitaine"
     mkdir -p "$HOME/.config"
     if command -v kwriteconfig6 >/dev/null 2>&1; then
         kwriteconfig6 --file kxkbrc --group Layout --key LayoutList br
@@ -332,6 +332,11 @@ configure_kde_defaults() {
         if [[ -d /usr/share/icons/Tela-dark ]]; then
             kwriteconfig6 --file kdeglobals --group Icons --key Theme Tela-dark
             ok "icones Tela-dark"
+        fi
+        if [[ -d /usr/share/icons/capitaine-cursors-white ]]; then
+            kwriteconfig6 --file kcminputrc --group Mouse --key cursorTheme capitaine-cursors-white
+            kwriteconfig6 --file kcminputrc --group Mouse --key cursorSize 24
+            ok "cursor capitaine-cursors-white"
         fi
         ok "kxkbrc e kdeglobals"
     else
