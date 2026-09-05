@@ -66,6 +66,7 @@ dotfiles
 │   ├── kde-capture.sh        lê o KDE vivo e regrava o kde-settings.conf
 │   ├── kde-apply.sh          aplica o kde-settings.conf via kwriteconfig6
 │   ├── kde-layout-once.sh    primeiro login: tema Windows Modern, painel, layout
+│   ├── kde-sessao-teste.sh   Plasma inteiro numa janela, pra testar sem risco
 │   └── kde-layout.js         layout do painel (script do Plasma)
 ├── install.sh                pós-instalação, idempotente
 └── packages.txt              pacotes por seção; [repo-oficial:*] vai pro pacman, [aur] pro paru
@@ -220,6 +221,43 @@ nesta máquina. Ele puxa o `bluez` como dependência, mas o `install.sh` não ha
 journalctl --user -b | grep "error when loading applet"   # deve vir vazio
 systemctl is-enabled bluetooth.service                    # disabled
 ```
+
+## Testar sem arriscar a sessão
+
+```bash
+scripts/kde-sessao-teste.sh              # sobe um Plasma dentro de uma janela
+scripts/kde-sessao-teste.sh dentro bash ~/.dotfiles/scripts/kde-apply.sh
+scripts/kde-sessao-teste.sh dentro spectacle -f -b -n -o /tmp/print.png
+scripts/kde-sessao-teste.sh parar
+```
+
+O isolamento é triplo, e cada parte tem motivo:
+
+| Isolado | Por quê |
+|:--|:--|
+| `HOME` próprio | o Plasma grava dezenas de arquivos em `~/.config`; sem isso o teste sobrescreveria a sessão real |
+| D-Bus próprio, em socket de caminho fixo | pra falar com a sessão de fora. O `dbus-run-session` sorteia o endereço e o `/proc/PID/environ` nem sempre é legível, então não serve |
+| socket Wayland nomeado | pra rodar app dentro da sessão e tirar print **dela** |
+
+O repo entra por symlink, então editar aqui e testar lá é imediato. Prova de que o
+isolamento é real — painel da sessão de teste contra o da sessão de verdade:
+
+```
+teste:  opacity=adaptive     altura=46    (padrão do Plasma, HOME virgem)
+host:   opacity=translucent  altura=48    (o kde-settings.conf deste repo)
+```
+
+### O que dá e o que não dá pra recarregar
+
+| Camada | Como | Perde janela? |
+|:--|:--|:--|
+| `plasmashell` — painel, widgets, bandeja | `systemctl --user restart plasma-plasmashell.service` | **não** |
+| KWin — bordas, efeitos, decoração, teclado | `qdbus6 org.kde.KWin /KWin reconfigure` | **não** |
+| KWin de verdade (atalho de comando novo, `Exec` de lançador) | só deslogando | — |
+
+No Wayland o KWin **é** o servidor gráfico: todo cliente está conectado nele, então
+reiniciá-lo derruba tudo que estiver aberto. É justamente pra isso que existe a sessão
+aninhada.
 
 ## MCP do Claude Code
 
