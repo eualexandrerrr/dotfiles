@@ -1,5 +1,6 @@
 <domain type='kvm'>
   <name>w11</name>
+  <uuid>7ed380f9-c2dd-4aa5-9a3f-f50842ec7896</uuid>
   <metadata>
     <libosinfo:libosinfo xmlns:libosinfo="http://libosinfo.org/xmlns/libvirt/domain/1.0">
       <libosinfo:os id="http://microsoft.com/win/11"/>

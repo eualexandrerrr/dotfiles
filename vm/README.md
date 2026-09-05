@@ -5,10 +5,19 @@ Não fica em `links/`: o `install.sh` symlinka `links/config/*` para `~/.config/
 libvirt **de sistema** (`qemu:///system`), então um symlink ali só criaria confusão entre
 os dois. Aqui é fonte de verdade versionada; aplicar é explícito.
 
+## Dois perfis, um domínio
+
+`w11-3090.xml` é o passthrough (tela no monitor da 3090, host sem tela). `w11-janela.xml` é vídeo
+emulado + SPICE numa janela do KDE, sem 3D: serve para instalar/ajustar o Windows, **não roda RedM**.
+O script `w11` faz o `define` do perfil escolhido e liga: `w11 janela`, `w11 3090`, `w11 perfil`, `w11 desligar`.
+
+Os hooks do libvirt olham o XML que recebem no stdin e só mexem na GPU se houver `hostdev` PCI.
+Sem essa checagem (versão antiga dos hooks) o perfil janela também derruba a tela do host.
+
 ## Restaurar
 
 ```sh
-sudo virsh -c qemu:///system define ~/.dotfiles/vm/w11.xml
+sudo virsh -c qemu:///system define ~/.dotfiles/vm/w11-3090.xml
 ```
 
 O disco (`/var/lib/libvirt/images/w11.qcow2`) **não** está versionado — são centenas de GB.
