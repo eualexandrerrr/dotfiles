@@ -19,6 +19,7 @@ BorderlessMaximizedWindows=true
 
 [Xwayland]
 Scale=1
+XwaylandEisNoPromptApps=xdotool
 
 [org.kde.kdecoration2]
 BorderSize=Tiny

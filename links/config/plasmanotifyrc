@@ -1,9 +1,9 @@
 [Applications][com.mitchellh.ghostty]
 Seen=true
 
+[Applications][google-chrome]
+Seen=true
+
 [Applications][widget-claude]
 Seen=true
 ShowPopups=false
-
-[DoNotDisturb]
-NotificationSoundsMuted=false

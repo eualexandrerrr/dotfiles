@@ -273,8 +273,8 @@ CurrentMonitorScreenShot=none
 FullScreenScreenShot=none
 OpenWithoutScreenshot=none
 
-[services][spectacle-regiao-clipboard.desktop]
-_launch=Shift+Print
-
 [services][redm-vm.desktop]
 _launch=Meta+Shift+R
+
+[services][spectacle-regiao-clipboard.desktop]
+_launch=Shift+Print

@@ -116,6 +116,7 @@ Theme=Tela-dark
 [KDE]
 AnimationDurationFactor=0.5
 LookAndFeelPackage=org.kde.windowsmodern.dark
+ShowDeleteCommand=false
 contrast=4
 frameContrast=0.2
 
@@ -140,6 +141,9 @@ View Style=DetailTree
 Language=pt_BR
 prova[$d]
 
+[PreviewSettings]
+EnableRemoteFolderThumbnail=false
+MaximumRemoteSize=0
 
 [WM]
 activeBackground=32,32,32
