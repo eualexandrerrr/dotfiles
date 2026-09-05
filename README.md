@@ -159,6 +159,7 @@ O que está coberto hoje:
 | `plasmarc` | `Theme` | tema Plasma `breeze-dark` |
 | `kglobalshortcutsrc` | **todos** | o mapa de teclas inteiro: `kwin` (janelas), `plasmashell`, `ksmserver` (desligar/bloquear), `kmix` (volume), `org_kde_powerdevil` (brilho) e os lançadores em `services` |
 | `.local/share/dolphin/.../.directory` | `Dolphin` | `ViewMode=1`: pastas abrem em **Detalhes** |
+| `kwinrulesrc` | **todos** | regras de janela; hoje uma só, o painel do segundo monitor fora da barra |
 
 ### Capturas de tela
 
@@ -453,6 +454,28 @@ e temperaturas. Mora no repo [Utils](https://github.com/eualexandrerrr/Utils), p
 git clone https://github.com/eualexandrerrr/Utils.git
 Utils/widget-claude/linux/instalar.sh
 ```
+
+#### Fora da barra de tarefas
+
+O painel ocupa o monitor inteiro e não é uma janela que se alterna — não faz sentido
+ocupar espaço no gerenciador de tarefas. O Electron dele já pede `skipTaskbar: true`, mas
+no XWayland isso **não chega ao compositor**: medido com `xprop`, a janela subia sem
+`_NET_WM_STATE` nenhum.
+
+Quem resolve é uma regra de janela do KWin, em `kwinrulesrc` — versionada como qualquer
+outra chave:
+
+```ini
+[widget-claude-sem-barra]
+wmclass=widget-claude       # classe própria, não pega outros apps Electron
+wmclassmatch=1              # 1 = exata
+skiptaskbar=true
+skiptaskbarrule=2           # 2 = Force
+```
+
+Vale sem reiniciar o painel: um `qdbus6 org.kde.KWin /KWin reconfigure` e a janela já
+aberta ganha o `_NET_WM_STATE_SKIP_TASKBAR`.
+
 
 O instalador confere as dependências, resolve o Electron e escreve
 `~/.config/systemd/user/widget-claude.service`. O `Restart=on-failure` da unit faz o papel do

@@ -29,6 +29,8 @@ GRUPOS=(
     "kwinrc:Windows"
     "kwinrc:org.kde.kdecoration2"
     "kwinrc:Xwayland"
+    # regras de janela: hoje so a que tira o painel do widget-claude da barra
+    "kwinrulesrc:*"
     # espera antes do Alt+Tab aparecer
     "kwinrc:TabBox"
     "plasmarc:Theme"
