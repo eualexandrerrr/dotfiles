@@ -26,7 +26,8 @@ poucos arquivos de configuração que valem versionar.
 | Arquivos, imagens, PDF, prints | `dolphin`, `gwenview`, `okular`, `spectacle` |
 | Ícones | [Tela](https://github.com/vinceliuice/Tela-icon-theme) (`tela-icon-theme`, AUR), variante `Tela-dark` setada no `kdeglobals` |
 | Cursor | [Capitaine](https://github.com/keeferrourke/capitaine-cursors) (`capitaine-cursors`, repo oficial), variante clara `capitaine-cursors-white` no `kcminputrc` |
-| Fora de propósito | Bluetooth, Wi-Fi no live, Firefox (Chrome cobre), LibreOffice, Telegram, OBS. `pacman -S` traz de volta |
+| Fora de propósito | Wi-Fi no live, Firefox (Chrome cobre), LibreOffice, Telegram, OBS. `pacman -S` traz de volta |
+| Bluetooth | sem uso, mas o `bluez-qt` **é obrigatório** — ver [Bandeja do sistema](#bandeja-do-sistema). O `bluetooth.service` fica desabilitado |
 | Kernel e driver | `linux-zen`, `nvidia-open-dkms`, `nvidia_drm.modeset=1` |
 | Desempenho | `power-profiles-daemon` em `performance`, `ananicy-cpp` com as regras do CachyOS, GPU em "Prefer maximum performance" no login |
 | Jogos e Wine | `steam`, `lutris`, `wine`, `winetricks`, `gamescope`, `mangohud` |
@@ -153,6 +154,31 @@ atalho de comando novo (uma entrada `[services][*.desktop]` inédita) só é reg
 o KWin sobe — no Wayland, isso quer dizer deslogar. Reaproveitar uma ação que o Spectacle já
 registra vale na hora, via `setForeignShortcut` no D-Bus. O `kde-apply.sh` grava o mesmo
 estado numa máquina nova, onde o login seguinte resolve o registro.
+
+### Bandeja do sistema
+
+A bandeja do painel é o applet `org.kde.windowsmodern.systemtray`, compilado do
+[KDE-Windows-Modern](https://github.com/Jeysef/KDE-Windows-Modern) pelo `install.sh`.
+
+Ele importa `org.kde.bluezqt` sem guarda nenhuma, em
+`components/BluetoothToggle.qml`. Sem esse módulo QML o applet **inteiro** não sobe e o
+painel mostra *"Ocorreu um erro ao carregar System Tray"* — some a rede, o volume, a
+bateria, tudo. O erro aparece assim no journal:
+
+```
+error when loading applet "org.kde.windowsmodern.systemtray"
+  ActionPanel.qml:39:9: Type Components.BluetoothToggle unavailable
+  components/BluetoothToggle.qml:4:1: module "org.kde.bluezqt" is not installed
+```
+
+Por isso o `bluez-qt` está no `packages.txt` mesmo com o Bluetooth fora de propósito
+nesta máquina. Ele puxa o `bluez` como dependência, mas o `install.sh` não habilita o
+`bluetooth.service` — fica instalado e parado.
+
+```bash
+journalctl --user -b | grep "error when loading applet"   # deve vir vazio
+systemctl is-enabled bluetooth.service                    # disabled
+```
 
 ## MCP do Claude Code
 

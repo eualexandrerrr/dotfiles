@@ -156,6 +156,10 @@ plasma-activities-stats
 libplasma
 plasma-workspace
 libksysguard
+# A bandeja do Windows-Modern importa org.kde.bluezqt sem guarda nenhuma
+# (components/BluetoothToggle.qml), entao o applet inteiro morre sem ele.
+# Puxa o bluez junto, mas o bluetooth.service fica desabilitado.
+bluez-qt
 
 [repo-oficial:apps]
 discord
