@@ -145,6 +145,7 @@ O que está coberto hoje:
 | `kwinrc` | `Windows`, `org.kde.kdecoration2` | maximizada sem borda, borda `Tiny`, decoração Aurorae |
 | `plasmarc` | `Theme` | tema Plasma `breeze-dark` |
 | `kglobalshortcutsrc` | `services` | atalhos globais de aplicativo: `Ctrl+Alt+T` no ghostty, `Shift+Print` no recorte |
+| `.local/share/dolphin/.../.directory` | `Dolphin` | `ViewMode=1`: pastas abrem em **Detalhes** |
 
 ### Capturas de tela
 
@@ -261,6 +262,18 @@ diretório.
 
 Um único componente é C++ — a bandeja do sistema. Vai o fonte (680 KB) e o `install.sh`
 compila com `cmake`; as dependências de build já estão no `packages.txt`.
+
+### Dolphin em Detalhes
+
+`ViewMode=1` (`0` ícones, `1` detalhes, `2` colunas) no
+`~/.local/share/dolphin/view_properties/global/.directory`. Vale para todas as pastas
+porque o `GlobalViewProps` do Dolphin já é `true` por padrão.
+
+É um arquivo **fora do `~/.config`** — o primeiro do repo — e foi por causa dele que o
+`kde-capture.sh` e o `kde-apply.sh` passaram a aceitar caminho relativo ao `$HOME`. O
+`Timestamp` e o `Version` que o Dolphin grava junto ficam de fora: são estado, e o
+`IGNORAR_CHAVE` os derruba. Verificado numa sessão de teste com `HOME` virgem que só o
+`ViewMode` basta — o `kde-apply.sh` cria o arquivo e o Dolphin abre em Detalhes.
 
 ### Barra de tarefas
 
