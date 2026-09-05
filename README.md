@@ -70,6 +70,8 @@ dotfiles
 │   ├── kde-sessao-teste.sh   Plasma inteiro numa janela, pra testar sem risco
 │   ├── tema-instalar.sh      instala o Windows Modern a partir do vendor
 │   ├── painel-ajustar.sh     repõe as decisões do painel (idempotente)
+│   ├── recorte-clipboard.sh  Shift+Print: região da tela → área de transferência
+│   ├── nvidia-desempenho.sh  GPU em performance máxima no login
 │   └── kde-layout.js         layout do painel (script do Plasma)
 ├── vendor
 │   └── windows-modern       o tema, versionado aqui (ver PROVENIENCIA.md)
@@ -154,19 +156,31 @@ O app é o `spectacle`, que já vem no `packages.txt`.
 | `Shift+Print` | **recorta uma região e copia a imagem pro clipboard**, sem abrir janela |
 | `Meta+Shift+Print` | recorte que abre a janela do Spectacle (padrão do Plasma) |
 
-O `Shift+Print` chama `local/share/applications/spectacle-regiao-clipboard.desktop`:
+O `Shift+Print` chama `scripts/recorte-clipboard.sh`, por um lançador próprio em
+`local/share/applications/`. O script captura num arquivo temporário e passa a imagem pelo
+`wl-copy`.
 
-```
-Exec=/usr/bin/spectacle --region --background --copy-image --nonotify
-```
+Nem `--copy-image` nem configuração resolvem, e as duas coisas foram medidas:
 
-O `--copy-image` é obrigatório e **não** tem equivalente em arquivo de configuração. O
-`spectaclerc` tem `clipboardGroup=PostScreenshotCopyImage`, que a interface do Spectacle
-apresenta como *"depois de capturar: copiar a imagem"*, mas ele não é honrado no caminho
-do atalho: medido com marcador no clipboard, `spectacle -f -b -n` deixa o clipboard
-intacto e grava um arquivo, enquanto `spectacle -f -b -c -n` põe a imagem lá. Por isso o
-lançador próprio, e não o reaproveitamento da ação `RectangularRegionScreenShot` do
-Spectacle — o `Exec` dela é fixo em `spectacle -r`, sem `-b` e sem `-c`.
+| Comando | Clipboard |
+|:--|:--|
+| `spectacle -f -b -n` (só o `spectaclerc`) | **intacto** — grava arquivo |
+| `spectacle -f -b -c -n` (com `--copy-image`) | recebe, e **perde** ao sair |
+| `spectacle -f -b -n -o arq` + `wl-copy` | recebe e **mantém** |
+
+O `clipboardGroup` do `spectaclerc` não é honrado no caminho do atalho. E mesmo o
+`--copy-image` não basta: no Wayland o conteúdo do clipboard pertence ao processo que
+copiou, e o `spectacle -b` sai assim que copia. Com ele vivo o clipboard tem `image/png` e
+mais 30 tipos; depois que sai sobra só `application/x-kde-onlyReplaceEmpty`. O Klipper não
+assume a posse da imagem nem com `IgnoreImages=false` (testado). O `wl-copy` bifurca e
+continua servindo o clipboard depois que o script termina.
+
+O `wl-clipboard` é dependência dura disso — e também é como o Claude Code lê imagem do
+clipboard no Linux (`xclip ... || wl-paste`), então sem ele o `Ctrl+V` de screenshot no
+terminal não cola nada.
+
+Não dá pra reaproveitar a ação `RectangularRegionScreenShot` do Spectacle: o `Exec` dela é
+fixo em `spectacle -r`, sem `-b` e sem `-c`.
 
 `Shift+Print` era *"capturar a área de trabalho inteira"* no padrão do Plasma; a liberação
 é a linha `FullScreenScreenShot|none` no `kde-settings.conf`.

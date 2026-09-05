@@ -2,7 +2,7 @@
 Type=Application
 Name=Recorte para a área de transferência
 Comment=Seleciona uma região da tela e copia a imagem direto para o clipboard
-Exec=/usr/bin/spectacle --region --background --copy-image --nonotify
+Exec=bash -c "\\$HOME/.dotfiles/scripts/recorte-clipboard.sh"
 Icon=spectacle
 Terminal=false
 StartupNotify=false
