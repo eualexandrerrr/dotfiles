@@ -203,8 +203,9 @@ qdbus6 org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript \
 
 ### Bandeja do sistema
 
-A bandeja do painel é o applet `org.kde.windowsmodern.systemtray`, compilado do
-[KDE-Windows-Modern](https://github.com/Jeysef/KDE-Windows-Modern) pelo `install.sh`.
+A bandeja do painel é o applet `org.kde.windowsmodern.systemtray`, compilado pelo
+`scripts/tema-instalar.sh` a partir do fonte em `vendor/windows-modern/src` — é o
+único componente do tema que não é arquivo puro.
 
 Ele importa `org.kde.bluezqt` sem guarda nenhuma, em
 `components/BluetoothToggle.qml`. Sem esse módulo QML o applet **inteiro** não sobe e o
