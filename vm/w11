@@ -2,10 +2,12 @@
 # Troca o perfil da VM w11 e liga. Um dominio so no libvirt, dois XMLs:
 #   3090    passthrough da RTX 3090, tela no monitor fisico, Linux fica sem tela
 #   janela  video emulado + SPICE, abre numa janela do KDE; sem 3D, nao roda RedM
-# Uso: w11 janela | w11 3090 | w11 perfil | w11 desligar
+# Uso: w11 ir | w11 janela | w11 3090 | w11 perfil | w11 desligar
+#   ir      = 3090 com aviso e confirmacao; e o que o atalho Meta+Shift+R do KDE chama
+# Sem sudo: o usuario esta no grupo libvirt. Os hooks rodam como root dentro do libvirtd.
 set -euo pipefail
 HERE="$(cd "$(dirname "$(readlink -f "$0")")" && pwd)"
-v() { sudo virsh -c qemu:///system "$@"; }
+v() { virsh -c qemu:///system "$@"; }
 
 estado() { v domstate w11 2>/dev/null || echo "nao definida"; }
 perfil() {
@@ -13,6 +15,20 @@ perfil() {
 }
 
 case "${1:-}" in
+    ir)
+        if [[ $(estado) == running ]]; then echo "w11 ja esta ligada."; sleep 2; exit 0; fi
+        cat <<'TXT'
+
+  ==> Windows + RTX 3090
+
+  O Arch continua ligado. Mas a sessao do KDE FECHA: tudo que esta aberto
+  (VS Code, navegador, terminais) vai fechar. Salve antes.
+  A tela vai apagar e o Windows aparece em uns 10 segundos.
+  Para voltar: no Windows, Ctrl+Alt+L (ou desligar o Windows). O SDDM volta sozinho.
+
+TXT
+        read -rp "  Enter para ir, Ctrl+C para cancelar " _
+        exec "$0" 3090 ;;
     perfil) echo "perfil: $(perfil)  estado: $(estado)" ;;
     desligar) v shutdown w11 ;;
     janela|3090)

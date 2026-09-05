@@ -33,7 +33,7 @@ LogOut=none,none,Encerrar sessão
 Reboot=none,none,Reiniciar
 Reboot Without Confirmation=none,none,Reiniciar sem confirmação
 Shut Down=none,none,Desligar
-_k_friendly_name=Gerenciamento de sessão
+_k_friendly_name=Gerenciamento de sessões
 
 [kwin]
 Activate Window Demanding Attention=Meta+Ctrl+A,Meta+Ctrl+A,Ativar janela que demanda atenção
@@ -41,6 +41,10 @@ Cycle Overview=none,none,Alternar entre visão geral e visualização em grade
 Cycle Overview Opposite=none,none,Alternar entre visualização em grade e visão geral
 Decrease Opacity=none,none,Diminuir a opacidade da janela ativa em 5%
 Edit Tiles=Meta+T,Meta+T,Alternar Editor de Blocos
+Expose=Ctrl+F9\tMeta+F9,Ctrl+F9\tMeta+F9,Alternar as janelas presentes (área de trabalho atual)
+ExposeAll=Launch (C)\tCtrl+F10\tMeta+F10,Launch (C)\tCtrl+F10\tMeta+F10,Alternar janelas atuais (todas as áreas de trabalho)
+ExposeClass=Ctrl+F7\tMeta+F7,Ctrl+F7\tMeta+F7,Alternar as janelas presentes (classe de janelas)
+ExposeClassCurrentDesktop=none,none,Alternar Apresentar Janelas (Classe de janela na área de trabalho atual)
 Grid View=Meta+G,Meta+G,Alternar para Visualização em Grade
 Increase Opacity=none,none,Aumentar a opacidade da janela ativa em 5%
 Kill Window=Meta+Ctrl+Esc,Meta+Ctrl+Esc,Matar janela
@@ -264,15 +268,13 @@ switch to next activity=none,none,Trocar para a próxima atividade
 switch to previous activity=none,none,Trocar para a atividade anterior
 toggle do not disturb=none,none,Alternar o "Não perturbe"
 
-[services][com.mitchellh.ghostty.desktop]
-_k_friendly_name=Ghostty
-_launch=Ctrl+Alt+T,none,Ghostty
-
 [services][org.kde.spectacle.desktop]
 CurrentMonitorScreenShot=none
 FullScreenScreenShot=none
 OpenWithoutScreenshot=none
 
 [services][spectacle-regiao-clipboard.desktop]
-_k_friendly_name=Recorte para a área de transferência
-_launch=Shift+Print,none,Recorte para a área de transferência
+_launch=Shift+Print
+
+[services][redm-vm.desktop]
+_launch=Meta+Shift+R
