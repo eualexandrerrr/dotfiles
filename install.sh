@@ -387,21 +387,20 @@ link_dotfiles() {
     done
     shopt -u dotglob nullglob
 
-    # Lancadores de atalho global. Vao um a um, nao o diretorio inteiro: o KDE e o
-    # Chrome tambem escrevem .desktop em ~/.local/share/applications, e um symlink de
-    # diretorio faria essas gravacoes caírem dentro do repo.
-    if [[ -d "$DOTFILES_DIR/links/local/share/applications" ]]; then
-        mkdir -p "$HOME/.local/share/applications"
-        for src in "$DOTFILES_DIR"/links/local/share/applications/*.desktop; do
-            [[ -f $src ]] || continue
-            name="$(basename "$src")"
-            target="$HOME/.local/share/applications/$name"
+    # links/local espelha a arvore em ~/.local, mas linka ARQUIVO, nunca diretorio: o
+    # KDE e o Chrome tambem escrevem em ~/.local/share/applications, e um symlink de
+    # diretorio faria essas gravacoes cairem dentro do repo.
+    if [[ -d "$DOTFILES_DIR/links/local" ]]; then
+        while IFS= read -r -d '' src; do
+            rel="${src#"$DOTFILES_DIR/links/local/"}"
+            target="$HOME/.local/$rel"
+            mkdir -p "$(dirname "$target")"
             backup_conflict "$target"
             ln -sfn "$src" "$target"
             LINKS=$((LINKS+1))
             # shellcheck disable=SC2088
-            ok "~/.local/share/applications/$name"
-        done
+            ok "~/.local/$rel"
+        done < <(find "$DOTFILES_DIR/links/local" -type f -print0)
         # Sem reconstruir o sycoca o KService nao acha o .desktop novo, e o atalho
         # global fica apontando pra um lancador que o KDE diz nao existir.
         kbuildsycoca6 >/dev/null 2>&1 || true

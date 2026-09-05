@@ -103,6 +103,44 @@ Sem placa NVIDIA no PCI (VM, outra máquina) o driver é pulado sozinho. Pra for
 SKIP_NVIDIA=1 ./install.sh
 ```
 
+## Espelhamento ao vivo
+
+Dez arquivos do KDE são **symlink pra dentro do repo**: mexeu na interface gráfica, já
+está versionado, sem passo intermediário.
+
+```
+~/.config/kdeglobals          -> links/config/kdeglobals
+~/.config/kwinrc                 kcminputrc  kxkbrc  plasmarc  dolphinrc
+~/.config/kglobalshortcutsrc     kwinrulesrc  plasma-localerc
+~/.local/share/dolphin/view_properties/global/.directory
+```
+
+Isso funciona porque o KConfig **grava através do symlink** em vez de substituir o
+arquivo. Verificado: uma chave escrita com `kwriteconfig6` apareceu no arquivo do repo e o
+link continuou link.
+
+O preço é conhecido e aceito: o repo passa a carregar os arquivos inteiros, não só as
+decisões. O `kdeglobals` tem 121 chaves e só 24 são escolha sua — o resto é
+`ColorSchemeHash`, as 84 chaves da paleta e geometria de diálogo. Espere `git status` sujo
+depois de mexer no tema, e leia o diff antes de commitar.
+
+O `plasma-org.kde.plasma.desktop-appletsrc` ficou **de fora** de propósito: as 96 chaves
+dele são indexadas pelo número do applet, que muda a cada painel recriado. Quem cuida
+dele é o `kde/painel-ajustar.sh`.
+
+### O que sobra do settings.conf
+
+Nada, na prática. Com os dez arquivos espelhados, o `apply.sh` não tem o que fazer:
+
+```
+kde-apply: 0 chaves aplicadas, 311 puladas por ja estarem espelhadas
+```
+
+O `apply.sh` agora **pula arquivo espelhado** — sem isso ele escreveria o `settings.conf`
+por cima do que você acabou de mudar na GUI, desfazendo o ajuste. O `settings.conf` segue
+sendo gerado pelo `capture.sh` e continua servindo de leitura das decisões num arquivo só,
+mas já não é o mecanismo.
+
 ## Configuração do KDE
 
 Nada de editar `~/.config` na mão. O ciclo é: **mexer na GUI → capturar → commitar**.

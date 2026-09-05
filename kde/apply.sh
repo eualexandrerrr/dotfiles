@@ -13,6 +13,7 @@ CONF="${1:-$DOTFILES_DIR/kde/settings.conf}"
 command -v kwriteconfig6 >/dev/null 2>&1 || { printf 'kde-apply: kwriteconfig6 nao encontrado, pulando\n' >&2; exit 0; }
 
 n=0
+espelhados=0
 while IFS= read -r linha; do
     [[ -z $linha || $linha == '#'* ]] && continue
 
@@ -36,6 +37,16 @@ while IFS= read -r linha; do
         *)   alvo="$arquivo" ;;
     esac
 
+    # Arquivo espelhado (symlink pra dentro do repo) ja E a fonte da verdade: o que o
+    # KDE grava cai direto no links/config. Escrever o settings.conf por cima desfaria
+    # qualquer ajuste feito na GUI que ainda nao tenha passado pelo capture.
+    destino="$alvo"
+    [[ $destino != /* ]] && destino="${XDG_CONFIG_HOME:-$HOME/.config}/$alvo"
+    if [[ -L $destino && "$(readlink -f "$destino")" == "$(readlink -f "$DOTFILES_DIR")"/* ]]; then
+        espelhados=$((espelhados+1))
+        continue
+    fi
+
     args=(--file "$alvo")
     for g in "${grupos[@]}"; do args+=(--group "$g"); done
     # O -- fecha as opcoes: sem ele, valor negativo (PointerAcceleration=-0.400)
@@ -45,7 +56,9 @@ while IFS= read -r linha; do
     kwriteconfig6 "${args[@]}" && n=$((n+1)) || printf 'kde-apply: falhou em %s\n' "$linha" >&2
 done < "$CONF"
 
-printf 'kde-apply: %d chaves aplicadas de %s\n' "$n" "${CONF/#$HOME/\~}"
+printf 'kde-apply: %d chaves aplicadas de %s' "$n" "${CONF/#$HOME/\~}"
+(( espelhados )) && printf ', %d puladas por ja estarem espelhadas' "$espelhados"
+printf '\n'
 
 # Recarrega sem precisar deslogar: kwin le teclado, bordas e decoracao do disco.
 qdbus6 org.kde.KWin /KWin reconfigure >/dev/null 2>&1 || true
