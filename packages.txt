@@ -188,3 +188,6 @@ cachyos-ananicy-rules-git
 tela-icon-theme
 ttf-ms-fonts
 visual-studio-code-bin
+# Windows em container (Docker+KVM) com os apps aparecendo como janelas via RDP.
+# Sem GPU: serve pra app de produtividade, nao pra jogo.
+winboat-bin
