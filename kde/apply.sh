@@ -18,7 +18,11 @@ while IFS= read -r linha; do
     [[ -z $linha || $linha == '#'* ]] && continue
 
     # arquivo|grupo[|subgrupo...]|chave|valor  -> o valor e o ultimo campo, a chave o penultimo
-    IFS='|' read -r -a campos <<< "$linha"
+    # O \x1f de guarda existe porque o read descarta campo vazio no fim da linha, e
+    # valor vazio e legitimo (ButtonsOnLeft= limpa os botoes da esquerda). Sem ele a
+    # linha perde um campo e cai fora como malformada.
+    IFS='|' read -r -a campos <<< "$linha"$'\x1f'
+    campos[-1]="${campos[-1]%$'\x1f'}"
     (( ${#campos[@]} >= 4 )) || { printf 'kde-apply: linha ignorada (poucos campos): %s\n' "$linha" >&2; continue; }
 
     arquivo="${campos[0]}"
