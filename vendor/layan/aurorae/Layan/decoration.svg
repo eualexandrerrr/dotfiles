@@ -14,7 +14,7 @@
    xmlns:svg="http://www.w3.org/2000/svg">
   <sodipodi:namedview
      pagecolor="#ffffff"
-     bordercolor="#666666"
+     bordercolor="#2b2b2b"
      borderopacity="1"
      objecttolerance="10"
      gridtolerance="10"
@@ -173,14 +173,14 @@
      y="45"
      width="50"
      height="50"
-     style="opacity:0.8;fill:#31313a" />
+     style="opacity:0.8;fill:#151518" />
   <rect
      id="decoration-center"
      x="30"
      y="45"
      width="50"
      height="50"
-     style="opacity:0.8;fill:#31313a" />
+     style="opacity:0.8;fill:#151518" />
   <g
      id="decoration-left"
      transform="matrix(1.0588235,0,0,1,12,28)">
@@ -207,7 +207,7 @@
     <path
        id="path71-7"
        d="M 9.4444447,17 V 67 H 17 V 17 Z"
-       style="opacity:0.8;fill:#31313a" />
+       style="opacity:0.8;fill:#151518" />
   </g>
   <g
      id="decoration-bottom"
@@ -235,7 +235,7 @@
     <path
        id="path95-6"
        d="m 17,66 v 8 h 50 v -8 z"
-       style="opacity:0.8;fill:#31313a" />
+       style="opacity:0.8;fill:#151518" />
   </g>
   <g
      id="decoration-top"
@@ -263,12 +263,12 @@
     <path
        id="path111-0"
        d="m 17,9 v 8 H 67 V 9 Z"
-       style="opacity:0.8;fill:#31313a" />
+       style="opacity:0.8;fill:#151518" />
     <path
        id="path943"
        d="m 17,9 v 1 H 67 V 9 Z"
        inkscape:connector-curvature="0"
-       style="color:#383c4a;opacity:0.1;fill:#ffffff" />
+       style="color:#18191f;opacity:0.1;fill:#ffffff" />
   </g>
   <g
      id="decoration-topleft"
@@ -280,12 +280,12 @@
        id="shadow-topleft-7"
        inkscape:connector-curvature="0" />
     <path
-       style="opacity:0.8;fill:#31313a"
+       style="opacity:0.8;fill:#151518"
        d="m 35,162 c -4.432,0 -8,3.568 -8,8 h 8 z"
        transform="matrix(0.94444536,0,0,0.94444536,-16.055571,-143.55571)"
        id="path63-5" />
     <path
-       style="color:#383c4a;opacity:0.1;fill:#ffffff;stroke-width:1.14289999"
+       style="color:#18191f;opacity:0.1;fill:#ffffff;stroke-width:1.14289999"
        d="m 35,162 c -4.432,0 -8,3.568 -8,8 0,-3.878 3.568,-7 8,-7 z"
        transform="matrix(0.94444536,0,0,0.94444536,-16.055571,-143.55571)"
        id="path923"
@@ -304,7 +304,7 @@
        id="path930"
        transform="matrix(0.94444536,0,0,0.94444536,-16.055571,-143.55571)"
        d="m 35,162 c -4.432,0 -8,3.568 -8,8 h 8 z"
-       style="opacity:0.8;fill:#31313a" />
+       style="opacity:0.8;fill:#151518" />
   </g>
   <use
      x="0"
@@ -354,7 +354,7 @@
          id="rect946" />
     </g>
     <path
-       style="opacity:0.8;fill:#31313a"
+       style="opacity:0.8;fill:#151518"
        d="M 9.4444447,17 V 67 H 17 V 17 Z"
        id="path951" />
   </g>
@@ -371,12 +371,12 @@
        id="path958"
        transform="matrix(0.94444536,0,0,0.94444536,-16.055571,-143.55571)"
        d="m 35,162 c -4.432,0 -8,3.568 -8,8 h 8 z"
-       style="opacity:0.8;fill:#31313a" />
+       style="opacity:0.8;fill:#151518" />
     <path
        id="path960"
        transform="matrix(0.94444536,0,0,0.94444536,-16.055571,-143.55571)"
        d="m 35,162 c -4.432,0 -8,3.568 -8,8 0,-3.878 3.568,-7 8,-7 z"
-       style="color:#383c4a;opacity:0.1;fill:#ffffff;stroke-width:1.14289999"
+       style="color:#18191f;opacity:0.1;fill:#ffffff;stroke-width:1.14289999"
        inkscape:connector-curvature="0" />
   </g>
   <g
@@ -389,7 +389,7 @@
        transform="matrix(0.94444536,0,0,0.94444536,-16.055571,-143.55571)"
        id="path964" />
     <path
-       style="opacity:0.8;fill:#31313a"
+       style="opacity:0.8;fill:#151518"
        d="m 35,162 c -4.432,0 -8,3.568 -8,8 h 8 z"
        transform="matrix(0.94444536,0,0,0.94444536,-16.055571,-143.55571)"
        id="path966" />
@@ -418,7 +418,7 @@
          id="rect978" />
     </g>
     <path
-       style="opacity:0.8;fill:#31313a"
+       style="opacity:0.8;fill:#151518"
        d="m 17,66 v 8 h 50 v -8 z"
        id="path982" />
   </g>
@@ -446,11 +446,11 @@
          style="fill-opacity:0" />
     </g>
     <path
-       style="opacity:0.8;fill:#31313a"
+       style="opacity:0.8;fill:#151518"
        d="m 17,9 v 8 H 67 V 9 Z"
        id="path992" />
     <path
-       style="color:#383c4a;opacity:0.1;fill:#ffffff"
+       style="color:#18191f;opacity:0.1;fill:#ffffff"
        inkscape:connector-curvature="0"
        d="m 17,9 v 1 H 67 V 9 Z"
        id="path994" />

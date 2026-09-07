@@ -1,11 +1,9 @@
 [ColorEffects:Disabled]
-ChangeSelectionColor=
 Color=47,47,46
 ColorAmount=0
 ColorEffect=0
 ContrastAmount=0.65
 ContrastEffect=1
-Enable=
 IntensityAmount=0.1
 IntensityEffect=0
 
@@ -67,12 +65,12 @@ BackgroundAlternate=23,24,26
 BackgroundNormal=21,21,24
 DecorationFocus=86,87,245
 DecorationHover=86,87,245
-ForegroundActive=255,128,224
+ForegroundActive=255,128,224,150
 ForegroundInactive=153,153,153
 ForegroundLink=66,133,244
 ForegroundNegative=191,3,3
 ForegroundNeutral=176,128,0
-ForegroundNormal=234,234,234
+ForegroundNormal=234,234,234,150
 ForegroundPositive=0,110,40
 ForegroundVisited=224,64,251
 
@@ -133,55 +131,12 @@ ForegroundPositive=0,110,40
 ForegroundVisited=224,64,251
 
 [General]
-BrowserApplication=google-chrome.desktop
-ColorScheme=LayanBlack
-ColorSchemeHash=732a0015983007d416953b4205e91baded5d2979
-TerminalApplication=ghostty
-TerminalService=com.mitchellh.ghostty.desktop
-XftAntialias=true
-XftHintStyle=hintslight
-XftSubPixel=rgb
-fixed=JetBrainsMono Nerd Font,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
-font=Inter,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
-menuFont=Inter,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
-smallestReadableFont=Inter,8,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
-toolBarFont=Inter,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
-
-[Icons]
-Theme=Tela-yellow-dark
+ColorScheme=VimixDarkDoder
+Name=Layan Black
+shadeSortColumn=true
 
 [KDE]
-AnimationDurationFactor=0.5
-LookAndFeelPackage=com.github.vinceliuice.Layan
-ShowDeleteCommand=false
 contrast=0
-frameContrast=0.2
-widgetStyle=kvantum
-
-[KFileDialog Settings]
-Allow Expansion=false
-Automatically select filename extension=true
-Breadcrumb Navigation=true
-Decoration position=2
-Show Full Path=false
-Show Inline Previews=true
-Show Preview=false
-Show Speedbar=true
-Show hidden files=false
-Sort by=Name
-Sort directories first=true
-Sort hidden files last=false
-Sort reversed=false
-Speedbar Width=146
-View Style=DetailTree
-
-[Locale]
-Language=pt_BR
-prova[$d]
-
-[PreviewSettings]
-EnableRemoteFolderThumbnail=false
-MaximumRemoteSize=0
 
 [WM]
 activeBackground=23,24,26
