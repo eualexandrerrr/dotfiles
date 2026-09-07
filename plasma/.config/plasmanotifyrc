@@ -7,3 +7,7 @@ Seen=true
 [Applications][ricepanel]
 Seen=true
 ShowPopups=false
+
+[Notifications]
+PopupPosition=BottomRight
+
