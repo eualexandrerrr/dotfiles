@@ -1,12 +1,15 @@
+local principal = "desc:ASUSTek COMPUTER INC XG27ACS"
+local vertical = "desc:LG Electronics LG ULTRAGEAR"
+
 hl.monitor({
-    output = "DP-1",
+    output = principal,
     mode = "2560x1440@180.00",
     position = "1080x240",
     scale = 1,
 })
 
 hl.monitor({
-    output = "DP-2",
+    output = vertical,
     mode = "1920x1080@143.98",
     position = "0x0",
     scale = 1,
@@ -21,7 +24,7 @@ hl.monitor({
 })
 
 for i = 1, 8 do
-    hl.workspace_rule({ workspace = tostring(i), monitor = "DP-1" })
+    hl.workspace_rule({ workspace = tostring(i), monitor = principal })
 end
-hl.workspace_rule({ workspace = "1", monitor = "DP-1", default = true })
-hl.workspace_rule({ workspace = "9", monitor = "DP-2", default = true })
+hl.workspace_rule({ workspace = "1", monitor = principal, default = true })
+hl.workspace_rule({ workspace = "9", monitor = vertical, default = true })
