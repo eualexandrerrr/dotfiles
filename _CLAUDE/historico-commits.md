@@ -12,7 +12,11 @@ f3710038  monitores: disposicao aplicada sozinha por kscreen-doctor
 a558e5ae  pacotes do stow na raiz do repo
 be27ffea  lib32 e multilib saem
 488ae580  README: KDE Plasma e so
+b44cd8f8  Alt+Tab com preview ao vivo (hyprexpose patchado), workspace com dono, atalhos do i3
 ```
+
+O `b44cd8f8` juntou duas frentes de trabalho no mesmo dia e por isso e grande. Dele saiu a
+pasta `pacotes/`: o hyprexpose e compilado aqui com patch proprio, nao vem do AUR.
 
 Antes desses, `87d8acbe` removeu o KDE e `e8093449` reverteu -- ele mudou de ideia, ficou
 no KDE. `d9526f81` tirou Wine/Steam/jogos do host: jogo e assunto da VM.
