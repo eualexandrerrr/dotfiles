@@ -281,7 +281,7 @@
        transform="rotate(-90)" />
   </g>
   <g
-     style="fill:#050505;fill-opacity:0.85882"
+     style="fill:#050505;fill-opacity:0.55"
      id="top"
      transform="matrix(-0.84,0,0,1.1431836,230.6,-267.08435)">
     <path
@@ -432,7 +432,7 @@
      height="5"
      style="color:#000000;isolation:auto;mix-blend-mode:normal;solid-color:#000000;fill:#e4720c;color-rendering:auto;image-rendering:auto;shape-rendering:auto" />
   <g
-     style="fill:#050505;fill-opacity:0.85882"
+     style="fill:#050505;fill-opacity:0.55"
      id="right"
      transform="matrix(-1.1428561,0,0,0.84000003,288.14267,-188.56001)">
     <path
@@ -442,7 +442,7 @@
        style="opacity:0.6;fill:#1e1e1e;fill-opacity:1" />
   </g>
   <g
-     style="fill:#050505;fill-opacity:0.85882"
+     style="fill:#050505;fill-opacity:0.55"
      id="left"
      transform="matrix(-1.1428577,0,0,0.83999986,303.28586,-188.55996)">
     <path
@@ -452,7 +452,7 @@
        style="opacity:0.6;fill:#1e1e1e;fill-opacity:1" />
   </g>
   <g
-     style="fill:#050505;fill-opacity:0.85882"
+     style="fill:#050505;fill-opacity:0.55"
      id="bottom"
      transform="matrix(0.84,0,0,-1.1428711,-130.6,367.00353)">
     <path
@@ -482,7 +482,7 @@
        inkscape:connector-curvature="0" />
   </g>
   <g
-     style="fill:#050505;fill-opacity:0.85882"
+     style="fill:#050505;fill-opacity:0.55"
      id="bottomright"
      transform="matrix(0,-2.00025,-2.00025,0,174.89098,85.00075)">
     <path
@@ -528,7 +528,7 @@
      x="48"
      id="shadow-hint-bottom-margin" />
   <g
-     style="fill:#050505;fill-opacity:0.85882"
+     style="fill:#050505;fill-opacity:0.55"
      id="topleft"
      transform="matrix(0,2,2,0,-74.878,15)"
      inkscape:transform-center-x="-7.7901595">
