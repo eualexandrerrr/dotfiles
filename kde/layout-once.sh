@@ -50,6 +50,10 @@ else
     plasma-apply-colorscheme BreezeDark >/dev/null 2>&1 || true
 fi
 
+# O look-and-feel do Windows Modern sobrescreve cores, tema do Plasma e decoracao; o Dream
+# entra por cima dele, sempre depois.
+bash "$HOME/.dotfiles/kde/dream.sh" || falhas=$((falhas+1))
+
 # Depois do tema: o look-and-feel devolve o painel ao padrao toda vez que e aplicado.
 bash "$setup" painel recarregar || falhas=$((falhas+1))
 
