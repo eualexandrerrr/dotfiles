@@ -7,7 +7,7 @@ p.alignment = "center";
 p.lengthMode = "fill";
 p.floating = true;
 p.hiding = "none";
-p.height = 56;
+p.height = 48;
 
 var esq = p.addWidget("org.kde.plasma.panelspacer");
 esq.currentConfigGroup = ["General"];
