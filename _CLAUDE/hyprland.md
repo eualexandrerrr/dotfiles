@@ -8,10 +8,10 @@ foi a maior razao pratica da troca, alem do pedido.
 
 | Arquivo | O que faz |
 |---|---|
-| `hypr/.config/hypr/hyprland.conf` | raiz: variaveis, `exec-once`, `env`, visual, input |
-| `hypr/.config/hypr/monitores.conf` | disposicao das telas e quais workspaces vao em qual |
-| `hypr/.config/hypr/atalhos.conf` | todos os `bind` |
-| `hypr/.config/hypr/regras.conf` | `windowrule` e `layerrule` |
+| `hypr/.config/hypr/hyprland.lua` | raiz: `hl.env`, autostart, `hl.config`, animacoes |
+| `hypr/.config/hypr/monitores.lua` | `hl.monitor` e `hl.workspace_rule` |
+| `hypr/.config/hypr/atalhos.lua` | todos os `hl.bind` |
+| `hypr/.config/hypr/regras.lua` | `hl.window_rule` e `hl.layer_rule` |
 | `hypr/.config/hypr/hypridle.conf` | inatividade (apaga monitor em 5 min) |
 | `hypr/.config/hypr/hyprlock.conf` | tela de bloqueio |
 | `waybar/.config/waybar/` | barra: `config.jsonc` + `style.css` |
@@ -19,8 +19,37 @@ foi a maior razao pratica da troca, alem do pedido.
 | `fuzzel/.config/fuzzel/fuzzel.ini` | lancador |
 | `wlogout/.config/wlogout/` | menu de encerrar |
 
-O `hyprland.conf` faz `source` dos outros tres. Mexer em atalho e mexer so no
-`atalhos.conf`.
+O `hyprland.lua` faz `require` dos outros tres. Mexer em atalho e mexer so no
+`atalhos.lua`.
+
+## A config e Lua, nao hyprlang
+
+**Desde o Hyprland 0.55 o formato `.conf` (hyprlang) esta deprecado em favor de Lua**, e na
+0.56 o `example/hyprland.conf` nem existe mais no repositorio -- so `hyprland.lua`. Isso nao
+e preferencia: `windowrule`/`layerrule` escritos em hyprlang **falham inteiros** na 0.56,
+com "invalid field float: missing a value", que nao parece um erro de sintaxe deprecada.
+
+A sintaxe agora e:
+
+```lua
+hl.window_rule({ match = { class = "pavucontrol" }, float = true })
+hl.layer_rule({ match = { namespace = "waybar" }, blur = true })
+hl.bind("SUPER + Q", hl.dsp.window.close())
+hl.config({ general = { gaps_in = 4 } })
+```
+
+Regras sao `match` (props) + efeitos. Os campos mudaram de nome junto: `noborder` virou
+`border_size = 0`, `noinitialfocus` virou `no_initial_focus`, `idleinhibit` virou
+`idle_inhibit`, `nofocus` virou `no_focus`.
+
+Fonte da verdade offline, casada com a versao instalada:
+`/usr/share/hypr/stubs/hl.meta.lua` (lista todos os campos e dispatchers) e
+`/usr/share/hypr/hyprland.lua` (exemplo). Consultar esses dois antes da wiki -- a wiki
+descreve a versao mais recente, os stubs descrevem a **sua**.
+
+**Sempre validar antes de entregar:** `Hyprland --verify-config` roda sem subir sessao e
+diz `config ok` ou lista os erros. Rodar isso e obrigatorio depois de mexer em qualquer
+arquivo `hypr/`; sem ele, config errada so aparece como sessao torta no login.
 
 ## uwsm: por que a sessao nao e o hyprland pelado
 
@@ -63,22 +92,22 @@ Preservados de proposito, porque estao na memoria muscular dele:
 - `Alt+Tab` -> alternar janelas
 - `Meta+1..9` -> workspaces
 
-O resto esta em `hypr/.config/hypr/atalhos.conf`, que e curto e legivel.
+O resto esta em `hypr/.config/hypr/atalhos.lua`, que e curto e legivel.
 
 ## Regras de janela que importam
 
-O `ricepanel` recebe: workspace 9 (a tela vertical), fullscreen, sem borda, sem sombra, sem
-blur, `nofocus` e `noinitialfocus`. As duas ultimas substituem o `skiptaskbar` do
-`kwinrulesrc`: sem elas o painel rouba foco ao subir.
+O `ricepanel` recebe: `workspace = "9 silent"` (a tela vertical), `fullscreen`,
+`border_size = 0`, `no_shadow`, `no_blur`, `no_focus` e `no_initial_focus`. As duas ultimas
+substituem o `skiptaskbar` do `kwinrulesrc`: sem elas o painel rouba foco ao subir.
 
 ## Pegadinhas
 
-- **`transform` do monitor vertical**: `monitores.conf` usa `transform, 1`. Se a imagem
+- **`transform` do monitor vertical**: `monitores.lua` usa `transform = 1`. Se a imagem
   aparecer de cabeca pra baixo, o valor certo e `3`. So da pra saber olhando.
-- **NVIDIA**: `no_hardware_cursors = true` em `cursor {}` evita cursor invisivel ou piscando.
-  As `env` de `LIBVA_DRIVER_NAME`, `__GLX_VENDOR_LIBRARY_NAME` e `NVD_BACKEND` estao no
-  `hyprland.conf` e nao devem sair.
+- **NVIDIA**: `no_hardware_cursors = true` em `cursor` evita cursor invisivel ou piscando.
+  As `hl.env` de `LIBVA_DRIVER_NAME`, `__GLX_VENDOR_LIBRARY_NAME` e `NVD_BACKEND` estao no
+  `hyprland.lua` e nao devem sair.
 - **`hyprctl reload` nao recarrega a waybar**: e processo separado. O
   `setup.sh recarregar` manda `SIGUSR2` nela.
-- Config errada nao derruba a sessao: o Hyprland ignora a linha e segue. Conferir com
-  `hyprctl configerrors` depois de mexer.
+- Config errada nao derruba a sessao: o Hyprland ignora e segue. Conferir com
+  `Hyprland --verify-config` antes de logar e `hyprctl configerrors` depois.

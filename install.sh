@@ -421,7 +421,7 @@ link_dotfiles() {
     local stowdir="$DOTFILES_DIR"
 
     # Os pacotes ficam na raiz do repo, um por programa, e espelham o $HOME: zsh/.zshrc vira
-    # ~/.zshrc, hypr/.config/hypr/hyprland.conf vira ~/.config/hypr/hyprland.conf. O que distingue um pacote de uma
+    # ~/.zshrc, hypr/.config/hypr/hyprland.lua vira ~/.config/hypr/hyprland.lua. O que distingue um pacote de uma
     # pasta de ferramenta (bin, vm, wallpaper, perfil) e ter uma entrada com ponto na
     # raiz -- .config, .local, .zshrc -- porque isso e o que o stow vai espelhar.
     #
@@ -512,6 +512,13 @@ configure_hyprland() {
         || warn "energia.sh terminou com erro"
 
     systemctl --user daemon-reload >/dev/null 2>&1 || true
+
+    # O binario mora em /usr/lib/hyprpolkitagent/, fora do PATH: chamar por exec-once nao
+    # funciona. O pacote traz uma unit WantedBy=graphical-session.target, que o uwsm ativa.
+    systemctl --user enable hyprpolkitagent.service >/dev/null 2>&1 \
+        && ok "hyprpolkitagent.service habilitado" \
+        || warn "hyprpolkitagent.service nao habilitado"
+
     if [[ -d "$HOME/Apps/desktop/RicePanel" ]]; then
         systemctl --user enable ricepanel.service >/dev/null 2>&1 \
             && ok "ricepanel.service habilitado" \
@@ -560,7 +567,7 @@ summary() {
         printf '%s  ->%s confira depois do boot: cat /sys/module/nvidia_drm/parameters/modeset (tem que dar Y)\n' "$YEL" "$END"
     fi
     printf '%s  ->%s reinicie para carregar o kernel novo, o initramfs e os grupos do usuario\n' "$YEL" "$END"
-    printf '%s  ->%s no sddm a sessao e "Hyprland (uwsm)"; atalhos em hypr/atalhos.conf (Meta+R abre o menu)\n' "$YEL" "$END"
+    printf '%s  ->%s no sddm a sessao e "Hyprland (uwsm)"; atalhos em hypr/atalhos.lua (Meta+R abre o menu)\n' "$YEL" "$END"
 }
 
 main() {

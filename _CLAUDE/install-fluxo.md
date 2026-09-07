@@ -9,7 +9,7 @@ nvidia -> servicos -> clone/pull -> stow -> home enxuta -> segredos -> sddm ->
 `configure_hyprland`.
 
 Rodando de TTY (caso do format), a ultima diz "sem sessao do Hyprland agora; wallpaper entra
-no primeiro login" -- **isso e o caminho certo**, nao erro. O `hyprland.conf` tem
+no primeiro login" -- **isso e o caminho certo**, nao erro. O `hyprland.lua` tem
 `exec-once = ~/.dotfiles/bin/wallpaper.sh`, entao o wallpaper entra sozinho quando a sessao
 sobe.
 

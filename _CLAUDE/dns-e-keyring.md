@@ -4,7 +4,7 @@ O DNS do roteador levava 161 ms sem cache contra 23-26 ms dos publicos -- era a 
 conexao. `bin/dns-rapido.sh` mede com subdominio aleatorio (dominio popular responde do
 cache e engana), escolhe os dois mais rapidos de operadores diferentes e aplica no
 NetworkManager, com `ipv6.ignore-auto-dns` pro DNS IPv6 do provedor nao anular a escolha.
-Roda a cada login (`exec-once` do `hyprland.conf`), sem sudo: o polkit ja deixa a sessao
+Roda a cada login (autostart do `hyprland.lua`), sem sudo: o polkit ja deixa a sessao
 local mexer na conexao. Log em `~/dns-rapido.log`.
 
 ## Keyring: nao instalar nenhum

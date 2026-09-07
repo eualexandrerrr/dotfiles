@@ -67,25 +67,30 @@ Tudo em arquivo de texto versionado — a razão prática de ter saído do Plasm
 configuração com estado em `~/.config` e obrigava a aplicar por D-Bus com o shell vivo.
 
 ```
-hypr/.config/hypr/hyprland.conf    raiz: exec-once, env, visual, input
-hypr/.config/hypr/monitores.conf   disposição das telas e workspaces
-hypr/.config/hypr/atalhos.conf     todos os bind
-hypr/.config/hypr/regras.conf      windowrule e layerrule
-hypr/.config/hypr/hypridle.conf    inatividade
-hypr/.config/hypr/hyprlock.conf    tela de bloqueio
+hypr/.config/hypr/hyprland.lua     raiz: env, autostart, hl.config, animações
+hypr/.config/hypr/monitores.lua    telas e workspaces
+hypr/.config/hypr/atalhos.lua      todos os hl.bind
+hypr/.config/hypr/regras.lua       hl.window_rule e hl.layer_rule
+hypr/.config/hypr/hypridle.conf    inatividade (hypridle ainda usa hyprlang)
+hypr/.config/hypr/hyprlock.conf    tela de bloqueio (idem)
 waybar/.config/waybar/             config.jsonc + style.css
 mako/.config/mako/config           notificações
 fuzzel/.config/fuzzel/fuzzel.ini   lançador
 wlogout/.config/wlogout/           menu de encerrar
 ```
 
-O `hyprland.conf` faz `source` dos três primeiros. Mexer em atalho é mexer só no
-`atalhos.conf`. Depois de editar:
+O `hyprland.lua` faz `require` dos três primeiros. Mexer em atalho é mexer só no
+`atalhos.lua`. Depois de editar:
 
 ```
+Hyprland --verify-config                # obrigatório: diz "config ok" ou lista os erros
 bash ~/.dotfiles/setup.sh recarregar    # hyprctl reload + waybar + mako
-hyprctl configerrors                    # linha inválida é ignorada em silêncio
 ```
+
+**A config é Lua, não hyprlang.** Desde o Hyprland 0.55 o formato `.conf` está deprecado; na
+0.56 as `windowrule` em hyprlang falham inteiras. A referência offline casada com a versão
+instalada é `/usr/share/hypr/stubs/hl.meta.lua` (todos os campos e dispatchers) — consultar
+antes da wiki, que descreve a versão mais recente e não necessariamente a sua.
 
 ---
 
@@ -127,10 +132,10 @@ ASUS XG27ACS 2560x1440@180 (principal, `DP-1`) e LG UltraGear 1920x1080@144 em p
 largura, por isso o principal começa em x=1080; o y=240 centraliza os 1440 dele nos 1920
 do vertical.
 
-```
-monitor = DP-1, 2560x1440@180.00, 1080x240, 1
-monitor = DP-2, 1920x1080@143.98, 0x0, 1, transform, 1
-monitor = , preferred, auto, 1
+```lua
+hl.monitor({ output = "DP-1", mode = "2560x1440@180.00", position = "1080x240", scale = 1 })
+hl.monitor({ output = "DP-2", mode = "1920x1080@143.98", position = "0x0", scale = 1, transform = 1 })
+hl.monitor({ output = "", mode = "preferred", position = "auto", scale = "auto" })
 ```
 
 O `bin/wallpaper.sh` lê a geometria por `hyprctl monitors -j` e **desconta o transform**
@@ -139,8 +144,9 @@ outros. As duas imagens são as mesmas do MyWinISO, pro Windows e o Arch não te
 diferente.
 
 Para arrastar em vez de editar, `nwg-displays` — mas ele grava em
-`~/.config/hypr/monitors.conf`, **nome diferente do nosso**; copie o resultado pro
-`monitores.conf` do repo, senão a mudança fica fora do git.
+`~/.config/hypr/monitors.conf`, em **hyprlang e com nome diferente do nosso**; leia os
+números de lá e traduza pro `monitores.lua` do repo à mão, senão a mudança fica fora do git
+e em formato deprecado.
 
 ---
 
@@ -189,11 +195,11 @@ Pacote é a pasta que tem entrada com ponto na raiz (`.config`, `.local`, `.zshr
 
 ## Notas para quem for depurar
 
-- Linha inválida no `hyprland.conf` **não derruba a sessão**: o Hyprland ignora e segue.
-  `hyprctl configerrors` é o que conta.
+- Linha inválida **não derruba a sessão**: o Hyprland ignora e segue. Por isso
+  `Hyprland --verify-config` antes de logar é obrigatório — ele roda sem subir sessão.
 - `hyprctl reload` não recarrega a waybar — é processo separado; o `setup.sh recarregar`
   manda `SIGUSR2` nela. JSON inválido no `config.jsonc` derruba a barra inteira.
-- `transform, 1` é 90°. Se a tela vertical sair de cabeça pra baixo, o valor certo é `3`.
+- `transform = 1` é 90°. Se a tela vertical sair de cabeça pra baixo, o valor certo é `3`.
 - Em NVIDIA, `no_hardware_cursors = true` evita cursor invisível ou piscando.
 - O shell é zsh: `for p in $var` não faz word splitting. Use array ou `bash -c`.
 - `pacman -Q` mente sobre pacote instalado nesta máquina; use `command -v` para binário e

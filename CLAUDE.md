@@ -57,6 +57,13 @@ A etapa faz `hyprctl reload`, reinicia a waybar (SIGUSR2) e recarrega o mako. Di
 Plasma, o Hyprland aplica a config na hora e sem reiniciar nada -- entao nao existe mais
 desculpa de "so no proximo login".
 
+**A config do Hyprland e Lua, nao hyprlang.** Desde a 0.55 o `.conf` esta deprecado; na
+0.56 as `windowrule` em hyprlang falham inteiras. Antes de entregar qualquer mexida em
+`hypr/`, rodar **`Hyprland --verify-config`** -- ele valida sem subir sessao e responde
+`config ok`. Config errada nao da erro na cara: e ignorada, e a sessao sobe torta. A
+referencia offline da versao instalada e `/usr/share/hypr/stubs/hl.meta.lua`; consultar
+ela antes da wiki, que descreve a versao mais nova. Detalhe em `_CLAUDE/hyprland.md`.
+
 Nesta maquina `systemctl` e `pacman` pelados caem num wrapper com `sudo` que o sandbox
 recusa ("sinalizador sem novos privilegios"). Use `/usr/bin/systemctl --user ...`; e nao
 confie em `pacman -Q` para saber se um pacote existe -- ele responde "nao instalado" para
@@ -74,7 +81,7 @@ rode por `bash -c '...'` ou use array.
 | Format, o que sobrevive em `/home`, perfil do Chrome, particoes | `_CLAUDE/particoes-e-format.md` |
 | Pacote do stow, onde um arquivo novo entra, regra do `--no-folding` | `_CLAUDE/estrutura-repo.md` |
 | Rodar o `install.sh`, entender etapa que falhou | `_CLAUDE/install-fluxo.md` |
-| Disposicao de telas, `monitores.conf`, wallpaper por geometria | `_CLAUDE/monitores.md` |
+| Disposicao de telas, `monitores.lua`, wallpaper por geometria | `_CLAUDE/monitores.md` |
 | DNS, keyring, por que NAO instalar gnome-keyring | `_CLAUDE/dns-e-keyring.md` |
 | Suspender, hibernar, apagar monitor por inatividade | `_CLAUDE/energia.md` |
 | Pastas da home, XDG, onde criar projeto novo | `_CLAUDE/home-enxuta.md` |

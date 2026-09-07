@@ -2,13 +2,13 @@
 
 Ordem de suspeita:
 
-1. `hyprctl configerrors` -- linha invalida no `hyprland.conf` e ignorada em silencio, a
-   sessao sobe torta em vez de falhar
+1. `Hyprland --verify-config` (roda sem subir sessao, diz `config ok`) e, ja logado,
+   `hyprctl configerrors` -- linha invalida e ignorada em silencio, a sessao sobe torta
 2. `cat ~/.local/state/dotfiles/install.log` diz qual etapa do install falhou
 3. estado velho em `/home` (ver tabela de particoes)
 4. `ls -la ~/.config | grep '\->'` mostra o que esta linkado e pra onde; link que aponta pra
    `links/`, `stow/`, `plasma/` ou `kwin/` e resto de esquema antigo -- apagar
-5. `hyprctl monitors` pra ver se os nomes dos conectores batem com o `monitores.conf`
+5. `hyprctl monitors` pra ver se os nomes dos conectores batem com o `monitores.lua`
 
 ## Tela preta ao logar
 
