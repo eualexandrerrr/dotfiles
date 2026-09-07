@@ -470,6 +470,17 @@ animações no dobro da velocidade, cantos arredondados em toda janela
 wallpaper do tema. O bloqueio só acontece por pedido (`Autolock=false`); a inatividade só
 apaga os monitores.
 
+## Jeito Windows
+
+Atalhos: `Meta+E` Dolphin, `Meta+I` Configurações, `Meta+L` bloquear, `Meta+.` emoji,
+`Meta+Shift+S` recorte pra área de transferência, `Meta+Tab` visão geral, `Meta+V` histórico.
+Notificações embaixo à direita; cantos ativos do KWin desligados; NumLock ligado no login;
+hinting leve + subpixel RGB (o ClearType do KDE); cursor Fluent-dark (Windows 11). O menu
+iniciar lista só Pasta pessoal, Downloads, recentes e Este computador — `rightColumnItems`
+do plasmoid do Windows Modern, gravado pelo `painel-ajustar.sh`. Texto, markdown e JSON
+abrem no VS Code. O Baloo não indexa `vms`, `MichiganRoleplay`, `ATLANTA` nem a biblioteca
+de imagens do RedM.
+
 ## Sem KWallet
 
 A carteira do KDE fica **desligada**. Só o `kwalletrc` com `Enabled=false` não bastava: o
