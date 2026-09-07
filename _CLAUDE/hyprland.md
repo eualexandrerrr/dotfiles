@@ -98,11 +98,12 @@ avanca um card, **solta o Alt e entra na selecionada**. Mouse por cima tambem se
 clique entra; setas ou `hjkl` navegam, `1..9` vao direto na workspace, `Enter` entra, `Esc`
 fecha sem trocar. Tema em `hyprexpose/.config/hyprexpose/config.toml`.
 
-O "solta e entra" e patch nosso, por **sinal**, nao por tecla: `SIGUSR1` abre e, com a tela
-ja aberta, avanca a selecao; `SIGUSR2` entra na selecionada e fecha. O bind que fecha o
-ciclo e `hl.bind("ALT_L", ..., { release = true })`, que dispara `expo.sh confirmar` ao
-soltar o Alt -- e o script so age se o overlay estiver aberto, entao soltar Alt em qualquer
-outra situacao nao faz nada.
+O `SIGUSR1` abre e, com a tela ja aberta, avanca a selecao; `SIGUSR2` entra na selecionada
+e fecha. Os sinais continuam existindo, mas quem realmente fecha o ciclo hoje e o proprio
+overlay lendo `Tab` e o release do Alt na sua surface -- ver "o que quebrava o ciclo" mais
+abaixo. Os binds `ALT_L`/`ALT_R` com `release = true` ficaram como rede de seguranca, e o
+script so age se o overlay estiver aberto, entao soltar Alt em qualquer outra situacao nao
+faz nada.
 
 **Esse bind precisa de `non_consuming = true`, senao o `Alt+D` trava tudo.** Bind sem a
 flag consome o evento: o Hyprland dispara o dispatcher e **nao repassa a tecla ao cliente
@@ -126,21 +127,55 @@ que quebrava o ciclo: o primeiro `Alt+Tab` abria a tela e, dali em diante, nem o
 seguinte avancava nem soltar o Alt confirmava -- os dois binds simplesmente nao chegavam ao
 compositor, e so `Esc` ou `Enter` saiam de la, porque esses o proprio hyprexpose le.
 
-A chave e **`binds.disable_keybind_grabbing = true`**, no `hyprland.lua`: "apps that request
-keybinds to be disabled will not be able to do so". Com ela o bind continua valendo com a
-tela aberta. O mesmo conserta o `Super+Tab` do hyprswitch, que tem o mesmo grab. Nao afeta a
-tela de bloqueio: o hyprlock usa `ext-session-lock-v1`, um caminho separado, onde so bind
-com `locked = true` roda.
+`binds.disable_keybind_grabbing = true` esta no `hyprland.lua` e ajuda, mas **nao resolve
+sozinho** -- foi o que se acreditou por duas rodadas ate o log desmentir. Instrumentar o
+`expo.sh` com um `printf` de timestamp deu o veredito em uma tentativa: seis `arg=abrir` e
+zero `arg=confirmar`. O `Tab` seguinte chegava; o release do Alt nunca.
 
-O ciclo tambem confirma no **`ALT_R`**, nao so no `ALT_L`. Com um bind so, quem usava o Alt
-da direita abria a tela e nunca conseguia entrar na workspace.
+O motivo e do proprio Hyprland: **bind de release num modificador puro nao dispara depois
+que aquele modificador foi combinado com outra tecla**. `ALT_L` com `release = true` roda
+quando o Alt e tocado sozinho, e so. Como o ciclo do Alt+Tab e exatamente Alt+outra tecla,
+esse bind nunca ia rodar -- nao ha config que conserte.
 
-**Nunca tente controlar esse overlay sintetizando tecla.** O hyprexpose traduz keycode evdev
-por uma tabela fixa no `main.rs` (`1 => Escape`, `105 => Left`, ...), ignorando o keymap. O
-teclado virtual do `wtype` entrega a primeira tecla no keycode 1, entao *qualquer* tecla
-sintetica chega ali como `Esc` e fecha a tela -- foi assim que `wtype -k Left` fechou o
-overlay em vez de andar. Por isso o avancar/confirmar foi feito por sinal, que nao passa
-pelo teclado.
+Quem enxerga o release e a **surface do hyprexpose**, que segura o grab exclusivo do
+teclado. Por isso o tratamento foi para dentro do patch (`src/main.rs`): soltar `KEY_LEFTALT`
+(56) ou `KEY_RIGHTALT` (100) com a tela visivel entra na workspace selecionada e fecha. O
+mesmo patch ensina o overlay a ler `Tab` e `Shift+Tab` na propria surface, avancando e
+voltando a selecao, porque com o grab o bind do compositor tambem nao chega ali de forma
+confiavel. Os binds `ALT_L`/`ALT_R` no `atalhos.lua` viraram rede de seguranca.
+
+A tela de bloqueio nao e afetada: o hyprlock usa `ext-session-lock-v1`, um caminho separado,
+onde so bind com `locked = true` roda.
+
+**Para testar atalho aqui, use `ydotool`, nunca `wtype`.** O `wtype` cria um teclado virtual
+que entrega a primeira tecla no keycode 1, e o hyprexpose traduz keycode evdev por uma tabela
+fixa no `main.rs` (`1 => Escape`, ...), entao *qualquer* tecla do wtype chega como `Esc` e
+fecha a tela. O `ydotool` injeta por `/dev/uinput`, no nivel do teclado real, e o ciclo
+inteiro se testa sem tocar no teclado:
+
+```
+/usr/bin/systemctl --user start ydotool
+ydotool key 56:1; ydotool key 15:1 15:0; ydotool key 15:1 15:0; ydotool key 56:0
+```
+
+Deixe **pelo menos meio segundo** entre os eventos: com 0,4s o overlay ainda nao redesenhou e
+o teste da falso negativo.
+
+### O "Alt+D nao funciona, a tela so escurece"
+
+Falso positivo classico: o `Alt+D` estava certo o tempo todo. A tela escurecida era o
+**overlay do hyprexpose preso aberto** de um `Alt+Tab` anterior -- e com o grab exclusivo do
+teclado nenhum atalho respondia, entao o `Alt+D` seguinte parecia nao fazer nada. O log do
+`lancador.sh` provou: zero chamadas enquanto ele apertava.
+
+Antes de mexer no lancador, cheque o que ja esta na tela:
+
+```
+hyprctl layers -j | grep -o '"namespace": "[^"]*"' | sort -u
+```
+
+`launcher` e o fuzzel (o namespace **nao** e "fuzzel" -- a `layer_rule` de blur apontava
+para o nome errado e nunca pegava). Se aparecer o hyprexpose, o teclado esta com ele.
 
 O DP-2 fica de fora do overview: o hyprexpose **nao tem filtro de monitor**, ele pega toda
 workspace com `id >= 1` de todos os monitores (`ipc/hyprland.rs`), so pulando as special.

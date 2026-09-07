@@ -66,7 +66,7 @@ index 42d7d70..11f09ec 100644
                  id,
                  name: json_string(wj, "name").to_owned(),
 diff --git a/src/main.rs b/src/main.rs
-index 3a5bc50..70cad94 100644
+index 3a5bc50..baf2e69 100644
 --- a/src/main.rs
 +++ b/src/main.rs
 @@ -51,10 +51,13 @@ use hyprland_toplevel_export_frame_v1::HyprlandToplevelExportFrameV1;
@@ -83,7 +83,16 @@ index 3a5bc50..70cad94 100644
      } else {
          G_QUIT.store(true, Ordering::Relaxed);
      }
-@@ -83,6 +86,9 @@ const XKB_KEY_7: u32 = 0x0037;
+@@ -63,6 +66,8 @@ unsafe extern "C" fn sig_handler(sig: libc::c_int) {
+ // ── key mapping (evdev keycodes → XKB keysyms) ──────────────────────────────
+ 
+ const XKB_KEY_ESCAPE: u32 = 0xff1b;
++const XKB_KEY_TAB: u32 = 0xff09;
++const XKB_KEY_ISO_LEFT_TAB: u32 = 0xfe20;
+ const XKB_KEY_RETURN: u32 = 0xff0d;
+ const XKB_KEY_LEFT:   u32 = 0xff51;
+ const XKB_KEY_UP:     u32 = 0xff52;
+@@ -83,6 +88,9 @@ const XKB_KEY_7: u32 = 0x0037;
  const XKB_KEY_8: u32 = 0x0038;
  const XKB_KEY_9: u32 = 0x0039;
  
@@ -93,7 +102,16 @@ index 3a5bc50..70cad94 100644
  fn keycode_to_keysym(keycode: u32) -> u32 {
      // Compositors send raw evdev keycodes via wl_keyboard.
      match keycode {
-@@ -254,6 +260,16 @@ impl AppState {
+@@ -220,6 +228,8 @@ impl AppState {
+                 self.activate_selected_workspace();
+                 return true;
+             }
++            XKB_KEY_TAB => self.select_next(),
++            XKB_KEY_ISO_LEFT_TAB => self.select_prev(),
+             XKB_KEY_RIGHT | XKB_KEY_L => {
+                 if self.selected + 1 < n {
+                     self.selected += 1;
+@@ -254,6 +264,25 @@ impl AppState {
          false
      }
  
@@ -107,10 +125,19 @@ index 3a5bc50..70cad94 100644
 +        }
 +    }
 +
++    /// Step the selection backwards, wrapping around. Shift+Tab inside the overlay.
++    fn select_prev(&mut self) {
++        let n = self.workspaces.len();
++        if n > 1 {
++            self.selected = (self.selected + n - 1) % n;
++            self.needs_redraw = true;
++        }
++    }
++
      fn activate_selected_workspace(&self) {
          if self.selected < self.workspaces.len() {
              ipc::switch_workspace(&self.workspaces[self.selected]);
-@@ -391,16 +407,32 @@ impl Dispatch<wl_keyboard::WlKeyboard, ()> for AppState {
+@@ -391,16 +420,32 @@ impl Dispatch<wl_keyboard::WlKeyboard, ()> for AppState {
          _: &Connection,
          _: &QueueHandle<Self>,
      ) {
@@ -133,7 +160,7 @@ index 3a5bc50..70cad94 100644
 +                if keysym != 0 && state.handle_key(keysym) {
 +                    state.should_close = true;
 +                }
-             }
++            }
 +            // Alt-tab style: releasing Alt enters the selected workspace. The compositor
 +            // keybind cannot do this -- a release bind on a bare modifier never fires
 +            // once the modifier was combined with another key -- but this surface holds
@@ -147,12 +174,12 @@ index 3a5bc50..70cad94 100644
 +                    state.activate_selected_workspace();
 +                    state.should_close = true;
 +                }
-+            }
+             }
 +            _ => {}
          }
      }
  }
-@@ -953,6 +985,7 @@ fn main() {
+@@ -953,6 +998,7 @@ fn main() {
          sa.sa_sigaction = sig_handler as *const () as libc::sighandler_t;
          libc::sigemptyset(&mut sa.sa_mask);
          libc::sigaction(libc::SIGUSR1, &sa, std::ptr::null_mut());
@@ -160,7 +187,7 @@ index 3a5bc50..70cad94 100644
          libc::sigaction(libc::SIGINT, &sa, std::ptr::null_mut());
          libc::sigaction(libc::SIGTERM, &sa, std::ptr::null_mut());
      }
-@@ -982,7 +1015,7 @@ fn main() {
+@@ -982,7 +1028,7 @@ fn main() {
      }
  
      eprintln!(
@@ -169,7 +196,7 @@ index 3a5bc50..70cad94 100644
          ipc::compositor().name()
      );
  
-@@ -993,10 +1026,15 @@ fn main() {
+@@ -993,10 +1039,15 @@ fn main() {
              break;
          }
  
