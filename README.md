@@ -626,6 +626,9 @@ Duas coisas que só valem aqui e custaram tempo pra descobrir:
 
 ## Histórico
 
+- 07/09/2026: `hyprland-qtutils` virou `hyprland-guiutils` no `packages.txt`. O pacote antigo
+  saiu dos repos (o novo declara `Replaces: hyprland-qtutils`) e era o único alvo que fazia o
+  `pacman` derrubar a transação única e cair no fallback um por um.
 - 07/09/2026: rodar o `install.sh` de novo agora apaga `~/.config/.kde-layout-aplicado`. A marca
   mora fora do repo, então `rm -rf ~/.dotfiles` não a levava junto e o `layout-once.sh` saía na
   primeira linha — reinstalar deixava o KDE pela metade sem erro nenhum na tela.

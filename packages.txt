@@ -72,7 +72,7 @@ hypridle
 hyprpaper
 hyprpicker
 hyprcursor
-hyprland-qtutils
+hyprland-guiutils
 hyprpolkitagent
 xdg-desktop-portal-hyprland
 xdg-desktop-portal-gtk
