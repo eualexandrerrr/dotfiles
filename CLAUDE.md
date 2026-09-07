@@ -110,13 +110,16 @@ tela cheia pelo `widget-claude` (painel de widgets, repo `Utils`). O vertical gi
 nao separa:
 
 ```
-DP-1|2560x1440|normal|1440,0|1|sim
 DP-2|2560x1440|left|0,0|1|nao
+DP-1|2560x1440|normal|1440,581|1|sim
 ```
 
-Os nomes `DP-1`/`DP-2` sao chute informado. Se o principal aparecer girado, inverte os dois.
-`kscreen-doctor -o` lista os nomes reais. `*` na primeira coluna e curinga por resolucao
-nativa, pra quando trocar de placa e os nomes mudarem.
+Nomes confirmados na maquina: DP-2 e o LG UltraGear (o vertical), DP-1 e o ASUS XG27ACS
+(o principal). `*` na primeira coluna e curinga por resolucao nativa, pra quando trocar de
+placa e os nomes mudarem.
+
+Nao editar o conf a mao: arrasta as telas em Configuracoes do Sistema e roda
+`bash ~/.dotfiles/kde/monitores.sh --capturar`, que grava a sessao atual por cima do conf.
 
 O `monitores.sh` roda **antes** do `wallpaper.sh` de proposito: o wallpaper decide retrato
 x paisagem pela geometria de cada tela.

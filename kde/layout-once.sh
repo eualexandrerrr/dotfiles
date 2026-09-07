@@ -6,6 +6,9 @@ log="$HOME/kde-layout-once.log"
 exec > >(tee -a "$log") 2>&1
 printf '== %s kde-layout-once\n' "$(date '+%d/%m/%Y %H:%M:%S')"
 
+falhas=0
+bash "$HOME/.dotfiles/kde/monitores.sh" || { printf 'monitores.sh falhou\n'; falhas=$((falhas+1)); }
+
 if ! command -v qdbus6 >/dev/null 2>&1; then
     printf 'qdbus6 ausente (pacote qt6-tools): painel, wallpaper e tema nao serao aplicados\n' >&2
     exit 1
@@ -26,12 +29,6 @@ bash "$HOME/.dotfiles/kde/apply.sh" || true
 
 # Wallpaper por monitor: retrato no que esta em pe, paisagem nos outros. Mesmas imagens do
 # MyWinISO, para o Windows e o Arch nao terem cara diferente.
-falhas=0
-
-# Antes do wallpaper: o wallpaper.sh decide retrato x paisagem pela geometria de cada tela,
-# entao a disposicao precisa ja estar aplicada quando ele rodar.
-bash "$HOME/.dotfiles/kde/monitores.sh" || { printf 'monitores.sh falhou\n'; falhas=$((falhas+1)); }
-
 bash "$HOME/.dotfiles/kde/wallpaper.sh" || { printf 'wallpaper.sh falhou\n'; falhas=$((falhas+1)); }
 
 # O tema vem de vendor/windows-modern; nada de clone nem da lib do upstream.

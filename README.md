@@ -601,21 +601,28 @@ wallpaper, porque o `wallpaper.sh` decide retrato x paisagem pela geometria de c
 O `~/.local/share/kscreen/` **não** é versionado: o `kscreen` grava um arquivo por combinação de
 monitores, com nome derivado do hash dos EDIDs conectados. Trocar de porta, de cabo ou de placa
 muda o hash e o arquivo antigo deixa de valer. O que é versionado é a decisão, em
-`kde/monitores.conf`, casada por **resolução** em vez de nome de conector — assim sobrevive à
-troca de placa-mãe, quando o `DP-1` da 3090 vira outro nome na GPU nova.
+`kde/monitores.conf`, casada por **nome de conector** — os dois monitores são iguais e
+resolução sozinha não separa um do outro.
 
 ```
 # chave|resolucao|rotacao|posicao|escala|primario
-DP-1|2560x1440|normal|1440,0|1|sim
 DP-2|2560x1440|left|0,0|1|nao
+DP-1|2560x1440|normal|1440,581|1|sim
 ```
 
 A chave é o nome do conector, ou `*` pra "a próxima saída livre com essa resolução nativa".
 Como os dois monitores são iguais, resolução sozinha não separa — por isso o nome. Se trocar
 de placa e os nomes mudarem, `kscreen-doctor -o` lista os novos.
 
-O `x` da posição do principal é 1440 porque o secundário girado ocupa 1440 de largura. Rodar
-à mão depois de mexer no conf: `bash ~/.dotfiles/kde/monitores.sh`.
+O `x` do principal é 1440 porque o secundário girado ocupa 1440 de largura; o `y` 581 é a
+altura em que ele fica alinhado com o vertical. Rodar à mão: `bash ~/.dotfiles/kde/monitores.sh`.
+
+Não edite o conf à mão: arraste as telas em Configurações do Sistema → Tela e depois grave o
+resultado com `bash ~/.dotfiles/kde/monitores.sh --capturar`. Posição, rotação, escala e
+primário saem exatamente como estão na sessão.
+
+O `kscreen-doctor` sai com código 0 mesmo recusando um modo, então o `monitores.sh` confere a
+geometria depois de aplicar e só reporta sucesso se ela bater com o conf.
 
 ### O segundo monitor é o painel
 
