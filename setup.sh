@@ -85,16 +85,6 @@ etapa_dns() {
     log "DNS mais rapido"
     local sh="$DOTFILES_DIR/bin/dns-rapido.sh"
     [[ -x $sh ]] || { falha "dns-rapido.sh ausente"; return; }
-
-    local u
-    for u in dns-rapido.service dns-rapido.timer; do
-        if ! cmp -s "$DOTFILES_DIR/systemd/$u" "/etc/systemd/system/$u" 2>/dev/null; then
-            sudo install -Dm644 "$DOTFILES_DIR/systemd/$u" "/etc/systemd/system/$u" 2>/dev/null || falha "nao instalei $u"
-        fi
-    done
-    sudo systemctl daemon-reload 2>/dev/null || true
-    sudo systemctl enable --now dns-rapido.timer >/dev/null 2>&1 || falha "nao habilitei o dns-rapido.timer"
-
     bash "$sh" || falha "dns-rapido.sh"
 }
 

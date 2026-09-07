@@ -36,13 +36,20 @@ esac
 
 command -v nmcli >/dev/null 2>&1 || { printf 'dns: nmcli ausente\n' >&2; exit 1; }
 
+# O polkit deixa a sessao local mexer na conexao sem senha; o sudo so entra se nao deixar
+# (sessao remota, por exemplo), e ai sem prompt: nao ha ninguem pra responder no logon.
+nm() {
+    nmcli "$@" 2>/dev/null && return 0
+    sudo -n nmcli "$@" 2>/dev/null
+}
+
 conexao="$(nmcli -t -f NAME,TYPE con show --active 2>/dev/null | grep -vE ':(loopback|bridge)$' | head -1 | cut -d: -f1)"
 [[ -n $conexao ]] || { printf 'dns: nenhuma conexao ativa\n' >&2; exit 1; }
 
 if [[ $acao == restaurar ]]; then
-    sudo nmcli con mod "$conexao" ipv4.ignore-auto-dns no ipv4.dns "" \
-                                  ipv6.ignore-auto-dns no ipv6.dns "" 2>/dev/null \
-        && sudo nmcli con up "$conexao" >/dev/null 2>&1 \
+    nm con mod "$conexao" ipv4.ignore-auto-dns no ipv4.dns "" \
+                          ipv6.ignore-auto-dns no ipv6.dns "" 2>/dev/null \
+        && nm con up "$conexao" >/dev/null 2>&1 \
         && { printf 'dns: %s voltou pro DNS do DHCP\n' "$conexao"; exit 0; }
     printf 'dns: nao consegui restaurar\n' >&2; exit 1
 fi
@@ -114,11 +121,11 @@ if [[ $atual == "$lista" ]]; then
     exit 0
 fi
 
-if sudo nmcli con mod "$conexao" ipv4.dns "$lista" ipv4.ignore-auto-dns yes \
-                              ipv6.dns "" ipv6.ignore-auto-dns yes 2>/dev/null \
-   && sudo nmcli con up "$conexao" >/dev/null 2>&1; then
+if nm con mod "$conexao" ipv4.dns "$lista" ipv4.ignore-auto-dns yes \
+                      ipv6.dns "" ipv6.ignore-auto-dns yes 2>/dev/null \
+   && nm con up "$conexao" >/dev/null 2>&1; then
     printf 'dns: %s agora usa %s\n' "$conexao" "$lista"
 else
-    printf 'dns: nao consegui aplicar (precisa de sudo)\n' >&2
+    printf 'dns: nao consegui aplicar\n' >&2
     exit 1
 fi

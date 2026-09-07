@@ -32,7 +32,7 @@ cada um no seu pacote, linkado pelo GNU Stow.
 | Fonte | 850 W, 80 Plus Gold | montada atrás da bandeja |
 | SSD | Corsair MP700 ELITE, 932 GB, NVMe | Gen4 x4 pela CPU; Arch em `/`, imagem da VM em `/home` |
 | Gabinete | PCYes Forcefield Mini Black Vulcan | mini tower, GPU até 310 mm |
-| Monitores | ASUS XG27ACS 2560x1440@180Hz + LG UltraGear 2560x1440 | o ASUS em paisagem à direita; o LG em pé à esquerda, com o painel |
+| Monitores | ASUS XG27ACS 2560x1440@180Hz + LG UltraGear **1920x1080@144Hz** | o ASUS em paisagem à direita; o LG em pé à esquerda, com o widget-claude |
 
 ### Por que duas GPUs
 
@@ -95,6 +95,7 @@ dotfiles
 ├── apps                      .local/share/applications/*.desktop
 ├── git                       .gitconfig: identidade e o gh como credential helper
 ├── xdg                       user-dirs: home sem as pastas padrão do Linux
+├── systemd-user              units do usuário (widget-claude no monitor vertical)
 │
 ├── kde                       scripts e decisões do Plasma
 │   ├── settings.conf         311 chaves (gerado pelo capture, não editar)
@@ -683,8 +684,9 @@ Escolhe os dois mais rápidos **de operadores diferentes**, pra um não cair jun
 outro. Também põe `ipv6.ignore-auto-dns` — sem isso o DNS IPv6 do provedor continua na
 lista e é consultado, anulando a escolha.
 
-Roda sozinho pelo `dns-rapido.timer`: 45 s depois do boot e a cada 6 h. É timer, não só
-boot, porque esta máquina nunca desliga — um serviço de boot rodaria quase nunca.
+Roda **a cada logon**, pelo `autostart/.config/autostart/dns-rapido.desktop`. Não precisa de
+sudo: o polkit já deixa a sessão local mexer na conexão do NetworkManager. Log em
+`~/dns-rapido.log`.
 
 ## Monitores
 
@@ -700,16 +702,17 @@ resolução sozinha não separa um do outro.
 
 ```
 # chave|resolucao|rotacao|posicao|escala|primario
-DP-2|2560x1440|left|0,0|1|nao
-DP-1|2560x1440|normal|1440,581|1|sim
+DP-2|1920x1080|left|0,0|1|nao
+DP-1|2560x1440|normal|1080,240|1|sim
 ```
 
 A chave é o nome do conector, ou `*` pra "a próxima saída livre com essa resolução nativa".
 Como os dois monitores são iguais, resolução sozinha não separa — por isso o nome. Se trocar
 de placa e os nomes mudarem, `kscreen-doctor -o` lista os novos.
 
-O `x` do principal é 1440 porque o secundário girado ocupa 1440 de largura; o `y` 581 é a
-altura em que ele fica alinhado com o vertical. Rodar à mão: `bash ~/.dotfiles/kde/monitores.sh`.
+O LG é **1920x1080@144 nativo** — ele aceita 2560x1440, mas escalado e a 75 Hz. Girado ele
+ocupa 1080 de largura, por isso o principal começa em x=1080; o `y` 240 centra o ASUS
+(1440 de altura) no vão do LG em pé (1920). Rodar à mão: `bash ~/.dotfiles/kde/monitores.sh`.
 
 Não edite o conf à mão: arraste as telas em Configurações do Sistema → Tela e depois grave o
 resultado com `bash ~/.dotfiles/kde/monitores.sh --capturar`. Posição, rotação, escala e

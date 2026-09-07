@@ -1,0 +1,15 @@
+[Unit]
+Description=widget-claude: painel do monitor vertical
+PartOf=graphical-session.target
+After=plasma-plasmashell.service
+
+[Service]
+Type=simple
+WorkingDirectory=%h/Utils/widget-claude
+ExecStart=/usr/bin/electron --password-store=basic .
+Restart=on-failure
+RestartSec=5
+Environment=ELECTRON_OZONE_PLATFORM_HINT=auto
+
+[Install]
+WantedBy=graphical-session.target

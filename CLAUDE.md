@@ -114,7 +114,8 @@ O DNS do roteador levava 161 ms sem cache contra 23-26 ms dos publicos -- era a 
 conexao. `bin/dns-rapido.sh` mede com subdominio aleatorio (dominio popular responde do
 cache e engana), escolhe os dois mais rapidos de operadores diferentes e aplica no
 NetworkManager, com `ipv6.ignore-auto-dns` pro DNS IPv6 do provedor nao anular a escolha.
-Roda pelo `dns-rapido.timer` (boot + 6h; timer porque a maquina nunca desliga).
+Roda a cada logon (`autostart/.../dns-rapido.desktop`), sem sudo: o polkit ja deixa a
+sessao local mexer na conexao. Log em `~/dns-rapido.log`.
 
 KWallet fica desligado. Efeito colateral que importa: sem keyring, o Chrome usa o backend
 `basic` (cookies `v10`), entao o perfil sobrevive ao format sem depender da senha de login.
@@ -156,16 +157,17 @@ fonte, nao mtime, porque `git clone` carimba tudo com a hora do clone.
 
 ## Monitores
 
-Dois **2560x1440**. Principal em paisagem a direita; secundario em pe a esquerda, ocupado em
+ASUS XG27ACS **2560x1440@180** (principal) e LG UltraGear **1920x1080@144** (vertical).
+O LG aceita 2560x1440, mas escalado e a 75 Hz -- sempre o modo nativo. Principal em paisagem a direita; secundario em pe a esquerda, ocupado em
 tela cheia pelo `widget-claude` (painel de widgets, repo `Utils`). O vertical girado ocupa
-1440 de largura, por isso o principal comeca em x=1440.
+1080 de largura (1920 girado), por isso o principal comeca em x=1080.
 
 `kde/monitores.conf`, casado por **nome de conector** porque os dois sao iguais e resolucao
 nao separa:
 
 ```
-DP-2|2560x1440|left|0,0|1|nao
-DP-1|2560x1440|normal|1440,581|1|sim
+DP-2|1920x1080|left|0,0|1|nao
+DP-1|2560x1440|normal|1080,240|1|sim
 ```
 
 Nomes confirmados na maquina: DP-2 e o LG UltraGear (o vertical), DP-1 e o ASUS XG27ACS

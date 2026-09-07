@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Dotfiles: DNS mais rápido
+Comment=Mede os resolvedores e aplica o mais rápido, a cada logon
+Exec=bash -c "\\$HOME/.dotfiles/bin/dns-rapido.sh >> \\$HOME/dns-rapido.log 2>&1"
+X-KDE-autostart-after=panel
+NoDisplay=true
