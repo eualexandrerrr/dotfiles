@@ -14,6 +14,10 @@ done
 # Teclado, mouse, tema, icones e terminal padrao: tudo do kde-settings.conf.
 bash "$HOME/.dotfiles/kde/apply.sh" || true
 
+# Wallpaper por monitor: retrato no que esta em pe, paisagem nos outros. Mesmas imagens do
+# MyWinISO, para o Windows e o Arch nao terem cara diferente.
+bash "$HOME/.dotfiles/kde/wallpaper.sh" || printf 'wallpaper.sh falhou\n'
+
 # O tema vem de vendor/windows-modern; nada de clone nem da lib do upstream.
 tema="$HOME/.dotfiles/kde/tema-instalar.sh"
 if [[ -f $tema ]]; then

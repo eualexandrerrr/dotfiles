@@ -4,3 +4,6 @@
 *.txt text eol=lf
 .zshrc text eol=lf
 .zprofile text eol=lf
+# imagem nunca passa por conversao de fim de linha
+*.jpg binary
+*.png binary
