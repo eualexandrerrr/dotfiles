@@ -57,6 +57,9 @@ xorg-xwayland
 [repo-oficial:shell-grafico]
 ghostty
 fuzzel
+gtk4
+libadwaita
+python-gobject
 mako
 libnotify
 swayosd

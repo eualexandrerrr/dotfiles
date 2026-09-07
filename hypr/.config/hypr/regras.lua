@@ -17,6 +17,7 @@ hl.window_rule({ name = "rcode-na-3", match = { class = "RCode" }, workspace = "
 hl.window_rule({ name = "vm-na-4", match = { class = "virt-manager|looking-glass-client" }, workspace = "4" })
 
 hl.window_rule({ match = { class = "pavucontrol" }, float = true })
+hl.window_rule({ match = { class = "dev.xande.transparencia" }, float = true, center = true })
 hl.window_rule({ match = { class = "nwg-look" }, float = true })
 hl.window_rule({ match = { class = "nwg-displays" }, float = true })
 hl.window_rule({ match = { class = "qt6ct|qt5ct" }, float = true })

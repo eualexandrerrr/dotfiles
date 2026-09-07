@@ -18,6 +18,7 @@ hl.bind("ALT + W", hl.dsp.window.close())
 hl.bind(mod .. " + SHIFT + Q", hl.dsp.window.kill())
 hl.bind(mod .. " + L", hl.dsp.exec_cmd("uwsm app -- hyprlock"))
 hl.bind(mod .. " + SHIFT + E", hl.dsp.exec_cmd("uwsm app -- wlogout"))
+hl.bind(mod .. " + O", hl.dsp.exec_cmd(dotfiles .. "/bin/transparencia.py"))
 hl.bind(mod .. " + I", hl.dsp.exec_cmd("uwsm app -- nwg-look"))
 hl.bind(mod .. " + SHIFT + I", hl.dsp.exec_cmd("uwsm app -- nwg-displays"))
 

@@ -4,3 +4,5 @@ links/config/ghostty/config.local
 pacotes/*/*
 !pacotes/*/PKGBUILD
 !pacotes/*/*.patch
+
+__pycache__/

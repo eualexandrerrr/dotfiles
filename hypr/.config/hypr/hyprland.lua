@@ -1,5 +1,6 @@
 require("monitores")
 require("regras")
+require("transparencia")
 require("atalhos")
 
 hl.env("XCURSOR_THEME", "Fluent-dark-cursors")

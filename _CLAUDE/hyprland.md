@@ -12,6 +12,7 @@ foi a maior razao pratica da troca, alem do pedido.
 | `hypr/.config/hypr/monitores.lua` | `hl.monitor` e `hl.workspace_rule` |
 | `hypr/.config/hypr/atalhos.lua` | todos os `hl.bind` |
 | `hypr/.config/hypr/regras.lua` | `hl.window_rule` e `hl.layer_rule` |
+| `hypr/.config/hypr/transparencia.lua` | **gerado** pelo menu do `Meta+O`, opacidade por app |
 | `hypr/.config/hypr/hypridle.conf` | inatividade (apaga monitor em 5 min) |
 | `hypr/.config/hypr/hyprlock.conf` | tela de bloqueio |
 | `waybar/.config/waybar/` | barra: `config.jsonc` + `style.css` |
@@ -21,7 +22,7 @@ foi a maior razao pratica da troca, alem do pedido.
 | `hyprswitch/.config/hyprswitch/style.css` | alternador de janelas do Super+Tab |
 | `wlogout/.config/wlogout/` | menu de encerrar |
 
-O `hyprland.lua` faz `require` dos outros tres. Mexer em atalho e mexer so no
+O `hyprland.lua` faz `require` dos outros quatro. Mexer em atalho e mexer so no
 `atalhos.lua`.
 
 ## A config e Lua, nao hyprlang
@@ -239,6 +240,32 @@ pior dos dois mundos. `special = true` faz o mesmo pela workspace `rascunho` do 
 
 `xray = false` de proposito: com `true` a janela mostra o wallpaper borrado em vez das
 janelas atras. Fica mais limpo e mais barato, mas some a nocao do que esta embaixo.
+
+### Menu de transparencia por app (Meta+O)
+
+`bin/transparencia.py` (GTK4 + libadwaita) lista **so os apps que estao abertos no
+momento** -- um cartao por classe, com icone e nome tirados do `.desktop` pelo
+`StartupWMClass`, quantas janelas daquele app existem e dois sliders, ativa e inativa.
+A lista se refaz sozinha a cada 2s, entao abrir ou fechar app com o menu na tela ja
+aparece. O proprio menu e o `ricepanel` ficam de fora.
+
+Arrastar o slider faz **duas** coisas, e e de proposito:
+
+1. `hl.dsp.window.set_prop` com `prop = "opacity"` em cada janela daquela classe, pelo
+   `address` -- e o preview instantaneo, sem reload.
+2. Depois de 400ms parado, reescreve `hypr/.config/hypr/transparencia.lua` inteiro.
+
+Fazer as duas garante que o que esta na tela e o que esta gravado nunca divergem. O
+`set_prop` sobrevive ao `hyprctl reload` (fica na janela, nao na config), entao confiar
+so na window rule deixaria fantasma para tras. Voltar um app ao padrao apaga a linha do
+arquivo e reaplica o valor global nas janelas dele.
+
+O prop chama **`opacity`**, nao `alphaactive` como no hyprlang -- os outros nomes
+respondem `Invalid prop name`. Ele aceita numero ou a string `"ativa inativa"`.
+
+O arquivo gerado usa long string Lua (`[[^classe$]]`) na `class` para o regex nao precisar
+de barra dupla. Ele e versionado: a personalizacao sobrevive ao format, e o `require` dele
+vem **depois** do `regras.lua` para vencer a regra `sempre-solido`.
 
 ## Pegadinhas
 
