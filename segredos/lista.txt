@@ -2,4 +2,7 @@
 .ssh
 .config/gh/hosts.yml
 .claude/.credentials.json
+.claude.json
 .npmrc
+Claude/.secrets
+Claude/ferramentas/keys

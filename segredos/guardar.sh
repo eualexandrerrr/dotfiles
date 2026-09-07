@@ -50,12 +50,11 @@ if [[ ! -f $PRIVADO/chave.txt.age ]]; then
     ok "chave.txt.age gravado (recuperacao por senha)"
 fi
 
-cat > "$PRIVADO/.gitignore" <<'FIM'
-*
-!.gitignore
-!*.age
-!README.md
-FIM
+# O repo privado ja tem .gitignore proprio (os .env reais ficam de fora). Nao
+# sobrescreve: so garante que o pacote cifrado nao caia numa regra ampla.
+if [[ -f $PRIVADO/.gitignore ]] && ! grep -qF '!*.age' "$PRIVADO/.gitignore"; then
+    printf '\n!*.age\n' >> "$PRIVADO/.gitignore"
+fi
 
 printf '\nfalta commitar:\n  git -C %s add -A && git -C %s commit -m "segredos: atualiza" && git -C %s push\n' \
     "$PRIVADO" "$PRIVADO" "$PRIVADO"
