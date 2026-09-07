@@ -41,6 +41,9 @@ GRUPOS=(
     # atraso pra aparecer a previa das janelas agrupadas na barra
     "plasmarc:PlasmaToolTips"
     "kscreenlockerrc:Daemon"
+    "kwalletrc:Wallet"
+    "plasmaparc:General"
+    "ksplashrc:KSplash"
     "powermanagementprofilesrc:AC*"
     "dolphinrc:MainWindow"
     "dolphinrc:IconsMode"
