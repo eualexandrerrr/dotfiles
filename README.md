@@ -740,8 +740,8 @@ Duas coisas que só valem aqui e custaram tempo pra descobrir:
   monitores caíam no mesmo DP-2. E os dois são 2560x1440 de fato, então resolução nunca ia
   separar; agora casa por nome, com `*` como curinga por resolução nativa.
 - 07/09/2026: `links/` virou um pacote por programa na raiz do repo, linkado pelo GNU Stow com
-  `--no-folding` — mesma regra de nunca linkar diretório, agora sem linker caseiro. Hyprland,
-  que tinha entrado de manhã como sessão alternativa, saiu inteiro no mesmo commit.
+  `--no-folding` — mesma regra de nunca linkar diretório, agora sem linker caseiro.
+- 07/09/2026: o desktop é KDE Plasma e só. Nenhuma outra sessão entra no repo nem no SDDM.
 - Até 09/2026 o repo era Hyprland + Quickshell (nandoroid-shell). Trocado por KDE Plasma; a pilha
   antiga está no histórico do git (`git log --before=2026-09-05`).
 - Branch `backup/i3-x11-2023` guarda o rice de i3 + polybar.
