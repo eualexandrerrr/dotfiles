@@ -9,6 +9,8 @@ git
 jq
 inter-font
 ldns
+mtools
+swtpm
 less
 man-db
 man-pages

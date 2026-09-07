@@ -83,12 +83,11 @@
   <devices>
     <emulator>/usr/bin/qemu-system-x86_64</emulator>
     <disk type="file" device="disk">
-      <driver name="qemu" type="raw" cache="none" io="native" discard="unmap" iothread="1" />
+      <driver name="qemu" type="raw" cache="none" io="native" discard="unmap" />
       <source file="/home/Alexandre/vms/win.raw" />
       <backingStore />
-      <target dev="vda" bus="virtio" />
-      <address type="pci" domain="0x0000" bus="0x04" slot="0x00" function="0x0" />
-    <serial>6479A7AABAC014A3</serial></disk>
+      <target dev="sda" bus="sata" />
+      <serial>6479A7AABAC014A3</serial></disk>
     <disk type="file" device="cdrom">
       <driver name="qemu" type="raw" />
       <source file="/home/Alexandre/vms/virtio-win.iso" />
@@ -223,12 +222,5 @@
       <target dev="sdc" bus="sata" />
       <readonly />
       </disk>
-    <disk type="file" device="cdrom">
-      <driver name="qemu" type="raw" />
-      <source file="/home/Alexandre/vms/autounattend.iso" />
-      <backingStore />
-      <target dev="sdd" bus="sata" />
-      <readonly />
-      </disk>
-    </devices>
+    <disk type="file" device="disk"><driver name="qemu" type="raw" /><source file="/home/Alexandre/vms/autounattend-usb.img" /><target dev="sdz" bus="usb" removable="on" /></disk></devices>
 </domain>

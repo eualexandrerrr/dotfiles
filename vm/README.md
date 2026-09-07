@@ -8,7 +8,10 @@ os dois. Aqui é fonte de verdade versionada; aplicar é explícito.
 ## Instalar o Windows (`w11 instalar`)
 
 Perfil `janela` + ISO do Windows + `~/vms/autounattend.iso` (o `autounattend.xml` do MyWinISO
-com `MYWINISO_PERFIL=vm-jogo` injetado no primeiro logon). Dois truques: o disco leva
+com `MYWINISO_PERFIL=vm-jogo` injetado no primeiro logon). Disco em SATA na instalação (o WinPE não tem driver virtio; volta pra virtio depois do viostor
+instalado). Três injeções no XML, feitas pelo `autounattend-vm.sh`: o perfil `vm-jogo`, a cópia do
+arquivo pra `X:\` e a chave `HKLM\System\Setup\UnattendFile` — o Ventoy faz as duas últimas
+sozinho, um pendrive comum não, e o `instala.vbs` lê só a chave. Além disso o disco leva
 `<serial>6479A7AABAC014A3</serial>`, o serial do MP700 — é assim que o `instala.vbs` aceita o
 disco; e o `vfio-ativar.sh` só roda com a segunda GPU montada, senão o host fica sem tela.
 
