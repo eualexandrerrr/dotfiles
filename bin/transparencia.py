@@ -320,6 +320,10 @@ class Janela(Adw.ApplicationWindow):
         self.assinatura = None
         self.gravacao = None
 
+        teclas = Gtk.EventControllerKey()
+        teclas.connect("key-pressed", self.ao_teclar)
+        self.add_controller(teclas)
+
         raiz = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
         cabecalho = Adw.HeaderBar()
         atualizar = Gtk.Button(icon_name="view-refresh-symbolic")
@@ -352,6 +356,12 @@ class Janela(Adw.ApplicationWindow):
         self.set_content(raiz)
         self.recarregar(True)
         GLib.timeout_add_seconds(2, self.recarregar, False)
+
+    def ao_teclar(self, _controlador, tecla, _codigo, _estado):
+        if tecla == Gdk.KEY_Escape:
+            self.close()
+            return True
+        return False
 
     def recarregar(self, forcar):
         apps = apps_abertos(self.indice)
