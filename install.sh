@@ -25,8 +25,8 @@ mkdir -p "$LOGDIR"
 LOGFILE="${LOGFILE:-$LOGDIR/install.log}"
 T0=$SECONDS
 STEP=0
-TOTAL_STEPS=15
-[[ ${SKIP_NVIDIA:-0} == 1 ]] && TOTAL_STEPS=13
+TOTAL_STEPS=16
+[[ ${SKIP_NVIDIA:-0} == 1 ]] && TOTAL_STEPS=14
 WARNS=()
 OFICIAL_PEDIDOS=0; OFICIAL_NOVOS=(); OFICIAL_FALTANDO=()
 AUR_OK=(); AUR_JA=(); AUR_FALHA=()
@@ -228,6 +228,15 @@ install_node_tools() {
     else
         warn "claude nao ficou disponivel; depois rode: npm install -g @anthropic-ai/claude-code"
     fi
+}
+
+install_android_sdk() {
+    log "Android SDK e AVDs de desenvolvimento"
+    if [[ ! -x "$DOTFILES_DIR/bin/android-sdk.sh" ]]; then
+        warn "bin/android-sdk.sh nao encontrado; pulando"
+        return
+    fi
+    bash "$DOTFILES_DIR/bin/android-sdk.sh" tudo || warn "android-sdk.sh terminou com aviso -- rode na mao depois"
 }
 
 add_kernel_params() {
@@ -599,6 +608,7 @@ main() {
     install_aur
     install_pacotes_locais
     install_node_tools
+    install_android_sdk
     configure_nvidia
     enable_services
     fetch_dotfiles

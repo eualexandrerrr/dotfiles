@@ -88,3 +88,4 @@ rode por `bash -c '...'` ou use array.
 | VM Windows, passthrough, vfio, a placa que vai chegar | `_CLAUDE/vm-e-hardware.md` |
 | Algo quebrado depois do format | `_CLAUDE/se-quebrar-no-format.md` |
 | Saber por que uma correcao foi feita | `_CLAUDE/historico-commits.md` |
+| Android SDK, AVD, emulador, `bin/android-sdk.sh` | `_CLAUDE/android.md` |
