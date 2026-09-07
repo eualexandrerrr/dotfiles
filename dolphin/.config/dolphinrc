@@ -2,14 +2,14 @@
 PreviewSize=22
 
 [DetailsMode]
-PreviewSize=22
+PreviewSize=32
 RightPadding=0
 ExpandableFolders=false
 
 [General]
 ShowFullPathInTitlebar=true
 Version=202
-ViewPropsTimestamp=2026,9,5,9,25,29.608
+ViewPropsTimestamp=2026,1,1,0,0,0
 GlobalViewProps=true
 BrowseThroughArchives=true
 ShowSelectionToggle=false
@@ -24,7 +24,7 @@ Places Icons Static Size=22
 MenuBar=Disabled
 
 [PreviewSettings]
-Plugins=appimagethumbnail,cursorthumbnail,fontthumbnail,ffmpegthumbs,audiothumbnail,djvuthumbnail,blenderthumbnail,mobithumbnail,gsthumbnail,rawthumbnail,glycin-heif,comicbookthumbnail,opendocumentthumbnail,kraorathumbnail,ebookthumbnail,windowsexethumbnail,glycin-image-rs,glycin-svg,imagethumbnail,windowsimagethumbnail,exrthumbnail,jpegthumbnail,svgthumbnail,glycin-jxl,directorythumbnail
+Plugins=appimagethumbnail,cursorthumbnail,fontthumbnail,ffmpegthumbs,audiothumbnail,djvuthumbnail,blenderthumbnail,mobithumbnail,gsthumbnail,rawthumbnail,glycin-heif,comicbookthumbnail,opendocumentthumbnail,kraorathumbnail,ebookthumbnail,windowsexethumbnail,glycin-image-rs,glycin-svg,imagethumbnail,windowsimagethumbnail,exrthumbnail,jpegthumbnail,svgthumbnail,glycin-jxl
 
 [IconsMode]
 PreviewSize=48

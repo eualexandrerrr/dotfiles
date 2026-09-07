@@ -111,7 +111,7 @@ TerminalApplication=ghostty
 TerminalService=com.mitchellh.ghostty.desktop
 
 [Icons]
-Theme=Tela-dark
+Theme=Tela-yellow-dark
 
 [KDE]
 AnimationDurationFactor=0.5

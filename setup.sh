@@ -99,6 +99,11 @@ etapa_painel() {
     bash "$DOTFILES_DIR/kde/painel-ajustar.sh" || falha "painel-ajustar.sh"
 }
 
+etapa_icones() {
+    log "pastas amarelas"
+    bash "$DOTFILES_DIR/kde/icones.sh" || falha "icones.sh"
+}
+
 etapa_audio() {
     log "audio: saida analogica 80%, HDMI 50%, mic 80%"
     bash "$DOTFILES_DIR/kde/audio.sh" || falha "audio.sh"
@@ -123,7 +128,7 @@ etapa_recarregar() {
     ok "recarregado"
 }
 
-ETAPAS=(links home kde energia audio dns monitores wallpaper painel login recarregar)
+ETAPAS=(links home kde icones energia audio dns monitores wallpaper painel login recarregar)
 
 if [[ ${1:-} == --lista ]]; then
     printf 'etapas: %s\n' "${ETAPAS[*]}"
