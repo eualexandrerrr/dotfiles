@@ -120,6 +120,21 @@ plugins") e o `hyprtasking` do AUR esta desatualizado desde 29/07/2026, antes da
 por isso a escolha caiu num cliente externo, que ainda por cima nao quebra a cada
 atualizacao do Hyprland, como todo plugin de ABI quebra.
 
+O overlay pede o teclado com **`KeyboardInteractivity::Exclusive`** (`main.rs:541`), e um
+layer com grab exclusivo **desliga os keybinds do Hyprland enquanto esta aberto**. Era isso
+que quebrava o ciclo: o primeiro `Alt+Tab` abria a tela e, dali em diante, nem o `Tab`
+seguinte avancava nem soltar o Alt confirmava -- os dois binds simplesmente nao chegavam ao
+compositor, e so `Esc` ou `Enter` saiam de la, porque esses o proprio hyprexpose le.
+
+A chave e **`binds.disable_keybind_grabbing = true`**, no `hyprland.lua`: "apps that request
+keybinds to be disabled will not be able to do so". Com ela o bind continua valendo com a
+tela aberta. O mesmo conserta o `Super+Tab` do hyprswitch, que tem o mesmo grab. Nao afeta a
+tela de bloqueio: o hyprlock usa `ext-session-lock-v1`, um caminho separado, onde so bind
+com `locked = true` roda.
+
+O ciclo tambem confirma no **`ALT_R`**, nao so no `ALT_L`. Com um bind so, quem usava o Alt
+da direita abria a tela e nunca conseguia entrar na workspace.
+
 **Nunca tente controlar esse overlay sintetizando tecla.** O hyprexpose traduz keycode evdev
 por uma tabela fixa no `main.rs` (`1 => Escape`, `105 => Left`, ...), ignorando o keymap. O
 teclado virtual do `wtype` entrega a primeira tecla no keycode 1, entao *qualquer* tecla

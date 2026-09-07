@@ -61,6 +61,7 @@ hl.bind(mod .. " + ALT + down", hl.dsp.window.resize({ x = 0, y = 40 }), { repea
 
 hl.bind("ALT + Tab", hl.dsp.exec_cmd(dotfiles .. "/bin/expo.sh"))
 hl.bind("ALT_L", hl.dsp.exec_cmd(dotfiles .. "/bin/expo.sh confirmar"), { release = true, non_consuming = true })
+hl.bind("ALT_R", hl.dsp.exec_cmd(dotfiles .. "/bin/expo.sh confirmar"), { release = true, non_consuming = true })
 hl.bind(mod .. " + Tab", hl.dsp.exec_cmd(alternador .. " --switch-type client --sort-recent"))
 
 for i = 1, 9 do

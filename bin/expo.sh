@@ -4,6 +4,10 @@
 #   ~/.dotfiles/bin/expo.sh            abre; com a tela aberta, avanca a selecao
 #   ~/.dotfiles/bin/expo.sh confirmar  entra na workspace selecionada e fecha
 #
+# O confirmar dispara a cada release de Alt, entao nao checa nada antes: manda o sinal e
+# deixa o daemon decidir. Ele ignora quando a tela nao esta aberta, e o pkill sai calado
+# quando o daemon nem esta de pe -- consultar o hyprctl aqui era um round-trip por Alt.
+#
 # Dentro da tela o mouse tambem vale: por cima seleciona, clique entra. Setas ou hjkl
 # navegam, 1..9 vao direto na workspace, Enter entra, Esc fecha sem trocar.
 set -uo pipefail
@@ -13,10 +17,8 @@ command -v hyprexpose >/dev/null 2>&1 || {
     exit 1
 }
 
-aberto() { hyprctl layers 2>/dev/null | grep -q "namespace: hyprexpose"; }
-
 if [[ ${1:-abrir} == confirmar ]]; then
-    aberto && pkill -SIGUSR2 -x hyprexpose
+    pkill -SIGUSR2 -x hyprexpose 2>/dev/null
     exit 0
 fi
 

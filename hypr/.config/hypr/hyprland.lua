@@ -82,6 +82,10 @@ hl.config({
         enabled = true,
     },
 
+    binds = {
+        disable_keybind_grabbing = true,
+    },
+
     dwindle = {
         preserve_split = true,
     },
