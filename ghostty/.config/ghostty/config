@@ -48,3 +48,7 @@ keybind = ctrl+shift+j=goto_split:down
 keybind = ctrl+plus=increase_font_size:1
 keybind = ctrl+minus=decrease_font_size:1
 keybind = ctrl+zero=reset_font_size
+
+# Ctrl+Backspace apaga a palavra: o terminal manda Alt+Backspace, que o zsh e a
+# maioria das TUIs ja leem como backward-kill-word.
+keybind = ctrl+backspace=text:\x1b\x7f
