@@ -1,11 +1,9 @@
 [ColorEffects:Disabled]
-ChangeSelectionColor=
 Color=56,56,56
 ColorAmount=0
 ColorEffect=0
 ContrastAmount=0.65
 ContrastEffect=1
-Enable=
 IntensityAmount=0.1
 IntensityEffect=2
 
@@ -64,17 +62,17 @@ ForegroundVisited=49,91,239
 
 [Colors:Header][Inactive]
 BackgroundAlternate=66,66,66
-BackgroundNormal=54,54,54
+BackgroundNormal=45,45,45
 DecorationFocus=49,91,239
 DecorationHover=49,91,239
-ForegroundActive=49,91,239
-ForegroundInactive=160,160,160
+ForegroundActive=246,116,0,150
+ForegroundInactive=160,160,160,150
 ForegroundLink=49,91,239
-ForegroundNegative=218,68,83
-ForegroundNeutral=246,116,0
-ForegroundNormal=252,252,252
-ForegroundPositive=39,174,96
-ForegroundVisited=120,120,120
+ForegroundNegative=237,21,21
+ForegroundNeutral=201,206,59
+ForegroundNormal=252,252,252,150
+ForegroundPositive=17,209,22
+ForegroundVisited=49,91,239
 
 [Colors:Selection]
 BackgroundAlternate=79,127,239
@@ -133,55 +131,12 @@ ForegroundPositive=39,174,96
 ForegroundVisited=120,120,120
 
 [General]
-BrowserApplication=google-chrome.desktop
 ColorScheme=WhiteSurDark
-ColorSchemeHash=697626961cd3018a86d5d1b6a546c7ac8b282d8c
-TerminalApplication=ghostty
-TerminalService=com.mitchellh.ghostty.desktop
-XftAntialias=true
-XftHintStyle=hintslight
-XftSubPixel=rgb
-fixed=JetBrainsMono Nerd Font,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
-font=Inter,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
-menuFont=Inter,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
-smallestReadableFont=Inter,8,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
-toolBarFont=Inter,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
-
-[Icons]
-Theme=Tela-yellow-dark
+Name=WhiteSurDark
+shadeSortColumn=true
 
 [KDE]
-AnimationDurationFactor=0.5
-LookAndFeelPackage=org.kde.windowsmodern.dark
-ShowDeleteCommand=false
 contrast=4
-frameContrast=0.2
-widgetStyle=kvantum
-
-[KFileDialog Settings]
-Allow Expansion=false
-Automatically select filename extension=true
-Breadcrumb Navigation=true
-Decoration position=2
-Show Full Path=false
-Show Inline Previews=true
-Show Preview=false
-Show Speedbar=true
-Show hidden files=false
-Sort by=Name
-Sort directories first=true
-Sort hidden files last=false
-Sort reversed=false
-Speedbar Width=146
-View Style=DetailTree
-
-[Locale]
-Language=pt_BR
-prova[$d]
-
-[PreviewSettings]
-EnableRemoteFolderThumbnail=false
-MaximumRemoteSize=0
 
 [WM]
 activeBackground=51,51,51
