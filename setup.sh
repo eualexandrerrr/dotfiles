@@ -89,6 +89,7 @@ etapa_kde() {
     bash "$DOTFILES_DIR/kde/layan.sh" || falha "layan.sh"
     bash "$DOTFILES_DIR/kde/klassy.sh" || falha "klassy.sh"
     bash "$DOTFILES_DIR/kde/apply.sh" || falha "apply.sh"
+    bash "$DOTFILES_DIR/kde/dolphin-visao.sh" || falha "dolphin-visao.sh"
 }
 
 etapa_energia() {
@@ -137,10 +138,14 @@ etapa_login() {
 }
 
 etapa_recarregar() {
-    log "recarregando kwin e sycoca"
+    log "recarregando kwin, plasmashell e sycoca"
     qdbus6 org.kde.KWin /KWin reconfigure >/dev/null 2>&1 || true
-    qdbus6 org.kde.KWin /Effects org.kde.kwin.Effects.loadEffect kwin4_effect_shapecorners >/dev/null 2>&1 || true
     kbuildsycoca6 >/dev/null 2>&1 || true
+    # Sem isto a mudanca fica so no arquivo: tema do Plasma e painel so aparecem no
+    # proximo login. Caminho absoluto porque `systemctl` pelado cai num wrapper com sudo.
+    if [[ -n ${WAYLAND_DISPLAY:-}${DISPLAY:-} ]]; then
+        /usr/bin/systemctl --user restart plasma-plasmashell.service >/dev/null 2>&1 || true
+    fi
     ok "recarregado"
 }
 

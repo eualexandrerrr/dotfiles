@@ -34,7 +34,7 @@ blurEnabled=true
 contrastEnabled=true
 kwin4_effect_fadeEnabled=true
 kwin4_effect_scaleEnabled=true
-kwin4_effect_shapecornersEnabled=true
+kwin4_effect_shapecornersEnabled=false
 kwin4_effect_squashEnabled=false
 slideEnabled=true
 
