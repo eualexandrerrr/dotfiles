@@ -1,0 +1,15 @@
+show=drun
+width=620
+height=420
+always_parse_args=true
+show_all=false
+print_command=true
+insensitive=true
+prompt=Buscar
+allow_images=true
+image_size=32
+term=ghostty
+no_actions=true
+matching=fuzzy
+hide_scroll=true
+layer=overlay

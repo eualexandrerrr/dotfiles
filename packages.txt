@@ -64,6 +64,31 @@ tesseract-data-por
 xdg-desktop-portal-kde
 xorg-xwayland
 
+[repo-oficial:hyprland]
+hyprland
+hyprlock
+hypridle
+hyprpaper
+hyprpicker
+hyprcursor
+hyprland-qtutils
+hyprpolkitagent
+xdg-desktop-portal-hyprland
+xdg-desktop-portal-gtk
+waybar
+mako
+wofi
+cliphist
+grim
+slurp
+brightnessctl
+playerctl
+pavucontrol
+udiskie
+network-manager-applet
+qt5-wayland
+qt6ct
+
 [repo-oficial:desktop]
 networkmanager
 pipewire
@@ -191,3 +216,5 @@ visual-studio-code-bin
 # Windows em container (Docker+KVM) com os apps aparecendo como janelas via RDP.
 # Sem GPU: serve pra app de produtividade, nao pra jogo.
 winboat-bin
+hyprshot
+wlogout
