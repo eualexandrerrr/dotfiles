@@ -1,0 +1,24 @@
+{
+    "label": "lock",
+    "action": "hyprlock",
+    "text": "Bloquear",
+    "keybind": "b"
+}
+{
+    "label": "logout",
+    "action": "uwsm stop",
+    "text": "Sair",
+    "keybind": "s"
+}
+{
+    "label": "reboot",
+    "action": "systemctl reboot",
+    "text": "Reiniciar",
+    "keybind": "r"
+}
+{
+    "label": "shutdown",
+    "action": "systemctl poweroff",
+    "text": "Desligar",
+    "keybind": "d"
+}

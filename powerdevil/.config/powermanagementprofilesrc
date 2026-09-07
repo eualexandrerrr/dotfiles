@@ -1,8 +1,0 @@
-[AC]
-autoSuspendAction=0
-dimDisplayWhenIdle=false
-turnOffDisplayWhenIdle=true
-turnOffDisplayIdleTimeoutSec=300
-
-[Migration]
-MigratedProfilesToPlasma6=powerdevilrc

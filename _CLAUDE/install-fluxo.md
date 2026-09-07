@@ -4,33 +4,31 @@
 bash ~/.dotfiles/install.sh
 ```
 
-15 etapas. Rodando de TTY (caso do format), a 15 diz "sem sessao do Plasma agora, o
-layout entra no proximo login" -- **isso e o caminho certo**, nao erro. No primeiro login o
-autostart chama `kde/layout-once.sh`, que faz nesta ordem: monitores, wallpaper, tema,
-reinicia o plasmashell, painel. So grava a marca se nenhuma etapa falhar; se falhar, tenta
-de novo no login seguinte.
+13 etapas (15 com NVIDIA). A ordem e: pacman -> oficiais -> paru -> AUR -> node/claude ->
+nvidia -> servicos -> clone/pull -> stow -> home enxuta -> segredos -> sddm ->
+`configure_hyprland`.
 
-A ordem dentro do `layout-once.sh` importa e ja mordeu uma vez: o `layan.sh` aplica o
-look-and-feel do Layan, que **traz a decoracao Aurorae junto e sobrescreve o Klassy**. Como
-ele roda depois do `setup kde`, o `klassy.sh` chamado la dentro nao sobrevivia -- o format
-devolvia a decoracao do Layan e os botoes de janela voltavam ao padrao. Por isso o
-`klassy.sh` e chamado de novo, logo depois do `layan.sh`, e tem que continuar sendo o
-ultimo a mexer em `org.kde.kdecoration2`.
+Rodando de TTY (caso do format), a ultima diz "sem sessao do Hyprland agora; wallpaper entra
+no primeiro login" -- **isso e o caminho certo**, nao erro. O `hyprland.conf` tem
+`exec-once = ~/.dotfiles/bin/wallpaper.sh`, entao o wallpaper entra sozinho quando a sessao
+sobe.
 
-As etapas `icones` e `audio` tambem nao rodavam em lugar nenhum: nao estao no `install.sh`
-nem estavam na chamada do `layout-once.sh`, so existiam pra quem rodasse o `setup.sh` na
-mao. Entraram na primeira linha do layout-once. O `dns` ja vinha pelo autostart proprio e o
-`login` pelo `install.sh`.
+Nao existe mais `layout-once.sh` nem marca de "layout aplicado". Aquele mecanismo inteiro
+existia porque o Plasma so aceitava configuracao com o shell vivo, por D-Bus, e porque a
+ordem entre Layan e Klassy mordia. No Hyprland a configuracao **e** o arquivo: nasce
+linkada pelo stow e vale no primeiro frame. Isso apagou a classe de bug mais cara do repo.
 
-Depois de logar, a unica coisa a olhar:
+`configure_hyprland` faz: avatar (`~/.face`), tema GTK, `bin/energia.sh`,
+`systemctl --user enable ricepanel.service` e -- se ja houver sessao -- wallpaper e recarga.
+
+Depois de logar, o que olhar:
 
 ```
-cat ~/kde-layout-once.log
+hyprctl configerrors
+systemctl --user status ricepanel.service
+cat ~/.local/state/dotfiles/install.log
 ```
 
-Rodando de dentro do Plasma, a etapa 15 aplica na hora, sem deslogar.
-
-Tempos: primeira rodada paga `mkinitcpio` (~25s) e a compilacao da bandeja em C++ (~30s).
-Da segunda em diante as duas sao puladas quando nada mudou; a bandeja compara sha256 do
-fonte, nao mtime, porque `git clone` carimba tudo com a hora do clone.
-
+Tempos: primeira rodada paga `mkinitcpio` (~25s). Da segunda em diante e pulado quando nada
+que entra na imagem mudou. Nao ha mais compilacao de bandeja em C++ (~30s) -- ela era do
+Windows-Modern e saiu junto com o Plasma.

@@ -1,0 +1,33 @@
+output=DP-1
+anchor=top-right
+layer=overlay
+margin=14
+padding=14
+width=380
+height=180
+border-size=1
+border-radius=14
+icon-location=left
+max-icon-size=44
+default-timeout=6000
+ignore-timeout=0
+font=Inter 11
+background-color=#1e1e2ee6
+text-color=#cdd6f4
+border-color=#cba6f7
+progress-color=over #45475a
+
+[urgency=low]
+border-color=#45475a
+default-timeout=4000
+
+[urgency=critical]
+border-color=#f38ba8
+default-timeout=0
+
+[app-name=ricepanel]
+invisible=1
+
+[app-name=Spotify]
+border-color=#a6e3a1
+default-timeout=4000

@@ -1,7 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=pam_kwallet_init
-Exec=/bin/true
-Hidden=true
-NoDisplay=true
-X-GNOME-Autostart-enabled=false

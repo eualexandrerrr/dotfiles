@@ -1,16 +1,16 @@
 #!/usr/bin/env bash
 # Reconfigura e recarrega os dotfiles. NAO instala pacote nenhum -- isso e o install.sh.
 #
-#   ~/.dotfiles/setup.sh              tudo
-#   ~/.dotfiles/setup.sh links kde    so as etapas citadas
-#   ~/.dotfiles/setup.sh --lista      mostra as etapas
+#   ~/.dotfiles/setup.sh                  tudo
+#   ~/.dotfiles/setup.sh links wallpaper  so as etapas citadas
+#   ~/.dotfiles/setup.sh --lista          mostra as etapas
 #
 set -uo pipefail
 
 DOTFILES_DIR="${DOTFILES_DIR:-$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)}"
 export DOTFILES_DIR
 
-GRN=$'\e[32m'; YEL=$'\e[33m'; BLU=$'\e[34m'; RED=$'\e[31m'; END=$'\e[0m'
+GRN=$'\e[32m'; YEL=$'\e[33m'; BLU=$'\e[34m'; END=$'\e[0m'
 FALHAS=()
 N=0
 TOTAL=0
@@ -19,10 +19,7 @@ log()   { N=$((N+1)); printf '\n%s==>%s [%d/%d] %s\n' "$BLU" "$END" "$N" "$TOTAL
 ok()    { printf '%s  ok%s %s\n' "$GRN" "$END" "$*"; }
 falha() { printf '%s  !!%s %s\n' "$YEL" "$END" "$*" >&2; FALHAS+=("$*"); }
 
-tem_plasma() {
-    command -v qdbus6 >/dev/null 2>&1 &&
-        qdbus6 org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript "" >/dev/null 2>&1
-}
+tem_hyprland() { [[ -n ${HYPRLAND_INSTANCE_SIGNATURE:-} ]] && command -v hyprctl >/dev/null 2>&1; }
 
 etapa_links() {
     log "links do stow"
@@ -63,66 +60,25 @@ etapa_home() {
         cp "$origem" "$destino" && novos=$((novos+1))
     done < <(find "$DOTFILES_DIR/workspaces" -name '*.code-workspace' -type f 2>/dev/null)
     (( novos )) && ok "$novos workspace(s) do VS Code criado(s)"
-
-    # O Dolphin guarda os Locais num .xbel proprio: as pastas removidas continuam
-    # listadas la, apontando pra lugar que nao existe mais.
-    local xbel="$HOME/.local/share/user-places.xbel"
-    if [[ -f $xbel ]]; then
-        python3 - "$xbel" <<'PY' || true
-import re, sys, os, urllib.parse, pathlib
-p = pathlib.Path(sys.argv[1]); s = p.read_text(encoding='utf-8'); n = 0
-for b in re.findall(r'\s*<bookmark href="[^"]*">.*?</bookmark>', s, re.S):
-    m = re.search(r'href="(file://[^"]*)"', b)
-    if not m: continue
-    d = urllib.parse.unquote(m.group(1)[7:])
-    if d and not os.path.isdir(d):
-        s = s.replace(b, ''); n += 1
-if n: p.write_text(s, encoding='utf-8')
-print(f"  ok {n} local(is) morto(s) removido(s) do Dolphin")
-PY
-    fi
     ok "$removidas pasta(s) padrao removida(s)"
 }
 
-etapa_kde() {
-    log "chaves do KDE (settings.conf)"
-    bash "$DOTFILES_DIR/kde/layan.sh" || falha "layan.sh"
-    bash "$DOTFILES_DIR/kde/klassy.sh" || falha "klassy.sh"
-    bash "$DOTFILES_DIR/kde/apply.sh" || falha "apply.sh"
-    bash "$DOTFILES_DIR/kde/dolphin-visao.sh" || falha "dolphin-visao.sh"
+etapa_perfil() {
+    log "avatar do usuario"
+    local origem="$DOTFILES_DIR/perfil/avatar.png"
+    [[ -f $origem ]] || { falha "perfil/avatar.png ausente"; return; }
+    install -m 644 "$origem" "$HOME/.face"
+    ok "~/.face (hyprlock e sddm)"
 }
 
 etapa_energia() {
     log "energia: nunca dormir, monitores em 5 min"
-    bash "$DOTFILES_DIR/kde/energia.sh" || falha "energia.sh"
-    qdbus6 org.freedesktop.ScreenSaver /ScreenSaver org.kde.screensaver.configure >/dev/null 2>&1 || true
-}
-
-etapa_monitores() {
-    log "disposicao dos monitores"
-    bash "$DOTFILES_DIR/kde/monitores.sh" || falha "monitores.sh"
-}
-
-etapa_wallpaper() {
-    log "wallpaper por monitor"
-    tem_plasma || { ok "sem sessao do Plasma, pulado"; return; }
-    bash "$DOTFILES_DIR/kde/wallpaper.sh" || falha "wallpaper.sh"
-}
-
-etapa_painel() {
-    log "painel"
-    tem_plasma || { ok "sem sessao do Plasma, pulado"; return; }
-    bash "$DOTFILES_DIR/kde/painel-ajustar.sh" || falha "painel-ajustar.sh"
-}
-
-etapa_icones() {
-    log "pastas amarelas"
-    bash "$DOTFILES_DIR/kde/icones.sh" || falha "icones.sh"
+    bash "$DOTFILES_DIR/bin/energia.sh" || falha "energia.sh"
 }
 
 etapa_audio() {
     log "audio: saida analogica 80%, HDMI 50%, mic 80%"
-    bash "$DOTFILES_DIR/kde/audio.sh" || falha "audio.sh"
+    bash "$DOTFILES_DIR/bin/audio.sh" || falha "audio.sh"
 }
 
 etapa_dns() {
@@ -132,24 +88,48 @@ etapa_dns() {
     bash "$sh" || falha "dns-rapido.sh"
 }
 
-etapa_login() {
-    log "tela de login: wallpaper, foto e greeter so no principal"
-    bash "$DOTFILES_DIR/kde/login.sh" || falha "login.sh"
+etapa_wallpaper() {
+    log "wallpaper por monitor"
+    tem_hyprland || { ok "sem sessao do Hyprland, pulado"; return; }
+    bash "$DOTFILES_DIR/bin/wallpaper.sh" || falha "wallpaper.sh"
+}
+
+etapa_tema() {
+    log "tema GTK e Qt"
+    local gtk3="$HOME/.config/gtk-3.0/settings.ini"
+    mkdir -p "$(dirname "$gtk3")" "$HOME/.config/gtk-4.0"
+    cat > "$gtk3" <<'EOF'
+[Settings]
+gtk-theme-name=adw-gtk3-dark
+gtk-icon-theme-name=Papirus-Dark
+gtk-cursor-theme-name=Papirus-Dark
+gtk-cursor-theme-size=24
+gtk-font-name=Inter 11
+gtk-application-prefer-dark-theme=1
+EOF
+    cp "$gtk3" "$HOME/.config/gtk-4.0/settings.ini"
+    if command -v gsettings >/dev/null 2>&1; then
+        gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark' 2>/dev/null || true
+        gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3-dark' 2>/dev/null || true
+        gsettings set org.gnome.desktop.interface icon-theme 'Papirus-Dark' 2>/dev/null || true
+    fi
+    ok "GTK escuro (adw-gtk3-dark + Papirus-Dark)"
 }
 
 etapa_recarregar() {
-    log "recarregando kwin, plasmashell e sycoca"
-    qdbus6 org.kde.KWin /KWin reconfigure >/dev/null 2>&1 || true
-    kbuildsycoca6 >/dev/null 2>&1 || true
-    # Sem isto a mudanca fica so no arquivo: tema do Plasma e painel so aparecem no
-    # proximo login. Caminho absoluto porque `systemctl` pelado cai num wrapper com sudo.
-    if [[ -n ${WAYLAND_DISPLAY:-}${DISPLAY:-} ]]; then
-        /usr/bin/systemctl --user restart plasma-plasmashell.service >/dev/null 2>&1 || true
+    log "recarregando hyprland, waybar e mako"
+    tem_hyprland || { ok "sem sessao do Hyprland, nada a recarregar"; return; }
+    hyprctl reload >/dev/null 2>&1 || falha "hyprctl reload"
+    if pidof waybar >/dev/null 2>&1; then
+        pkill -SIGUSR2 -x waybar 2>/dev/null || { pkill -x waybar; uwsm app -- waybar >/dev/null 2>&1 & }
+    else
+        uwsm app -- waybar >/dev/null 2>&1 &
     fi
+    makoctl reload >/dev/null 2>&1 || true
     ok "recarregado"
 }
 
-ETAPAS=(links home kde icones energia audio dns monitores wallpaper painel login recarregar)
+ETAPAS=(links home perfil tema energia audio dns wallpaper recarregar)
 
 if [[ ${1:-} == --lista ]]; then
     printf 'etapas: %s\n' "${ETAPAS[*]}"

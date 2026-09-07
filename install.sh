@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Pós-instalação do Arch: pacotes, NVIDIA, KDE Plasma, serviços e os pacotes stow deste repo.
+# Pós-instalação do Arch: pacotes, NVIDIA, Hyprland, serviços e os pacotes stow deste repo.
 # Idempotente: pode rodar de novo a qualquer hora.
 #
 #   SKIP_NVIDIA=1 ./install.sh    força pular driver e parâmetros de kernel
@@ -25,15 +25,14 @@ mkdir -p "$LOGDIR"
 LOGFILE="${LOGFILE:-$LOGDIR/install.log}"
 T0=$SECONDS
 STEP=0
-TOTAL_STEPS=17
-[[ ${SKIP_NVIDIA:-0} == 1 ]] && TOTAL_STEPS=15
+TOTAL_STEPS=15
+[[ ${SKIP_NVIDIA:-0} == 1 ]] && TOTAL_STEPS=13
 WARNS=()
 OFICIAL_PEDIDOS=0; OFICIAL_NOVOS=(); OFICIAL_FALTANDO=()
 AUR_OK=(); AUR_JA=(); AUR_FALHA=()
 SERV_OK=(); SERV_FALHA=()
 CLAUDE_VER="nao instalado"
 LINKS=0
-LAYOUT_AGORA=0
 
 elapsed() { local s=$((SECONDS - T0)); printf '%02d:%02d' $((s/60)) $((s%60)); }
 log()  { STEP=$((STEP+1)); printf '\n%s==>%s [%d/%d] %s %s(%s)%s\n' "$BLU" "$END" "$STEP" "$TOTAL_STEPS" "$*" "$YEL" "$(elapsed)" "$END"; }
@@ -326,7 +325,7 @@ options nouveau modeset=0
 enable_services() {
     log "habilitando servicos"
     local unit
-    for unit in NetworkManager.service sddm.service power-profiles-daemon.service ananicy-cpp.service reflector.timer; do
+    for unit in NetworkManager.service sddm.service ananicy-cpp.service reflector.timer; do
         if sudo systemctl enable "$unit" >/dev/null 2>&1; then ok "$unit"; SERV_OK+=("$unit"); else warn "$unit nao habilitado"; SERV_FALHA+=("$unit"); fi
     done
 
@@ -361,13 +360,6 @@ enable_services() {
     done
 
     systemctl --user enable pipewire.socket pipewire-pulse.socket wireplumber.service >/dev/null 2>&1 || true
-
-    # Desktop ligado na tomada: perfil de energia em desempenho, sempre.
-    if command -v powerprofilesctl >/dev/null 2>&1; then
-        sudo mkdir -p /var/lib/power-profiles-daemon
-        printf '[State]\nProfile=performance\n' | sudo tee /var/lib/power-profiles-daemon/state.ini >/dev/null
-        ok "perfil de energia: performance (aplicado no proximo boot)"
-    fi
     ok "servicos prontos"
 }
 
@@ -429,13 +421,13 @@ link_dotfiles() {
     local stowdir="$DOTFILES_DIR"
 
     # Os pacotes ficam na raiz do repo, um por programa, e espelham o $HOME: zsh/.zshrc vira
-    # ~/.zshrc, kwin/.config/kwinrc vira ~/.config/kwinrc. O que distingue um pacote de uma
-    # pasta de ferramenta (bin, kde, vm, vendor, wallpaper) e ter uma entrada com ponto na
+    # ~/.zshrc, hypr/.config/hypr/hyprland.conf vira ~/.config/hypr/hyprland.conf. O que distingue um pacote de uma
+    # pasta de ferramenta (bin, vm, wallpaper, perfil) e ter uma entrada com ponto na
     # raiz -- .config, .local, .zshrc -- porque isso e o que o stow vai espelhar.
     #
     # --no-folding e obrigatorio: sem ele o stow linka o DIRETORIO inteiro quando ele nao
     # existe no destino, e ai ~/.local/share/applications viraria um symlink pro repo -- o
-    # KDE e o Chrome escrevem la, e essas gravacoes cairiam dentro do git. Com --no-folding
+    # Chrome e os apps escrevem la, e essas gravacoes cairiam dentro do git. Com --no-folding
     # ele cria os diretorios de verdade e linka so os arquivos, que e o comportamento antigo.
     #
     # -R (restow) desfaz e refaz: arquivo que saiu do repo perde o link, arquivo novo ganha.
@@ -462,9 +454,7 @@ link_dotfiles() {
     done
     rm -f "$LOGFILE.stow"
 
-    # Sem reconstruir o sycoca o KService nao acha o .desktop novo, e o atalho global fica
-    # apontando pra um lancador que o KDE diz nao existir.
-    kbuildsycoca6 >/dev/null 2>&1 || true
+    update-desktop-database "$HOME/.local/share/applications" >/dev/null 2>&1 || true
     ok "$LINKS arquivos linkados"
 }
 
@@ -486,7 +476,7 @@ restaurar_segredos() {
 }
 
 configure_sddm() {
-    log "configurando sddm (greeter Wayland com kwin, tema breeze, login automatico)"
+    log "configurando sddm (sessao Hyprland via uwsm, login automatico)"
     sudo mkdir -p /etc/sddm.conf.d
     # Login automatico. Relogin=false faz valer so na PRIMEIRA subida do sddm, que sao
     # exatamente os dois casos desejados: ligar o PC, e a volta da VM w11 (o hook para e
@@ -501,93 +491,41 @@ GreeterEnvironment=QT_WAYLAND_SHELL_INTEGRATION=layer-shell
 
 [Autologin]
 User=$USER
-Session=plasma.desktop
+Session=hyprland-uwsm.desktop
 Relogin=false
 
-[Wayland]
-CompositorCommand=kwin_wayland --drm --no-lockscreen --no-global-shortcuts --locale1
-
 [Theme]
-Current=Layan
-CursorTheme=Fluent-dark-cursors
+CursorTheme=Papirus-Dark
 EOF
-    DOTFILES_DIR="$DOTFILES_DIR" bash "$DOTFILES_DIR/kde/login.sh" || warn "login.sh terminou com erro"
-
-    ok "/etc/sddm.conf.d/10-dotfiles.conf (login automatico de $USER)"
+    ok "/etc/sddm.conf.d/10-dotfiles.conf (login automatico de $USER em hyprland-uwsm)"
 }
 
-configure_kde_defaults() {
-    log "padroes do KDE a partir de kde/settings.conf"
-    mkdir -p "$HOME/.config"
+configure_hyprland() {
+    log "Hyprland: avatar, tema GTK, energia e servicos de usuario"
 
-    # A marca do layout mora em ~/.config, fora do repo: apagar o $DOTFILES_DIR nao a
-    # remove. Se ela sobrevive a uma reinstalacao, o layout-once.sh sai na primeira linha
-    # e painel, wallpaper e tema nunca sao reaplicados -- e o sintoma e um KDE pela metade
-    # sem nenhum erro na tela. Rodar o install significa querer o layout de novo.
-    if [[ -e "$HOME/.config/.kde-layout-aplicado" ]]; then
-        rm -f "$HOME/.config/.kde-layout-aplicado"
-        ok "marca do layout removida, sera reaplicado no proximo login"
-    fi
-    if ! command -v kwriteconfig6 >/dev/null 2>&1; then
-        warn "kwriteconfig6 nao encontrado, ajuste teclado, terminal e tema nas Configuracoes do Sistema"
-        return 0
-    fi
-    local conf="$DOTFILES_DIR/kde/settings.conf"
-    local aplicar="$DOTFILES_DIR/kde/apply.sh"
-    if [[ -f $conf ]]; then
-        # Fonte unica: tudo que voce ajustou na GUI e capturou com kde/capture.sh.
-        # Teclado (repeticao), mouse (aceleracao), tema, icones, terminal padrao, bordas.
-        DOTFILES_DIR="$DOTFILES_DIR" bash "$aplicar" "$conf" \
-            && ok "kde-settings.conf aplicado" \
-            || warn "kde-apply.sh terminou com erro, confira as Configuracoes do Sistema"
+    DOTFILES_DIR="$DOTFILES_DIR" bash "$DOTFILES_DIR/setup.sh" perfil tema >/dev/null 2>&1 \
+        && ok "avatar e tema GTK aplicados" \
+        || warn "setup.sh perfil/tema terminou com erro"
+
+    DOTFILES_DIR="$DOTFILES_DIR" bash "$DOTFILES_DIR/bin/energia.sh" >/dev/null 2>&1 \
+        && ok "sono mascarado; monitores apagam em 5 min (hypridle)" \
+        || warn "energia.sh terminou com erro"
+
+    systemctl --user daemon-reload >/dev/null 2>&1 || true
+    if [[ -d "$HOME/Apps/desktop/RicePanel" ]]; then
+        systemctl --user enable ricepanel.service >/dev/null 2>&1 \
+            && ok "ricepanel.service habilitado" \
+            || warn "ricepanel.service nao habilitado"
     else
-        warn "$conf ausente, aplicando so o minimo (teclado br, terminal ghostty, Breeze Dark)"
-        kwriteconfig6 --file kxkbrc --group Layout --key LayoutList br
-        kwriteconfig6 --file kxkbrc --group Layout --key Use true
-        kwriteconfig6 --file kdeglobals --group General --key TerminalApplication ghostty
-        kwriteconfig6 --file kdeglobals --group General --key TerminalService com.mitchellh.ghostty.desktop
-        kwriteconfig6 --file kdeglobals --group General --key ColorScheme BreezeDark
-        kwriteconfig6 --file plasmarc --group Theme --key name breeze-dark
+        warn "~/Apps/desktop/RicePanel ausente, ricepanel.service nao habilitado"
     fi
-    ok "layout estilo Windows 11 sera aplicado no proximo login por kde/layout-once.sh"
-}
 
-install_windows_modern() {
-    log "tema Windows Modern: copiando de vendor/windows-modern e compilando a bandeja"
-    local tema="$DOTFILES_DIR/kde/tema-instalar.sh"
-    [[ -f $tema ]] || { warn "$tema ausente, tema pulado"; return 0; }
-
-    # --sem-aplicar: aqui so ficam os arquivos e o binario da bandeja. Aplicar o
-    # look-and-feel exige um Plasma rodando, e nesse ponto ainda nao ha sessao grafica --
-    # quem aplica e o kde/layout-once.sh, no primeiro login.
-    if DOTFILES_DIR="$DOTFILES_DIR" bash "$tema" --sem-aplicar; then
-        ok "tema instalado a partir do repo, sem clonar nada"
+    if [[ -n ${HYPRLAND_INSTANCE_SIGNATURE:-} ]]; then
+        DOTFILES_DIR="$DOTFILES_DIR" bash "$DOTFILES_DIR/setup.sh" wallpaper recarregar >/dev/null 2>&1 \
+            && ok "wallpaper e recarga aplicados nesta sessao" \
+            || warn "wallpaper/recarga falhou"
     else
-        warn "tema-instalar.sh terminou com erro, confira o Windows Modern no primeiro login"
-    fi
-}
-
-aplicar_layout() {
-    log "aplicando painel, wallpaper e tema"
-    local script="$DOTFILES_DIR/kde/layout-once.sh"
-    [[ -f $script ]] || { warn "$script ausente, layout nao aplicado"; return 0; }
-
-    # Rodando de um TTY nao ha plasmashell pra conversar: o layout-once precisa de uma
-    # sessao viva pro evaluateScript e pro painel-ajustar. Nesse caso deixa pro autostart.
-    if ! command -v qdbus6 >/dev/null 2>&1; then
-        warn "qdbus6 ausente, layout fica pro proximo login"
-        return 0
-    fi
-    if ! qdbus6 org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript "" >/dev/null 2>&1; then
-        ok "sem sessao do Plasma agora, o layout entra no proximo login"
-        return 0
-    fi
-
-    if bash "$script"; then
-        LAYOUT_AGORA=1
-        ok "painel, wallpaper e tema aplicados nesta sessao"
-    else
-        warn "layout-once.sh terminou com erro, confira ~/kde-layout-once.log"
+        ok "sem sessao do Hyprland agora; wallpaper entra no primeiro login"
     fi
 }
 
@@ -598,7 +536,7 @@ summary() {
     printf '%s  %s em %s%s\n' "$cor" "$titulo" "$(elapsed)" "$END"
     printf '%s========================================================%s\n\n' "$cor" "$END"
     printf 'dotfiles:   %s (branch %s), %d arquivos via stow\n' "$DOTFILES_DIR" "$DOTFILES_BRANCH" "$LINKS"
-    printf 'desktop:    KDE Plasma (Wayland) via sddm\n'
+    printf 'desktop:    Hyprland (Wayland) via sddm + uwsm\n'
     if [[ $SKIP_NVIDIA == 1 ]]; then
         printf 'driver:     pulado (sem placa NVIDIA ou SKIP_NVIDIA=1)\n'
     else
@@ -608,7 +546,7 @@ summary() {
     printf 'AUR:        %d instalados, %d ja estavam, %d falharam\n' "${#AUR_OK[@]}" "${#AUR_JA[@]}" "${#AUR_FALHA[@]}"
     printf 'servicos:   %d habilitados, %d falharam\n' "${#SERV_OK[@]}" "${#SERV_FALHA[@]}"
     printf 'claude:     %s\n' "$CLAUDE_VER"
-    printf 'tema:       Windows Modern de vendor/windows-modern (sem clone)\n'
+    printf 'shell:      waybar + fuzzel + mako, wallpaper pelo awww\n'
     printf 'log:        %s\n\n' "$LOGFILE"
     if (( ${#OFICIAL_FALTANDO[@]} )); then printf '%s  oficiais faltando:%s %s\n' "$RED" "$END" "${OFICIAL_FALTANDO[*]}"; fi
     if (( ${#AUR_FALHA[@]} )); then printf '%s  AUR que falharam:%s %s\n  refazer: paru -S --needed %s\n' "$RED" "$END" "${AUR_FALHA[*]}" "${AUR_FALHA[*]}"; fi
@@ -622,11 +560,7 @@ summary() {
         printf '%s  ->%s confira depois do boot: cat /sys/module/nvidia_drm/parameters/modeset (tem que dar Y)\n' "$YEL" "$END"
     fi
     printf '%s  ->%s reinicie para carregar o kernel novo, o initramfs e os grupos do usuario\n' "$YEL" "$END"
-    if [[ ${LAYOUT_AGORA:-0} == 1 ]]; then
-        printf '%s  ->%s painel, wallpaper e tema ja aplicados nesta sessao; log em ~/kde-layout-once.log\n' "$YEL" "$END"
-    else
-        printf '%s  ->%s o painel, o wallpaper e o tema entram no proximo login (kde/layout-once.sh); log em ~/kde-layout-once.log\n' "$YEL" "$END"
-    fi
+    printf '%s  ->%s no sddm a sessao e "Hyprland (uwsm)"; atalhos em hypr/atalhos.conf (Meta+R abre o menu)\n' "$YEL" "$END"
 }
 
 main() {
@@ -644,9 +578,7 @@ main() {
     home_enxuta
     restaurar_segredos
     configure_sddm
-    configure_kde_defaults
-    install_windows_modern
-    aplicar_layout
+    configure_hyprland
     summary
 }
 

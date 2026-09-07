@@ -1,0 +1,84 @@
+# Hyprland
+
+Compositor Wayland desde 07/09/2026, no lugar do KDE Plasma. Tudo que o Plasma guardava em
+banco de estado misturado com configuracao agora e **arquivo de texto versionado** -- essa
+foi a maior razao pratica da troca, alem do pedido.
+
+## Onde mora cada coisa
+
+| Arquivo | O que faz |
+|---|---|
+| `hypr/.config/hypr/hyprland.conf` | raiz: variaveis, `exec-once`, `env`, visual, input |
+| `hypr/.config/hypr/monitores.conf` | disposicao das telas e quais workspaces vao em qual |
+| `hypr/.config/hypr/atalhos.conf` | todos os `bind` |
+| `hypr/.config/hypr/regras.conf` | `windowrule` e `layerrule` |
+| `hypr/.config/hypr/hypridle.conf` | inatividade (apaga monitor em 5 min) |
+| `hypr/.config/hypr/hyprlock.conf` | tela de bloqueio |
+| `waybar/.config/waybar/` | barra: `config.jsonc` + `style.css` |
+| `mako/.config/mako/config` | notificacoes |
+| `fuzzel/.config/fuzzel/fuzzel.ini` | lancador |
+| `wlogout/.config/wlogout/` | menu de encerrar |
+
+O `hyprland.conf` faz `source` dos outros tres. Mexer em atalho e mexer so no
+`atalhos.conf`.
+
+## uwsm: por que a sessao nao e o hyprland pelado
+
+A sessao do SDDM e **`hyprland-uwsm.desktop`**, nao `hyprland.desktop`. O uwsm
+(Universal Wayland Session Manager) poe o compositor dentro de units do systemd e, com
+isso, o `graphical-session.target` passa a existir de verdade.
+
+Isso nao e enfeite: o **`ricepanel.service` depende de `graphical-session.target`**. Com
+Hyprland pelado esse target nunca fica ativo direito e o painel do monitor vertical nao
+sobe sozinho. Por isso todo `exec-once` de app e todo `bind` que abre programa usam
+`uwsm app -- <programa>`: assim cada app vira um scope do systemd, aparece no
+`systemd-cgls`, e morre junto com a sessao em vez de virar processo orfao.
+
+Se algum dia a sessao voltar a ser `hyprland.desktop`, o RicePanel para de subir e a causa
+nao vai ser obvia.
+
+## Stack da sessao
+
+- **awww** (`awww-daemon` + `awww img`) para wallpaper. E o antigo `swww`: o projeto foi
+  renomeado e hoje esta no repo oficial `extra`, com `Provides`/`Replaces: swww`. Os
+  binarios chamam **awww**, nao swww -- `bin/wallpaper.sh` depende disso.
+- **waybar** so no `DP-1`. A tela vertical nunca recebe barra: ela e do RicePanel.
+- **mako**, com `[app-name=ricepanel] invisible=1`, que e o equivalente da regra que existia
+  no `plasmanotifyrc`.
+- **fuzzel** como lancador (Meta+R ou Meta+Space). Nao existe menu iniciar em arvore: o
+  Windows-Modern era applet do Plasma e morreu na migracao.
+- **hypridle** para apagar monitor, **hyprlock** para bloquear, **hyprsunset** para o filtro
+  noturno, **hyprpolkitagent** para a janela de autenticacao.
+- **swayosd** desenha o OSD de volume, brilho e Caps Lock.
+- **cliphist** guarda o historico do clipboard (Meta+V); `wl-clip-persist` evita que o
+  conteudo suma quando o programa que copiou fecha.
+
+## Atalhos que vieram do KDE
+
+Preservados de proposito, porque estao na memoria muscular dele:
+
+- `Shift+Print` e `Meta+Shift+S` -> `bin/recorte-clipboard.sh` (regiao direto pro clipboard)
+- `Meta+L` -> bloquear
+- `Meta+setas` -> mover foco; `Meta+Shift+setas` -> mover janela
+- `Alt+Tab` -> alternar janelas
+- `Meta+1..9` -> workspaces
+
+O resto esta em `hypr/.config/hypr/atalhos.conf`, que e curto e legivel.
+
+## Regras de janela que importam
+
+O `ricepanel` recebe: workspace 9 (a tela vertical), fullscreen, sem borda, sem sombra, sem
+blur, `nofocus` e `noinitialfocus`. As duas ultimas substituem o `skiptaskbar` do
+`kwinrulesrc`: sem elas o painel rouba foco ao subir.
+
+## Pegadinhas
+
+- **`transform` do monitor vertical**: `monitores.conf` usa `transform, 1`. Se a imagem
+  aparecer de cabeca pra baixo, o valor certo e `3`. So da pra saber olhando.
+- **NVIDIA**: `no_hardware_cursors = true` em `cursor {}` evita cursor invisivel ou piscando.
+  As `env` de `LIBVA_DRIVER_NAME`, `__GLX_VENDOR_LIBRARY_NAME` e `NVD_BACKEND` estao no
+  `hyprland.conf` e nao devem sair.
+- **`hyprctl reload` nao recarrega a waybar**: e processo separado. O
+  `setup.sh recarregar` manda `SIGUSR2` nela.
+- Config errada nao derruba a sessao: o Hyprland ignora a linha e segue. Conferir com
+  `hyprctl configerrors` depois de mexer.

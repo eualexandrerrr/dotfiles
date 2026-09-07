@@ -1,0 +1,147 @@
+{
+    "layer": "top",
+    "position": "top",
+    "output": ["DP-1"],
+    "height": 38,
+    "spacing": 0,
+    "margin-top": 6,
+    "margin-left": 10,
+    "margin-right": 10,
+
+    "modules-left": ["hyprland/workspaces", "hyprland/submap"],
+    "modules-center": ["hyprland/window"],
+    "modules-right": [
+        "mpris",
+        "cpu",
+        "temperature",
+        "custom/gpu",
+        "memory",
+        "pulseaudio",
+        "network",
+        "tray",
+        "clock",
+        "custom/energia"
+    ],
+
+    "hyprland/workspaces": {
+        "format": "{icon}",
+        "on-click": "activate",
+        "sort-by-number": true,
+        "format-icons": {
+            "1": "1",
+            "2": "2",
+            "3": "3",
+            "4": "4",
+            "5": "5",
+            "6": "6",
+            "7": "7",
+            "8": "8",
+            "9": "9",
+            "urgent": "!",
+            "default": "·"
+        },
+        "persistent-workspaces": {
+            "DP-1": [1, 2, 3, 4, 5]
+        }
+    },
+
+    "hyprland/window": {
+        "format": "{title}",
+        "max-length": 70,
+        "separate-outputs": true,
+        "rewrite": {
+            "": "área de trabalho"
+        }
+    },
+
+    "hyprland/submap": {
+        "format": "modo: {}",
+        "tooltip": false
+    },
+
+    "mpris": {
+        "format": "{player_icon} {dynamic}",
+        "format-paused": "{status_icon} <i>{dynamic}</i>",
+        "dynamic-len": 40,
+        "player-icons": {
+            "default": "♪",
+            "spotify": "",
+            "mpv": ""
+        },
+        "status-icons": {
+            "paused": ""
+        }
+    },
+
+    "cpu": {
+        "format": " {usage}%",
+        "interval": 2,
+        "on-click": "ghostty -e btop"
+    },
+
+    "temperature": {
+        "critical-threshold": 82,
+        "format": " {temperatureC}°C",
+        "format-critical": " {temperatureC}°C",
+        "interval": 4
+    },
+
+    "custom/gpu": {
+        "exec": "nvidia-smi --query-gpu=utilization.gpu,temperature.gpu --format=csv,noheader,nounits | awk -F', ' '{printf \"󰢮 %s%% %s°C\", $1, $2}'",
+        "interval": 4,
+        "tooltip": false,
+        "on-click": "nvidia-settings"
+    },
+
+    "memory": {
+        "format": " {percentage}%",
+        "tooltip-format": "{used:0.1f}G de {total:0.1f}G",
+        "interval": 4
+    },
+
+    "pulseaudio": {
+        "format": "{icon} {volume}%",
+        "format-muted": " sem som",
+        "format-icons": {
+            "headphone": "",
+            "default": ["", "", ""]
+        },
+        "on-click": "pavucontrol",
+        "on-click-right": "swayosd-client --output-volume mute-toggle",
+        "scroll-step": 5
+    },
+
+    "network": {
+        "format-ethernet": "󰈀 {bandwidthDownBits}",
+        "format-wifi": " {essid}",
+        "format-disconnected": "󰖪 sem rede",
+        "tooltip-format": "{ifname} · {ipaddr}",
+        "interval": 3,
+        "on-click": "nm-connection-editor"
+    },
+
+    "tray": {
+        "icon-size": 16,
+        "spacing": 8
+    },
+
+    "clock": {
+        "format": "{:%H:%M}",
+        "format-alt": "{:%a, %d/%m}",
+        "tooltip-format": "<tt><small>{calendar}</small></tt>",
+        "calendar": {
+            "mode": "month",
+            "on-scroll": 1,
+            "format": {
+                "months": "<span color='#cba6f7'><b>{}</b></span>",
+                "today": "<span color='#f38ba8'><b>{}</b></span>"
+            }
+        }
+    },
+
+    "custom/energia": {
+        "format": "⏻",
+        "tooltip": false,
+        "on-click": "wlogout"
+    }
+}

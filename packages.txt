@@ -3,8 +3,6 @@
 [repo-oficial:base]
 age
 archlinux-keyring
-# setfattr, usado pelo kde/dolphin-visao.sh. Vinha de carona como dependencia do libarchive;
-# depender disso e frageis demais pra uma etapa que falha calada.
 attr
 base-devel
 curl
@@ -41,38 +39,74 @@ nvidia-settings
 nvidia-utils
 vulkan-icd-loader
 
-[repo-oficial:kde]
-ark
-breeze-gtk
-capitaine-cursors
-dolphin
-ffmpegthumbs
-gwenview
-kde-gtk-config
-kdegraphics-thumbnailers
-kio-admin
-ghostty
-kscreen
-kwallet-pam
-okular
-plasma-desktop
-plasma-nm
-plasma-pa
-polkit-kde-agent
-power-profiles-daemon
-powerdevil
-qt6-tools
+[repo-oficial:hyprland]
+hyprland
+uwsm
+xdg-desktop-portal-hyprland
+xdg-desktop-portal-gtk
+awww
+hypridle
+hyprlock
+hyprsunset
+hyprpicker
+hyprpolkitagent
 qt6-wayland
-sddm
-sddm-kcm
-spectacle
-tesseract-data-eng
-tesseract-data-por
-xdg-desktop-portal-kde
+qt5-wayland
 xorg-xwayland
+
+[repo-oficial:shell-grafico]
+waybar
+fuzzel
+mako
+libnotify
+swayosd
+cliphist
+wl-clipboard
+wl-clip-persist
+nwg-displays
+sddm
+
+[repo-oficial:captura]
+hyprshot
+grim
+slurp
+satty
+wf-recorder
+
+[repo-oficial:arquivos]
+thunar
+thunar-volman
+thunar-archive-plugin
+tumbler
+ffmpegthumbnailer
+gvfs
+gvfs-mtp
+udiskie
+xarchiver
+yazi
+
+[repo-oficial:visualizadores]
+imv
+mpv
+zathura
+zathura-pdf-mupdf
+
+[repo-oficial:tema]
+nwg-look
+qt6ct
+qt5ct
+kvantum
+papirus-icon-theme
+adw-gtk-theme
+gnome-themes-extra
+matugen
 
 [repo-oficial:desktop]
 networkmanager
+network-manager-applet
+pavucontrol
+playerctl
+brightnessctl
 pipewire
 pipewire-alsa
 pipewire-pulse
@@ -82,24 +116,35 @@ wireplumber
 noto-fonts
 noto-fonts-emoji
 ttf-jetbrains-mono-nerd
+ttf-nerd-fonts-symbols
+otf-font-awesome
 ttf-liberation
 
 [repo-oficial:shell-cli]
 ananicy-cpp
+atuin
 bat
 btop
+dust
+duf
 eza
+fastfetch
 fd
 ffmpeg
 fzf
+git-delta
+glow
+hyperfine
+lazygit
 nano
+procs
 ripgrep
+sd
 shellcheck
 shfmt
 starship
 tmux
-# wl-copy / wl-paste: ler e escrever o clipboard do Wayland pelo terminal
-wl-clipboard
+tokei
 zoxide
 zsh
 zsh-autosuggestions
@@ -111,6 +156,8 @@ docker
 docker-buildx
 docker-compose
 github-cli
+lazydocker
+mise
 nodejs
 npm
 python
@@ -133,40 +180,8 @@ mariadb-clients
 qemu-full
 virt-manager
 
-[repo-oficial:windows-modern]
-kvantum
-cmake
-extra-cmake-modules
-kpackage
-kconfig
-ki18n
-kwindowsystem
-kio
-kiconthemes
-kitemmodels
-kservice
-kxmlgui
-kjobwidgets
-kcmutils
-knotifications
-plasma-activities
-plasma-activities-stats
-libplasma
-plasma-workspace
-libksysguard
-# A bandeja do Windows-Modern importa org.kde.bluezqt sem guarda nenhuma
-# (components/BluetoothToggle.qml), entao o applet inteiro morre sem ele.
-# Puxa o bluez junto, mas o bluetooth.service fica desabilitado.
-bluez-qt
-
 [repo-oficial:painel-segundo-monitor]
-# O monitor vertical e ocupado em tela cheia pelo RicePanel, que roda em
-# Electron. Preferimos o electron do pacman ao binario que o npm baixa: o do npm
-# vem sem o setuid do chrome-sandbox (o servico de rede do Chromium morre no
-# start) e sao 106 MB fora do controle de pacotes.
 electron
-# Temperatura de CPU do painel; a de GPU vem do nvidia-smi, que ja entra junto
-# com o nvidia-utils.
 lm_sensors
 
 [repo-oficial:apps]
@@ -176,12 +191,8 @@ rclone
 spotify-launcher
 
 [aur]
-# kwin-effect-rounded-corners (ShapeCorners) saiu: era ele que punha a borda grossa em toda
-# janela, e o Plasma 6.5+ ja arredonda canto nativamente. Instalar so pra desligar no kwinrc
-# e pedir pro bug voltar.
 looking-glass
-fluent-cursor-theme-git
-klassy
+wlogout
 android-studio
 bun-bin
 claude-code
@@ -190,6 +201,5 @@ insync
 maestro-bin
 paru
 cachyos-ananicy-rules-git
-tela-icon-theme
 ttf-ms-fonts
 visual-studio-code-bin

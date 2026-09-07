@@ -1,0 +1,35 @@
+* {
+    background-image: none;
+    box-shadow: none;
+    font-family: "Inter", sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+window {
+    background-color: rgba(30, 30, 46, 0.88);
+}
+
+button {
+    color: #cdd6f4;
+    background-color: rgba(49, 50, 68, 0.7);
+    border: 2px solid rgba(69, 71, 90, 0.9);
+    border-radius: 18px;
+    margin: 12px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 22%;
+    transition: all 200ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+button:focus,
+button:hover {
+    background-color: #cba6f7;
+    color: #1e1e2e;
+    border-color: #cba6f7;
+}
+
+#lock     { background-image: image(url("/usr/share/wlogout/icons/lock.png")); }
+#logout   { background-image: image(url("/usr/share/wlogout/icons/logout.png")); }
+#reboot   { background-image: image(url("/usr/share/wlogout/icons/reboot.png")); }
+#shutdown { background-image: image(url("/usr/share/wlogout/icons/shutdown.png")); }

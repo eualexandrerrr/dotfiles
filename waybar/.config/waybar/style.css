@@ -1,0 +1,130 @@
+@define-color base   #1e1e2e;
+@define-color mantle #181825;
+@define-color surface0 #313244;
+@define-color surface1 #45475a;
+@define-color text   #cdd6f4;
+@define-color subtext #a6adc8;
+@define-color mauve  #cba6f7;
+@define-color blue   #89b4fa;
+@define-color green  #a6e3a1;
+@define-color yellow #f9e2af;
+@define-color peach  #fab387;
+@define-color red    #f38ba8;
+@define-color teal   #94e2d5;
+
+* {
+    font-family: "JetBrainsMono Nerd Font", "Inter", sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    border: none;
+    border-radius: 0;
+    min-height: 0;
+}
+
+window#waybar {
+    background: transparent;
+    color: @text;
+}
+
+.modules-left,
+.modules-center,
+.modules-right {
+    background: alpha(@base, 0.82);
+    border: 1px solid alpha(@surface0, 0.9);
+    border-radius: 14px;
+    padding: 0 6px;
+}
+
+#workspaces {
+    padding: 0 2px;
+}
+
+#workspaces button {
+    padding: 0 9px;
+    margin: 4px 2px;
+    color: @subtext;
+    background: transparent;
+    border-radius: 9px;
+    transition: all 200ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#workspaces button:hover {
+    background: alpha(@surface0, 0.8);
+    color: @text;
+}
+
+#workspaces button.active {
+    background: linear-gradient(135deg, @mauve, @blue);
+    color: @base;
+    padding: 0 16px;
+}
+
+#workspaces button.urgent {
+    background: @red;
+    color: @base;
+}
+
+#window {
+    padding: 0 14px;
+    color: @subtext;
+    font-weight: 500;
+}
+
+#submap {
+    padding: 0 12px;
+    color: @peach;
+}
+
+#mpris,
+#cpu,
+#temperature,
+#custom-gpu,
+#memory,
+#pulseaudio,
+#network,
+#clock,
+#tray,
+#custom-energia {
+    padding: 0 10px;
+    margin: 4px 1px;
+    border-radius: 9px;
+    background: transparent;
+}
+
+#mpris        { color: @green; }
+#cpu          { color: @blue; }
+#temperature  { color: @yellow; }
+#custom-gpu   { color: @teal; }
+#memory       { color: @mauve; }
+#pulseaudio   { color: @peach; }
+#network      { color: @blue; }
+
+#clock {
+    color: @base;
+    background: linear-gradient(135deg, @mauve, @blue);
+    font-weight: 800;
+    padding: 0 14px;
+}
+
+#custom-energia {
+    color: @red;
+    padding: 0 12px;
+}
+
+#custom-energia:hover {
+    background: @red;
+    color: @base;
+}
+
+#temperature.critical,
+#pulseaudio.muted,
+#network.disconnected {
+    color: @red;
+}
+
+tooltip {
+    background: @mantle;
+    border: 1px solid @surface1;
+    border-radius: 12px;
+    color: @text;
+}

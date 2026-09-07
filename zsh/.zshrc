@@ -33,12 +33,34 @@ alias dd="sudo dd"
     alias deploy="noglob node $HOME/Downloads/MichiganRoleplay/DeployFiles/deploy.mjs"
 
 command -v eza     >/dev/null 2>&1 && alias ls="eza --icons --group-directories-first"
+command -v eza     >/dev/null 2>&1 && alias ll="eza -lah --icons --group-directories-first --git"
+command -v eza     >/dev/null 2>&1 && alias lt="eza --tree --level=2 --icons"
 command -v bat     >/dev/null 2>&1 && alias cat="bat --plain"
+command -v lazygit >/dev/null 2>&1 && alias lg="lazygit"
+command -v dust    >/dev/null 2>&1 && alias du="dust"
+command -v duf     >/dev/null 2>&1 && alias df="duf"
+command -v procs   >/dev/null 2>&1 && alias ps="procs"
+
+# yazi que devolve o diretorio onde voce parou, em vez de voltar pro de origem
+if command -v yazi >/dev/null 2>&1; then
+    y() {
+        local tmp cwd
+        tmp="$(mktemp -t yazi-cwd.XXXXXX)"
+        yazi "$@" --cwd-file="$tmp"
+        if cwd="$(cat -- "$tmp" 2>/dev/null)" && [[ -n $cwd && $cwd != "$PWD" ]]; then
+            builtin cd -- "$cwd" || return
+        fi
+        rm -f -- "$tmp"
+    }
+fi
 # x: Claude Code sem parar pra pedir permissao a cada ferramenta. Sem --model de
 # proposito: assim obedece o "model" do ~/.claude/settings.json (hoje opus[1m],
 # Opus 5 com 1M de contexto) e o que for escolhido no /model.
 command -v claude  >/dev/null 2>&1 && alias x="claude --dangerously-skip-permissions"
 command -v zoxide  >/dev/null 2>&1 && eval "$(zoxide init zsh)"
+command -v mise    >/dev/null 2>&1 && eval "$(mise activate zsh)"
+# Depois do fzf de proposito: o atuin fica com o Ctrl+R, o fzf com o Ctrl+T.
+command -v atuin   >/dev/null 2>&1 && eval "$(atuin init zsh --disable-up-arrow)"
 command -v starship >/dev/null 2>&1 && eval "$(starship init zsh)"
 
 # Credenciais e variáveis privadas ficam no dotfiles-private

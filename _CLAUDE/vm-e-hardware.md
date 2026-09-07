@@ -25,7 +25,7 @@ montada** -- ele aborta com uma GPU so. Depois disso, kernel-nvidia e configure_
 Plano da fase seguinte (nao agora): 3090 no x16 de cima presa no `vfio-pci` por id
 (`10de:2204,10de:1aef`, endereco hoje `0000:0A:00.0`), RX 550 no x16 de baixo via riser
 (a 3090 de 2,7 slots tampa esse slot fisicamente), dois monitores na RX 550, `amdgpu` no
-host, Looking Glass pra ver o RedM numa janela do KDE. Nessa hora `kernel-nvidia` sai do
+host, Looking Glass pra ver o RedM numa janela do Hyprland. Nessa hora `kernel-nvidia` sai do
 `packages.txt`, `configure_nvidia()` sai do install e entra o bind do vfio. Os XMLs em `vm/`
 ja existem e vao precisar dos IDs/enderecos novos.
 

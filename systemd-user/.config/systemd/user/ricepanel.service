@@ -1,12 +1,12 @@
 [Unit]
 Description=RicePanel: painel do monitor vertical
 PartOf=graphical-session.target
-After=plasma-plasmashell.service
+After=graphical-session.target
 
 [Service]
 Type=simple
 WorkingDirectory=%h/Apps/desktop/RicePanel
-ExecStart=/usr/bin/electron --password-store=basic .
+ExecStart=/usr/bin/electron --password-store=basic --ozone-platform-hint=auto .
 Restart=on-failure
 RestartSec=5
 Environment=ELECTRON_OZONE_PLATFORM_HINT=auto
