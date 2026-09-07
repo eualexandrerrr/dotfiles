@@ -5,7 +5,7 @@
 # CONGELA o resto do conteudo: se um update do VS Code mudar Exec, MimeType ou adicionar
 # acao nova, a mudanca fica invisivel ate alguem reconciliar aqui. Comparar com
 #
-#   diff <(grep -v '^#' ~/.dotfiles/links/local/share/applications/code.desktop) \
+#   diff <(grep -v '^#' ~/.dotfiles/stow/apps/.local/share/applications/code.desktop) \
 #        /usr/share/applications/code.desktop
 #
 # Base: visual-studio-code-bin 1.136.1-1.

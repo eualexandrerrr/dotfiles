@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Pós-instalação do Arch: pacotes, NVIDIA, KDE Plasma, serviços e symlinks deste repo.
+# Pós-instalação do Arch: pacotes, NVIDIA, KDE Plasma, serviços e os pacotes stow deste repo.
 # Idempotente: pode rodar de novo a qualquer hora.
 #
 #   SKIP_NVIDIA=1 ./install.sh    força pular driver e parâmetros de kernel
@@ -387,63 +387,82 @@ fetch_dotfiles() {
 }
 
 backup_conflict() {
-    local target="$1"
-    [[ -e $target || -L $target ]] || return 0
-    [[ -L $target && "$(readlink -f "$target")" == "$(readlink -f "$DOTFILES_DIR")"* ]] && return 0
-    local stamp
-    stamp="$(date +%Y%m%d%H%M%S)"
-    mv "$target" "$target.bak-$stamp"
-    warn "$(basename "$target") existia, movido para $(basename "$target").bak-$stamp"
+    # Limpa o caminho de um link que o stow vai criar. Tres casos:
+    #   symlink pro stow/ do repo   -> e o proprio stow, deixa
+    #   symlink pra outro lugar do repo -> resto do esquema antigo (links/), remove
+    #   arquivo real ou link estranho -> backup com carimbo
+    # Sobe pelos diretorios pais tambem: ~/.config/ghostty era symlink de DIRETORIO no
+    # esquema antigo, e o stow precisa dele como diretorio de verdade pra por o link dentro.
+    local target="$1" repo stow
+    repo="$(readlink -f "$DOTFILES_DIR")"
+    stow="$repo/stow"
+
+    local caminho="$target"
+    while [[ $caminho != "$HOME" && $caminho == "$HOME"/* ]]; do
+        if [[ -L $caminho ]]; then
+            local alvo
+            alvo="$(readlink -f "$caminho" 2>/dev/null || readlink "$caminho")"
+            if [[ $alvo == "$stow"/* ]]; then
+                return 0
+            elif [[ $alvo == "$repo"/* ]]; then
+                rm -f "$caminho"
+                ok "$(basename "$caminho") era link do esquema antigo, removido"
+            else
+                local stamp
+                stamp="$(date +%Y%m%d%H%M%S)"
+                mv "$caminho" "$caminho.bak-$stamp"
+                warn "$(basename "$caminho") era link pra fora do repo, movido para .bak-$stamp"
+            fi
+        elif [[ -f $caminho ]]; then
+            local stamp
+            stamp="$(date +%Y%m%d%H%M%S)"
+            mv "$caminho" "$caminho.bak-$stamp"
+            warn "$(basename "$caminho") existia, movido para $(basename "$caminho").bak-$stamp"
+        fi
+        caminho="$(dirname "$caminho")"
+    done
 }
 
 link_dotfiles() {
-    log "criando symlinks"
-    mkdir -p "$HOME/.config"
+    log "linkando com stow"
+    command -v stow >/dev/null 2>&1 || die "stow nao instalado (esta no packages.txt, a etapa 3 deveria ter trazido)"
+    local stowdir="$DOTFILES_DIR/stow"
+    [[ -d $stowdir ]] || die "$stowdir nao existe"
 
-    local src name target
-    for src in "$DOTFILES_DIR"/links/config/*; do
-        [[ -e $src ]] || continue
-        name="$(basename "$src")"
-        target="$HOME/.config/$name"
-        backup_conflict "$target"
-        ln -sfn "$src" "$target"
-        LINKS=$((LINKS+1))
-        ok ".config/$name"
-    done
-
-    shopt -s dotglob nullglob
-    for src in "$DOTFILES_DIR"/links/home/*; do
-        [[ -f $src ]] || continue
-        name="$(basename "$src")"
-        target="$HOME/$name"
-        backup_conflict "$target"
-        ln -sfn "$src" "$target"
-        LINKS=$((LINKS+1))
-        # shellcheck disable=SC2088
-        ok "~/$name"
-    done
-    shopt -u dotglob nullglob
-
-    # links/local espelha a arvore em ~/.local, mas linka ARQUIVO, nunca diretorio: o
-    # KDE e o Chrome tambem escrevem em ~/.local/share/applications, e um symlink de
-    # diretorio faria essas gravacoes cairem dentro do repo.
-    if [[ -d "$DOTFILES_DIR/links/local" ]]; then
+    # Cada subpasta de stow/ e um pacote que espelha o $HOME: stow/zsh/.zshrc vira ~/.zshrc,
+    # stow/kwin/.config/kwinrc vira ~/.config/kwinrc, e assim por diante.
+    #
+    # --no-folding e obrigatorio: sem ele o stow linka o DIRETORIO inteiro quando ele nao
+    # existe no destino, e ai ~/.local/share/applications viraria um symlink pro repo -- o
+    # KDE e o Chrome escrevem la, e essas gravacoes cairiam dentro do git. Com --no-folding
+    # ele cria os diretorios de verdade e linka so os arquivos, que e o comportamento antigo.
+    #
+    # -R (restow) desfaz e refaz: arquivo que saiu do repo perde o link, arquivo novo ganha.
+    local pkg nome
+    for pkg in "$stowdir"/*/; do
+        nome="$(basename "$pkg")"
+        # Backup de qualquer arquivo real que esteja no caminho de um link deste pacote.
+        # O stow se recusa a sobrescrever, entao isso tem que vir antes.
         while IFS= read -r -d '' src; do
-            rel="${src#"$DOTFILES_DIR/links/local/"}"
-            target="$HOME/.local/$rel"
-            mkdir -p "$(dirname "$target")"
-            backup_conflict "$target"
-            ln -sfn "$src" "$target"
-            LINKS=$((LINKS+1))
-            # shellcheck disable=SC2088
-            ok "~/.local/$rel"
-        done < <(find "$DOTFILES_DIR/links/local" -type f -print0)
-        # Sem reconstruir o sycoca o KService nao acha o .desktop novo, e o atalho
-        # global fica apontando pra um lancador que o KDE diz nao existir.
-        kbuildsycoca6 >/dev/null 2>&1 || true
-    fi
+            local rel="${src#"$pkg"}"
+            backup_conflict "$HOME/$rel"
+        done < <(find "$pkg" -type f -print0)
 
-    ok "$LINKS symlinks aplicados"
+        if stow --no-folding --restow --target="$HOME" --dir="$stowdir" "$nome" 2>"$LOGFILE.stow"; then
+            local n
+            n="$(find "$pkg" -type f | wc -l)"
+            LINKS=$((LINKS+n))
+            ok "$nome ($n arquivos)"
+        else
+            warn "stow falhou em $nome: $(tr '\n' ' ' <"$LOGFILE.stow")"
+        fi
+    done
+    rm -f "$LOGFILE.stow"
+
+    # Sem reconstruir o sycoca o KService nao acha o .desktop novo, e o atalho global fica
+    # apontando pra um lancador que o KDE diz nao existir.
+    kbuildsycoca6 >/dev/null 2>&1 || true
+    ok "$LINKS arquivos linkados"
 }
 
 configure_sddm() {
@@ -555,7 +574,7 @@ summary() {
     printf '\n%s========================================================%s\n' "$cor" "$END"
     printf '%s  %s em %s%s\n' "$cor" "$titulo" "$(elapsed)" "$END"
     printf '%s========================================================%s\n\n' "$cor" "$END"
-    printf 'dotfiles:   %s (branch %s), %d symlinks\n' "$DOTFILES_DIR" "$DOTFILES_BRANCH" "$LINKS"
+    printf 'dotfiles:   %s (branch %s), %d arquivos via stow\n' "$DOTFILES_DIR" "$DOTFILES_BRANCH" "$LINKS"
     printf 'desktop:    KDE Plasma (Wayland) via sddm\n'
     if [[ $SKIP_NVIDIA == 1 ]]; then
         printf 'driver:     pulado (sem placa NVIDIA ou SKIP_NVIDIA=1)\n'

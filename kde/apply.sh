@@ -38,7 +38,7 @@ while IFS= read -r linha; do
     esac
 
     # Arquivo espelhado (symlink pra dentro do repo) ja E a fonte da verdade: o que o
-    # KDE grava cai direto no links/config. Escrever o settings.conf por cima desfaria
+    # KDE grava cai direto no stow/. Escrever o settings.conf por cima desfaria
     # qualquer ajuste feito na GUI que ainda nao tenha passado pelo capture.
     destino="$alvo"
     [[ $destino != /* ]] && destino="${XDG_CONFIG_HOME:-$HOME/.config}/$alvo"

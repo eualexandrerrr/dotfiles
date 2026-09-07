@@ -5,11 +5,13 @@
 **Arch Linux · KDE Plasma (Wayland) · NVIDIA**
 
 Pós-instalação de uma máquina com RTX 3090: pacotes, driver, KDE, serviços e os
-poucos arquivos de configuração que valem versionar.
+poucos arquivos de configuração que valem versionar — cada um no seu pacote, linkado
+pelo GNU Stow.
 
 [![Arch](https://img.shields.io/badge/Arch_Linux-1793D1?style=flat-square&logo=arch-linux&logoColor=white)](https://archlinux.org)
 [![KDE](https://img.shields.io/badge/KDE_Plasma-1D99F3?style=flat-square&logo=kde&logoColor=white)](https://kde.org/plasma-desktop/)
 [![NVIDIA](https://img.shields.io/badge/nvidia--open--dkms-76B900?style=flat-square&logo=nvidia&logoColor=white)](https://wiki.archlinux.org/title/NVIDIA)
+[![Stow](https://img.shields.io/badge/GNU_Stow-A42E2B?style=flat-square&logo=gnu&logoColor=white)](https://www.gnu.org/software/stow/)
 
 </div>
 
@@ -46,13 +48,29 @@ curadoria — ver [Configuração do KDE](#configuração-do-kde).
 
 ## Estrutura
 
+Uma pasta por assunto. O que vai pro `$HOME` mora em `stow/`, um pacote por programa, cada
+um espelhando a árvore do `$HOME` a partir da própria raiz. O resto é ferramenta.
+
 ```
 dotfiles
-├── kde                       tudo do KDE
+├── stow                      pacotes do GNU Stow, um por programa, espelham o $HOME
+│   ├── zsh                   .zshrc, .zprofile
+│   ├── ghostty               .config/ghostty/config
+│   ├── kwin                  .config/kwinrc, kwinrulesrc
+│   ├── plasma                .config/plasmarc, kdeglobals, kglobalshortcutsrc, kcminputrc,
+│   │                         kxkbrc, plasma-localerc, plasmanotifyrc, e o .mo do menu
+│   ├── dolphin               .config/dolphinrc e a view_properties global
+│   ├── powerdevil            .config/powerdevilrc, powermanagementprofilesrc
+│   ├── autostart             .config/autostart/*.desktop
+│   └── apps                  .local/share/applications/*.desktop
+├── kde                       scripts e decisões do Plasma
 │   ├── settings.conf         311 chaves (gerado pelo capture, não editar)
+│   ├── monitores.conf        disposição das telas, casada por resolução
 │   ├── capture.sh            lê o KDE vivo e regrava o settings.conf
 │   ├── apply.sh              aplica o settings.conf via kwriteconfig6
-│   ├── layout-once.sh        primeiro login: tema, painel, layout
+│   ├── monitores.sh          aplica o monitores.conf via kscreen-doctor
+│   ├── wallpaper.sh          retrato no monitor em pé, paisagem no outro
+│   ├── layout-once.sh        primeiro login: monitores, wallpaper, tema, painel
 │   ├── layout.js             layout do painel (script do Plasma)
 │   ├── painel-ajustar.sh     repõe as decisões do painel (idempotente)
 │   ├── tema-instalar.sh      instala o Windows Modern a partir do vendor
@@ -61,15 +79,32 @@ dotfiles
 │   ├── recorte-clipboard.sh  Shift+Print: região da tela → área de transferência
 │   ├── nvidia-desempenho.sh  GPU em performance máxima no login
 │   └── mcp-restaurar.sh      recria os 8 MCP do Claude Code no ~/.claude.json
-├── links                     o que vira symlink no $HOME
-│   ├── home                  .zshrc, .zprofile
-│   ├── config                → ~/.config: autostart, ghostty
-│   └── local                 → ~/.local/share: lançador do Shift+Print
+├── vm                        VM Windows com a 3090 em passthrough (XML do libvirt e hooks)
 ├── vendor
 │   └── windows-modern        o tema, versionado aqui (ver PROVENIENCIA.md)
+├── wallpaper                 as duas imagens, paisagem e retrato
 ├── install.sh                pós-instalação, idempotente
 └── packages.txt              pacotes por seção; [repo-oficial:*] vai pro pacman, [aur] pro paru
 ```
+
+### Como o stow linka
+
+```bash
+stow --no-folding --restow --target="$HOME" --dir=~/.dotfiles/stow zsh ghostty kwin plasma dolphin powerdevil autostart apps
+```
+
+É isso que o `install.sh` roda, pacote a pacote. Duas flags que não são opcionais:
+
+**`--no-folding`.** Sem ela, quando `~/.config/ghostty` não existe o stow linka o diretório
+inteiro, e aí tudo que qualquer programa gravar ali cai dentro do repo. O KDE e o Chrome
+escrevem em `~/.local/share/applications` — um link de diretório ali faria o `git status`
+sujar sozinho. Com `--no-folding` ele cria os diretórios de verdade e linka só os arquivos.
+
+**`--restow`.** Desfaz e refaz: arquivo que saiu do repo perde o link, arquivo novo ganha.
+É o que deixa o install idempotente.
+
+Adicionar um programa: cria `stow/<nome>/` com a árvore que ele espera no `$HOME`, roda o
+install. Nada mais a registrar.
 
 ## Instalação
 
@@ -109,12 +144,13 @@ Onze arquivos do KDE são **symlink pra dentro do repo**: mexeu na interface gr�
 está versionado, sem passo intermediário.
 
 ```
-~/.config/kdeglobals          -> links/config/kdeglobals
-~/.config/kwinrc                 kcminputrc  kxkbrc  plasmarc  dolphinrc
-~/.config/kglobalshortcutsrc     kwinrulesrc  plasma-localerc  plasmanotifyrc
-~/.config/powermanagementprofilesrc
-~/.local/share/dolphin/view_properties/global/.directory
+~/.config/kdeglobals          -> stow/plasma/.config/kdeglobals
+~/.config/kwinrc              -> stow/kwin/.config/kwinrc
+~/.config/dolphinrc           -> stow/dolphin/.config/dolphinrc
+~/.config/powerdevilrc        -> stow/powerdevil/.config/powerdevilrc
 ```
+
+e assim por diante, cada arquivo no pacote do programa dono dele.
 
 Isso funciona porque o KConfig **grava através do symlink** em vez de substituir o
 arquivo. Verificado: uma chave escrita com `kwriteconfig6` apareceu no arquivo do repo e o
@@ -566,14 +602,14 @@ nova no Discord e dois casos no `main.js` —, todos com `urgency: critical`. Ve
 próprio painel já basta; o popup por cima da tela não.
 
 ```ini
-# links/config/plasmanotifyrc
+# stow/plasma/.config/plasmanotifyrc
 [Applications][widget-claude]
 ShowPopups=false
 ```
 
 **Só a chave não resolve.** Sem um `.desktop` o KDE não consegue resolver a identidade do
 aplicativo e ignora a regra — medido: com a chave posta e sem `.desktop`, a notificação
-apareceu do mesmo jeito. Por isso existe `links/local/share/applications/widget-claude.desktop`,
+apareceu do mesmo jeito. Por isso existe `stow/apps/.local/share/applications/widget-claude.desktop`,
 que serve só para isso, e é `NoDisplay` porque quem sobe o painel é a unit do systemd.
 
 Com os dois no lugar, testado nos três estados: notificação do `widget-claude` **não**
@@ -653,9 +689,6 @@ Duas coisas que só valem aqui e custaram tempo pra descobrir:
 - 07/09/2026: o `install.sh` ganhou a etapa `aplicar_layout`, que roda o `layout-once.sh` na
   hora quando existe sessão do Plasma viva. Rodando de um TTY ele detecta que o `plasmashell`
   não responde e deixa pro autostart, como antes.
-- 07/09/2026: `hyprland-qtutils` virou `hyprland-guiutils` no `packages.txt`. O pacote antigo
-  saiu dos repos (o novo declara `Replaces: hyprland-qtutils`) e era o único alvo que fazia o
-  `pacman` derrubar a transação única e cair no fallback um por um.
 - 07/09/2026: rodar o `install.sh` de novo agora apaga `~/.config/.kde-layout-aplicado`. A marca
   mora fora do repo, então `rm -rf ~/.dotfiles` não a levava junto e o `layout-once.sh` saía na
   primeira linha — reinstalar deixava o KDE pela metade sem erro nenhum na tela.
@@ -665,9 +698,9 @@ Duas coisas que só valem aqui e custaram tempo pra descobrir:
   faltar ou o `plasmashell` não subir, e só grava a marca de aplicado se nenhuma etapa falhar.
 - 07/09/2026: Wine, Proton, Lutris, Steam, gamescope, mangohud e winboat saíram do host. Jogo
   passa a ser assunto da VM Windows com a 3090 em passthrough.
-- 07/09/2026: Hyprland entrou como sessão alternativa (`links/config/hypr`, `waybar`, `mako`,
-  `wofi`), sem tirar o KDE. O SDDM continua entrando no Plasma; a outra sessão fica disponível
-  na lista de login.
+- 07/09/2026: `links/` virou `stow/`, um pacote por programa, linkado pelo GNU Stow com
+  `--no-folding` — mesma regra de nunca linkar diretório, agora sem linker caseiro. Hyprland,
+  que tinha entrado de manhã como sessão alternativa, saiu inteiro no mesmo commit.
 - Até 09/2026 o repo era Hyprland + Quickshell (nandoroid-shell). Trocado por KDE Plasma; a pilha
   antiga está no histórico do git (`git log --before=2026-09-05`).
 - Branch `backup/i3-x11-2023` guarda o rice de i3 + polybar.
