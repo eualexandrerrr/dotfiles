@@ -425,7 +425,32 @@ diretório.
 Um único componente é C++ — a bandeja do sistema. Vai o fonte (680 KB) e o `install.sh`
 compila com `cmake`; as dependências de build já estão no `packages.txt`.
 
-### Dolphin em Detalhes
+### Home enxuta
+
+A home tem as pastas de trabalho e mais nada:
+
+```
+~/Apps  ~/Claude  ~/Obisidian  ~/MichiganRoleplay  ~/Workspaces  ~/Downloads  ...
+```
+
+Sem `Documentos`, `Imagens`, `Modelos`, `Músicas`, `Público`, `Vídeos` nem `Área de
+trabalho`. Só apagá-las não resolve: o pacote `xdg-user-dirs` as recria **a cada login**.
+Por isso o pacote `xdg` do stow linka o `user-dirs.dirs` (tudo aponta pro próprio `$HOME`,
+menos Downloads) e o `user-dirs.conf` com `enabled=False`, que desliga o recriador. A etapa
+`home` do `setup.sh` remove o que já tiver nascido — **só se estiver vazio**, senão avisa.
+
+Duas armadilhas que só aparecem depois:
+
+- **`XDG_DESKTOP_DIR` não pode ser o `$HOME`.** Se for, a Vista de Pasta do Plasma
+  transforma a área de trabalho numa vitrine de todas as pastas de projeto. Aponta pra
+  `~/.local/share/desktop`, escondida e vazia. O `user-dirs.dirs` sozinho não basta: os
+  containments que já existem guardam a própria `url`, então o `painel-ajustar.sh` reaponta.
+- **Os Locais do Dolphin** continuam listando as pastas removidas, apontando pra lugar que
+  não existe. A limpeza entra na mesma etapa `home`.
+
+Os logs dos dotfiles ficam em `~/.local/state/dotfiles/`, não soltos na home.
+
+## Dolphin em Detalhes
 
 `ViewMode=1` (`0` ícones, `1` detalhes, `2` colunas) no
 `~/.local/share/dolphin/view_properties/global/.directory`. Vale para todas as pastas
