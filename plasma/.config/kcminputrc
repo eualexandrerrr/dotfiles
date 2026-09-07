@@ -7,6 +7,3 @@ RepeatRate=50
 [Libinput][7511][64096][LXDDZ 2.4G Wireless Device]
 PointerAcceleration=-0.400
 ScrollFactor=1
-
-[Mouse]
-cursorTheme=Fluent-dark-cursors

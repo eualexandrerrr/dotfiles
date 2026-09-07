@@ -29,7 +29,20 @@ while IFS= read -r svg; do
     fi
 done < <(find "$ORIGEM" -path '*/places/*.svg' \( -type f -o -type l \) 2>/dev/null)
 
+# Os 16/22/24px do Tela sao monocromaticos (fill="currentColor") e e um deles que o
+# Dolphin pede na lista. Quem tem cor e o scalable, entao o SVG colorido cobre os
+# tamanhos pequenos: SVG escala sem perder nada.
+m=0
+while IFS= read -r grande; do
+    nome="$(basename "$grande")"
+    for s in 16 22 24; do
+        [[ -e "$ORIGEM/$s/places/$nome" ]] || continue
+        mkdir -p "$DESTINO/$s/places"
+        cp -L "$grande" "$DESTINO/$s/places/$nome" 2>/dev/null && m=$((m+1))
+    done
+done < <(find "$ORIGEM/scalable/places" -name '*.svg' \( -type f -o -type l \) 2>/dev/null)
+
 [[ -f $ORIGEM/index.theme ]] && cp -a "$ORIGEM/index.theme" "$DESTINO/index.theme" 2>/dev/null
 
 command -v gtk-update-icon-cache >/dev/null 2>&1 && gtk-update-icon-cache -f -t "$DESTINO" >/dev/null 2>&1
-printf 'icones: %d icone(s) de pasta em ambar (%s)\n' "$n" "$TEMA"
+printf 'icones: %d icone(s) de pasta em ambar, %d em tamanho pequeno colorido (%s)\n' "$n" "$m" "$TEMA"

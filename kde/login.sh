@@ -61,11 +61,11 @@ if [[ -d $DOTFILES_DIR/splash ]]; then
     ok "splash de boot"
 fi
 
-if [[ -d $DOTFILES_DIR/vendor/dream/sddm/Dream-Dark-SDDM-6 ]]; then
-    sudo rm -rf /usr/share/sddm/themes/Dream-Dark-SDDM-6
-    sudo cp -r "$DOTFILES_DIR/vendor/dream/sddm/Dream-Dark-SDDM-6" /usr/share/sddm/themes/ \
-        && sudo cp "$DOTFILES_DIR/wallpaper/Jason_and_Lucia_Robbery_landscape.jpg" /usr/share/sddm/themes/Dream-Dark-SDDM-6/background.png \
-        && ok "SDDM Dream com o wallpaper"
+if [[ -d $DOTFILES_DIR/vendor/layan/sddm/Layan ]]; then
+    sudo rm -rf /usr/share/sddm/themes/Layan
+    sudo cp -r "$DOTFILES_DIR/vendor/layan/sddm/Layan" /usr/share/sddm/themes/ \
+        && sudo cp "$DOTFILES_DIR/wallpaper/Jason_and_Lucia_Robbery_landscape.jpg" /usr/share/sddm/themes/Layan/background.jpg \
+        && ok "SDDM Layan com o wallpaper"
 fi
 
 avatar="$DOTFILES_DIR/perfil/avatar.png"
