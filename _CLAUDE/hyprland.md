@@ -161,6 +161,13 @@ ydotool key 56:1; ydotool key 15:1 15:0; ydotool key 15:1 15:0; ydotool key 56:0
 Deixe **pelo menos meio segundo** entre os eventos: com 0,4s o overlay ainda nao redesenhou e
 o teste da falso negativo.
 
+O grid e **sempre uma linha so**. O upstream calculava `cols = ceil(sqrt(n))`, entao com
+tres workspaces virava 2x2 e a terceira caia numa segunda linha -- errado para um Alt+Tab,
+que se le da esquerda para a direita. O patch fixa `cols = n` nos tres lugares que
+recalculam o grid (`render.rs`, `handle_key` e `workspace_at` em `main.rs`); os tres tem que
+mudar juntos, senao o clique do mouse cai num card diferente do que aparece na tela. O
+`max_card_width` do TOML segura o tamanho quando ha poucas workspaces.
+
 ### O "Alt+D nao funciona, a tela so escurece"
 
 Falso positivo classico: o `Alt+D` estava certo o tempo todo. A tela escurecida era o

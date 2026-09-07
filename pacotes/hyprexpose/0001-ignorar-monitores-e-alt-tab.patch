@@ -66,7 +66,7 @@ index 42d7d70..11f09ec 100644
                  id,
                  name: json_string(wj, "name").to_owned(),
 diff --git a/src/main.rs b/src/main.rs
-index 3a5bc50..baf2e69 100644
+index 3a5bc50..2e556f4 100644
 --- a/src/main.rs
 +++ b/src/main.rs
 @@ -51,10 +51,13 @@ use hyprland_toplevel_export_frame_v1::HyprlandToplevelExportFrameV1;
@@ -102,6 +102,15 @@ index 3a5bc50..baf2e69 100644
  fn keycode_to_keysym(keycode: u32) -> u32 {
      // Compositors send raw evdev keycodes via wl_keyboard.
      match keycode {
+@@ -205,7 +213,7 @@ impl AppState {
+         if n == 0 {
+             return true;
+         }
+-        let cols = ((n as f64).sqrt().ceil() as usize).max(1);
++        let cols = n.max(1);
+ 
+         match keysym {
+             XKB_KEY_ESCAPE => return true,
 @@ -220,6 +228,8 @@ impl AppState {
                  self.activate_selected_workspace();
                  return true;
@@ -137,6 +146,15 @@ index 3a5bc50..baf2e69 100644
      fn activate_selected_workspace(&self) {
          if self.selected < self.workspaces.len() {
              ipc::switch_workspace(&self.workspaces[self.selected]);
+@@ -280,7 +309,7 @@ impl AppState {
+             return None;
+         }
+ 
+-        let cols = ((n as f64).sqrt().ceil() as usize).max(1);
++        let cols = n.max(1);
+         let rows = (n + cols - 1) / cols;
+         let pad = self.config.appearance.card_padding;
+ 
 @@ -391,16 +420,32 @@ impl Dispatch<wl_keyboard::WlKeyboard, ()> for AppState {
          _: &Connection,
          _: &QueueHandle<Self>,
@@ -214,3 +232,16 @@ index 3a5bc50..baf2e69 100644
              } else {
                  if show(&mut state, &qh) {
                      conn.flush().ok();
+diff --git a/src/render.rs b/src/render.rs
+index 18fd80b..86de589 100644
+--- a/src/render.rs
++++ b/src/render.rs
+@@ -148,7 +148,7 @@ pub fn build_scene(
+     }
+ 
+     let n = workspaces.len();
+-    let cols = ((n as f64).sqrt().ceil() as usize).max(1);
++    let cols = n.max(1);
+     let rows = (n + cols - 1) / cols;
+     let pad = cfg.appearance.card_padding;
+ 
