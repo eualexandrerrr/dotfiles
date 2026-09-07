@@ -29,6 +29,21 @@ qdbus6 "${PS[@]}" "" >/dev/null 2>&1 || { printf 'painel: plasmashell nao respon
 #                        passar o mouse num app com varias janelas. Nao ha ajuste de
 #                        tamanho: a miniatura e gridUnit*16, derivada da fonte, e a
 #                        lista e a unica alternativa menor que o applet oferece.
+# ── area de trabalho sem icones ──────────────────────────────────────────────
+# O XDG_DESKTOP_DIR aponta pra uma pasta escondida e vazia (a home enxuta nao tem
+# "Area de trabalho"). Sem reapontar os containments, a Vista de Pasta continua lendo
+# o $HOME antigo e a area de trabalho vira uma vitrine das pastas de projeto.
+qdbus6 "${PS[@]}" '
+var n = 0;
+for (var i = 0; i < desktops().length; i++) {
+  var d = desktops()[i];
+  d.currentConfigGroup = ["General"];
+  d.writeConfig("url", "file://" + "'"$HOME"'/.local/share/desktop");
+  n++;
+}
+print("areas de trabalho reapontadas: " + n);' >/dev/null 2>&1 \
+    || printf 'painel: nao consegui reapontar a area de trabalho\n' >&2
+
 # ── um painel so, nunca na tela vertical ─────────────────────────────────────
 # O monitor em pe e ocupado em tela cheia pelo RicePanel: painel ali so rouba altura.
 # A regra e por geometria, nao por indice de tela -- o indice muda quando o kscreen

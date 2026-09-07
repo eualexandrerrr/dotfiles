@@ -50,7 +50,7 @@ etapa_home() {
         [[ -f "$HOME/$d/.directory" && $(find "$HOME/$d" -mindepth 1 | wc -l) -eq 1 ]] && rm -f "$HOME/$d/.directory"
         rmdir "$HOME/$d" 2>/dev/null && removidas=$((removidas+1)) || falha "$d nao esta vazia, mantida"
     done
-    mkdir -p "$HOME/Downloads"
+    mkdir -p "$HOME/Downloads" "$HOME/.local/share/desktop"
 
     # O Dolphin guarda os Locais num .xbel proprio: as pastas removidas continuam
     # listadas la, apontando pra lugar que nao existe mais.
