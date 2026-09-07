@@ -52,6 +52,14 @@ etapa_home() {
     done
     mkdir -p "$HOME/Downloads" "$HOME/.local/share/desktop"
 
+    # O workspace do proprio dotfiles. Nao entra no stow porque o ~/Workspaces e do
+    # usuario, nao do repo: copia se faltar, e nunca por cima do que ele editou.
+    local ws="$HOME/Workspaces/desktop/Dotfiles.code-workspace"
+    if [[ ! -f $ws ]]; then
+        mkdir -p "$(dirname "$ws")"
+        cp "$DOTFILES_DIR/workspaces/Dotfiles.code-workspace" "$ws" && ok "workspace do dotfiles criado"
+    fi
+
     # O Dolphin guarda os Locais num .xbel proprio: as pastas removidas continuam
     # listadas la, apontando pra lugar que nao existe mais.
     local xbel="$HOME/.local/share/user-places.xbel"
