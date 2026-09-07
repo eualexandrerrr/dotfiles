@@ -76,5 +76,5 @@ hl.window_rule({
 })
 
 hl.layer_rule({ match = { namespace = "waybar" }, blur = true, ignore_alpha = 0.2 })
-hl.layer_rule({ match = { namespace = "launcher" }, blur = true, ignore_alpha = 0.2 })
+hl.layer_rule({ match = { namespace = "launcher" }, blur = true, ignore_alpha = 0.1, blur_popups = true })
 hl.layer_rule({ match = { namespace = "notifications" }, blur = true, ignore_alpha = 0.2 })

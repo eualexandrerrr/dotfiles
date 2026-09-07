@@ -8,8 +8,8 @@
     "margin-left": 10,
     "margin-right": 10,
 
-    "modules-left": ["hyprland/workspaces", "hyprland/submap"],
-    "modules-center": ["hyprland/window"],
+    "modules-left": ["hyprland/window"],
+    "modules-center": ["hyprland/workspaces", "hyprland/submap"],
     "modules-right": [
         "custom/discord",
         "mpris",
