@@ -51,6 +51,24 @@ etapa_home() {
         rmdir "$HOME/$d" 2>/dev/null && removidas=$((removidas+1)) || falha "$d nao esta vazia, mantida"
     done
     mkdir -p "$HOME/Downloads"
+
+    # O Dolphin guarda os Locais num .xbel proprio: as pastas removidas continuam
+    # listadas la, apontando pra lugar que nao existe mais.
+    local xbel="$HOME/.local/share/user-places.xbel"
+    if [[ -f $xbel ]]; then
+        python3 - "$xbel" <<'PY' || true
+import re, sys, os, urllib.parse, pathlib
+p = pathlib.Path(sys.argv[1]); s = p.read_text(encoding='utf-8'); n = 0
+for b in re.findall(r'\s*<bookmark href="[^"]*">.*?</bookmark>', s, re.S):
+    m = re.search(r'href="(file://[^"]*)"', b)
+    if not m: continue
+    d = urllib.parse.unquote(m.group(1)[7:])
+    if d and not os.path.isdir(d):
+        s = s.replace(b, ''); n += 1
+if n: p.write_text(s, encoding='utf-8')
+print(f"  ok {n} local(is) morto(s) removido(s) do Dolphin")
+PY
+    fi
     ok "$removidas pasta(s) padrao removida(s)"
 }
 

@@ -20,7 +20,9 @@ NVIDIA_MODULES=(nvidia nvidia_modeset nvidia_uvm nvidia_drm)
 
 RED=$'\e[1;31m'; GRN=$'\e[1;32m'; YEL=$'\e[1;33m'; BLU=$'\e[1;34m'; END=$'\e[0m'
 
-LOGFILE="${LOGFILE:-$HOME/dotfiles-install.log}"
+LOGDIR="${XDG_STATE_HOME:-$HOME/.local/state}/dotfiles"
+mkdir -p "$LOGDIR"
+LOGFILE="${LOGFILE:-$LOGDIR/install.log}"
 T0=$SECONDS
 STEP=0
 TOTAL_STEPS=17

@@ -3,7 +3,9 @@
 # tudo passar; se falhar, tenta de novo no login seguinte.
 marca="$HOME/.config/.kde-layout-aplicado"
 [[ -e $marca ]] && exit 0
-log="$HOME/kde-layout-once.log"
+logdir="${XDG_STATE_HOME:-$HOME/.local/state}/dotfiles"
+mkdir -p "$logdir"
+log="$logdir/layout-once.log"
 exec > >(tee -a "$log") 2>&1
 printf '== %s kde-layout-once\n' "$(date '+%d/%m/%Y %H:%M:%S')"
 

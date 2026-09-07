@@ -89,7 +89,7 @@ dotfiles
 ├── kwin                      .config/kwinrc, kwinrulesrc
 ├── plasma                    .config/plasmarc, kdeglobals, kglobalshortcutsrc, kcminputrc,
 │                             kxkbrc, plasma-localerc, plasmanotifyrc, e o .mo do menu
-├── dolphin                   .config/dolphinrc e a view_properties global
+├── dolphin                   dolphinrc, view_properties global e o layout dos painéis
 ├── powerdevil                .config/powerdevilrc, powermanagementprofilesrc
 ├── autostart                 .config/autostart/*.desktop
 ├── apps                      .local/share/applications/*.desktop
@@ -635,6 +635,23 @@ Etapas: `links` (stow), `home` (tira as pastas padrão do XDG), `kde` (o `settin
 máquina é pior que reconfigurar nenhuma. O `install.sh` e o `layout-once.sh` chamam ele, em
 vez de repetir as etapas.
 
+## Dolphin
+
+O `.directory` de `view_properties/global` estava **vazio** — por isso não havia padrão
+nenhum. Agora: modo detalhes, pastas primeiro, previews ligados, ocultos escondidos, duplo
+clique (`kdeglobals`, `SingleClick=false`).
+
+Três coisas moram fora do `dolphinrc` e precisaram de tratamento próprio:
+
+| O quê | Onde | Por quê |
+|:--|:--|:--|
+| Locais da barra lateral | `~/.local/share/user-places.xbel` | as pastas do XDG removidas continuavam listadas, apontando pra lugar que não existe |
+| Layout dos painéis | `dolphin/.local/state/dolphinstaterc` | é base64 do `QMainWindow::saveState`; o painel de terminal vinha ligado e, sem Konsole, virava uma faixa de erro |
+| View properties | `dolphin/.local/share/.../.directory` | arquivo espelhado: quem manda é o do repo, o `apply.sh` pula |
+
+A limpeza dos Locais mortos entra na etapa `home` do `setup.sh`, junto com a remoção das
+pastas padrão — são o mesmo problema visto de dois ângulos.
+
 ## Sem KWallet
 
 A carteira do KDE fica **desligada**. Só o `kwalletrc` com `Enabled=false` não bastava: o
@@ -703,8 +720,10 @@ outro. Também põe `ipv6.ignore-auto-dns` — sem isso o DNS IPv6 do provedor c
 lista e é consultado, anulando a escolha.
 
 Roda **a cada logon**, pelo `autostart/.config/autostart/dns-rapido.desktop`. Não precisa de
-sudo: o polkit já deixa a sessão local mexer na conexão do NetworkManager. Log em
-`~/dns-rapido.log`.
+sudo: o polkit já deixa a sessão local mexer na conexão do NetworkManager.
+
+Os logs dos dotfiles ficam todos em `~/.local/state/dotfiles/` — nada de `.log` solto na
+home, que é justamente o que a home enxuta não quer.
 
 ## Tela de login e foto do perfil
 
