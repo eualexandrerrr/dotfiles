@@ -40,7 +40,8 @@ window#waybar {
 }
 
 #workspaces button {
-    padding: 0 13px;
+    padding: 0;
+    min-width: 44px;
     margin: 3px 2px;
     font-size: 17px;
     color: @subtext;
@@ -57,7 +58,7 @@ window#waybar {
 #workspaces button.active {
     background: linear-gradient(135deg, @mauve, @blue);
     color: @base;
-    padding: 0 20px;
+    min-width: 62px;
 }
 
 #workspaces button.urgent {
