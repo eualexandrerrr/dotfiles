@@ -42,3 +42,8 @@ command -v starship >/dev/null 2>&1 && eval "$(starship init zsh)"
 
 # Credenciais e variáveis privadas ficam no dotfiles-private
 [[ -f "$HOME/.dotfiles-private/env.sh" ]] && source "$HOME/.dotfiles-private/env.sh"
+
+# Terminal aberto por uma sessão do Claude Code herda CLAUDE_CODE_CHILD_SESSION=1,
+# e um `claude` iniciado aqui vira "sessão filha": não grava transcript e some do
+# /resume. Num shell interativo essa marca é sempre falsa — limpar.
+[[ -o interactive && -n "$CLAUDE_CODE_CHILD_SESSION" ]] && unset CLAUDE_CODE_CHILD_SESSION
