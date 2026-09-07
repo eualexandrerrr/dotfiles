@@ -529,8 +529,23 @@ shellcheck -x -S warning install.sh kde/*.sh bin/*.sh
 ## Monitores
 
 Dois monitores: principal 2560x1440 paisagem à direita, secundário 1920x1080 em retrato à esquerda.
-Configure em **Configurações do Sistema → Tela e Monitor** no primeiro boot; o `kscreen` guarda
-a disposição por combinação de monitores em `~/.local/share/kscreen/`.
+Aplicado automaticamente por `kde/monitores.sh`, que roda dentro do `layout-once.sh` — antes do
+wallpaper, porque o `wallpaper.sh` decide retrato x paisagem pela geometria de cada tela.
+
+O `~/.local/share/kscreen/` **não** é versionado: o `kscreen` grava um arquivo por combinação de
+monitores, com nome derivado do hash dos EDIDs conectados. Trocar de porta, de cabo ou de placa
+muda o hash e o arquivo antigo deixa de valer. O que é versionado é a decisão, em
+`kde/monitores.conf`, casada por **resolução** em vez de nome de conector — assim sobrevive à
+troca de placa-mãe, quando o `DP-1` da 3090 vira outro nome na GPU nova.
+
+```
+# resolucao|rotacao|posicao|escala|primario
+2560x1440|normal|1080,0|1|sim
+1920x1080|left|0,0|1|nao
+```
+
+O `x` da posição do principal é 1080 porque o secundário girado ocupa 1080 de largura. Rodar
+à mão depois de mexer no conf: `bash ~/.dotfiles/kde/monitores.sh`.
 
 ### O segundo monitor é o painel
 
@@ -626,6 +641,9 @@ Duas coisas que só valem aqui e custaram tempo pra descobrir:
 
 ## Histórico
 
+- 07/09/2026: disposição dos monitores passou a ser aplicada sozinha, por `kde/monitores.sh` +
+  `kde/monitores.conf`, casando por resolução em vez de nome de conector. Antes era passo manual
+  em Configurações do Sistema.
 - 07/09/2026: install mais rápido. As duas etapas caras passaram a ser condicionais: o
   `mkinitcpio -P` (~25 s) só roda quando algo que entra na imagem mudou ou quando a imagem
   está mais velha que os módulos, e a bandeja em C++ (~30 s) passou a comparar hash do fonte

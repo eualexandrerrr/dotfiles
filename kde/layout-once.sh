@@ -27,6 +27,11 @@ bash "$HOME/.dotfiles/kde/apply.sh" || true
 # Wallpaper por monitor: retrato no que esta em pe, paisagem nos outros. Mesmas imagens do
 # MyWinISO, para o Windows e o Arch nao terem cara diferente.
 falhas=0
+
+# Antes do wallpaper: o wallpaper.sh decide retrato x paisagem pela geometria de cada tela,
+# entao a disposicao precisa ja estar aplicada quando ele rodar.
+bash "$HOME/.dotfiles/kde/monitores.sh" || { printf 'monitores.sh falhou\n'; falhas=$((falhas+1)); }
+
 bash "$HOME/.dotfiles/kde/wallpaper.sh" || { printf 'wallpaper.sh falhou\n'; falhas=$((falhas+1)); }
 
 # O tema vem de vendor/windows-modern; nada de clone nem da lib do upstream.
