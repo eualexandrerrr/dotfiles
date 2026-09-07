@@ -11,6 +11,7 @@
     "modules-left": ["hyprland/workspaces", "hyprland/submap"],
     "modules-center": ["hyprland/window"],
     "modules-right": [
+        "custom/discord",
         "mpris",
         "cpu",
         "temperature",
@@ -57,6 +58,14 @@
     "hyprland/submap": {
         "format": "modo: {}",
         "tooltip": false
+    },
+
+    "custom/discord": {
+        "exec": "$HOME/.dotfiles/bin/discord-notificacoes.sh",
+        "return-type": "json",
+        "interval": 3,
+        "format": "{}",
+        "on-click": "hyprctl dispatch 'hl.dsp.focus({ workspace = 2 })'"
     },
 
     "mpris": {

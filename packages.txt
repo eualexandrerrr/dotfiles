@@ -56,7 +56,6 @@ xorg-xwayland
 
 [repo-oficial:shell-grafico]
 ghostty
-waybar
 fuzzel
 mako
 libnotify
@@ -207,3 +206,4 @@ paru
 cachyos-ananicy-rules-git
 ttf-ms-fonts
 visual-studio-code-bin
+waybar-git

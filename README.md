@@ -135,7 +135,7 @@ do app no lugar do número — clicar no ícone vai para a workspace.
 | Workspace | App |
 |---|---|
 | 1 | Google Chrome |
-| 2 | Discord |
+| 2 | Discord (contador de menções aparece na barra) |
 | 3 | RCode |
 | 4 | VM (virt-manager e looking-glass) |
 | 9 | RicePanel, na tela vertical — fora do `Alt+Tab` |

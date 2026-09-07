@@ -64,6 +64,15 @@ window#waybar {
     color: @base;
 }
 
+#custom-discord {
+    padding: 0 12px;
+    margin: 4px 2px;
+    color: @base;
+    background: @red;
+    border-radius: 9px;
+    font-weight: 700;
+}
+
 #window {
     padding: 0 14px;
     color: @subtext;
