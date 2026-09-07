@@ -140,14 +140,6 @@ mariadb-clients
 qemu-full
 virt-manager
 
-[repo-oficial:jogos]
-gamemode
-gamescope
-lib32-gamemode
-lib32-mangohud
-mangohud
-steam
-
 [repo-oficial:painel-segundo-monitor]
 # O monitor vertical e ocupado em tela cheia pelo widget-claude, que roda em
 # Electron. Preferimos o electron do pacman ao binario que o npm baixa: o do npm
@@ -176,8 +168,5 @@ cachyos-ananicy-rules-git
 tela-icon-theme
 ttf-ms-fonts
 visual-studio-code-bin
-# Windows em container (Docker+KVM) com os apps aparecendo como janelas via RDP.
-# Sem GPU: serve pra app de produtividade, nao pra jogo.
-winboat-bin
 hyprshot
 wlogout

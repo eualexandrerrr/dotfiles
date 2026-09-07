@@ -26,11 +26,11 @@ poucos arquivos de configuração que valem versionar.
 | Arquivos, imagens, PDF, prints | `dolphin`, `gwenview`, `okular`, `hyprshot` |
 | Ícones | [Tela](https://github.com/vinceliuice/Tela-icon-theme) (`tela-icon-theme`, AUR), variante `Tela-dark` |
 | Cursor | [Capitaine](https://github.com/keeferrourke/capitaine-cursors) (`capitaine-cursors`, repo oficial), setado por `XCURSOR_THEME` no `hyprland.conf` |
-| Fora de propósito | Wi-Fi no live, Firefox (Chrome cobre), LibreOffice, Telegram, OBS. `pacman -S` traz de volta |
+| Fora de propósito | Wi-Fi no live, Firefox (Chrome cobre), LibreOffice, Telegram, OBS, Wine e Steam no host. `pacman -S` traz de volta |
 | Kernel e driver | `linux-zen`, `nvidia-open-dkms`, `nvidia_drm.modeset=1` |
 | Desempenho | `power-profiles-daemon` em `performance`, `ananicy-cpp` com as regras do CachyOS |
-| Jogos e Wine | `steam`, `lutris`, `wine`, `winetricks`, `gamescope`, `mangohud` |
-| VMs | `qemu-full`, `libvirt`, `virt-manager` (plano B do RedM) |
+| Jogos | dentro da VM Windows com GPU passthrough — ver `vm/` |
+| VMs | `qemu-full`, `libvirt`, `virt-manager` |
 | Agente no terminal | `claude-code` (AUR) |
 | Segundo monitor | `widget-claude` em tela cheia, do repo [Utils](https://github.com/eualexandrerrr/Utils) — ver [Monitores](#monitores) |
 
@@ -165,9 +165,9 @@ Duas coisas que só valem aqui e custaram tempo pra descobrir:
 - **`--skipreview` no `paru`.** Os pacotes do AUR são instalados sem exibir o `PKGBUILD`. AUR é
   conteúdo enviado por usuário rodando com as permissões do `makepkg`. Sem isso o script pararia
   em cada um dos 12. Pra conferir uma receita antes: `paru -G <pacote>` e ler à mão.
-- **RedM no Linux é só pra desenvolvimento.** O client oficial não roda em Wine (anticheat). O client
-  custom em insecure mode, o servidor local sem `svadhesive` e o plano B com GPU passthrough estão em
-  [RedMLinux](https://github.com/eualexandrerrr/RedMLinux). Este repo só instala `wine`/`winetricks`.
+- **Jogo roda na VM, não no host.** Wine, Proton, Lutris e Steam saíram do repo: o client do RedM
+  não passa pelo anticheat em Wine, e o caminho escolhido é a VM Windows com a 3090 em passthrough.
+  Ver `vm/` e [RedMLinux](https://github.com/eualexandrerrr/RedMLinux).
 - **O roteador engole consultas AAAA.** Domínio sem registro IPv6 (`sentry.io`, `discord.com`)
   trava 15-20 s no `getaddrinfo`, porque o `192.168.1.1` não responde nem o "não tem" — quem
   pergunta fica esperando o timeout. O `fetch` do Node desiste antes (10 s), então o painel mostra
@@ -181,6 +181,8 @@ Duas coisas que só valem aqui e custaram tempo pra descobrir:
 
 ## Histórico
 
+- 07/09/2026: Wine, Proton, Lutris, Steam, gamescope, mangohud e winboat saíram do host. Jogo
+  passa a ser assunto da VM Windows com a 3090 em passthrough.
 - 07/09/2026: volta pro Hyprland, agora com waybar em vez de quickshell. KDE Plasma e o tema
   Windows Modern saíram do repo inteiros (`kde/`, `vendor/windows-modern`, as chaves de
   `~/.config` do Plasma); a pilha do KDE está no histórico do git (`git log --before=2026-09-07`).

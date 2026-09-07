@@ -464,7 +464,6 @@ summary() {
         printf '%s  ->%s confira depois do boot: cat /sys/module/nvidia_drm/parameters/modeset (tem que dar Y)\n' "$YEL" "$END"
     fi
     printf '%s  ->%s reinicie para carregar o kernel novo, o initramfs e os grupos do usuario\n' "$YEL" "$END"
-    printf 'RedM em Wine (so dev): https://github.com/eualexandrerrr/RedMLinux (linux/setup-wine-redm.sh)\n'
 }
 
 main() {
