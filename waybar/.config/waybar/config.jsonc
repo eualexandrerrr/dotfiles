@@ -21,6 +21,7 @@
         "network",
         "tray",
         "clock",
+        "custom/transparencia",
         "custom/energia"
     ],
 
@@ -146,6 +147,12 @@
                 "today": "<span color='#f38ba8'><b>{}</b></span>"
             }
         }
+    },
+
+    "custom/transparencia": {
+        "format": "\udb80\udd9d",
+        "tooltip-format": "Transparência das janelas",
+        "on-click": "$HOME/.dotfiles/bin/transparencia.py"
     },
 
     "custom/energia": {

@@ -3,7 +3,7 @@
 pkgname=hyprexpose-xande
 _upstream=hyprexpose
 pkgver=r45.9d74169
-pkgrel=2
+pkgrel=3
 pkgdesc='Overview de workspaces do Hyprland com preview ao vivo, patch do Xande'
 arch=('x86_64')
 url='https://github.com/ThiagoAVicente/hyprexpose'

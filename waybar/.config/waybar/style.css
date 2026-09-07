@@ -115,6 +115,19 @@ window#waybar {
     padding: 0 14px;
 }
 
+#custom-transparencia {
+    color: @mauve;
+    padding: 0 10px;
+    margin: 4px 1px;
+    border-radius: 9px;
+    background: transparent;
+}
+
+#custom-transparencia:hover {
+    background: @mauve;
+    color: @base;
+}
+
 #custom-energia {
     color: @red;
     padding: 0 12px;
