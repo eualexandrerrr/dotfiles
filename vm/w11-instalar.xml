@@ -179,9 +179,8 @@
     <interface type="network">
       <mac address="52:54:00:7b:68:56" />
       <source network="default" />
-      <model type="virtio" />
-      <address type="pci" domain="0x0000" bus="0x01" slot="0x00" function="0x0" />
-    </interface>
+      <model type="e1000e" />
+      </interface>
     <serial type="pty">
       <target type="isa-serial" port="0">
         <model name="isa-serial" />
@@ -206,7 +205,7 @@
       <gl enable="no" />
     </graphics>
     <video>
-      <model type="virtio" heads="1" primary="yes" />
+      <model type="vga" vram="65536" heads="1" primary="yes" />
     </video>
     <channel type="spicevmc">
       <target type="virtio" name="com.redhat.spice.0" />
