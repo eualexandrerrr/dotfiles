@@ -161,6 +161,10 @@ ydotool key 56:1; ydotool key 15:1 15:0; ydotool key 15:1 15:0; ydotool key 56:0
 Deixe **pelo menos meio segundo** entre os eventos: com 0,4s o overlay ainda nao redesenhou e
 o teste da falso negativo.
 
+O overlay **abre ja na proxima** workspace, nao na atual: um unico `Alt+Tab` tem que
+trocar, como em qualquer alternador. Isso e um `select_next()` logo depois do `refresh_data`
+no ramo que abre (`main.rs`), porque o `refresh_data` posiciona a selecao na workspace ativa.
+
 O grid e **sempre uma linha so**. O upstream calculava `cols = ceil(sqrt(n))`, entao com
 tres workspaces virava 2x2 e a terceira caia numa segunda linha -- errado para um Alt+Tab,
 que se le da esquerda para a direita. O patch fixa `cols = n` nos tres lugares que

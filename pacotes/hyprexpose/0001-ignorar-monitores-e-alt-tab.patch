@@ -66,7 +66,7 @@ index 42d7d70..11f09ec 100644
                  id,
                  name: json_string(wj, "name").to_owned(),
 diff --git a/src/main.rs b/src/main.rs
-index 3a5bc50..2e556f4 100644
+index 3a5bc50..fadcc35 100644
 --- a/src/main.rs
 +++ b/src/main.rs
 @@ -51,10 +51,13 @@ use hyprland_toplevel_export_frame_v1::HyprlandToplevelExportFrameV1;
@@ -232,6 +232,16 @@ index 3a5bc50..2e556f4 100644
              } else {
                  if show(&mut state, &qh) {
                      conn.flush().ok();
+@@ -1004,6 +1055,9 @@ fn main() {
+                     if state.configured {
+                         state.visible = true;
+                         refresh_data(&mut state, &mut eq, &qh);
++                        // Alt-tab style: the overlay opens already on the next workspace,
++                        // not on the one you are in -- a single Alt+Tab has to switch.
++                        state.select_next();
+                         redraw(&mut state, &qh);
+                         conn.flush().ok();
+                     }
 diff --git a/src/render.rs b/src/render.rs
 index 18fd80b..86de589 100644
 --- a/src/render.rs
