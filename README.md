@@ -93,6 +93,7 @@ dotfiles
 ├── autostart                 .config/autostart/*.desktop
 ├── apps                      .local/share/applications/*.desktop
 ├── git                       .gitconfig: identidade e o gh como credential helper
+├── xdg                       user-dirs: home sem as pastas padrão do Linux
 │
 ├── kde                       scripts e decisões do Plasma
 │   ├── settings.conf         311 chaves (gerado pelo capture, não editar)

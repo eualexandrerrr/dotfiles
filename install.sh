@@ -23,8 +23,8 @@ RED=$'\e[1;31m'; GRN=$'\e[1;32m'; YEL=$'\e[1;33m'; BLU=$'\e[1;34m'; END=$'\e[0m'
 LOGFILE="${LOGFILE:-$HOME/dotfiles-install.log}"
 T0=$SECONDS
 STEP=0
-TOTAL_STEPS=16
-[[ ${SKIP_NVIDIA:-0} == 1 ]] && TOTAL_STEPS=14
+TOTAL_STEPS=17
+[[ ${SKIP_NVIDIA:-0} == 1 ]] && TOTAL_STEPS=15
 WARNS=()
 OFICIAL_PEDIDOS=0; OFICIAL_NOVOS=(); OFICIAL_FALTANDO=()
 AUR_OK=(); AUR_JA=(); AUR_FALHA=()
@@ -466,6 +466,28 @@ link_dotfiles() {
     ok "$LINKS arquivos linkados"
 }
 
+home_enxuta() {
+    log "home enxuta: so Downloads e as pastas de trabalho"
+
+    # O pacote xdg-user-dirs recria Imagens, Vídeos, Modelos e companhia a cada login.
+    # O user-dirs.conf com enabled=False (pacote xdg do stow) desliga isso; aqui so
+    # removemos o que ja tiver nascido, e apenas se estiver vazio.
+    local removidas=0 d
+    for d in Documentos Imagens Modelos "Músicas" "Público" "Vídeos" "Área de trabalho" \
+             Documents Pictures Templates Music Public Videos Desktop; do
+        [[ -d "$HOME/$d" ]] || continue
+        # O .directory e so o icone que o KDE larga na pasta; nao conta como conteudo.
+        [[ -f "$HOME/$d/.directory" && $(find "$HOME/$d" -mindepth 1 | wc -l) -eq 1 ]] && rm -f "$HOME/$d/.directory"
+        if rmdir "$HOME/$d" 2>/dev/null; then
+            removidas=$((removidas+1))
+        else
+            warn "$d nao esta vazia, mantida"
+        fi
+    done
+    mkdir -p "$HOME/Downloads"
+    ok "$removidas pasta(s) padrao removida(s); Downloads mantida"
+}
+
 restaurar_segredos() {
     log "credenciais do dotfiles-private"
     local script="$DOTFILES_DIR/segredos/restaurar.sh"
@@ -629,6 +651,7 @@ main() {
     enable_services
     fetch_dotfiles
     link_dotfiles
+    home_enxuta
     restaurar_segredos
     configure_sddm
     configure_kde_defaults

@@ -81,7 +81,7 @@ Pacotes do stow na raiz, um por programa, espelhando o `$HOME`. Ferramenta em pa
 O `install.sh` distingue sozinho: pacote e a pasta que tem entrada com ponto na raiz.
 
 ```
-zsh ghostty kwin plasma dolphin powerdevil autostart apps git   <- pacotes, viram links no $HOME
+zsh ghostty kwin plasma dolphin powerdevil autostart apps git xdg   <- pacotes, viram links no $HOME
 kde        scripts e decisoes do Plasma (settings.conf, monitores.conf, layout-once...)
 segredos   credenciais cifradas com age; chave so no pendrive do Ventoy
 bin        comandos
@@ -146,6 +146,25 @@ x paisagem pela geometria de cada tela.
 
 Nunca versionar `~/.local/share/kscreen/`: e um arquivo por combinacao de monitores, nome
 derivado do hash dos EDIDs, quebra ao trocar cabo ou placa.
+
+## Home enxuta
+
+Ele nao quer as pastas padrao do Linux. A home fica assim, e so assim:
+
+```
+~/Claude          central de conhecimento (repo privado eualexandrerrr/Claude)
+~/Obisidian       vault Cerebro (repo privado, o nome tem o typo mesmo)
+~/Downloads       unico XDG que sobrevive: destino do navegador
+~/<Projeto>       cada projeto no topo: MichiganRoleplay, MeuEscolarApp, Utils...
+```
+
+Projeto novo vai na **raiz da home**, nunca numa pasta `Projetos/` intermediaria -- os
+caminhos em `~/.claude.json` ja seguem isso.
+
+Duas pecas sustentam: o pacote `xdg` do stow linka o `user-dirs.dirs` (tudo aponta pro
+proprio `$HOME`, menos Downloads) e o `user-dirs.conf` com `enabled=False`, que impede o
+`xdg-user-dirs-update` de recriar a cada login. A etapa `home_enxuta()` do install remove
+o que ja tiver nascido -- **so se estiver vazio**, senao avisa e mantem.
 
 ## Hardware
 
