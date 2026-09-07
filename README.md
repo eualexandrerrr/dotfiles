@@ -626,6 +626,9 @@ Duas coisas que só valem aqui e custaram tempo pra descobrir:
 
 ## Histórico
 
+- 07/09/2026: rodar o `install.sh` de novo agora apaga `~/.config/.kde-layout-aplicado`. A marca
+  mora fora do repo, então `rm -rf ~/.dotfiles` não a levava junto e o `layout-once.sh` saía na
+  primeira linha — reinstalar deixava o KDE pela metade sem erro nenhum na tela.
 - 07/09/2026: `qt6-tools` entrou no `packages.txt`. O `qdbus6` vem dele e sete scripts do
   `kde/` dependem do binário; numa formatação limpa ele não existia, e painel, wallpaper e
   tema não eram aplicados no primeiro login. O `layout-once.sh` agora aborta se o `qdbus6`

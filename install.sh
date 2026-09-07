@@ -440,6 +440,15 @@ EOF
 configure_kde_defaults() {
     log "padroes do KDE a partir de kde/settings.conf"
     mkdir -p "$HOME/.config"
+
+    # A marca do layout mora em ~/.config, fora do repo: apagar o $DOTFILES_DIR nao a
+    # remove. Se ela sobrevive a uma reinstalacao, o layout-once.sh sai na primeira linha
+    # e painel, wallpaper e tema nunca sao reaplicados -- e o sintoma e um KDE pela metade
+    # sem nenhum erro na tela. Rodar o install significa querer o layout de novo.
+    if [[ -e "$HOME/.config/.kde-layout-aplicado" ]]; then
+        rm -f "$HOME/.config/.kde-layout-aplicado"
+        ok "marca do layout removida, sera reaplicado no proximo login"
+    fi
     if ! command -v kwriteconfig6 >/dev/null 2>&1; then
         warn "kwriteconfig6 nao encontrado, ajuste teclado, terminal e tema nas Configuracoes do Sistema"
         return 0
@@ -461,7 +470,7 @@ configure_kde_defaults() {
         kwriteconfig6 --file kdeglobals --group General --key ColorScheme BreezeDark
         kwriteconfig6 --file plasmarc --group Theme --key name breeze-dark
     fi
-    ok "layout estilo Windows 11 sera aplicado no primeiro login por kde/layout-once.sh"
+    ok "layout estilo Windows 11 sera aplicado no proximo login por kde/layout-once.sh"
 }
 
 install_windows_modern() {
@@ -510,6 +519,7 @@ summary() {
         printf '%s  ->%s confira depois do boot: cat /sys/module/nvidia_drm/parameters/modeset (tem que dar Y)\n' "$YEL" "$END"
     fi
     printf '%s  ->%s reinicie para carregar o kernel novo, o initramfs e os grupos do usuario\n' "$YEL" "$END"
+    printf '%s  ->%s o painel, o wallpaper e o tema entram no proximo login (kde/layout-once.sh); log em ~/kde-layout-once.log\n' "$YEL" "$END"
 }
 
 main() {
