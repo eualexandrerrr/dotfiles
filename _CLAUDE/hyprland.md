@@ -17,6 +17,8 @@ foi a maior razao pratica da troca, alem do pedido.
 | `waybar/.config/waybar/` | barra: `config.jsonc` + `style.css` |
 | `mako/.config/mako/config` | notificacoes |
 | `fuzzel/.config/fuzzel/fuzzel.ini` | lancador |
+| `hyprexpose/.config/hyprexpose/config.toml` | overview do Alt+Tab (preview ao vivo) |
+| `hyprswitch/.config/hyprswitch/style.css` | alternador de janelas do Super+Tab |
 | `wlogout/.config/wlogout/` | menu de encerrar |
 
 O `hyprland.lua` faz `require` dos outros tres. Mexer em atalho e mexer so no
@@ -74,13 +76,77 @@ nao vai ser obvia.
 - **waybar** so no `DP-1`. A tela vertical nunca recebe barra: ela e do RicePanel.
 - **mako**, com `[app-name=ricepanel] invisible=1`, que e o equivalente da regra que existia
   no `plasmanotifyrc`.
-- **fuzzel** como lancador (Meta+R ou Meta+Space). Nao existe menu iniciar em arvore: o
-  Windows-Modern era applet do Plasma e morreu na migracao.
+- **fuzzel** como lancador (Meta+R, Meta+Space ou Alt+D), sempre pelo `bin/lancador.sh`.
+  O script faz toggle porque o fuzzel usa lock de instancia unica: com uma instancia presa
+  -- invisivel em outro monitor, ou orfa -- toda tecla seguinte era engolida sem abrir
+  nada. Nao existe menu iniciar em arvore: o Windows-Modern era applet do Plasma e morreu
+  na migracao.
+- **hyprexpose** (Alt+Tab) e **hyprswitch** (Super+Tab), os dois alternadores.
 - **hypridle** para apagar monitor, **hyprlock** para bloquear, **hyprsunset** para o filtro
   noturno, **hyprpolkitagent** para a janela de autenticacao.
 - **swayosd** desenha o OSD de volume, brilho e Caps Lock.
 - **cliphist** guarda o historico do clipboard (Meta+V); `wl-clip-persist` evita que o
   conteudo suma quando o programa que copiou fecha.
+
+## Alt+Tab: overview com preview ao vivo
+
+`Alt+Tab` abre o **hyprexpose** (`bin/expo.sh`), um overlay layer-shell que mostra cada
+workspace com **thumbnail real da janela**, capturada pelo protocolo
+`hyprland-toplevel-export`. Funciona como o Alt+Tab de sempre: segura o Alt, cada `Tab`
+avanca um card, **solta o Alt e entra na selecionada**. Mouse por cima tambem seleciona e
+clique entra; setas ou `hjkl` navegam, `1..9` vao direto na workspace, `Enter` entra, `Esc`
+fecha sem trocar. Tema em `hyprexpose/.config/hyprexpose/config.toml`.
+
+O "solta e entra" e patch nosso, por **sinal**, nao por tecla: `SIGUSR1` abre e, com a tela
+ja aberta, avanca a selecao; `SIGUSR2` entra na selecionada e fecha. O bind que fecha o
+ciclo e `hl.bind("ALT_L", ..., { release = true })`, que dispara `expo.sh confirmar` ao
+soltar o Alt -- e o script so age se o overlay estiver aberto, entao soltar Alt em qualquer
+outra situacao nao faz nada.
+
+Preview ao vivo so existe dentro do compositor ou via `hyprland-toplevel-export`. O
+**hyprexpo foi removido** dos `hyprland-plugins` oficiais em maio/2026 ("drop unmaintained
+plugins") e o `hyprtasking` do AUR esta desatualizado desde 29/07/2026, antes da 0.56.2 --
+por isso a escolha caiu num cliente externo, que ainda por cima nao quebra a cada
+atualizacao do Hyprland, como todo plugin de ABI quebra.
+
+**Nunca tente controlar esse overlay sintetizando tecla.** O hyprexpose traduz keycode evdev
+por uma tabela fixa no `main.rs` (`1 => Escape`, `105 => Left`, ...), ignorando o keymap. O
+teclado virtual do `wtype` entrega a primeira tecla no keycode 1, entao *qualquer* tecla
+sintetica chega ali como `Esc` e fecha a tela -- foi assim que `wtype -k Left` fechou o
+overlay em vez de andar. Por isso o avancar/confirmar foi feito por sinal, que nao passa
+pelo teclado.
+
+O DP-2 fica de fora do overview: o hyprexpose **nao tem filtro de monitor**, ele pega toda
+workspace com `id >= 1` de todos os monitores (`ipc/hyprland.rs`), so pulando as special.
+Como a tela vertical e do RicePanel e ninguem troca para ela, o repo carrega um patch em
+`pacotes/hyprexpose/` que adiciona a chave `ignore_monitors` -- por nome de monitor, nao por
+id de workspace, para sobreviver se o painel mudar de numero. Por isso o pacote e
+`hyprexpose-xande`, compilado pelo `install.sh` (etapa `install_pacotes_locais`), e nao o
+`hyprexpose-git` do AUR: atualizar o upstream exige reaplicar o patch.
+
+`Super+Tab` continua sendo o alternador de **janelas**, ai sim com o hyprswitch (GTK4,
+tema em `hyprswitch/.config/hyprswitch/style.css`). Os dois daemons sobem no
+`hyprland.start` e sao reiniciados pelo `setup.sh recarregar` -- ambos leem o tema so na
+inicializacao, entao mexer no CSS/TOML sem reiniciar o daemon nao muda nada na tela.
+
+## App fixo por workspace
+
+`regras.lua` prende cada app na sua workspace: **1 Chrome, 2 Discord, 3 RCode, 4 VM**
+(`virt-manager` e `looking-glass-client`). As classes vieram do `StartupWMClass` de cada
+`.desktop`, nao de chute -- o Chrome grava `google-chrome` e `Google-chrome` no mesmo
+arquivo, por isso a regra casa `[Gg]oogle-chrome`.
+
+Os icones dessas quatro na waybar sao glifos da Nerd Font em `format-icons`, e o
+`tooltip-format` mostra o numero ao passar o mouse. Da 5 em diante fica o numero mesmo.
+
+## Clique no numero da workspace na barra
+
+Funciona sozinho: na waybar 0.15 o `hyprland/workspaces` trata o clique em
+`Workspace::handleClicked`, que dispara `dispatch workspace <id>` direto pelo socket. A
+chave `on-click` **nao e lida por esse modulo** -- ela pertence ao `AModule` base, que a
+trataria como comando de shell e tentaria rodar um binario chamado `activate`. Estava no
+`config.jsonc` sem efeito util e saiu. `sort-by-number` tambem era o nome antigo; hoje e
+`sort-by: "number"`.
 
 ## Atalhos que vieram do KDE
 
@@ -89,8 +155,11 @@ Preservados de proposito, porque estao na memoria muscular dele:
 - `Shift+Print` e `Meta+Shift+S` -> `bin/recorte-clipboard.sh` (regiao direto pro clipboard)
 - `Meta+L` -> bloquear
 - `Meta+setas` -> mover foco; `Meta+Shift+setas` -> mover janela
-- `Alt+Tab` -> alternar janelas
+- `Alt+Tab` -> overview das workspaces com preview ao vivo (era alternar janelas)
 - `Meta+1..9` -> workspaces
+- `Ctrl+Shift+Home` -> `bin/recarregar.sh`, que e o `setup.sh recarregar` com notificacao:
+  recarrega compositor, barra, notificacoes e os dois alternadores sem fechar nenhum app,
+  e avisa na tela se o `hyprctl configerrors` acusar alguma coisa
 
 O resto esta em `hypr/.config/hypr/atalhos.lua`, que e curto e legivel.
 

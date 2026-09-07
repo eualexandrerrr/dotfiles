@@ -6,7 +6,9 @@ O `install.sh` distingue sozinho: pacote e a pasta que tem entrada com ponto na 
 ```
 zsh ghostty git xdg apps systemd-user            <- pacotes, viram links no $HOME
 hypr waybar mako fuzzel wlogout qt               <- pacotes da sessao Hyprland
-bin        comandos (wallpaper, captura, recorte, energia, audio, dns)
+hyprexpose hyprswitch                            <- alternadores (Alt+Tab e Super+Tab)
+bin        comandos (wallpaper, captura, recorte, lancador, expo, energia, audio, dns)
+pacotes    PKGBUILD proprio + patch; compilado pelo install.sh, nao vem do AUR
 segredos   credenciais cifradas com age; chave so no pendrive do Ventoy
 vm         VM Windows com passthrough (XML do libvirt, hooks)
 perfil     avatar, copiado pra ~/.face pelo setup.sh

@@ -189,6 +189,26 @@ install_aur() {
     fi
 }
 
+install_pacotes_locais() {
+    local dir pkg nome ok_n=0
+    dir="$DOTFILES_DIR/pacotes"
+    [[ -d $dir ]] || return 0
+    local pkgbuilds=()
+    mapfile -t pkgbuilds < <(find "$dir" -mindepth 2 -maxdepth 2 -name PKGBUILD | sort)
+    [[ ${#pkgbuilds[@]} -gt 0 ]] || return 0
+    log "compilando ${#pkgbuilds[@]} pacote(s) proprio(s) de pacotes/"
+    for pkg in "${pkgbuilds[@]}"; do
+        nome="$(basename "$(dirname "$pkg")")"
+        if ( cd "$(dirname "$pkg")" && makepkg -si --noconfirm --needed --cleanbuild ); then
+            ok "$nome instalado"
+            ok_n=$((ok_n+1))
+        else
+            warn "$nome falhou, seguindo"
+        fi
+    done
+    ok "pacotes proprios: $ok_n de ${#pkgbuilds[@]}"
+}
+
 install_node_tools() {
     log "node, npm global sem sudo e Claude Code"
     export NPM_CONFIG_PREFIX="$HOME/.npm-global"
@@ -577,6 +597,7 @@ main() {
     install_official
     bootstrap_paru
     install_aur
+    install_pacotes_locais
     install_node_tools
     configure_nvidia
     enable_services

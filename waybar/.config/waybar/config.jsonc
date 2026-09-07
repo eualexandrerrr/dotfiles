@@ -25,21 +25,21 @@
 
     "hyprland/workspaces": {
         "format": "{icon}",
-        "on-click": "activate",
-        "sort-by-number": true,
+        "sort-by": "number",
         "format-icons": {
-            "1": "1",
-            "2": "2",
-            "3": "3",
-            "4": "4",
+            "1": "\uf268",
+            "2": "\uf392",
+            "3": "\uf121",
+            "4": "\uf17a",
             "5": "5",
             "6": "6",
             "7": "7",
             "8": "8",
             "9": "9",
             "urgent": "!",
-            "default": "·"
+            "default": "\u00b7"
         },
+        "tooltip-format": "{name}",
         "persistent-workspaces": {
             "DP-1": [1, 2, 3, 4, 5]
         }

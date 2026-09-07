@@ -200,6 +200,7 @@ android-studio
 bun-bin
 claude-code
 google-chrome
+hyprswitch
 insync
 maestro-bin
 paru

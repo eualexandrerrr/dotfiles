@@ -21,6 +21,8 @@ hl.on("hyprland.start", function()
     hl.exec_cmd(os.getenv("HOME") .. "/.dotfiles/bin/wallpaper.sh")
     hl.exec_cmd("uwsm app -- waybar")
     hl.exec_cmd("uwsm app -- mako")
+    hl.exec_cmd("uwsm app -- hyprexpose")
+    hl.exec_cmd("uwsm app -- hyprswitch init --custom-css " .. os.getenv("HOME") .. "/.config/hyprswitch/style.css --show-title --workspaces-per-row 5 --size-factor 5")
     hl.exec_cmd("uwsm app -- hypridle")
     hl.exec_cmd("uwsm app -- hyprsunset")
     hl.exec_cmd("uwsm app -- swayosd-server")
@@ -84,7 +86,6 @@ hl.config({
 
     input = {
         kb_layout = "br",
-        kb_options = "compose:ralt",
         repeat_rate = 40,
         repeat_delay = 400,
         follow_mouse = 1,

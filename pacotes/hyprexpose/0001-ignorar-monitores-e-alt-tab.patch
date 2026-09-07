@@ -1,0 +1,137 @@
+diff --git a/config.example.toml b/config.example.toml
+index 7a94ae0..65f7f95 100644
+--- a/config.example.toml
++++ b/config.example.toml
+@@ -81,3 +81,8 @@ switch_on_move = true
+ #   - right-click  → move the active window to that workspace
+ # The `--allow-mouse` CLI flag forces this on regardless of the value here.
+ allow_mouse = false
++
++# Monitor names whose workspaces never show up in the overview. Useful when a
++# screen is dedicated to a permanent dashboard you never switch to.
++# Example: ignore_monitors = ["DP-2"]
++ignore_monitors = []
+diff --git a/src/config.rs b/src/config.rs
+index 00c465a..bbaf477 100644
+--- a/src/config.rs
++++ b/src/config.rs
+@@ -135,6 +135,9 @@ pub struct BehaviorConfig {
+     /// right-click to move the active window). Overridden by the
+     /// `--allow-mouse` CLI flag when set.
+     pub allow_mouse: bool,
++    /// Monitor names whose workspaces are left out of the overview entirely
++    /// (e.g. a screen dedicated to a permanent dashboard).
++    pub ignore_monitors: Vec<String>,
+ }
+ 
+ impl Default for BehaviorConfig {
+@@ -143,6 +146,7 @@ impl Default for BehaviorConfig {
+             no_preview: false,
+             switch_on_move: true,
+             allow_mouse: false,
++            ignore_monitors: Vec::new(),
+         }
+     }
+ }
+diff --git a/src/ipc/hyprland.rs b/src/ipc/hyprland.rs
+index 42d7d70..11f09ec 100644
+--- a/src/ipc/hyprland.rs
++++ b/src/ipc/hyprland.rs
+@@ -3,6 +3,7 @@ use std::net::Shutdown;
+ use std::os::unix::net::UnixStream;
+ 
+ use super::{ClientInfo, WorkspaceInfo};
++use crate::config::Config;
+ 
+ 
+ fn socket_path() -> Option<String> {
+@@ -117,6 +118,8 @@ pub fn get_workspaces() -> Vec<WorkspaceInfo> {
+     let ws_objs = json_array_objects(&ws_json);
+     let cl_objs = json_array_objects(&cl_json);
+ 
++    let ignored = Config::load().behavior.ignore_monitors;
++
+     let mut workspaces: Vec<WorkspaceInfo> = ws_objs
+         .iter()
+         .filter_map(|wj| {
+@@ -124,6 +127,10 @@ pub fn get_workspaces() -> Vec<WorkspaceInfo> {
+             if id < 1 {
+                 return None; // skip special workspaces
+             }
++            let monitor = json_string(wj, "monitor");
++            if ignored.iter().any(|m| m == monitor) {
++                return None; // monitor opted out in the config
++            }
+             Some(WorkspaceInfo {
+                 id,
+                 name: json_string(wj, "name").to_owned(),
+diff --git a/src/main.rs b/src/main.rs
+index 3a5bc50..289f59b 100644
+--- a/src/main.rs
++++ b/src/main.rs
+@@ -51,10 +51,13 @@ use hyprland_toplevel_export_frame_v1::HyprlandToplevelExportFrameV1;
+ 
+ static G_QUIT: AtomicBool = AtomicBool::new(false);
+ static G_TOGGLE: AtomicBool = AtomicBool::new(false);
++static G_CONFIRM: AtomicBool = AtomicBool::new(false);
+ 
+ unsafe extern "C" fn sig_handler(sig: libc::c_int) {
+     if sig == libc::SIGUSR1 {
+         G_TOGGLE.store(true, Ordering::Relaxed);
++    } else if sig == libc::SIGUSR2 {
++        G_CONFIRM.store(true, Ordering::Relaxed);
+     } else {
+         G_QUIT.store(true, Ordering::Relaxed);
+     }
+@@ -254,6 +257,16 @@ impl AppState {
+         false
+     }
+ 
++    /// Advance the selection one card, wrapping around. Used by the alt-tab style
++    /// binding, where re-triggering the overlay steps instead of closing it.
++    fn select_next(&mut self) {
++        let n = self.workspaces.len();
++        if n > 1 {
++            self.selected = (self.selected + 1) % n;
++            self.needs_redraw = true;
++        }
++    }
++
+     fn activate_selected_workspace(&self) {
+         if self.selected < self.workspaces.len() {
+             ipc::switch_workspace(&self.workspaces[self.selected]);
+@@ -953,6 +966,7 @@ fn main() {
+         sa.sa_sigaction = sig_handler as *const () as libc::sighandler_t;
+         libc::sigemptyset(&mut sa.sa_mask);
+         libc::sigaction(libc::SIGUSR1, &sa, std::ptr::null_mut());
++        libc::sigaction(libc::SIGUSR2, &sa, std::ptr::null_mut());
+         libc::sigaction(libc::SIGINT, &sa, std::ptr::null_mut());
+         libc::sigaction(libc::SIGTERM, &sa, std::ptr::null_mut());
+     }
+@@ -982,7 +996,7 @@ fn main() {
+     }
+ 
+     eprintln!(
+-        "hyprexpose: daemon running on {} (send SIGUSR1 to toggle)",
++        "hyprexpose: daemon running on {} (SIGUSR1 opens/steps, SIGUSR2 confirms)",
+         ipc::compositor().name()
+     );
+ 
+@@ -993,10 +1007,15 @@ fn main() {
+             break;
+         }
+ 
++        if G_CONFIRM.swap(false, Ordering::Relaxed) && state.visible {
++            state.activate_selected_workspace();
++            hide(&mut state);
++            conn.flush().ok();
++        }
++
+         if G_TOGGLE.swap(false, Ordering::Relaxed) {
+             if state.visible {
+-                hide(&mut state);
+-                conn.flush().ok();
++                state.select_next();
+             } else {
+                 if show(&mut state, &qh) {
+                     conn.flush().ok();

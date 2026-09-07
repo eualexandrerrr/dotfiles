@@ -1,2 +1,6 @@
 links/config/ghostty/config.local
 *.bak-*
+
+pacotes/*/*
+!pacotes/*/PKGBUILD
+!pacotes/*/*.patch

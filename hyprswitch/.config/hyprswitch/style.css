@@ -1,0 +1,96 @@
+:root {
+    --border-color: rgba(69, 71, 90, 0.55);
+    --border-color-active: rgba(203, 166, 247, 0.95);
+    --bg-color: rgba(30, 30, 46, 0.94);
+    --bg-color-hover: rgba(49, 50, 68, 0.98);
+    --index-border-color: rgba(137, 180, 250, 0.8);
+    --border-radius: 16px;
+    --border-size: 2px;
+}
+
+* {
+    font-family: "JetBrainsMono Nerd Font", "Inter", sans-serif;
+    color: #cdd6f4;
+}
+
+.monitor {
+    font-size: 15px;
+    font-weight: 600;
+    padding: 10px;
+    margin: 6px;
+    border-radius: 22px;
+    background-color: rgba(17, 17, 27, 0.88);
+    border: var(--border-size) solid rgba(69, 71, 90, 0.45);
+}
+
+.monitor:hover {
+    background-color: rgba(17, 17, 27, 0.94);
+}
+
+.monitor_active {
+    border: var(--border-size) solid rgba(203, 166, 247, 0.45);
+}
+
+.workspace {
+    font-size: 19px;
+    font-weight: 700;
+    color: #a6adc8;
+    padding: 6px;
+    margin: 6px;
+    border-radius: var(--border-radius);
+    background-color: rgba(30, 30, 46, 0.96);
+    border: var(--border-size) solid var(--border-color);
+}
+
+.workspace:hover {
+    background-color: var(--bg-color-hover);
+    color: #cdd6f4;
+}
+
+.workspace_active {
+    color: #cba6f7;
+    background-color: rgba(49, 50, 68, 0.96);
+    border: var(--border-size) solid var(--border-color-active);
+}
+
+.workspace_special {
+    border: var(--border-size) solid rgba(166, 227, 161, 0.6);
+}
+
+.client {
+    font-size: 13px;
+    font-weight: 500;
+    color: #bac2de;
+    padding: 4px 8px;
+    margin: 5px;
+    border-radius: 12px;
+    background-color: rgba(49, 50, 68, 0.72);
+    border: var(--border-size) solid rgba(69, 71, 90, 0.5);
+}
+
+.client:hover {
+    background-color: rgba(88, 91, 112, 0.9);
+    color: #cdd6f4;
+}
+
+.client_active {
+    color: #f5e0dc;
+    background-color: rgba(88, 91, 112, 0.95);
+    border: var(--border-size) solid rgba(137, 180, 250, 0.95);
+}
+
+.client-image {
+    margin-top: 8px;
+    margin-bottom: 4px;
+}
+
+.index {
+    font-size: 15px;
+    font-weight: 700;
+    color: #89b4fa;
+    margin: 4px;
+    padding: 1px 7px;
+    border-radius: 9px;
+    background-color: rgba(24, 24, 37, 0.95);
+    border: var(--border-size) solid var(--index-border-color);
+}

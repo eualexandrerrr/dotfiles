@@ -113,17 +113,32 @@ antes da wiki, que descreve a versão mais recente e não necessariamente a sua.
 | `Meta+setas` | mover foco |
 | `Meta+Shift+setas` | mover janela |
 | `Meta+Alt+setas` | redimensionar |
-| `Alt+Tab` | alternar janelas |
+| `Alt+Tab` | overview com preview ao vivo: segura o Alt, `Tab` avança, solta e entra |
+| `Super+Tab` | alternar janelas |
 | `Print` | captura do monitor focado |
 | `Shift+Print` / `Meta+Shift+S` | recorte direto pro clipboard |
 | `Meta+Shift+A` | recorte com anotação (satty) |
 | `Meta+Shift+R` | gravar tela (liga/desliga) |
 | `Meta+I` / `Meta+Shift+I` | tema GTK / monitores |
+| `Ctrl+Shift+Home` | recarregar a sessão sem fechar nada |
 
 `Shift+Print`, `Meta+Shift+S`, `Meta+L`, `Alt+Tab` e `Meta+setas` vieram do KDE de
 propósito — memória muscular.
 
 ---
+
+## Workspaces
+
+Cada app tem a sua, por regra em `hypr/.config/hypr/regras.lua`, e a barra mostra o ícone
+do app no lugar do número — clicar no ícone vai para a workspace.
+
+| Workspace | App |
+|---|---|
+| 1 | Google Chrome |
+| 2 | Discord |
+| 3 | RCode |
+| 4 | VM (virt-manager e looking-glass) |
+| 9 | RicePanel, na tela vertical — fora do `Alt+Tab` |
 
 ## Monitores
 
@@ -206,6 +221,17 @@ Pacote é a pasta que tem entrada com ponto na raiz (`.config`, `.local`, `.zshr
   `pacman -Si` para saber se um pacote existe nos repos.
 
 ---
+
+## Créditos
+
+O overview de workspaces do `Alt+Tab` é o **[hyprexpose](https://github.com/ThiagoAVicente/hyprexpose)**,
+de ThiagoAVicente, sob licença MIT. Este repo usa uma **versão modificada**: o pacote
+`pacotes/hyprexpose/` compila o upstream com o patch `0001-ignorar-monitores.patch`, que
+adiciona a chave de configuração `ignore_monitors` — ausente no original — para deixar o
+monitor vertical de fora do overview. Nada mais foi alterado.
+
+O alternador de janelas do `Super+Tab` é o **[hyprswitch](https://github.com/egnrse/hyprswitch)**
+(fork de [H3rmt/hyprshell](https://github.com/H3rmt/hyprshell)), MIT, usado sem modificação.
 
 ## Histórico
 

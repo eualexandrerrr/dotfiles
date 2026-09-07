@@ -126,6 +126,15 @@ etapa_recarregar() {
         uwsm app -- waybar >/dev/null 2>&1 &
     fi
     makoctl reload >/dev/null 2>&1 || true
+    if command -v hyprexpose >/dev/null 2>&1; then
+        pkill -x hyprexpose 2>/dev/null
+        uwsm app -- hyprexpose >/dev/null 2>&1 &
+    fi
+    if command -v hyprswitch >/dev/null 2>&1; then
+        pkill -x hyprswitch 2>/dev/null
+        uwsm app -- hyprswitch init --custom-css "$HOME/.config/hyprswitch/style.css" \
+            --show-title --workspaces-per-row 5 --size-factor 5 >/dev/null 2>&1 &
+    fi
     ok "recarregado"
 }
 
