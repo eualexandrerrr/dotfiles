@@ -120,7 +120,9 @@ install_official() {
     local antes depois p
     antes="$(pacman -Qq | sort)"
     local ja=0
-    for p in "${pkgs[@]}"; do pacman -Qq "$p" >/dev/null 2>&1 && ja=$((ja+1)); done
+    local instalados
+    instalados="$(pacman -Qq)"
+    for p in "${pkgs[@]}"; do grep -qx "$p" <<<"$instalados" && ja=$((ja+1)); done
     printf '  ja presentes: %d, a instalar: %d\n' "$ja" "$((OFICIAL_PEDIDOS-ja))"
     if ! sudo pacman -S --noconfirm --needed "${pkgs[@]}"; then
         warn "pacman falhou na transacao unica (provavel nome de pacote invalido), tentando um por um"
@@ -131,7 +133,8 @@ install_official() {
     fi
     depois="$(pacman -Qq | sort)"
     mapfile -t OFICIAL_NOVOS < <(comm -13 <(printf '%s\n' "$antes") <(printf '%s\n' "$depois"))
-    for p in "${pkgs[@]}"; do pacman -Qq "$p" >/dev/null 2>&1 || OFICIAL_FALTANDO+=("$p"); done
+    instalados="$(pacman -Qq)"
+    for p in "${pkgs[@]}"; do grep -qx "$p" <<<"$instalados" || OFICIAL_FALTANDO+=("$p"); done
     ok "${#OFICIAL_NOVOS[@]} pacotes novos entraram (com dependencias), $ja ja estavam"
     if (( ${#OFICIAL_FALTANDO[@]} )); then
         warn "oficiais que NAO instalaram: ${OFICIAL_FALTANDO[*]}"
@@ -255,13 +258,36 @@ configure_nvidia() {
     fi
     log "configurando driver nvidia"
 
-    printf 'options nvidia_drm modeset=1\noptions nvidia NVreg_PreserveVideoMemoryAllocations=1\n' \
-        | sudo tee /etc/modprobe.d/nvidia.conf >/dev/null
-    ok "/etc/modprobe.d/nvidia.conf"
+    local mudou=0
 
-    printf 'blacklist nouveau\noptions nouveau modeset=0\n' \
-        | sudo tee /etc/modprobe.d/blacklist-nouveau.conf >/dev/null
-    ok "nouveau bloqueado"
+    escrever_se_diferente() {
+        local destino="$1" conteudo="$2"
+        if sudo test -f "$destino" && printf '%s' "$conteudo" | sudo cmp -s - "$destino"; then
+            return 1
+        fi
+        printf '%s' "$conteudo" | sudo tee "$destino" >/dev/null
+        return 0
+    }
+
+    if escrever_se_diferente /etc/modprobe.d/nvidia.conf \
+        'options nvidia_drm modeset=1
+options nvidia NVreg_PreserveVideoMemoryAllocations=1
+'; then
+        mudou=1
+        ok "/etc/modprobe.d/nvidia.conf"
+    else
+        ok "/etc/modprobe.d/nvidia.conf ja correto"
+    fi
+
+    if escrever_se_diferente /etc/modprobe.d/blacklist-nouveau.conf \
+        'blacklist nouveau
+options nouveau modeset=0
+'; then
+        mudou=1
+        ok "nouveau bloqueado"
+    else
+        ok "nouveau ja bloqueado"
+    fi
 
     local current missing=() m
     current="$(grep -E '^MODULES=' /etc/mkinitcpio.conf || printf 'MODULES=()')"
@@ -274,13 +300,23 @@ configure_nvidia() {
         inner="$(printf '%s' "$current" | sed -E 's/^MODULES=\(//; s/\)$//')"
         inner="$(printf '%s %s' "$inner" "${missing[*]}" | sed -E 's/^ +//; s/ +/ /g')"
         sudo sed -i "s|^MODULES=.*|MODULES=($inner)|" /etc/mkinitcpio.conf
+        mudou=1
         ok "mkinitcpio MODULES: ${missing[*]}"
     else
         ok "mkinitcpio ja tem os modulos"
     fi
 
     add_kernel_params
-    sudo mkinitcpio -P
+
+    # mkinitcpio -P leva ~25s e e a etapa mais cara do script. So vale rodar quando algo
+    # que entra na imagem mudou, ou quando a imagem esta mais velha que o kernel (upgrade
+    # de pacote que ainda nao foi refletido).
+    local img="/boot/initramfs-linux-zen.img" kern="/usr/lib/modules"
+    if [[ $mudou -eq 0 ]] && sudo test -f "$img" && [[ -z "$(find "$kern" -maxdepth 1 -newer "$img" -print -quit 2>/dev/null)" ]]; then
+        ok "initramfs em dia, mkinitcpio pulado"
+    else
+        sudo mkinitcpio -P
+    fi
 
     local unit
     for unit in nvidia-suspend.service nvidia-hibernate.service nvidia-resume.service; do
@@ -340,8 +376,8 @@ enable_services() {
 fetch_dotfiles() {
     log "obtendo dotfiles"
     if [[ -d $DOTFILES_DIR/.git ]]; then
-        git -C "$DOTFILES_DIR" fetch --all --prune
-        git -C "$DOTFILES_DIR" checkout "$DOTFILES_BRANCH"
+        git -C "$DOTFILES_DIR" fetch --quiet origin "$DOTFILES_BRANCH"
+        git -C "$DOTFILES_DIR" checkout --quiet "$DOTFILES_BRANCH"
         git -C "$DOTFILES_DIR" pull --ff-only origin "$DOTFILES_BRANCH" || warn "pull nao aplicado, arvore local divergente"
         ok "dotfiles atualizados em $DOTFILES_DIR"
     else

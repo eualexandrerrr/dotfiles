@@ -69,8 +69,15 @@ rm -rf "$LOCK_VENDOR"
 # ── 3. bandeja do sistema, unico componente em C++ ───────────────────────────
 SO_DEST="/usr/lib/qt6/plugins/plasma/applets/org.kde.windowsmodern.systemtray.so"
 SRC="$VENDOR/src/org.kde.windowsmodern.systemtray"
-if [[ -f $SO_DEST && $SO_DEST -nt $SRC/systemtray.cpp ]]; then
-    passo "bandeja ja compilada e mais nova que o fonte, pulando"
+# Comparar mtime nao serve: um clone novo carimba os fontes com a hora do clone, entao a
+# bandeja recompilava (30s) a cada `rm -rf ~/.dotfiles && git clone`. O hash do conteudo
+# nao depende de mtime, e fica gravado ao lado do .so.
+HASH_DEST="/usr/lib/qt6/plugins/plasma/applets/.windowsmodern-systemtray.hash"
+HASH_ATUAL="$(find "$SRC" -type f \( -name '*.cpp' -o -name '*.h' -o -name '*.txt' -o -name '*.xml' \) -print0 \
+    | sort -z | xargs -0 sha256sum 2>/dev/null | sha256sum | cut -d' ' -f1)"
+
+if [[ -f $SO_DEST ]] && sudo test -f "$HASH_DEST" && [[ "$(sudo cat "$HASH_DEST" 2>/dev/null)" == "$HASH_ATUAL" ]]; then
+    passo "bandeja ja compilada para este fonte, pulando"
 elif command -v cmake >/dev/null 2>&1; then
     passo "compilando a bandeja (C++)"
     BUILD="$(mktemp -d)"
@@ -79,7 +86,10 @@ elif command -v cmake >/dev/null 2>&1; then
        && cmake --build "$BUILD" --parallel "$(nproc)" >/dev/null 2>&1; then
         SO="$(find "$BUILD" -name 'org.kde.windowsmodern.systemtray.so' -type f | head -1)"
         if [[ -n $SO ]]; then
-            sudo install -Dm755 "$SO" "$SO_DEST" && passo "bandeja instalada em $SO_DEST"
+            if sudo install -Dm755 "$SO" "$SO_DEST"; then
+                printf '%s\n' "$HASH_ATUAL" | sudo tee "$HASH_DEST" >/dev/null
+                passo "bandeja instalada em $SO_DEST"
+            fi
         else
             aviso "compilou mas nao achei o .so; a bandeja fica a padrao do Plasma"
         fi

@@ -626,6 +626,12 @@ Duas coisas que só valem aqui e custaram tempo pra descobrir:
 
 ## Histórico
 
+- 07/09/2026: install mais rápido. As duas etapas caras passaram a ser condicionais: o
+  `mkinitcpio -P` (~25 s) só roda quando algo que entra na imagem mudou ou quando a imagem
+  está mais velha que os módulos, e a bandeja em C++ (~30 s) passou a comparar hash do fonte
+  em vez de mtime — um `git clone` novo carimbava os arquivos com a hora do clone e forçava
+  recompilação toda vez. O `fetch --all --prune` virou fetch só do branch, e os 316
+  `pacman -Qq <pacote>` viraram uma listagem só.
 - 07/09/2026: o `install.sh` ganhou a etapa `aplicar_layout`, que roda o `layout-once.sh` na
   hora quando existe sessão do Plasma viva. Rodando de um TTY ele detecta que o `plasmashell`
   não responde e deixa pro autostart, como antes.
