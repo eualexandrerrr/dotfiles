@@ -37,8 +37,7 @@
     </firmware>
     <loader readonly="yes" secure="yes" type="pflash" format="raw">/usr/share/edk2/x64/OVMF_CODE.secboot.4m.fd</loader>
     <nvram template="/usr/share/edk2/x64/OVMF_VARS.4m.fd" templateFormat="raw" format="raw">/var/lib/libvirt/qemu/nvram/win11-redm_VARS.fd</nvram>
-    <boot dev="hd" />
-  </os>
+    <boot dev="cdrom" /><boot dev="hd" /></os>
   <features>
     <acpi />
     <apic />
@@ -202,34 +201,34 @@
         <profile name="default-v1" />
       </backend>
     </tpm>
-    <audio id="1" type="none" />
-    <hostdev mode="subsystem" type="pci" managed="yes">
-      <source>
-        <address domain="0x0000" bus="0x0a" slot="0x00" function="0x0" />
-      </source>
-      <address type="pci" domain="0x0000" bus="0x05" slot="0x00" function="0x0" />
-    </hostdev>
-    <hostdev mode="subsystem" type="pci" managed="yes">
-      <source>
-        <address domain="0x0000" bus="0x0a" slot="0x00" function="0x1" />
-      </source>
-      <address type="pci" domain="0x0000" bus="0x06" slot="0x00" function="0x0" />
-    </hostdev>
-    <hostdev mode="subsystem" type="usb" managed="yes">
-      <source>
-        <vendor id="0x258a" />
-        <product id="0x002a" />
-      </source>
-      <address type="usb" bus="0" port="2" />
-    </hostdev>
-    <hostdev mode="subsystem" type="usb" managed="yes">
-      <source>
-        <vendor id="0x1d57" />
-        <product id="0xfa60" />
-      </source>
-      <address type="usb" bus="0" port="3" />
-    </hostdev>
+    <graphics type="spice" autoport="yes">
+      <listen type="address" />
+      <image compression="off" />
+      <gl enable="no" />
+    </graphics>
+    <video>
+      <model type="virtio" heads="1" primary="yes" />
+    </video>
+    <channel type="spicevmc">
+      <target type="virtio" name="com.redhat.spice.0" />
+    </channel>
+    <sound model="ich9" />
+    <audio id="1" type="spice" />
     <watchdog model="itco" action="reset" />
     <memballoon model="none" />
-  </devices>
+  <disk type="file" device="cdrom">
+      <driver name="qemu" type="raw" />
+      <source file="/home/Alexandre/vms/Win11_26H2_pt-BR.iso" />
+      <backingStore />
+      <target dev="sdc" bus="sata" />
+      <readonly />
+      </disk>
+    <disk type="file" device="cdrom">
+      <driver name="qemu" type="raw" />
+      <source file="/home/Alexandre/vms/autounattend.iso" />
+      <backingStore />
+      <target dev="sdd" bus="sata" />
+      <readonly />
+      </disk>
+    </devices>
 </domain>

@@ -2,7 +2,8 @@
 # Troca o perfil da VM w11 e liga. Um dominio so no libvirt, dois XMLs:
 #   3090    passthrough da RTX 3090, tela no monitor fisico, Linux fica sem tela
 #   janela  video emulado + SPICE, abre numa janela do KDE; sem 3D, nao roda RedM
-# Uso: w11 ir | w11 janela | w11 3090 | w11 perfil | w11 desligar
+# Uso: w11 ir | w11 janela | w11 3090 | w11 instalar | w11 perfil | w11 desligar
+#   instalar = janela + ISO do Windows + autounattend do MyWinISO (perfil vm-jogo); so na primeira vez
 #   ir      = 3090 com aviso e confirmacao; e o que o atalho Meta+Shift+R do KDE chama
 # Sem sudo: o usuario esta no grupo libvirt. Os hooks rodam como root dentro do libvirtd.
 set -euo pipefail
@@ -46,14 +47,14 @@ TXT
         exec "$0" 3090 ;;
     perfil) echo "perfil: $(perfil)  estado: $(estado)" ;;
     desligar) v shutdown w11 ;;
-    janela|3090)
+    janela|3090|instalar)
         if [[ $(estado) == running ]]; then
             echo "w11 esta ligada (perfil $(perfil)). Desliga antes: w11 desligar" >&2; exit 1
         fi
         # Os hooks em /etc/libvirt/hooks disparam pelo nome da VM. Sem a checagem de hostdev PCI
         # eles tiram a 3090 do host ate no perfil janela (aconteceu: PC sem tela). Fonte:
         # RedMLinux/plano-b-passthrough, instala com: sudo bash install-hooks.sh w11 alexandre
-        if [[ $1 == janela ]] && ! grep -q 'hostdev PCI' /etc/libvirt/hooks/qemu.d/w11/prepare/begin/start.sh 2>/dev/null; then
+        if [[ $1 != 3090 ]] && ! grep -q 'hostdev PCI' /etc/libvirt/hooks/qemu.d/w11/prepare/begin/start.sh 2>/dev/null; then
             echo "hook /etc/libvirt/hooks/qemu.d/w11/prepare/begin/start.sh sem a checagem de perfil: ele derrubaria a tela do host. Reinstale os hooks do RedMLinux." >&2; exit 1
         fi
         # No perfil 3090 o hook derruba a sessao do KDE pra soltar a placa: os apps morrem.
@@ -61,7 +62,7 @@ TXT
         [[ $1 == 3090 ]] && salvar_apps
         v define "$HERE/w11-$1.xml" >/dev/null
         v start w11
-        if [[ $1 == janela ]]; then
+        if [[ $1 != 3090 ]]; then
             setsid -f virt-viewer -c qemu:///system --attach w11 >/dev/null 2>&1
         fi ;;
     *) sed -n '2,5p' "$0"; exit 2 ;;

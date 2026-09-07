@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Dispatcher de hooks do libvirt: roda /etc/libvirt/hooks/qemu.d/<vm>/<hook>/<estado>/*.sh
+# Argumentos que o libvirt passa: <vm> <hook: prepare|start|started|stopped|release> <estado: begin|end> ...
+GUEST_NAME="$1"; HOOK_NAME="$2"; STATE_NAME="$3"
+# O libvirt manda o XML da VM no stdin. Guardar aqui, senao o 'while read' abaixo rouba o stdin dos hooks.
+XML=""; [[ -t 0 ]] || XML="$(cat)"
+BASEDIR="$(dirname "$0")"
+HOOKPATH="$BASEDIR/qemu.d/$GUEST_NAME/$HOOK_NAME/$STATE_NAME"
+set -e
+if [[ -f $HOOKPATH && -x $HOOKPATH ]]; then
+    "$HOOKPATH" "$@" <<<"$XML"
+elif [[ -d $HOOKPATH ]]; then
+    while IFS= read -r f; do "$f" "$@" <<<"$XML"; done < <(find -L "$HOOKPATH" -maxdepth 1 -type f -executable | sort)
+fi

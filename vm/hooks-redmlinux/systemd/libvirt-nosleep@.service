@@ -1,0 +1,7 @@
+[Unit]
+Description=Bloqueia suspensao do host enquanto a VM "%i" esta ligada
+# Ligado pelo hook prepare/begin e desligado pelo release/end de qemu.d/<vm>/
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/systemd-inhibit --what=sleep:idle --who=libvirt --why="VM %i ligada com GPU passthrough" --mode=block sleep infinity

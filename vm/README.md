@@ -5,6 +5,13 @@ Não fica em `links/`: o `install.sh` symlinka `links/config/*` para `~/.config/
 libvirt **de sistema** (`qemu:///system`), então um symlink ali só criaria confusão entre
 os dois. Aqui é fonte de verdade versionada; aplicar é explícito.
 
+## Instalar o Windows (`w11 instalar`)
+
+Perfil `janela` + ISO do Windows + `~/vms/autounattend.iso` (o `autounattend.xml` do MyWinISO
+com `MYWINISO_PERFIL=vm-jogo` injetado no primeiro logon). Dois truques: o disco leva
+`<serial>6479A7AABAC014A3</serial>`, o serial do MP700 — é assim que o `instala.vbs` aceita o
+disco; e o `vfio-ativar.sh` só roda com a segunda GPU montada, senão o host fica sem tela.
+
 ## Dois perfis, um domínio
 
 `w11-3090.xml` é o passthrough (tela no monitor da 3090, host sem tela). `w11-janela.xml` é vídeo
@@ -20,8 +27,8 @@ Sem essa checagem (versão antiga dos hooks) o perfil janela também derruba a t
 sudo virsh -c qemu:///system define ~/.dotfiles/vm/w11-3090.xml
 ```
 
-O disco (`/var/lib/libvirt/images/win11-redm.qcow2`) **não** está versionado — são centenas de GB.
-Recriar vazio: `sudo qemu-img create -f qcow2 /var/lib/libvirt/images/win11-redm.qcow2 200G`.
+O disco é `~/vms/win.raw` (raw, 200 GB, `falloc`): fica em `/home`, que sobrevive ao format. O
+`vm/preparar.sh` cria, dá acesso ao `libvirt-qemu` (ACL) e instala os hooks.
 
 ## O que está configurado, e por quê
 

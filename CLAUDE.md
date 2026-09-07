@@ -204,6 +204,14 @@ proprio `$HOME`, menos Downloads) e o `user-dirs.conf` com `enabled=False`, que 
 `xdg-user-dirs-update` de recriar a cada login. A etapa `home_enxuta()` do install remove
 o que ja tiver nascido -- **so se estiver vazio**, senao avisa e mantem.
 
+## VM w11 (07/09, host ainda com uma GPU)
+
+Host preparado: libvirtd, hooks do RedMLinux (vendorados em `vm/hooks-redmlinux`), disco
+`~/vms/win.raw` e ISOs em `~/vms`. `w11 instalar` sobe o Windows com video emulado e o
+MyWinISO no perfil vm-jogo (serial do MP700 no disco virtual, perfil injetado no
+autounattend). O `vm/vfio-ativar.sh` prende a 3090 no vfio e **so pode rodar com a RX 550
+montada** -- ele aborta com uma GPU so. Depois disso, kernel-nvidia e configure_nvidia() saem.
+
 ## Hardware
 
 | Peca | Modelo |
