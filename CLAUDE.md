@@ -96,6 +96,25 @@ diretorio inteiro e o KDE/Chrome gravam dentro do repo.
 O desktop e **KDE Plasma e so**. Hyprland entrou e saiu hoje; nao volta como sessao
 alternativa nem como nada.
 
+## install.sh x setup.sh
+
+`install.sh` instala (pacotes, driver, servicos, SDDM). `setup.sh` configura e recarrega,
+sem rede e em segundos. Mexeu numa config? `setup.sh`. Mexeu no `packages.txt`? `install.sh`.
+
+```
+~/.dotfiles/setup.sh [etapa...]   # links home kde energia monitores wallpaper painel recarregar
+```
+
+O `install.sh` (etapa `home_enxuta`) e o `layout-once.sh` chamam o `setup.sh` em vez de
+repetir as etapas. Etapa que falha vira aviso e as outras seguem.
+
+## Energia: nunca dorme
+
+Nunca suspende, nunca hiberna, nunca desliga sozinha -- so por pedido explicito. A unica
+coisa que a inatividade faz e apagar os monitores em 5 min. Tres camadas (`kde/energia.sh`):
+PowerDevil, alvos do systemd **mascarados** e `IdleAction=ignore` no logind. So a do KDE nao
+seguraria um `systemctl suspend`; com os alvos mascarados ele responde "Access denied".
+
 ## Fluxo do install e o que conferir
 
 ```
@@ -171,11 +190,11 @@ o que ja tiver nascido -- **so se estiver vazio**, senao avisa e mantem.
 | Peca | Modelo |
 |:--|:--|
 | CPU | Ryzen 7 5700X, sem video integrado |
-| Placa atual | Gigabyte B450M Gaming (1 x16 + 2 x1) |
-| Placa nova (chega amanha) | ASUS TUF Gaming B550M-PLUS (x16 Gen4 CPU + x16 Gen3 em x4 chipset) |
-| GPU | Gainward RTX 3090 24GB, cooler de 2,7 slots |
-| GPU do host (chega amanha) | PCYes Radeon RX 550 4GB |
-| Riser (chega amanha) | PCIe 3.0 x16, 20cm, plugue 90 graus |
+| Placa-mae | ASUS TUF Gaming B550M-PLUS (x16 Gen4 CPU + x16 Gen3 em x4 chipset, 2 M.2, LAN 2.5G) |
+| RAM | 32 GB DDR4 dual channel (4 slots, ate 128 GB) |
+| GPU da VM | Gainward RTX 3090 24GB, cooler de 2,7 slots |
+| GPU do host | PCYes Radeon RX 550 4GB |
+| Riser | PCIe 3.0 x16, 20cm, plugue 90 graus |
 | Fonte | 850W Gold, montada atras |
 | SSD | Corsair MP700 ELITE 932GB, unico M.2 |
 | Gabinete | PCYes Forcefield Mini Black Vulcan, mini tower, GPU ate 310mm |

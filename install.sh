@@ -468,24 +468,9 @@ link_dotfiles() {
 
 home_enxuta() {
     log "home enxuta: so Downloads e as pastas de trabalho"
-
-    # O pacote xdg-user-dirs recria Imagens, Vídeos, Modelos e companhia a cada login.
-    # O user-dirs.conf com enabled=False (pacote xdg do stow) desliga isso; aqui so
-    # removemos o que ja tiver nascido, e apenas se estiver vazio.
-    local removidas=0 d
-    for d in Documentos Imagens Modelos "Músicas" "Público" "Vídeos" "Área de trabalho" \
-             Documents Pictures Templates Music Public Videos Desktop; do
-        [[ -d "$HOME/$d" ]] || continue
-        # O .directory e so o icone que o KDE larga na pasta; nao conta como conteudo.
-        [[ -f "$HOME/$d/.directory" && $(find "$HOME/$d" -mindepth 1 | wc -l) -eq 1 ]] && rm -f "$HOME/$d/.directory"
-        if rmdir "$HOME/$d" 2>/dev/null; then
-            removidas=$((removidas+1))
-        else
-            warn "$d nao esta vazia, mantida"
-        fi
-    done
-    mkdir -p "$HOME/Downloads"
-    ok "$removidas pasta(s) padrao removida(s); Downloads mantida"
+    DOTFILES_DIR="$DOTFILES_DIR" bash "$DOTFILES_DIR/setup.sh" home \
+        && ok "pastas padrao do XDG fora" \
+        || warn "alguma pasta padrao nao estava vazia, confira o aviso acima"
 }
 
 restaurar_segredos() {

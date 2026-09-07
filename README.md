@@ -24,14 +24,15 @@ cada um no seu pacote, linkado pelo GNU Stow.
 | Peça | Modelo | Papel |
 |:--|:--|:--|
 | CPU | AMD Ryzen 7 5700X, 8c/16t, sem vídeo integrado | 2 núcleos pro host, 6 pinados na VM |
-| Placa-mãe | ASUS TUF Gaming B550M-PLUS (mATX, AM4) | x16 Gen4 pela CPU + x16 Gen3 em x4 pelo chipset |
+| Placa-mãe | ASUS TUF Gaming B550M-PLUS (mATX, AM4, B550) | x16 Gen4 pela CPU + x16 Gen3 (em x4) pelo chipset; 2 M.2, LAN 2.5G |
+| RAM | 32 GB DDR4, dual channel (4 slots, até 128 GB) | 8 GB pro host, o resto pra VM |
 | GPU do host | PCYes Radeon RX 550 4GB GDDR5 | `amdgpu` do kernel, desenha o KDE nos dois monitores |
 | GPU da VM | Gainward RTX 3090 24GB, cooler de 2,7 slots | presa no `vfio-pci` desde o boot, nunca toca o host |
 | Riser | cabo PCIe 3.0 x16, 20 cm, plugue 90° | a 3090 tampa o slot de baixo; a RX 550 sai por ele |
 | Fonte | 850 W, 80 Plus Gold | montada atrás da bandeja |
 | SSD | Corsair MP700 ELITE, 932 GB, NVMe | Gen4 x4 pela CPU; Arch em `/`, imagem da VM em `/home` |
 | Gabinete | PCYes Forcefield Mini Black Vulcan | mini tower, GPU até 310 mm |
-| Monitores | dois 2560x1440 | principal paisagem à direita, secundário em pé à esquerda com o painel |
+| Monitores | ASUS XG27ACS 2560x1440@180Hz + LG UltraGear 2560x1440 | o ASUS em paisagem à direita; o LG em pé à esquerda, com o painel |
 
 ### Por que duas GPUs
 
@@ -102,11 +103,13 @@ dotfiles
 │   ├── apply.sh              aplica o settings.conf via kwriteconfig6
 │   ├── monitores.sh          aplica o monitores.conf (--capturar grava a sessão atual)
 │   ├── wallpaper.sh          retrato no monitor em pé, paisagem no outro
-│   ├── layout-once.sh        primeiro login: monitores, wallpaper, tema, painel
+│   ├── layout-once.sh        primeiro login: chama o setup.sh e instala o tema
+│   ├── energia.sh            nunca dormir; monitores apagam em 5 min
 │   ├── layout.js             layout do painel (script do Plasma)
 │   ├── painel-ajustar.sh     repõe as decisões do painel (idempotente)
 │   ├── tema-instalar.sh      instala o Windows Modern a partir do vendor
 │   └── sessao-teste.sh       Plasma inteiro numa janela, pra testar sem risco
+├── setup.sh                  reconfigura e recarrega (sem instalar nada)
 ├── segredos                  credenciais cifradas (ver Credenciais)
 │   ├── lista.txt             o que entra no pacote, um caminho por linha
 │   ├── guardar.sh            coleta do $HOME, cifra e grava no dotfiles-private
@@ -598,6 +601,52 @@ commitar script:
 ```bash
 shellcheck -x -S warning install.sh kde/*.sh bin/*.sh
 ```
+
+## install.sh x setup.sh
+
+Duas coisas diferentes, de propósito:
+
+| | `install.sh` | `setup.sh` |
+|:--|:--|:--|
+| Faz | pacotes, driver, serviços, SDDM, kernel | configuração e recarga |
+| Precisa de rede | sim | não |
+| Precisa de sudo | sim | só pra etapa `energia` |
+| Demora | minutos | segundos |
+| Quando | máquina nova, ou depois de mexer no `packages.txt` | sempre que mexer numa config |
+
+```bash
+~/.dotfiles/setup.sh                  # tudo
+~/.dotfiles/setup.sh monitores        # só uma etapa
+~/.dotfiles/setup.sh links kde        # algumas
+~/.dotfiles/setup.sh --lista          # quais existem
+```
+
+Etapas: `links` (stow), `home` (tira as pastas padrão do XDG), `kde` (o `settings.conf`),
+`energia`, `monitores`, `wallpaper`, `painel`, `recarregar`.
+
+É idempotente e cada etapa que falha vira aviso, não derruba as outras — reconfigurar meia
+máquina é pior que reconfigurar nenhuma. O `install.sh` e o `layout-once.sh` chamam ele, em
+vez de repetir as etapas.
+
+## Energia: esta máquina nunca dorme
+
+Nunca suspende, nunca hiberna, nunca desliga sozinha. A única coisa que a inatividade faz é
+**apagar os monitores em 5 minutos**.
+
+Três camadas, porque só o KDE não bastaria:
+
+| Camada | O que faz | Onde |
+|:--|:--|:--|
+| PowerDevil | `autoSuspendAction=0`, tela apaga em 300 s | `powerdevil/.config/powerdevilrc` |
+| systemd | `sleep`, `suspend`, `hibernate`, `hybrid-sleep` e `suspend-then-hibernate` mascarados | `kde/energia.sh` |
+| logind | `IdleAction=ignore` | `/etc/systemd/logind.conf.d/99-nunca-dormir.conf` |
+
+Só a primeira camada não seguraria: qualquer `systemctl suspend` — de um script, de um
+aplicativo, de um atalho — passaria por cima do KDE. Com os alvos mascarados, a resposta
+vira `Call to Suspend failed: Access denied`.
+
+O arquivo do logind fica em `logind.conf.d/`, não no `logind.conf`, porque o principal é do
+pacote e volta ao original a cada update.
 
 ## Monitores
 

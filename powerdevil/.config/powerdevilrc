@@ -1,6 +1,9 @@
-# PowerDevil (Plasma 6). O desktop nunca suspende nem apaga a tela por inatividade.
-# Plasma 5 lia powermanagementprofilesrc; do Plasma 6 em diante é ESTE arquivo.
+# PowerDevil (Plasma 6). Este PC nunca suspende, nunca hiberna e nunca desliga sozinho.
+# A unica coisa que a inatividade faz e apagar os monitores, em 5 minutos.
+# Plasma 5 lia powermanagementprofilesrc; do Plasma 6 em diante e ESTE arquivo.
 [AC]
 autoSuspendAction=0
 dimDisplayWhenIdle=false
-turnOffDisplayWhenIdle=false
+turnOffDisplayWhenIdle=true
+turnOffDisplayIdleTimeoutSec=300
+turnOffDisplayIdleTimeoutWhenLockedSec=300
