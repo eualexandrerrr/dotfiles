@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Abre a tela da VM w11 (perfil 3090) numa janela do KDE, via Looking Glass.
+# Teclado e mouse vao por SPICE; Scroll Lock solta o mouse. -F = tela cheia.
+exec looking-glass-client -f /dev/shm/looking-glass -m KEY_SCROLLLOCK "$@"

@@ -16,6 +16,14 @@ sozinho, um pendrive comum não, e o `instala.vbs` lê só a chave. Além disso 
 `<serial>6479A7AABAC014A3</serial>`, o serial do MP700 — é assim que o `instala.vbs` aceita o
 disco; e o `vfio-ativar.sh` só roda com a segunda GPU montada, senão o host fica sem tela.
 
+## Looking Glass (`vm/glass`)
+
+Com a RX 550 no host, o perfil `3090` não fica mais sem tela: o Windows renderiza na 3090,
+copia o frame pra `/dev/shm/looking-glass` (ivshmem, 64 MB) e o `vm/glass` desenha numa janela
+do KDE. Teclado e mouse vão por SPICE (sem display). Cliente B7 do AUR; o host pro guest está
+em `~/vms/looking-glass-host-B7.zip` (a versão tem que ser a mesma dos dois lados). O
+`preparar.sh` cria o shmem com dono certo por tmpfiles.
+
 ## Dois perfis, um domínio
 
 `w11-3090.xml` é o passthrough (tela no monitor da 3090, host sem tela). `w11-janela.xml` é vídeo
