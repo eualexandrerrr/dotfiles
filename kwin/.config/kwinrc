@@ -12,8 +12,8 @@ Radius=12
 SecondOutlineThickness=0
 
 [Effect-blur]
-BlurStrength=10
-NoiseStrength=3
+BlurStrength=3
+NoiseStrength=0
 
 [Effect-overview]
 BorderActivate=9

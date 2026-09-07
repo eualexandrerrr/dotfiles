@@ -117,11 +117,12 @@ for (var i = 0; i < ps.length; i++) {
 painel_id="$(painel_da_horizontal)"
 if [[ -n $painel_id ]]; then
     kwriteconfig6 --file plasmashellrc --group PlasmaViews --group "Panel $painel_id" --key floating 0
-    # panelOpacity=1 e opaco. Em 2 (translucido) o wallpaper vaza pela barra e o
-    # resultado e um degrade lodoso que muda de cor conforme a imagem de fundo.
-    kwriteconfig6 --file plasmashellrc --group PlasmaViews --group "Panel $painel_id" --key panelOpacity 1
+    # panelOpacity=2 e translucido: a barra pega o wallpaper com o blur do KWin.
+    # So funciona bem com blur fraco -- em BlurStrength alto a barra vira um borrao
+    # de cor unica e nao da mais pra reconhecer o que esta atras.
+    kwriteconfig6 --file plasmashellrc --group PlasmaViews --group "Panel $painel_id" --key panelOpacity 2
     kwriteconfig6 --file plasmashellrc --group PlasmaViews --group "Panel $painel_id" --group Defaults --key thickness 48
-    printf 'painel: encostado e opaco (Panel %s)\n' "$painel_id"
+    printf 'painel: encostado e translucido com blur (Panel %s)\n' "$painel_id"
 else
     printf 'painel: nao descobri o id\n' >&2
 fi

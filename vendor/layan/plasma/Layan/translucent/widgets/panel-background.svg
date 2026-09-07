@@ -149,7 +149,7 @@
        class="ColorScheme-Background"
        fill="currentColor"
        id="rect1718"
-       style="opacity:0.6" />
+       style="opacity:0.32" />
   </g>
   <g
      id="topleft"
@@ -159,7 +159,7 @@
        class="ColorScheme-Background"
        fill="currentColor"
        id="path1721"
-       style="stroke-width:0.624991;opacity:0.6" />
+       style="stroke-width:0.624991;opacity:0.32" />
   </g>
   <g
      id="topright"
@@ -169,7 +169,7 @@
        class="ColorScheme-Background"
        fill="currentColor"
        id="path1724"
-       style="opacity:0.6" />
+       style="opacity:0.32" />
   </g>
   <g
      id="bottom"
@@ -183,7 +183,7 @@
        class="ColorScheme-Background"
        fill="currentColor"
        id="rect1727"
-       style="opacity:0.6" />
+       style="opacity:0.32" />
   </g>
   <g
      id="bottomleft"
@@ -193,7 +193,7 @@
        class="ColorScheme-Background"
        fill="currentColor"
        id="path1730"
-       style="opacity:0.6" />
+       style="opacity:0.32" />
   </g>
   <g
      id="bottomright"
@@ -203,7 +203,7 @@
        class="ColorScheme-Background"
        fill="currentColor"
        id="path1733"
-       style="opacity:0.6" />
+       style="opacity:0.32" />
   </g>
   <g
      id="left"
@@ -217,7 +217,7 @@
        class="ColorScheme-Background"
        fill="currentColor"
        id="rect1736"
-       style="opacity:0.6" />
+       style="opacity:0.32" />
   </g>
   <g
      id="right"
@@ -230,7 +230,7 @@
        class="ColorScheme-Background"
        fill="currentColor"
        id="rect1739"
-       style="opacity:0.6" />
+       style="opacity:0.32" />
   </g>
   <rect
      id="center"
@@ -240,7 +240,7 @@
      height="12"
      class="ColorScheme-Background"
      fill="currentColor"
-     style="opacity:0.6" />
+     style="opacity:0.32" />
   <g
      id="shadow-top"
      transform="translate(-1,4.9999989)">
