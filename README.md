@@ -96,6 +96,7 @@ dotfiles
 ├── git                       .gitconfig: identidade e o gh como credential helper
 ├── xdg                       user-dirs: home sem as pastas padrão do Linux
 ├── systemd-user              units do usuário (RicePanel no monitor vertical)
+├── dbus                      sobrepõe a ativação do kwallet/ksecretd por /bin/false
 ├── perfil                    avatar.png: foto do perfil (KDE e tela de login)
 ├── sddm                      kwinoutputconfig.json: greeter só no monitor principal
 │
@@ -108,6 +109,8 @@ dotfiles
 │   ├── wallpaper.sh          retrato no monitor em pé, paisagem no outro
 │   ├── layout-once.sh        primeiro login: chama o setup.sh e instala o tema
 │   ├── energia.sh            nunca dormir; monitores apagam em 5 min
+│   ├── audio.sh              saída analógica 80% padrão, HDMI 50%, mic 80%
+│   ├── login.sh              tela de login: wallpaper, foto e só o monitor principal
 │   ├── layout.js             layout do painel (script do Plasma)
 │   ├── painel-ajustar.sh     repõe as decisões do painel (idempotente)
 │   ├── tema-instalar.sh      instala o Windows Modern a partir do vendor
@@ -626,7 +629,7 @@ Duas coisas diferentes, de propósito:
 ```
 
 Etapas: `links` (stow), `home` (tira as pastas padrão do XDG), `kde` (o `settings.conf`),
-`energia`, `dns`, `monitores`, `wallpaper`, `painel`, `recarregar`.
+`energia`, `audio`, `dns`, `monitores`, `wallpaper`, `painel`, `login`, `recarregar`.
 
 É idempotente e cada etapa que falha vira aviso, não derruba as outras — reconfigurar meia
 máquina é pior que reconfigurar nenhuma. O `install.sh` e o `layout-once.sh` chamam ele, em
@@ -634,7 +637,20 @@ vez de repetir as etapas.
 
 ## Sem KWallet
 
-A carteira do KDE fica **desligada** (`kwalletrc`, `Enabled=false`). Além de não querer o
+A carteira do KDE fica **desligada**. Só o `kwalletrc` com `Enabled=false` não bastava: o
+`kwalletd6` e o `ksecretd` voltavam sozinhos, por três caminhos diferentes.
+
+| Caminho | Como é fechado |
+|:--|:--|
+| `kwalletrc` | `Enabled=false` |
+| PAM, no login | `systemd-user/.../plasma-kwallet-pam.service` — unit no-op que sobrepõe a do sistema |
+| autostart | `autostart/.../pam_kwallet_init.desktop` com `Hidden=true` |
+| ativação D-Bus | `dbus/.local/share/dbus-1/services/*.service` apontando pra `/bin/false` |
+
+Os quatro arquivos de D-Bus (`org.kde.kwalletd6`, `org.kde.secretservicecompat`,
+`org.kde.secretprompter` e o portal `org.freedesktop.impl.portal.desktop.kwallet`) são
+sobrescritos em `~/.local/share`, que tem precedência sobre `/usr/share` — e sobrevive a
+update do pacote. Além de não querer o
 prompt, isso tem um efeito que vale saber: sem keyring no sistema, o Chrome cifra os cookies
 com o backend `basic` (chave embutida, prefixo `v10`) em vez de `v11`. Na prática o perfil
 fica autossuficiente — sobrevive a uma reinstalação e **não** depende da senha de login
@@ -704,8 +720,19 @@ O greeter usa o Breeze com o wallpaper do monitor principal, por `theme.conf.use
 `theme.conf` do pacote volta a cada update, o `.user` não.
 
 O greeter roda um **kwin próprio**, com config separada da sua sessão. Sem dizer nada a ele,
-o formulário de login escolhe o monitor sozinho e às vezes cai no vertical. O
-`sddm/kwinoutputconfig.json` deixa só o DP-1 ligado, no modo nativo.
+o formulário de login escolhe o monitor sozinho e às vezes cai no vertical.
+
+O `sddm/kwinoutputconfig.json` deixa só o DP-1 ligado. Ele foi **gerado a partir do
+`~/.config/kwinoutputconfig.json` da sessão real**, não escrito à mão: o formato é um array
+com as seções `outputs` (cada saída, casada por `edidHash`) e `setups` (quem fica ligado e
+onde). Um JSON de formato próprio o kwin ignora em silêncio — foi o que aconteceu na
+primeira tentativa.
+
+Pra regerar depois de trocar de monitor:
+
+```bash
+~/.dotfiles/setup.sh login
+```
 
 ## Monitores
 

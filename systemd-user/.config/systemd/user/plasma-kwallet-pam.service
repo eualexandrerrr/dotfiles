@@ -1,0 +1,7 @@
+[Unit]
+Description=kwallet PAM desligado pelos dotfiles (nunca usar carteira do KDE)
+
+[Service]
+Type=oneshot
+ExecStart=/bin/true
+RemainAfterExit=yes

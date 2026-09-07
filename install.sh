@@ -508,33 +508,7 @@ CompositorCommand=kwin_wayland --drm --no-lockscreen --no-global-shortcuts --loc
 [Theme]
 Current=breeze
 EOF
-    # Tela de login: wallpaper do monitor principal e a foto do perfil. O theme.conf.user
-    # e do breeze e sobrevive a update do tema; o theme.conf, nao.
-    if [[ -f $DOTFILES_DIR/wallpaper/Jason_and_Lucia_Robbery_landscape.jpg ]]; then
-        sudo install -Dm644 "$DOTFILES_DIR/wallpaper/Jason_and_Lucia_Robbery_landscape.jpg" \
-            /usr/share/sddm/themes/breeze/dotfiles-bg.jpg
-        printf '[General]\ntype=image\nbackground=/usr/share/sddm/themes/breeze/dotfiles-bg.jpg\nneedsFullUserModel=false\n' \
-            | sudo tee /usr/share/sddm/themes/breeze/theme.conf.user >/dev/null
-        ok "wallpaper da tela de login"
-    fi
-
-    # O greeter roda um kwin proprio, com config propria: so o monitor principal, no modo
-    # nativo. Sem isso o formulario de login se decide sozinho e cai no vertical.
-    if [[ -f $DOTFILES_DIR/sddm/kwinoutputconfig.json ]]; then
-        sudo install -Dm644 -o sddm -g sddm "$DOTFILES_DIR/sddm/kwinoutputconfig.json" \
-            /var/lib/sddm/.local/share/kwinoutputconfig.json
-        sudo chown -R sddm:sddm /var/lib/sddm/.local
-        ok "greeter so no monitor principal"
-    fi
-
-    # Foto do perfil: o KDE le do AccountsService, o resto le do ~/.face.icon.
-    if [[ -f $DOTFILES_DIR/perfil/avatar.png ]]; then
-        install -Dm644 "$DOTFILES_DIR/perfil/avatar.png" "$HOME/.face.icon"
-        sudo install -Dm644 "$DOTFILES_DIR/perfil/avatar.png" "/var/lib/AccountsService/icons/$USER"
-        printf '[User]\nIcon=/var/lib/AccountsService/icons/%s\nSystemAccount=false\n' "$USER" \
-            | sudo tee "/var/lib/AccountsService/users/$USER" >/dev/null
-        ok "foto do perfil"
-    fi
+    DOTFILES_DIR="$DOTFILES_DIR" bash "$DOTFILES_DIR/kde/login.sh" || warn "login.sh terminou com erro"
 
     ok "/etc/sddm.conf.d/10-dotfiles.conf (login automatico de $USER)"
 }

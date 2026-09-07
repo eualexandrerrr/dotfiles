@@ -81,11 +81,21 @@ etapa_painel() {
     bash "$DOTFILES_DIR/kde/painel-ajustar.sh" || falha "painel-ajustar.sh"
 }
 
+etapa_audio() {
+    log "audio: saida analogica 80%, HDMI 50%, mic 80%"
+    bash "$DOTFILES_DIR/kde/audio.sh" || falha "audio.sh"
+}
+
 etapa_dns() {
     log "DNS mais rapido"
     local sh="$DOTFILES_DIR/bin/dns-rapido.sh"
     [[ -x $sh ]] || { falha "dns-rapido.sh ausente"; return; }
     bash "$sh" || falha "dns-rapido.sh"
+}
+
+etapa_login() {
+    log "tela de login: wallpaper, foto e greeter so no principal"
+    bash "$DOTFILES_DIR/kde/login.sh" || falha "login.sh"
 }
 
 etapa_recarregar() {
@@ -95,7 +105,7 @@ etapa_recarregar() {
     ok "recarregado"
 }
 
-ETAPAS=(links home kde energia dns monitores wallpaper painel recarregar)
+ETAPAS=(links home kde energia audio dns monitores wallpaper painel login recarregar)
 
 if [[ ${1:-} == --lista ]]; then
     printf 'etapas: %s\n' "${ETAPAS[*]}"

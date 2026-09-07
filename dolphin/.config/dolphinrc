@@ -4,11 +4,17 @@ PreviewSize=22
 [DetailsMode]
 PreviewSize=22
 RightPadding=0
+ExpandableFolders=false
 
 [General]
 ShowFullPathInTitlebar=true
 Version=202
 ViewPropsTimestamp=2026,9,5,9,25,29.608
+GlobalViewProps=true
+BrowseThroughArchives=true
+ShowSelectionToggle=false
+RememberOpenedTabs=false
+ConfirmClosingMultipleTabs=false
 
 [KFileDialog Settings]
 Places Icons Auto-resize=false
@@ -19,3 +25,10 @@ MenuBar=Disabled
 
 [PreviewSettings]
 Plugins=appimagethumbnail,cursorthumbnail,fontthumbnail,ffmpegthumbs,audiothumbnail,djvuthumbnail,blenderthumbnail,mobithumbnail,gsthumbnail,rawthumbnail,glycin-heif,comicbookthumbnail,opendocumentthumbnail,kraorathumbnail,ebookthumbnail,windowsexethumbnail,glycin-image-rs,glycin-svg,imagethumbnail,windowsimagethumbnail,exrthumbnail,jpegthumbnail,svgthumbnail,glycin-jxl,directorythumbnail
+
+[IconsMode]
+PreviewSize=48
+
+[PlacesPanel]
+IconSize=22
+
