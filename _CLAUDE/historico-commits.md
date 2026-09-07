@@ -13,7 +13,13 @@ a558e5ae  pacotes do stow na raiz do repo
 be27ffea  lib32 e multilib saem
 488ae580  README: KDE Plasma e so
 b44cd8f8  Alt+Tab com preview ao vivo (hyprexpose patchado), workspace com dono, atalhos do i3
+fb8a0a46  waybar: contador de mencoes do Discord, lido do titulo da janela
+14472968  Alt+D destravado (bind de release engolia o Alt), Discord fixo na workspace 2
 ```
+
+O `14472968` fecha um efeito colateral do proprio `b44cd8f8`: o bind `ALT_L` de release
+que confirma o Alt+Tab consumia a tecla, entao nenhum cliente recebia o release do Alt e o
+`Alt+D` congelava o fuzzel. Detalhe do mecanismo em `hyprland.md`.
 
 O `b44cd8f8` juntou duas frentes de trabalho no mesmo dia e por isso e grande. Dele saiu a
 pasta `pacotes/`: o hyprexpose e compilado aqui com patch proprio, nao vem do AUR.
