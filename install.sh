@@ -388,25 +388,27 @@ fetch_dotfiles() {
 
 backup_conflict() {
     # Limpa o caminho de um link que o stow vai criar. Tres casos:
-    #   symlink pro stow/ do repo   -> e o proprio stow, deixa
-    #   symlink pra outro lugar do repo -> resto do esquema antigo (links/), remove
-    #   arquivo real ou link estranho -> backup com carimbo
+    #   symlink pro repo que ainda resolve -> e o proprio stow, deixa
+    #   symlink pro repo que nao resolve   -> resto de esquema antigo (links/, stow/), remove
+    #   arquivo real ou link pra fora      -> backup com carimbo
     # Sobe pelos diretorios pais tambem: ~/.config/ghostty era symlink de DIRETORIO no
     # esquema antigo, e o stow precisa dele como diretorio de verdade pra por o link dentro.
-    local target="$1" repo stow
+    local target="$1" repo
     repo="$(readlink -f "$DOTFILES_DIR")"
-    stow="$repo/stow"
 
     local caminho="$target"
     while [[ $caminho != "$HOME" && $caminho == "$HOME"/* ]]; do
         if [[ -L $caminho ]]; then
             local alvo
-            alvo="$(readlink -f "$caminho" 2>/dev/null || readlink "$caminho")"
-            if [[ $alvo == "$stow"/* ]]; then
-                return 0
-            elif [[ $alvo == "$repo"/* ]]; then
+            alvo="$(readlink "$caminho")"
+            [[ $alvo != /* ]] && alvo="$(dirname "$caminho")/$alvo"
+            alvo="$(readlink -m "$alvo")"
+            if [[ $alvo == "$repo"/* ]]; then
+                if [[ -e $alvo ]]; then
+                    return 0
+                fi
                 rm -f "$caminho"
-                ok "$(basename "$caminho") era link do esquema antigo, removido"
+                ok "$(basename "$caminho") era link de esquema antigo, removido"
             else
                 local stamp
                 stamp="$(date +%Y%m%d%H%M%S)"
@@ -426,11 +428,12 @@ backup_conflict() {
 link_dotfiles() {
     log "linkando com stow"
     command -v stow >/dev/null 2>&1 || die "stow nao instalado (esta no packages.txt, a etapa 3 deveria ter trazido)"
-    local stowdir="$DOTFILES_DIR/stow"
-    [[ -d $stowdir ]] || die "$stowdir nao existe"
+    local stowdir="$DOTFILES_DIR"
 
-    # Cada subpasta de stow/ e um pacote que espelha o $HOME: stow/zsh/.zshrc vira ~/.zshrc,
-    # stow/kwin/.config/kwinrc vira ~/.config/kwinrc, e assim por diante.
+    # Os pacotes ficam na raiz do repo, um por programa, e espelham o $HOME: zsh/.zshrc vira
+    # ~/.zshrc, kwin/.config/kwinrc vira ~/.config/kwinrc. O que distingue um pacote de uma
+    # pasta de ferramenta (bin, kde, vm, vendor, wallpaper) e ter uma entrada com ponto na
+    # raiz -- .config, .local, .zshrc -- porque isso e o que o stow vai espelhar.
     #
     # --no-folding e obrigatorio: sem ele o stow linka o DIRETORIO inteiro quando ele nao
     # existe no destino, e ai ~/.local/share/applications viraria um symlink pro repo -- o
@@ -441,6 +444,8 @@ link_dotfiles() {
     local pkg nome
     for pkg in "$stowdir"/*/; do
         nome="$(basename "$pkg")"
+        [[ $nome == .git ]] && continue
+        find "$pkg" -mindepth 1 -maxdepth 1 -name '.*' -print -quit 2>/dev/null | grep -q . || continue
         # Backup de qualquer arquivo real que esteja no caminho de um link deste pacote.
         # O stow se recusa a sobrescrever, entao isso tem que vir antes.
         while IFS= read -r -d '' src; do

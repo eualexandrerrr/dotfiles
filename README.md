@@ -77,24 +77,25 @@ curadoria — ver [Configuração do KDE](#configuração-do-kde).
 
 ## Estrutura
 
-Uma pasta por assunto. O que vai pro `$HOME` mora em `stow/`, um pacote por programa, cada
-um espelhando a árvore do `$HOME` a partir da própria raiz. O resto é ferramenta.
+Uma pasta por programa, na raiz. Cada pacote espelha o `$HOME` a partir da própria raiz e o
+GNU Stow linka; o que não é pacote é ferramenta (`bin`, `kde`, `vm`, `vendor`, `wallpaper`).
+O install distingue os dois sozinho: pacote é a pasta que tem uma entrada com ponto na raiz.
 
 ```
 dotfiles
-├── stow                      pacotes do GNU Stow, um por programa, espelham o $HOME
-│   ├── zsh                   .zshrc, .zprofile
-│   ├── ghostty               .config/ghostty/config
-│   ├── kwin                  .config/kwinrc, kwinrulesrc
-│   ├── plasma                .config/plasmarc, kdeglobals, kglobalshortcutsrc, kcminputrc,
-│   │                         kxkbrc, plasma-localerc, plasmanotifyrc, e o .mo do menu
-│   ├── dolphin               .config/dolphinrc e a view_properties global
-│   ├── powerdevil            .config/powerdevilrc, powermanagementprofilesrc
-│   ├── autostart             .config/autostart/*.desktop
-│   └── apps                  .local/share/applications/*.desktop
+├── zsh                       .zshrc, .zprofile
+├── ghostty                   .config/ghostty/config
+├── kwin                      .config/kwinrc, kwinrulesrc
+├── plasma                    .config/plasmarc, kdeglobals, kglobalshortcutsrc, kcminputrc,
+│                             kxkbrc, plasma-localerc, plasmanotifyrc, e o .mo do menu
+├── dolphin                   .config/dolphinrc e a view_properties global
+├── powerdevil                .config/powerdevilrc, powermanagementprofilesrc
+├── autostart                 .config/autostart/*.desktop
+├── apps                      .local/share/applications/*.desktop
+│
 ├── kde                       scripts e decisões do Plasma
 │   ├── settings.conf         311 chaves (gerado pelo capture, não editar)
-│   ├── monitores.conf        disposição das telas, casada por resolução
+│   ├── monitores.conf        disposição das telas, casada por conector
 │   ├── capture.sh            lê o KDE vivo e regrava o settings.conf
 │   ├── apply.sh              aplica o settings.conf via kwriteconfig6
 │   ├── monitores.sh          aplica o monitores.conf via kscreen-doctor
@@ -119,7 +120,7 @@ dotfiles
 ### Como o stow linka
 
 ```bash
-stow --no-folding --restow --target="$HOME" --dir=~/.dotfiles/stow zsh ghostty kwin plasma dolphin powerdevil autostart apps
+cd ~/.dotfiles && stow --no-folding --restow --target="$HOME" zsh ghostty kwin plasma dolphin powerdevil autostart apps
 ```
 
 É isso que o `install.sh` roda, pacote a pacote. Duas flags que não são opcionais:
@@ -132,7 +133,7 @@ sujar sozinho. Com `--no-folding` ele cria os diretórios de verdade e linka só
 **`--restow`.** Desfaz e refaz: arquivo que saiu do repo perde o link, arquivo novo ganha.
 É o que deixa o install idempotente.
 
-Adicionar um programa: cria `stow/<nome>/` com a árvore que ele espera no `$HOME`, roda o
+Adicionar um programa: cria `<nome>/` na raiz com a árvore que ele espera no `$HOME`, roda o
 install. Nada mais a registrar.
 
 ## Instalação
@@ -173,10 +174,10 @@ Onze arquivos do KDE são **symlink pra dentro do repo**: mexeu na interface gr�
 está versionado, sem passo intermediário.
 
 ```
-~/.config/kdeglobals          -> stow/plasma/.config/kdeglobals
-~/.config/kwinrc              -> stow/kwin/.config/kwinrc
-~/.config/dolphinrc           -> stow/dolphin/.config/dolphinrc
-~/.config/powerdevilrc        -> stow/powerdevil/.config/powerdevilrc
+~/.config/kdeglobals          -> plasma/.config/kdeglobals
+~/.config/kwinrc              -> kwin/.config/kwinrc
+~/.config/dolphinrc           -> dolphin/.config/dolphinrc
+~/.config/powerdevilrc        -> powerdevil/.config/powerdevilrc
 ```
 
 e assim por diante, cada arquivo no pacote do programa dono dele.
@@ -635,14 +636,14 @@ nova no Discord e dois casos no `main.js` —, todos com `urgency: critical`. Ve
 próprio painel já basta; o popup por cima da tela não.
 
 ```ini
-# stow/plasma/.config/plasmanotifyrc
+# plasma/.config/plasmanotifyrc
 [Applications][widget-claude]
 ShowPopups=false
 ```
 
 **Só a chave não resolve.** Sem um `.desktop` o KDE não consegue resolver a identidade do
 aplicativo e ignora a regra — medido: com a chave posta e sem `.desktop`, a notificação
-apareceu do mesmo jeito. Por isso existe `stow/apps/.local/share/applications/widget-claude.desktop`,
+apareceu do mesmo jeito. Por isso existe `apps/.local/share/applications/widget-claude.desktop`,
 que serve só para isso, e é `NoDisplay` porque quem sobe o painel é a unit do systemd.
 
 Com os dois no lugar, testado nos três estados: notificação do `widget-claude` **não**
@@ -735,7 +736,7 @@ Duas coisas que só valem aqui e custaram tempo pra descobrir:
   qualquer saída que *tivesse* o modo, e o 2K principal também tem 1920x1080 — os dois
   monitores caíam no mesmo DP-2. E os dois são 2560x1440 de fato, então resolução nunca ia
   separar; agora casa por nome, com `*` como curinga por resolução nativa.
-- 07/09/2026: `links/` virou `stow/`, um pacote por programa, linkado pelo GNU Stow com
+- 07/09/2026: `links/` virou um pacote por programa na raiz do repo, linkado pelo GNU Stow com
   `--no-folding` — mesma regra de nunca linkar diretório, agora sem linker caseiro. Hyprland,
   que tinha entrado de manhã como sessão alternativa, saiu inteiro no mesmo commit.
 - Até 09/2026 o repo era Hyprland + Quickshell (nandoroid-shell). Trocado por KDE Plasma; a pilha

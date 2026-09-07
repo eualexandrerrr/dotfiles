@@ -10,7 +10,7 @@
 # Entao a lista e feita na mao pelo `vm/w11` antes de ligar a VM, a partir dos scopes
 # do systemd (app-<desktop-id>-<pid>.scope), que e como o Plasma lanca cada aplicativo.
 #
-# Roda no login pelo stow/autostart/.config/autostart/w11-reabrir-apps.desktop. Consome a lista:
+# Roda no login pelo autostart/.config/autostart/w11-reabrir-apps.desktop. Consome a lista:
 # so dispara na volta da VM, num boot normal o arquivo nao existe e ele sai calado.
 set -uo pipefail
 
