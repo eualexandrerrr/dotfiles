@@ -9,9 +9,8 @@
     "margin-right": 10,
 
     "modules-left": ["hyprland/window"],
-    "modules-center": ["hyprland/workspaces", "hyprland/submap"],
+    "modules-center": ["hyprland/workspaces", "custom/discord", "hyprland/submap"],
     "modules-right": [
-        "custom/discord",
         "mpris",
         "cpu",
         "temperature",
