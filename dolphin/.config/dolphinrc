@@ -2,18 +2,21 @@
 PreviewSize=22
 
 [DetailsMode]
-PreviewSize=32
-RightPadding=0
 ExpandableFolders=false
+PreviewSize=48
+RightPadding=0
 
 [General]
-ShowFullPathInTitlebar=true
-Version=202
-GlobalViewProps=true
 BrowseThroughArchives=true
-ShowSelectionToggle=false
-RememberOpenedTabs=false
 ConfirmClosingMultipleTabs=false
+GlobalViewProps=false
+RememberOpenedTabs=false
+ShowFullPathInTitlebar=true
+ShowSelectionToggle=false
+Version=202
+
+[IconsMode]
+PreviewSize=48
 
 [KFileDialog Settings]
 Places Icons Auto-resize=false
@@ -22,12 +25,8 @@ Places Icons Static Size=22
 [MainWindow]
 MenuBar=Disabled
 
-[PreviewSettings]
-Plugins=appimagethumbnail,cursorthumbnail,fontthumbnail,ffmpegthumbs,audiothumbnail,djvuthumbnail,blenderthumbnail,mobithumbnail,gsthumbnail,rawthumbnail,glycin-heif,comicbookthumbnail,opendocumentthumbnail,kraorathumbnail,ebookthumbnail,windowsexethumbnail,glycin-image-rs,glycin-svg,imagethumbnail,windowsimagethumbnail,exrthumbnail,jpegthumbnail,svgthumbnail,glycin-jxl
-
-[IconsMode]
-PreviewSize=48
-
 [PlacesPanel]
 IconSize=22
 
+[PreviewSettings]
+Plugins=appimagethumbnail,cursorthumbnail,fontthumbnail,ffmpegthumbs,audiothumbnail,djvuthumbnail,blenderthumbnail,mobithumbnail,gsthumbnail,rawthumbnail,glycin-heif,comicbookthumbnail,opendocumentthumbnail,kraorathumbnail,ebookthumbnail,windowsexethumbnail,glycin-image-rs,glycin-svg,imagethumbnail,windowsimagethumbnail,exrthumbnail,jpegthumbnail,svgthumbnail,glycin-jxl
