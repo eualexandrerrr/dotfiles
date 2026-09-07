@@ -109,7 +109,11 @@ BrowserApplication=google-chrome.desktop
 ColorSchemeHash=e22b2ce86a85d9869eefe26f899993fb8f4f8991
 TerminalApplication=ghostty
 TerminalService=com.mitchellh.ghostty.desktop
-
+font=Inter,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
+menuFont=Inter,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
+toolBarFont=Inter,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
+smallestReadableFont=Inter,8,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
+fixed=JetBrainsMono Nerd Font,10,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
 [Icons]
 Theme=Tela-yellow-dark
 

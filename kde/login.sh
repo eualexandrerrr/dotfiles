@@ -50,6 +50,17 @@ if [[ -f $fundo ]]; then
         && ok "wallpaper da tela de login"
 fi
 
+if [[ -d $DOTFILES_DIR/splash ]]; then
+    destino="$HOME/.local/share/plasma/look-and-feel/dotfiles-splash"
+    mkdir -p "$destino"
+    cp -a "$DOTFILES_DIR/splash/metadata.json" "$DOTFILES_DIR/splash/contents" "$destino/" 2>/dev/null
+    cp -f "$DOTFILES_DIR/wallpaper/Jason_and_Lucia_Robbery_landscape.jpg" "$destino/contents/splash/images/fundo.jpg" 2>/dev/null
+    cp -f "$DOTFILES_DIR/perfil/avatar.png" "$destino/contents/splash/images/avatar.png" 2>/dev/null
+    kwriteconfig6 --file ksplashrc --group KSplash --key Theme dotfiles-splash
+    kwriteconfig6 --file ksplashrc --group KSplash --key Engine KSplashQML
+    ok "splash de boot"
+fi
+
 avatar="$DOTFILES_DIR/perfil/avatar.png"
 if [[ -f $avatar ]]; then
     install -Dm644 "$avatar" "$HOME/.face.icon"

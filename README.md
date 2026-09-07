@@ -461,6 +461,15 @@ Duas armadilhas: o `ViewMode` só vale se o `Timestamp` do `.directory` for mais
 então a pasta só sai amarela com `PreviewSize` acima de 24 (usa o `scalable`, colorido).
 O `kde/icones.sh` recolore o que o `Tela-yellow-dark` deixou azul.
 
+## Visual
+
+Fonte **Inter** na UI (JetBrains Mono no monoespaçado), blur forte em menus e painéis,
+animações no dobro da velocidade, cantos arredondados em toda janela
+(`kwin-effect-rounded-corners`, raio 12, sem borda na decoração), splash de boot próprio
+(`splash/`, wallpaper esmaecido + avatar + pontos âmbar) e a tela de bloqueio com o
+wallpaper do tema. O bloqueio só acontece por pedido (`Autolock=false`); a inatividade só
+apaga os monitores.
+
 ## Sem KWallet
 
 A carteira do KDE fica **desligada**. Só o `kwalletrc` com `Enabled=false` não bastava: o

@@ -7,6 +7,7 @@ base-devel
 curl
 git
 jq
+inter-font
 ldns
 less
 man-db
@@ -170,6 +171,7 @@ rclone
 spotify-launcher
 
 [aur]
+kwin-effect-rounded-corners
 android-studio
 bun-bin
 claude-code

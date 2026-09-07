@@ -5,6 +5,7 @@ Rows=1
 
 [TabBox]
 DelayTime=0
+LayoutName=thumbnail_grid
 
 [Tiling][3cb16b5f-67ac-40f8-a9af-5f37f6505b15][1e19b8bc-6c7e-4077-b14d-479640056c1f]
 padding=4
@@ -22,6 +23,28 @@ Scale=1
 XwaylandEisNoPromptApps=xdotool
 
 [org.kde.kdecoration2]
-BorderSize=Tiny
+BorderSize=None
 BorderSizeAuto=false
 library=org.kde.kwin.aurorae.v2
+
+[Plugins]
+blurEnabled=true
+contrastEnabled=true
+slideEnabled=true
+kwin4_effect_fadeEnabled=true
+kwin4_effect_scaleEnabled=true
+kwin4_effect_squashEnabled=false
+kwin4_effect_shapecornersEnabled=true
+
+[Effect-blur]
+BlurStrength=10
+NoiseStrength=3
+
+[Compositing]
+AnimationSpeed=2
+
+[Effect-ShapeCorners]
+Radius=12
+OutlineThickness=0
+SecondOutlineThickness=0
+

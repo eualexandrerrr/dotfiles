@@ -9,7 +9,6 @@ ExpandableFolders=false
 [General]
 ShowFullPathInTitlebar=true
 Version=202
-ViewPropsTimestamp=2026,1,1,0,0,0
 GlobalViewProps=true
 BrowseThroughArchives=true
 ShowSelectionToggle=false
