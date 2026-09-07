@@ -508,7 +508,7 @@ Relogin=false
 CompositorCommand=kwin_wayland --drm --no-lockscreen --no-global-shortcuts --locale1
 
 [Theme]
-Current=breeze
+Current=Dream-Dark-SDDM-6
 EOF
     DOTFILES_DIR="$DOTFILES_DIR" bash "$DOTFILES_DIR/kde/login.sh" || warn "login.sh terminou com erro"
 

@@ -61,6 +61,13 @@ if [[ -d $DOTFILES_DIR/splash ]]; then
     ok "splash de boot"
 fi
 
+if [[ -d $DOTFILES_DIR/vendor/dream/sddm/Dream-Dark-SDDM-6 ]]; then
+    sudo rm -rf /usr/share/sddm/themes/Dream-Dark-SDDM-6
+    sudo cp -r "$DOTFILES_DIR/vendor/dream/sddm/Dream-Dark-SDDM-6" /usr/share/sddm/themes/ \
+        && sudo cp "$DOTFILES_DIR/wallpaper/Jason_and_Lucia_Robbery_landscape.jpg" /usr/share/sddm/themes/Dream-Dark-SDDM-6/background.png \
+        && ok "SDDM Dream com o wallpaper"
+fi
+
 avatar="$DOTFILES_DIR/perfil/avatar.png"
 if [[ -f $avatar ]]; then
     install -Dm644 "$avatar" "$HOME/.face.icon"

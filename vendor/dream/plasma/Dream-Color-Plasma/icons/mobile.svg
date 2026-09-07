@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   version="1.1"
+   viewBox="0 0 32 16"
+   id="svg11"
+   sodipodi:docname="mobile.svg"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview13"
+     pagecolor="#cccccc"
+     bordercolor="#000000"
+     borderopacity="1"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#808080"
+     showgrid="false"
+     inkscape:lockguides="false"
+     inkscape:zoom="14.75"
+     inkscape:cx="16"
+     inkscape:cy="8.0338983"
+     inkscape:window-width="1920"
+     inkscape:window-height="1008"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg11" />
+  <defs
+     id="defs3">
+    <style
+       id="current-color-scheme"
+       type="text/css">.ColorScheme-Text { color:#d1d5e9; }
+</style>
+  </defs>
+  <g
+     id="mobile-task-switcher"
+     transform="matrix(3.7803186 0 0 3.7803186 -.00289876 -.00254929)"
+     style="fill:#d1d5e9;fill-opacity:1">
+    <path
+       class="ColorScheme-Text"
+       d="m1.0815353 0.5297303c-0.30537362 0-0.55112919 0.24575557-0.55112919 0.5511292v2.0727416c0 0.3053733 0.24575557 0.5511292 0.55112919 0.5511292h2.0727416c0.3053734 0 0.5511292-0.2457559 0.5511292-0.5511292v-2.0727416c0-0.30537363-0.2457558-0.5511292-0.5511292-0.5511292zm0.064595 0.32995387h1.9466512c0.1571218 0 0.2834453 0.126582 0.2834453 0.28370373v1.9497516c0 0.1571218-0.1263235 0.2837038-0.2834453 0.2837038h-1.9466508c-0.15712152 0-0.28370352-0.126582-0.28370352-0.2837038v-1.9497516c0-0.15712173 0.126582-0.28370373 0.28370312-0.28370373z"
+       stroke-opacity="0"
+       stroke-width=".132292"
+       id="path5"
+       style="fill-opacity:1;fill:currentColor;" />
+  </g>
+  <g
+     id="mobile-close-app"
+     transform="matrix(3.7734101 0 0 3.7734101 .05466992 .00852106)"
+     style="fill:#d1d5e9;fill-opacity:1">
+    <path
+       class="ColorScheme-Text"
+       d="m4.9144465 0.68618254 2.8625801 2.8625801m-2.8625801 0 2.8625801-2.8625801"
+       stroke-linecap="round"
+       stroke-width=".3175"
+       id="path8"
+       style="stroke-opacity:1;stroke:currentColor;fill-opacity:1;fill:#d1d5e9;" />
+  </g>
+</svg>

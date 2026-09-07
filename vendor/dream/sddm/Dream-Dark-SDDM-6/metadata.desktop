@@ -1,0 +1,16 @@
+[SddmGreeterTheme]
+Name=Dream-Dark-SDDM-6
+Description=Dream Dark SDDM Theme For Plasma 6
+Author=l4k1
+License=GPLv3
+Type=sddm-theme
+Version=1.0
+Website=
+Screenshot=preview.png
+MainScript=Main.qml
+ConfigFile=theme.conf
+TranslationsDirectory=translations
+Email=l4k1987@gmail.com
+Theme-Id=Dream-Dark-SDDM-6
+Theme-API=2.0
+QtVersion=6

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="32"
+   height="32"
+   version="1"
+   id="svg12"
+   sodipodi:docname="utilities.svg"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <style
+       type="text/css"
+       id="current-color-scheme">.ColorScheme-Text { color:#d1d5e9; }
+</style>
+  <metadata
+     id="metadata18">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs16" />
+  <sodipodi:namedview
+     pagecolor="#cccccc"
+     bordercolor="#000000"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1008"
+     id="namedview14"
+     showgrid="false"
+     inkscape:zoom="11.313709"
+     inkscape:cx="30.140425"
+     inkscape:cy="12.683727"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg12"
+     inkscape:document-rotation="0"
+     inkscape:lockguides="false"
+     inkscape:pagecheckerboard="0"
+     inkscape:showpageshadow="2"
+     inkscape:deskcolor="#808080">
+    <inkscape:grid
+       type="xygrid"
+       id="grid852"
+       originx="-1e-06"
+       originy="0" />
+  </sodipodi:namedview>
+  <g
+     id="utilities-terminal"
+     style="fill:#d1d5e9;fill-opacity:1">
+    <rect
+       style="opacity:0.00100002;fill:#d1d5e9;fill-opacity:1"
+       width="32"
+       height="32"
+       x="0"
+       y="0"
+       id="rect7" />
+    <path
+       d="m 14.830469,19.209401 -4.196874,3.846076 C 9.879253,23.746635 8.747995,22.709668 9.502336,22.018515 L 13.133333,18.69092 9.502336,15.363328 c -0.754339,-0.691151 0.376911,-1.728114 1.131251,-1.036965 l 4.196882,3.846078 c 0.312501,0.28633 0.312501,0.750628 0,1.03696 z M 20.874736,22.004 14.939845,22 c -0.563019,-3.79e-4 -0.536155,1 0,1 h 5.934896 c 0.553026,0 0.551263,-1 0,-0.996 z M 5.193371,5.0053791 26.796917,5.0000001 c 0.657521,-2.821e-4 1.203082,0.4695835 1.203082,1.2594024 l 0,19.7405975 c 0,0.586782 -0.322413,1 -1,1 h -22 c -0.583919,0 -1,-0.396961 -1,-1 L 4,6.2273025 C 4,5.4941486 4.477349,5.0053791 5.193371,5.0053791 Z M 4.999999,26 h 22 V 8 h -22 z"
+       id="path4"
+       sodipodi:nodetypes="cccccccccssscccccccccccccccc"
+       style="stroke-width:0.255284;fill-opacity:1;fill:currentColor;"
+       class="ColorScheme-Text" />
+  </g>
+  <g
+     id="22-22-utilities-terminal"
+     transform="translate(32,10.000001)"
+     style="fill:#d1d5e9;fill-opacity:1">
+    <rect
+       style="opacity:0.00100002;fill:#d1d5e9;fill-opacity:1"
+       width="22"
+       height="22"
+       x="0"
+       y="0"
+       id="rect2" />
+    <path
+       d="M 10.220312,13.041843 7.4223959,15.489595 C 6.9195013,15.929465 6.1653307,15.269511 6.668224,14.829641 L 9.088888,12.711865 6.668224,10.594089 C 6.1653321,10.154229 6.9194973,9.4942796 7.422392,9.934137 l 2.79792,2.447754 c 0.208336,0.18223 0.208336,0.47772 0,0.659952 z M 14.249833,15 H 10.29323 c -0.71111,0 -0.71111,1 0,1 h 3.956608 c 0.505591,0 0.486192,-1.000001 0,-1 z M 3.7955799,4.002 18.196725,4 c 0.565392,0.010129 0.803274,0.2830828 0.803274,0.7459936 l 0,12.2540054 c 0,0.703962 -0.317149,1 -1,1 h -14 c -0.6639429,0 -1,-0.389914 -1,-1 L 3,4.7796745 C 3,4.3130632 3.318232,4.002 3.7955799,4.002 Z M 3.999999,16.999999 h 14 v -11 h -14 z"
+       id="path4-3"
+       sodipodi:nodetypes="cccccccccssscccccccccccccccc"
+       style="stroke-width:0.166291;fill-opacity:1;fill:currentColor;"
+       class="ColorScheme-Text" />
+  </g>
+</svg>

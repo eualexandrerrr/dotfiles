@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="32"
+   height="32"
+   version="1.1"
+   id="svg12"
+   sodipodi:docname="ktorrent.svg"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <style id="current-color-scheme" type="text/css">.ColorScheme-Text { color:#d6dbf1; }
+</style>
+  <metadata
+     id="metadata18">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs16" />
+  <sodipodi:namedview
+     pagecolor="#cccccc"
+     bordercolor="#000000"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1008"
+     id="namedview14"
+     showgrid="false"
+     inkscape:zoom="9.8125"
+     inkscape:cx="33.22293"
+     inkscape:cy="22.573248"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg12"
+     inkscape:document-rotation="0"
+     inkscape:showpageshadow="2"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#808080"
+     inkscape:lockguides="false">
+    <inkscape:grid
+       type="xygrid"
+       id="grid848"
+       originx="0"
+       originy="-4.6325683e-08" />
+  </sodipodi:namedview>
+  <g
+     id="ktorrent"
+     transform="translate(32,10.000001)"
+     style="fill:#d1d5e9;fill-opacity:1">
+    <g
+       id="g895"
+       style="fill:#d1d5e9;fill-opacity:1">
+      <rect
+         style="opacity:0.00100002;fill:#d1d5e9;fill-opacity:1"
+         width="32"
+         height="32"
+         x="-32"
+         y="-10.000001"
+         id="rect7" />
+      <path
+         style="enable-background:accumulate;stroke-width:0.453435;fill-opacity:1;fill:currentColor;"
+         d="m -19.473305,-6.000001 h 6.928689 v 3 h -6.928689 z"
+         fill-opacity="1"
+         fill-rule="nonzero"
+         stroke="none"
+         marker="none"
+         visibility="visible"
+         display="inline"
+         overflow="visible"
+         id="path6"
+         class="ColorScheme-Text" />
+      <path
+         style="enable-background:accumulate;stroke-width:0.392687;fill-opacity:1;fill:currentColor;"
+         d="m -19.473305,-1.000001 h 6.928689 v 3 h -6.928689 z"
+         fill-opacity="1"
+         fill-rule="nonzero"
+         stroke="none"
+         marker="none"
+         visibility="visible"
+         display="inline"
+         overflow="visible"
+         id="path8"
+         class="ColorScheme-Text" />
+      <path
+         style="enable-background:accumulate;stroke-width:0.438647;fill-opacity:1;fill:currentColor;"
+         d="m -19.473304,3.999999 h 6.928691 V 8.07618 h 3.873696 L -16.008958,16.728461 -23.347,8.07618 h 3.873696 z"
+         fill-opacity="1"
+         fill-rule="nonzero"
+         stroke="none"
+         marker="none"
+         visibility="visible"
+         display="inline"
+         overflow="visible"
+         id="path10"
+         sodipodi:nodetypes="cccccccc"
+         class="ColorScheme-Text" />
+      <rect
+         x="-26"
+         y="16.999998"
+         width="20"
+         height="1"
+         id="rect6"
+         style="stroke-width:0.0641237;fill-opacity:1;fill:currentColor;"
+         class="ColorScheme-Text" />
+    </g>
+  </g>
+  <g
+     id="22-22-ktorrent"
+     transform="translate(32,10.000001)"
+     style="fill:#d1d5e9;fill-opacity:1">
+    <rect
+       style="opacity:0.00100002;fill:#d1d5e9;fill-opacity:1"
+       width="22"
+       height="22"
+       x="0"
+       y="0"
+       id="rect2" />
+    <path
+       style="enable-background:accumulate;stroke-width:0.302288;fill-opacity:1;fill:currentColor;"
+       d="m 8.700468,3 h 4.619117 V 5 H 8.700468 Z"
+       fill-opacity="1"
+       fill-rule="nonzero"
+       stroke="none"
+       marker="none"
+       visibility="visible"
+       display="inline"
+       overflow="visible"
+       id="path6-7"
+       class="ColorScheme-Text" />
+    <path
+       style="enable-background:accumulate;stroke-width:0.261788;fill-opacity:1;fill:currentColor;"
+       d="m 8.700468,6.005 h 4.619117 v 2 H 8.700468 Z"
+       fill-opacity="1"
+       fill-rule="nonzero"
+       stroke="none"
+       marker="none"
+       visibility="visible"
+       display="inline"
+       overflow="visible"
+       id="path8-5"
+       class="ColorScheme-Text" />
+    <path
+       style="enable-background:accumulate;stroke-width:0.292429;fill-opacity:1;fill:currentColor;"
+       d="m 8.700469,9.5 h 4.619119 v 2.619452 h 2.582474 l -4.892033,5.768187 -4.892028,-5.768187 h 2.582468 z"
+       fill-opacity="1"
+       fill-rule="nonzero"
+       stroke="none"
+       marker="none"
+       visibility="visible"
+       display="inline"
+       overflow="visible"
+       id="path10-3"
+       sodipodi:nodetypes="cccccccc"
+       class="ColorScheme-Text" />
+    <rect
+       x="3.5"
+       y="18"
+       width="15.200008"
+       height="1"
+       id="rect6-3"
+       style="stroke-width:0.0559017;fill-opacity:1;fill:currentColor;"
+       class="ColorScheme-Text" />
+  </g>
+</svg>

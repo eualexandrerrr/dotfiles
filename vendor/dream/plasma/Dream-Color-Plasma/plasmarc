@@ -1,0 +1,18 @@
+[BlurBehindEffect]
+enabled=true
+
+[ContrastEffect]
+blur=2.0
+enabled=false
+contrast=0.8
+intensity=1.4
+saturation=10
+
+[AdaptiveTransparency]
+enabled=true
+
+[Wallpaper]
+defaultWallpaperTheme=Dream Wallpaper
+defaultFileSuffix=.png
+defaultWidth=1920
+defaultHeight=1080
