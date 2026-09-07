@@ -117,8 +117,11 @@ for (var i = 0; i < ps.length; i++) {
 painel_id="$(painel_da_horizontal)"
 if [[ -n $painel_id ]]; then
     kwriteconfig6 --file plasmashellrc --group PlasmaViews --group "Panel $painel_id" --key floating 0
-    kwriteconfig6 --file plasmashellrc --group PlasmaViews --group "Panel $painel_id" --key panelOpacity 2
-    printf 'painel: encostado e translucido (Panel %s)\n' "$painel_id"
+    # panelOpacity=1 e opaco. Em 2 (translucido) o wallpaper vaza pela barra e o
+    # resultado e um degrade lodoso que muda de cor conforme a imagem de fundo.
+    kwriteconfig6 --file plasmashellrc --group PlasmaViews --group "Panel $painel_id" --key panelOpacity 1
+    kwriteconfig6 --file plasmashellrc --group PlasmaViews --group "Panel $painel_id" --group Defaults --key thickness 56
+    printf 'painel: encostado, opaco, 56px (Panel %s)\n' "$painel_id"
 else
     printf 'painel: nao descobri o id\n' >&2
 fi
