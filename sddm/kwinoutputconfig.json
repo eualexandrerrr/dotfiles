@@ -1,0 +1,17 @@
+{
+    "outputs": [
+        {
+            "connectorName": "DP-1",
+            "enabled": true,
+            "primary": true,
+            "mode": { "width": 2560, "height": 1440, "refreshRate": 180000 },
+            "position": { "x": 0, "y": 0 },
+            "scale": 1,
+            "transform": "Normal"
+        },
+        {
+            "connectorName": "DP-2",
+            "enabled": false
+        }
+    ]
+}

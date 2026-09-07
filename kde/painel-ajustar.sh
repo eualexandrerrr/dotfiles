@@ -30,7 +30,7 @@ qdbus6 "${PS[@]}" "" >/dev/null 2>&1 || { printf 'painel: plasmashell nao respon
 #                        tamanho: a miniatura e gridUnit*16, derivada da fonte, e a
 #                        lista e a unica alternativa menor que o applet oferece.
 # ── um painel so, nunca na tela vertical ─────────────────────────────────────
-# O monitor em pe e ocupado em tela cheia pelo widget-claude: painel ali so rouba altura.
+# O monitor em pe e ocupado em tela cheia pelo RicePanel: painel ali so rouba altura.
 # A regra e por geometria, nao por indice de tela -- o indice muda quando o kscreen
 # reordena as saidas, a orientacao nao.
 qdbus6 "${PS[@]}" '

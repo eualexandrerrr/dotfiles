@@ -159,7 +159,7 @@ fonte, nao mtime, porque `git clone` carimba tudo com a hora do clone.
 
 ASUS XG27ACS **2560x1440@180** (principal) e LG UltraGear **1920x1080@144** (vertical).
 O LG aceita 2560x1440, mas escalado e a 75 Hz -- sempre o modo nativo. Principal em paisagem a direita; secundario em pe a esquerda, ocupado em
-tela cheia pelo `widget-claude` (painel de widgets, repo `Utils`). O vertical girado ocupa
+tela cheia pelo `RicePanel` (`~/Apps/desktop/RicePanel`). O vertical girado ocupa
 1080 de largura (1920 girado), por isso o principal comeca em x=1080.
 
 `kde/monitores.conf`, casado por **nome de conector** porque os dois sao iguais e resolucao

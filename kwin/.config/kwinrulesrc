@@ -1,11 +1,11 @@
 [General]
 count=1
-rules=widget-claude-sem-barra
+rules=ricepanel-sem-barra
 
-[widget-claude-sem-barra]
-Description=widget-claude fora da barra de tarefas
+[ricepanel-sem-barra]
+Description=RicePanel fora da barra de tarefas
 skiptaskbar=true
 skiptaskbarrule=2
-wmclass=widget-claude
+wmclass=ricepanel
 wmclasscomplete=false
 wmclassmatch=1

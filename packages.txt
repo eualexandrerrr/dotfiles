@@ -154,7 +154,7 @@ libksysguard
 bluez-qt
 
 [repo-oficial:painel-segundo-monitor]
-# O monitor vertical e ocupado em tela cheia pelo widget-claude, que roda em
+# O monitor vertical e ocupado em tela cheia pelo RicePanel, que roda em
 # Electron. Preferimos o electron do pacman ao binario que o npm baixa: o do npm
 # vem sem o setuid do chrome-sandbox (o servico de rede do Chromium morre no
 # start) e sao 106 MB fora do controle de pacotes.

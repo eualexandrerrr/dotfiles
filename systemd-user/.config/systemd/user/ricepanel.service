@@ -1,11 +1,11 @@
 [Unit]
-Description=widget-claude: painel do monitor vertical
+Description=RicePanel: painel do monitor vertical
 PartOf=graphical-session.target
 After=plasma-plasmashell.service
 
 [Service]
 Type=simple
-WorkingDirectory=%h/Utils/widget-claude
+WorkingDirectory=%h/Apps/desktop/RicePanel
 ExecStart=/usr/bin/electron --password-store=basic .
 Restart=on-failure
 RestartSec=5

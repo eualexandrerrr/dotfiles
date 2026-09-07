@@ -32,7 +32,7 @@ cada um no seu pacote, linkado pelo GNU Stow.
 | Fonte | 850 W, 80 Plus Gold | montada atrás da bandeja |
 | SSD | Corsair MP700 ELITE, 932 GB, NVMe | Gen4 x4 pela CPU; Arch em `/`, imagem da VM em `/home` |
 | Gabinete | PCYes Forcefield Mini Black Vulcan | mini tower, GPU até 310 mm |
-| Monitores | ASUS XG27ACS 2560x1440@180Hz + LG UltraGear **1920x1080@144Hz** | o ASUS em paisagem à direita; o LG em pé à esquerda, com o widget-claude |
+| Monitores | ASUS XG27ACS 2560x1440@180Hz + LG UltraGear **1920x1080@144Hz** | o ASUS em paisagem à direita; o LG em pé à esquerda, com o RicePanel |
 
 ### Por que duas GPUs
 
@@ -65,7 +65,7 @@ RX 550 sai por um cabo riser de 20 cm e fica fixada fora dos brackets, embaixo d
 | Jogos | dentro da VM Windows com GPU passthrough — ver `vm/` |
 | VMs | `qemu-full`, `libvirt`, `virt-manager` |
 | Agente no terminal | `claude-code` (AUR) |
-| Segundo monitor | `widget-claude` em tela cheia, do repo [Utils](https://github.com/eualexandrerrr/Utils) — ver [Monitores](#monitores) |
+| Segundo monitor | `RicePanel` em tela cheia (`~/Apps/desktop/RicePanel`) — ver [Monitores](#monitores) |
 
 Barra, painéis, wallpaper e disposição de monitores continuam sendo do próprio Plasma e
 não são versionados: o KDE grava dezenas de arquivos em `~/.config` com estado misturado à
@@ -95,7 +95,9 @@ dotfiles
 ├── apps                      .local/share/applications/*.desktop
 ├── git                       .gitconfig: identidade e o gh como credential helper
 ├── xdg                       user-dirs: home sem as pastas padrão do Linux
-├── systemd-user              units do usuário (widget-claude no monitor vertical)
+├── systemd-user              units do usuário (RicePanel no monitor vertical)
+├── perfil                    avatar.png: foto do perfil (KDE e tela de login)
+├── sddm                      kwinoutputconfig.json: greeter só no monitor principal
 │
 ├── kde                       scripts e decisões do Plasma
 │   ├── settings.conf         311 chaves (gerado pelo capture, não editar)
@@ -688,6 +690,23 @@ Roda **a cada logon**, pelo `autostart/.config/autostart/dns-rapido.desktop`. N�
 sudo: o polkit já deixa a sessão local mexer na conexão do NetworkManager. Log em
 `~/dns-rapido.log`.
 
+## Tela de login e foto do perfil
+
+A mesma `perfil/avatar.png` do [MyWinISO](https://github.com/eualexandrerrr/MyWinISO) — o
+rosto é o mesmo nos dois sistemas. Vai pra dois lugares, porque cada um lê de um:
+
+| Onde | Arquivo |
+|:--|:--|
+| KDE (menu, tela de bloqueio) | `/var/lib/AccountsService/icons/$USER` + `users/$USER` |
+| Resto (SDDM, apps genéricos) | `~/.face.icon` |
+
+O greeter usa o Breeze com o wallpaper do monitor principal, por `theme.conf.user` — o
+`theme.conf` do pacote volta a cada update, o `.user` não.
+
+O greeter roda um **kwin próprio**, com config separada da sua sessão. Sem dizer nada a ele,
+o formulário de login escolhe o monitor sozinho e às vezes cai no vertical. O
+`sddm/kwinoutputconfig.json` deixa só o DP-1 ligado, no modo nativo.
+
 ## Monitores
 
 Dois monitores 2560x1440: principal em paisagem à direita, secundário em pé à esquerda.
@@ -755,14 +774,14 @@ inerente ao modelo: a proteção ali é ter o pendrive na mão, não a permissã
 
 ### O segundo monitor é o painel
 
-O monitor vertical não é área de trabalho: ele é ocupado em tela cheia pelo **widget-claude** —
+O monitor vertical não é área de trabalho: ele é ocupado em tela cheia pelo **RicePanel** —
 cota do Claude Code, erros do Sentry, anotações do Discord, os dois consoles do txAdmin, relógio
 e temperaturas. Mora no repo [Utils](https://github.com/eualexandrerrr/Utils), pasta
-`widget-claude`, e sobe junto com a sessão gráfica.
+`RicePanel`, e sobe junto com a sessão gráfica.
 
 ```bash
 git clone https://github.com/eualexandrerrr/Utils.git
-Utils/widget-claude/linux/instalar.sh
+Apps/desktop/RicePanel
 ```
 
 #### Sem notificação
@@ -773,16 +792,16 @@ próprio painel já basta; o popup por cima da tela não.
 
 ```ini
 # plasma/.config/plasmanotifyrc
-[Applications][widget-claude]
+[Applications][ricepanel]
 ShowPopups=false
 ```
 
 **Só a chave não resolve.** Sem um `.desktop` o KDE não consegue resolver a identidade do
 aplicativo e ignora a regra — medido: com a chave posta e sem `.desktop`, a notificação
-apareceu do mesmo jeito. Por isso existe `apps/.local/share/applications/widget-claude.desktop`,
+apareceu do mesmo jeito. Por isso existe `apps/.local/share/applications/RicePanel.desktop`,
 que serve só para isso, e é `NoDisplay` porque quem sobe o painel é a unit do systemd.
 
-Com os dois no lugar, testado nos três estados: notificação do `widget-claude` **não**
+Com os dois no lugar, testado nos três estados: notificação do `RicePanel` **não**
 aparece, e uma de outro aplicativo qualquer continua aparecendo.
 
 #### Fora da barra de tarefas
@@ -796,8 +815,8 @@ Quem resolve é uma regra de janela do KWin, em `kwinrulesrc` — versionada com
 outra chave:
 
 ```ini
-[widget-claude-sem-barra]
-wmclass=widget-claude       # classe própria, não pega outros apps Electron
+[RicePanel-sem-barra]
+wmclass=RicePanel       # classe própria, não pega outros apps Electron
 wmclassmatch=1              # 1 = exata
 skiptaskbar=true
 skiptaskbarrule=2           # 2 = Force
@@ -808,12 +827,12 @@ aberta ganha o `_NET_WM_STATE_SKIP_TASKBAR`.
 
 
 O instalador confere as dependências, resolve o Electron e escreve
-`~/.config/systemd/user/widget-claude.service`. O `Restart=on-failure` da unit faz o papel do
+`~/.config/systemd/user/RicePanel.service`. O `Restart=on-failure` da unit faz o papel do
 watchdog que existia no Windows: queda volta sozinha, e fechar pelo X do painel é saída limpa —
 fica fechado até alguém mandar subir.
 
 ```bash
-systemctl --user status widget-claude
+systemctl --user status RicePanel
 tail -f <pasta>/widget.log
 ```
 
@@ -884,7 +903,7 @@ Duas coisas que só valem aqui e custaram tempo pra descobrir:
 - 05/09/2026: MCP do Claude Code restaurados do backup do Windows via `bin/mcp-restaurar.sh`.
 - 05/09/2026: configuração do KDE passou a ser versionada em `kde/settings.conf`,
   com `kde-capture.sh` / `kde-apply.sh` fazendo o ida e volta com a GUI.
-- 05/09/2026: o widget-claude (painel do segundo monitor, do repo `Utils`) foi portado do Windows
+- 05/09/2026: o RicePanel (painel do segundo monitor, do repo `Utils`) foi portado do Windows
   pro Linux e passou a subir por unit do systemd — ver [Monitores](#monitores).
 - 05/09/2026: `powermanagementprofilesrc` entrou no espelhamento — o PC não suspende, não
   apaga e não escurece a tela por inatividade. Ver [Energia](#energia).

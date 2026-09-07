@@ -4,9 +4,6 @@ Seen=true
 [Applications][google-chrome]
 Seen=true
 
-[Applications][widget-claude]
+[Applications][ricepanel]
 Seen=true
 ShowPopups=false
-
-[DoNotDisturb]
-NotificationSoundsMuted=false
