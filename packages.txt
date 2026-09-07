@@ -1,6 +1,7 @@
 # Um pacote por linha. Seções [repo-oficial:*] vão pro pacman, [aur] vai pro paru.
 
 [repo-oficial:base]
+age
 archlinux-keyring
 base-devel
 curl

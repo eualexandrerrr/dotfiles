@@ -106,6 +106,11 @@ dotfiles
 │   ├── painel-ajustar.sh     repõe as decisões do painel (idempotente)
 │   ├── tema-instalar.sh      instala o Windows Modern a partir do vendor
 │   └── sessao-teste.sh       Plasma inteiro numa janela, pra testar sem risco
+├── segredos                  credenciais cifradas (ver Credenciais)
+│   ├── lista.txt             o que entra no pacote, um caminho por linha
+│   ├── guardar.sh            coleta do $HOME, cifra e grava no dotfiles-private
+│   ├── restaurar.sh          decifra e repõe no $HOME (etapa 12 do install)
+│   └── comum.sh              monta o pendrive e acha a chave
 ├── bin                       comandos
 │   ├── recorte-clipboard.sh  Shift+Print: região da tela → área de transferência
 │   ├── nvidia-desempenho.sh  GPU em performance máxima no login
@@ -624,6 +629,38 @@ primário saem exatamente como estão na sessão.
 
 O `kscreen-doctor` sai com código 0 mesmo recusando um modo, então o `monitores.sh` confere a
 geometria depois de aplicar e só reporta sucesso se ela bater com o conf.
+
+## Credenciais
+
+Segredo não mora neste repo — ele é público. Mora no **`dotfiles-private`**, e mesmo lá vai
+cifrado: o GitHub só enxerga bytes.
+
+```
+dotfiles-private/
+├── segredos.tar.age    cifrado para a chave do pendrive
+└── chave.txt.age       a própria chave, cifrada por senha (recuperação)
+```
+
+A chave privada fica **só no pendrive do Ventoy**, em `dotfiles/chave.txt` — o mesmo pendrive
+que carrega o MyArchISO. Posse física: quem não tem o pendrive não abre o pacote, mesmo com
+acesso total à conta do GitHub.
+
+```
+guardar:    bash ~/.dotfiles/segredos/guardar.sh     # com o pendrive espetado
+restaurar:  bash ~/.dotfiles/segredos/restaurar.sh   # o install.sh já chama sozinho
+```
+
+O `restaurar.sh` **nunca derruba a instalação**: sem pendrive, sem rede ou sem repo privado
+ele avisa e sai com 0. Se o pendrive não estiver lá mas o repo sim, cai na recuperação por
+senha (`chave.txt.age`) — que é o que te salva se perder o pendrive. Perder os dois é perder
+os segredos; guarde a senha no gerenciador.
+
+O que entra está em `segredos/lista.txt`; o que não existir na hora é ignorado. Arquivo que
+já existe no destino vira `.bak-<carimbo>` antes de ser substituído, e as permissões são
+refeitas (`.ssh` 700, arquivos 600).
+
+O `chave.txt` no pendrive fica com modo 755 porque exfat não guarda bit de permissão. É
+inerente ao modelo: a proteção ali é ter o pendrive na mão, não a permissão do arquivo.
 
 ### O segundo monitor é o painel
 

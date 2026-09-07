@@ -1,0 +1,5 @@
+# Um caminho por linha, relativo ao $HOME. O que nao existir na hora e ignorado.
+.ssh
+.config/gh/hosts.yml
+.claude/.credentials.json
+.npmrc

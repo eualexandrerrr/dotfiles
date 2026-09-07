@@ -83,6 +83,7 @@ O `install.sh` distingue sozinho: pacote e a pasta que tem entrada com ponto na 
 ```
 zsh ghostty kwin plasma dolphin powerdevil autostart apps git   <- pacotes, viram links no $HOME
 kde        scripts e decisoes do Plasma (settings.conf, monitores.conf, layout-once...)
+segredos   credenciais cifradas com age; chave so no pendrive do Ventoy
 bin        comandos
 vm         VM Windows com passthrough (XML do libvirt, hooks)
 vendor     tema Windows Modern, versionado

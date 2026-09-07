@@ -23,8 +23,8 @@ RED=$'\e[1;31m'; GRN=$'\e[1;32m'; YEL=$'\e[1;33m'; BLU=$'\e[1;34m'; END=$'\e[0m'
 LOGFILE="${LOGFILE:-$HOME/dotfiles-install.log}"
 T0=$SECONDS
 STEP=0
-TOTAL_STEPS=15
-[[ ${SKIP_NVIDIA:-0} == 1 ]] && TOTAL_STEPS=13
+TOTAL_STEPS=16
+[[ ${SKIP_NVIDIA:-0} == 1 ]] && TOTAL_STEPS=14
 WARNS=()
 OFICIAL_PEDIDOS=0; OFICIAL_NOVOS=(); OFICIAL_FALTANDO=()
 AUR_OK=(); AUR_JA=(); AUR_FALHA=()
@@ -466,6 +466,16 @@ link_dotfiles() {
     ok "$LINKS arquivos linkados"
 }
 
+restaurar_segredos() {
+    log "credenciais do dotfiles-private"
+    local script="$DOTFILES_DIR/segredos/restaurar.sh"
+    [[ -f $script ]] || { warn "$script ausente, credenciais nao restauradas"; return 0; }
+
+    # Nunca fatal: sem pendrive, sem rede ou sem repo privado a instalacao segue. O
+    # restaurar.sh ja sai com 0 nesses casos e explica o motivo.
+    DOTFILES_DIR="$DOTFILES_DIR" bash "$script" || true
+}
+
 configure_sddm() {
     log "configurando sddm (greeter Wayland com kwin, tema breeze, login automatico)"
     sudo mkdir -p /etc/sddm.conf.d
@@ -619,6 +629,7 @@ main() {
     enable_services
     fetch_dotfiles
     link_dotfiles
+    restaurar_segredos
     configure_sddm
     configure_kde_defaults
     install_windows_modern
