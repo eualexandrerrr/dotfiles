@@ -35,6 +35,35 @@ nvidia-settings
 nvidia-utils
 vulkan-icd-loader
 
+[repo-oficial:kde]
+ark
+breeze-gtk
+capitaine-cursors
+dolphin
+ffmpegthumbs
+gwenview
+kde-gtk-config
+kdegraphics-thumbnailers
+kio-admin
+ghostty
+kscreen
+kwallet-pam
+okular
+plasma-desktop
+plasma-nm
+plasma-pa
+polkit-kde-agent
+power-profiles-daemon
+powerdevil
+qt6-wayland
+sddm
+sddm-kcm
+spectacle
+tesseract-data-eng
+tesseract-data-por
+xdg-desktop-portal-kde
+xorg-xwayland
+
 [repo-oficial:hyprland]
 hyprland
 hyprlock
@@ -59,24 +88,6 @@ udiskie
 network-manager-applet
 qt5-wayland
 qt6ct
-
-[repo-oficial:apps-graficos]
-ark
-capitaine-cursors
-dolphin
-ffmpegthumbs
-ghostty
-gwenview
-kdegraphics-thumbnailers
-kio-admin
-okular
-power-profiles-daemon
-qt6-wayland
-sddm
-tesseract-data-eng
-tesseract-data-por
-weston
-xorg-xwayland
 
 [repo-oficial:desktop]
 networkmanager
@@ -139,6 +150,32 @@ mariadb
 mariadb-clients
 qemu-full
 virt-manager
+
+[repo-oficial:windows-modern]
+kvantum
+cmake
+extra-cmake-modules
+kpackage
+kconfig
+ki18n
+kwindowsystem
+kio
+kiconthemes
+kitemmodels
+kservice
+kxmlgui
+kjobwidgets
+kcmutils
+knotifications
+plasma-activities
+plasma-activities-stats
+libplasma
+plasma-workspace
+libksysguard
+# A bandeja do Windows-Modern importa org.kde.bluezqt sem guarda nenhuma
+# (components/BluetoothToggle.qml), entao o applet inteiro morre sem ele.
+# Puxa o bluez junto, mas o bluetooth.service fica desabilitado.
+bluez-qt
 
 [repo-oficial:painel-segundo-monitor]
 # O monitor vertical e ocupado em tela cheia pelo widget-claude, que roda em

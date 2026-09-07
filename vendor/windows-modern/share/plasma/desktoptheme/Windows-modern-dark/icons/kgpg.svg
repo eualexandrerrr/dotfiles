@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="22"
+   height="22"
+   id="svg3869"
+   version="1.1"
+   inkscape:version="1.1 (c4e8f9ed74, 2021-05-24)"
+   sodipodi:docname="kgpg.svgz"
+   viewBox="0 0 22 22"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <defs
+     id="defs3871">
+    <style
+       type="text/css"
+       id="current-color-scheme">
+      .ColorScheme-Text {
+        color:#31363b;
+      }
+      .ColorScheme-Background {
+        color:#eff0f1;
+      }
+      .ColorScheme-Highlight {
+        color:#3daee9;
+      }
+      .ColorScheme-ViewText {
+        color:#31363b;
+      }
+      .ColorScheme-ViewBackground {
+        color:#fcfcfc;
+      }
+      .ColorScheme-ViewHover {
+        color:#93cee9;
+      }
+      .ColorScheme-ViewFocus{
+        color:#3daee9;
+      }
+      .ColorScheme-ButtonText {
+        color:#31363b;
+      }
+      .ColorScheme-ButtonBackground {
+        color:#eff0f1;
+      }
+      .ColorScheme-ButtonHover {
+        color:#93cee9;
+      }
+      .ColorScheme-ButtonFocus{
+        color:#3daee9;
+      }
+      </style>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#c8c8c8"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="16"
+     inkscape:cx="6.71875"
+     inkscape:cy="11.40625"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-width="1920"
+     inkscape:window-height="958"
+     inkscape:window-x="0"
+     inkscape:window-y="40"
+     inkscape:window-maximized="1"
+     inkscape:showpageshadow="false"
+     inkscape:pagecheckerboard="0">
+    <inkscape:grid
+       type="xygrid"
+       id="grid4132"
+       originx="0"
+       originy="-1.74e-05" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata3874">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Capa 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-326,-534.36218)">
+    <g
+       id="kgpg"
+       transform="translate(326,556.36218)">
+      <rect
+         id="rect11"
+         width="22"
+         height="22"
+         x="5.0495145e-15"
+         y="-22"
+         style="fill:none" />
+      <path
+         style="color:#000000;fill:#ffffff;fill-opacity:1;-inkscape-stroke:none"
+         d="m 11,-19 c 1.6569,0 3,1.34315 3,3 v 1 h 1 c 1.1046,0 2,0.89543 2,2 v 8 c 0,1.1046 -0.8954,2 -2,2 H 7 C 5.89543,-3 5,-3.8954 5,-5 v -8 c 0,-1.10457 0.89543,-2 2,-2 h 1 v -1 c 0,-1.65685 1.34315,-3 3,-3 z m 4,5 H 7 c -0.55228,0 -1,0.44772 -1,1 v 8 c 0,0.5523 0.44772,1 1,1 h 8 c 0.5523,0 1,-0.4477 1,-1 v -8 c 0,-0.55228 -0.4477,-1 -1,-1 z m -4,4.5 c 0.5523,0 1,0.4477 1,1 0,0.5523 -0.4477,1 -1,1 -0.55228,0 -1,-0.4477 -1,-1 0,-0.5523 0.44772,-1 1,-1 z m 0,-8.5 c -1.10457,0 -2,0.89543 -2,2 v 1 h 4 v -1 c 0,-1.10457 -0.8954,-2 -2,-2 z"
+         id="path13761" />
+    </g>
+  </g>
+</svg>

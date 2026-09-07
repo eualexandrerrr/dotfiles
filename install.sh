@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Pós-instalação do Arch: pacotes, NVIDIA, Hyprland, serviços e symlinks deste repo.
+# Pós-instalação do Arch: pacotes, NVIDIA, KDE Plasma, serviços e symlinks deste repo.
 # Idempotente: pode rodar de novo a qualquer hora.
 #
 #   SKIP_NVIDIA=1 ./install.sh    força pular driver e parâmetros de kernel
@@ -23,8 +23,8 @@ RED=$'\e[1;31m'; GRN=$'\e[1;32m'; YEL=$'\e[1;33m'; BLU=$'\e[1;34m'; END=$'\e[0m'
 LOGFILE="${LOGFILE:-$HOME/dotfiles-install.log}"
 T0=$SECONDS
 STEP=0
-TOTAL_STEPS=12
-[[ ${SKIP_NVIDIA:-0} == 1 ]] && TOTAL_STEPS=10
+TOTAL_STEPS=14
+[[ ${SKIP_NVIDIA:-0} == 1 ]] && TOTAL_STEPS=12
 WARNS=()
 OFICIAL_PEDIDOS=0; OFICIAL_NOVOS=(); OFICIAL_FALTANDO=()
 AUR_OK=(); AUR_JA=(); AUR_FALHA=()
@@ -410,7 +410,7 @@ link_dotfiles() {
 }
 
 configure_sddm() {
-    log "configurando sddm (greeter Wayland, login automatico)"
+    log "configurando sddm (greeter Wayland com kwin, tema breeze, login automatico)"
     sudo mkdir -p /etc/sddm.conf.d
     # Login automatico. Relogin=false faz valer so na PRIMEIRA subida do sddm, que sao
     # exatamente os dois casos desejados: ligar o PC, e a volta da VM w11 (o hook para e
@@ -425,13 +425,58 @@ GreeterEnvironment=QT_WAYLAND_SHELL_INTEGRATION=layer-shell
 
 [Autologin]
 User=$USER
-Session=hyprland.desktop
+Session=plasma.desktop
 Relogin=false
 
 [Wayland]
-CompositorCommand=weston --shell=fullscreen-shell.so
+CompositorCommand=kwin_wayland --drm --no-lockscreen --no-global-shortcuts --locale1
+
+[Theme]
+Current=breeze
 EOF
     ok "/etc/sddm.conf.d/10-dotfiles.conf (login automatico de $USER)"
+}
+
+configure_kde_defaults() {
+    log "padroes do KDE a partir de kde/settings.conf"
+    mkdir -p "$HOME/.config"
+    if ! command -v kwriteconfig6 >/dev/null 2>&1; then
+        warn "kwriteconfig6 nao encontrado, ajuste teclado, terminal e tema nas Configuracoes do Sistema"
+        return 0
+    fi
+    local conf="$DOTFILES_DIR/kde/settings.conf"
+    local aplicar="$DOTFILES_DIR/kde/apply.sh"
+    if [[ -f $conf ]]; then
+        # Fonte unica: tudo que voce ajustou na GUI e capturou com kde/capture.sh.
+        # Teclado (repeticao), mouse (aceleracao), tema, icones, terminal padrao, bordas.
+        DOTFILES_DIR="$DOTFILES_DIR" bash "$aplicar" "$conf" \
+            && ok "kde-settings.conf aplicado" \
+            || warn "kde-apply.sh terminou com erro, confira as Configuracoes do Sistema"
+    else
+        warn "$conf ausente, aplicando so o minimo (teclado br, terminal ghostty, Breeze Dark)"
+        kwriteconfig6 --file kxkbrc --group Layout --key LayoutList br
+        kwriteconfig6 --file kxkbrc --group Layout --key Use true
+        kwriteconfig6 --file kdeglobals --group General --key TerminalApplication ghostty
+        kwriteconfig6 --file kdeglobals --group General --key TerminalService com.mitchellh.ghostty.desktop
+        kwriteconfig6 --file kdeglobals --group General --key ColorScheme BreezeDark
+        kwriteconfig6 --file plasmarc --group Theme --key name breeze-dark
+    fi
+    ok "layout estilo Windows 11 sera aplicado no primeiro login por kde/layout-once.sh"
+}
+
+install_windows_modern() {
+    log "tema Windows Modern: copiando de vendor/windows-modern e compilando a bandeja"
+    local tema="$DOTFILES_DIR/kde/tema-instalar.sh"
+    [[ -f $tema ]] || { warn "$tema ausente, tema pulado"; return 0; }
+
+    # --sem-aplicar: aqui so ficam os arquivos e o binario da bandeja. Aplicar o
+    # look-and-feel exige um Plasma rodando, e nesse ponto ainda nao ha sessao grafica --
+    # quem aplica e o kde/layout-once.sh, no primeiro login.
+    if DOTFILES_DIR="$DOTFILES_DIR" bash "$tema" --sem-aplicar; then
+        ok "tema instalado a partir do repo, sem clonar nada"
+    else
+        warn "tema-instalar.sh terminou com erro, confira o Windows Modern no primeiro login"
+    fi
 }
 
 summary() {
@@ -441,7 +486,7 @@ summary() {
     printf '%s  %s em %s%s\n' "$cor" "$titulo" "$(elapsed)" "$END"
     printf '%s========================================================%s\n\n' "$cor" "$END"
     printf 'dotfiles:   %s (branch %s), %d symlinks\n' "$DOTFILES_DIR" "$DOTFILES_BRANCH" "$LINKS"
-    printf 'desktop:    Hyprland (Wayland) via sddm\n'
+    printf 'desktop:    KDE Plasma (Wayland) via sddm\n'
     if [[ $SKIP_NVIDIA == 1 ]]; then
         printf 'driver:     pulado (sem placa NVIDIA ou SKIP_NVIDIA=1)\n'
     else
@@ -451,6 +496,7 @@ summary() {
     printf 'AUR:        %d instalados, %d ja estavam, %d falharam\n' "${#AUR_OK[@]}" "${#AUR_JA[@]}" "${#AUR_FALHA[@]}"
     printf 'servicos:   %d habilitados, %d falharam\n' "${#SERV_OK[@]}" "${#SERV_FALHA[@]}"
     printf 'claude:     %s\n' "$CLAUDE_VER"
+    printf 'tema:       Windows Modern de vendor/windows-modern (sem clone)\n'
     printf 'log:        %s\n\n' "$LOGFILE"
     if (( ${#OFICIAL_FALTANDO[@]} )); then printf '%s  oficiais faltando:%s %s\n' "$RED" "$END" "${OFICIAL_FALTANDO[*]}"; fi
     if (( ${#AUR_FALHA[@]} )); then printf '%s  AUR que falharam:%s %s\n  refazer: paru -S --needed %s\n' "$RED" "$END" "${AUR_FALHA[*]}" "${AUR_FALHA[*]}"; fi
@@ -479,6 +525,8 @@ main() {
     fetch_dotfiles
     link_dotfiles
     configure_sddm
+    configure_kde_defaults
+    install_windows_modern
     summary
 }
 

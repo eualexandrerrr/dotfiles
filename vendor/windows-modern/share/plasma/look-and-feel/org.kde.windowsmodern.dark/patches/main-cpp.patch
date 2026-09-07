@@ -1,0 +1,31 @@
+--- a/src/frontend/greeter/main.cpp
++++ b/src/frontend/greeter/main.cpp
+@@ -10,6 +10,8 @@
+ #include <QObject>
+ #include <QQmlContext>
+ #include <QScreen>
++#include <QDir>
++#include <QFile>
+ 
+ #include <KLocalizedString>
+ #include <KWindowSystem>
+@@ -85,7 +87,18 @@
+         window->installEventFilter(greeterEventFilter);
+         window->rootContext()->setContextProperty(QStringLiteral("greeterEventFilter"), greeterEventFilter);
+ 
+-        window->setSource(QUrl("qrc:/qt/qml/org/kde/plasma/login/Main.qml"));
++        QString systemThemePath = QStringLiteral("/usr/share/plasma/look-and-feel/org.kde.windowsmodern.dark"
++                                                  "/contents/lockscreen/Main.qml");
++        QString userThemePath = QDir::homePath()
++            + QStringLiteral("/.local/share/plasma/look-and-feel/org.kde.windowsmodern.dark"
++                             "/contents/lockscreen/Main.qml");
++        if (QFile::exists(systemThemePath)) {
++            window->setSource(QUrl::fromLocalFile(systemThemePath));
++        } else if (QFile::exists(userThemePath)) {
++            window->setSource(QUrl::fromLocalFile(userThemePath));
++        } else {
++            window->setSource(QUrl(QStringLiteral("qrc:/qt/qml/org/kde/plasma/login/Main.qml")));
++        }
+         window->show();
+     }
+ 

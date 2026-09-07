@@ -1,0 +1,307 @@
+<?xml version='1.0' encoding='utf-8'?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:ns1="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:ns2="http://www.inkscape.org/namespaces/inkscape" xmlns:ns3="http://www.w3.org/1999/xlink" width="120" height="280" version="1.0" viewBox="0 0 120 280" id="svg1172" ns1:docname="tasks.svgz" ns2:version="1.2.1 (9c6d41e410, 2022-07-14)">
+  <ns1:namedview pagecolor="#3D3D3D" bordercolor="#666666" borderopacity="1" objecttolerance="10" gridtolerance="10" guidetolerance="10" ns2:pageopacity="0" ns2:pageshadow="2" ns2:window-width="1920" ns2:window-height="1005" id="namedview700" showgrid="true" ns2:zoom="8" ns2:cx="-72.375" ns2:cy="119.4375" ns2:window-x="0" ns2:window-y="0" ns2:window-maximized="1" ns2:current-layer="svg1172" ns2:document-rotation="0" ns2:pagecheckerboard="0" ns2:snap-bbox="true" ns2:bbox-nodes="true" ns2:snap-bbox-edge-midpoints="true" showguides="true" ns2:guide-bbox="true" ns2:snap-nodes="true" ns2:showpageshadow="0" ns2:deskcolor="#3D3D3D">
+    <ns2:grid type="xygrid" id="grid4001" />
+  </ns1:namedview>
+  <defs id="defs5">
+    <style id="current-color-scheme" type="text/css">.ColorScheme-Text {
+        color:#FFFFFF;
+      }
+      .ColorScheme-Background {
+        color:#2C2C2C;
+      }
+      .ColorScheme-Highlight {
+        color:#60CDFF;
+      }
+      .ColorScheme-ViewText {
+        color:#FFFFFF;
+      }
+      .ColorScheme-ViewBackground {
+        color:#2C2C2C;
+      }
+      .ColorScheme-ViewHover {
+        color:#4A4A4A;
+      }
+      .ColorScheme-ViewFocus{
+        color:#60CDFF;
+      }
+      .ColorScheme-ButtonText {
+        color:#FFFFFF;
+      }
+      .ColorScheme-ButtonBackground {
+        color:#3D3D3D;
+      }
+      .ColorScheme-ButtonHover {
+        color:#4A4A4A;
+      }
+      .ColorScheme-ButtonFocus{
+        color:#60CDFF;
+      }
+      .ColorScheme-NeutralText {
+        color:#f67400;
+      }
+      .ColorScheme-PositiveText {
+        color:#27ae60;
+      }</style>
+  </defs>
+  <g id="group-expander-bottom" transform="translate(0,32)" />
+  <g id="group-expander-left" transform="translate(20,32)" />
+  <g id="group-expander-top" transform="translate(39,32)" />
+  <g id="group-expander-right" transform="translate(58,32)" />
+  <rect id="focus-topleft" width="2" height="2" x="-60" y="124" rx="0" ry="0" style="fill:none" />
+  <rect id="focus-top" width="26" height="2" x="-57" y="124" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="focus-left" width="2" height="26" x="-60" y="127" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="focus-right" width="2" height="26" x="-30" y="127" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="focus-topright" width="2" height="2" x="-30" y="124" rx="0" ry="0" style="fill:none" />
+  <rect id="focus-bottomleft" width="2" height="2" x="-60" y="154" rx="0" ry="0" style="fill:none" />
+  <rect id="focus-bottom" width="26" height="2" x="-57" y="154" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="focus-bottomright" width="2" height="2" x="-30" y="154" rx="0" ry="0" style="fill:none" />
+  <g id="focus-center" transform="translate(-157,28)">
+    <rect id="rect1929" width="26" height="26" x="100" y="99" rx="4" ry="4" fill="#FFFFFF" fill-opacity="0.09" stroke="#FFFFFF" stroke-opacity="0.03" stroke-width="1" />
+    <rect id="rect2616" width="10" height="2" x="108" y="123" rx="1" ry="1" class="ColorScheme-ViewHover" style="fill:#4CC2FF;fill-opacity:1" />
+  </g>
+  <rect id="minimized-topleft" width="2" height="2" x="-58" y="-12.000009" rx="0" ry="0" style="fill:none" />
+  <rect id="minimized-top" width="26" height="2" x="-55" y="-12.000009" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="minimized-left" width="2" height="26" x="-58" y="-9.0000067" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="minimized-right" width="2" height="26" x="-28" y="-9.0000067" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="minimized-topright" width="2" height="2" x="-28" y="-12.000009" rx="0" ry="0" style="fill:none" />
+  <rect id="minimized-bottomleft" width="2" height="2" x="-58" y="17.999994" rx="0" ry="0" style="fill:none" />
+  <rect id="minimized-bottom" width="26" height="2" x="-55" y="17.999994" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="minimized-bottomright" width="2" height="2" x="-28" y="17.999994" rx="0" ry="0" style="fill:none" />
+  <g id="minimized-center" transform="translate(-155,-108)">
+    <rect id="rect1929-3" width="26" height="26" x="100" y="99" rx="3" ry="3" style="fill:none" />
+    <rect id="rect2616-1" width="4" height="2" x="111" y="123" rx="1" ry="1" class="ColorScheme-Text" fill="#858585" style="opacity:1" />
+  </g>
+  <rect id="hover-topleft" width="2" height="2" x="-60" y="80" rx="0" ry="0" style="fill:none" />
+  <rect id="hover-top" width="26" height="2" x="-57" y="80" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="hover-left" width="2" height="26" x="-60" y="83" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="hover-right" width="2" height="26" x="-30" y="83" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="hover-topright" width="2" height="2" x="-30" y="80" rx="0" ry="0" style="fill:none" />
+  <rect id="hover-bottomleft" width="2" height="2" x="-60" y="110" rx="0" ry="0" style="fill:none" />
+  <rect id="hover-bottom" width="26" height="2" x="-57" y="110" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="hover-bottomright" width="2" height="2" x="-30" y="110" rx="0" ry="0" style="fill:none" />
+  <g id="hover-center" transform="translate(-157,-16)">
+    <rect id="rect1929-2" width="26" height="26" x="100" y="99" rx="4" ry="4" fill="#FFFFFF" fill-opacity="0.06" stroke="#FFFFFF" stroke-opacity="0.03" stroke-width="1" />
+    <rect id="rect2616-3" width="10" height="2" x="108" y="123" rx="1" ry="1" class="ColorScheme-ViewHover" style="fill:#4CC2FF;fill-opacity:1" />
+  </g>
+  <rect id="normal-topleft" width="2" height="2" x="-58.999996" y="31.999998" rx="0" ry="0" style="fill:none" />
+  <rect id="normal-top" width="26" height="2" x="-55.999996" y="31.999998" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="normal-left" width="2" height="26" x="-58.999996" y="34.999996" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="normal-right" width="2" height="26" x="-28.999996" y="34.999996" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="normal-topright" width="2" height="2" x="-28.999996" y="31.999998" rx="0" ry="0" style="fill:none" />
+  <rect id="normal-bottomleft" width="2" height="2" x="-58.999996" y="62" rx="0" ry="0" style="fill:none" />
+  <rect id="normal-bottom" width="26" height="2" x="-55.999996" y="62" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="normal-bottomright" width="2" height="2" x="-28.999996" y="62" rx="0" ry="0" style="fill:none" />
+  <g id="normal-center" transform="translate(-156,-64)">
+    <rect id="rect1929-1" width="26" height="26" x="100" y="99" rx="3" ry="3" style="fill:none" />
+    <rect id="rect2616-7" width="8" height="2" x="109" y="123" rx="1" ry="1" class="ColorScheme-Text" fill="#858585" style="opacity:1" />
+  </g>
+  <rect id="progress-topleft" width="2" height="2" x="-61.000011" y="176" rx="0" ry="0" style="fill:none" />
+  <rect id="progress-top" width="26" height="2" x="-58.000011" y="176" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="progress-left" width="2" height="26" x="-61.000011" y="179" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="progress-right" width="2" height="26" x="-31.000011" y="179" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="progress-topright" width="2" height="2" x="-31.000011" y="176" rx="0" ry="0" style="fill:none" />
+  <rect id="progress-bottomleft" width="2" height="2" x="-61.000011" y="206" rx="0" ry="0" style="fill:none" />
+  <rect id="progress-bottom" width="26" height="2" x="-58.000011" y="206" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="progress-bottomright" width="2" height="2" x="-31.000011" y="206" rx="0" ry="0" style="fill:none" />
+  <rect id="attention-topleft" width="2" height="2" x="-61" y="238" rx="0" ry="0" style="fill:none" />
+  <rect id="attention-top" width="26" height="2" x="-58" y="238" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="attention-left" width="2" height="26" x="-61" y="241" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="attention-right" width="2" height="26" x="-31" y="241" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="attention-topright" width="2" height="2" x="-31" y="238" rx="0" ry="0" style="fill:none" />
+  <rect id="attention-bottomleft" width="2" height="2" x="-61" y="268" rx="0" ry="0" style="fill:none" />
+  <rect id="attention-bottom" width="26" height="2" x="-58" y="268" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="attention-bottomright" width="2" height="2" x="-31" y="268" rx="0" ry="0" style="fill:none" />
+  <g id="attention-center" transform="translate(-158,142)">
+    <rect id="rect1929-2-5" width="26" height="26" x="100" y="99" rx="3" ry="3" style="fill:none" />
+    <rect id="rect2616-3-0" width="10" height="2" x="108" y="123" rx="1" ry="1" class="ColorScheme-NeutralText" fill="#2C2C2C" />
+  </g>
+  <rect id="north-focus-topleft" width="2" height="2" x="-147" y="124" rx="0" ry="0" style="fill:none" />
+  <rect id="north-focus-top" width="26" height="2" x="-144" y="124" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="north-focus-left" width="2" height="26" x="-147" y="127" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="north-focus-right" width="2" height="26" x="-117" y="127" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="north-focus-topright" width="2" height="2" x="-117" y="124" rx="0" ry="0" style="fill:none" />
+  <rect id="north-focus-bottomleft" width="2" height="2" x="-147" y="154" rx="0" ry="0" style="fill:none" />
+  <rect id="north-focus-bottom" width="26" height="2" x="-144" y="154" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="north-focus-bottomright" width="2" height="2" x="-117" y="154" rx="0" ry="0" style="fill:none" />
+  <rect id="north-minimized-topleft" width="2" height="2" x="-145" y="-12.000031" rx="0" ry="0" style="fill:none" />
+  <rect id="north-minimized-top" width="26" height="2" x="-142" y="-12.000031" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="north-minimized-left" width="2" height="26" x="-145" y="-9" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="north-minimized-right" width="2" height="26" x="-115" y="-9" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="north-minimized-topright" width="2" height="2" x="-115" y="-12.000031" rx="0" ry="0" style="fill:none" />
+  <rect id="north-minimized-bottomleft" width="2" height="2" x="-145" y="18" rx="0" ry="0" style="fill:none" />
+  <rect id="north-minimized-bottom" width="26" height="2" x="-142" y="18" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="north-minimized-bottomright" width="2" height="2" x="-115" y="18" rx="0" ry="0" style="fill:none" />
+  <g id="north-minimized-center" transform="translate(-241.99999,-108.00001)">
+    <rect id="rect1929-3-6" width="26" height="26" x="100" y="99" rx="3" ry="3" style="fill:none" />
+    <rect id="rect2616-1-3" width="4" height="2" x="111" y="123" rx="1" ry="1" class="ColorScheme-Text" fill="#858585" style="opacity:1" />
+  </g>
+  <rect id="north-hover-topleft" width="2" height="2" x="-147" y="80" rx="0" ry="0" style="fill:none" />
+  <rect id="north-hover-top" width="26" height="2" x="-144" y="80" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="north-hover-left" width="2" height="26" x="-147" y="83" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="north-hover-right" width="2" height="26" x="-117" y="83" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="north-hover-topright" width="2" height="2" x="-117" y="80" rx="0" ry="0" style="fill:none" />
+  <rect id="north-hover-bottomleft" width="2" height="2" x="-147" y="110" rx="0" ry="0" style="fill:none" />
+  <rect id="north-hover-bottom" width="26" height="2" x="-144" y="110" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="north-hover-bottomright" width="2" height="2" x="-117" y="110" rx="0" ry="0" style="fill:none" />
+  <rect id="north-normal-topleft" width="2" height="2" x="-146" y="32" rx="0" ry="0" style="fill:none" />
+  <rect id="north-normal-top" width="26" height="2" x="-143" y="32" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="north-normal-left" width="2" height="26" x="-146" y="35" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="north-normal-right" width="2" height="26" x="-116" y="35" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="north-normal-topright" width="2" height="2" x="-116" y="32" rx="0" ry="0" style="fill:none" />
+  <rect id="north-normal-bottomleft" width="2" height="2" x="-146" y="62" rx="0" ry="0" style="fill:none" />
+  <rect id="north-normal-bottom" width="26" height="2" x="-143" y="62" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="north-normal-bottomright" width="2" height="2" x="-116" y="62" rx="0" ry="0" style="fill:none" />
+  <g id="north-normal-center" transform="translate(-242.99999,-64.000007)">
+    <rect id="rect1929-1-1" width="26" height="26" x="100" y="99" rx="3" ry="3" style="fill:none" />
+    <rect id="rect2616-7-5" width="8" height="2" x="109" y="123" rx="1" ry="1" class="ColorScheme-Text" fill="#858585" style="opacity:1" />
+  </g>
+  <rect id="north-progress-topleft" width="2" height="2" x="-148" y="176" rx="0" ry="0" style="fill:none" />
+  <rect id="north-progress-top" width="26" height="2" x="-145" y="176" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="north-progress-left" width="2" height="26" x="-148" y="179" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="north-progress-right" width="2" height="26" x="-118" y="179" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="north-progress-topright" width="2" height="2" x="-118" y="176" rx="0" ry="0" style="fill:none" />
+  <rect id="north-progress-bottomleft" width="2" height="2" x="-148" y="206" rx="0" ry="0" style="fill:none" />
+  <rect id="north-progress-bottom" width="26" height="2" x="-145" y="206" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="north-progress-bottomright" width="2" height="2" x="-118" y="206" rx="0" ry="0" style="fill:none" />
+  <rect id="north-attention-topleft" width="2" height="2" x="-148" y="238" rx="0" ry="0" style="fill:none" />
+  <rect id="north-attention-top" width="26" height="2" x="-145" y="238" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="north-attention-left" width="2" height="26" x="-148" y="241" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="north-attention-right" width="2" height="26" x="-118" y="241" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="north-attention-topright" width="2" height="2" x="-118" y="238" rx="0" ry="0" style="fill:none" />
+  <rect id="north-attention-bottomleft" width="2" height="2" x="-148" y="268" rx="0" ry="0" style="fill:none" />
+  <rect id="north-attention-bottom" width="26" height="2" x="-145" y="268" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="north-attention-bottomright" width="2" height="2" x="-118" y="268" rx="0" ry="0" style="fill:none" />
+  <rect id="west-focus-topleft" width="2" height="2" x="-236" y="124.00001" rx="0" ry="0" style="fill:none" />
+  <rect id="west-focus-top" width="26" height="2" x="-233" y="124.00001" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="west-focus-left" width="2" height="26" x="-236" y="127.00001" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="west-focus-right" width="2" height="26" x="-206" y="127.00001" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="west-focus-topright" width="2" height="2" x="-206" y="124.00001" rx="0" ry="0" style="fill:none" />
+  <rect id="west-focus-bottomleft" width="2" height="2" x="-236" y="154" rx="0" ry="0" style="fill:none" />
+  <rect id="west-focus-bottom" width="26" height="2" x="-233" y="154" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="west-focus-bottomright" width="2" height="2" x="-206" y="154" rx="0" ry="0" style="fill:none" />
+  <rect id="west-minimized-topleft" width="2" height="2" x="-234" y="-12.000023" rx="0" ry="0" style="fill:none" />
+  <rect id="west-minimized-top" width="26" height="2" x="-231" y="-12.000023" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="west-minimized-left" width="2" height="26" x="-234" y="-8.9999924" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="west-minimized-right" width="2" height="26" x="-204" y="-8.9999924" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="west-minimized-topright" width="2" height="2" x="-204" y="-12.000023" rx="0" ry="0" style="fill:none" />
+  <rect id="west-minimized-bottomleft" width="2" height="2" x="-234" y="18.000006" rx="0" ry="0" style="fill:none" />
+  <rect id="west-minimized-bottom" width="26" height="2" x="-231" y="18.000006" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="west-minimized-bottomright" width="2" height="2" x="-204" y="18.000006" rx="0" ry="0" style="fill:none" />
+  <g id="west-minimized-center" transform="translate(-331,-108)">
+    <rect id="rect1929-3-3" width="26" height="26" x="100" y="99" rx="3" ry="3" style="fill:none" />
+    <rect id="rect2616-1-7" width="4" height="2" x="110" y="-102" rx="1" ry="1" class="ColorScheme-Text" fill="#858585" style="opacity:1" transform="rotate(90)" />
+  </g>
+  <rect id="west-hover-topleft" width="2" height="2" x="-236" y="80.000008" rx="0" ry="0" style="fill:none" />
+  <rect id="west-hover-top" width="26" height="2" x="-233" y="80.000008" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="west-hover-left" width="2" height="26" x="-236" y="83.000008" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="west-hover-right" width="2" height="26" x="-206" y="83.000008" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="west-hover-topright" width="2" height="2" x="-206" y="80.000008" rx="0" ry="0" style="fill:none" />
+  <rect id="west-hover-bottomleft" width="2" height="2" x="-236" y="110.00001" rx="0" ry="0" style="fill:none" />
+  <rect id="west-hover-bottom" width="26" height="2" x="-233" y="110.00001" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="west-hover-bottomright" width="2" height="2" x="-206" y="110.00001" rx="0" ry="0" style="fill:none" />
+  <rect id="west-normal-topleft" width="2" height="2" x="-235" y="32.000008" rx="0" ry="0" style="fill:none" />
+  <rect id="west-normal-top" width="26" height="2" x="-232" y="32.000008" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="west-normal-left" width="2" height="26" x="-235" y="35.000008" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="west-normal-right" width="2" height="26" x="-205" y="35.000008" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="west-normal-topright" width="2" height="2" x="-205" y="32.000008" rx="0" ry="0" style="fill:none" />
+  <rect id="west-normal-bottomleft" width="2" height="2" x="-235" y="62.000008" rx="0" ry="0" style="fill:none" />
+  <rect id="west-normal-bottom" width="26" height="2" x="-232" y="62.000008" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="west-normal-bottomright" width="2" height="2" x="-205" y="62.000008" rx="0" ry="0" style="fill:none" />
+  <g id="west-normal-center" transform="translate(-332,-64)">
+    <rect id="rect1929-1-2" width="26" height="26" x="100" y="99" rx="3" ry="3" style="fill:none" />
+    <rect id="rect2616-7-54" width="8" height="2" x="108" y="-102" rx="1" ry="1" class="ColorScheme-Text" fill="#858585" style="opacity:1" transform="rotate(90)" />
+  </g>
+  <rect id="west-progress-topleft" width="2" height="2" x="-237" y="175" rx="0" ry="0" style="fill:none" />
+  <rect id="west-progress-top" width="26" height="2" x="-234" y="175" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="west-progress-left" width="2" height="26" x="-237" y="178" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="west-progress-right" width="2" height="26" x="-207" y="178" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="west-progress-topright" width="2" height="2" x="-207" y="175" rx="0" ry="0" style="fill:none" />
+  <rect id="west-progress-bottomleft" width="2" height="2" x="-237" y="205" rx="0" ry="0" style="fill:none" />
+  <rect id="west-progress-bottom" width="26" height="2" x="-234" y="205" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="west-progress-bottomright" width="2" height="2" x="-207" y="205" rx="0" ry="0" style="fill:none" />
+  <rect id="west-attention-topleft" width="2" height="2" x="-237" y="237" rx="0" ry="0" style="fill:none" />
+  <rect id="west-attention-top" width="26" height="2" x="-234" y="237" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="west-attention-left" width="2" height="26" x="-237" y="240" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="west-attention-right" width="2" height="26" x="-207" y="240" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="west-attention-topright" width="2" height="2" x="-207" y="237" rx="0" ry="0" style="fill:none" />
+  <rect id="west-attention-bottomleft" width="2" height="2" x="-237" y="267" rx="0" ry="0" style="fill:none" />
+  <rect id="west-attention-bottom" width="26" height="2" x="-234" y="267" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="west-attention-bottomright" width="2" height="2" x="-207" y="267" rx="0" ry="0" style="fill:none" />
+  <rect id="east-focus-topleft" width="2" height="2" x="-332" y="124" rx="0" ry="0" style="fill:none" />
+  <rect id="east-focus-top" width="26" height="2" x="-329" y="124" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="east-focus-left" width="2" height="26" x="-332" y="127" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="east-focus-right" width="2" height="26" x="-302" y="127" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="east-focus-topright" width="2" height="2" x="-302" y="124" rx="0" ry="0" style="fill:none" />
+  <rect id="east-focus-bottomleft" width="2" height="2" x="-332" y="154" rx="0" ry="0" style="fill:none" />
+  <rect id="east-focus-bottom" width="26" height="2" x="-329" y="154" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="east-focus-bottomright" width="2" height="2" x="-302" y="154" rx="0" ry="0" style="fill:none" />
+  <rect id="east-minimized-topleft" width="2" height="2" x="-330" y="-12.000031" rx="0" ry="0" style="fill:none" />
+  <rect id="east-minimized-top" width="26" height="2" x="-327" y="-12.000031" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="east-minimized-left" width="2" height="26" x="-330" y="-9" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="east-minimized-right" width="2" height="26" x="-300" y="-9" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="east-minimized-topright" width="2" height="2" x="-300" y="-12.000031" rx="0" ry="0" style="fill:none" />
+  <rect id="east-minimized-bottomleft" width="2" height="2" x="-330" y="18" rx="0" ry="0" style="fill:none" />
+  <rect id="east-minimized-bottom" width="26" height="2" x="-327" y="18" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="east-minimized-bottomright" width="2" height="2" x="-300" y="18" rx="0" ry="0" style="fill:none" />
+  <g id="east-minimized-center" transform="rotate(-90,-154.5,271.49999)">
+    <rect id="rect1929-3-8" width="26" height="26" x="100" y="99" rx="3" ry="3" style="fill:none" />
+    <rect id="rect2616-1-8" width="4" height="2" x="111" y="123" rx="1" ry="1" class="ColorScheme-Text" fill="#858585" style="opacity:1" />
+  </g>
+  <rect id="east-hover-topleft" width="2" height="2" x="-332" y="80" rx="0" ry="0" style="fill:none" />
+  <rect id="east-hover-top" width="26" height="2" x="-329" y="80" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="east-hover-left" width="2" height="26" x="-332" y="83" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="east-hover-right" width="2" height="26" x="-302" y="83" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="east-hover-topright" width="2" height="2" x="-302" y="80" rx="0" ry="0" style="fill:none" />
+  <rect id="east-hover-bottomleft" width="2" height="2" x="-332" y="110" rx="0" ry="0" style="fill:none" />
+  <rect id="east-hover-bottom" width="26" height="2" x="-329" y="110" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="east-hover-bottomright" width="2" height="2" x="-302" y="110" rx="0" ry="0" style="fill:none" />
+  <rect id="east-normal-topleft" width="2" height="2" x="-331" y="32" rx="0" ry="0" style="fill:none" />
+  <rect id="east-normal-top" width="26" height="2" x="-328" y="32" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="east-normal-left" width="2" height="26" x="-331" y="35" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="east-normal-right" width="2" height="26" x="-301" y="35" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="east-normal-topright" width="2" height="2" x="-301" y="32" rx="0" ry="0" style="fill:none" />
+  <rect id="east-normal-bottomleft" width="2" height="2" x="-331" y="62" rx="0" ry="0" style="fill:none" />
+  <rect id="east-normal-bottom" width="26" height="2" x="-328" y="62" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="east-normal-bottomright" width="2" height="2" x="-301" y="62" rx="0" ry="0" style="fill:none" />
+  <g id="east-normal-center" transform="rotate(-90,-133,293.99999)">
+    <rect id="rect1929-1-4" width="26" height="26" x="100" y="99" rx="3" ry="3" style="fill:none" />
+    <rect id="rect2616-7-9" width="8" height="2" x="109" y="123" rx="1" ry="1" class="ColorScheme-Text" fill="#858585" style="opacity:1" />
+  </g>
+  <rect id="east-progress-topleft" width="2" height="2" x="-333" y="175" rx="0" ry="0" style="fill:none" />
+  <rect id="east-progress-top" width="26" height="2" x="-330" y="175" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="east-progress-left" width="2" height="26" x="-333" y="178" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="east-progress-right" width="2" height="26" x="-303" y="178" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="east-progress-topright" width="2" height="2" x="-303" y="175" rx="0" ry="0" style="fill:none" />
+  <rect id="east-progress-bottomleft" width="2" height="2" x="-333" y="205" rx="0" ry="0" style="fill:none" />
+  <rect id="east-progress-bottom" width="26" height="2" x="-330" y="205" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="east-progress-bottomright" width="2" height="2" x="-303" y="205" rx="0" ry="0" style="fill:none" />
+  <rect id="east-attention-topleft" width="2" height="2" x="-333" y="237" rx="0" ry="0" style="fill:none" />
+  <rect id="east-attention-top" width="26" height="2" x="-330" y="237" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="east-attention-left" width="2" height="26" x="-333" y="240" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="east-attention-right" width="2" height="26" x="-303" y="240" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="east-attention-topright" width="2" height="2" x="-303" y="237" rx="0" ry="0" style="fill:none" />
+  <rect id="east-attention-bottomleft" width="2" height="2" x="-333" y="267" rx="0" ry="0" style="fill:none" />
+  <rect id="east-attention-bottom" width="26" height="2" x="-330" y="267" rx="0" ry="0" style="fill:none;stroke-width:3.60555" />
+  <rect id="east-attention-bottomright" width="2" height="2" x="-303" y="267" rx="0" ry="0" style="fill:none" />
+  <g id="progress-center" transform="translate(-158,80)">
+    <rect id="rect1201" width="26" height="26" x="100" y="99" rx="3" ry="3" style="fill:none" />
+    <rect id="rect1203" width="24" height="4" x="101" y="110" rx="2" ry="2" class="ColorScheme-PositiveText" fill="#2C2C2C" />
+  </g>
+  <use x="0" y="0" ns3:href="#progress-center" id="north-progress-center" transform="translate(-87)" width="100%" height="100%" />
+  <use x="0" y="0" ns3:href="#progress-center" id="west-progress-center" transform="rotate(90,-132.5,103.5)" width="100%" height="100%" />
+  <use x="0" y="0" ns3:href="#progress-center" id="east-progress-center" transform="matrix(0,1,1,0,-509,236)" width="100%" height="100%" />
+  <use x="0" y="0" ns3:href="#attention-center" id="north-attention-center" transform="translate(-87)" width="100%" height="100%" />
+  <use x="0" y="0" ns3:href="#attention-center" id="west-attention-center" transform="rotate(90,-133,166)" width="100%" height="100%" />
+  <use x="0" y="0" ns3:href="#attention-center" id="east-attention-center" transform="matrix(0,1,1,0,-571,299)" width="100%" height="100%" />
+  <use x="0" y="0" ns3:href="#focus-center" id="use3099" transform="translate(-87)" width="100%" height="100%" />
+  <use x="0" y="0" ns3:href="#focus-center" id="west-focus-center" transform="rotate(90,-132,52)" width="100%" height="100%" />
+  <use x="0" y="0" ns3:href="#focus-center" id="east-focus-center" transform="matrix(0,1,1,0,-456,184)" width="100%" height="100%" />
+  <use x="0" y="0" ns3:href="#hover-center" id="north-hover-center" transform="translate(-87)" width="100%" height="100%" />
+  <use x="0" y="0" ns3:href="#hover-center" id="west-hover-center" transform="rotate(90,-132,8)" width="100%" height="100%" />
+  <use x="0" y="0" ns3:href="#hover-center" id="east-hover-center" transform="matrix(0,1,1,0,-412,140)" width="100%" height="100%" />
+  <rect id="thick-hint-top-margin" x="-46" y="83" width="4" height="4" fill="#ff00ff" />
+  <rect id="thick-hint-bottom-margin" x="-57" y="94" width="4" height="4" fill="#ff00ff" />
+  <rect id="thick-hint-right-margin" x="-35" y="94" width="4" height="4" fill="#ff00ff" />
+  <rect id="thick-hint-left-margin" x="-46" y="105" width="4" height="4" fill="#ff00ff" />
+</svg>

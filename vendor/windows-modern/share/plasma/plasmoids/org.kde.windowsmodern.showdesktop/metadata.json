@@ -1,0 +1,32 @@
+{
+    "KPackageStructure": "Plasma/Applet",
+    "KPlugin": {
+        "Authors": [
+            {
+                "Email": "jeysef@users.noreply.github.com",
+                "Name": "Jeysef"
+            },
+            {
+                "Email": "zrenfire@gmail.com",
+                "Name": "Chris Holland"
+            }
+        ],
+        "BugReportUrl": "https://github.com/Jeysef/KDE-Windows-Modern/issues",
+        "Category": "Windows and Tasks",
+        "Description": "Windows 11 style show-desktop sliver. Minimizes all windows on click.",
+        "EnabledByDefault": true,
+        "FormFactors": [
+            "desktop"
+        ],
+        "Icon": "user-desktop",
+        "Id": "org.kde.windowsmodern.showdesktop",
+        "License": "GPL-2.0-or-later",
+        "Name": "Show Desktop (Windows Modern)",
+        "Version": "1.0.0",
+        "Website": "https://github.com/Jeysef/KDE-Windows-Modern"
+    },
+    "X-Plasma-API-Minimum-Version": "6.0",
+    "X-Plasma-Provides": [
+        "org.kde.plasma.windowmanagement"
+    ]
+}

@@ -1,0 +1,11 @@
+[General]
+count=1
+rules=widget-claude-sem-barra
+
+[widget-claude-sem-barra]
+Description=widget-claude fora da barra de tarefas
+skiptaskbar=true
+skiptaskbarrule=2
+wmclass=widget-claude
+wmclasscomplete=false
+wmclassmatch=1

@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/2000/xlink" width="5" height="5" viewBox="0 0 5 5">
+  <style id="current-color-scheme">
+    .ColorScheme-Background { color: #202020; }
+  </style>
+
+  <!-- Active decoration -->
+  <g id="decoration-topleft">
+    <rect class="ColorScheme-Background" fill="currentColor" x="0" y="0" width="2" height="2"/>
+    <rect fill="#3F3F3F" x="0" y="0" width="1" height="2"/>
+    <rect fill="#3F3F3F" x="0" y="0" width="2" height="1"/>
+  </g>
+  <g id="decoration-top">
+    <rect class="ColorScheme-Background" fill="currentColor" x="0" y="0" width="1" height="1"/>
+    <rect fill="#3F3F3F" x="0" y="0" width="1" height="1"/>
+  </g>
+  <g id="decoration-topright">
+    <rect class="ColorScheme-Background" fill="currentColor" x="0" y="0" width="2" height="2"/>
+    <rect fill="#3F3F3F" x="1" y="0" width="1" height="2"/>
+    <rect fill="#3F3F3F" x="0" y="0" width="2" height="1"/>
+  </g>
+  <g id="decoration-left">
+    <rect class="ColorScheme-Background" fill="currentColor" x="0" y="0" width="1" height="1"/>
+    <rect fill="#3F3F3F" x="0" y="0" width="1" height="1"/>
+  </g>
+  <g id="decoration-right">
+    <rect class="ColorScheme-Background" fill="currentColor" x="0" y="0" width="1" height="1"/>
+    <rect fill="#3F3F3F" x="0" y="0" width="1" height="1"/>
+  </g>
+  <g id="decoration-bottomleft">
+    <rect class="ColorScheme-Background" fill="currentColor" x="0" y="0" width="2" height="2"/>
+    <rect fill="#3F3F3F" x="0" y="1" width="2" height="1"/>
+    <rect fill="#3F3F3F" x="0" y="0" width="1" height="2"/>
+  </g>
+  <g id="decoration-bottom">
+    <rect class="ColorScheme-Background" fill="currentColor" x="0" y="0" width="1" height="1"/>
+    <rect fill="#3F3F3F" x="0" y="0" width="1" height="1"/>
+  </g>
+  <g id="decoration-bottomright">
+    <rect class="ColorScheme-Background" fill="currentColor" x="0" y="0" width="2" height="2"/>
+    <rect fill="#3F3F3F" x="1" y="0" width="1" height="2"/>
+    <rect fill="#3F3F3F" x="0" y="1" width="2" height="1"/>
+  </g>
+  <rect id="decoration-center" class="ColorScheme-Background" fill="currentColor" x="0" y="0" width="1" height="1"/>
+
+  <!-- Inactive decoration (same look, dimmer border) -->
+  <g id="decoration-inactive-topleft">
+    <rect class="ColorScheme-Background" fill="currentColor" x="0" y="0" width="2" height="2"/>
+    <rect fill="#2A2A2A" x="0" y="0" width="1" height="2"/>
+    <rect fill="#2A2A2A" x="0" y="0" width="2" height="1"/>
+  </g>
+  <g id="decoration-inactive-top">
+    <rect class="ColorScheme-Background" fill="currentColor" x="0" y="0" width="1" height="1"/>
+    <rect fill="#2A2A2A" x="0" y="0" width="1" height="1"/>
+  </g>
+  <g id="decoration-inactive-topright">
+    <rect class="ColorScheme-Background" fill="currentColor" x="0" y="0" width="2" height="2"/>
+    <rect fill="#2A2A2A" x="1" y="0" width="1" height="2"/>
+    <rect fill="#2A2A2A" x="0" y="0" width="2" height="1"/>
+  </g>
+  <g id="decoration-inactive-left">
+    <rect class="ColorScheme-Background" fill="currentColor" x="0" y="0" width="1" height="1"/>
+    <rect fill="#2A2A2A" x="0" y="0" width="1" height="1"/>
+  </g>
+  <g id="decoration-inactive-right">
+    <rect class="ColorScheme-Background" fill="currentColor" x="0" y="0" width="1" height="1"/>
+    <rect fill="#2A2A2A" x="0" y="0" width="1" height="1"/>
+  </g>
+  <g id="decoration-inactive-bottomleft">
+    <rect class="ColorScheme-Background" fill="currentColor" x="0" y="0" width="2" height="2"/>
+    <rect fill="#2A2A2A" x="0" y="1" width="2" height="1"/>
+    <rect fill="#2A2A2A" x="0" y="0" width="1" height="2"/>
+  </g>
+  <g id="decoration-inactive-bottom">
+    <rect class="ColorScheme-Background" fill="currentColor" x="0" y="0" width="1" height="1"/>
+    <rect fill="#2A2A2A" x="0" y="0" width="1" height="1"/>
+  </g>
+  <g id="decoration-inactive-bottomright">
+    <rect class="ColorScheme-Background" fill="currentColor" x="0" y="0" width="2" height="2"/>
+    <rect fill="#2A2A2A" x="1" y="0" width="1" height="2"/>
+    <rect fill="#2A2A2A" x="0" y="1" width="2" height="1"/>
+  </g>
+  <rect id="decoration-inactive-center" class="ColorScheme-Background" fill="currentColor" x="0" y="0" width="1" height="1"/>
+</svg>
