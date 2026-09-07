@@ -55,6 +55,7 @@ qt5-wayland
 xorg-xwayland
 
 [repo-oficial:shell-grafico]
+ghostty
 waybar
 fuzzel
 mako
@@ -90,6 +91,7 @@ imv
 mpv
 zathura
 zathura-pdf-mupdf
+tesseract-data-eng
 
 [repo-oficial:tema]
 nwg-look
@@ -193,6 +195,7 @@ spotify-launcher
 [aur]
 looking-glass
 wlogout
+fluent-cursor-theme-git
 android-studio
 bun-bin
 claude-code

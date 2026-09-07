@@ -495,7 +495,7 @@ Session=hyprland-uwsm.desktop
 Relogin=false
 
 [Theme]
-CursorTheme=Papirus-Dark
+CursorTheme=Fluent-dark-cursors
 EOF
     ok "/etc/sddm.conf.d/10-dotfiles.conf (login automatico de $USER em hyprland-uwsm)"
 }

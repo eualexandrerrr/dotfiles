@@ -102,7 +102,7 @@ etapa_tema() {
 [Settings]
 gtk-theme-name=adw-gtk3-dark
 gtk-icon-theme-name=Papirus-Dark
-gtk-cursor-theme-name=Papirus-Dark
+gtk-cursor-theme-name=Fluent-dark-cursors
 gtk-cursor-theme-size=24
 gtk-font-name=Inter 11
 gtk-application-prefer-dark-theme=1
