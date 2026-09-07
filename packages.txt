@@ -55,6 +55,7 @@ plasma-pa
 polkit-kde-agent
 power-profiles-daemon
 powerdevil
+qt6-tools
 qt6-wayland
 sddm
 sddm-kcm

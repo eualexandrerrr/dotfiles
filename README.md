@@ -626,6 +626,10 @@ Duas coisas que só valem aqui e custaram tempo pra descobrir:
 
 ## Histórico
 
+- 07/09/2026: `qt6-tools` entrou no `packages.txt`. O `qdbus6` vem dele e sete scripts do
+  `kde/` dependem do binário; numa formatação limpa ele não existia, e painel, wallpaper e
+  tema não eram aplicados no primeiro login. O `layout-once.sh` agora aborta se o `qdbus6`
+  faltar ou o `plasmashell` não subir, e só grava a marca de aplicado se nenhuma etapa falhar.
 - 07/09/2026: Wine, Proton, Lutris, Steam, gamescope, mangohud e winboat saíram do host. Jogo
   passa a ser assunto da VM Windows com a 3090 em passthrough.
 - 07/09/2026: Hyprland entrou como sessão alternativa (`links/config/hypr`, `waybar`, `mako`,
