@@ -55,7 +55,7 @@ MoveZoomDown=none,none,Mover a área ampliada para baixo
 MoveZoomLeft=none,none,Mover a área ampliada para a esquerda
 MoveZoomRight=none,none,Mover a área ampliada para a direita
 MoveZoomUp=none,none,Mover a área ampliada para cima
-Overview=Meta+W,Meta+W,Alternar para visão geral
+Overview=Meta+W	Meta+Tab,Meta+W,Alternar para visão geral
 Setup Window Shortcut=none,none,Configurar atalhos para a janela
 Show Desktop=Meta+D,Meta+D,Espiar área de trabalho
 Switch One Desktop Down=Meta+Ctrl+Down,Meta+Ctrl+Down,Mudar para a área de trabalho abaixo
@@ -277,4 +277,13 @@ OpenWithoutScreenshot=none
 _launch=Meta+Shift+R
 
 [services][spectacle-regiao-clipboard.desktop]
-_launch=Shift+Print
+_launch=Shift+Print	Meta+Shift+S
+
+[services][org.kde.dolphin.desktop]
+_launch=Meta+E
+
+[services][systemsettings.desktop]
+_launch=Meta+I
+
+[services][org.kde.plasma.emojier.desktop]
+_launch=Meta+.
