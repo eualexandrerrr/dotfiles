@@ -124,6 +124,7 @@ etapa_login() {
 etapa_recarregar() {
     log "recarregando kwin e sycoca"
     qdbus6 org.kde.KWin /KWin reconfigure >/dev/null 2>&1 || true
+    qdbus6 org.kde.KWin /Effects org.kde.kwin.Effects.loadEffect kwin4_effect_shapecorners >/dev/null 2>&1 || true
     kbuildsycoca6 >/dev/null 2>&1 || true
     ok "recarregado"
 }
