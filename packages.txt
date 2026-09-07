@@ -7,6 +7,7 @@ base-devel
 curl
 git
 jq
+ldns
 less
 man-db
 man-pages

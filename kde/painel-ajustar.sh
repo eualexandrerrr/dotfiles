@@ -29,9 +29,32 @@ qdbus6 "${PS[@]}" "" >/dev/null 2>&1 || { printf 'painel: plasmashell nao respon
 #                        passar o mouse num app com varias janelas. Nao ha ajuste de
 #                        tamanho: a miniatura e gridUnit*16, derivada da fonte, e a
 #                        lista e a unica alternativa menor que o applet oferece.
+# ── um painel so, nunca na tela vertical ─────────────────────────────────────
+# O monitor em pe e ocupado em tela cheia pelo widget-claude: painel ali so rouba altura.
+# A regra e por geometria, nao por indice de tela -- o indice muda quando o kscreen
+# reordena as saidas, a orientacao nao.
 qdbus6 "${PS[@]}" '
-var p = panels()[0];
-var ids = p.widgetIds;
+var ps = panels();
+for (var i = 0; i < ps.length; i++) {
+  var g = screenGeometry(ps[i].screen);
+  if (g.height > g.width) { print("painel removido da tela vertical: " + ps[i].id); ps[i].remove(); }
+}' 2>/dev/null || printf 'painel: nao consegui checar as telas verticais\n' >&2
+
+painel_da_horizontal() {
+    qdbus6 "${PS[@]}" '
+var ps = panels();
+for (var i = 0; i < ps.length; i++) {
+  var g = screenGeometry(ps[i].screen);
+  if (g.width >= g.height) { print(ps[i].id); break; }
+}' 2>/dev/null | tr -dc '0-9'
+}
+
+qdbus6 "${PS[@]}" '
+var p = null;
+var ps = panels();
+for (var i = 0; i < ps.length; i++) { var g = screenGeometry(ps[i].screen); if (g.width >= g.height) { p = ps[i]; break; } }
+if (!p) { print("sem painel em tela horizontal"); }
+var ids = p ? p.widgetIds : [];
 for (var i = 0; i < ids.length; i++) {
   var w = p.widgetById(ids[i]);
   if (w.type !== "org.kde.plasma.icontasks" && w.type !== "org.kde.plasma.taskmanager") continue;
@@ -59,7 +82,7 @@ for (var i = 0; i < ids.length; i++) {
 # deveria descolar o painel sozinho quando ha janela maximizada e nao descola aqui -- e
 # suspeito do monitor girado 90 graus na origem, que bagunca o indice de tela. Com
 # floating=0 o painel vai pra 1654 e a sobreposicao zera.
-painel_id="$(qdbus6 "${PS[@]}" 'print(panels()[0].id);' 2>/dev/null | tr -dc '0-9')"
+painel_id="$(painel_da_horizontal)"
 if [[ -n $painel_id ]]; then
     kwriteconfig6 --file plasmashellrc --group PlasmaViews --group "Panel $painel_id" --key floating 0
     kwriteconfig6 --file plasmashellrc --group PlasmaViews --group "Panel $painel_id" --key panelOpacity 2

@@ -108,6 +108,21 @@ sem rede e em segundos. Mexeu numa config? `setup.sh`. Mexeu no `packages.txt`? 
 O `install.sh` (etapa `home_enxuta`) e o `layout-once.sh` chamam o `setup.sh` em vez de
 repetir as etapas. Etapa que falha vira aviso e as outras seguem.
 
+## DNS e KWallet
+
+O DNS do roteador levava 161 ms sem cache contra 23-26 ms dos publicos -- era a lentidao da
+conexao. `bin/dns-rapido.sh` mede com subdominio aleatorio (dominio popular responde do
+cache e engana), escolhe os dois mais rapidos de operadores diferentes e aplica no
+NetworkManager, com `ipv6.ignore-auto-dns` pro DNS IPv6 do provedor nao anular a escolha.
+Roda pelo `dns-rapido.timer` (boot + 6h; timer porque a maquina nunca desliga).
+
+KWallet fica desligado. Efeito colateral que importa: sem keyring, o Chrome usa o backend
+`basic` (cookies `v10`), entao o perfil sobrevive ao format sem depender da senha de login.
+Ligar o KWallet passaria pra `v11` e criaria essa dependencia.
+
+O painel nunca vai na tela vertical -- o `painel-ajustar.sh` remove por **geometria**
+(altura > largura), nao por indice de tela, que muda quando o kscreen reordena as saidas.
+
 ## Energia: nunca dorme
 
 Nunca suspende, nunca hiberna, nunca desliga sozinha -- so por pedido explicito. A unica

@@ -118,6 +118,7 @@ dotfiles
 ├── bin                       comandos
 │   ├── recorte-clipboard.sh  Shift+Print: região da tela → área de transferência
 │   ├── nvidia-desempenho.sh  GPU em performance máxima no login
+│   ├── dns-rapido.sh         mede os resolvedores e aplica o mais rápido
 │   └── mcp-restaurar.sh      recria os 8 MCP do Claude Code no ~/.claude.json
 ├── vm                        VM Windows com a 3090 em passthrough (XML do libvirt e hooks)
 ├── vendor
@@ -622,11 +623,19 @@ Duas coisas diferentes, de propósito:
 ```
 
 Etapas: `links` (stow), `home` (tira as pastas padrão do XDG), `kde` (o `settings.conf`),
-`energia`, `monitores`, `wallpaper`, `painel`, `recarregar`.
+`energia`, `dns`, `monitores`, `wallpaper`, `painel`, `recarregar`.
 
 É idempotente e cada etapa que falha vira aviso, não derruba as outras — reconfigurar meia
 máquina é pior que reconfigurar nenhuma. O `install.sh` e o `layout-once.sh` chamam ele, em
 vez de repetir as etapas.
+
+## Sem KWallet
+
+A carteira do KDE fica **desligada** (`kwalletrc`, `Enabled=false`). Além de não querer o
+prompt, isso tem um efeito que vale saber: sem keyring no sistema, o Chrome cifra os cookies
+com o backend `basic` (chave embutida, prefixo `v10`) em vez de `v11`. Na prática o perfil
+fica autossuficiente — sobrevive a uma reinstalação e **não** depende da senha de login
+continuar a mesma. Ligar o KWallet passaria os cookies pra `v11` e criaria essa dependência.
 
 ## Energia: esta máquina nunca dorme
 
@@ -647,6 +656,35 @@ vira `Call to Suspend failed: Access denied`.
 
 O arquivo do logind fica em `logind.conf.d/`, não no `logind.conf`, porque o principal é do
 pacote e volta ao original a cada update.
+
+## DNS: sempre o mais rápido
+
+A conexão parecia lenta e o culpado era o DNS do roteador. Medindo **sem cache** (subdomínio
+aleatório, que força resolução de verdade):
+
+| Resolvedor | Sem cache |
+|:--|--:|
+| OpenDNS | 23 ms |
+| Cloudflare | 25 ms |
+| Google | 26 ms |
+| Quad9 | 39 ms |
+| **Roteador (192.168.1.1)** | **161 ms** |
+
+Perguntar `google.com` pro roteador responde em 6 ms — mas é cache. O que trava a navegação
+é o domínio que ele ainda não tem, e aí são ~160 ms antes do primeiro byte.
+
+```bash
+dns-rapido.sh              # mede e aplica
+dns-rapido.sh --medir      # só mede
+dns-rapido.sh --restaurar  # volta pro DNS do DHCP
+```
+
+Escolhe os dois mais rápidos **de operadores diferentes**, pra um não cair junto com o
+outro. Também põe `ipv6.ignore-auto-dns` — sem isso o DNS IPv6 do provedor continua na
+lista e é consultado, anulando a escolha.
+
+Roda sozinho pelo `dns-rapido.timer`: 45 s depois do boot e a cada 6 h. É timer, não só
+boot, porque esta máquina nunca desliga — um serviço de boot rodaria quase nunca.
 
 ## Monitores
 

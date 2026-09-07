@@ -81,6 +81,23 @@ etapa_painel() {
     bash "$DOTFILES_DIR/kde/painel-ajustar.sh" || falha "painel-ajustar.sh"
 }
 
+etapa_dns() {
+    log "DNS mais rapido"
+    local sh="$DOTFILES_DIR/bin/dns-rapido.sh"
+    [[ -x $sh ]] || { falha "dns-rapido.sh ausente"; return; }
+
+    local u
+    for u in dns-rapido.service dns-rapido.timer; do
+        if ! cmp -s "$DOTFILES_DIR/systemd/$u" "/etc/systemd/system/$u" 2>/dev/null; then
+            sudo install -Dm644 "$DOTFILES_DIR/systemd/$u" "/etc/systemd/system/$u" 2>/dev/null || falha "nao instalei $u"
+        fi
+    done
+    sudo systemctl daemon-reload 2>/dev/null || true
+    sudo systemctl enable --now dns-rapido.timer >/dev/null 2>&1 || falha "nao habilitei o dns-rapido.timer"
+
+    bash "$sh" || falha "dns-rapido.sh"
+}
+
 etapa_recarregar() {
     log "recarregando kwin e sycoca"
     qdbus6 org.kde.KWin /KWin reconfigure >/dev/null 2>&1 || true
@@ -88,7 +105,7 @@ etapa_recarregar() {
     ok "recarregado"
 }
 
-ETAPAS=(links home kde energia monitores wallpaper painel recarregar)
+ETAPAS=(links home kde energia dns monitores wallpaper painel recarregar)
 
 if [[ ${1:-} == --lista ]]; then
     printf 'etapas: %s\n' "${ETAPAS[*]}"
