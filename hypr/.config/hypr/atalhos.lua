@@ -3,7 +3,7 @@ local terminal = "uwsm app -- ghostty"
 local explorador = "uwsm app -- thunar"
 local navegador = "uwsm app -- google-chrome-stable"
 local menu = os.getenv("HOME") .. "/.dotfiles/bin/lancador.sh"
-local alternador = "hyprswitch gui --mod-key ALT --key TAB --close mod-key-release --monitors DP-1"
+local alternador = "hyprswitch gui --mod-key SUPER --key TAB --close mod-key-release --monitors DP-1"
 local dotfiles = os.getenv("HOME") .. "/.dotfiles"
 
 hl.bind(mod .. " + Return", hl.dsp.exec_cmd(terminal))
@@ -59,7 +59,7 @@ hl.bind(mod .. " + ALT + up", hl.dsp.window.resize({ x = 0, y = -40 }), { repeat
 hl.bind(mod .. " + ALT + down", hl.dsp.window.resize({ x = 0, y = 40 }), { repeating = true })
 
 hl.bind("ALT + Tab", hl.dsp.exec_cmd(dotfiles .. "/bin/expo.sh"))
-hl.bind("ALT_L", hl.dsp.exec_cmd(dotfiles .. "/bin/expo.sh confirmar"), { release = true })
+hl.bind("ALT_L", hl.dsp.exec_cmd(dotfiles .. "/bin/expo.sh confirmar"), { release = true, non_consuming = true })
 hl.bind(mod .. " + Tab", hl.dsp.exec_cmd(alternador .. " --switch-type client --sort-recent"))
 
 for i = 1, 9 do

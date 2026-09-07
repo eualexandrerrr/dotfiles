@@ -12,7 +12,7 @@ hl.window_rule({
 })
 
 hl.window_rule({ name = "chrome-na-1", match = { class = "[Gg]oogle-chrome" }, workspace = "1" })
-hl.window_rule({ name = "discord-na-2", match = { class = "discord" }, workspace = "2" })
+hl.window_rule({ name = "discord-na-2", match = { class = "discord" }, workspace = "2 silent" })
 hl.window_rule({ name = "rcode-na-3", match = { class = "RCode" }, workspace = "3" })
 hl.window_rule({ name = "vm-na-4", match = { class = "virt-manager|looking-glass-client" }, workspace = "4" })
 

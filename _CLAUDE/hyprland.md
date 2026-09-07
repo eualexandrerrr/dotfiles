@@ -103,6 +103,16 @@ ciclo e `hl.bind("ALT_L", ..., { release = true })`, que dispara `expo.sh confir
 soltar o Alt -- e o script so age se o overlay estiver aberto, entao soltar Alt em qualquer
 outra situacao nao faz nada.
 
+**Esse bind precisa de `non_consuming = true`, senao o `Alt+D` trava tudo.** Bind sem a
+flag consome o evento: o Hyprland dispara o dispatcher e **nao repassa a tecla ao cliente
+focado**. Como o bind e no *release* do `ALT_L`, quem estava com o teclado nunca recebia o
+"soltei o Alt". No `Alt+D` isso e fatal: o fuzzel sobe como layer com teclado exclusivo
+enquanto o Alt ainda esta pressionado, recebe o `enter` com o modificador ligado e nunca
+recebe o update dizendo que soltou -- da entao cada letra digitada chega como `Alt+letra`,
+o fuzzel ignora tudo e a tela parece congelada. Por isso o `Meta+R` e o `Meta+Space`
+sempre funcionaram e so o `Alt+D` quebrava: nenhum bind consome o release do Meta.
+Conferir com `hyprctl binds -j` -- o `ALT_L` tem que sair com `non_consuming: true`.
+
 Preview ao vivo so existe dentro do compositor ou via `hyprland-toplevel-export`. O
 **hyprexpo foi removido** dos `hyprland-plugins` oficiais em maio/2026 ("drop unmaintained
 plugins") e o `hyprtasking` do AUR esta desatualizado desde 29/07/2026, antes da 0.56.2 --
@@ -125,7 +135,10 @@ id de workspace, para sobreviver se o painel mudar de numero. Por isso o pacote 
 `hyprexpose-git` do AUR: atualizar o upstream exige reaplicar o patch.
 
 `Super+Tab` continua sendo o alternador de **janelas**, ai sim com o hyprswitch (GTK4,
-tema em `hyprswitch/.config/hyprswitch/style.css`). Os dois daemons sobem no
+tema em `hyprswitch/.config/hyprswitch/style.css`). O `--mod-key` dele tem que bater com o
+modificador do bind: com `--close mod-key-release` o hyprswitch so fecha quando *aquele*
+modificador e solto, entao `--mod-key ALT` amarrado num `Super+Tab` deixava a GUI aberta
+segurando o teclado -- outro jeito de travar a maquina inteira. Os dois daemons sobem no
 `hyprland.start` e sao reiniciados pelo `setup.sh recarregar` -- ambos leem o tema so na
 inicializacao, entao mexer no CSS/TOML sem reiniciar o daemon nao muda nada na tela.
 
@@ -136,17 +149,48 @@ inicializacao, entao mexer no CSS/TOML sem reiniciar o daemon nao muda nada na t
 `.desktop`, nao de chute -- o Chrome grava `google-chrome` e `Google-chrome` no mesmo
 arquivo, por isso a regra casa `[Gg]oogle-chrome`.
 
+O **Discord sobe sozinho** no `hyprland.start` e a regra dele e `workspace = "2 silent"`:
+sem o `silent` a sessao pularia para a workspace 2 no login, atras do Discord. Regra de
+workspace so vale na abertura da janela -- app que ja estava aberto quando a regra mudou
+nao se move sozinho; para arrastar o que ja esta na tela:
+
+```
+hyprctl dispatch '(function() local w = hl.get_windows({ class = "discord" })[1]; return hl.dsp.window.move({ workspace = 2, follow = false, window = w }) end)()'
+```
+
 Os icones dessas quatro na waybar sao glifos da Nerd Font em `format-icons`, e o
 `tooltip-format` mostra o numero ao passar o mouse. Da 5 em diante fica o numero mesmo.
 
-## Clique no numero da workspace na barra
+## Clique no numero da workspace na barra: por que exige waybar-git
 
-Funciona sozinho: na waybar 0.15 o `hyprland/workspaces` trata o clique em
-`Workspace::handleClicked`, que dispara `dispatch workspace <id>` direto pelo socket. A
-chave `on-click` **nao e lida por esse modulo** -- ela pertence ao `AModule` base, que a
-trataria como comando de shell e tentaria rodar um binario chamado `activate`. Estava no
-`config.jsonc` sem efeito util e saiu. `sort-by-number` tambem era o nome antigo; hoje e
-`sort-by: "number"`.
+O `hyprland/workspaces` trata o clique em `Workspace::handleClicked`, que manda
+`dispatch workspace <id>` pelo socket1. **Na 0.56 esse formato nao existe mais**: o
+`dispatch` virou Lua e o Hyprland responde
+
+```
+error: [string "return hl.dispatch(workspace 1)"]:1: ')' expected near '1'
+```
+
+O clique some sem deixar rastro na tela -- e nao e config: o modulo nem le a chave
+`on-click` (ela e do `AModule` base, e viraria um comando de shell chamado `activate`).
+Da para provar em duas linhas: clicar num modulo com `on-click`, tipo o de CPU, abre o btop
+normalmente, entao o input chega na barra; so o botao de workspace nao age.
+
+A master da waybar ja corrigiu -- detecta o protocolo por `systeminfo` e monta
+`/dispatch hl.dsp.focus({ workspace = "1" })` -- mas isso nao esta na 0.15.0 do repo
+oficial. Por isso o `packages.txt` traz **`waybar-git`** no `[aur]` e nao `waybar` no
+oficial. **Quando sair a 0.16, voltar para o pacote oficial** e tirar o `waybar-git`.
+Upstream: Alexays/Waybar issues 5008, 5029, 5198 e 5294.
+
+`sort-by-number` tambem era o nome antigo da chave de ordenacao; hoje e `sort-by: "number"`.
+
+## Contador do Discord na barra
+
+`bin/discord-notificacoes.sh` le o **titulo da janela**: o Discord escreve `(3) #canal | ...`
+quando ha mencao ou DM nao lida e tira o `(3)` quando voce le. E a unica fonte local do
+numero -- o app nao expoe API, e o icone da bandeja so tem o ponto vermelho, sem quantidade.
+O modulo `custom/discord` some da barra quando nao ha nada, porque o script devolve `text`
+vazio e o `format` e so `{}`; clicar nele vai para a workspace 2.
 
 ## Atalhos que vieram do KDE
 
