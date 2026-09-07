@@ -2,20 +2,49 @@
 
 # dotfiles
 
-**Arch Linux · KDE Plasma (Wayland) · NVIDIA**
+**Arch Linux · KDE Plasma (Wayland) · duas GPUs**
 
-Pós-instalação de uma máquina com RTX 3090: pacotes, driver, KDE, serviços e os
-poucos arquivos de configuração que valem versionar — cada um no seu pacote, linkado
-pelo GNU Stow.
+Pós-instalação de uma máquina de desenvolvimento com duas GPUs: a RX 550 desenha o Linux,
+a RTX 3090 vai inteira pra uma VM Windows por passthrough e roda o RedM numa janela do KDE.
+Pacotes, driver, KDE, serviços e os poucos arquivos de configuração que valem versionar —
+cada um no seu pacote, linkado pelo GNU Stow.
 
 [![Arch](https://img.shields.io/badge/Arch_Linux-1793D1?style=flat-square&logo=arch-linux&logoColor=white)](https://archlinux.org)
 [![KDE](https://img.shields.io/badge/KDE_Plasma-1D99F3?style=flat-square&logo=kde&logoColor=white)](https://kde.org/plasma-desktop/)
-[![NVIDIA](https://img.shields.io/badge/nvidia--open--dkms-76B900?style=flat-square&logo=nvidia&logoColor=white)](https://wiki.archlinux.org/title/NVIDIA)
+[![AMD](https://img.shields.io/badge/RX_550_amdgpu-ED1C24?style=flat-square&logo=amd&logoColor=white)](https://wiki.archlinux.org/title/AMDGPU)
+[![NVIDIA](https://img.shields.io/badge/RTX_3090_vfio-76B900?style=flat-square&logo=nvidia&logoColor=white)](https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF)
 [![Stow](https://img.shields.io/badge/GNU_Stow-A42E2B?style=flat-square&logo=gnu&logoColor=white)](https://www.gnu.org/software/stow/)
 
 </div>
 
 ---
+
+## Hardware
+
+| Peça | Modelo | Papel |
+|:--|:--|:--|
+| CPU | AMD Ryzen 7 5700X, 8c/16t, sem vídeo integrado | 2 núcleos pro host, 6 pinados na VM |
+| Placa-mãe | ASUS TUF Gaming B550M-PLUS (mATX, AM4) | x16 Gen4 pela CPU + x16 Gen3 em x4 pelo chipset |
+| GPU do host | PCYes Radeon RX 550 4GB GDDR5 | `amdgpu` do kernel, desenha o KDE nos dois monitores |
+| GPU da VM | Gainward RTX 3090 24GB, cooler de 2,7 slots | presa no `vfio-pci` desde o boot, nunca toca o host |
+| Riser | cabo PCIe 3.0 x16, 20 cm, plugue 90° | a 3090 tampa o slot de baixo; a RX 550 sai por ele |
+| Fonte | 850 W, 80 Plus Gold | montada atrás da bandeja |
+| SSD | Corsair MP700 ELITE, 932 GB, NVMe | Gen4 x4 pela CPU; Arch em `/`, imagem da VM em `/home` |
+| Gabinete | PCYes Forcefield Mini Black Vulcan | mini tower, GPU até 310 mm |
+| Monitores | dois 2560x1440 | principal paisagem à direita, secundário em pé à esquerda com o painel |
+
+### Por que duas GPUs
+
+O client do RedM não passa pelo anticheat em Wine. A saída é uma VM Windows com GPU real,
+e uma GPU passada por `vfio` some do host: o Linux precisa de outra placa pra ter tela.
+
+Com as duas, os dois monitores ficam no KDE o tempo inteiro. O jogo renderiza na 3090 dentro
+da VM, o Looking Glass copia o frame pra memória compartilhada e o cliente desenha numa
+janela comum — alt tab, workspace, tudo como qualquer aplicativo. A 3090 não tem cabo de
+vídeo nenhum; ela só entrega frame.
+
+O slot de baixo da B550M-PLUS fica fisicamente coberto pela 3090 de 2,7 slots, por isso a
+RX 550 sai por um cabo riser de 20 cm e fica fixada fora dos brackets, embaixo da placa-mãe.
 
 ## Stack
 
@@ -30,7 +59,7 @@ pelo GNU Stow.
 | Cursor | [Capitaine](https://github.com/keeferrourke/capitaine-cursors) (`capitaine-cursors`, repo oficial), variante clara `capitaine-cursors-white` no `kcminputrc` |
 | Fora de propósito | Wi-Fi no live, Firefox (Chrome cobre), LibreOffice, Telegram, OBS, Wine e Steam no host. `pacman -S` traz de volta |
 | Bluetooth | sem uso, mas o `bluez-qt` **é obrigatório** — ver [Bandeja do sistema](#bandeja-do-sistema). O `bluetooth.service` fica desabilitado |
-| Kernel e driver | `linux-zen`, `nvidia-open-dkms`, `nvidia_drm.modeset=1` |
+| Kernel e driver | `linux-zen`; host em `amdgpu` (kernel), 3090 em `vfio-pci` por id no cmdline |
 | Desempenho | `power-profiles-daemon` em `performance`, `ananicy-cpp` com as regras do CachyOS, GPU em "Prefer maximum performance" no login |
 | Jogos | dentro da VM Windows com GPU passthrough — ver `vm/` |
 | VMs | `qemu-full`, `libvirt`, `virt-manager` |
@@ -564,7 +593,7 @@ shellcheck -x -S warning install.sh kde/*.sh bin/*.sh
 
 ## Monitores
 
-Dois monitores: principal 2560x1440 paisagem à direita, secundário 1920x1080 em retrato à esquerda.
+Dois monitores 2560x1440: principal em paisagem à direita, secundário em pé à esquerda.
 Aplicado automaticamente por `kde/monitores.sh`, que roda dentro do `layout-once.sh` — antes do
 wallpaper, porque o `wallpaper.sh` decide retrato x paisagem pela geometria de cada tela.
 
@@ -575,12 +604,16 @@ muda o hash e o arquivo antigo deixa de valer. O que é versionado é a decisão
 troca de placa-mãe, quando o `DP-1` da 3090 vira outro nome na GPU nova.
 
 ```
-# resolucao|rotacao|posicao|escala|primario
-2560x1440|normal|1080,0|1|sim
-1920x1080|left|0,0|1|nao
+# chave|resolucao|rotacao|posicao|escala|primario
+DP-1|2560x1440|normal|1440,0|1|sim
+DP-2|2560x1440|left|0,0|1|nao
 ```
 
-O `x` da posição do principal é 1080 porque o secundário girado ocupa 1080 de largura. Rodar
+A chave é o nome do conector, ou `*` pra "a próxima saída livre com essa resolução nativa".
+Como os dois monitores são iguais, resolução sozinha não separa — por isso o nome. Se trocar
+de placa e os nomes mudarem, `kscreen-doctor -o` lista os novos.
+
+O `x` da posição do principal é 1440 porque o secundário girado ocupa 1440 de largura. Rodar
 à mão depois de mexer no conf: `bash ~/.dotfiles/kde/monitores.sh`.
 
 ### O segundo monitor é o painel
@@ -698,6 +731,10 @@ Duas coisas que só valem aqui e custaram tempo pra descobrir:
   faltar ou o `plasmashell` não subir, e só grava a marca de aplicado se nenhuma etapa falhar.
 - 07/09/2026: Wine, Proton, Lutris, Steam, gamescope, mangohud e winboat saíram do host. Jogo
   passa a ser assunto da VM Windows com a 3090 em passthrough.
+- 07/09/2026: `monitores.conf` ganhou chave por conector. O casamento por resolução pegava
+  qualquer saída que *tivesse* o modo, e o 2K principal também tem 1920x1080 — os dois
+  monitores caíam no mesmo DP-2. E os dois são 2560x1440 de fato, então resolução nunca ia
+  separar; agora casa por nome, com `*` como curinga por resolução nativa.
 - 07/09/2026: `links/` virou `stow/`, um pacote por programa, linkado pelo GNU Stow com
   `--no-folding` — mesma regra de nunca linkar diretório, agora sem linker caseiro. Hyprland,
   que tinha entrado de manhã como sessão alternativa, saiu inteiro no mesmo commit.

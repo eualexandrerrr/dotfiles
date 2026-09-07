@@ -7,8 +7,11 @@
 # estado, e casamos por resolucao -- que sobrevive a troca de placa-mae.
 #
 # Formato do monitores.conf, um monitor por linha:
-#   resolucao|rotacao|posicao|escala|primario
-#   2560x1440|normal|1080,0|1|sim
+#   chave|resolucao|rotacao|posicao|escala|primario
+#   DP-1|2560x1440|normal|1440,0|1|sim
+# chave: nome do conector (DP-1, HDMI-A-1) ou * pra "a proxima saida livre com essa
+#        resolucao nativa". Nome vale quando os monitores sao iguais e a resolucao nao
+#        separa; * vale quando trocar de placa e os nomes mudarem.
 # rotacao: normal, left, right, inverted
 # posicao: x,y em pixels do canto superior esquerdo do desktop
 # primario: sim ou nao
@@ -24,14 +27,33 @@ done
 
 json="$(kscreen-doctor -j 2>/dev/null)" || { printf 'monitores: kscreen-doctor nao respondeu\n' >&2; exit 1; }
 
-nome_por_resolucao() {
-    local largura="${1%x*}" altura="${1#*x}"
-    jq -r --argjson w "$largura" --argjson h "$altura" '
+usados=()
+
+ja_usado() {
+    local n
+    for n in "${usados[@]}"; do [[ $n == "$1" ]] && return 0; done
+    return 1
+}
+
+saida_por_nome() {
+    jq -r --arg n "$1" '.outputs[] | select(.connected and .name == $n) | .name' <<<"$json" | head -1
+}
+
+saida_livre_por_resolucao_nativa() {
+    local largura="${1%x*}" altura="${1#*x}" n
+    while IFS= read -r n; do
+        [[ -z $n ]] && continue
+        ja_usado "$n" || { printf '%s' "$n"; return 0; }
+    done < <(jq -r --argjson w "$largura" --argjson h "$altura" '
         .outputs[]
         | select(.connected)
-        | select([.modes[] | select(.size.width == $w and .size.height == $h)] | length > 0)
-        | .name
-    ' <<<"$json" | head -1
+        | . as $o
+        | ($o.preferredModes[0] // $o.currentModeId) as $pid
+        | ($o.modes[] | select(.id == $pid)) as $m
+        | select($m.size.width == $w and $m.size.height == $h)
+        | $o.name
+    ' <<<"$json" | sort)
+    return 1
 }
 
 modo_por_resolucao() {
@@ -47,13 +69,22 @@ args=()
 achados=0
 faltando=()
 
-while IFS='|' read -r resolucao rotacao posicao escala primario; do
-    [[ -z ${resolucao// } || $resolucao == \#* ]] && continue
-    nome="$(nome_por_resolucao "$resolucao")"
+while IFS='|' read -r chave resolucao rotacao posicao escala primario; do
+    [[ -z ${chave// } || $chave == \#* ]] && continue
+    if [[ $chave == '*' ]]; then
+        nome="$(saida_livre_por_resolucao_nativa "$resolucao")"
+    else
+        nome="$(saida_por_nome "$chave")"
+        if [[ -n $nome ]] && ja_usado "$nome"; then
+            printf 'monitores: %s aparece duas vezes no conf, ignorando a segunda\n' "$nome" >&2
+            continue
+        fi
+    fi
     if [[ -z $nome ]]; then
-        faltando+=("$resolucao")
+        faltando+=("$chave $resolucao")
         continue
     fi
+    usados+=("$nome")
     modo="$(modo_por_resolucao "$nome" "$resolucao")"
     args+=("output.$nome.enable")
     [[ -n $modo ]] && args+=("output.$nome.mode.$modo")
@@ -62,7 +93,7 @@ while IFS='|' read -r resolucao rotacao posicao escala primario; do
     args+=("output.$nome.scale.$escala")
     [[ $primario == sim ]] && args+=("output.$nome.primary")
     achados=$((achados+1))
-    printf 'monitores: %s -> %s %s em %s\n' "$resolucao" "$nome" "$rotacao" "$posicao"
+    printf 'monitores: %s -> %s %s %s em %s\n' "$chave" "$nome" "$resolucao" "$rotacao" "$posicao"
 done < "$CONF"
 
 if (( ${#faltando[@]} )); then
