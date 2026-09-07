@@ -87,14 +87,10 @@ set_pacman_option() {
 }
 
 enable_multilib() {
-    log "pacman: multilib, downloads paralelos, cor"
-    if grep -qE '^\[multilib\]' /etc/pacman.conf; then
-        ok "multilib ja ativo"
-    else
-        sudo cp /etc/pacman.conf "/etc/pacman.conf.bak-$(date +%Y%m%d%H%M%S)"
-        printf '\n[multilib]\nInclude = /etc/pacman.d/mirrorlist\n' | sudo tee -a /etc/pacman.conf >/dev/null
-        ok "multilib adicionado"
-    fi
+    log "pacman: downloads paralelos, cor"
+    # multilib nao entra mais: era so pros lib32-* de Wine, Steam e Proton, que sairam do
+    # host junto com os jogos. Se ja estiver ativo de uma instalacao antiga, fica -- nao
+    # custa nada e tirar repo de pacman.conf de terceiro nao e papel deste script.
     set_pacman_option ParallelDownloads 10
     grep -qE '^Color' /etc/pacman.conf || sudo sed -i 's/^#Color/Color/' /etc/pacman.conf
     sudo pacman -Syy --noconfirm

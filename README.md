@@ -732,6 +732,9 @@ Duas coisas que só valem aqui e custaram tempo pra descobrir:
   faltar ou o `plasmashell` não subir, e só grava a marca de aplicado se nenhuma etapa falhar.
 - 07/09/2026: Wine, Proton, Lutris, Steam, gamescope, mangohud e winboat saíram do host. Jogo
   passa a ser assunto da VM Windows com a 3090 em passthrough.
+- 07/09/2026: `lib32-mesa`, `lib32-nvidia-utils` e `lib32-vulkan-icd-loader` saíram, e o
+  install parou de habilitar o `multilib`. Eram só pra aplicativo de 32 bits, que no host
+  significava Wine, Steam e Proton — tudo já fora.
 - 07/09/2026: `monitores.conf` ganhou chave por conector. O casamento por resolução pegava
   qualquer saída que *tivesse* o modo, e o 2K principal também tem 1920x1080 — os dois
   monitores caíam no mesmo DP-2. E os dois são 2560x1440 de fato, então resolução nunca ia
