@@ -626,6 +626,9 @@ Duas coisas que só valem aqui e custaram tempo pra descobrir:
 
 ## Histórico
 
+- 07/09/2026: o `install.sh` ganhou a etapa `aplicar_layout`, que roda o `layout-once.sh` na
+  hora quando existe sessão do Plasma viva. Rodando de um TTY ele detecta que o `plasmashell`
+  não responde e deixa pro autostart, como antes.
 - 07/09/2026: `hyprland-qtutils` virou `hyprland-guiutils` no `packages.txt`. O pacote antigo
   saiu dos repos (o novo declara `Replaces: hyprland-qtutils`) e era o único alvo que fazia o
   `pacman` derrubar a transação única e cair no fallback um por um.

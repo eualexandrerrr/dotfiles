@@ -23,14 +23,15 @@ RED=$'\e[1;31m'; GRN=$'\e[1;32m'; YEL=$'\e[1;33m'; BLU=$'\e[1;34m'; END=$'\e[0m'
 LOGFILE="${LOGFILE:-$HOME/dotfiles-install.log}"
 T0=$SECONDS
 STEP=0
-TOTAL_STEPS=14
-[[ ${SKIP_NVIDIA:-0} == 1 ]] && TOTAL_STEPS=12
+TOTAL_STEPS=15
+[[ ${SKIP_NVIDIA:-0} == 1 ]] && TOTAL_STEPS=13
 WARNS=()
 OFICIAL_PEDIDOS=0; OFICIAL_NOVOS=(); OFICIAL_FALTANDO=()
 AUR_OK=(); AUR_JA=(); AUR_FALHA=()
 SERV_OK=(); SERV_FALHA=()
 CLAUDE_VER="nao instalado"
 LINKS=0
+LAYOUT_AGORA=0
 
 elapsed() { local s=$((SECONDS - T0)); printf '%02d:%02d' $((s/60)) $((s%60)); }
 log()  { STEP=$((STEP+1)); printf '\n%s==>%s [%d/%d] %s %s(%s)%s\n' "$BLU" "$END" "$STEP" "$TOTAL_STEPS" "$*" "$YEL" "$(elapsed)" "$END"; }
@@ -488,6 +489,30 @@ install_windows_modern() {
     fi
 }
 
+aplicar_layout() {
+    log "aplicando painel, wallpaper e tema"
+    local script="$DOTFILES_DIR/kde/layout-once.sh"
+    [[ -f $script ]] || { warn "$script ausente, layout nao aplicado"; return 0; }
+
+    # Rodando de um TTY nao ha plasmashell pra conversar: o layout-once precisa de uma
+    # sessao viva pro evaluateScript e pro painel-ajustar. Nesse caso deixa pro autostart.
+    if ! command -v qdbus6 >/dev/null 2>&1; then
+        warn "qdbus6 ausente, layout fica pro proximo login"
+        return 0
+    fi
+    if ! qdbus6 org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript "" >/dev/null 2>&1; then
+        ok "sem sessao do Plasma agora, o layout entra no proximo login"
+        return 0
+    fi
+
+    if bash "$script"; then
+        LAYOUT_AGORA=1
+        ok "painel, wallpaper e tema aplicados nesta sessao"
+    else
+        warn "layout-once.sh terminou com erro, confira ~/kde-layout-once.log"
+    fi
+}
+
 summary() {
     local cor=$GRN titulo="instalacao concluida sem pendencias"
     if (( ${#OFICIAL_FALTANDO[@]} + ${#AUR_FALHA[@]} + ${#SERV_FALHA[@]} )); then cor=$YEL; titulo="instalacao concluida COM pendencias"; fi
@@ -519,7 +544,11 @@ summary() {
         printf '%s  ->%s confira depois do boot: cat /sys/module/nvidia_drm/parameters/modeset (tem que dar Y)\n' "$YEL" "$END"
     fi
     printf '%s  ->%s reinicie para carregar o kernel novo, o initramfs e os grupos do usuario\n' "$YEL" "$END"
-    printf '%s  ->%s o painel, o wallpaper e o tema entram no proximo login (kde/layout-once.sh); log em ~/kde-layout-once.log\n' "$YEL" "$END"
+    if [[ ${LAYOUT_AGORA:-0} == 1 ]]; then
+        printf '%s  ->%s painel, wallpaper e tema ja aplicados nesta sessao; log em ~/kde-layout-once.log\n' "$YEL" "$END"
+    else
+        printf '%s  ->%s o painel, o wallpaper e o tema entram no proximo login (kde/layout-once.sh); log em ~/kde-layout-once.log\n' "$YEL" "$END"
+    fi
 }
 
 main() {
@@ -537,6 +566,7 @@ main() {
     configure_sddm
     configure_kde_defaults
     install_windows_modern
+    aplicar_layout
     summary
 }
 
