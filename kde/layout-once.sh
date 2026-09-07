@@ -13,7 +13,7 @@ setup="$HOME/.dotfiles/setup.sh"
 falhas=0
 
 # Estas nao falam com o plasmashell, entao rodam antes do portao abaixo.
-bash "$setup" links home kde energia monitores || falhas=$((falhas+1))
+bash "$setup" links home kde icones energia audio monitores || falhas=$((falhas+1))
 
 if ! command -v qdbus6 >/dev/null 2>&1; then
     printf 'qdbus6 ausente (pacote qt6-tools): painel, wallpaper e tema nao serao aplicados\n' >&2
@@ -50,9 +50,11 @@ else
     plasma-apply-colorscheme BreezeDark >/dev/null 2>&1 || true
 fi
 
-# O look-and-feel do Windows Modern sobrescreve cores, tema do Plasma e decoracao; o Dream
-# entra por cima dele, sempre depois.
+# O look-and-feel do Windows Modern sobrescreve cores, tema do Plasma e decoracao; o Layan
+# entra por cima dele, sempre depois. E o Layan traz a decoracao Aurorae dele junto, entao o
+# klassy.sh so vale se vier por ultimo -- rodar so o `setup kde` la em cima nao segura.
 bash "$HOME/.dotfiles/kde/layan.sh" || falhas=$((falhas+1))
+bash "$HOME/.dotfiles/kde/klassy.sh" || falhas=$((falhas+1))
 
 # Depois do tema: o look-and-feel devolve o painel ao padrao toda vez que e aplicado.
 bash "$setup" painel recarregar || falhas=$((falhas+1))

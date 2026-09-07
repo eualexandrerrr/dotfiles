@@ -10,6 +10,18 @@ autostart chama `kde/layout-once.sh`, que faz nesta ordem: monitores, wallpaper,
 reinicia o plasmashell, painel. So grava a marca se nenhuma etapa falhar; se falhar, tenta
 de novo no login seguinte.
 
+A ordem dentro do `layout-once.sh` importa e ja mordeu uma vez: o `layan.sh` aplica o
+look-and-feel do Layan, que **traz a decoracao Aurorae junto e sobrescreve o Klassy**. Como
+ele roda depois do `setup kde`, o `klassy.sh` chamado la dentro nao sobrevivia -- o format
+devolvia a decoracao do Layan e os botoes de janela voltavam ao padrao. Por isso o
+`klassy.sh` e chamado de novo, logo depois do `layan.sh`, e tem que continuar sendo o
+ultimo a mexer em `org.kde.kdecoration2`.
+
+As etapas `icones` e `audio` tambem nao rodavam em lugar nenhum: nao estao no `install.sh`
+nem estavam na chamada do `layout-once.sh`, so existiam pra quem rodasse o `setup.sh` na
+mao. Entraram na primeira linha do layout-once. O `dns` ja vinha pelo autostart proprio e o
+`login` pelo `install.sh`.
+
 Depois de logar, a unica coisa a olhar:
 
 ```

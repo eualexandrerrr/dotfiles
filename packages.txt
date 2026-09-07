@@ -3,6 +3,9 @@
 [repo-oficial:base]
 age
 archlinux-keyring
+# setfattr, usado pelo kde/dolphin-visao.sh. Vinha de carona como dependencia do libarchive;
+# depender disso e frageis demais pra uma etapa que falha calada.
+attr
 base-devel
 curl
 git
@@ -173,7 +176,9 @@ rclone
 spotify-launcher
 
 [aur]
-kwin-effect-rounded-corners
+# kwin-effect-rounded-corners (ShapeCorners) saiu: era ele que punha a borda grossa em toda
+# janela, e o Plasma 6.5+ ja arredonda canto nativamente. Instalar so pra desligar no kwinrc
+# e pedir pro bug voltar.
 looking-glass
 fluent-cursor-theme-git
 klassy
