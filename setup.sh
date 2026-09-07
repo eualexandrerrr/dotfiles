@@ -81,6 +81,7 @@ etapa_kde() {
 etapa_energia() {
     log "energia: nunca dormir, monitores em 5 min"
     bash "$DOTFILES_DIR/kde/energia.sh" || falha "energia.sh"
+    qdbus6 org.freedesktop.ScreenSaver /ScreenSaver org.kde.screensaver.configure >/dev/null 2>&1 || true
 }
 
 etapa_monitores() {

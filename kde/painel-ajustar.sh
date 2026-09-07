@@ -86,6 +86,23 @@ for (var i = 0; i < ids.length; i++) {
   print("tarefas: " + w.type + " id=" + w.id);
 }' >/dev/null 2>&1 || printf 'painel: nao consegui ajustar o gerenciador de tarefas\n' >&2
 
+# ── menu iniciar ─────────────────────────────────────────────────────────────
+# A coluna da direita do menu lista Documentos, Imagens e Musica por padrao -- pastas que a
+# home enxuta nao tem. E o botao de suspender nao faz nada nesta maquina.
+qdbus6 "${PS[@]}" '
+var ps = panels();
+for (var i = 0; i < ps.length; i++) {
+  var ids = ps[i].widgetIds;
+  for (var j = 0; j < ids.length; j++) {
+    var w = ps[i].widgetById(ids[j]);
+    if (w.type !== "org.kde.windowsmodern.startmenu") continue;
+    w.currentConfigGroup = ["General"];
+    w.writeConfig("rightColumnItems", ["home","downloads","recent","thispc","update","terminal","run"]);
+    w.writeConfig("showSleepButton", false);
+    print("menu iniciar: sem Documentos/Imagens/Musica, sem suspender");
+  }
+}' >/dev/null 2>&1 || printf 'painel: nao consegui ajustar o menu iniciar\n' >&2
+
 # ── opacidade e flutuante ────────────────────────────────────────────────────
 # Nao da pra fazer pela API de script: o setter de opacity nao grava nada e o de floating
 # so vale ate o plasmashell reiniciar. Os dois moram no plasmashellrc, lido no boot dele.
