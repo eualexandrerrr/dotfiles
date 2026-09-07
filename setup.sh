@@ -52,13 +52,17 @@ etapa_home() {
     done
     mkdir -p "$HOME/Downloads" "$HOME/.local/share/desktop"
 
-    # O workspace do proprio dotfiles. Nao entra no stow porque o ~/Workspaces e do
-    # usuario, nao do repo: copia se faltar, e nunca por cima do que ele editou.
-    local ws="$HOME/Workspaces/desktop/Dotfiles.code-workspace"
-    if [[ ! -f $ws ]]; then
-        mkdir -p "$(dirname "$ws")"
-        cp "$DOTFILES_DIR/workspaces/Dotfiles.code-workspace" "$ws" && ok "workspace do dotfiles criado"
-    fi
+    # Workspaces do VS Code, espelhando a arvore de workspaces/ dentro de ~/Workspaces.
+    # Nao entram no stow porque o ~/Workspaces e do usuario, nao do repo: copia so o
+    # que falta, e nunca por cima do que ele editou.
+    local novos=0 origem destino
+    while IFS= read -r origem; do
+        destino="$HOME/Workspaces/${origem#"$DOTFILES_DIR/workspaces/"}"
+        [[ -f $destino ]] && continue
+        mkdir -p "$(dirname "$destino")"
+        cp "$origem" "$destino" && novos=$((novos+1))
+    done < <(find "$DOTFILES_DIR/workspaces" -name '*.code-workspace' -type f 2>/dev/null)
+    (( novos )) && ok "$novos workspace(s) do VS Code criado(s)"
 
     # O Dolphin guarda os Locais num .xbel proprio: as pastas removidas continuam
     # listadas la, apontando pra lugar que nao existe mais.
