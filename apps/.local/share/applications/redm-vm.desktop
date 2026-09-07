@@ -1,8 +1,8 @@
 [Desktop Entry]
 Type=Application
 Name=RedM (Windows + RTX 3090)
-Comment=Entrega a 3090 para a VM Windows. A sessao do KDE fecha; o Arch continua ligado.
-Exec=ghostty -e /home/alexandre/.dotfiles/vm/w11 ir
+Comment=Sobe a VM Windows e abre a tela dela pelo Looking Glass. Com uma GPU so, a sessao do KDE fecha.
+Exec=ghostty -e bash -c "$HOME/.dotfiles/vm/jogar"
 Icon=virt-manager
 Terminal=false
 Categories=Game;

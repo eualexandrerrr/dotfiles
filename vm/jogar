@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+# Sobe a VM w11 no perfil 3090 e abre a tela dela numa janela do KDE, pelo Looking Glass.
+# Uso: vm/jogar
+#
+# Enquanto o host tiver uma GPU so, o hook do libvirt derruba a sessao do KDE pra soltar a
+# placa: o Looking Glass nao chega a abrir e quem vale e o `w11 ir`. Com a RX 550 montada o
+# host mantem tela e este script passa a ser o caminho normal.
+set -euo pipefail
+HERE="$(cd "$(dirname "$(readlink -f "$0")")" && pwd)"
+SHM=/dev/shm/looking-glass
+
+if [[ $(virsh -c qemu:///system domstate w11 2>/dev/null) != running ]]; then
+    gpus=$(lspci -nn | grep -ciE 'VGA compatible controller|3D controller' || true)
+    if (( gpus < 2 )); then
+        cat <<'TXT'
+
+  ==> Windows + RTX 3090
+
+  O host tem uma GPU so: o hook vai entregar a 3090 pra VM e a sessao do KDE
+  FECHA. Tudo que esta aberto vai fechar -- salve antes. O Looking Glass nao
+  abre nesse cenario; a tela do Windows vai pro monitor fisico.
+  Para voltar: no Windows, Ctrl+Alt+L (ou desligar o Windows).
+
+TXT
+        read -rp "  Enter para ir, Ctrl+C para cancelar " _
+    fi
+    "$HERE/w11" 3090
+fi
+
+for _ in $(seq 1 60); do
+    [[ -e $SHM ]] && break
+    sleep 1
+done
+[[ -e $SHM ]] || { printf 'jogar: %s nao apareceu em 60s; a VM subiu sem o Looking Glass\n' "$SHM" >&2; exit 1; }
+
+exec "$HERE/glass"
