@@ -92,13 +92,14 @@ dotfiles
 ├── powerdevil                .config/powerdevilrc, powermanagementprofilesrc
 ├── autostart                 .config/autostart/*.desktop
 ├── apps                      .local/share/applications/*.desktop
+├── git                       .gitconfig: identidade e o gh como credential helper
 │
 ├── kde                       scripts e decisões do Plasma
 │   ├── settings.conf         311 chaves (gerado pelo capture, não editar)
 │   ├── monitores.conf        disposição das telas, casada por conector
 │   ├── capture.sh            lê o KDE vivo e regrava o settings.conf
 │   ├── apply.sh              aplica o settings.conf via kwriteconfig6
-│   ├── monitores.sh          aplica o monitores.conf via kscreen-doctor
+│   ├── monitores.sh          aplica o monitores.conf (--capturar grava a sessão atual)
 │   ├── wallpaper.sh          retrato no monitor em pé, paisagem no outro
 │   ├── layout-once.sh        primeiro login: monitores, wallpaper, tema, painel
 │   ├── layout.js             layout do painel (script do Plasma)

@@ -1,0 +1,15 @@
+[user]
+	name = Alexandre Rangel
+	email = mamutal91@gmail.com
+
+[credential "https://github.com"]
+	helper = !/usr/bin/gh auth git-credential
+
+[init]
+	defaultBranch = main
+
+[pull]
+	rebase = true
+
+[push]
+	autoSetupRemote = true

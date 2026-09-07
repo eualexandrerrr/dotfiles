@@ -62,7 +62,7 @@ Pacotes do stow na raiz, um por programa, espelhando o `$HOME`. Ferramenta em pa
 O `install.sh` distingue sozinho: pacote e a pasta que tem entrada com ponto na raiz.
 
 ```
-zsh ghostty kwin plasma dolphin powerdevil autostart apps   <- pacotes, viram links no $HOME
+zsh ghostty kwin plasma dolphin powerdevil autostart apps git   <- pacotes, viram links no $HOME
 kde        scripts e decisoes do Plasma (settings.conf, monitores.conf, layout-once...)
 bin        comandos
 vm         VM Windows com passthrough (XML do libvirt, hooks)
