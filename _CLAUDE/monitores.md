@@ -7,24 +7,33 @@ a direita; secundario em pe a esquerda, ocupado em tela cheia pelo `RicePanel`
 isso o principal comeca em x=1080. O y=240 do principal centraliza os 1440 dele nos 1920
 do vertical.
 
-`hypr/.config/hypr/monitores.lua`, casado por **nome de conector** porque os dois sao
-iguais e resolucao nao separa:
+`hypr/.config/hypr/monitores.lua`, casado por **descricao do monitor** (`desc:`), nunca
+por conector:
 
 ```lua
-hl.monitor({ output = "DP-1", mode = "2560x1440@180.00", position = "1080x240", scale = 1 })
-hl.monitor({ output = "DP-2", mode = "1920x1080@143.98", position = "0x0", scale = 1, transform = 1 })
+local principal = "desc:ASUSTek COMPUTER INC XG27ACS"
+local vertical = "desc:LG Electronics LG ULTRAGEAR"
+
+hl.monitor({ output = principal, mode = "2560x1440@180.00", position = "1080x240", scale = 1 })
+hl.monitor({ output = vertical, mode = "1920x1080@143.98", position = "0x0", scale = 1, transform = 1 })
 hl.monitor({ output = "", mode = "preferred", position = "auto", scale = "auto" })
 ```
 
-Nomes confirmados na maquina: DP-2 e o LG UltraGear (o vertical), DP-1 e o ASUS XG27ACS
-(o principal). A terceira linha e o curinga: monitor novo entra em `preferred/auto` em vez
-de ficar preto.
+A terceira linha e o curinga: monitor novo entra em `preferred/auto` em vez de ficar preto.
+
+**Nome de conector nao e estavel.** Em 07/09/2026, trocar a placa-mae renomeou as portas
+-- o ASUS foi de DP-1 para DP-2 e o LG de DP-2 para DP-3. Com a regra presa ao conector,
+o `transform = 1` do vertical caiu no principal, que subiu girado e em 1920x1080@120. A
+descricao nao depende de porta, cabo nem placa; as duas marcas sao diferentes, entao
+prefixo curto ja separa. Ver a descricao real com `hyprctl monitors -j`, campo
+`description`.
 
 **`transform = 1`** e 90 graus. Se a imagem sair de cabeca pra baixo, o valor certo e `3`.
 Nao da pra decidir isso lendo arquivo -- so olhando a tela.
 
-O mesmo arquivo prende workspace a monitor: 1 a 8 no DP-1, **9 no DP-2** (que e onde a
-regra de janela do `ricepanel` joga o painel).
+O mesmo arquivo prende workspace a monitor: 1 a 8 no principal, **9 no vertical** (que e
+onde a regra de janela do `ricepanel` joga o painel). As `workspace_rule` usam as mesmas
+variaveis `desc:`, pelo mesmo motivo.
 
 Para mexer arrastando em vez de editar: `nwg-displays` grava em
 `~/.config/hypr/monitors.conf`, em **hyprlang e com nome diferente do nosso**. Se usar, ler
