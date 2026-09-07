@@ -12,10 +12,8 @@ wmclassmatch=1
 
 [dolphin-tamanho]
 Description=Dolphin no tamanho certo
-position=1687,702
-positionrule=2
 size=1040,651
-sizerule=2
+sizerule=3
 wmclass=org.kde.dolphin
 wmclasscomplete=false
 wmclassmatch=1

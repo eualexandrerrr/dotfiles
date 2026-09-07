@@ -59,3 +59,7 @@ XwaylandEisNoPromptApps=xdotool
 [org.kde.kdecoration2]
 BorderSize=None
 BorderSizeAuto=false
+ButtonsOnLeft=
+ButtonsOnRight=IAX
+library=org.kde.klassy
+theme=Klassy

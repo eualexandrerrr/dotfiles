@@ -75,6 +75,7 @@ PY
 etapa_kde() {
     log "chaves do KDE (settings.conf)"
     bash "$DOTFILES_DIR/kde/layan.sh" || falha "layan.sh"
+    bash "$DOTFILES_DIR/kde/klassy.sh" || falha "klassy.sh"
     bash "$DOTFILES_DIR/kde/apply.sh" || falha "apply.sh"
 }
 

@@ -176,6 +176,7 @@ spotify-launcher
 kwin-effect-rounded-corners
 looking-glass
 fluent-cursor-theme-git
+klassy
 android-studio
 bun-bin
 claude-code
