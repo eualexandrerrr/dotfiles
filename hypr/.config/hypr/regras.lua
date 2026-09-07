@@ -47,8 +47,11 @@ hl.window_rule({
     center = true,
 })
 
-hl.window_rule({ match = { class = "com.mitchellh.ghostty" }, opacity = "0.94 0.94" })
-hl.window_rule({ match = { class = "code|Code" }, opacity = "0.96 0.96" })
+hl.window_rule({
+    name = "sempre-solido",
+    match = { class = "looking-glass-client|virt-manager|steam_app.*|gamescope|mpv|vlc" },
+    opacity = "1.0 1.0",
+})
 
 hl.window_rule({
     name = "sem-idle-em-fullscreen",

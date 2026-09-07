@@ -213,6 +213,21 @@ O `ricepanel` recebe: `workspace = "9 silent"` (a tela vertical), `fullscreen`,
 `border_size = 0`, `no_shadow`, `no_blur`, `no_focus` e `no_initial_focus`. As duas ultimas
 substituem o `skiptaskbar` do `kwinrulesrc`: sem elas o painel rouba foco ao subir.
 
+## Transparencia
+
+A opacidade e **global**, no bloco `decoration` do `hyprland.lua`: `active_opacity = 0.96`,
+`inactive_opacity = 0.90` e `fullscreen_opacity = 1.0`. Nao existe mais `opacity` por app --
+as regras que o ghostty e o VS Code tinham sairam, senao cada janela seguia um valor
+diferente do resto da tela.
+
+O `fullscreen_opacity = 1.0` e o que salva video e jogo: em tela cheia a janela volta a ser
+solida sozinha. Fora dele, a regra `sempre-solido` de `regras.lua` tira a transparencia de
+quem nao pode ter -- `looking-glass-client`, `virt-manager`, `steam_app.*`, `gamescope`,
+`mpv` e `vlc`.
+
+Quem faz a transparencia parecer boa e o `blur` com `ignore_opacity = true`: sem ele o que
+aparece atras da janela e a imagem crua, nao o desfoque.
+
 ## Pegadinhas
 
 - **`transform` do monitor vertical**: `monitores.lua` usa `transform = 1`. Se a imagem
