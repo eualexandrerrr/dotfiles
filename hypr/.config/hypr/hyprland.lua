@@ -71,6 +71,9 @@ hl.config({
             new_optimizations = true,
             ignore_opacity = true,
             xray = false,
+            popups = true,
+            popups_ignorealpha = 0.2,
+            special = true,
         },
     },
 

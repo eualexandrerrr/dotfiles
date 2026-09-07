@@ -228,6 +228,18 @@ quem nao pode ter -- `looking-glass-client`, `virt-manager`, `steam_app.*`, `gam
 Quem faz a transparencia parecer boa e o `blur` com `ignore_opacity = true`: sem ele o que
 aparece atras da janela e a imagem crua, nao o desfoque.
 
+O blur roda com `size = 6` e `passes = 3` -- e o custo real do visual, porque cada `passes`
+e uma volta inteira no shader. Numa 3090 nao se sente; **quando a placa for pra VM, e o
+primeiro numero a baixar** (`passes = 2` corta quase metade do trabalho e quase nao muda a
+imagem).
+
+`popups = true` existe por causa da transparencia: menu de contexto e dropdown tambem
+herdam a opacidade, e sem essa chave eles saiam translucidos e **sem** desfoque, que e o
+pior dos dois mundos. `special = true` faz o mesmo pela workspace `rascunho` do `Meta+D`.
+
+`xray = false` de proposito: com `true` a janela mostra o wallpaper borrado em vez das
+janelas atras. Fica mais limpo e mais barato, mas some a nocao do que esta embaixo.
+
 ## Pegadinhas
 
 - **`transform` do monitor vertical**: `monitores.lua` usa `transform = 1`. Se a imagem
