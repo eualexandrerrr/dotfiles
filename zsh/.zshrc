@@ -7,6 +7,22 @@ setopt EXTENDED_HISTORY HIST_IGNORE_DUPS SHARE_HISTORY AUTO_CD
 
 autoload -Uz compinit && compinit
 zstyle ':completion:*' menu select
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*:descriptions' format '%F{yellow}%B%d%b%f'
+zstyle ':completion:*' special-dirs true
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path "$HOME/.cache/zsh/compcache"
+
+# Tab progressivo: tenta exato, depois ignorando maiuscula, depois o pedaco digitado como
+# prefixo de qualquer trecho separado por . _ -, e por fim como substring em qualquer
+# posicao. So passa pro proximo quando o anterior nao acha nada, entao o match exato
+# continua ganhando quando existe.
+zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+
+# Arquivos ocultos entram no Tab sem precisar digitar o ponto: "dot<Tab>" acha .dotfiles.
+# So na completion -- setopt globdots seria global e faria "rm *" pegar oculto tambem.
+_comp_options+=(globdots)
 
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
@@ -75,3 +91,22 @@ command -v starship >/dev/null 2>&1 && eval "$(starship init zsh)"
 # mas o atuin e o fzf reescrevem bindings, entao amarrar depois deles garante.
 bindkey '^[^?' backward-kill-word
 bindkey '^H'   backward-kill-word
+
+# Seta pra cima filtra o historico pelo que ja esta escrito: "cd" + seta so passeia pelos
+# cd anteriores. Com o cursor no meio de um comando de varias linhas, anda entre as linhas.
+# O atuin sobe com --disable-up-arrow justamente pra deixar a seta livre pra isso; o Ctrl+R
+# continua sendo dele.
+autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+bindkey '^[[A' up-line-or-beginning-search
+bindkey '^[OA' up-line-or-beginning-search
+bindkey '^[[B' down-line-or-beginning-search
+bindkey '^[OB' down-line-or-beginning-search
+
+# No menu do Tab com varios candidatos, as setas navegam a lista.
+zmodload zsh/complist
+bindkey -M menuselect '^[[A' up-line-or-history
+bindkey -M menuselect '^[[B' down-line-or-history
+bindkey -M menuselect '^[[C' forward-char
+bindkey -M menuselect '^[[D' backward-char

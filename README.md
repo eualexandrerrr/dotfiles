@@ -198,6 +198,34 @@ e em formato deprecado.
 
 ---
 
+## Terminal
+
+zsh com plugins dos repos oficiais, sem oh-my-zsh. `starship` no prompt, `atuin` no `Ctrl+R`,
+`fzf` no `Ctrl+T`, `zoxide` para pular de pasta.
+
+**Tab progressivo.** O `matcher-list` tenta em ordem: exato, ignorando maiúscula, o pedaço
+digitado como prefixo de qualquer trecho separado por `.` `_` `-`, e por fim como substring
+em qualquer posição. Só passa pro próximo quando o anterior não acha nada, então match exato
+continua ganhando quando existe. Com `_comp_options+=(globdots)` os arquivos ocultos entram
+sem precisar digitar o ponto:
+
+```
+cd dot<Tab>    -> cd .dot        para no prefixo comum: .dotfiles, .dotfiles-private, .dotnet
+cd dotn<Tab>   -> cd .dotnet/    candidato unico, completa inteiro
+```
+
+O `globdots` vai só na completion de propósito — `setopt globdots` seria global e faria
+`rm *` pegar arquivo oculto junto.
+
+**Seta pra cima filtra pelo que já está escrito.** `up-line-or-beginning-search`: digitar `cd`
+e subir passeia só pelos `cd` anteriores, em vez de percorrer o histórico inteiro. É por isso
+que o atuin sobe com `--disable-up-arrow` — ele fica com o `Ctrl+R` e deixa a seta livre.
+Com o cursor no meio de um comando de várias linhas, a seta anda entre as linhas.
+
+Os `bindkey` ficam no fim do `.zshrc`, depois do atuin e do fzf, que reescrevem bindings.
+
+---
+
 ## Energia
 
 Nunca suspende, nunca hiberna. A única coisa que a inatividade faz é apagar os monitores em
