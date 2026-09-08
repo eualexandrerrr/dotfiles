@@ -41,3 +41,36 @@ Sintoma coletivo de conector renumerado. Nada disso e config errada: os wrappers
 resolvem o monitor pela marca, entao o que falhou foi a marca nao bater. Conferir com
 `bin/monitor.sh principal` -- se sair vazio, comparar `hyprctl monitors -j` com o
 `hypr/.config/hypr/telas.lua`.
+
+## Boot cai em modo de emergencia: "Failed to start File System Check"
+
+Aconteceu em 08/09/2026 com o `/home` (`nvme0n1p3`, label Files) depois de um desligamento
+no botao de power. O `systemd-fsck` do boot roda `fsck -a`: ele conserta o trivial, mas se
+recusa a mexer em bitmap de bloco/inode divergente e sai com codigo 4. Dai `home.mount`
+falha, `local-fs.target` falha e a sessao nunca sobe -- o `hyprland.lua` "cannot open" e
+consequencia, nao causa: sem `/home` nao existe `~/.config/hypr/`.
+
+Reparo, com a particao desmontada (emergencia ja deixa ela assim; se nao, bootar pela ISO):
+
+```
+e2fsck -fn /dev/nvme0n1p3   # so olha
+e2fsck -fy /dev/nvme0n1p3   # repara
+```
+
+Rodar de novo depois: se os cinco passos passarem sem apontar erro, ficou limpo.
+
+A etapa `configure_resiliencia_boot` do `install.sh` previne a repeticao com tres camadas:
+
+- `fsck.repair=yes` na cmdline -- o boot passa a rodar `fsck -y` e conserta sozinho em vez
+  de cair em emergencia. E a unica das tres que resolve o sintoma exato acima.
+- `kernel.sysrq = 1` em `/etc/sysctl.d/99-sysrq.conf` -- com a sessao travada, **REISUB**
+  (Alt+SysRq, uma tecla por vez, ~1s entre elas) sincroniza e desmonta antes de reiniciar.
+  Segurar o botao de power e o que suja o filesystem; REISUB nao suja.
+- `tune2fs -e remount-ro` nas ext4 -- ao primeiro erro o kernel remonta somente-leitura em
+  vez de continuar escrevendo por cima da corrupcao.
+
+Conferir se estao valendo: `grep -o fsck.repair=yes /proc/cmdline`, `cat /proc/sys/kernel/sysrq`
+(quer `1`) e `sudo tune2fs -l /dev/nvme0n1p3 | grep -i "errors behavior"` (quer `Remount read-only`).
+
+Se o erro voltar **depois** do reparo, nao e desligamento sujo: e UUID errado no `/etc/fstab`
+ou o disco indo embora. Comparar `lsblk -f` com o `fstab` e olhar `sudo smartctl -a /dev/nvme0n1`.

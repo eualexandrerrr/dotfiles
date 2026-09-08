@@ -25,8 +25,8 @@ mkdir -p "$LOGDIR"
 LOGFILE="${LOGFILE:-$LOGDIR/install.log}"
 T0=$SECONDS
 STEP=0
-TOTAL_STEPS=20
-[[ ${SKIP_NVIDIA:-0} == 1 ]] && TOTAL_STEPS=18
+TOTAL_STEPS=21
+[[ ${SKIP_NVIDIA:-0} == 1 ]] && TOTAL_STEPS=19
 WARNS=()
 ETAPAS_FALHA=()
 OFICIAL_PEDIDOS=0; OFICIAL_NOVOS=(); OFICIAL_FALTANDO=()
@@ -255,13 +255,15 @@ install_android_sdk() {
 }
 
 add_kernel_params() {
-    log "gravando parametros de kernel da nvidia"
+    local params=("$@")
+    [[ ${#params[@]} -eq 0 ]] && params=("${KERNEL_PARAMS[@]}")
+    log "gravando parametros de kernel: ${params[*]}"
     local applied=0 p entry
 
     if sudo test -d /boot/loader/entries && command -v bootctl >/dev/null 2>&1; then
         while IFS= read -r entry; do
             sudo grep -qE '^options ' "$entry" || continue
-            for p in "${KERNEL_PARAMS[@]}"; do
+            for p in "${params[@]}"; do
                 sudo grep -qF -- "$p" "$entry" || sudo sed -i "s|^options .*|& $p|" "$entry"
             done
             applied=1
@@ -270,7 +272,7 @@ add_kernel_params() {
     fi
 
     if sudo test -f /etc/kernel/cmdline; then
-        for p in "${KERNEL_PARAMS[@]}"; do
+        for p in "${params[@]}"; do
             sudo grep -qF -- "$p" /etc/kernel/cmdline || printf ' %s' "$p" | sudo tee -a /etc/kernel/cmdline >/dev/null
         done
         applied=1
@@ -278,7 +280,7 @@ add_kernel_params() {
     fi
 
     if [[ -f /etc/default/grub ]]; then
-        for p in "${KERNEL_PARAMS[@]}"; do
+        for p in "${params[@]}"; do
             grep -qF -- "$p" /etc/default/grub || \
                 sudo sed -i "s|^\(GRUB_CMDLINE_LINUX_DEFAULT=\"[^\"]*\)\"|\1 $p\"|" /etc/default/grub
         done
@@ -289,7 +291,25 @@ add_kernel_params() {
         fi
     fi
 
-    [[ $applied -eq 1 ]] || warn "nenhum bootloader reconhecido, adicione na mao: ${KERNEL_PARAMS[*]}"
+    [[ $applied -eq 1 ]] || warn "nenhum bootloader reconhecido, adicione na mao: ${params[*]}"
+}
+
+configure_resiliencia_boot() {
+    log "resiliencia de boot: fsck automatico, sysrq e ext4 remount-ro"
+
+    add_kernel_params fsck.repair=yes
+
+    printf 'kernel.sysrq = 1\n' | sudo tee /etc/sysctl.d/99-sysrq.conf >/dev/null \
+        && sudo sysctl --system >/dev/null 2>&1
+    ok "sysrq completo habilitado (REISUB no lugar do botao de power)"
+
+    local dev
+    while read -r dev; do
+        [[ -b $dev ]] || continue
+        sudo tune2fs -e remount-ro "$dev" >/dev/null 2>&1 \
+            && ok "$dev: erro de ext4 agora remonta somente-leitura" \
+            || warn "tune2fs falhou em $dev"
+    done < <(findmnt -no SOURCE,FSTYPE | awk '$2=="ext4"{print $1}' | sort -u)
 }
 
 configure_nvidia() {
@@ -695,6 +715,7 @@ main() {
     etapa install_android_sdk
     etapa install_maestro
     etapa configure_nvidia
+    etapa configure_resiliencia_boot
     etapa enable_services
     etapa link_dotfiles
     etapa home_enxuta
