@@ -90,6 +90,8 @@ rode por `bash -c '...'` ou use array.
 | Suspender, hibernar, apagar monitor por inatividade | `claude/docs/energia.md` |
 | Pastas da home, XDG, onde criar projeto novo | `claude/docs/home-enxuta.md` |
 | VM Windows, passthrough, vfio, a placa que vai chegar | `claude/docs/vm-e-hardware.md` |
+| RDP no servidor Windows, onde a senha mora | `claude/docs/rdp.md` |
+| Pagina inicial do Chrome, politica gerenciada | `claude/docs/chrome-inicio.md` |
 | Algo quebrado depois do format | `claude/docs/se-quebrar-no-format.md` |
 | Saber por que uma correcao foi feita | `claude/docs/historico-commits.md` |
 | Android SDK, AVD, emulador, `bin/android-sdk.sh` | `claude/docs/android.md` |

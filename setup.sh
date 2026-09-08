@@ -189,7 +189,7 @@ etapa_recarregar() {
     ok "recarregado"
 }
 
-ETAPAS=(links home perfil tema energia audio dns wallpaper claude recarregar)
+ETAPAS=(links home perfil tema energia audio dns wallpaper chrome claude recarregar)
 
 if [[ ${1:-} == --lista ]]; then
     printf 'etapas: %s\n' "${ETAPAS[*]}"
