@@ -19,8 +19,9 @@ disco; e o `vfio-ativar.sh` só roda com a segunda GPU montada, senão o host fi
 ## Looking Glass (`vm/glass`)
 
 Com a RX 550 no host, o perfil `3090` não fica mais sem tela: o Windows renderiza na 3090,
-copia o frame pra `/dev/shm/looking-glass` (ivshmem, 64 MB) e o `vm/glass` desenha numa janela
-do Hyprland. Os 64 MB bastam pra 2560x1440 (`w*h*4*2 + 10 MB` ≈ 40 MB); 4K pediria 128.
+copia o frame pra `/dev/shm/looking-glass` (ivshmem, 128 MB) e o `vm/glass` desenha numa janela
+do Hyprland. 2560x1440 pede ~40 MB (`w*h*4*2 + 10 MB`); os 128 MB cobrem até 4K, que é o
+que o EDID do dummy plug anuncia.
 
 A 3090 leva um **dummy plug** numa saída livre. Não é só pelo caso de ficar sem cabo: com o
 ASUS ligado nas duas placas e a entrada dele no HDMI, o monitor pode derrubar o hot-plug

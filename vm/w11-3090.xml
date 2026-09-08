@@ -231,5 +231,5 @@
     </hostdev>
     <watchdog model="itco" action="reset" />
     <memballoon model="none" />
-  <shmem name="looking-glass"><model type="ivshmem-plain" /><size unit="M">64</size></shmem><graphics type="spice" autoport="yes"><listen type="none" /><gl enable="no" /></graphics><video><model type="none" /></video></devices>
+  <shmem name="looking-glass"><model type="ivshmem-plain" /><size unit="M">128</size></shmem><graphics type="spice" autoport="yes"><listen type="none" /><gl enable="no" /></graphics><video><model type="none" /></video></devices>
 </domain>

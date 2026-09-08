@@ -124,7 +124,15 @@ Ele tambem **aposenta a duvida do Looking Glass IDD**, que era a unica incognita
 sobrava: o IDD nao vem no `~/vms/looking-glass-host-B7.zip` (so o `looking-glass-host-setup.exe`),
 seria download a parte e teria que casar a versao B7. Com dummy plug nada disso importa.
 
-Os 64 MB de shmem ja no XML bastam pra 2560x1440 (`w*h*4*2 + 10 MB` ~ 40 MB). 4K pediria 128.
+O dummy plug comprado e **DisplayPort 4K** (R$ 32,85, anuncia 4K@60 e 1080p@120). Isso
+importa pro shmem: 2560x1440 pede ~40 MB (`w*h*4*2 + 10 MB`), mas se o Windows adotar o EDID
+4K do dummy vai pra ~76 MB e o Looking Glass reclamaria de memoria insuficiente. O XML foi
+de 64 para **128 MB**, que cobre ate 4K com folga -- e /dev/shm so ocupa RAM enquanto a VM
+roda, entao 64 MB a mais nao custam nada num host de 31 GB.
+
+**Com o ASUS e o dummy ligados ao mesmo tempo, o Windows enxerga dois monitores.** Definir o
+ASUS como principal no Windows uma vez (Configuracoes > Sistema > Video), senao o RedM pode
+abrir no display fantasma do dummy e a janela some da tela.
 
 ### Por que a RX 550 nao pode ser a placa da VM
 
