@@ -381,6 +381,23 @@ vem **depois** do `regras.lua` para vencer a regra `sempre-solido`.
   sem essas variaveis, nunca teve o problema -- foi ele o controle que fechou o diagnostico.
   Conferir com `dot status`, que hoje acusa o descasamento e quem esta em swiftshader.
 - **NVIDIA**: `no_hardware_cursors = true` em `cursor` evita cursor invisivel ou piscando.
+- **Electron 33 nao escolhe a GPU certa sozinho**: com as telas na RX 550 e a 3090 tambem
+  presente, o Electron 33 (Chromium 130) tenta importar o dmabuf pelo EGL da NVIDIA,
+  responde `eglCreateImage failed with 0x00003009` (EGL_BAD_MATCH), perde o `gpu-process`
+  tres vezes e cai em `--use-angle=swiftshader-webgl`, desenhando na CPU. Isso acontece
+  **mesmo com o `uwsm/env` correto**: nao e variavel de ambiente, e o proprio Chromium 130
+  escolhendo o `render node` errado. O Chrome e o Discord escapam porque a versao deles
+  passa `--render-node-override=/dev/dri/renderD129` sozinha. Conserto no app afetado:
+  subir com `--use-angle=vulkan`. O Electron 43 (`/usr/bin/electron`) ja acerta sem flag.
+  Diagnostico rapido: `--use-angle=swiftshader` na linha de comando do `gpu-process` e
+  `gpu-process` acima de 40% de CPU.
+- **RicePanel em software e escolha, nao defeito**: o `main.js` dele chama
+  `app.disableHardwareAcceleration()` de proposito -- painel de chapa e texto que nunca
+  anima. Por isso o `dot status` ignora ele na conta de quem renderiza por software.
+- **`dot status` le o ambiente da sessao, nao o do terminal**: um terminal aberto antes de
+  uma correcao de `uwsm/env` carrega as variaveis velhas para sempre, e a checagem acusava
+  `__GLX_VENDOR_LIBRARY_NAME=nvidia` que ja nao existia na sessao. A fonte certa e
+  `systemctl --user show-environment`.
 - **`hyprctl reload` nao recarrega a waybar**: e processo separado, e o `SIGUSR2` **nao
   serve** quando ela subiu sem barra nenhuma (output que nao existia) -- ela recarrega a
   config e continua sem criar surface. Por isso o `setup.sh recarregar` hoje **mata e sobe
