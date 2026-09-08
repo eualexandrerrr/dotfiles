@@ -48,7 +48,7 @@ hl.window_rule({ match = { class = "qt6ct|qt5ct" }, float = true })
 hl.window_rule({ match = { class = "org.kvantum.kvantummanager" }, float = true })
 hl.window_rule({ match = { class = "virt-manager" }, float = true })
 hl.window_rule({ match = { class = "xarchiver" }, float = true })
-hl.window_rule({ match = { class = "thunar", title = ".*Propriedades.*" }, float = true })
+hl.window_rule({ match = { class = "[Tt]hunar", title = ".*Propriedades.*" }, float = true })
 
 hl.window_rule({
     name = "picture-in-picture",
@@ -67,7 +67,8 @@ hl.window_rule({
 
 hl.window_rule({
     name = "thunar-tamanho",
-    match = { class = "thunar" },
+    match = { class = "[Tt]hunar" },
+    float = true,
     size = { 1040, 651 },
     center = true,
 })
