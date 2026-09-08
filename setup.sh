@@ -139,8 +139,15 @@ etapa_chrome() {
 
 etapa_claude() {
     log "settings do Claude Code"
-    local base="$DOTFILES_DIR/claude/settings.json"
+    # A pasta mora no repo PRIVADO ~/Claude, nunca aqui: skills, comandos e settings sao
+    # material dele, e este repositorio e publico. Sem o clone, a etapa avisa e segue.
+    local fonte="${CLAUDE_CENTRAL:-$HOME/Claude/maquina}"
+    local base="$fonte/settings.json"
     local destino="$HOME/.claude/settings.json"
+    if [[ ! -d $fonte ]]; then
+        falha "$fonte nao existe -- git clone git@github.com:eualexandrerrr/Claude.git ~/Claude"
+        return
+    fi
     [[ -f $base ]] || { falha "$base nao existe"; return; }
     command -v jq >/dev/null 2>&1 || { falha "jq nao instalado"; return; }
     mkdir -p "$HOME/.claude"
@@ -162,8 +169,8 @@ etapa_claude() {
     # ali some no primeiro save atomico. Copia por cima, que e o que o repo manda.
     local item
     for item in CLAUDE.md statusline.js mcp-doctor.js commands skills bin docs; do
-        [[ -e "$DOTFILES_DIR/claude/$item" ]] || continue
-        cp -a "$DOTFILES_DIR/claude/$item" "$HOME/.claude/" 2>/dev/null \
+        [[ -e "$fonte/$item" ]] || continue
+        cp -a "$fonte/$item" "$HOME/.claude/" 2>/dev/null \
             && ok "~/.claude/$item" \
             || falha "~/.claude/$item nao copiado"
     done

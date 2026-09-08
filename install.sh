@@ -546,6 +546,25 @@ restaurar_segredos() {
     DOTFILES_DIR="$DOTFILES_DIR" bash "$script" || true
 }
 
+clonar_central() {
+    log "central de conhecimento (repo privado Claude)"
+    local destino="$HOME/Claude"
+    local repo="${CLAUDE_REPO:-git@github.com:eualexandrerrr/Claude.git}"
+
+    if [[ -d $destino/.git ]]; then
+        ok "$destino ja clonado"
+        return 0
+    fi
+
+    # Nunca fatal: sem chave SSH a instalacao segue e a etapa claude do setup.sh avisa
+    # sozinha. O que nao pode e este repositorio, que e publico, guardar o conteudo dela.
+    if git clone --quiet "$repo" "$destino" 2>/dev/null; then
+        ok "$destino clonado"
+    else
+        warn "sem acesso a $repo -- depois rode: git clone $repo $destino"
+    fi
+}
+
 sessao_wayland() {
     local dir=/usr/share/wayland-sessions
     if [[ -f $dir/hyprland-uwsm.desktop ]]; then
@@ -735,6 +754,7 @@ main() {
     etapa link_dotfiles
     etapa home_enxuta
     etapa restaurar_segredos
+    etapa clonar_central
     etapa configure_sddm
     etapa configure_hyprland
     etapa verificar

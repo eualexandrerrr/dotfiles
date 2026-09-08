@@ -38,7 +38,7 @@ Toda variavel de driver grafico tem que seguir a AMD; o `uwsm/env` resolve isso 
 lendo o driver de cada `card`, e `dot status` acusa se alguem voltar a fixar `nvidia`.
 
 Atencao: os hooks de single-GPU passthrough dos tutoriais assumem display manager; com
-Hyprland o script de start precisa parar a sessao direto (ver `claude/docs/vm-e-hardware.md`).
+Hyprland o script de start precisa parar a sessao direto (ver `~/Claude/maquina/docs/vm-e-hardware.md`).
 
 ## install.sh x setup.sh
 
@@ -69,7 +69,7 @@ desculpa de "so no proximo login".
 `hypr/`, rodar **`Hyprland --verify-config`** -- ele valida sem subir sessao e responde
 `config ok`. Config errada nao da erro na cara: e ignorada, e a sessao sobe torta. A
 referencia offline da versao instalada e `/usr/share/hypr/stubs/hl.meta.lua`; consultar
-ela antes da wiki, que descreve a versao mais nova. Detalhe em `claude/docs/hyprland.md`.
+ela antes da wiki, que descreve a versao mais nova. Detalhe em `~/Claude/maquina/docs/hyprland.md`.
 
 Nesta maquina `systemctl` e `pacman` pelados caem num wrapper com `sudo` que o sandbox
 recusa ("sinalizador sem novos privilegios"). Use `/usr/bin/systemctl --user ...`; e nao
@@ -82,20 +82,25 @@ rode por `bash -c '...'` ou use array.
 
 ## Indice -- ler o arquivo ANTES de mexer no assunto
 
+Os docs desta maquina moram no repositorio **privado** `~/Claude` (`maquina/docs/`), nunca
+aqui: este repo e publico. Sem o clone, `git clone git@github.com:eualexandrerrr/Claude.git
+~/Claude` -- o `install.sh` ja faz isso na etapa `clonar_central`.
+
+
 | Vou mexer em... | Ler primeiro |
 |---|---|
-| Compositor, atalhos, regras de janela, waybar, barra | `claude/docs/hyprland.md` |
-| Format, o que sobrevive em `/home`, perfil do Chrome, particoes | `claude/docs/particoes-e-format.md` |
-| Pacote do stow, onde um arquivo novo entra, regra do `--no-folding` | `claude/docs/estrutura-repo.md` |
-| Rodar o `install.sh`, entender etapa que falhou | `claude/docs/install-fluxo.md` |
-| Disposicao de telas, `monitores.lua`, wallpaper por geometria | `claude/docs/monitores.md` |
-| DNS, keyring, por que NAO instalar gnome-keyring | `claude/docs/dns-e-keyring.md` |
-| Suspender, hibernar, apagar monitor por inatividade | `claude/docs/energia.md` |
-| Pastas da home, XDG, onde criar projeto novo | `claude/docs/home-enxuta.md` |
-| VM Windows, passthrough, vfio, a placa que vai chegar | `claude/docs/vm-e-hardware.md` |
-| RDP no servidor Windows, onde a senha mora | `claude/docs/rdp.md` |
-| Pagina inicial do Chrome, politica gerenciada | `claude/docs/chrome-inicio.md` |
-| Algo quebrado depois do format | `claude/docs/se-quebrar-no-format.md` |
-| Saber por que uma correcao foi feita | `claude/docs/historico-commits.md` |
-| Android SDK, AVD, emulador, `bin/android-sdk.sh` | `claude/docs/android.md` |
-| Settings do Claude Code, o que do `~/.claude` e versionado | `claude/docs/install-fluxo.md` |
+| Compositor, atalhos, regras de janela, waybar, barra | `~/Claude/maquina/docs/hyprland.md` |
+| Format, o que sobrevive em `/home`, perfil do Chrome, particoes | `~/Claude/maquina/docs/particoes-e-format.md` |
+| Pacote do stow, onde um arquivo novo entra, regra do `--no-folding` | `~/Claude/maquina/docs/estrutura-repo.md` |
+| Rodar o `install.sh`, entender etapa que falhou | `~/Claude/maquina/docs/install-fluxo.md` |
+| Disposicao de telas, `monitores.lua`, wallpaper por geometria | `~/Claude/maquina/docs/monitores.md` |
+| DNS, keyring, por que NAO instalar gnome-keyring | `~/Claude/maquina/docs/dns-e-keyring.md` |
+| Suspender, hibernar, apagar monitor por inatividade | `~/Claude/maquina/docs/energia.md` |
+| Pastas da home, XDG, onde criar projeto novo | `~/Claude/maquina/docs/home-enxuta.md` |
+| VM Windows, passthrough, vfio, a placa que vai chegar | `~/Claude/maquina/docs/vm-e-hardware.md` |
+| RDP no servidor Windows, onde a senha mora | `~/Claude/maquina/docs/rdp.md` |
+| Pagina inicial do Chrome, politica gerenciada | `~/Claude/maquina/docs/chrome-inicio.md` |
+| Algo quebrado depois do format | `~/Claude/maquina/docs/se-quebrar-no-format.md` |
+| Saber por que uma correcao foi feita | `~/Claude/maquina/docs/historico-commits.md` |
+| Android SDK, AVD, emulador, `bin/android-sdk.sh` | `~/Claude/maquina/docs/android.md` |
+| Settings do Claude Code, o que do `~/.claude` e versionado | `~/Claude/maquina/docs/install-fluxo.md` |
