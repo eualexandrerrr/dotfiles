@@ -18,17 +18,20 @@ hl.bind("ALT + W", hl.dsp.window.close())
 
 local FECHA_ABA_SOZINHO = { "[Gg]oogle%-chrome", "RCode", "[Cc]ode", "[Ff]irefox", "[Tt]hunar", "ghostty" }
 
+-- non_consuming deixa o CTRL+W real chegar na janela, com press E release. Antes o bind
+-- engolia o evento e devolvia um send_shortcut sintetico: o app via o press, nunca via o
+-- release, e ficava repetindo "w" ate outra tecla chegar.
 hl.bind("CTRL + W", function()
     local janela = hl.get_active_window()
     if janela and janela.class then
         for _, padrao in ipairs(FECHA_ABA_SOZINHO) do
             if janela.class:match(padrao) then
-                return hl.dispatch(hl.dsp.send_shortcut({ mods = "CTRL", key = "W", window = "address:" .. janela.address }))
+                return
             end
         end
     end
     return hl.dispatch(hl.dsp.window.close())
-end)
+end, { non_consuming = true })
 hl.bind(mod .. " + SHIFT + Q", hl.dsp.window.kill())
 hl.bind(mod .. " + L", hl.dsp.exec_cmd("uwsm app -- " .. dotfiles .. "/bin/bloquear.sh"))
 hl.bind(mod .. " + SHIFT + E", hl.dsp.exec_cmd("uwsm app -- wlogout"))
