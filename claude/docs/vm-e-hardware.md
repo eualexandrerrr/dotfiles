@@ -97,16 +97,29 @@ com 20).
 
 ### Topologia dos cabos (definida em 07/09/2026, com a compra do 2o HDMI e do dummy plug)
 
+Portas reais: a 3090 tem 3x DP + 1x HDMI, a RX 550 tem 1x DP + 1x HDMI, e cada monitor tem
+1x DP + 1x HDMI. Com 2 cabos HDMI e 2 DP so existem dois arranjos; **ele escolheu a 3090 no
+DisplayPort**:
+
 ```
+ASUS XG27ACS <--DP---- RTX 3090   Windows nativo, 1440p180
 ASUS XG27ACS <--HDMI-- RX 550     Linux, entrada do dia a dia
-ASUS XG27ACS <--DP---- RTX 3090   Windows nativo 1440p180
-LG UltraGear <--HDMI-- RX 550     Linux, RicePanel
-RTX 3090     <--dummy plug numa saida livre (3x DP + 1x HDMI, sobra porta)
+LG UltraGear <--DP---- RX 550     Linux, RicePanel
+RTX 3090     <--dummy plug numa das 2 DP que sobram
 ```
 
 O ASUS recebe **duas** entradas e alterna pelo botao. No dia a dia fica no HDMI; pra jogar,
 ou `vm/glass -F` sem sair do Hyprland, ou troca pra DP e ve o Windows nativo. A sessao nao
-cai em nenhum dos dois casos.
+cai em nenhum dos dois casos. Sobra um cabo HDMI.
+
+**O custo dessa escolha e o teto do Linux:** 2560x1440@180 pede ~19,3 Gbps, e a HDMI 2.0b da
+RX 550 entrega 18. Pela HDMI o principal fica em **144 Hz**. O outro arranjo (RX 550 no DP,
+3090 no HDMI 2.1) daria 180 nos dois lados, mas a preferencia foi por DP na 3090 e no Windows
+o resultado e identico -- DP 1.4 tem 25,9 Gbps, passa sem DSC.
+
+Por isso, **na etapa 2 o `monitores.lua` muda de `2560x1440@180.00` para `@144`**, quando a
+RX 550 assumir o principal. E `mode = "highrr"` **nao** resolve isso: ele maximiza a taxa e
+nao a resolucao, e derruba a tela pra 1024x768@180 (testado em 07/09/2026).
 
 **Video primario na BIOS: a RX 550** (slot de baixo, `PCIEX16_2`). E onde vive o Linux e o
 menu do systemd-boot -- a entrada `Arch Linux (zen, sem vfio)` so serve se aparecer na

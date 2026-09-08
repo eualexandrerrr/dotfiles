@@ -3,6 +3,9 @@ local telas = require("telas")
 local principal = telas.desc("principal")
 local vertical = telas.desc("vertical")
 
+-- NAO trocar por "highrr": ele maximiza a TAXA, nao a resolucao, e cai em 1024x768@180
+-- (testado em 07/09/2026). Resolucao e taxa sempre explicitas aqui.
+-- Quando a RX 550 assumir o principal pela HDMI 2.0b, este valor vira 2560x1440@144.
 hl.monitor({
     output = principal,
     mode = "2560x1440@180.00",
