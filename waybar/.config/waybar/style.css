@@ -82,6 +82,8 @@ window#waybar {
     color: @peach;
 }
 
+#custom-rdp,
+#mpris,
 #pulseaudio,
 #clock,
 #tray,
@@ -93,6 +95,8 @@ window#waybar {
 }
 
 #pulseaudio   { color: @peach; }
+#mpris        { color: @green; }
+#custom-rdp   { color: @teal; }
 
 #clock {
     color: @base;

@@ -11,6 +11,8 @@
     "modules-left": ["custom/janela"],
     "modules-center": ["hyprland/workspaces", "custom/discord", "hyprland/submap"],
     "modules-right": [
+        "custom/rdp",
+        "mpris",
         "pulseaudio",
         "tray",
         "clock",
@@ -86,6 +88,27 @@
         "scroll-step": 5
     },
 
+
+    "custom/rdp": {
+        "exec": "$HOME/.dotfiles/bin/rdp-waybar.sh",
+        "return-type": "json",
+        "interval": 5,
+        "format": "{}",
+        "on-click": "$HOME/.dotfiles/bin/rdp-waybar.sh focar",
+        "on-click-right": "$HOME/.dotfiles/bin/rdp-waybar.sh fechar"
+    },
+
+    "mpris": {
+        "player": "spotify",
+        "format": "{player_icon} {dynamic}",
+        "format-paused": "{status_icon} <i>{dynamic}</i>",
+        "dynamic-len": 32,
+        "dynamic-order": ["title", "artist"],
+        "player-icons": { "spotify": "\uf1bc" },
+        "status-icons": { "paused": "\uf04c" },
+        "on-click": "playerctl --player=spotify play-pause",
+        "on-click-right": "hyprctl dispatch 'hl.dsp.focus({ workspace = 5 })'"
+    },
 
     "tray": {
         "icon-size": 16,
