@@ -83,7 +83,10 @@ window#waybar {
 }
 
 #custom-rdp,
-#mpris,
+#custom-musica,
+#custom-anterior,
+#custom-playpause,
+#custom-proximo,
 #pulseaudio,
 #clock,
 #tray,
@@ -95,8 +98,23 @@ window#waybar {
 }
 
 #pulseaudio   { color: @peach; }
-#mpris        { color: @green; }
-#custom-rdp   { color: @teal; }
+#custom-musica    { color: @green; }
+#custom-rdp       { color: @teal; }
+
+#custom-anterior,
+#custom-playpause,
+#custom-proximo {
+    color: @subtext;
+    padding: 0 6px;
+}
+
+#custom-anterior:hover,
+#custom-playpause:hover,
+#custom-proximo:hover {
+    color: @text;
+}
+
+#custom-playpause.tocando { color: @green; }
 
 #clock {
     color: @base;
