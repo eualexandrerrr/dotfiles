@@ -1,14 +1,14 @@
 hl.window_rule({
     name = "ricepanel-vertical",
-    match = { class = "ricepanel" },
+    match = { class = "^RicePanel$" },
     workspace = "9 silent",
     fullscreen = true,
+    opacity = "1.0 1.0",
     border_size = 0,
     rounding = 0,
     no_shadow = true,
     no_blur = true,
     no_initial_focus = true,
-    no_focus = true,
 })
 
 hl.window_rule({ name = "chrome-na-1", match = { class = "[Gg]oogle-chrome" }, workspace = "1" })

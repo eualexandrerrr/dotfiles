@@ -47,6 +47,7 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("wl-paste --watch cliphist store")
     hl.exec_cmd(os.getenv("HOME") .. "/.dotfiles/bin/dns-rapido.sh")
     hl.exec_cmd(os.getenv("HOME") .. "/.dotfiles/bin/nvidia-desempenho.sh")
+    hl.exec_cmd("uwsm app -- " .. os.getenv("HOME") .. "/.dotfiles/bin/mirante.sh")
     hl.exec_cmd(os.getenv("HOME") .. "/.dotfiles/vm/reabrir-apps.sh")
 end)
 
