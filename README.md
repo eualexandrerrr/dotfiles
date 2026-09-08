@@ -306,6 +306,15 @@ O alternador de janelas do `Super+Tab` é o **[hyprswitch](https://github.com/eg
 
 ## Histórico
 
+Em 08/09/2026, com as duas GPUs montadas, o Hyprland subia sem desenhar em tela nenhuma.
+Duas causas somadas: o `aquamarine` elegia a NVIDIA como GPU primária e a importação
+cross-GPU pra AMD falhava (`GBM: Buffer is marked as multigpu`), deixando as duas saídas da
+RX 550 em `enabled=disabled`; e o `monitores.lua` pedia `2560x1440@180`, taxa que existe na
+DP da 3090 mas não na HDMI da RX 550, cujo EDID para em `@120`. Entrou o pacote `uwsm`, que
+resolve a placa no `amdgpu` em tempo de sessão e exporta `AQ_DRM_DEVICES` antes do Hyprland
+subir — resolver na hora em vez de fixar o caminho PCI, porque o endereço muda ao trocar de
+slot ou de placa-mãe e um caminho morto ali deixa a sessão sem tela.
+
 Até 07/09/2026 este repo era KDE Plasma, com painel, Layan, Klassy, Windows-Modern e um
 `layout-once.sh` que aplicava tudo por D-Bus no primeiro login. Isso saiu inteiro na
 migração para Hyprland: pacotes, configs, scripts e vendor. O que sobreviveu foram as
