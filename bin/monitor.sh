@@ -24,6 +24,10 @@ marca="$(sed -n "s/^telas\.$papel = \"\(.*\)\".*/\1/p" "$telas" | head -1)"
 lista="$(hyprctl monitors all -j 2>/dev/null)"
 [[ -n $lista ]] || exit 1
 
-jq -r --arg m "$marca" --arg c "$campo" \
+achado="$(jq -r --arg m "$marca" --arg c "$campo" \
     'map(select(.description | startswith($m))) | sort_by(.disabled) | .[0][$c] // empty' \
-    <<<"$lista"
+    <<<"$lista")"
+
+# Sai != 0 quando a tela nao esta presente, para servir de ExecCondition no systemd.
+[[ -n $achado ]] || exit 1
+printf '%s\n' "$achado"

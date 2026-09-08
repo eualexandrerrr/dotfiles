@@ -27,3 +27,12 @@ command -v hyprswitch >/dev/null 2>&1 && uwsm app -- hyprswitch init \
     --show-title --workspaces-per-row 5 --size-factor 5 >/dev/null 2>&1 &
 
 "$DOTFILES_DIR/bin/wallpaper.sh" >/dev/null 2>&1 &
+
+# O painel so existe se a tela vertical existir. O ExecCondition da unit decide; aqui so se
+# pede o start (ligou a tela) ou o stop (desligou), que sem isso ficaria em fullscreen no
+# monitor principal.
+if [[ -n $("$DOTFILES_DIR/bin/monitor.sh" vertical 2>/dev/null) ]]; then
+    systemctl --user start ricepanel.service >/dev/null 2>&1 &
+else
+    systemctl --user stop ricepanel.service >/dev/null 2>&1 &
+fi

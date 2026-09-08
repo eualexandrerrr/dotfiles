@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 # Troca o perfil da VM w11 e liga. Um dominio so no libvirt, dois XMLs:
-#   3090    passthrough da RTX 3090, tela no monitor fisico, Linux fica sem tela
-#   janela  video emulado + SPICE, abre numa janela do KDE; sem 3D, nao roda RedM
+#   3090    passthrough da RTX 3090; o host segue desenhando na RX 550 e a tela do Windows
+#           aparece pelo Looking Glass (vm/glass)
+#   janela  video emulado + SPICE, abre numa janela; sem 3D, nao roda RedM
 # Uso: w11 ir | w11 janela | w11 3090 | w11 instalar | w11 perfil | w11 desligar
 #   instalar = janela + ISO do Windows + autounattend do MyWinISO (perfil vm-jogo); so na primeira vez
-#   ir      = 3090 com aviso e confirmacao; e o que o atalho Meta+Shift+R do KDE chama
+#   ir      = 3090 com aviso e confirmacao
 # Sem sudo: o usuario esta no grupo libvirt. Os hooks rodam como root dentro do libvirtd.
 set -euo pipefail
 HERE="$(cd "$(dirname "$(readlink -f "$0")")" && pwd)"
@@ -36,11 +37,14 @@ case "${1:-}" in
 
   ==> Windows + RTX 3090
 
-  O Arch continua ligado. Mas a sessao do KDE FECHA: tudo que esta aberto
-  (VS Code, navegador, terminais) vai fechar. Salve antes.
-  A tela vai apagar e o Windows aparece em uns 10 segundos.
-  Para voltar: no Windows, Ctrl+Alt+L (ou desligar o Windows). O KDE volta
-  sozinho, sem pedir senha, e reabre os apps que estao abertos agora.
+  Com a RX 550 no host a sessao NAO cai: nada do que esta aberto fecha.
+  A 3090 vai inteira pra VM e o Windows aparece pelo Looking Glass:
+
+      vm/glass          janela      (Scroll Lock solta o mouse)
+      vm/glass -F       tela cheia
+
+  Se o hook reclamar de amdgpu, a RX 550 nao esta desenhando -- ligar assim
+  deixaria o PC sem tela, e por isso ele aborta.
 
 TXT
         read -rp "  Enter para ir, Ctrl+C para cancelar " _
@@ -57,8 +61,8 @@ TXT
         if [[ $1 != 3090 ]] && ! grep -q 'hostdev PCI' /etc/libvirt/hooks/qemu.d/w11/prepare/begin/start.sh 2>/dev/null; then
             echo "hook /etc/libvirt/hooks/qemu.d/w11/prepare/begin/start.sh sem a checagem de perfil: ele derrubaria a tela do host. Reinstale os hooks do RedMLinux." >&2; exit 1
         fi
-        # No perfil 3090 o hook derruba a sessao do KDE pra soltar a placa: os apps morrem.
-        # Anota quem estava aberto pra que o vm/reabrir-apps.sh reabra no login de volta.
+        # Com duas GPUs a sessao nao cai e nada disso e mais necessario. Fica ate o
+        # passthrough estar comprovadamente de pe, ai salvar_apps e o reabrir-apps.sh saem.
         [[ $1 == 3090 ]] && salvar_apps
         v define "$HERE/w11-$1.xml" >/dev/null
         v start w11

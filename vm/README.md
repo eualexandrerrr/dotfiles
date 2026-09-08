@@ -20,18 +20,31 @@ disco; e o `vfio-ativar.sh` só roda com a segunda GPU montada, senão o host fi
 
 Com a RX 550 no host, o perfil `3090` não fica mais sem tela: o Windows renderiza na 3090,
 copia o frame pra `/dev/shm/looking-glass` (ivshmem, 64 MB) e o `vm/glass` desenha numa janela
-do KDE. Teclado e mouse vão por SPICE (sem display). Cliente B7 do AUR; o host pro guest está
+do Hyprland. Os 64 MB bastam pra 2560x1440 (`w*h*4*2 + 10 MB` ≈ 40 MB); 4K pediria 128.
+
+**Sem dummy plug na 3090**, o Windows não gera imagem pra capturar. A saída é o
+**Looking Glass IDD** (display virtual, custo zero) — ele não vem no
+`~/vms/looking-glass-host-B7.zip`, que traz só o `looking-glass-host-setup.exe`; é download
+à parte e a versão tem que ser B7 igual ao resto. Sem ele, o plano B é o perfil `janela`:
+a VM roda, mas **sem 3D, então sem RedM**. Teclado e mouse vão por SPICE (sem display). Cliente B7 do AUR; o host pro guest está
 em `~/vms/looking-glass-host-B7.zip` (a versão tem que ser a mesma dos dois lados). O
 `preparar.sh` cria o shmem com dono certo por tmpfiles.
 
 ## Dois perfis, um domínio
 
-`w11-3090.xml` é o passthrough (tela no monitor da 3090, host sem tela). `w11-janela.xml` é vídeo
-emulado + SPICE numa janela do KDE, sem 3D: serve para instalar/ajustar o Windows, **não roda RedM**.
+`w11-3090.xml` é o passthrough (a 3090 inteira vai pra VM; o host continua desenhando na
+RX 550). `w11-janela.xml` é vídeo emulado + SPICE numa janela, sem 3D: serve para
+instalar/ajustar o Windows, **não roda RedM**.
 O script `w11` faz o `define` do perfil escolhido e liga: `w11 janela`, `w11 3090`, `w11 perfil`, `w11 desligar`.
 
-Os hooks do libvirt olham o XML que recebem no stdin e só mexem na GPU se houver `hostdev` PCI.
-Sem essa checagem (versão antiga dos hooks) o perfil janela também derruba a tela do host.
+Os hooks do libvirt olham o XML que recebem no stdin e só agem se houver `hostdev` PCI.
+
+**Os hooks encolheram na virada pra duas GPUs.** A versão antiga era single-GPU: parava o
+Plasma, fazia `loginctl terminate-user`, derrubava o display manager e descarregava a
+nvidia. Com a RX 550 desenhando o host nada disso é necessário — e seria destrutivo. Hoje o
+`start.sh` só trava a suspensão e **aborta se o `amdgpu` não estiver em uso**, que é a única
+coisa capaz de deixar o PC sem tela. O `stop.sh` só solta a trava: a 3090 volta pro
+`vfio-pci`, não pro host.
 
 ## Restaurar
 
@@ -64,38 +77,20 @@ O disco é `~/vms/win.raw` (raw, 200 GB, `falloc`): fica em `/home`, que sobrevi
 
 ## Em qual monitor o Windows aparece
 
-Os dois monitores estão na mesma 3090 (`DP-1` = ASUS XG27ACS, `DP-2` = LG UltraGear).
-No passthrough a placa inteira vai para a VM, então o **Windows** recebe as duas telas e
-escolhe sozinho qual é a principal — trocar os cabos não decide isso, e ainda embaralharia
-o layout do KDE, que é gravado por saída.
+Nenhum: **a 3090 não recebe cabo de vídeo**. O monitor 2560x1440 fica no DisplayPort da
+RX 550, com o Hyprland, e o Windows aparece numa janela pelo Looking Glass. A 3090 só
+entrega frame pra memória compartilhada.
 
-Ajuste **dentro do Windows**, uma vez só (fica gravado no registro dele):
-Configurações → Sistema → Vídeo → clicar no ASUS → **"Tornar este meu vídeo principal"**.
-Melhor ainda: **"Mostrar somente em 1"** (o ASUS), assim o LG fica preto e o RedM não tem
-como abrir na tela errada nem o mouse escapar para ela.
+O monitor vertical fica desligado até haver cabo. Enquanto isso o `ricepanel.service` tem
+`ExecCondition=bin/monitor.sh vertical` e é **pulado limpo** quando a tela não existe —
+sem isso ele subiria em fullscreen por cima do monitor principal.
 
-## A volta para o KDE
+## A sessão não cai mais
 
-O `sddm` está com **login automático** (`install.sh`, `configure_sddm`): a volta cai direto
-no Plasma, sem senha. `Relogin=false` limita isso à primeira subida do sddm — ligar o PC e
-voltar da VM. Sair da sessão na mão ainda cai no greeter com senha, e `Meta+L` continua
-bloqueando normalmente.
+Com duas GPUs **a sessão do Hyprland não é derrubada**: ligar a VM não fecha nada, e o
+Alt-Tab entre Linux e Windows funciona pela janela do Looking Glass. Isso aposenta a
+mecânica de salvar e reabrir aplicativos:
 
-Os apps, esses **morrem mesmo**: para soltar a 3090 o hook precisa derrubar a sessão
-(`loginctl terminate-user`), e com uma GPU só não há como o host continuar desenhando.
-O restore nativo do Plasma não resolve — em Wayland o `ksmserver` salva zero clientes
-(no 6.7.4, `saveCurrentSession` grava `count=0`), porque não existe o protocolo de
-gerenciamento de sessão que havia no X11.
-
-Então o `w11 3090` anota a lista antes de ligar, a partir dos scopes do systemd
-(`app-<desktop-id>-<pid>.scope`, que é como o Plasma lança cada aplicativo), em
-`~/.local/state/w11-apps`. No login de volta, `vm/reabrir-apps.sh` (autostart do KDE)
-reabre cada um e consome a lista — num boot normal o arquivo não existe e ele sai calado.
-Os apps reabrem vazios do ponto de vista do Plasma; quem restaura conteúdo é cada um por
-si (o Chrome com "continuar de onde parou", o VS Code com as janelas anteriores).
-
-## Limitação conhecida
-
-Com **uma GPU só** não há Alt-Tab entre Linux e VM: enquanto a VM roda, o host fica sem
-placa para desenhar. Alternar exige uma segunda GPU (mesmo básica) e o Looking Glass.
-Ver `plano-c-vypr` no RedMLinux.
+- `salvar_apps()` no script `w11` e o `vm/reabrir-apps.sh` viram código morto. Ficam por
+  enquanto — saem quando o passthrough estiver comprovadamente de pé.
+- O login automático do `sddm` continua valendo pra ligar o PC, não mais pra "voltar da VM".

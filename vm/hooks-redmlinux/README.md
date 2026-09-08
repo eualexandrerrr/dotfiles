@@ -24,14 +24,14 @@ O que falta para o plano B agora é só: ISO do Windows 11, criar a imagem e ins
 |:--|:--|
 | IOMMU no BIOS | ✔ ativo (`AMD-Vi` no dmesg) |
 | `amd_iommu=on iommu=pt` | ✔ na entrada `arch.conf`; o `arch-fallback.conf` ficou **sem** os parâmetros, de propósito, como rota de recuperação. Backup em `arch.conf.bak-pre-iommu`. **Exige reboot** |
-| Grupo IOMMU da 3090 | ✔ **grupo 16 com a 3090 (`0a:00.0`) e o áudio dela (`0a:00.1`), mais nada** — isolamento limpo, sem precisar de ACS override |
+| Grupo IOMMU da 3090 | ✔ **grupo 16 com a 3090 (`07:00.0`) e o áudio dela (`07:00.1`), mais nada** — isolamento limpo, sem precisar de ACS override |
 | Hooks do libvirt | ✔ instalados em `/etc/libvirt/hooks/qemu.d/win11-redm/` |
 | `libvirtd` | ✔ ativo e habilitado; rede `default` iniciada com autostart |
 | OVMF (`edk2-ovmf`), `/dev/kvm`, usuário no grupo `libvirt` | ✔ |
 | Imagem de disco + Windows instalado | ✖ falta |
 
-No `win11-redm.xml`, trocar os `bus="0xXX"` dos dois `<hostdev>` por `bus="0x0a"` (endereços reais
-desta máquina: `0000:0a:00.0` e `0000:0a:00.1`).
+No `win11-redm.xml`, trocar os `bus="0xXX"` dos dois `<hostdev>` por `bus="0x07"` (endereços reais
+desta máquina: `0000:07:00.0` e `0000:07:00.1`).
 
 ## 0. Antes de tudo: layout de disco sem perder o Windows
 

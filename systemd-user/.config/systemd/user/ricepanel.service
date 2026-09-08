@@ -5,6 +5,7 @@ After=graphical-session.target
 
 [Service]
 Type=simple
+ExecCondition=%h/.dotfiles/bin/monitor.sh vertical
 WorkingDirectory=%h/Apps/desktop/RicePanel
 ExecStart=/usr/bin/electron --password-store=basic --ozone-platform-hint=auto .
 Restart=on-failure
