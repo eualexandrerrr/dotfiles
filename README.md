@@ -47,7 +47,7 @@ do systemd e morre junto com a sessão, em vez de virar processo órfão.
 | Função | Programa |
 |---|---|
 | Compositor | `hyprland` |
-| Barra | `waybar` (topo, só no `DP-1`) |
+| Barra | `waybar` (topo, só no monitor principal, casado por marca) |
 | Lançador | `fuzzel` |
 | Notificações | `mako` |
 | Wallpaper | `awww` (o antigo `swww`, renomeado) |
@@ -142,14 +142,15 @@ do app no lugar do número — clicar no ícone vai para a workspace.
 
 ## Monitores
 
-ASUS XG27ACS 2560x1440@180 (principal, `DP-1`) e LG UltraGear 1920x1080@144 em pé
-(`DP-2`), este ocupado em tela cheia pelo RicePanel. O vertical girado ocupa 1080 de
+ASUS XG27ACS 2560x1440@180 (principal) e LG UltraGear 1920x1080@144 em pé, este
+ocupado em tela cheia pelo RicePanel. Os dois são casados por **marca**
+(`hypr/.config/hypr/telas.lua`), nunca por conector. O vertical girado ocupa 1080 de
 largura, por isso o principal começa em x=1080; o y=240 centraliza os 1440 dele nos 1920
 do vertical.
 
 ```lua
-hl.monitor({ output = "DP-1", mode = "2560x1440@180.00", position = "1080x240", scale = 1 })
-hl.monitor({ output = "DP-2", mode = "1920x1080@143.98", position = "0x0", scale = 1, transform = 1 })
+hl.monitor({ output = telas.desc("principal"), mode = "2560x1440@180.00", position = "1080x240", scale = 1 })
+hl.monitor({ output = telas.desc("vertical"), mode = "1920x1080@143.98", position = "0x0", scale = 1, transform = 1 })
 hl.monitor({ output = "", mode = "preferred", position = "auto", scale = "auto" })
 ```
 

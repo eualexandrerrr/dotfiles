@@ -14,7 +14,7 @@
 set -euo pipefail
 
 ALVO="$HOME/.claude.json"
-CLAUDE_DIR="$HOME/Apps/_CLAUDE"
+CLAUDE_DIR="$HOME/Apps/claude/docs"
 VAULT="$CLAUDE_DIR/Obsidian/Cérebro"
 PERFIL="$CLAUDE_DIR/.secrets/perfil-navegador"
 JAVA_HOME_ARCH="/usr/lib/jvm/java-17-openjdk"
@@ -29,7 +29,7 @@ fi
 [[ -n ${FIRECRAWL_MCP_URL:-} ]] || printf 'restaurar-mcp: FIRECRAWL_MCP_URL vazia, firecrawl sera pulado (veja ~/.dotfiles-private/env.sh)\n' >&2
 [[ -d $VAULT ]] || printf 'restaurar-mcp: aviso, vault nao encontrado em %s\n' "$VAULT" >&2
 
-# O perfil do navegador do playwright ficava em _CLAUDE\.secrets, que NAO entrou no
+# O perfil do navegador do playwright ficava em claude/docs\.secrets, que NAO entrou no
 # backup de proposito. E so um profile do Chromium: o playwright recria no primeiro uso.
 mkdir -p "$PERFIL"
 

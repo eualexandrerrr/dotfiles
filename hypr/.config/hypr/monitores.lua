@@ -1,5 +1,7 @@
-local principal = "desc:ASUSTek COMPUTER INC XG27ACS"
-local vertical = "desc:LG Electronics LG ULTRAGEAR"
+local telas = require("telas")
+
+local principal = telas.desc("principal")
+local vertical = telas.desc("vertical")
 
 hl.monitor({
     output = principal,

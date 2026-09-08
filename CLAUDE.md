@@ -31,7 +31,7 @@ Amanha chega hardware novo (ver "Hardware") e a maquina vira duas GPUs com passt
 **Isso e a fase seguinte**, nao mexer ainda: o `kernel-nvidia` do `packages.txt` e o
 `configure_nvidia()` do install continuam valendo ate a placa nova estar montada.
 Atencao: os hooks de single-GPU passthrough dos tutoriais assumem display manager; com
-Hyprland o script de start precisa parar a sessao direto (ver `_CLAUDE/vm-e-hardware.md`).
+Hyprland o script de start precisa parar a sessao direto (ver `claude/docs/vm-e-hardware.md`).
 
 ## install.sh x setup.sh
 
@@ -39,7 +39,7 @@ Hyprland o script de start precisa parar a sessao direto (ver `_CLAUDE/vm-e-hard
 sem rede e em segundos. Mexeu numa config? `setup.sh`. Mexeu no `packages.txt`? `install.sh`.
 
 ```
-~/.dotfiles/setup.sh [etapa...]   # links home perfil tema energia audio dns wallpaper recarregar
+~/.dotfiles/setup.sh [etapa...]   # links home perfil tema energia audio dns wallpaper claude recarregar
 ```
 
 O `install.sh` (etapas `home_enxuta` e `configure_hyprland`) chama o `setup.sh` em vez de
@@ -62,7 +62,7 @@ desculpa de "so no proximo login".
 `hypr/`, rodar **`Hyprland --verify-config`** -- ele valida sem subir sessao e responde
 `config ok`. Config errada nao da erro na cara: e ignorada, e a sessao sobe torta. A
 referencia offline da versao instalada e `/usr/share/hypr/stubs/hl.meta.lua`; consultar
-ela antes da wiki, que descreve a versao mais nova. Detalhe em `_CLAUDE/hyprland.md`.
+ela antes da wiki, que descreve a versao mais nova. Detalhe em `claude/docs/hyprland.md`.
 
 Nesta maquina `systemctl` e `pacman` pelados caem num wrapper com `sudo` que o sandbox
 recusa ("sinalizador sem novos privilegios"). Use `/usr/bin/systemctl --user ...`; e nao
@@ -77,15 +77,16 @@ rode por `bash -c '...'` ou use array.
 
 | Vou mexer em... | Ler primeiro |
 |---|---|
-| Compositor, atalhos, regras de janela, waybar, barra | `_CLAUDE/hyprland.md` |
-| Format, o que sobrevive em `/home`, perfil do Chrome, particoes | `_CLAUDE/particoes-e-format.md` |
-| Pacote do stow, onde um arquivo novo entra, regra do `--no-folding` | `_CLAUDE/estrutura-repo.md` |
-| Rodar o `install.sh`, entender etapa que falhou | `_CLAUDE/install-fluxo.md` |
-| Disposicao de telas, `monitores.lua`, wallpaper por geometria | `_CLAUDE/monitores.md` |
-| DNS, keyring, por que NAO instalar gnome-keyring | `_CLAUDE/dns-e-keyring.md` |
-| Suspender, hibernar, apagar monitor por inatividade | `_CLAUDE/energia.md` |
-| Pastas da home, XDG, onde criar projeto novo | `_CLAUDE/home-enxuta.md` |
-| VM Windows, passthrough, vfio, a placa que vai chegar | `_CLAUDE/vm-e-hardware.md` |
-| Algo quebrado depois do format | `_CLAUDE/se-quebrar-no-format.md` |
-| Saber por que uma correcao foi feita | `_CLAUDE/historico-commits.md` |
-| Android SDK, AVD, emulador, `bin/android-sdk.sh` | `_CLAUDE/android.md` |
+| Compositor, atalhos, regras de janela, waybar, barra | `claude/docs/hyprland.md` |
+| Format, o que sobrevive em `/home`, perfil do Chrome, particoes | `claude/docs/particoes-e-format.md` |
+| Pacote do stow, onde um arquivo novo entra, regra do `--no-folding` | `claude/docs/estrutura-repo.md` |
+| Rodar o `install.sh`, entender etapa que falhou | `claude/docs/install-fluxo.md` |
+| Disposicao de telas, `monitores.lua`, wallpaper por geometria | `claude/docs/monitores.md` |
+| DNS, keyring, por que NAO instalar gnome-keyring | `claude/docs/dns-e-keyring.md` |
+| Suspender, hibernar, apagar monitor por inatividade | `claude/docs/energia.md` |
+| Pastas da home, XDG, onde criar projeto novo | `claude/docs/home-enxuta.md` |
+| VM Windows, passthrough, vfio, a placa que vai chegar | `claude/docs/vm-e-hardware.md` |
+| Algo quebrado depois do format | `claude/docs/se-quebrar-no-format.md` |
+| Saber por que uma correcao foi feita | `claude/docs/historico-commits.md` |
+| Android SDK, AVD, emulador, `bin/android-sdk.sh` | `claude/docs/android.md` |
+| Settings do Claude Code, o que do `~/.claude` e versionado | `claude/docs/install-fluxo.md` |

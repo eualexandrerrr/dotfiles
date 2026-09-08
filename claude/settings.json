@@ -1,0 +1,86 @@
+{
+  "env": {
+    "MCP_TIMEOUT": "120000",
+    "MCP_TOOL_TIMEOUT": "180000",
+    "MAX_MCP_OUTPUT_TOKENS": "50000",
+    "ENABLE_TOOL_SEARCH": "true"
+  },
+  "attribution": {
+    "commit": "",
+    "pr": "",
+    "sessionUrl": false
+  },
+  "permissions": {
+    "allow": [
+      "Read(~/.claude)",
+      "Read(//tmp/**)"
+    ],
+    "defaultMode": "auto"
+  },
+  "model": "opus[1m]",
+  "statusLine": {
+    "type": "command",
+    "command": "node /home/Alexandre/.claude/statusline.js",
+    "refreshInterval": 30
+  },
+  "enabledPlugins": {
+    "caveman@caveman": true,
+    "engram@engram": true,
+    "dx@ykdojo": true,
+    "firebase@firebase": true,
+    "expo@expo-plugins": true
+  },
+  "extraKnownMarketplaces": {
+    "caveman": {
+      "source": {
+        "source": "github",
+        "repo": "JuliusBrussee/caveman"
+      }
+    },
+    "engram": {
+      "source": {
+        "source": "github",
+        "repo": "Gentleman-Programming/engram"
+      }
+    },
+    "firebase": {
+      "source": {
+        "source": "github",
+        "repo": "firebase/agent-skills"
+      }
+    },
+    "expo-plugins": {
+      "source": {
+        "source": "directory",
+        "path": "/home/Alexandre/.claude/plugins/marketplaces/expo-skills"
+      }
+    },
+    "ykdojo": {
+      "source": {
+        "source": "github",
+        "repo": "ykdojo/claude-code-tips"
+      }
+    }
+  },
+  "outputStyle": "Concise",
+  "language": "portugues brazil",
+  "effortLevel": "xhigh",
+  "modelSettings": {
+    "claude-opus-5": {
+      "effortLevel": "high"
+    },
+    "claude-fable-5-1": {
+      "effortLevel": "high"
+    }
+  },
+  "autoCompactWindow": 700000,
+  "autoUpdatesChannel": "latest",
+  "tui": "fullscreen",
+  "skipDangerousModePermissionPrompt": true,
+  "theme": "dark",
+  "editorMode": "normal",
+  "verbose": false,
+  "autoCompactEnabled": true,
+  "remoteControlAtStartup": true,
+  "agentPushNotifEnabled": true
+}

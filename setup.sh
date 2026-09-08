@@ -116,19 +116,49 @@ EOF
     ok "GTK escuro (adw-gtk3-dark + Papirus-Dark)"
 }
 
+etapa_claude() {
+    log "settings do Claude Code"
+    local base="$DOTFILES_DIR/claude/settings.json"
+    local destino="$HOME/.claude/settings.json"
+    [[ -f $base ]] || { falha "$base nao existe"; return; }
+    command -v jq >/dev/null 2>&1 || { falha "jq nao instalado"; return; }
+    mkdir -p "$HOME/.claude"
+    [[ -f $destino ]] || printf '{}\n' >"$destino"
+    local tmp
+    tmp="$(mktemp)"
+    # Merge, nunca substituicao: o Claude Code grava escolhas dele nesse arquivo (tema,
+    # modelo) e um cp por cima apagaria tudo isso a cada setup.
+    if jq -s '.[0] * .[1]' "$destino" "$base" >"$tmp" && [[ -s $tmp ]]; then
+        mv "$tmp" "$destino"
+        ok "remote control ligado no boot, chaves do repo aplicadas"
+    else
+        rm -f "$tmp"
+        falha "merge do settings.json do Claude falhou"
+    fi
+
+    # Autorais dele: memoria global, statusline, comandos e skills proprias. Nao entram no
+    # stow porque o ~/.claude e escrito pelo proprio Claude Code o tempo todo -- um symlink
+    # ali some no primeiro save atomico. Copia por cima, que e o que o repo manda.
+    local item
+    for item in CLAUDE.md statusline.js mcp-doctor.js commands skills bin docs; do
+        [[ -e "$DOTFILES_DIR/claude/$item" ]] || continue
+        cp -a "$DOTFILES_DIR/claude/$item" "$HOME/.claude/" 2>/dev/null \
+            && ok "~/.claude/$item" \
+            || falha "~/.claude/$item nao copiado"
+    done
+}
+
 etapa_recarregar() {
     log "recarregando hyprland, waybar e mako"
     tem_hyprland || { ok "sem sessao do Hyprland, nada a recarregar"; return; }
     hyprctl reload >/dev/null 2>&1 || falha "hyprctl reload"
-    if pidof waybar >/dev/null 2>&1; then
-        pkill -SIGUSR2 -x waybar 2>/dev/null || { pkill -x waybar; uwsm app -- waybar >/dev/null 2>&1 & }
-    else
-        uwsm app -- waybar >/dev/null 2>&1 &
-    fi
-    makoctl reload >/dev/null 2>&1 || true
+    pkill -x waybar 2>/dev/null
+    uwsm app -- "$DOTFILES_DIR/bin/waybar.sh" >/dev/null 2>&1 &
+    pkill -x mako 2>/dev/null
+    uwsm app -- "$DOTFILES_DIR/bin/mako.sh" >/dev/null 2>&1 &
     if command -v hyprexpose >/dev/null 2>&1; then
         pkill -x hyprexpose 2>/dev/null
-        uwsm app -- hyprexpose >/dev/null 2>&1 &
+        uwsm app -- "$DOTFILES_DIR/bin/hyprexpose.sh" >/dev/null 2>&1 &
     fi
     if command -v hyprswitch >/dev/null 2>&1; then
         pkill -x hyprswitch 2>/dev/null
@@ -138,7 +168,7 @@ etapa_recarregar() {
     ok "recarregado"
 }
 
-ETAPAS=(links home perfil tema energia audio dns wallpaper recarregar)
+ETAPAS=(links home perfil tema energia audio dns wallpaper claude recarregar)
 
 if [[ ${1:-} == --lista ]]; then
     printf 'etapas: %s\n' "${ETAPAS[*]}"

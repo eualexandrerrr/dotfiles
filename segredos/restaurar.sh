@@ -43,23 +43,51 @@ else
 fi
 
 tmp="$(mktemp -d)"
-if ! age -d -i "$chave_usada" "$cifrado" | tar xzf - -C "$tmp" 2>/dev/null; then
+pacote="$tmp/segredos.tar.gz"
+if ! age -d -i "$chave_usada" -o "$pacote" "$cifrado" 2>/dev/null; then
     rm -rf "$tmp"
     aviso "nao consegui decifrar $cifrado (chave errada?)"
     exit 0
 fi
 
-n=0
-while IFS= read -r -d '' item; do
-    rel="${item#"$tmp/"}"
-    destino="$HOME/$rel"
-    mkdir -p "$(dirname "$destino")"
-    if [[ -e $destino ]]; then
-        mv "$destino" "$destino.bak-$(date +%Y%m%d%H%M%S)"
+# Extrai POR ARQUIVO, direto no $HOME. Nunca mover o primeiro nivel do tar pra ca: a lista
+# tem caminhos aninhados (.config/gh/hosts.yml), entao "mover .config" trocaria a ~/.config
+# inteira -- com o perfil do Chrome, do Discord e do resto -- por uma pasta com um arquivo so.
+entradas=()
+while IFS= read -r linha; do
+    [[ -z $linha || $linha == */ ]] && continue
+    if [[ $linha == /* || $linha == *..* ]]; then
+        rm -rf "$tmp"
+        aviso "o pacote tem caminho suspeito ($linha), nada restaurado"
+        exit 0
     fi
-    mv "$item" "$destino"
-    n=$((n+1))
-done < <(find "$tmp" -mindepth 1 -maxdepth 1 -print0)
+    entradas+=("$linha")
+done < <(tar tzf "$pacote" 2>/dev/null)
+
+if (( ${#entradas[@]} == 0 )); then
+    rm -rf "$tmp"
+    aviso "pacote vazio, nada a restaurar"
+    exit 0
+fi
+
+sobrescritos=()
+for rel in "${entradas[@]}"; do
+    [[ -f "$HOME/$rel" ]] && sobrescritos+=("$rel")
+done
+if (( ${#sobrescritos[@]} )); then
+    anteriores="$HOME/.local/state/dotfiles"
+    mkdir -p "$anteriores"
+    guardado="$anteriores/segredos-anteriores-$(date +%Y%m%d%H%M%S).tar.gz"
+    tar czf "$guardado" -C "$HOME" "${sobrescritos[@]}" 2>/dev/null \
+        && ok "$(basename "$guardado") guarda os ${#sobrescritos[@]} arquivos substituidos"
+fi
+
+if ! tar xzf "$pacote" -C "$HOME" 2>/dev/null; then
+    rm -rf "$tmp"
+    aviso "a extracao falhou, credenciais nao restauradas"
+    exit 0
+fi
+n=${#entradas[@]}
 rm -rf "$tmp"
 
 chmod 700 "$HOME/.ssh" 2>/dev/null || true

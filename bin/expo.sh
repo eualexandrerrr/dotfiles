@@ -12,6 +12,8 @@
 # navegam, 1..9 vao direto na workspace, Enter entra, Esc fecha sem trocar.
 set -uo pipefail
 
+DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
+
 command -v hyprexpose >/dev/null 2>&1 || {
     command -v notify-send >/dev/null 2>&1 && notify-send "Overview" "hyprexpose nao esta instalado"
     exit 1
@@ -23,7 +25,7 @@ if [[ ${1:-abrir} == confirmar ]]; then
 fi
 
 if ! pgrep -x hyprexpose >/dev/null 2>&1; then
-    uwsm app -- hyprexpose >/dev/null 2>&1 &
+    uwsm app -- "$DOTFILES_DIR/bin/hyprexpose.sh" >/dev/null 2>&1 &
     for _ in 1 2 3 4 5 6 7 8 9 10; do
         pgrep -x hyprexpose >/dev/null 2>&1 && break
         sleep 0.2

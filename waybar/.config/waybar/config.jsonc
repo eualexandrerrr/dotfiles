@@ -1,7 +1,7 @@
 {
     "layer": "top",
     "position": "top",
-    "output": ["DP-1"],
+    "output": ["ASUSTek COMPUTER INC XG27ACS T9LMTF068180"],
     "height": 38,
     "spacing": 0,
     "margin-top": 6,
@@ -42,7 +42,7 @@
         },
         "tooltip-format": "{name}",
         "persistent-workspaces": {
-            "DP-1": [1, 2, 3, 4, 5]
+            "*": [1, 2, 3, 4, 5]
         }
     },
 
@@ -89,6 +89,8 @@
     },
 
     "temperature": {
+        "hwmon-path-abs": "/sys/devices/pci0000:00/0000:00:18.3/hwmon",
+        "input-filename": "temp1_input",
         "critical-threshold": 82,
         "format": " {temperatureC}°C",
         "format-critical": " {temperatureC}°C",

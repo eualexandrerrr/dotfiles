@@ -3,7 +3,7 @@ local terminal = "uwsm app -- ghostty"
 local explorador = "uwsm app -- thunar"
 local navegador = "uwsm app -- google-chrome-stable"
 local menu = os.getenv("HOME") .. "/.dotfiles/bin/lancador.sh"
-local alternador = "hyprswitch gui --mod-key SUPER --key TAB --close mod-key-release --monitors DP-1"
+local alternador = os.getenv("HOME") .. "/.dotfiles/bin/alternador.sh"
 local dotfiles = os.getenv("HOME") .. "/.dotfiles"
 
 hl.bind(mod .. " + Return", hl.dsp.exec_cmd(terminal))
@@ -16,7 +16,7 @@ hl.bind(mod .. " + Q", hl.dsp.window.close())
 hl.bind(mod .. " + W", hl.dsp.window.close())
 hl.bind("ALT + W", hl.dsp.window.close())
 hl.bind(mod .. " + SHIFT + Q", hl.dsp.window.kill())
-hl.bind(mod .. " + L", hl.dsp.exec_cmd("uwsm app -- hyprlock"))
+hl.bind(mod .. " + L", hl.dsp.exec_cmd("uwsm app -- " .. dotfiles .. "/bin/bloquear.sh"))
 hl.bind(mod .. " + SHIFT + E", hl.dsp.exec_cmd("uwsm app -- wlogout"))
 hl.bind(mod .. " + O", hl.dsp.exec_cmd(dotfiles .. "/bin/transparencia.py"))
 hl.bind(mod .. " + I", hl.dsp.exec_cmd("uwsm app -- nwg-look"))
@@ -36,8 +36,7 @@ hl.bind(mod .. " + T", hl.dsp.window.float({ action = "toggle" }))
 hl.bind("CTRL + SHIFT + Space", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mod .. " + J", hl.dsp.layout("togglesplit"))
 hl.bind(mod .. " + C", hl.dsp.window.center())
-hl.bind(mod .. " + D", hl.dsp.workspace.toggle_special("rascunho"))
-hl.bind(mod .. " + SHIFT + D", hl.dsp.window.move({ workspace = "special:rascunho" }))
+hl.bind(mod .. " + D", hl.dsp.exec_cmd(menu))
 
 hl.bind(mod .. " + left", hl.dsp.focus({ direction = "left" }))
 hl.bind(mod .. " + right", hl.dsp.focus({ direction = "right" }))

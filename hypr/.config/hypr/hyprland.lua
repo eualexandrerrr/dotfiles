@@ -1,3 +1,4 @@
+local telas = require("telas")
 require("monitores")
 require("regras")
 require("transparencia")
@@ -17,12 +18,23 @@ hl.env("LIBVA_DRIVER_NAME", "nvidia")
 hl.env("__GLX_VENDOR_LIBRARY_NAME", "nvidia")
 hl.env("NVD_BACKEND", "direct")
 
+local function telas_mudaram()
+    hl.exec_cmd(os.getenv("HOME") .. "/.dotfiles/bin/telas-mudaram.sh")
+end
+
+hl.on("monitor.added", telas_mudaram)
+hl.on("monitor.removed", telas_mudaram)
+
 hl.on("hyprland.start", function()
+    local principal = telas.nome("principal")
+    if principal then
+        hl.config({ cursor = { default_monitor = principal } })
+    end
     hl.exec_cmd("uwsm app -- awww-daemon")
     hl.exec_cmd(os.getenv("HOME") .. "/.dotfiles/bin/wallpaper.sh")
-    hl.exec_cmd("uwsm app -- waybar")
-    hl.exec_cmd("uwsm app -- mako")
-    hl.exec_cmd("uwsm app -- hyprexpose")
+    hl.exec_cmd("uwsm app -- " .. os.getenv("HOME") .. "/.dotfiles/bin/waybar.sh")
+    hl.exec_cmd("uwsm app -- " .. os.getenv("HOME") .. "/.dotfiles/bin/mako.sh")
+    hl.exec_cmd("uwsm app -- " .. os.getenv("HOME") .. "/.dotfiles/bin/hyprexpose.sh")
     hl.exec_cmd("uwsm app -- hyprswitch init --custom-css " .. os.getenv("HOME") .. "/.config/hyprswitch/style.css --show-title --workspaces-per-row 5 --size-factor 5")
     hl.exec_cmd("uwsm app -- hypridle")
     hl.exec_cmd("uwsm app -- hyprsunset")
@@ -118,7 +130,6 @@ hl.config({
 
     cursor = {
         no_hardware_cursors = true,
-        default_monitor = "DP-1",
     },
 
     xwayland = {
