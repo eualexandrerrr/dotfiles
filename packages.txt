@@ -82,6 +82,7 @@ thunar-volman
 thunar-archive-plugin
 tumbler
 ffmpegthumbnailer
+poppler-glib
 gvfs
 gvfs-mtp
 udiskie
@@ -115,6 +116,7 @@ pipewire
 pipewire-alsa
 pipewire-pulse
 wireplumber
+rtkit
 
 [repo-oficial:fontes]
 noto-fonts
