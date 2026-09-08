@@ -27,7 +27,7 @@ driver e parâmetros de kernel sozinho (ou force com `SKIP_NVIDIA=1`).
 ~/.dotfiles/setup.sh --lista          # mostra as etapas
 ```
 
-Etapas: `links home perfil tema energia audio dns wallpaper recarregar`.
+Etapas: `links home perfil tema energia audio dns wallpaper claude recarregar`.
 Etapa que falha vira aviso; as outras seguem.
 
 ---
@@ -68,9 +68,11 @@ configuração com estado em `~/.config` e obrigava a aplicar por D-Bus com o sh
 
 ```
 hypr/.config/hypr/hyprland.lua     raiz: env, autostart, hl.config, animações
+hypr/.config/hypr/telas.lua        marcas dos monitores; fonte única do assunto
 hypr/.config/hypr/monitores.lua    telas e workspaces
 hypr/.config/hypr/atalhos.lua      todos os hl.bind
 hypr/.config/hypr/regras.lua       hl.window_rule e hl.layer_rule
+hypr/.config/hypr/transparencia.lua  gerado pelo menu do Meta+O, opacidade por app
 hypr/.config/hypr/hypridle.conf    inatividade (hypridle ainda usa hyprlang)
 hypr/.config/hypr/hyprlock.conf    tela de bloqueio (idem)
 waybar/.config/waybar/             config.jsonc + style.css
@@ -79,7 +81,7 @@ fuzzel/.config/fuzzel/fuzzel.ini   lançador
 wlogout/.config/wlogout/           menu de encerrar
 ```
 
-O `hyprland.lua` faz `require` dos três primeiros. Mexer em atalho é mexer só no
+O `hyprland.lua` faz `require` de todos os outros. Mexer em atalho é mexer só no
 `atalhos.lua`. Depois de editar:
 
 ```
@@ -99,7 +101,7 @@ antes da wiki, que descreve a versão mais recente e não necessariamente a sua.
 | Tecla | Ação |
 |---|---|
 | `Meta+Return` | terminal (ghostty) |
-| `Meta+R` / `Meta+Space` | lançador |
+| `Meta+R` / `Meta+Space` / `Meta+D` / `Alt+D` | lançador |
 | `Meta+E` | arquivos |
 | `Meta+B` | navegador |
 | `Meta+Q` | fechar janela |
@@ -154,6 +156,36 @@ hl.monitor({ output = telas.desc("vertical"), mode = "1920x1080@143.98", positio
 hl.monitor({ output = "", mode = "preferred", position = "auto", scale = "auto" })
 ```
 
+### Nome de conector não é estável
+
+Trocar a placa-mãe renumerou as portas em 07/09/2026 — o ASUS foi de `DP-1` para `DP-2` e o
+LG de `DP-2` para `DP-3`. Com a regra presa ao conector, o `transform` do vertical caiu no
+principal, a waybar subiu sem barra nenhuma, o `Alt+Tab` parou de mostrar workspace (o
+`ignore_monitors` passou a ignorar o **principal**), as notificações sumiram e a tela de
+bloqueio ficou sem campo de senha. Um sintoma só, quatro arquivos.
+
+Hoje **nenhum arquivo versionado guarda `DP-x`**. A marca mora em `telas.lua` e é resolvida
+na hora do uso — em Lua por `telas.nome()`, e fora dele por `bin/monitor.sh`, que imprime o
+conector atual (ou a descrição inteira, com `--desc`) e sai `!= 0` quando a tela não está
+presente. É o que o `ExecCondition` do `ricepanel.service` usa para não subir o painel em
+fullscreen por cima do monitor principal quando o vertical está desligado.
+
+Waybar, mako, hyprlock e hyprswitch só aceitam nome de conector — a waybar nem curinga, só a
+descrição inteira e exata. Por isso cada um sobe por um wrapper que resolve a marca e gera a
+config em `$XDG_RUNTIME_DIR`:
+
+| Programa | Wrapper |
+|---|---|
+| waybar | `bin/waybar.sh` |
+| hyprexpose | `bin/hyprexpose.sh` |
+| mako | `bin/mako.sh` |
+| hyprlock | `bin/bloquear.sh` |
+| hyprswitch | `bin/alternador.sh` |
+
+Ligar ou desligar uma tela no botão renumera os conectores do mesmo jeito, então
+`monitor.added` e `monitor.removed` chamam o `bin/telas-mudaram.sh`, que resobe esses daemons
+e refaz o wallpaper.
+
 O `bin/wallpaper.sh` lê a geometria por `hyprctl monitors -j` e **desconta o transform**
 antes de decidir retrato × paisagem: a imagem em pé vai pro monitor em pé, a paisagem pros
 outros. As duas imagens são as mesmas do MyWinISO, pro Windows e o Arch não terem cara
@@ -193,7 +225,9 @@ ativação D-Bus). Com o Plasma fora, o estado desejado virou o padrão natural.
 ```
 zsh ghostty git xdg apps systemd-user   pacotes stow, viram links no $HOME
 hypr waybar mako fuzzel wlogout qt      pacotes da sessão
-bin        wallpaper, captura, recorte, energia, audio, dns
+bin        wallpaper, captura, recorte, energia, audio, dns, wrappers de monitor
+claude     settings, CLAUDE.md, skills e a documentação (docs/), copiados pra ~/.claude
+pacotes    PKGBUILD e patches dos pacotes locais (hyprexpose-xande)
 segredos   credenciais cifradas com age; chave só no pendrive do Ventoy
 vm         VM Windows com passthrough (XML do libvirt, hooks)
 perfil     avatar, copiado pra ~/.face
@@ -213,8 +247,14 @@ Pacote é a pasta que tem entrada com ponto na raiz (`.config`, `.local`, `.zshr
 
 - Linha inválida **não derruba a sessão**: o Hyprland ignora e segue. Por isso
   `Hyprland --verify-config` antes de logar é obrigatório — ele roda sem subir sessão.
-- `hyprctl reload` não recarrega a waybar — é processo separado; o `setup.sh recarregar`
-  manda `SIGUSR2` nela. JSON inválido no `config.jsonc` derruba a barra inteira.
+- `hyprctl reload` não recarrega a waybar — é processo separado. E `SIGUSR2` **não basta**
+  quando ela subiu sem barra nenhuma (output que não existia): ela relê a config e continua
+  sem criar surface. Por isso o `setup.sh recarregar` mata e sobe de novo pelo
+  `bin/waybar.sh`. JSON inválido no `config.jsonc` derruba a barra inteira.
+- `hyprctl keyword` não existe mais: responde *"keyword can't work with non-legacy parsers.
+  Use eval."* Para mudar config em runtime, `hyprctl dispatch` com uma função Lua.
+- `mode = "highrr"` maximiza a **taxa**, não a resolução — derruba a tela pra 1024x768@180.
+  Resolução e taxa sempre explícitas no `monitores.lua`.
 - `transform = 1` é 90°. Se a tela vertical sair de cabeça pra baixo, o valor certo é `3`.
 - Em NVIDIA, `no_hardware_cursors = true` evita cursor invisível ou piscando.
 - O shell é zsh: `for p in $var` não faz word splitting. Use array ou `bash -c`.
@@ -227,9 +267,11 @@ Pacote é a pasta que tem entrada com ponto na raiz (`.config`, `.local`, `.zshr
 
 O overview de workspaces do `Alt+Tab` é o **[hyprexpose](https://github.com/ThiagoAVicente/hyprexpose)**,
 de ThiagoAVicente, sob licença MIT. Este repo usa uma **versão modificada**: o pacote
-`pacotes/hyprexpose/` compila o upstream com o patch `0001-ignorar-monitores.patch`, que
-adiciona a chave de configuração `ignore_monitors` — ausente no original — para deixar o
-monitor vertical de fora do overview. Nada mais foi alterado.
+`pacotes/hyprexpose/` compila o upstream com o patch `0001-ignorar-monitores-e-alt-tab.patch`,
+que faz três coisas: adiciona a chave `ignore_monitors` — ausente no original — para deixar o
+monitor vertical de fora do overview; ensina o overlay a ler `Tab` e o release do Alt na
+própria surface, porque com grab exclusivo de teclado os binds do compositor não chegam lá; e
+fixa o grid em uma linha só, que é como um Alt+Tab se lê. Nada mais foi alterado.
 
 O alternador de janelas do `Super+Tab` é o **[hyprswitch](https://github.com/egnrse/hyprswitch)**
 (fork de [H3rmt/hyprshell](https://github.com/H3rmt/hyprshell)), MIT, usado sem modificação.
