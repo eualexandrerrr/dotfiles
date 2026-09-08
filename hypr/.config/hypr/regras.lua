@@ -14,7 +14,7 @@ hl.window_rule({
 local TERMINAIS = ".*ghostty.*|.*kitty.*|.*Alacritty.*|.*foot.*"
 local CHROME = ".*[Gg]oogle-chrome.*"
 local MENSAGEIRO = ".*[Dd]iscord.*|.*[Vv]encord.*"
-local EDITOR = "RCode"
+local EDITOR = ".*[Rr][Cc]ode.*"
 local JOGOS = ".*virt-manager.*|.*looking-glass.*|.*[Ss]team.*|steam_app.*|.*gamescope.*|.*lutris.*|.*heroic.*"
 local REMOTO = ".*freerdp.*"
 local MUSICA = ".*[Ss]potify.*"
