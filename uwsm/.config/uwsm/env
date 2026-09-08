@@ -19,7 +19,12 @@ done
 
 if [ "$_desenha" = amdgpu ]; then
     LIBVA_DRIVER_NAME=radeonsi
-    export LIBVA_DRIVER_NAME
+    # O caminho de KMS atomico do aquamarine e onde o Hyprland 0.56.2 morre nesta Polaris:
+    # eglDupNativeFenceFDANDROID devolve EGL_BAD_PARAMETER, o amdgpu recusa o command
+    # submission e o compositor aborta em CHyprOpenGLImpl::begin. Modeset legado tira os
+    # fences do KMS do caminho.
+    AQ_NO_ATOMIC=1
+    export LIBVA_DRIVER_NAME AQ_NO_ATOMIC
 else
     LIBVA_DRIVER_NAME=nvidia
     __GLX_VENDOR_LIBRARY_NAME=nvidia
