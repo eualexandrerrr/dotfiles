@@ -378,6 +378,12 @@ vem **depois** do `regras.lua` para vencer a regra `sempre-solido`.
   serve** quando ela subiu sem barra nenhuma (output que nao existia) -- ela recarrega a
   config e continua sem criar surface. Por isso o `setup.sh recarregar` hoje **mata e sobe
   de novo** pelo `bin/waybar.sh`, que e quem regenera o `output` a cada vez.
+- **Script que le marca de tela le o `telas.lua`, nunca o `monitores.lua`**: o `monitores.lua`
+  hoje so chama `telas.desc(...)`, entao `sed` atras de `local principal = "desc:..."` volta
+  vazio. Foi assim que o `bin/waybar.sh` quebrou em 08/09/2026: com a marca vazia o fallback
+  casava todos os monitores e a barra subia no primeiro da lista, a tela vertical do
+  RicePanel. O padrao certo e `telas.principal = "..."`, o mesmo que o `bin/monitor.sh` usa.
+  Sem a tela principal presente o script sai sem barra, em vez de cair na vertical.
 - **`hyprctl keyword` nao existe mais**: responde "keyword can't work with non-legacy
   parsers. Use eval." Para mudar config em runtime, `hyprctl dispatch` com uma funcao Lua.
 - Config errada nao derruba a sessao: o Hyprland ignora e segue. Conferir com
