@@ -1,3 +1,4 @@
+_desenha=""
 for _drv in /sys/class/drm/card*/device/driver; do
     [ -e "$_drv" ] || continue
     case "$(basename "$(readlink -f "$_drv")")" in
@@ -5,8 +6,20 @@ for _drv in /sys/class/drm/card*/device/driver; do
             _card="$(basename "$(dirname "$(dirname "$_drv")")")"
             AQ_DRM_DEVICES="/dev/dri/$_card"
             export AQ_DRM_DEVICES
+            _desenha=amdgpu
             break
             ;;
     esac
 done
-unset _drv _card
+
+if [ "$_desenha" = amdgpu ]; then
+    LIBVA_DRIVER_NAME=radeonsi
+    export LIBVA_DRIVER_NAME
+else
+    LIBVA_DRIVER_NAME=nvidia
+    __GLX_VENDOR_LIBRARY_NAME=nvidia
+    NVD_BACKEND=direct
+    export LIBVA_DRIVER_NAME __GLX_VENDOR_LIBRARY_NAME NVD_BACKEND
+fi
+
+unset _drv _card _desenha

@@ -29,10 +29,13 @@ de Plasma, KWin, powerdevil, Dolphin, Spectacle ou Windows-Modern sobrou. A deci
 
 A placa-mae nova ja esta montada e em uso desde 08/09/2026: **ASUS TUF Gaming B550M-PLUS**,
 sem wifi e sem bluetooth (a variante com wifi tem o sufixo no nome; esta nao tem). A 3090
-mudou para `0000:07:00.0`. Falta a RX 550 e o riser -- enquanto so existir uma GPU, a maquina
-NAO vira passthrough. **Isso e a fase seguinte**, nao mexer ainda: o `kernel-nvidia` do
-`packages.txt` e o `configure_nvidia()` do install continuam valendo ate a RX 550 estar
-montada e desenhando.
+esta em `0000:07:00.0` (`card1`, driver `nvidia`) e a **RX 550 ja chegou**, em
+`0000:04:00.0` (`card2`, driver `amdgpu`).
+
+**Os dois monitores estao na RX 550** -- `DP-4` e `HDMI-A-2` sao saidas do `card2` --, entao
+e a AMD que desenha o desktop e a 3090 fica ociosa (`nvidia-smi` mostra ~6 MiB de 24576).
+Toda variavel de driver grafico tem que seguir a AMD; o `uwsm/env` resolve isso no login
+lendo o driver de cada `card`, e `dot status` acusa se alguem voltar a fixar `nvidia`.
 
 Atencao: os hooks de single-GPU passthrough dos tutoriais assumem display manager; com
 Hyprland o script de start precisa parar a sessao direto (ver `claude/docs/vm-e-hardware.md`).

@@ -91,6 +91,47 @@ status() {
             || printf '%s!!%s %s nao habilitado -- systemctl --user enable %s\n' "$YEL" "$END" "$u" "$u"
     done
 
+    local desenha="" conector card drv
+    for conector in /sys/class/drm/card*-*/status; do
+        [[ -e $conector ]] || continue
+        [[ $(cat "$conector") == connected ]] || continue
+        card="$(basename "$(dirname "$conector")")"; card="${card%%-*}"
+        drv="$(basename "$(readlink -f "/sys/class/drm/$card/device/driver" 2>/dev/null)")"
+        [[ -n $drv && $drv != . ]] && { desenha="$drv"; break; }
+    done
+
+    if [[ -n $desenha ]]; then
+        printf '%sok%s telas desenhadas pela %s (%s)\n' "$GRN" "$END" "$desenha" "$card"
+        if [[ $desenha != nvidia && -n ${__GLX_VENDOR_LIBRARY_NAME:-} ]]; then
+            printf '%s!!%s __GLX_VENDOR_LIBRARY_NAME=%s com as telas na %s: o Electron nao importa o dmabuf e cai em swiftshader (CPU)\n' \
+                "$RED" "$END" "$__GLX_VENDOR_LIBRARY_NAME" "$desenha"; faltou=1
+        fi
+        if [[ $desenha != nvidia && ${LIBVA_DRIVER_NAME:-} == nvidia ]]; then
+            printf '%s!!%s LIBVA_DRIVER_NAME=nvidia com as telas na %s: sem aceleracao de video\n' \
+                "$RED" "$END" "$desenha"; faltou=1
+        fi
+    fi
+
+    local software
+    software="$(pgrep -af 'use-angle=swiftshade[r]' 2>/dev/null | grep -oE 'user-data-dir=[^ ]+' | sed 's|.*/||' | sort -u | tr '\n' ' ')"
+    if [[ -n $software ]]; then
+        printf '%s!!%s renderizando por software, na CPU: %s\n' "$RED" "$END" "$software"; faltou=1
+    fi
+
+    if command -v hyprctl >/dev/null 2>&1 && hyprctl monitors >/dev/null 2>&1; then
+        local principal barra
+        principal="$("$DOTFILES_DIR/bin/monitor.sh" principal 2>/dev/null)"
+        barra="$(hyprctl layers 2>/dev/null | awk '/^Monitor /{m=$2} /namespace: waybar/{print m; exit}' | tr -d ':')"
+        if [[ -z $barra ]]; then
+            printf '%s!!%s waybar sem layer em nenhuma tela\n' "$RED" "$END"; faltou=1
+        elif [[ -n $principal && $barra != "$principal" ]]; then
+            printf '%s!!%s waybar no %s; o principal e o %s -- bin/waybar.sh resolveu a marca errada\n' \
+                "$RED" "$END" "$barra" "$principal"; faltou=1
+        else
+            printf '%sok%s waybar no monitor principal (%s)\n' "$GRN" "$END" "$barra"
+        fi
+    fi
+
     (( faltou )) && { printf '\n%s!!%s falta coisa pro desktop subir. Log: dot erros\n' "$RED" "$END"; return 1; }
     printf '\n%sok%s tudo no lugar\n' "$GRN" "$END"
 }

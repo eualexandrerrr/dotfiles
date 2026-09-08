@@ -371,9 +371,16 @@ vem **depois** do `regras.lua` para vencer a regra `sempre-solido`.
 
 - **`transform` do monitor vertical**: `monitores.lua` usa `transform = 1`. Se a imagem
   aparecer de cabeca pra baixo, o valor certo e `3`. So da pra saber olhando.
+- **Driver EGL tem que ser o da GPU que desenha**: `LIBVA_DRIVER_NAME`,
+  `__GLX_VENDOR_LIBRARY_NAME` e `NVD_BACKEND` sairam do `hyprland.lua` em 08/09/2026 e hoje
+  quem decide e o `uwsm/.config/uwsm/env`, olhando o driver de cada `card` no login. Fixas em
+  `nvidia` com as telas na RX 550, elas mandavam o Electron importar por EGL da NVIDIA um
+  dmabuf produzido pela AMD: `eglCreateImage failed with 0x00003009` (EGL_BAD_MATCH), o
+  `gpu-process` crashava tres vezes e o Chromium caia em **swiftshader**, desenhando na CPU.
+  Sintoma: RCode e RicePanel lentissimos, `gpu-process` a 40-56% de CPU. O Chrome, que subiu
+  sem essas variaveis, nunca teve o problema -- foi ele o controle que fechou o diagnostico.
+  Conferir com `dot status`, que hoje acusa o descasamento e quem esta em swiftshader.
 - **NVIDIA**: `no_hardware_cursors = true` em `cursor` evita cursor invisivel ou piscando.
-  As `hl.env` de `LIBVA_DRIVER_NAME`, `__GLX_VENDOR_LIBRARY_NAME` e `NVD_BACKEND` estao no
-  `hyprland.lua` e nao devem sair.
 - **`hyprctl reload` nao recarrega a waybar**: e processo separado, e o `SIGUSR2` **nao
   serve** quando ela subiu sem barra nenhuma (output que nao existia) -- ela recarrega a
   config e continua sem criar surface. Por isso o `setup.sh recarregar` hoje **mata e sobe
