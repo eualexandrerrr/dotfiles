@@ -6,6 +6,8 @@ telas="$DOTFILES_DIR/hypr/.config/hypr/telas.lua"
 base="$HOME/.config/waybar/config.jsonc"
 estilo="$HOME/.config/waybar/style.css"
 gerada="${XDG_RUNTIME_DIR:-/tmp}/waybar/config.jsonc"
+estilo_gerado="${XDG_RUNTIME_DIR:-/tmp}/waybar/style.css"
+badge="${XDG_RUNTIME_DIR:-/tmp}/waybar/discord.css"
 
 marca_de() {
     sed -n "s/^telas\.$1 = \"\(.*\)\".*/\1/p" "$telas" | head -1
@@ -35,4 +37,14 @@ fi
 mkdir -p "$(dirname "$gerada")"
 jq --arg o "$saida" '.output = [$o]' "$base" >"$gerada" || exit 1
 
-exec waybar -c "$gerada" -s "$estilo"
+# O estilo tambem passa por um arquivo de runtime porque o ponto de notificacao do Discord e
+# escrito em CSS pelo discord-notificacoes.py -- regra de workspace nao entra por JSON, e o
+# modulo hyprland/workspaces nao aceita marcador vindo de fora. A waybar observa o arquivo
+# que recebeu no -s e recarrega sozinha quando ele ou um @import dele muda.
+[[ -e $badge ]] || : >"$badge"
+cat >"$estilo_gerado" <<CSS
+@import url("file://$estilo");
+@import url("file://$badge");
+CSS
+
+exec waybar -c "$gerada" -s "$estilo_gerado"

@@ -71,10 +71,8 @@
 
     "custom/discord": {
         "exec": "$HOME/.dotfiles/bin/discord-notificacoes.py",
-        "return-type": "json",
         "interval": 3,
-        "format": "{}",
-        "on-click": "hyprctl dispatch 'hl.dsp.focus({ workspace = 2 })'"
+        "format": ""
     },
 
     "mpris": {

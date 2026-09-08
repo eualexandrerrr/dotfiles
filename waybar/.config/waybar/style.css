@@ -66,15 +66,6 @@ window#waybar {
     color: @base;
 }
 
-#custom-discord {
-    padding: 0 9px;
-    margin: 6px 2px 6px -4px;
-    color: @base;
-    background: @red;
-    border-radius: 9px;
-    font-size: 12px;
-    font-weight: 700;
-}
 
 #custom-janela {
     padding: 0 14px;

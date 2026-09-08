@@ -1,21 +1,45 @@
 #!/usr/bin/env python3
 
-# Indicador de mensagem nao lida do Discord para a waybar, em JSON.
+# Marca o botao da workspace do Discord na waybar quando ha mensagem nao lida.
 #
-# O titulo da janela ("(3) #canal | Servidor - Discord") so ganha o "(3)" quando ha mencao
-# direta ou DM. Notificacao de servidor nao aparece la, e era por isso que a barra ficava
-# limpa com o Discord piscando. A fonte que enxerga os dois casos e o icone da bandeja:
-# o Discord desenha um badge vermelho sobre ele, e o pixmap vem pelo DBus.
+# Nao imprime nada visivel: o modulo custom que chama este script existe so pelo intervalo,
+# e o desenho sai por CSS. O modulo hyprland/workspaces nao aceita marcador vindo de fora,
+# entao a unica forma de por o ponto no proprio icone e escrever uma regra e deixar a waybar
+# recarregar o estilo -- ela observa o arquivo que recebeu no -s e os @import dele.
 #
-# O binario nao fala com.canonical.Unity.LauncherEntry (conferido no 1.0.157), entao badge
-# por DBus esta fora -- so sobra ler o desenho.
+# De onde vem o estado:
+#   - titulo da janela ("(3) #canal | Servidor - Discord"): so ganha o "(3)" em mencao direta
+#     e DM. Notificacao de servidor nao aparece la, e era por isso que a barra ficava limpa
+#     com o Discord piscando;
+#   - icone da bandeja: o Discord desenha um badge vermelho #ED4245 sobre o pixmap, e esse
+#     enxerga os dois casos. Nao da o numero, mas da a presenca.
+#
+# Badge por DBus esta fora: o binario do Discord 1.0.157 nao tem uma ocorrencia sequer de
+# com.canonical.Unity.LauncherEntry.
 
 import json
+import os
 import re
 import subprocess
 
-VERMELHO = "\U000f0669"  # nf-md-discord
-LIMIAR_PIXELS = 8  # o badge tem ~40 px vermelhos num icone de 24x24; ruido de anti-alias fica bem abaixo
+LIMIAR_PIXELS = 8  # o badge tem ~40 px vermelhos num icone de 24x24; anti-alias fica bem abaixo
+WORKSPACE_DISCORD = 2
+
+DESTINO = os.path.join(
+    os.environ.get("XDG_RUNTIME_DIR", "/tmp"), "waybar", "discord.css"
+)
+
+PONTO = "radial-gradient(circle at 76% 26%, @red 0px, @red 3px, transparent 4px)"
+
+REGRA = f"""#workspaces button:nth-child({WORKSPACE_DISCORD}) {{
+    background-image: {PONTO};
+}}
+
+#workspaces button:nth-child({WORKSPACE_DISCORD}).active {{
+    background-image: {PONTO},
+                      linear-gradient(135deg, @mauve, @blue);
+}}
+"""
 
 
 def hyprctl_titulo():
@@ -76,7 +100,6 @@ def icone_do_discord():
 
 
 def pixels_vermelhos(pixmap):
-    # ARGB32, largura e altura vem no proprio retorno. O badge do Discord e #ED4245.
     m = re.search(r"\((\d+), (\d+), \[byte (.*?)\]\)", pixmap, re.S)
     if not m:
         return 0
@@ -95,30 +118,34 @@ def pixels_vermelhos(pixmap):
     return conta
 
 
-def diz(texto, tooltip, classe):
-    print(json.dumps({"text": texto, "tooltip": tooltip, "class": classe}))
+def tem_nao_lida():
+    titulo = hyprctl_titulo()
+    if titulo is None:
+        return False
+    if re.match(r"^\(\d+\)", titulo):
+        return True
+    return pixels_vermelhos(icone_do_discord()) >= LIMIAR_PIXELS
+
+
+def escrever(css):
+    # So grava quando muda: cada gravacao acorda o inotify da waybar e refaz o provider de
+    # estilo inteiro. Em regime normal o arquivo fica parado.
+    try:
+        with open(DESTINO) as f:
+            if f.read() == css:
+                return
+    except FileNotFoundError:
+        pass
+    os.makedirs(os.path.dirname(DESTINO), exist_ok=True)
+    provisorio = DESTINO + ".tmp"
+    with open(provisorio, "w") as f:
+        f.write(css)
+    os.replace(provisorio, DESTINO)
 
 
 def main():
-    titulo = hyprctl_titulo()
-    if titulo is None:
-        diz("", "Discord fechado", "fechado")
-        return
-
-    # O numero exato so existe no titulo; quando ele esta la, e a melhor resposta.
-    conta = re.match(r"^\((\d+)\)", titulo)
-    if conta:
-        n = int(conta.group(1))
-        plural = "1 mensagem" if n == 1 else f"{n} mensagens"
-        diz(f"{VERMELHO} {n}", f"{plural} no Discord", "pendente")
-        return
-
-    # Sem numero no titulo, o badge da bandeja ainda denuncia notificacao de servidor.
-    if pixels_vermelhos(icone_do_discord()) >= LIMIAR_PIXELS:
-        diz(f"{VERMELHO} •", "Discord com mensagem nao lida", "pendente")
-        return
-
-    diz("", "Discord sem mensagem nova", "limpo")
+    escrever(REGRA if tem_nao_lida() else "")
+    print("")
 
 
 if __name__ == "__main__":
