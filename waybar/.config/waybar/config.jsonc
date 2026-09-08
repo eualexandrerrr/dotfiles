@@ -94,7 +94,7 @@
 
     "clock": {
         "format": "{:%H:%M}",
-        "format-alt": "{:%a, %d/%m}",
+        "format-alt": "{:L%a, %d/%m}",
         "locale": "pt_BR.UTF-8",
         "tooltip-format": "<tt><small>{calendar}</small></tt>",
         "calendar": {
