@@ -40,7 +40,18 @@
             "urgent": "!",
             "default": "\u00b7"
         },
-        "tooltip-format": "{name}",
+        "tooltips": {
+            "1": "1 · Chrome",
+            "2": "2 · Discord",
+            "3": "3 · RCode",
+            "4": "4 · Terminais",
+            "5": "5 · Spotify",
+            "6": "6 · Jogos",
+            "7": "7 · Área de trabalho remota",
+            "8": "8 · Resto",
+            "9": "9 · RicePanel",
+            "default": "{name}"
+        },
         "persistent-workspaces": {
             "*": [1, 2, 3, 4, 5, 6, 7]
         }
