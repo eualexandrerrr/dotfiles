@@ -1,3 +1,8 @@
+# O Spotify nao olha o LANG: sem LANGUAGE ele abre em ingles mesmo com pt_BR.UTF-8, e a
+# flag --language=pt-BR do spotify-launcher perde para a preferencia salva no app.
+LANGUAGE=pt_BR:pt
+export LANGUAGE
+
 _desenha=""
 for _drv in /sys/class/drm/card*/device/driver; do
     [ -e "$_drv" ] || continue
