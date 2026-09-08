@@ -193,7 +193,6 @@ lm_sensors
 [repo-oficial:apps]
 discord
 freerdp
-remmina
 obsidian
 rclone
 spotify-launcher

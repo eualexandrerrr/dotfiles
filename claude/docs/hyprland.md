@@ -209,7 +209,7 @@ inicializacao, entao mexer no CSS/TOML sem reiniciar o daemon nao muda nada na t
 
 `regras.lua` prende cada app na sua workspace. Desde 08/09/2026 o esquema e
 **1 Chrome, 2 Discord, 3 RCode, 4 terminais, 5 Spotify, 6 jogos (VM, Steam, Lutris,
-Heroic), 7 acesso remoto (RDP, Remmina), 8 em diante todo o resto**. As classes vieram do
+Heroic), 7 acesso remoto (RDP), 8 em diante todo o resto**. As classes vieram do
 `StartupWMClass` de cada `.desktop`, nao de chute -- o Chrome grava `google-chrome` e
 `Google-chrome` no mesmo arquivo, por isso a regra casa `[Gg]oogle-chrome`.
 

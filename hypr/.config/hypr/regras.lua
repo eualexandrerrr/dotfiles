@@ -16,7 +16,7 @@ local CHROME = ".*[Gg]oogle-chrome.*"
 local MENSAGEIRO = ".*[Dd]iscord.*|.*[Vv]encord.*"
 local EDITOR = "RCode"
 local JOGOS = ".*virt-manager.*|.*looking-glass.*|.*[Ss]team.*|steam_app.*|.*gamescope.*|.*lutris.*|.*heroic.*"
-local REMOTO = ".*freerdp.*|.*[Rr]emmina.*"
+local REMOTO = ".*freerdp.*"
 local MUSICA = ".*[Ss]potify.*"
 local FLUTUANTES = ".*pavucontrol.*|.*transparencia.*|.*nwg-.*|.*qt5ct.*|.*qt6ct.*|.*kvantum.*|.*xarchiver.*|.*[Tt]hunar.*|RicePanel|.*wlogout.*|.*fuzzel.*|.*portal.*"
 
@@ -74,7 +74,7 @@ hl.window_rule({
 
 hl.window_rule({
     name = "sempre-solido",
-    match = { class = "looking-glass-client|virt-manager|com.freerdp.client.*|.*freerdp.*|.*[Rr]emmina.*|steam_app.*|gamescope|mpv|vlc" },
+    match = { class = "looking-glass-client|virt-manager|com.freerdp.client.*|.*freerdp.*|steam_app.*|gamescope|mpv|vlc" },
     opacity = "1.0 1.0",
 })
 

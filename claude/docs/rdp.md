@@ -1,8 +1,8 @@
 # RDP: acesso ao servidor Windows
 
-Cliente: **FreeRDP 3** (`freerdp`, binários `sdl-freerdp3`, `xfreerdp3`, `wlfreerdp3`) mais o
-**Remmina** como GUI para quando quiser gerenciar vários hosts. Ambos no `packages.txt`,
-seção `[repo-oficial:apps]`.
+Cliente: **FreeRDP 3** e só ele (`freerdp`, binários `sdl-freerdp3`, `xfreerdp3`,
+`wlfreerdp3`), no `packages.txt`, seção `[repo-oficial:apps]`. O Remmina chegou a entrar como
+GUI alternativa e saiu no mesmo dia: dois clientes para o mesmo servidor é peso morto.
 
 Servidor conferido em 08/09/2026: `191.96.81.142:3389`, Windows Server 2025 Standard
 Evaluation, usuário `Administrator`. A 40120 do mesmo IP é a porta do RedM, não do RDP.
