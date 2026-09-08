@@ -137,7 +137,22 @@ etapa_thunar() {
 }
 
 etapa_chrome() {
-    log "pagina inicial do Chrome"
+    log "Chrome: handler de link e pagina inicial"
+
+    # Link vindo de fora (Discord, RCode, terminal) tem de cair como aba na janela que ja
+    # existe. Sem declarar http/https aqui, cada app resolve o handler por conta e algum
+    # deles acaba abrindo janela nova.
+    if command -v xdg-mime >/dev/null 2>&1; then
+        local esquema
+        for esquema in x-scheme-handler/http x-scheme-handler/https x-scheme-handler/about x-scheme-handler/unknown text/html application/xhtml+xml; do
+            xdg-mime default google-chrome.desktop "$esquema" 2>/dev/null
+        done
+        xdg-settings set default-web-browser google-chrome.desktop 2>/dev/null
+        ok "links abrem em aba do Chrome"
+    else
+        falha "xdg-mime nao instalado"
+    fi
+
     local inicio="$HOME/.local/share/inicio/index.html"
     local destino="/etc/opt/chrome/policies/managed/inicio.json"
     [[ -f $inicio ]] || { falha "$inicio nao existe; rode a etapa links antes"; return; }
