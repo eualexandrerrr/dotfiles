@@ -11,7 +11,6 @@
     "modules-left": ["custom/janela"],
     "modules-center": ["hyprland/workspaces", "custom/discord", "hyprland/submap"],
     "modules-right": [
-        "mpris",
         "pulseaudio",
         "tray",
         "clock",
@@ -70,19 +69,6 @@
         "format": ""
     },
 
-    "mpris": {
-        "format": "{player_icon} {dynamic}",
-        "format-paused": "{status_icon} <i>{dynamic}</i>",
-        "dynamic-len": 40,
-        "player-icons": {
-            "default": "♪",
-            "spotify": "",
-            "mpv": ""
-        },
-        "status-icons": {
-            "paused": ""
-        }
-    },
 
 
 

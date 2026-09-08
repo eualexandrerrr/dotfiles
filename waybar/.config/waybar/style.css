@@ -82,7 +82,6 @@ window#waybar {
     color: @peach;
 }
 
-#mpris,
 #pulseaudio,
 #clock,
 #tray,
@@ -93,7 +92,6 @@ window#waybar {
     background: transparent;
 }
 
-#mpris        { color: @green; }
 #pulseaudio   { color: @peach; }
 
 #clock {
