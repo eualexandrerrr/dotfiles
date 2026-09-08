@@ -12,12 +12,7 @@
     "modules-center": ["hyprland/workspaces", "custom/discord", "hyprland/submap"],
     "modules-right": [
         "mpris",
-        "cpu",
-        "temperature",
-        "custom/gpu",
-        "memory",
         "pulseaudio",
-        "network",
         "tray",
         "clock",
         "custom/transparencia",
@@ -89,33 +84,9 @@
         }
     },
 
-    "cpu": {
-        "format": " {usage}%",
-        "interval": 2,
-        "on-click": "ghostty -e btop"
-    },
 
-    "temperature": {
-        "hwmon-path-abs": "/sys/devices/pci0000:00/0000:00:18.3/hwmon",
-        "input-filename": "temp1_input",
-        "critical-threshold": 82,
-        "format": " {temperatureC}°C",
-        "format-critical": " {temperatureC}°C",
-        "interval": 4
-    },
 
-    "custom/gpu": {
-        "exec": "nvidia-smi --query-gpu=utilization.gpu,temperature.gpu --format=csv,noheader,nounits | awk -F', ' '{printf \"󰢮 %s%% %s°C\", $1, $2}'",
-        "interval": 4,
-        "tooltip": false,
-        "on-click": "nvidia-settings"
-    },
 
-    "memory": {
-        "format": " {percentage}%",
-        "tooltip-format": "{used:0.1f}G de {total:0.1f}G",
-        "interval": 4
-    },
 
     "pulseaudio": {
         "format": "{icon} {volume}%",
@@ -129,14 +100,6 @@
         "scroll-step": 5
     },
 
-    "network": {
-        "format-ethernet": "󰈀 {bandwidthDownBits}",
-        "format-wifi": " {essid}",
-        "format-disconnected": "󰖪 sem rede",
-        "tooltip-format": "{ifname} · {ipaddr}",
-        "interval": 3,
-        "on-click": "nm-connection-editor"
-    },
 
     "tray": {
         "icon-size": 16,

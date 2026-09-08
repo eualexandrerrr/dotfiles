@@ -83,12 +83,7 @@ window#waybar {
 }
 
 #mpris,
-#cpu,
-#temperature,
-#custom-gpu,
-#memory,
 #pulseaudio,
-#network,
 #clock,
 #tray,
 #custom-energia {
@@ -99,12 +94,7 @@ window#waybar {
 }
 
 #mpris        { color: @green; }
-#cpu          { color: @blue; }
-#temperature  { color: @yellow; }
-#custom-gpu   { color: @teal; }
-#memory       { color: @mauve; }
 #pulseaudio   { color: @peach; }
-#network      { color: @blue; }
 
 #clock {
     color: @base;
@@ -136,9 +126,7 @@ window#waybar {
     color: @base;
 }
 
-#temperature.critical,
-#pulseaudio.muted,
-#network.disconnected {
+#pulseaudio.muted {
     color: @red;
 }
 
