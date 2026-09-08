@@ -2,13 +2,13 @@
 set -uo pipefail
 
 DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
-monitores="$DOTFILES_DIR/hypr/.config/hypr/monitores.lua"
+telas="$DOTFILES_DIR/hypr/.config/hypr/telas.lua"
 base="$HOME/.config/waybar/config.jsonc"
 estilo="$HOME/.config/waybar/style.css"
 gerada="${XDG_RUNTIME_DIR:-/tmp}/waybar/config.jsonc"
 
 marca_de() {
-    sed -n "s/^local $1 = \"desc:\(.*\)\".*/\1/p" "$monitores" | head -1
+    sed -n "s/^telas\.$1 = \"\(.*\)\".*/\1/p" "$telas" | head -1
 }
 
 principal="$(marca_de principal)"
@@ -16,24 +16,23 @@ vertical="$(marca_de vertical)"
 
 saida=""
 if command -v hyprctl >/dev/null 2>&1 && command -v jq >/dev/null 2>&1; then
-    telas="$(hyprctl monitors -j 2>/dev/null)"
-    if [[ -n "$telas" && -n "$principal" ]]; then
+    ativos="$(hyprctl monitors -j 2>/dev/null)"
+    if [[ -n $ativos && -n $principal ]]; then
         saida="$(jq -r --arg m "$principal" \
-            'map(select(.disabled | not) | select(.description | startswith($m))) | .[0].description // empty' \
-            <<<"$telas")"
+            'map(select(.description | startswith($m))) | .[0].description // empty' \
+            <<<"$ativos")"
     fi
-    if [[ -z "$saida" && -n "$telas" ]]; then
+    if [[ -z $saida && -n $ativos && -n $vertical ]]; then
         saida="$(jq -r --arg v "$vertical" \
-            'map(select(.disabled | not) | select($v == "" or (.description | startswith($v) | not))) | .[0].description // empty' \
-            <<<"$telas")"
+            'map(select(.description | startswith($v) | not)) | .[0].description // empty' \
+            <<<"$ativos")"
     fi
 fi
 
+# Sem a tela principal a barra nao sobe: a vertical e do RicePanel e nunca recebe barra.
+[[ -n $saida ]] || exit 0
+
 mkdir -p "$(dirname "$gerada")"
-if [[ -n "$saida" ]] && command -v jq >/dev/null 2>&1; then
-    jq --arg o "$saida" '.output = [$o]' "$base" >"$gerada" || cp "$base" "$gerada"
-else
-    cp "$base" "$gerada"
-fi
+jq --arg o "$saida" '.output = [$o]' "$base" >"$gerada" || exit 1
 
 exec waybar -c "$gerada" -s "$estilo"
