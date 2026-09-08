@@ -14,8 +14,7 @@ done
 
 if [ "$_desenha" = amdgpu ]; then
     LIBVA_DRIVER_NAME=radeonsi
-    AQ_NO_ATOMIC=1
-    export LIBVA_DRIVER_NAME AQ_NO_ATOMIC
+    export LIBVA_DRIVER_NAME
 else
     LIBVA_DRIVER_NAME=nvidia
     __GLX_VENDOR_LIBRARY_NAME=nvidia
