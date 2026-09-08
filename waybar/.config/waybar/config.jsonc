@@ -70,7 +70,7 @@
     },
 
     "custom/discord": {
-        "exec": "$HOME/.dotfiles/bin/discord-notificacoes.sh",
+        "exec": "$HOME/.dotfiles/bin/discord-notificacoes.py",
         "return-type": "json",
         "interval": 3,
         "format": "{}",
