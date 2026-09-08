@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=RDP Michigan (191.96.81.142)
+Comment=Conecta no servidor Windows por RDP com as credenciais guardadas
+Exec=bash -c "$HOME/.dotfiles/bin/rdp.sh"
+Icon=preferences-system-network
+Terminal=false
+StartupNotify=true
+Categories=Network;RemoteAccess;
