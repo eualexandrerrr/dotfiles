@@ -5,7 +5,7 @@
 #   SKIP_NVIDIA=1 ./install.sh    força pular driver e parâmetros de kernel
 #   (sem a variável, detecta pelo PCI: sem placa NVIDIA = pula sozinho)
 
-set -euo pipefail
+set -uo pipefail
 
 DOTFILES_REPO="${DOTFILES_REPO:-https://github.com/eualexandrerrr/dotfiles.git}"
 DOTFILES_BRANCH="${DOTFILES_BRANCH:-main}"
@@ -25,9 +25,10 @@ mkdir -p "$LOGDIR"
 LOGFILE="${LOGFILE:-$LOGDIR/install.log}"
 T0=$SECONDS
 STEP=0
-TOTAL_STEPS=16
-[[ ${SKIP_NVIDIA:-0} == 1 ]] && TOTAL_STEPS=14
+TOTAL_STEPS=19
+[[ ${SKIP_NVIDIA:-0} == 1 ]] && TOTAL_STEPS=17
 WARNS=()
+ETAPAS_FALHA=()
 OFICIAL_PEDIDOS=0; OFICIAL_NOVOS=(); OFICIAL_FALTANDO=()
 AUR_OK=(); AUR_JA=(); AUR_FALHA=()
 SERV_OK=(); SERV_FALHA=()
@@ -39,8 +40,16 @@ log()  { STEP=$((STEP+1)); printf '\n%s==>%s [%d/%d] %s %s(%s)%s\n' "$BLU" "$END
 ok()   { printf '%s  ok%s %s\n' "$GRN" "$END" "$*"; }
 warn() { printf '%s  !!%s %s\n' "$YEL" "$END" "$*"; WARNS+=("[etapa $STEP] $*"); }
 die()  { printf '\n%serro:%s %s\n' "$RED" "$END" "$*" >&2; printf '%sparou na etapa %d/%d apos %s. Log completo: %s%s\n' "$RED" "$STEP" "$TOTAL_STEPS" "$(elapsed)" "$LOGFILE" "$END" >&2; exit 1; }
-on_err() { local rc=$? line=$1 cmd=$2; [[ $rc -eq 0 ]] && return; printf '\n%serro na linha %d (saida %d):%s %s\n' "$RED" "$line" "$rc" "$END" "$cmd" >&2; printf '%setapa %d/%d, %s decorridos. Log: %s%s\n' "$RED" "$STEP" "$TOTAL_STEPS" "$(elapsed)" "$LOGFILE" "$END" >&2; }
-trap 'on_err $LINENO "$BASH_COMMAND"' ERR
+etapa() {
+    local fn="$1" rc=0
+    "$fn" || rc=$?
+    if (( rc )); then
+        printf '%s  !!%s etapa %s falhou (saida %d), seguindo para a proxima\n' "$RED" "$END" "$fn" "$rc" >&2
+        WARNS+=("[etapa $STEP] $fn falhou")
+        ETAPAS_FALHA+=("$fn")
+    fi
+    return 0
+}
 
 exec > >(tee -a "$LOGFILE") 2>&1
 printf '%s==>%s dotfiles install.sh iniciado em %s, log em %s\n' "$BLU" "$END" "$(date '+%d/%m/%Y %H:%M:%S')" "$LOGFILE"
@@ -99,9 +108,10 @@ enable_multilib() {
 
 sync_system() {
     log "atualizando o sistema"
-    sudo pacman -Syu --noconfirm --needed
-    sudo pacman -S --noconfirm --needed archlinux-keyring base-devel git
-    ok "sistema atualizado"
+    sudo pacman -Syu --noconfirm --needed || warn "pacman -Syu falhou, seguindo com o que ja esta no disco"
+    sudo pacman -S --noconfirm --needed archlinux-keyring base-devel git stow \
+        || die "sem git e stow nao da pra clonar nem linkar os dotfiles"
+    ok "sistema atualizado, git e stow presentes"
 }
 
 install_official() {
@@ -150,18 +160,23 @@ bootstrap_paru() {
         warn "paru-bin instalado mas nao roda (libalpm desatualizado), trocando pelo paru compilado"
         sudo pacman -Rns --noconfirm paru-bin
     fi
-    sudo pacman -S --noconfirm --needed rust
+    sudo pacman -S --noconfirm --needed rust || { warn "rust nao instalou, paru fica de fora"; return 1; }
     local build
     build="$(mktemp -d)"
-    git clone --depth 1 https://aur.archlinux.org/paru.git "$build/paru"
-    ( cd "$build/paru" && makepkg -si --noconfirm --needed )
+    if ! git clone --depth 1 https://aur.archlinux.org/paru.git "$build/paru"; then
+        rm -rf "$build"
+        warn "clone do paru falhou, pacotes do AUR ficam de fora"
+        return 1
+    fi
+    ( cd "$build/paru" && makepkg -si --noconfirm --needed ) || warn "build do paru falhou"
     rm -rf "$build"
-    paru --version >/dev/null 2>&1 || die "paru nao roda apos o build"
+    paru --version >/dev/null 2>&1 || { warn "paru nao roda apos o build, pacotes do AUR ficam de fora"; return 1; }
     ok "paru instalado: $(paru --version | head -1)"
 }
 
 install_aur() {
     local file pkgs p
+    command -v paru >/dev/null 2>&1 || { log "AUR"; warn "paru ausente, etapa do AUR pulada"; return 1; }
     file="$(pkgfile)"
     mapfile -t pkgs < <(read_section "$file" '^aur$' | grep -vxE 'paru|paru-bin')
     [[ ${#pkgs[@]} -gt 0 ]] || { warn "nenhum pacote AUR na lista"; return 0; }
@@ -341,7 +356,7 @@ options nouveau modeset=0
     if [[ $mudou -eq 0 ]] && sudo test -f "$img" && [[ -z "$(find "$kern" -maxdepth 1 -newer "$img" -print -quit 2>/dev/null)" ]]; then
         ok "initramfs em dia, mkinitcpio pulado"
     else
-        sudo mkinitcpio -P
+        sudo mkinitcpio -P || warn "mkinitcpio -P falhou, refaca na mao depois"
     fi
 
     local unit
@@ -400,7 +415,8 @@ fetch_dotfiles() {
         git -C "$DOTFILES_DIR" pull --ff-only origin "$DOTFILES_BRANCH" || warn "pull nao aplicado, arvore local divergente"
         ok "dotfiles atualizados em $DOTFILES_DIR"
     else
-        git clone --branch "$DOTFILES_BRANCH" "$DOTFILES_REPO" "$DOTFILES_DIR"
+        git clone --branch "$DOTFILES_BRANCH" "$DOTFILES_REPO" "$DOTFILES_DIR" \
+            || die "clone de $DOTFILES_REPO falhou, sem os dotfiles nao ha o que configurar"
         ok "dotfiles clonados em $DOTFILES_DIR"
     fi
 }
@@ -483,6 +499,12 @@ link_dotfiles() {
     done
     rm -f "$LOGFILE.stow"
 
+    local conf="$HOME/.config/hypr/hyprland.conf"
+    if [[ -f $conf && ! -L $conf ]]; then
+        mv "$conf" "$conf.bak-$(date +%Y%m%d%H%M%S)"
+        ok "hyprland.conf autogerado movido pra .bak"
+    fi
+
     update-desktop-database "$HOME/.local/share/applications" >/dev/null 2>&1 || true
     ok "$LINKS arquivos linkados"
 }
@@ -504,8 +526,35 @@ restaurar_segredos() {
     DOTFILES_DIR="$DOTFILES_DIR" bash "$script" || true
 }
 
+sessao_wayland() {
+    local dir=/usr/share/wayland-sessions
+    if [[ -f $dir/hyprland-uwsm.desktop ]]; then
+        printf 'hyprland-uwsm.desktop'
+        return 0
+    fi
+    if command -v uwsm >/dev/null 2>&1 && [[ -f $dir/hyprland.desktop ]]; then
+        sudo mkdir -p "$dir"
+        cat <<'EOF' | sudo tee "$dir/hyprland-uwsm.desktop" >/dev/null
+[Desktop Entry]
+Name=Hyprland (uwsm)
+Comment=Hyprland gerenciado pelo uwsm
+Exec=uwsm start -- hyprland.desktop
+DesktopNames=Hyprland
+Type=Application
+EOF
+        ok "hyprland-uwsm.desktop nao existia, criado"
+        printf 'hyprland-uwsm.desktop'
+        return 0
+    fi
+    printf 'hyprland.desktop'
+}
+
 configure_sddm() {
     log "configurando sddm (sessao Hyprland via uwsm, login automatico)"
+    [[ -f /usr/share/wayland-sessions/hyprland.desktop ]] \
+        || warn "hyprland nao esta instalado, o sddm nao vai ter sessao pra subir"
+    local sessao
+    sessao="$(sessao_wayland)"
     sudo mkdir -p /etc/sddm.conf.d
     # Login automatico. Relogin=false faz valer so na PRIMEIRA subida do sddm, que sao
     # exatamente os dois casos desejados: ligar o PC, e a volta da VM w11 (o hook para e
@@ -520,13 +569,13 @@ GreeterEnvironment=QT_WAYLAND_SHELL_INTEGRATION=layer-shell
 
 [Autologin]
 User=$USER
-Session=hyprland-uwsm.desktop
+Session=$sessao
 Relogin=false
 
 [Theme]
 CursorTheme=Fluent-dark-cursors
 EOF
-    ok "/etc/sddm.conf.d/10-dotfiles.conf (login automatico de $USER em hyprland-uwsm)"
+    ok "/etc/sddm.conf.d/10-dotfiles.conf (login automatico de $USER em $sessao)"
 }
 
 configure_hyprland() {
@@ -567,7 +616,7 @@ configure_hyprland() {
 
 summary() {
     local cor=$GRN titulo="instalacao concluida sem pendencias"
-    if (( ${#OFICIAL_FALTANDO[@]} + ${#AUR_FALHA[@]} + ${#SERV_FALHA[@]} )); then cor=$YEL; titulo="instalacao concluida COM pendencias"; fi
+    if (( ${#OFICIAL_FALTANDO[@]} + ${#AUR_FALHA[@]} + ${#SERV_FALHA[@]} + ${#ETAPAS_FALHA[@]} )); then cor=$YEL; titulo="instalacao concluida COM pendencias"; fi
     printf '\n%s========================================================%s\n' "$cor" "$END"
     printf '%s  %s em %s%s\n' "$cor" "$titulo" "$(elapsed)" "$END"
     printf '%s========================================================%s\n\n' "$cor" "$END"
@@ -587,6 +636,7 @@ summary() {
     if (( ${#OFICIAL_FALTANDO[@]} )); then printf '%s  oficiais faltando:%s %s\n' "$RED" "$END" "${OFICIAL_FALTANDO[*]}"; fi
     if (( ${#AUR_FALHA[@]} )); then printf '%s  AUR que falharam:%s %s\n  refazer: paru -S --needed %s\n' "$RED" "$END" "${AUR_FALHA[*]}" "${AUR_FALHA[*]}"; fi
     if (( ${#SERV_FALHA[@]} )); then printf '%s  servicos nao habilitados:%s %s\n' "$RED" "$END" "${SERV_FALHA[*]}"; fi
+    if (( ${#ETAPAS_FALHA[@]} )); then printf '%s  etapas que falharam:%s %s\n' "$RED" "$END" "${ETAPAS_FALHA[*]}"; fi
     if (( ${#WARNS[@]} )); then
         printf '\n%s  avisos durante a instalacao (%d):%s\n' "$YEL" "${#WARNS[@]}" "$END"
         printf '   - %s\n' "${WARNS[@]}"
@@ -599,24 +649,57 @@ summary() {
     printf '%s  ->%s no sddm a sessao e "Hyprland (uwsm)"; atalhos em hypr/atalhos.lua (Meta+R abre o menu)\n' "$YEL" "$END"
 }
 
+verificar() {
+    log "conferindo o que precisa estar de pe pro desktop subir"
+    local faltou=0
+    local alvo="$HOME/.config/hypr/hyprland.lua"
+
+    if [[ -L $alvo && -e $alvo ]]; then
+        ok "hyprland.lua linkado -> $(readlink -f "$alvo")"
+    else
+        printf '%s  !!%s %s nao e um link valido pro repo: o Hyprland vai subir com a config padrao\n' "$RED" "$END" "$alvo"
+        WARNS+=("hyprland.lua nao linkado")
+        faltou=1
+    fi
+
+    local bin
+    for bin in Hyprland waybar mako fuzzel uwsm stow; do
+        command -v "$bin" >/dev/null 2>&1 || { printf '%s  !!%s %s nao instalado\n' "$RED" "$END" "$bin"; WARNS+=("$bin ausente"); faltou=1; }
+    done
+
+    systemctl is-enabled sddm.service >/dev/null 2>&1 \
+        && ok "sddm habilitado" \
+        || { printf '%s  !!%s sddm nao habilitado, o boot cai na tty\n' "$RED" "$END"; WARNS+=("sddm nao habilitado"); faltou=1; }
+
+    [[ -f /etc/sddm.conf.d/10-dotfiles.conf ]] \
+        && ok "autologin configurado" \
+        || { warn "/etc/sddm.conf.d/10-dotfiles.conf ausente"; faltou=1; }
+
+    (( faltou )) && return 1
+    ok "tudo que o desktop precisa esta no lugar"
+    return 0
+}
+
 main() {
     preflight
-    enable_multilib
-    sync_system
-    install_official
-    bootstrap_paru
-    install_aur
-    install_pacotes_locais
-    install_node_tools
-    install_android_sdk
-    configure_nvidia
-    enable_services
-    fetch_dotfiles
-    link_dotfiles
-    home_enxuta
-    restaurar_segredos
-    configure_sddm
-    configure_hyprland
+    etapa enable_multilib
+    etapa sync_system
+    etapa fetch_dotfiles
+    etapa link_dotfiles
+    etapa install_official
+    etapa bootstrap_paru
+    etapa install_aur
+    etapa install_pacotes_locais
+    etapa install_node_tools
+    etapa install_android_sdk
+    etapa configure_nvidia
+    etapa enable_services
+    etapa link_dotfiles
+    etapa home_enxuta
+    etapa restaurar_segredos
+    etapa configure_sddm
+    etapa configure_hyprland
+    etapa verificar
     summary
 }
 
