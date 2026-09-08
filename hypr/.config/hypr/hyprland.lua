@@ -3,6 +3,7 @@ require("monitores")
 require("regras")
 require("transparencia")
 require("atalhos")
+require("eventos")
 
 hl.env("XCURSOR_THEME", "Fluent-dark-cursors")
 hl.env("XCURSOR_SIZE", "24")
@@ -111,7 +112,7 @@ hl.config({
     input = {
         kb_layout = "br",
         repeat_rate = 40,
-        repeat_delay = 400,
+        repeat_delay = 230,
         follow_mouse = 1,
         sensitivity = 0,
         accel_profile = "flat",

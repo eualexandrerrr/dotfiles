@@ -207,10 +207,26 @@ inicializacao, entao mexer no CSS/TOML sem reiniciar o daemon nao muda nada na t
 
 ## App fixo por workspace
 
-`regras.lua` prende cada app na sua workspace: **1 Chrome, 2 Discord, 3 RCode, 4 VM**
-(`virt-manager` e `looking-glass-client`). As classes vieram do `StartupWMClass` de cada
-`.desktop`, nao de chute -- o Chrome grava `google-chrome` e `Google-chrome` no mesmo
-arquivo, por isso a regra casa `[Gg]oogle-chrome`.
+`regras.lua` prende cada app na sua workspace. Desde 08/09/2026 o esquema e
+**1 Chrome, 2 Discord, 3 RCode, 4 terminais, 5 Spotify, 6 jogos (VM, Steam, Lutris,
+Heroic), 7 acesso remoto (RDP, Remmina), 8 em diante todo o resto**. As classes vieram do
+`StartupWMClass` de cada `.desktop`, nao de chute -- o Chrome grava `google-chrome` e
+`Google-chrome` no mesmo arquivo, por isso a regra casa `[Gg]oogle-chrome`.
+
+O "todo o resto na 8" e uma regra so, com **match negativo**: `class = "negative:^(...)$"`,
+listando os quatro grupos e os apps que devem flutuar onde estao. Lookahead
+(`^(?!...)`) **nao funciona** -- o motor de regex do Hyprland nao suporta, e a regra passa a
+casar tudo em silencio. E o match e do comeco ao fim: `class = "pavucontrol"` nunca pegou
+nada porque a classe real e `org.pulseaudio.pavucontrol`; por isso os padroes levam `.*` nas
+pontas.
+
+Toda regra de workspace leva `silent`. Sem isso, abrir um app joga a sessao inteira para a
+workspace dele no meio do trabalho.
+
+As janelas do Chrome que **nao** sao a principal (login do Google, confirmacao) tem titulo
+que nao termina em `Google Chrome`. A regra de workspace exige esse sufixo e a regra
+`chrome-modal-flutuante` casa o contrario (`title = "negative:.*Google Chrome"`), entao o
+modal flutua na workspace onde voce esta, em vez de sumir para a 2.
 
 O **Discord sobe sozinho** no `hyprland.start` e a regra dele e `workspace = "2 silent"`:
 sem o `silent` a sessao pularia para a workspace 2 no login, atras do Discord. Regra de
@@ -221,8 +237,28 @@ nao se move sozinho; para arrastar o que ja esta na tela:
 hyprctl dispatch '(function() local w = hl.get_windows({ class = "discord" })[1]; return hl.dsp.window.move({ workspace = 2, follow = false, window = w }) end)()'
 ```
 
-Os icones dessas quatro na waybar sao glifos da Nerd Font em `format-icons`, e o
-`tooltip-format` mostra o numero ao passar o mouse. Da 5 em diante fica o numero mesmo.
+Os icones na waybar sao glifos da Nerd Font em `format-icons`, na ordem: `f268` Chrome,
+`f392` Discord, `f121` codigo, `f489` terminal, `f1bc` Spotify, `f11b` controle de video
+game, `f108` monitor para o acesso remoto. A 5 e "jogos", nao "Windows" -- ela sobe a VM, mas ele nao quer o logo da
+Microsoft na barra dele. As sete primeiras sao `persistent-workspaces`, entao aparecem
+mesmo vazias. Mudou a ordem das workspaces? **Mude os
+icones junto** -- foi por eles que a barra continuou anunciando o esquema velho depois que as
+regras ja estavam certas.
+
+## Voltar da workspace vazia e Chrome sempre vivo
+
+`eventos.lua` cuida de dois comportamentos, os dois pendurados em `window.destroy`:
+
+- fechou a ultima janela da workspace? a sessao volta para a anterior que ainda tem janela,
+  usando um historico curto alimentado por `workspace.active`
+- fechou a ultima janela do Chrome ou do Discord? o app sobe de novo -- o Chrome na pagina
+  inicial --, com carencia de 10 s cada e uma trava no `hyprland.shutdown` para nao
+  ressuscitar no logout. O Discord some da lista de janelas quando vai para a bandeja, e a
+  regra o traz de volta: e o que "Discord persistente na 3" quer dizer
+
+Duas pegadinhas da API Lua aqui: `hl.timer(fn, { timeout = 200 })` **nao dispara** sem
+`type = "oneshot"`, e o callback de evento so recebe a janela como argumento -- o estado da
+workspace ainda nao assentou na hora do evento, dai o timer curto antes de decidir.
 
 ## Clique no numero da workspace na barra: por que exige waybar-git
 

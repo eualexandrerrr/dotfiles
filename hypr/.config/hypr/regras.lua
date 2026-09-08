@@ -11,12 +11,36 @@ hl.window_rule({
     no_initial_focus = true,
 })
 
-hl.window_rule({ name = "chrome-na-1", match = { class = "[Gg]oogle-chrome" }, workspace = "1" })
-hl.window_rule({ name = "discord-na-2", match = { class = "discord" }, workspace = "2 silent" })
-hl.window_rule({ name = "rcode-na-3", match = { class = "RCode" }, workspace = "3" })
-hl.window_rule({ name = "vm-na-4", match = { class = "virt-manager|looking-glass-client" }, workspace = "4" })
+local TERMINAIS = ".*ghostty.*|.*kitty.*|.*Alacritty.*|.*foot.*"
+local CHROME = ".*[Gg]oogle-chrome.*"
+local MENSAGEIRO = ".*[Dd]iscord.*|.*[Vv]encord.*"
+local EDITOR = "RCode"
+local JOGOS = ".*virt-manager.*|.*looking-glass.*|.*[Ss]team.*|steam_app.*|.*gamescope.*|.*lutris.*|.*heroic.*"
+local REMOTO = ".*freerdp.*|.*[Rr]emmina.*"
+local MUSICA = ".*[Ss]potify.*"
+local FLUTUANTES = ".*pavucontrol.*|.*transparencia.*|.*nwg-.*|.*qt5ct.*|.*qt6ct.*|.*kvantum.*|.*xarchiver.*|.*[Tt]hunar.*|RicePanel|.*wlogout.*|.*fuzzel.*|.*portal.*"
 
-hl.window_rule({ match = { class = "pavucontrol" }, float = true })
+hl.window_rule({ name = "chrome-na-1", match = { class = CHROME, title = ".*Google Chrome" }, workspace = "1 silent" })
+hl.window_rule({ name = "discord-na-2", match = { class = MENSAGEIRO }, workspace = "2 silent" })
+hl.window_rule({ name = "rcode-na-3", match = { class = EDITOR }, workspace = "3 silent" })
+hl.window_rule({ name = "terminais-na-4", match = { class = TERMINAIS }, workspace = "4 silent" })
+hl.window_rule({ name = "spotify-na-5", match = { class = MUSICA }, workspace = "5 silent" })
+hl.window_rule({ name = "jogos-na-6", match = { class = JOGOS }, workspace = "6 silent" })
+hl.window_rule({ name = "rdp-na-7", match = { class = REMOTO }, workspace = "7 silent" })
+hl.window_rule({
+    name = "resto-da-8-pra-frente",
+    match = { class = "negative:^(" .. TERMINAIS .. "|" .. CHROME .. "|" .. MENSAGEIRO .. "|" .. EDITOR .. "|" .. JOGOS .. "|" .. REMOTO .. "|" .. MUSICA .. "|" .. FLUTUANTES .. ")$" },
+    workspace = "8 silent",
+})
+
+hl.window_rule({
+    name = "chrome-modal-flutuante",
+    match = { class = CHROME, title = "negative:.*Google Chrome" },
+    float = true,
+    center = true,
+})
+
+hl.window_rule({ match = { class = ".*pavucontrol.*" }, float = true })
 hl.window_rule({ match = { class = "dev.xande.transparencia" }, float = true, center = true })
 hl.window_rule({ match = { class = "nwg-look" }, float = true })
 hl.window_rule({ match = { class = "nwg-displays" }, float = true })
@@ -50,7 +74,7 @@ hl.window_rule({
 
 hl.window_rule({
     name = "sempre-solido",
-    match = { class = "looking-glass-client|virt-manager|steam_app.*|gamescope|mpv|vlc" },
+    match = { class = "looking-glass-client|virt-manager|com.freerdp.client.*|.*freerdp.*|.*[Rr]emmina.*|steam_app.*|gamescope|mpv|vlc" },
     opacity = "1.0 1.0",
 })
 
