@@ -106,14 +106,35 @@ gtk-cursor-theme-name=Fluent-dark-cursors
 gtk-cursor-theme-size=24
 gtk-font-name=Inter 11
 gtk-application-prefer-dark-theme=1
+gtk-cursor-blink=1
+gtk-cursor-blink-time=500
 EOF
     cp "$gtk3" "$HOME/.config/gtk-4.0/settings.ini"
     if command -v gsettings >/dev/null 2>&1; then
         gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark' 2>/dev/null || true
         gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3-dark' 2>/dev/null || true
         gsettings set org.gnome.desktop.interface icon-theme 'Papirus-Dark' 2>/dev/null || true
+        gsettings set org.gnome.desktop.interface cursor-blink true 2>/dev/null || true
+        gsettings set org.gnome.desktop.interface cursor-blink-time 500 2>/dev/null || true
     fi
     ok "GTK escuro (adw-gtk3-dark + Papirus-Dark)"
+}
+
+etapa_chrome() {
+    log "pagina inicial do Chrome"
+    local inicio="$HOME/.local/share/inicio/index.html"
+    local destino="/etc/opt/chrome/policies/managed/inicio.json"
+    [[ -f $inicio ]] || { falha "$inicio nao existe; rode a etapa links antes"; return; }
+    local url="file://$inicio"
+    local json
+    json=$(printf '{\n  "HomepageLocation": "%s",\n  "HomepageIsNewTabPage": false,\n  "NewTabPageLocation": "%s",\n  "ShowHomeButton": true,\n  "RestoreOnStartup": 4,\n  "RestoreOnStartupURLs": ["%s"]\n}\n' "$url" "$url" "$url")
+    if [[ -f $destino ]] && [[ $(cat "$destino") == "$json" ]]; then
+        ok "politica ja aplicada"
+        return
+    fi
+    sudo mkdir -p "$(dirname "$destino")" 2>/dev/null || { falha "sem permissao em $(dirname "$destino")"; return; }
+    printf '%s' "$json" | sudo tee "$destino" >/dev/null || { falha "nao gravou $destino"; return; }
+    ok "pagina inicial em $url"
 }
 
 etapa_claude() {

@@ -17,7 +17,7 @@ background-opacity = 1
 
 # Cursor
 cursor-style = block
-cursor-style-blink = false
+cursor-style-blink = true
 adjust-cursor-thickness = 2
 
 # ─── Janela ───────────────────────────────────────────────────
@@ -39,6 +39,7 @@ shell-integration-features = cursor,sudo,title
 # ─── Atalhos ──────────────────────────────────────────────────
 keybind = ctrl+shift+t=new_tab
 keybind = ctrl+shift+w=close_surface
+keybind = ctrl+w=close_surface
 keybind = ctrl+shift+enter=new_split:right
 keybind = ctrl+shift+d=new_split:down
 keybind = ctrl+shift+h=goto_split:left
@@ -52,3 +53,7 @@ keybind = ctrl+zero=reset_font_size
 # Ctrl+Backspace apaga a palavra: o terminal manda Alt+Backspace, que o zsh e a
 # maioria das TUIs ja leem como backward-kill-word.
 keybind = ctrl+backspace=text:\x1b\x7f
+
+# Ctrl+Shift+E digita /explica e envia. Como copy-on-select ja joga a selecao no
+# clipboard, basta marcar o texto com o mouse e apertar o atalho.
+keybind = ctrl+shift+e=text:/explica\n

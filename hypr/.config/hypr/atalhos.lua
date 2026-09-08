@@ -15,6 +15,20 @@ hl.bind("ALT + D", hl.dsp.exec_cmd(menu))
 hl.bind(mod .. " + Q", hl.dsp.window.close())
 hl.bind(mod .. " + W", hl.dsp.window.close())
 hl.bind("ALT + W", hl.dsp.window.close())
+
+local FECHA_ABA_SOZINHO = { "[Gg]oogle%-chrome", "RCode", "[Cc]ode", "[Ff]irefox", "[Tt]hunar", "ghostty" }
+
+hl.bind("CTRL + W", function()
+    local janela = hl.get_active_window()
+    if janela and janela.class then
+        for _, padrao in ipairs(FECHA_ABA_SOZINHO) do
+            if janela.class:match(padrao) then
+                return hl.dispatch(hl.dsp.send_shortcut({ mods = "CTRL", key = "W", window = "address:" .. janela.address }))
+            end
+        end
+    end
+    return hl.dispatch(hl.dsp.window.close())
+end)
 hl.bind(mod .. " + SHIFT + Q", hl.dsp.window.kill())
 hl.bind(mod .. " + L", hl.dsp.exec_cmd("uwsm app -- " .. dotfiles .. "/bin/bloquear.sh"))
 hl.bind(mod .. " + SHIFT + E", hl.dsp.exec_cmd("uwsm app -- wlogout"))
