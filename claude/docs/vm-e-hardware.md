@@ -95,14 +95,42 @@ fisicos pro host bastam: ele so desenha o Hyprland numa RX 550 e roda o cliente 
 Glass. `<topology cores="6" threads="2">` bate com as 12 vcpus. 16 GB de 31 GB (ja houve OOM
 com 20).
 
-### Looking Glass sem dummy plug
+### Topologia dos cabos (definida em 07/09/2026, com a compra do 2o HDMI e do dummy plug)
 
-O caminho e o **IDD** (display virtual, custo zero). Ele **nao** vem no
-`~/vms/looking-glass-host-B7.zip`, que so traz o `looking-glass-host-setup.exe` -- e download
-a parte, e a versao tem que ser B7 dos dois lados, como o host e o cliente. O IDD da
-superficie de captura, nao GPU: quem renderiza continua sendo a 3090. Fullscreen exclusivo
-em display virtual costuma dar problema; janela ou borderless funciona.
+```
+ASUS XG27ACS <--HDMI-- RX 550     Linux, entrada do dia a dia
+ASUS XG27ACS <--DP---- RTX 3090   Windows nativo 1440p180
+LG UltraGear <--HDMI-- RX 550     Linux, RicePanel
+RTX 3090     <--dummy plug numa saida livre (3x DP + 1x HDMI, sobra porta)
+```
 
-Plano B sem IDD: perfil `janela`, que roda o Windows mas **nao roda RedM** (sem 3D).
+O ASUS recebe **duas** entradas e alterna pelo botao. No dia a dia fica no HDMI; pra jogar,
+ou `vm/glass -F` sem sair do Hyprland, ou troca pra DP e ve o Windows nativo. A sessao nao
+cai em nenhum dos dois casos.
+
+**Video primario na BIOS: a RX 550** (slot de baixo, `PCIEX16_2`). E onde vive o Linux e o
+menu do systemd-boot -- a entrada `Arch Linux (zen, sem vfio)` so serve se aparecer na
+entrada que ele usa todo dia. Opcao em Advanced > Onboard Devices Configuration > Primary
+Video Device.
+
+### Dummy plug: por que, mesmo com o ASUS ligado na 3090
+
+Monitor com duas entradas costuma **derrubar o hot-plug detect da entrada nao selecionada**.
+Com o ASUS no HDMI (Linux), a 3090 pode deixar de enxergar display -- e o Windows para de
+gerar frame, congelando o Looking Glass no meio do jogo. O dummy plug numa saida livre
+garante um display sempre ativo, independente da entrada escolhida.
+
+Ele tambem **aposenta a duvida do Looking Glass IDD**, que era a unica incognita tecnica que
+sobrava: o IDD nao vem no `~/vms/looking-glass-host-B7.zip` (so o `looking-glass-host-setup.exe`),
+seria download a parte e teria que casar a versao B7. Com dummy plug nada disso importa.
 
 Os 64 MB de shmem ja no XML bastam pra 2560x1440 (`w*h*4*2 + 10 MB` ~ 40 MB). 4K pediria 128.
+
+### Por que a RX 550 nao pode ser a placa da VM
+
+Cogitado e descartado por dois motivos independentes. O slot de baixo pendura no chipset
+B550, atras da mesma bridge do **grupo IOMMU 15** -- que ja tem USB 3.1, SATA e a Ethernet
+RTL8125. Passar a RX 550 levaria disco, teclado e rede junto; contornar exigiria ACS
+override, ou seja, furar o isolamento que o IOMMU existe pra dar. E a RX 550 4GB de 2017 nao
+roda RedM em servidor de RP cheio. So a 3090, que sai direto da CPU no grupo 16, e isolavel
+nesta placa-mae.

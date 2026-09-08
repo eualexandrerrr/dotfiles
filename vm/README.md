@@ -22,11 +22,10 @@ Com a RX 550 no host, o perfil `3090` não fica mais sem tela: o Windows renderi
 copia o frame pra `/dev/shm/looking-glass` (ivshmem, 64 MB) e o `vm/glass` desenha numa janela
 do Hyprland. Os 64 MB bastam pra 2560x1440 (`w*h*4*2 + 10 MB` ≈ 40 MB); 4K pediria 128.
 
-**Sem dummy plug na 3090**, o Windows não gera imagem pra capturar. A saída é o
-**Looking Glass IDD** (display virtual, custo zero) — ele não vem no
-`~/vms/looking-glass-host-B7.zip`, que traz só o `looking-glass-host-setup.exe`; é download
-à parte e a versão tem que ser B7 igual ao resto. Sem ele, o plano B é o perfil `janela`:
-a VM roda, mas **sem 3D, então sem RedM**. Teclado e mouse vão por SPICE (sem display). Cliente B7 do AUR; o host pro guest está
+A 3090 leva um **dummy plug** numa saída livre. Não é só pelo caso de ficar sem cabo: com o
+ASUS ligado nas duas placas e a entrada dele no HDMI, o monitor pode derrubar o hot-plug
+detect do DP, e aí o Windows para de gerar frame no meio do jogo. Com o dummy plug há sempre
+um display ativo. Isso dispensa o Looking Glass IDD. Teclado e mouse vão por SPICE (sem display). Cliente B7 do AUR; o host pro guest está
 em `~/vms/looking-glass-host-B7.zip` (a versão tem que ser a mesma dos dois lados). O
 `preparar.sh` cria o shmem com dono certo por tmpfiles.
 
