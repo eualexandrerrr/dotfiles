@@ -74,3 +74,16 @@ Conferir se estao valendo: `grep -o fsck.repair=yes /proc/cmdline`, `cat /proc/s
 
 Se o erro voltar **depois** do reparo, nao e desligamento sujo: e UUID errado no `/etc/fstab`
 ou o disco indo embora. Comparar `lsblk -f` com o `fstab` e olhar `sudo smartctl -a /dev/nvme0n1`.
+
+## Compartilhar tela parou de funcionar do nada
+
+Quase sempre e o `xdg-desktop-portal` orfao. Ele abre uma conexao com o PipeWire no
+inicio da sessao e nao reconecta se o PipeWire reiniciar por baixo dele -- no log aparece
+`Caught PipeWire error: connection error` e o screencast fica morto ate o fim da sessao.
+Acontece sempre que alguem roda `systemctl --user restart pipewire`. Conserto:
+
+```
+systemctl --user restart xdg-desktop-portal-hyprland xdg-desktop-portal
+```
+
+Ordem importa: o `-hyprland` primeiro, o generico depois.
