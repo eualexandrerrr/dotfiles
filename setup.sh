@@ -120,6 +120,22 @@ EOF
     ok "GTK escuro (adw-gtk3-dark + Papirus-Dark)"
 }
 
+etapa_thunar() {
+    log "padroes do Thunar"
+    # O thunarrc de ~/.config/Thunar e ignorado pelo Thunar 4.20: as preferencias moram no
+    # xfconf (canal thunar), e o xfconfd reescreve o XML sozinho -- por isso isto nao entra
+    # no stow, e sim numa etapa que grava por xfconf-query.
+    if ! command -v xfconf-query >/dev/null 2>&1; then
+        falha "xfconf-query nao instalado"
+        return
+    fi
+    xfconf-query -c thunar -p /default-view -n -t string -s ThunarDetailsView 2>/dev/null
+    xfconf-query -c thunar -p /last-view -n -t string -s ThunarDetailsView 2>/dev/null
+    # ligado para que a pasta que o Alexandre mudar a mao guarde a escolha dela e so dela
+    xfconf-query -c thunar -p /misc-directory-specific-settings -n -t bool -s true 2>/dev/null
+    ok "abre em lista detalhada, com preferencia por pasta"
+}
+
 etapa_chrome() {
     log "pagina inicial do Chrome"
     local inicio="$HOME/.local/share/inicio/index.html"
@@ -196,7 +212,7 @@ etapa_recarregar() {
     ok "recarregado"
 }
 
-ETAPAS=(links home perfil tema energia audio dns wallpaper chrome claude recarregar)
+ETAPAS=(links home perfil tema thunar energia audio dns wallpaper chrome claude recarregar)
 
 if [[ ${1:-} == --lista ]]; then
     printf 'etapas: %s\n' "${ETAPAS[*]}"
