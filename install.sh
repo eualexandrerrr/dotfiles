@@ -579,15 +579,11 @@ EOF
 }
 
 configure_hyprland() {
-    log "Hyprland: avatar, tema GTK, energia e servicos de usuario"
+    log "Hyprland: setup.sh completo e servicos de usuario"
 
-    DOTFILES_DIR="$DOTFILES_DIR" bash "$DOTFILES_DIR/setup.sh" perfil tema >/dev/null 2>&1 \
-        && ok "avatar e tema GTK aplicados" \
-        || warn "setup.sh perfil/tema terminou com erro"
-
-    DOTFILES_DIR="$DOTFILES_DIR" bash "$DOTFILES_DIR/bin/energia.sh" >/dev/null 2>&1 \
-        && ok "sono mascarado; monitores apagam em 5 min (hypridle)" \
-        || warn "energia.sh terminou com erro"
+    DOTFILES_DIR="$DOTFILES_DIR" bash "$DOTFILES_DIR/setup.sh" \
+        && ok "setup.sh completo: links, home, perfil, tema, energia, audio, dns, wallpaper" \
+        || warn "setup.sh terminou com avisos, confira as linhas acima"
 
     systemctl --user daemon-reload >/dev/null 2>&1 || true
 
@@ -605,13 +601,6 @@ configure_hyprland() {
         warn "~/Apps/desktop/RicePanel ausente, ricepanel.service nao habilitado"
     fi
 
-    if [[ -n ${HYPRLAND_INSTANCE_SIGNATURE:-} ]]; then
-        DOTFILES_DIR="$DOTFILES_DIR" bash "$DOTFILES_DIR/setup.sh" wallpaper recarregar >/dev/null 2>&1 \
-            && ok "wallpaper e recarga aplicados nesta sessao" \
-            || warn "wallpaper/recarga falhou"
-    else
-        ok "sem sessao do Hyprland agora; wallpaper entra no primeiro login"
-    fi
 }
 
 install_maestro() {
