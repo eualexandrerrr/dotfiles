@@ -8,7 +8,7 @@
     "margin-left": 10,
     "margin-right": 10,
 
-    "modules-left": ["hyprland/window"],
+    "modules-left": ["custom/janela"],
     "modules-center": ["hyprland/workspaces", "custom/discord", "hyprland/submap"],
     "modules-right": [
         "mpris",
@@ -46,13 +46,11 @@
         }
     },
 
-    "hyprland/window": {
-        "format": "{title}",
-        "max-length": 70,
-        "separate-outputs": true,
-        "rewrite": {
-            "": "área de trabalho"
-        }
+    "custom/janela": {
+        "exec": "$HOME/.dotfiles/bin/waybar-janela.py",
+        "return-type": "json",
+        "escape": true,
+        "max-length": 70
     },
 
     "hyprland/submap": {

@@ -76,10 +76,14 @@ window#waybar {
     font-weight: 700;
 }
 
-#window {
+#custom-janela {
     padding: 0 14px;
     color: @subtext;
     font-weight: 500;
+}
+
+#custom-janela.vazia {
+    color: @surface1;
 }
 
 #submap {
