@@ -304,6 +304,26 @@ fixa o grid em uma linha só, que é como um Alt+Tab se lê. Nada mais foi alter
 O alternador de janelas do `Super+Tab` é o **[hyprswitch](https://github.com/egnrse/hyprswitch)**
 (fork de [H3rmt/hyprshell](https://github.com/H3rmt/hyprshell)), MIT, usado sem modificação.
 
+## Quando o desktop não sobe
+
+O alias `dot` cobre o ciclo inteiro sem precisar lembrar caminho de nada:
+
+| Comando | O que faz |
+|:--|:--|
+| `dot status` | confere o que o desktop precisa: link do `hyprland.lua`, binários, `sddm`, autologin, serviços de usuário |
+| `dot erros` | só os avisos e erros da última instalação |
+| `dot log` | o log inteiro; `dot log -f` acompanha ao vivo |
+| `dot telas` | GPUs, driver de cada `card`, saídas conectadas e o `AQ_DRM_DEVICES` em uso |
+| `dot instalar` | `git pull` e roda o `install.sh` de novo |
+| `dot zero` | apaga `~/.dotfiles`, clona do GitHub e instala do zero |
+| `dot reiniciar` | reinicia |
+
+O log fica em `~/.local/state/dotfiles/install.log`.
+
+Se nem isso resolver — compositor que não sobe deixa você numa tty, e uma tty sem rede não
+tem saída — o caminho é o pendrive: **opção 4** do menu do live reinstala os dotfiles sem
+formatar nada, e reinicia sozinha.
+
 ## Histórico
 
 Em 08/09/2026, com as duas GPUs montadas, o Hyprland subia sem desenhar em tela nenhuma.

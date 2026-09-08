@@ -668,6 +668,8 @@ summary() {
     fi
     printf '%s  ->%s reinicie para carregar o kernel novo, o initramfs e os grupos do usuario\n' "$YEL" "$END"
     printf '%s  ->%s no sddm a sessao e "Hyprland (uwsm)"; atalhos em hypr/atalhos.lua (Meta+R abre o menu)\n' "$YEL" "$END"
+    printf '%s  ->%s dot status confere o desktop, dot erros mostra os avisos, dot instalar roda isto de novo\n' "$YEL" "$END"
+    printf '%s  ->%s se o desktop nao subir: pendrive, opcao 4 do menu do live reinstala sem formatar\n' "$YEL" "$END"
 }
 
 verificar() {
@@ -688,15 +690,28 @@ verificar() {
         command -v "$bin" >/dev/null 2>&1 || { printf '%s  !!%s %s nao instalado\n' "$RED" "$END" "$bin"; WARNS+=("$bin ausente"); faltou=1; }
     done
 
-    systemctl is-enabled sddm.service >/dev/null 2>&1 \
-        && ok "sddm habilitado" \
-        || { printf '%s  !!%s sddm nao habilitado, o boot cai na tty\n' "$RED" "$END"; WARNS+=("sddm nao habilitado"); faltou=1; }
+    # Conferir e avisar nao serve de nada aqui: se o sddm nao esta habilitado o proximo boot
+    # cai na tty, e quem le o aviso ja esta sem desktop. Entao tenta habilitar na hora. O
+    # enable dentro de chroot as vezes nao pega (a opcao 4 do myarch passa por aqui), e e
+    # justamente nesse caso que o usuario nao tem como perceber antes de reiniciar.
+    if systemctl is-enabled sddm.service >/dev/null 2>&1; then
+        ok "sddm habilitado"
+    elif sudo systemctl enable sddm.service >/dev/null 2>&1; then
+        ok "sddm nao estava habilitado, habilitado agora"
+    else
+        printf '%s  !!%s sddm nao habilitado e nao consegui habilitar, o boot cai na tty\n' "$RED" "$END"
+        WARNS+=("sddm nao habilitado")
+        faltou=1
+    fi
 
     [[ -f /etc/sddm.conf.d/10-dotfiles.conf ]] \
         && ok "autologin configurado" \
         || { warn "/etc/sddm.conf.d/10-dotfiles.conf ausente"; faltou=1; }
 
-    (( faltou )) && return 1
+    if (( faltou )); then
+        printf '%s  ->%s detalhes: dot erros    conferir de novo: dot status    reinstalar: dot instalar\n' "$YEL" "$END"
+        return 1
+    fi
     ok "tudo que o desktop precisa esta no lugar"
     return 0
 }

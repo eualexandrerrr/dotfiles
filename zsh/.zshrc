@@ -42,6 +42,7 @@ alias mkinitcpio="sudo mkinitcpio"
 alias systemctl="sudo systemctl"
 alias rsync="sudo rsync"
 alias dd="sudo dd"
+alias dot="$HOME/.dotfiles/bin/dot.sh"
 
 # Deploy do servidor Michigan Roleplay. `noglob` deixa passar os alvos do script
 # sem aspas: deploy [peds], deploy alx_*, deploy ALL configs --ler
