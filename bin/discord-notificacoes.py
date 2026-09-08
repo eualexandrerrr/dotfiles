@@ -29,7 +29,13 @@ DESTINO = os.path.join(
     os.environ.get("XDG_RUNTIME_DIR", "/tmp"), "waybar", "discord.css"
 )
 
-PONTO = "radial-gradient(circle at 76% 26%, @red 0px, @red 3px, transparent 4px)"
+# Ponto com anel na cor do fundo da barra: sem o anel ele encosta no glyph e vira sujeira.
+PONTO = (
+    "radial-gradient(circle at 78% 22%,"
+    " @red 0px, @red 4px,"
+    " @base 4px, @base 6px,"
+    " transparent 6px)"
+)
 
 REGRA = f"""#workspaces button:nth-child({WORKSPACE_DISCORD}) {{
     background-image: {PONTO};
