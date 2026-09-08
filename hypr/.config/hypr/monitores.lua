@@ -5,10 +5,10 @@ local vertical = telas.desc("vertical")
 
 -- NAO trocar por "highrr": ele maximiza a TAXA, nao a resolucao, e cai em 1024x768@180
 -- (testado em 07/09/2026). Resolucao e taxa sempre explicitas aqui.
--- Quando a RX 550 assumir o principal pela HDMI 2.0b, este valor vira 2560x1440@144.
+-- A RX 550 desenha o principal pela HDMI 2.0b: o EDID dessa entrada para em 2560x1440@120.
 hl.monitor({
     output = principal,
-    mode = "2560x1440@180.00",
+    mode = "2560x1440@120",
     position = "1080x240",
     scale = 1,
 })

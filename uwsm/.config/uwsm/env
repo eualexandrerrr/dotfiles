@@ -1,0 +1,12 @@
+for _drv in /sys/class/drm/card*/device/driver; do
+    [ -e "$_drv" ] || continue
+    case "$(basename "$(readlink -f "$_drv")")" in
+        amdgpu)
+            _card="$(basename "$(dirname "$(dirname "$_drv")")")"
+            AQ_DRM_DEVICES="/dev/dri/$_card"
+            export AQ_DRM_DEVICES
+            break
+            ;;
+    esac
+done
+unset _drv _card
