@@ -204,7 +204,6 @@ claude-code
 google-chrome
 hyprswitch
 insync
-maestro-bin
 paru
 cachyos-ananicy-rules-git
 ttf-ms-fonts

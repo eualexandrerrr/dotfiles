@@ -25,8 +25,8 @@ mkdir -p "$LOGDIR"
 LOGFILE="${LOGFILE:-$LOGDIR/install.log}"
 T0=$SECONDS
 STEP=0
-TOTAL_STEPS=19
-[[ ${SKIP_NVIDIA:-0} == 1 ]] && TOTAL_STEPS=17
+TOTAL_STEPS=20
+[[ ${SKIP_NVIDIA:-0} == 1 ]] && TOTAL_STEPS=18
 WARNS=()
 ETAPAS_FALHA=()
 OFICIAL_PEDIDOS=0; OFICIAL_NOVOS=(); OFICIAL_FALTANDO=()
@@ -614,6 +614,18 @@ configure_hyprland() {
     fi
 }
 
+install_maestro() {
+    log "maestro cli"
+    local sh="$DOTFILES_DIR/bin/maestro.sh"
+    [[ -f $sh ]] || { warn "bin/maestro.sh ausente, pulando"; return 1; }
+    if bash "$sh"; then
+        ok "maestro pronto"
+    else
+        warn "maestro nao entrou; depois rode: bash ~/.dotfiles/bin/maestro.sh"
+        return 1
+    fi
+}
+
 summary() {
     local cor=$GRN titulo="instalacao concluida sem pendencias"
     if (( ${#OFICIAL_FALTANDO[@]} + ${#AUR_FALHA[@]} + ${#SERV_FALHA[@]} + ${#ETAPAS_FALHA[@]} )); then cor=$YEL; titulo="instalacao concluida COM pendencias"; fi
@@ -692,6 +704,7 @@ main() {
     etapa install_pacotes_locais
     etapa install_node_tools
     etapa install_android_sdk
+    etapa install_maestro
     etapa configure_nvidia
     etapa enable_services
     etapa link_dotfiles
