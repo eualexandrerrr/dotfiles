@@ -90,10 +90,10 @@
 
     "pulseaudio": {
         "format": "{icon} {volume}%",
-        "format-muted": " sem som",
+        "format-muted": "\udb81\udd81 sem som",
         "format-icons": {
-            "headphone": "",
-            "default": ["", "", ""]
+            "headphone": "\udb80\udecb",
+            "default": ["\udb81\udd7f", "\udb81\udd80", "\udb81\udd7e"]
         },
         "on-click": "pavucontrol",
         "on-click-right": "swayosd-client --output-volume mute-toggle",
@@ -109,6 +109,7 @@
     "clock": {
         "format": "{:%H:%M}",
         "format-alt": "{:%a, %d/%m}",
+        "locale": "pt_BR.UTF-8",
         "tooltip-format": "<tt><small>{calendar}</small></tt>",
         "calendar": {
             "mode": "month",
