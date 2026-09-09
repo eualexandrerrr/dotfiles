@@ -12,6 +12,7 @@
     "modules-center": ["hyprland/workspaces", "custom/discord", "hyprland/submap"],
     "modules-right": [
         "custom/rdp",
+        "custom/vm",
         "custom/musica",
         "custom/anterior",
         "custom/playpause",
@@ -99,6 +100,14 @@
         "format": "{}",
         "on-click": "$HOME/.dotfiles/bin/rdp-waybar.sh focar",
         "on-click-right": "$HOME/.dotfiles/bin/rdp-waybar.sh fechar"
+    },
+
+    "custom/vm": {
+        "exec": "$HOME/.dotfiles/bin/vm-waybar.sh",
+        "return-type": "json",
+        "interval": 5,
+        "format": "{}",
+        "on-click": "$HOME/.dotfiles/bin/vm-waybar.sh menu"
     },
 
     "custom/musica": {

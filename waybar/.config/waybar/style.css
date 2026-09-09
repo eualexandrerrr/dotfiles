@@ -83,6 +83,7 @@ window#waybar {
 }
 
 #custom-rdp,
+#custom-vm,
 #custom-musica,
 #custom-anterior,
 #custom-playpause,
@@ -100,6 +101,7 @@ window#waybar {
 #pulseaudio   { color: @peach; }
 #custom-musica    { color: @green; }
 #custom-rdp       { color: @teal; }
+#custom-vm        { color: @peach; }
 
 #custom-anterior,
 #custom-playpause,
