@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 # Mede os resolvedores de DNS e poe os dois mais rapidos na conexao do NetworkManager.
 #
-#   dns-rapido.sh              mede e aplica
-#   dns-rapido.sh --medir      so mede, nao muda nada
-#   dns-rapido.sh --restaurar  devolve o DNS do DHCP (o roteador)
+#   dns-fastest.sh              mede e aplica
+#   dns-fastest.sh --medir      so mede, nao muda nada
+#   dns-fastest.sh --restaurar  devolve o DNS do DHCP (o roteador)
 #
 # A medicao usa subdominio aleatorio de proposito. Perguntar "google.com" pro roteador
 # responde em 6 ms porque esta em cache; o que interessa e o tempo quando NAO esta, que e

@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 # Captura de tela do Hyprland. Substitui o Spectacle.
 #
-#   ~/.dotfiles/bin/captura.sh tela      monitor focado -> arquivo + clipboard
-#   ~/.dotfiles/bin/captura.sh regiao    selecao        -> arquivo + clipboard
-#   ~/.dotfiles/bin/captura.sh anotar    selecao        -> satty para anotar
-#   ~/.dotfiles/bin/captura.sh gravar    liga/desliga a gravacao de tela
+#   ~/.dotfiles/bin/screenshot.sh tela      monitor focado -> arquivo + clipboard
+#   ~/.dotfiles/bin/screenshot.sh regiao    selecao        -> arquivo + clipboard
+#   ~/.dotfiles/bin/screenshot.sh anotar    selecao        -> satty para anotar
+#   ~/.dotfiles/bin/screenshot.sh gravar    liga/desliga a gravacao de tela
 set -uo pipefail
 
 PASTA="${XDG_PICTURES_DIR:-$HOME/Downloads}/Capturas"

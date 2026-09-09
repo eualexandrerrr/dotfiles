@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Abre os apps fixos do logon e confere se cada um chegou a criar janela.
 #
-#   ~/.dotfiles/bin/apps-logon.sh
+#   ~/.dotfiles/bin/login-apps.sh
 #
 # Existe porque exec-once nao tem repescagem: se o app morre nos primeiros segundos do
 # login (disco ocupado, GPU ainda subindo, sandbox do Electron), ninguem o traz de volta.

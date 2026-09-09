@@ -2,8 +2,8 @@ local mod = "SUPER"
 local terminal = "uwsm app -- ghostty"
 local explorador = "uwsm app -- thunar"
 local navegador = "uwsm app -- google-chrome-stable"
-local menu = os.getenv("HOME") .. "/.dotfiles/bin/lancador.sh"
-local alternador = os.getenv("HOME") .. "/.dotfiles/bin/alternador.sh"
+local menu = os.getenv("HOME") .. "/.dotfiles/bin/launcher.sh"
+local alternador = os.getenv("HOME") .. "/.dotfiles/bin/switcher.sh"
 local dotfiles = os.getenv("HOME") .. "/.dotfiles"
 
 hl.bind(mod .. " + Return", hl.dsp.exec_cmd(terminal))
@@ -33,20 +33,20 @@ hl.bind("CTRL + W", function()
     return hl.dispatch(hl.dsp.window.close())
 end, { non_consuming = true })
 hl.bind(mod .. " + SHIFT + Q", hl.dsp.window.kill())
-hl.bind(mod .. " + L", hl.dsp.exec_cmd("uwsm app -- " .. dotfiles .. "/bin/bloquear.sh"))
+hl.bind(mod .. " + L", hl.dsp.exec_cmd("uwsm app -- " .. dotfiles .. "/bin/lock.sh"))
 hl.bind(mod .. " + SHIFT + E", hl.dsp.exec_cmd("uwsm app -- wlogout"))
-hl.bind(mod .. " + O", hl.dsp.exec_cmd(dotfiles .. "/bin/transparencia.py"))
+hl.bind(mod .. " + O", hl.dsp.exec_cmd(dotfiles .. "/bin/opacity.py"))
 hl.bind(mod .. " + I", hl.dsp.exec_cmd("uwsm app -- nwg-look"))
 hl.bind(mod .. " + SHIFT + I", hl.dsp.exec_cmd("uwsm app -- nwg-displays"))
 
 hl.bind(mod .. " + V", hl.dsp.exec_cmd("cliphist list | fuzzel --dmenu | cliphist decode | wl-copy"))
 hl.bind(mod .. " + P", hl.dsp.exec_cmd("hyprpicker -a"))
 
-hl.bind("Print", hl.dsp.exec_cmd(dotfiles .. "/bin/captura.sh tela"))
-hl.bind("SHIFT + Print", hl.dsp.exec_cmd(dotfiles .. "/bin/recorte-clipboard.sh"))
-hl.bind(mod .. " + SHIFT + S", hl.dsp.exec_cmd(dotfiles .. "/bin/recorte-clipboard.sh"))
-hl.bind(mod .. " + SHIFT + A", hl.dsp.exec_cmd(dotfiles .. "/bin/captura.sh anotar"))
-hl.bind(mod .. " + SHIFT + R", hl.dsp.exec_cmd(dotfiles .. "/bin/captura.sh gravar"))
+hl.bind("Print", hl.dsp.exec_cmd(dotfiles .. "/bin/screenshot.sh tela"))
+hl.bind("SHIFT + Print", hl.dsp.exec_cmd(dotfiles .. "/bin/snip-clipboard.sh"))
+hl.bind(mod .. " + SHIFT + S", hl.dsp.exec_cmd(dotfiles .. "/bin/snip-clipboard.sh"))
+hl.bind(mod .. " + SHIFT + A", hl.dsp.exec_cmd(dotfiles .. "/bin/screenshot.sh anotar"))
+hl.bind(mod .. " + SHIFT + R", hl.dsp.exec_cmd(dotfiles .. "/bin/screenshot.sh gravar"))
 
 hl.bind(mod .. " + F", hl.dsp.window.fullscreen())
 hl.bind(mod .. " + T", hl.dsp.window.float({ action = "toggle" }))
@@ -106,7 +106,7 @@ hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"), { locked = true })
 hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true })
 
 hl.bind(mod .. " + CTRL + Escape", hl.dsp.exec_cmd("uwsm app -- ghostty -e btop"))
-hl.bind("CTRL + SHIFT + Home", hl.dsp.exec_cmd(dotfiles .. "/bin/recarregar.sh"))
+hl.bind("CTRL + SHIFT + Home", hl.dsp.exec_cmd(dotfiles .. "/bin/reload.sh"))
 
 hl.define_submap("resize", function()
     hl.bind("left", hl.dsp.window.resize({ x = -40, y = 0 }), { repeating = true })

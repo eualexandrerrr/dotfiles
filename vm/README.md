@@ -228,7 +228,7 @@ vfio)`** carrega. Ela é criada pelo `vfio-ativar.sh`, junto com o vfio, na hora
 | `hl.env` `LIBVA_DRIVER_NAME` / `__GLX_VENDOR_LIBRARY_NAME` / `NVD_BACKEND` | etapa 5 — com o host em amdgpu, apontar pra nvidia quebra a aceleração de vídeo |
 | `kernel-nvidia` (`packages.txt:30`) | depois da etapa 6 provada |
 | `configure_nvidia()` (`install.sh:295`) | idem |
-| autostart `nvidia-desempenho.sh` | idem |
+| autostart `nvidia-performance.sh` | idem |
 | `custom/gpu` da waybar (chama `nvidia-smi`) | idem |
 
 **Não remover antes:** é o caminho de volta. O `nvidia-open-dkms` vale manter instalado por

@@ -5,7 +5,7 @@
 #
 #   /usr/local/bin/tela-desligar          instalado pelo setup.sh, chamado por systemd
 #   tela-desligar --ultimo                mostra o que estava vivo no desligamento passado
-#   TELA_TTY=/dev/tty3 tela-desligar.sh   forca um console pra testar com a sessao aberta
+#   TELA_TTY=/dev/tty3 screen-off.sh   forca um console pra testar com a sessao aberta
 set -u
 
 REGISTRO=/var/log/tela-desligar.log

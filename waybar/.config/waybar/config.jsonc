@@ -58,7 +58,7 @@
     },
 
     "custom/janela": {
-        "exec": "$HOME/.dotfiles/bin/waybar-janela.py",
+        "exec": "$HOME/.dotfiles/bin/waybar-window.py",
         "return-type": "json",
         "escape": true,
         "max-length": 70
@@ -70,7 +70,7 @@
     },
 
     "custom/discord": {
-        "exec": "$HOME/.dotfiles/bin/discord-notificacoes.py",
+        "exec": "$HOME/.dotfiles/bin/discord-notifications.py",
         "interval": 3,
         "format": ""
     },
@@ -111,36 +111,36 @@
     },
 
     "custom/musica": {
-        "exec": "$HOME/.dotfiles/bin/musica-waybar.sh texto",
+        "exec": "$HOME/.dotfiles/bin/music-waybar.sh texto",
         "return-type": "json",
         "interval": 3,
         "format": "{}",
-        "on-click": "$HOME/.dotfiles/bin/musica-waybar.sh alternar",
+        "on-click": "$HOME/.dotfiles/bin/music-waybar.sh alternar",
         "on-click-right": "hyprctl dispatch 'hl.dsp.focus({ workspace = 5 })'"
     },
 
     "custom/anterior": {
-        "exec": "$HOME/.dotfiles/bin/musica-waybar.sh anterior",
+        "exec": "$HOME/.dotfiles/bin/music-waybar.sh anterior",
         "return-type": "json",
         "interval": 3,
         "format": "{}",
-        "on-click": "$HOME/.dotfiles/bin/musica-waybar.sh voltar"
+        "on-click": "$HOME/.dotfiles/bin/music-waybar.sh voltar"
     },
 
     "custom/playpause": {
-        "exec": "$HOME/.dotfiles/bin/musica-waybar.sh estado",
+        "exec": "$HOME/.dotfiles/bin/music-waybar.sh estado",
         "return-type": "json",
         "interval": 1,
         "format": "{}",
-        "on-click": "$HOME/.dotfiles/bin/musica-waybar.sh alternar"
+        "on-click": "$HOME/.dotfiles/bin/music-waybar.sh alternar"
     },
 
     "custom/proximo": {
-        "exec": "$HOME/.dotfiles/bin/musica-waybar.sh proximo",
+        "exec": "$HOME/.dotfiles/bin/music-waybar.sh proximo",
         "return-type": "json",
         "interval": 3,
         "format": "{}",
-        "on-click": "$HOME/.dotfiles/bin/musica-waybar.sh avancar"
+        "on-click": "$HOME/.dotfiles/bin/music-waybar.sh avancar"
     },
 
     "tray": {
@@ -166,7 +166,7 @@
     "custom/transparencia": {
         "format": "\udb80\udd9d",
         "tooltip-format": "Transparência das janelas",
-        "on-click": "$HOME/.dotfiles/bin/transparencia.py"
+        "on-click": "$HOME/.dotfiles/bin/opacity.py"
     },
 
     "custom/energia": {

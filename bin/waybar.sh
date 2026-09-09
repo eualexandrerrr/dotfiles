@@ -38,7 +38,7 @@ mkdir -p "$(dirname "$gerada")"
 jq --arg o "$saida" '.output = [$o]' "$base" >"$gerada" || exit 1
 
 # O estilo tambem passa por um arquivo de runtime porque o ponto de notificacao do Discord e
-# escrito em CSS pelo discord-notificacoes.py -- regra de workspace nao entra por JSON, e o
+# escrito em CSS pelo discord-notifications.py -- regra de workspace nao entra por JSON, e o
 # modulo hyprland/workspaces nao aceita marcador vindo de fora. A waybar observa o arquivo
 # que recebeu no -s e recarrega sozinha quando ele ou um @import dele muda.
 [[ -e $badge ]] || : >"$badge"

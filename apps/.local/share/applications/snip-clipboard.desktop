@@ -2,7 +2,7 @@
 Type=Application
 Name=Recorte para a área de transferência
 Comment=Seleciona uma região da tela e copia a imagem direto para o clipboard
-Exec=bash -c "$HOME/.dotfiles/bin/recorte-clipboard.sh"
+Exec=bash -c "$HOME/.dotfiles/bin/snip-clipboard.sh"
 Icon=applets-screenshooter
 Terminal=false
 StartupNotify=false

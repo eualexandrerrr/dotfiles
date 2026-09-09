@@ -73,7 +73,7 @@ etapa_perfil() {
 
 etapa_energia() {
     log "energia: nunca dormir, monitores em 5 min"
-    bash "$DOTFILES_DIR/bin/energia.sh" || falha "energia.sh"
+    bash "$DOTFILES_DIR/bin/power.sh" || falha "power.sh"
 }
 
 etapa_audio() {
@@ -83,9 +83,9 @@ etapa_audio() {
 
 etapa_dns() {
     log "DNS mais rapido"
-    local sh="$DOTFILES_DIR/bin/dns-rapido.sh"
-    [[ -x $sh ]] || { falha "dns-rapido.sh ausente"; return; }
-    bash "$sh" || falha "dns-rapido.sh"
+    local sh="$DOTFILES_DIR/bin/dns-fastest.sh"
+    [[ -x $sh ]] || { falha "dns-fastest.sh ausente"; return; }
+    bash "$sh" || falha "dns-fastest.sh"
 }
 
 etapa_wallpaper() {
@@ -260,7 +260,7 @@ etapa_console() {
         falha "terminus-font ausente; rode o install.sh pra ter fonte legivel no console"
     fi
 
-    local origem="$DOTFILES_DIR/bin/tela-desligar.sh"
+    local origem="$DOTFILES_DIR/bin/screen-off.sh"
     local destino=/usr/local/bin/tela-desligar
     if [[ -f $origem ]]; then
         sudo install -Dm755 "$origem" "$destino" \

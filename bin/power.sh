@@ -3,7 +3,7 @@
 # A unica coisa que a inatividade faz e apagar os monitores, em 5 minutos -- e isso quem
 # faz e o hypridle (hypr/hypridle.conf), nao este script.
 #
-#   ~/.dotfiles/bin/energia.sh
+#   ~/.dotfiles/bin/power.sh
 set -uo pipefail
 
 ok()    { printf '  ok   %s\n' "$*"; }

@@ -18,7 +18,7 @@ from gi.repository import Adw, GLib, Gtk, Gdk, Pango  # noqa: E402
 
 DOTFILES = os.path.expanduser("~/.dotfiles")
 CONFIG = os.path.join(DOTFILES, "hypr/.config/hypr/transparencia.lua")
-CABECALHO = """-- Gerado pelo bin/transparencia.py (Meta+O). Editar na mao funciona, mas o menu
+CABECALHO = """-- Gerado pelo bin/opacity.py (Meta+O). Editar na mao funciona, mas o menu
 -- reescreve o arquivo inteiro na proxima vez que voce mexer num slider.
 -- App sem linha aqui usa o global do bloco decoration do hyprland.lua.
 

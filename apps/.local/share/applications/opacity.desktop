@@ -2,7 +2,7 @@
 Type=Application
 Name=Transparência das janelas
 Comment=Ajusta a opacidade de cada app aberto, com o resultado na tela na hora
-Exec=bash -c "$HOME/.dotfiles/bin/transparencia.py"
+Exec=bash -c "$HOME/.dotfiles/bin/opacity.py"
 Icon=preferences-desktop-theme
 Terminal=false
 StartupNotify=true
