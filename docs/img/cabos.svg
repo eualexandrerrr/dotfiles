@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" width="900" height="600" font-family="ui-sans-serif, -apple-system, Segoe UI, Roboto, sans-serif">
+  <rect width="900" height="600" rx="14" fill="#0f1116"/>
+
+  <!-- gabinete -->
+  <rect x="24" y="52" width="300" height="436" rx="10" fill="none" stroke="#2a2f3a" stroke-width="1.5" stroke-dasharray="6 5"/>
+  <text x="40" y="76" fill="#5b6371" font-size="12" letter-spacing="2">GABINETE</text>
+
+  <!-- RTX 3090 -->
+  <rect x="44" y="94" width="230" height="128" rx="9" fill="#161a22" stroke="#39404f"/>
+  <text x="62" y="122" fill="#e6e9ef" font-size="17" font-weight="600">RTX 3090</text>
+  <text x="62" y="145" fill="#79808f" font-size="12.5" font-family="ui-monospace, monospace">PCIEX16_1 · topo</text>
+  <text x="62" y="164" fill="#79808f" font-size="12.5" font-family="ui-monospace, monospace">07:00.0 → vfio-pci</text>
+  <text x="62" y="196" fill="#8d94a3" font-size="13">vai inteira para a VM</text>
+
+  <!-- portas da 3090 -->
+  <rect x="274" y="106" width="20" height="13" rx="2.5" fill="#3b82f6"/>
+  <text x="302" y="117" fill="#c3c9d4" font-size="12" font-family="ui-monospace, monospace">DP 1</text>
+  <rect x="274" y="130" width="20" height="13" rx="2.5" fill="none" stroke="#3b82f6" stroke-dasharray="3 2"/>
+  <text x="302" y="141" fill="#79808f" font-size="12" font-family="ui-monospace, monospace">DP 2 · dummy plug</text>
+  <rect x="274" y="154" width="20" height="13" rx="2.5" fill="none" stroke="#4a5162"/>
+  <text x="302" y="165" fill="#5b6371" font-size="12" font-family="ui-monospace, monospace">DP 3 · livre</text>
+  <rect x="274" y="178" width="20" height="13" rx="2.5" fill="none" stroke="#4a5162"/>
+  <text x="302" y="189" fill="#5b6371" font-size="12" font-family="ui-monospace, monospace">HDMI · livre</text>
+
+  <!-- RX 550 -->
+  <rect x="44" y="278" width="230" height="128" rx="9" fill="#161a22" stroke="#39404f"/>
+  <text x="62" y="306" fill="#e6e9ef" font-size="17" font-weight="600">RX 550</text>
+  <text x="62" y="329" fill="#79808f" font-size="12.5" font-family="ui-monospace, monospace">PCIEX16_2 · riser 20cm</text>
+  <text x="62" y="348" fill="#79808f" font-size="12.5" font-family="ui-monospace, monospace">04:00.0 → amdgpu</text>
+  <text x="62" y="380" fill="#8d94a3" font-size="13">desenha o Linux · fora do gabinete</text>
+
+  <rect x="274" y="308" width="20" height="13" rx="2.5" fill="#3b82f6"/>
+  <text x="302" y="319" fill="#c3c9d4" font-size="12" font-family="ui-monospace, monospace">DP</text>
+  <rect x="274" y="340" width="20" height="13" rx="2.5" fill="#f59e0b"/>
+  <text x="302" y="351" fill="#c3c9d4" font-size="12" font-family="ui-monospace, monospace">HDMI</text>
+
+  <!-- placa-mae / rede -->
+  <rect x="44" y="428" width="230" height="44" rx="9" fill="#161a22" stroke="#39404f"/>
+  <text x="62" y="447" fill="#e6e9ef" font-size="14" font-weight="600">Placa-mãe B550M-PLUS</text>
+  <text x="62" y="464" fill="#79808f" font-size="12" font-family="ui-monospace, monospace">LAN 2.5G · sem wifi</text>
+  <rect x="274" y="443" width="20" height="13" rx="2.5" fill="#22c55e"/>
+
+  <!-- cabo 1: 3090 DP1 -> ASUS DP -->
+  <path d="M294 112 C 430 112, 470 128, 604 128" fill="none" stroke="#3b82f6" stroke-width="2.5"/>
+  <polygon points="604,123 616,128 604,133" fill="#3b82f6"/>
+  <rect x="392" y="86" width="176" height="19" rx="4" fill="#12233d"/>
+  <text x="402" y="100" fill="#7fb0f5" font-size="12" font-family="ui-monospace, monospace">cabo 1 · DP 1.4 · 180 Hz</text>
+
+  <!-- cabo 2: RX550 HDMI -> ASUS HDMI -->
+  <path d="M294 346 C 420 346, 470 176, 604 172" fill="none" stroke="#f59e0b" stroke-width="2.5"/>
+  <polygon points="604,167 616,172 604,177" fill="#f59e0b"/>
+  <rect x="380" y="246" width="192" height="19" rx="4" fill="#3a2a08"/>
+  <text x="390" y="260" fill="#f0b757" font-size="12" font-family="ui-monospace, monospace">cabo 2 · HDMI 2.0b · 120 Hz</text>
+
+  <!-- cabo 3: RX550 DP -> LG -->
+  <path d="M294 314 C 430 314, 500 378, 646 382" fill="none" stroke="#3b82f6" stroke-width="2.5"/>
+  <polygon points="646,377 658,382 646,387" fill="#3b82f6"/>
+  <rect x="404" y="326" width="164" height="19" rx="4" fill="#12233d"/>
+  <text x="414" y="340" fill="#7fb0f5" font-size="12" font-family="ui-monospace, monospace">cabo 3 · DP · vertical</text>
+
+  <!-- cabo de rede -->
+  <path d="M294 449 C 430 449, 560 512, 760 512" fill="none" stroke="#22c55e" stroke-width="2.5"/>
+  <polygon points="760,507 772,512 760,517" fill="#22c55e"/>
+  <text x="782" y="517" fill="#63d68c" font-size="12.5" font-family="ui-monospace, monospace">roteador</text>
+
+  <!-- ASUS -->
+  <rect x="616" y="76" width="252" height="132" rx="9" fill="#161a22" stroke="#39404f"/>
+  <rect x="604" y="120" width="14" height="16" rx="2.5" fill="#3b82f6"/>
+  <rect x="604" y="164" width="14" height="16" rx="2.5" fill="#f59e0b"/>
+  <text x="636" y="104" fill="#e6e9ef" font-size="16" font-weight="600">ASUS XG27ACS</text>
+  <text x="636" y="126" fill="#79808f" font-size="12.5" font-family="ui-monospace, monospace">2560×1440 · duas entradas</text>
+  <text x="636" y="150" fill="#7fb0f5" font-size="12.5">entrada DP: Windows, 180 Hz</text>
+  <text x="636" y="170" fill="#f0b757" font-size="12.5">entrada HDMI: Linux, 120 Hz</text>
+  <text x="636" y="194" fill="#8d94a3" font-size="12.5">o botão do monitor troca de mundo</text>
+  <rect x="716" y="208" width="52" height="9" fill="#39404f"/>
+  <rect x="688" y="217" width="108" height="7" rx="3" fill="#39404f"/>
+
+  <!-- LG vertical -->
+  <rect x="658" y="286" width="120" height="180" rx="9" fill="#161a22" stroke="#39404f"/>
+  <rect x="646" y="374" width="14" height="16" rx="2.5" fill="#3b82f6"/>
+  <text x="676" y="316" fill="#e6e9ef" font-size="15" font-weight="600">LG UltraGear</text>
+  <text x="676" y="338" fill="#79808f" font-size="12" font-family="ui-monospace, monospace">1920×1080</text>
+  <text x="676" y="356" fill="#79808f" font-size="12" font-family="ui-monospace, monospace">em pé · 144 Hz</text>
+  <text x="676" y="408" fill="#8d94a3" font-size="12.5">RicePanel</text>
+  <text x="676" y="426" fill="#8d94a3" font-size="12.5">workspace 9</text>
+
+  <!-- legenda -->
+  <line x1="24" y1="546" x2="876" y2="546" stroke="#242a34"/>
+  <line x1="40" y1="572" x2="72" y2="572" stroke="#3b82f6" stroke-width="2.5"/>
+  <text x="82" y="576" fill="#8d94a3" font-size="12.5">DisplayPort</text>
+  <line x1="182" y1="572" x2="214" y2="572" stroke="#f59e0b" stroke-width="2.5"/>
+  <text x="224" y="576" fill="#8d94a3" font-size="12.5">HDMI</text>
+  <line x1="292" y1="572" x2="324" y2="572" stroke="#22c55e" stroke-width="2.5"/>
+  <text x="334" y="576" fill="#8d94a3" font-size="12.5">rede</text>
+  <rect x="396" y="566" width="18" height="12" rx="2.5" fill="none" stroke="#3b82f6" stroke-dasharray="3 2"/>
+  <text x="424" y="576" fill="#8d94a3" font-size="12.5">dummy plug</text>
+  <rect x="536" y="566" width="18" height="12" rx="2.5" fill="none" stroke="#4a5162"/>
+  <text x="564" y="576" fill="#8d94a3" font-size="12.5">porta livre</text>
+</svg>

@@ -126,21 +126,7 @@ São 2 cabos DisplayPort, 2 HDMI e 1 de rede. O ASUS recebe **duas** entradas e 
 botão: no dia a dia fica no HDMI (Linux), e para jogar troca para DP (Windows nativo). **A
 sessão não cai em nenhum dos dois casos.**
 
-```
-                    ATRÁS DO GABINETE
-   ┌───────────────────────────────────────────────────┐
-   │  PLACA-MÃE (ASUS TUF B550M-PLUS)                  │
-   │    [LAN 2.5G] ──────── cabo de rede ──────────────┼──> roteador
-   │                                                   │
-   │  PCIEX16_1  RTX 3090      3x DP + 1x HDMI         │
-   │    ├─ DP 1 ───────────────────────────────────────┼──> ASUS XG27ACS  (entrada DP)
-   │    └─ DP 2 ── [dummy plug]                        │
-   │                                                   │
-   │  PCIEX16_2  RX 550 (riser)  1x DP + 1x HDMI       │
-   │    ├─ HDMI ───────────────────────────────────────┼──> ASUS XG27ACS  (entrada HDMI)
-   │    └─ DP ─────────────────────────────────────────┼──> LG UltraGear  (em pé)
-   └───────────────────────────────────────────────────┘
-```
+![Ligação dos cabos entre as duas GPUs e os dois monitores](docs/img/cabos.svg)
 
 | Cabo | De | Para | Serve para |
 |---|---|---|---|
