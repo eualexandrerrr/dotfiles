@@ -299,13 +299,13 @@ UNIT
 }
 
 etapa_recarregar() {
-    log "recarregando hyprland, waybar e mako"
+    log "recarregando hyprland, waybar e swaync"
     tem_hyprland || { ok "sem sessao do Hyprland, nada a recarregar"; return; }
     hyprctl reload >/dev/null 2>&1 || falha "hyprctl reload"
     pkill -x waybar 2>/dev/null
     uwsm app -- "$DOTFILES_DIR/bin/waybar.sh" >/dev/null 2>&1 &
-    pkill -x mako 2>/dev/null
-    uwsm app -- "$DOTFILES_DIR/bin/mako.sh" >/dev/null 2>&1 &
+    pkill -x swaync 2>/dev/null
+    uwsm app -- "$DOTFILES_DIR/bin/swaync.sh" >/dev/null 2>&1 &
     if command -v hyprexpose >/dev/null 2>&1; then
         pkill -x hyprexpose 2>/dev/null
         uwsm app -- "$DOTFILES_DIR/bin/hyprexpose.sh" >/dev/null 2>&1 &

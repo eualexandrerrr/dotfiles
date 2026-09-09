@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Recarrega a sessao sem fechar nada: Hyprland, waybar, mako e os dois alternadores.
+# Recarrega a sessao sem fechar nada: Hyprland, waybar, swaync e os dois alternadores.
 # Chamado pelo CTRL+SHIFT+Home (hypr/atalhos.lua). Equivale a setup.sh recarregar.
 set -uo pipefail
 

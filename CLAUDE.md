@@ -61,7 +61,7 @@ Aplicar sempre na sessao real dele e recarregar no mesmo passo:
 bash ~/.dotfiles/setup.sh recarregar
 ```
 
-A etapa faz `hyprctl reload`, reinicia a waybar (SIGUSR2) e recarrega o mako. Diferente do
+A etapa faz `hyprctl reload` e reinicia waybar e swaync (mata e sobe de novo). Diferente do
 Plasma, o Hyprland aplica a config na hora e sem reiniciar nada -- entao nao existe mais
 desculpa de "so no proximo login".
 
@@ -91,6 +91,7 @@ aqui: este repo e publico. Sem o clone, `git clone git@github.com:eualexandrerrr
 | Vou mexer em... | Ler primeiro |
 |---|---|
 | Compositor, atalhos, regras de janela, waybar, barra | `~/Claude/maquina/docs/hyprland.md` |
+| Notificacoes, swaync, silenciar app, central de historico | `~/Claude/maquina/docs/notificacoes.md` |
 | Format, o que sobrevive em `/home`, perfil do Chrome, particoes | `~/Claude/maquina/docs/particoes-e-format.md` |
 | Pacote do stow, onde um arquivo novo entra, regra do `--no-folding` | `~/Claude/maquina/docs/estrutura-repo.md` |
 | Rodar o `install.sh`, entender etapa que falhou | `~/Claude/maquina/docs/install-fluxo.md` |

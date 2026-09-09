@@ -27,7 +27,7 @@ Etapas: `links home perfil tema energia audio dns wallpaper console claude recar
 | Função | Programa |
 |---|---|
 | Compositor / barra / lançador | `hyprland` · `waybar` · `fuzzel` |
-| Notificações / bloqueio / inatividade | `mako` · `hyprlock` · `hypridle` |
+| Notificações / bloqueio / inatividade | `swaync` · `hyprlock` · `hypridle` |
 | Wallpaper / filtro noturno / OSD | `awww` · `hyprsunset` · `swayosd` |
 | Arquivos | `thunar` (GUI) · `yazi` (terminal) |
 | Captura | `grim` + `slurp` + `satty` |
@@ -44,7 +44,7 @@ ignorada e a sessão sobe torta. Por isso, antes de entregar qualquer mexida:
 
 ```
 Hyprland --verify-config                # responde "config ok" ou lista os erros
-bash ~/.dotfiles/setup.sh recarregar    # hyprctl reload + waybar + mako
+bash ~/.dotfiles/setup.sh recarregar    # hyprctl reload + waybar + swaync
 ```
 
 A referência offline casada com a versão instalada é `/usr/share/hypr/stubs/hl.meta.lua` —
@@ -54,9 +54,10 @@ vale mais que a wiki, que descreve a versão mais nova.
 regra presa ao conector o `transform` do vertical cai no principal, a waybar sobe sem barra e
 a tela de bloqueio fica sem campo de senha. Um sintoma só, quatro arquivos. Hoje nenhum
 arquivo versionado guarda `DP-x`: a marca mora em `hypr/.config/hypr/telas.lua` e é resolvida
-na hora — em Lua por `telas.desc()`, e fora dele por `bin/monitor.sh`. Waybar, mako, hyprlock
-e hyprswitch só aceitam nome de conector, então cada um sobe por um wrapper em `bin/` que
-resolve a marca e gera a config em `$XDG_RUNTIME_DIR`.
+na hora — em Lua por `telas.desc()`, e fora dele por `bin/monitor.sh`. Waybar, hyprlock e
+hyprswitch só aceitam nome de conector (o swaync aceita a descrição inteira do monitor),
+então cada um sobe por um wrapper em `bin/` que resolve a marca e gera a config em
+`$XDG_RUNTIME_DIR`.
 
 **3. A sessão roda dentro do systemd.** O SDDM abre `hyprland-uwsm.desktop`, não o Hyprland
 puro: o [uwsm](https://github.com/Vladimir-csp/uwsm) é o que faz o `graphical-session.target`

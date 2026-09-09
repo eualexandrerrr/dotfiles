@@ -26,7 +26,7 @@ Steps: `links home perfil tema energia audio dns wallpaper console claude recarr
 | Role | Program |
 |---|---|
 | Compositor / bar / launcher | `hyprland` · `waybar` · `fuzzel` |
-| Notifications / lock / idle | `mako` · `hyprlock` · `hypridle` |
+| Notifications / lock / idle | `swaync` · `hyprlock` · `hypridle` |
 | Wallpaper / night filter / OSD | `awww` · `hyprsunset` · `swayosd` |
 | Files | `thunar` (GUI) · `yazi` (terminal) |
 | Screenshots | `grim` + `slurp` + `satty` |
@@ -43,7 +43,7 @@ silently**: it is ignored and the session comes up crooked. So, before shipping 
 
 ```
 Hyprland --verify-config                # answers "config ok" or lists the errors
-bash ~/.dotfiles/setup.sh recarregar    # hyprctl reload + waybar + mako
+bash ~/.dotfiles/setup.sh recarregar    # hyprctl reload + waybar + swaync
 ```
 
 The offline reference matching the installed version is `/usr/share/hypr/stubs/hl.meta.lua` —
@@ -54,9 +54,9 @@ ports, and with rules pinned to a connector the vertical monitor's `transform` l
 main one, waybar comes up with no bar at all, and the lock screen loses its password field.
 One symptom, four files. Today no versioned file holds a `DP-x`: the brand lives in
 `hypr/.config/hypr/telas.lua` and is resolved at use time — from Lua via `telas.desc()`, and
-outside it via `bin/monitor.sh`. Waybar, mako, hyprlock and hyprswitch only accept connector
-names, so each one starts through a wrapper in `bin/` that resolves the brand and writes the
-config into `$XDG_RUNTIME_DIR`.
+outside it via `bin/monitor.sh`. Waybar, hyprlock and hyprswitch only accept connector
+names (swaync takes the full monitor description instead), so each one starts through a
+wrapper in `bin/` that resolves the brand and writes the config into `$XDG_RUNTIME_DIR`.
 
 **3. The session runs inside systemd.** SDDM launches `hyprland-uwsm.desktop`, not plain
 Hyprland: [uwsm](https://github.com/Vladimir-csp/uwsm) is what makes

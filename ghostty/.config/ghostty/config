@@ -39,7 +39,6 @@ shell-integration-features = cursor,sudo,title
 # ─── Atalhos ──────────────────────────────────────────────────
 keybind = ctrl+shift+t=new_tab
 keybind = ctrl+shift+w=close_surface
-keybind = ctrl+w=close_surface
 keybind = ctrl+shift+enter=new_split:right
 keybind = ctrl+shift+d=new_split:down
 keybind = ctrl+shift+h=goto_split:left
@@ -50,9 +49,10 @@ keybind = ctrl+plus=increase_font_size:1
 keybind = ctrl+minus=decrease_font_size:1
 keybind = ctrl+zero=reset_font_size
 
-# Ctrl+Backspace apaga a palavra: o terminal manda Alt+Backspace, que o zsh e a
-# maioria das TUIs ja leem como backward-kill-word.
-keybind = ctrl+backspace=text:\x1b\x7f
+# Ctrl+Backspace apaga a palavra. Manda Ctrl+W (\x17), que o zsh e as TUIs leem
+# como backward-kill-word. Nao usar ESC+DEL: o Claude Code le o ESC solto como
+# interromper e engole o resto.
+keybind = ctrl+backspace=text:\x17
 
 # Ctrl+Shift+E digita /explica e envia. Como copy-on-select ja joga a selecao no
 # clipboard, basta marcar o texto com o mouse e apertar o atalho.

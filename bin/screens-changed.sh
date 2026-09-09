@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Chamado pelo Hyprland quando um monitor entra ou sai. Resubir os daemons que so leem o
-# monitor na inicializacao (waybar, mako, hyprexpose, hyprswitch) e refazer o wallpaper,
+# monitor na inicializacao (waybar, swaync, hyprexpose, hyprswitch) e refazer o wallpaper,
 # para que desligar uma tela nunca deixe barra, notificacao ou Alt+Tab fora do lugar.
 set -uo pipefail
 
@@ -15,12 +15,12 @@ flock -n 9 || exit 0
 sleep 1.5
 
 pkill -x waybar 2>/dev/null
-pkill -x mako 2>/dev/null
+pkill -x swaync 2>/dev/null
 pkill -x hyprexpose 2>/dev/null
 pkill -x hyprswitch 2>/dev/null
 
 uwsm app -- "$DOTFILES_DIR/bin/waybar.sh" >/dev/null 2>&1 &
-uwsm app -- "$DOTFILES_DIR/bin/mako.sh" >/dev/null 2>&1 &
+uwsm app -- "$DOTFILES_DIR/bin/swaync.sh" >/dev/null 2>&1 &
 command -v hyprexpose >/dev/null 2>&1 && uwsm app -- "$DOTFILES_DIR/bin/hyprexpose.sh" >/dev/null 2>&1 &
 command -v hyprswitch >/dev/null 2>&1 && uwsm app -- hyprswitch init \
     --custom-css "$HOME/.config/hyprswitch/style.css" \

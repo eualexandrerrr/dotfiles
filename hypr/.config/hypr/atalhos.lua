@@ -43,7 +43,7 @@ hl.bind(mod .. " + V", hl.dsp.exec_cmd("cliphist list | fuzzel --dmenu | cliphis
 hl.bind(mod .. " + P", hl.dsp.exec_cmd("hyprpicker -a"))
 
 hl.bind("Print", hl.dsp.exec_cmd(dotfiles .. "/bin/screenshot.sh tela"))
-hl.bind("SHIFT + Print", hl.dsp.exec_cmd(dotfiles .. "/bin/snip-clipboard.sh"))
+hl.bind("SHIFT + Print", hl.dsp.exec_cmd(dotfiles .. "/bin/screenshot.sh anotar"))
 hl.bind(mod .. " + SHIFT + S", hl.dsp.exec_cmd(dotfiles .. "/bin/snip-clipboard.sh"))
 hl.bind(mod .. " + SHIFT + A", hl.dsp.exec_cmd(dotfiles .. "/bin/screenshot.sh anotar"))
 hl.bind(mod .. " + SHIFT + R", hl.dsp.exec_cmd(dotfiles .. "/bin/screenshot.sh gravar"))

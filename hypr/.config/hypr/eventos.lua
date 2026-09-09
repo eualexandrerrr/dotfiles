@@ -135,13 +135,17 @@ local function vm_na_tela_do_principal()
     return false
 end
 
--- monitor.focused nao dispara em warp programatico (so testei assim), e so segue mouse
--- fisico via misc:mouse_move_focuses_monitor -- e o layout tem faixa de overlap entre os
--- dois monitores (principal comeca em x=1080, vertical vai ate x=1920), entao "qual monitor
--- esta ativo" e ambiguo bem na borda. Poll de posicao com clamp direto no retangulo do
--- principal ignora as duas questoes: nao depende do evento, nao depende de qual monitor o
--- Hyprland decidiu que esta "focado" na faixa cinzenta.
+-- Poll com hl.timer (tentativa anterior, 09/09/2026) brigava com a mira: o jogo prende o
+-- ponteiro por pointer-constraints pra mandar movimento relativo, e o cursor.move do timer
+-- competia com essa trava a cada 16ms -- sentido em jogo como mira quebrada, "nao nativa".
+-- Evento e a saida certa: durante a mira o cursor fisico nao se move (o jogo le so delta),
+-- entao monitor.focused simplesmente nao dispara la -- zero custo, zero briga. So corrige
+-- quando o mouse de verdade cruza pro vertical fora da mira (menu, alt-tab, etc), via
+-- misc:mouse_move_focuses_monitor.
 local function manter_cursor_no_principal()
+    local vertical = telas.nome("vertical")
+    local ativo = hl.get_active_monitor()
+    if not vertical or not ativo or ativo.name ~= vertical then return end
     if not vm_na_tela_do_principal() then return end
     local principal_nome = telas.nome("principal")
     local principal = principal_nome and hl.get_monitor(principal_nome)
@@ -149,20 +153,7 @@ local function manter_cursor_no_principal()
     if not principal or not pos then return end
     local x = math.min(math.max(pos.x, principal.x), principal.x + principal.width - 1)
     local y = math.min(math.max(pos.y, principal.y), principal.y + principal.height - 1)
-    if x ~= pos.x or y ~= pos.y then
-        hl.dispatch(hl.dsp.cursor.move({ x = x, y = y }))
-    end
+    hl.dispatch(hl.dsp.cursor.move({ x = x, y = y }))
 end
 
--- hl.timer avaliado direto no corpo do arquivo derruba o --verify-config com SIGSEGV
--- (ele roda o parse simulando carga do config). "config.reloaded" TAMBEM dispara durante
--- o --verify-config (achado hoje, 09/09/2026 -- a memoria hyprctl-com-config-lua so cobria
--- o topo do arquivo) entao um hl.timer dentro dele quebra do mesmo jeito. So
--- "hyprland.start" fica de fora do --verify-config -- e ele nao volta a disparar num
--- `hyprctl reload`, so no login de verdade. Por isso fica global: o `setup.sh recarregar`
--- chama ligar_vigia_cursor() direto por `hyprctl eval` depois do reload.
-function ligar_vigia_cursor()
-    local vigia_cursor = hl.timer(manter_cursor_no_principal, { timeout = 16, type = "repeat" })
-    if vigia_cursor and vigia_cursor.set_enabled then vigia_cursor:set_enabled(true) end
-end
-hl.on("hyprland.start", ligar_vigia_cursor)
+hl.on("monitor.focused", manter_cursor_no_principal)

@@ -18,7 +18,7 @@ local EDITOR = ".*[Rr][Cc]ode.*"
 local JOGOS = ".*virt-manager.*|.*looking-glass.*|.*[Ss]team.*|steam_app.*|.*gamescope.*|.*lutris.*|.*heroic.*"
 local REMOTO = ".*freerdp.*"
 local MUSICA = ".*[Ss]potify.*"
-local FLUTUANTES = ".*pavucontrol.*|.*transparencia.*|.*nwg-.*|.*qt5ct.*|.*qt6ct.*|.*kvantum.*|.*xarchiver.*|.*[Tt]hunar.*|[Rr]ice[Pp]anel|.*wlogout.*|.*fuzzel.*|.*portal.*"
+local FLUTUANTES = ".*pavucontrol.*|.*transparencia.*|.*nwg-.*|.*qt5ct.*|.*qt6ct.*|.*kvantum.*|.*xarchiver.*|.*[Tt]hunar.*|[Rr]ice[Pp]anel|.*wlogout.*|.*fuzzel.*|.*portal.*|.*satty.*"
 
 hl.window_rule({ name = "chrome-na-1", match = { class = CHROME, title = ".*Google Chrome" }, workspace = "1 silent" })
 hl.window_rule({ name = "discord-na-2", match = { class = MENSAGEIRO }, workspace = "2 silent" })
@@ -27,6 +27,15 @@ hl.window_rule({ name = "jogos-na-4", match = { class = JOGOS, float = false }, 
 hl.window_rule({ name = "spotify-na-5", match = { class = MUSICA }, workspace = "5 silent" })
 hl.window_rule({ name = "terminais-na-6", match = { class = TERMINAIS }, workspace = "6 silent" })
 hl.window_rule({ name = "rdp-na-7", match = { class = REMOTO, float = false }, workspace = "7 silent" })
+-- A workspace 4 e so do jogo. As regras de workspace acima casam com `float = false`, entao
+-- qualquer janela que ja nasce flutuante -- Thunar, pavucontrol, dialogo de portal -- escapava
+-- delas e abria em cima da partida. Esta pega tudo que nao e jogo enquanto a 4 esta ativa.
+hl.window_rule({
+    name = "nada-na-4-fora-o-jogo",
+    match = { class = "negative:^(" .. JOGOS .. ")$", workspace = 4 },
+    workspace = "8 silent",
+})
+
 hl.window_rule({
     name = "resto-da-8-pra-frente",
     match = { class = "negative:^(" .. TERMINAIS .. "|" .. CHROME .. "|" .. MENSAGEIRO .. "|" .. EDITOR .. "|" .. JOGOS .. "|" .. REMOTO .. "|" .. MUSICA .. "|" .. FLUTUANTES .. ")$", float = false },
@@ -109,6 +118,18 @@ hl.window_rule({
 })
 
 hl.window_rule({
+    name = "satty-anotar",
+    match = { class = ".*satty.*" },
+    float = true,
+    center = true,
+    immediate = true,
+    no_blur = true,
+    no_shadow = true,
+    rounding = 0,
+    border_size = 0,
+})
+
+hl.window_rule({
     name = "suprime-maximize",
     match = { class = ".*" },
     suppress_event = "maximize",
@@ -116,7 +137,8 @@ hl.window_rule({
 
 hl.layer_rule({ match = { namespace = "waybar" }, blur = true, ignore_alpha = 0.2 })
 hl.layer_rule({ match = { namespace = "launcher" }, blur = true, ignore_alpha = 0.1, blur_popups = true })
-hl.layer_rule({ match = { namespace = "notifications" }, blur = true, ignore_alpha = 0.2 })
+hl.layer_rule({ match = { namespace = "swaync-notification-window" }, blur = true, ignore_alpha = 0.2 })
+hl.layer_rule({ match = { namespace = "swaync-control-center" }, blur = true, ignore_alpha = 0.2 })
 
 -- Bandeja XEmbed: o Wine (Radmin VPN) so fala systray antigo, o xembedsniproxy adota o
 -- icone e repassa pra waybar por SNI. Sobram duas janelinhas de servico -- o container do

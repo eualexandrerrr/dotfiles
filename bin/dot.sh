@@ -70,7 +70,7 @@ status() {
         printf '%s!!%s %s nao e link valido pro repo\n' "$RED" "$END" "$alvo"; faltou=1
     fi
 
-    for bin in Hyprland waybar mako fuzzel uwsm stow; do
+    for bin in Hyprland waybar swaync fuzzel uwsm stow; do
         command -v "$bin" >/dev/null 2>&1 \
             && printf '%sok%s %s\n' "$GRN" "$END" "$bin" \
             || { printf '%s!!%s %s nao instalado\n' "$RED" "$END" "$bin"; faltou=1; }

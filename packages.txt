@@ -61,7 +61,7 @@ fuzzel
 gtk4
 libadwaita
 python-gobject
-mako
+swaync
 libnotify
 swayosd
 cliphist

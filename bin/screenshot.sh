@@ -53,7 +53,7 @@ case "${1:-regiao}" in
         falta grim slurp satty
         mkdir -p "$PASTA"
         area="$(slurp -d)" || exit 0
-        grim -g "$area" - | satty --filename - \
+        grim -g "$area" - | VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/radeon_icd.json satty --filename - \
             --output-filename "$PASTA/anotado-$CARIMBO.png" \
             --early-exit --copy-command wl-copy
         ;;

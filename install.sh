@@ -687,7 +687,7 @@ summary() {
     printf 'AUR:        %d instalados, %d ja estavam, %d falharam\n' "${#AUR_OK[@]}" "${#AUR_JA[@]}" "${#AUR_FALHA[@]}"
     printf 'servicos:   %d habilitados, %d falharam\n' "${#SERV_OK[@]}" "${#SERV_FALHA[@]}"
     printf 'claude:     %s\n' "$CLAUDE_VER"
-    printf 'shell:      waybar + fuzzel + mako, wallpaper pelo awww\n'
+    printf 'shell:      waybar + fuzzel + swaync, wallpaper pelo awww\n'
     printf 'log:        %s\n\n' "$LOGFILE"
     if (( ${#OFICIAL_FALTANDO[@]} )); then printf '%s  oficiais faltando:%s %s\n' "$RED" "$END" "${OFICIAL_FALTANDO[*]}"; fi
     if (( ${#AUR_FALHA[@]} )); then printf '%s  AUR que falharam:%s %s\n  refazer: paru -S --needed %s\n' "$RED" "$END" "${AUR_FALHA[*]}" "${AUR_FALHA[*]}"; fi
@@ -721,7 +721,7 @@ verificar() {
     fi
 
     local bin
-    for bin in Hyprland waybar mako fuzzel uwsm stow; do
+    for bin in Hyprland waybar swaync fuzzel uwsm stow; do
         command -v "$bin" >/dev/null 2>&1 || { printf '%s  !!%s %s nao instalado\n' "$RED" "$END" "$bin"; WARNS+=("$bin ausente"); faltou=1; }
     done
 
