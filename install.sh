@@ -25,8 +25,8 @@ mkdir -p "$LOGDIR"
 LOGFILE="${LOGFILE:-$LOGDIR/install.log}"
 T0=$SECONDS
 STEP=0
-TOTAL_STEPS=21
-[[ ${SKIP_NVIDIA:-0} == 1 ]] && TOTAL_STEPS=19
+TOTAL_STEPS=22
+[[ ${SKIP_NVIDIA:-0} == 1 ]] && TOTAL_STEPS=20
 WARNS=()
 ETAPAS_FALHA=()
 OFICIAL_PEDIDOS=0; OFICIAL_NOVOS=(); OFICIAL_FALTANDO=()
@@ -658,6 +658,18 @@ install_maestro() {
     fi
 }
 
+install_vencord() {
+    log "vencord (fork eualexandrerrr/Vencord) injetado no Discord"
+    local sh="$DOTFILES_DIR/bin/vencord.sh"
+    [[ -f $sh ]] || { warn "bin/vencord.sh ausente, pulando"; return 1; }
+    if bash "$sh"; then
+        ok "vencord injetado"
+    else
+        warn "vencord nao injetou; depois rode: bash ~/.dotfiles/bin/vencord.sh"
+        return 1
+    fi
+}
+
 summary() {
     local cor=$GRN titulo="instalacao concluida sem pendencias"
     if (( ${#OFICIAL_FALTANDO[@]} + ${#AUR_FALHA[@]} + ${#SERV_FALHA[@]} + ${#ETAPAS_FALHA[@]} )); then cor=$YEL; titulo="instalacao concluida COM pendencias"; fi
@@ -752,6 +764,7 @@ main() {
     etapa install_node_tools
     etapa install_android_sdk
     etapa install_maestro
+    etapa install_vencord
     etapa configure_nvidia
     etapa configure_resiliencia_boot
     etapa enable_services

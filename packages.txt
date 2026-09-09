@@ -34,6 +34,7 @@ linux-zen
 linux-firmware
 linux-zen-headers
 mesa
+vulkan-radeon
 nvidia-open-dkms
 nvidia-settings
 nvidia-utils
@@ -66,6 +67,7 @@ swayosd
 cliphist
 wl-clipboard
 wl-clip-persist
+xclip
 nwg-displays
 sddm
 
@@ -167,6 +169,7 @@ lazydocker
 mise
 nodejs
 npm
+pnpm
 python
 python-pip
 python-pipx
