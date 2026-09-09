@@ -363,6 +363,43 @@ A última linha tem que terminar em `inhibits=0x0`. O IOMMU AVIC (interrupção 
 dispositivo) **não** existe nesta placa-mãe: o bit `GASup` de
 `/sys/class/iommu/ivhd*/amd-iommu/features` vem zerado.
 
+## `VK_ERROR_OUT_OF_DEVICE_MEMORY` era o cache do RedM, não a VM
+
+Depois de tudo acima o RedM ainda morria antes de abrir:
+
+```
+Render/ GPU Name: NVIDIA GeForce RTX 3090
+Render/ Error: Failed to allocate memory for Vulkan. VkResult: VK_ERROR_OUT_OF_DEVICE_MEMORY
+```
+
+**Não é a VM.** É um bug conhecido do RedM depois de uma atualização, e o fórum do Cfx.re
+tem dezenas de relatos em máquina física. A cura é apagar a pasta de cache:
+
+```
+D:\Jogos\RedM\RedM.app\data\cache
+```
+
+Ela é rebaixada sozinha no lançamento seguinte, e o jogo abre. Vale também apagar só os
+`hints_*.dat` de dentro dela.
+
+O que **não** era, e foi descartado por medição:
+
+- **Vulkan na VM está inteiro.** `vkGetPhysicalDeviceMemoryProperties` no convidado lista
+  três heaps: 24326 MiB device-local, 8158 MiB de memória de sistema e a janela do BAR.
+- **Resizable BAR não tem culpa.** Encolher o BAR1 de 32 GB para 256 MB pelo
+  `resource1_resize` do host não mudou nada, e o `nvidia-smi` do convidado reporta o BAR
+  quase cheio nos dois tamanhos — é como o WDDM contabiliza a abertura, não pressão real.
+- **A API do RDR2 não importa.** O erro é a sondagem de GPU do próprio CitizenFX; trocar
+  `<API>` para `kSettingAPI_Dx12` no `system.xml` não muda nada.
+
+E há uma armadilha antes dela: **o RedM recusa privilégio elevado.** Uma tarefa agendada
+com `RunLevel Highest` morre em *"RedM does not support running under elevated privileges"*.
+Use `Limited`.
+
+Medido em 09/09/2026, dentro do servidor Michigan, pelo contador do cliente
+(`ScrLk` + `D`): **UPS 94, FPS 76** a 2560x1440. Antes de casar a taxa da tela virtual o
+teto era 60.
+
 ## Pré-requisitos na máquina
 
 - `amd_iommu=on iommu=pt` no `arch.conf`
