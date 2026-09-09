@@ -23,8 +23,10 @@ menu() {
 case "${1:-}" in
     menu) menu ;;
     *)
-        info="$("$VM_DIR/w11" perfil 2>/dev/null)"
-        if [[ $info == *"estado: running"* ]]; then
+        info="$(timeout 5 "$VM_DIR/w11" perfil 2>/dev/null)"
+        if [[ -z $info ]]; then
+            printf '{"text":"%s","tooltip":"libvirt nao responde — virsh pendurado","class":"travada"}\n' "$ICONE_DESLIGADA"
+        elif [[ $info == *"estado: running"* ]]; then
             [[ $info == perfil:\ 3090* ]] && detalhe="passthrough 3090" || detalhe="janela SPICE"
             printf '{"text":"%s","tooltip":"VM w11 rodando — %s — clique pro menu","class":"rodando"}\n' "$ICONE_LIGADA" "$detalhe"
         else
