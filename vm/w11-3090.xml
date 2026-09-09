@@ -23,7 +23,7 @@
     <vcpupin vcpu="9" cpuset="14" />
     <vcpupin vcpu="10" cpuset="7" />
     <vcpupin vcpu="11" cpuset="15" />
-    <emulatorpin cpuset="0,8" />
+    <emulatorpin cpuset="1,9" />
     <iothreadpin iothread="1" cpuset="1,9" />
   </cputune>
   <resource>
@@ -192,6 +192,10 @@
     <console type="pty">
       <target type="serial" port="0" />
     </console>
+    <!-- EVDEV (mouse/teclado fisico direto pro guest) tentado em 09/09/2026: travou
+         teclado e mouse do host assim que a VM ligou, sem toggle nenhum, o grab pegou
+         de cara. Revertido pro tablet/PS2 ate entender por que grab_all nao esperou o
+         ctrl-ctrl nesse setup (SPICE+Looking Glass, sem janela propria do QEMU). -->
     <input type="tablet" bus="usb">
       <address type="usb" bus="0" port="1" />
     </input>
