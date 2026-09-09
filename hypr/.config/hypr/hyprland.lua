@@ -136,9 +136,6 @@ hl.config({
         no_hardware_cursors = false,
     },
 
-    render = {
-        direct_scanout = 1,
-    },
 
     xwayland = {
         force_zero_scaling = true,
