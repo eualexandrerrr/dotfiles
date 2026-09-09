@@ -131,6 +131,30 @@ mecânica de salvar e reabrir aplicativos:
   enquanto — saem quando o passthrough estiver comprovadamente de pé.
 - O login automático do `sddm` continua valendo pra ligar o PC, não mais pra "voltar da VM".
 
+## Alta resolução sem dummy plug: o IDD
+
+Sem um display de verdade na 3090, o Windows só oferece o que o EDID anuncia — e o ASUS, com
+a entrada no HDMI, entrega um EDID reduzido que para em 1920x1080. O Looking Glass ficava em
+1280x960. O **Indirect Display Driver** resolve criando um display virtual dentro do Windows,
+independente de cabo, EDID e de qual entrada o monitor está usando.
+
+**O IDD não existe no B7 estável.** Só nas builds de desenvolvimento. Por isso
+`~/vms/lg-dev/` guarda a build `B7-826-236efcb1`: o cliente compilado (`client/build/`) e o
+`looking-glass-idd-setup.exe`. O `vm/glass` usa esse cliente quando ele existe e cai no
+pacote do sistema quando não — cliente e IDD **têm que ser da mesma build**.
+
+Para o Windows aceitar o driver foram precisos três passos, nesta ordem:
+
+1. `bcdedit /set testsigning on` — sozinho **não** basta, e o Secure Boot já estava desligado.
+2. Instalar a cadeia da Sectigo. A raiz USERTrust já estava no store, faltava a intermediária
+   `Sectigo Public Code Signing CA E36`, e sem ela a validação dava `0x800b0109`.
+3. Confiar na **HostFission** (a empresa do autor, que assina o driver) em `TrustedPublisher`.
+   Sem isso o log diz `Driver package signer is unknown` e a instalação silenciosa recusa,
+   porque não há prompt para confirmar.
+
+Depois: `LGIddInstall.exe install LGIdd LGInput` e um reboot. O `/S` do instalador só copia
+os arquivos — quem registra o driver é o `LGIddInstall`.
+
 ## Looking Glass (`vm/glass`)
 
 O Windows renderiza na 3090, copia o frame pra `/dev/shm/looking-glass` (ivshmem, **128 MB**)
@@ -184,7 +208,7 @@ cria, dá acesso ao `libvirt-qemu` (ACL) e instala os hooks.
 | `memballoon` desligado | ballooning atrapalha jogo |
 | `io=native` + iothread dedicada | disco |
 | Hyper-V completo + `topoext` + `cache passthrough` | `topoext` é obrigatório: sem ele a topologia 6c/2t em AMD derruba o guest |
-| `hostdev`: 3090 + áudio HDMI + teclado + mouse USB | a entrada vai junto pra VM |
+| `hostdev`: só a 3090 e o áudio HDMI dela | teclado e mouse **saíram** do passthrough USB: iam inteiros pra VM e deixavam o host sem entrada a cada boot dela. A entrada vem por SPICE pelo Looking Glass, e Scroll Lock devolve o mouse |
 | `shmem` 128 MB + SPICE sem display + `<video>` none | a tela é a janela do Looking Glass |
 
 ## Operar a VM sem tela nem teclado

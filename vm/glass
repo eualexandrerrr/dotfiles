@@ -1,4 +1,15 @@
 #!/usr/bin/env bash
-# Abre a tela da VM w11 (perfil 3090) numa janela do KDE, via Looking Glass.
+# Abre a tela da VM w11 (perfil 3090) numa janela do Hyprland, via Looking Glass.
 # Teclado e mouse vao por SPICE; Scroll Lock solta o mouse. -F = tela cheia.
-exec looking-glass-client -f /dev/shm/looking-glass -m KEY_SCROLLLOCK "$@"
+#
+# Usa o cliente da build de desenvolvimento quando ele existe, porque **o IDD so existe
+# nela**: o B7 estavel nao tem Indirect Display Driver, e sem IDD a resolucao fica presa no
+# que o EDID do monitor anuncia -- 1280x960 enquanto o ASUS estiver na entrada HDMI. Com o
+# IDD o Windows ganha um display virtual proprio e entrega 2560x1440 independente de cabo.
+# Sem a build dev presente, cai no cliente do pacote, que continua funcionando.
+set -uo pipefail
+
+DEV="$HOME/vms/lg-dev/looking-glass-B7-826-236efcb1/client/build/looking-glass-client"
+cliente="$([[ -x $DEV ]] && echo "$DEV" || echo looking-glass-client)"
+
+exec "$cliente" -f /dev/shm/looking-glass -m KEY_SCROLLLOCK "$@"
