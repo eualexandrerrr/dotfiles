@@ -129,7 +129,7 @@ São 2 cabos DisplayPort, 2 HDMI e 1 de rede. O ASUS recebe **duas** entradas e 
 botão: no dia a dia fica no HDMI (Linux), e para jogar troca para DP (Windows nativo). **A
 sessão não cai em nenhum dos dois casos.**
 
-![Ligação dos cabos entre as duas GPUs e os dois monitores](docs/img/cabos.svg)
+![Ligação dos cabos entre as duas GPUs e os dois monitores](docs/img/cabos.png)
 
 | Cabo | De | Para | Serve para |
 |---|---|---|---|
