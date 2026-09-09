@@ -100,6 +100,7 @@ aqui: este repo e publico. Sem o clone, `git clone git@github.com:eualexandrerrr
 | Pastas da home, XDG, onde criar projeto novo | `~/Claude/maquina/docs/home-enxuta.md` |
 | VM Windows, passthrough, vfio, a placa que vai chegar | `~/Claude/maquina/docs/vm-e-hardware.md` |
 | RDP no servidor Windows, onde a senha mora | `~/Claude/maquina/docs/rdp.md` |
+| Radmin VPN, bandeja XEmbed do Wine, icone que nao aparece na waybar | `~/Claude/maquina/docs/radmin-vpn.md` |
 | Pagina inicial do Chrome, politica gerenciada | `~/Claude/maquina/docs/chrome-inicio.md` |
 | Algo quebrado depois do format | `~/Claude/maquina/docs/se-quebrar-no-format.md` |
 | Saber por que uma correcao foi feita | `~/Claude/maquina/docs/historico-commits.md` |
