@@ -4,44 +4,49 @@
 #   ~/.dotfiles/bin/audio.sh
 #
 # Casa por nome de dispositivo do PipeWire (alsa_output.pci-...analog-stereo), nao por id:
-# o id muda a cada boot e a cada monitor que entra ou sai.
+# o id muda a cada boot e a cada monitor que entra ou sai. O id do pactl tambem nao e o
+# mesmo id do wpctl, entao aqui tudo passa pelo pactl, pelo nome.
 set -uo pipefail
 
 ANALOGICO="${ANALOGICO:-analog-stereo}"
 HDMI="${HDMI:-hdmi-stereo}"
-VOL_PRINCIPAL="${VOL_PRINCIPAL:-0.80}"
-VOL_HDMI="${VOL_HDMI:-0.50}"
-VOL_MIC="${VOL_MIC:-0.80}"
+VOL_PRINCIPAL="${VOL_PRINCIPAL:-80}"
+VOL_HDMI="${VOL_HDMI:-50}"
+VOL_MIC="${VOL_MIC:-80}"
 
-command -v wpctl  >/dev/null 2>&1 || { printf 'audio: wpctl ausente (pipewire)\n' >&2; exit 1; }
-command -v pactl  >/dev/null 2>&1 || { printf 'audio: pactl ausente (libpulse)\n' >&2; exit 1; }
+command -v pactl >/dev/null 2>&1 || { printf 'audio: pactl ausente (libpulse)\n' >&2; exit 1; }
 
 ok() { printf '  ok   %s\n' "$*"; }
 
-saida_por_nome() { pactl list short sinks   2>/dev/null | awk -v p="$1" '$2 ~ p {print $1; exit}'; }
-fonte_por_nome() { pactl list short sources 2>/dev/null | awk -v p="$1" '$2 ~ p && $2 !~ /monitor/ {print $1; exit}'; }
-nome_da_saida()  { pactl list short sinks   2>/dev/null | awk -v i="$1" '$1 == i {print $2; exit}'; }
+saida_por_nome() { pactl list short sinks   2>/dev/null | awk -v p="$1" '$2 ~ p {print $2; exit}'; }
+fonte_por_nome() { pactl list short sources 2>/dev/null | awk -v p="$1" '$2 ~ p && $2 !~ /monitor/ {print $2; exit}'; }
 
-principal="$(saida_por_nome "$ANALOGICO")"
+principal=""
+for _ in $(seq 1 20); do
+    principal="$(saida_por_nome "$ANALOGICO")"
+    [[ -n $principal ]] && break
+    sleep 0.5
+done
+
 if [[ -n ${principal:-} ]]; then
-    pactl set-default-sink "$(nome_da_saida "$principal")" 2>/dev/null
-    wpctl set-volume "$principal" "$VOL_PRINCIPAL" 2>/dev/null
-    wpctl set-mute   "$principal" 0 2>/dev/null
-    ok "saida analogica em $(awk -v v="$VOL_PRINCIPAL" 'BEGIN{printf "%d%%", v*100}'), como padrao"
+    pactl set-default-sink   "$principal" 2>/dev/null
+    pactl set-sink-volume    "$principal" "${VOL_PRINCIPAL}%" 2>/dev/null
+    pactl set-sink-mute      "$principal" 0 2>/dev/null
+    ok "saida analogica em ${VOL_PRINCIPAL}%, como padrao"
 else
     printf '  !!   nao achei saida %s\n' "$ANALOGICO" >&2
 fi
 
 hdmi="$(saida_por_nome "$HDMI")"
 if [[ -n ${hdmi:-} ]]; then
-    wpctl set-volume "$hdmi" "$VOL_HDMI" 2>/dev/null
-    ok "HDMI em $(awk -v v="$VOL_HDMI" 'BEGIN{printf "%d%%", v*100}')"
+    pactl set-sink-volume "$hdmi" "${VOL_HDMI}%" 2>/dev/null
+    ok "HDMI em ${VOL_HDMI}%"
 fi
 
 mic="$(fonte_por_nome "$ANALOGICO")"
 if [[ -n ${mic:-} ]]; then
-    pactl set-default-source "$(pactl list short sources | awk -v i="$mic" '$1==i{print $2;exit}')" 2>/dev/null
-    wpctl set-volume "$mic" "$VOL_MIC" 2>/dev/null
-    wpctl set-mute   "$mic" 0 2>/dev/null
-    ok "microfone em $(awk -v v="$VOL_MIC" 'BEGIN{printf "%d%%", v*100}')"
+    pactl set-default-source "$mic" 2>/dev/null
+    pactl set-source-volume  "$mic" "${VOL_MIC}%" 2>/dev/null
+    pactl set-source-mute    "$mic" 0 2>/dev/null
+    ok "microfone em ${VOL_MIC}%"
 fi
