@@ -8,9 +8,9 @@
   <!-- RTX 3090 -->
   <rect x="44" y="94" width="230" height="128" rx="9" fill="#161a22" stroke="#39404f"/>
   <text x="62" y="122" fill="#e6e9ef" font-size="17" font-weight="600">RTX 3090</text>
-  <text x="62" y="145" fill="#79808f" font-size="12.5" font-family="ui-monospace, monospace">PCIEX16_1 · topo</text>
+  <text x="62" y="145" fill="#79808f" font-size="12.5" font-family="ui-monospace, monospace">PCIEX16_1 · riser 20cm</text>
   <text x="62" y="164" fill="#79808f" font-size="12.5" font-family="ui-monospace, monospace">07:00.0 → vfio-pci</text>
-  <text x="62" y="196" fill="#8d94a3" font-size="13">vai inteira para a VM</text>
+  <text x="62" y="196" fill="#8d94a3" font-size="12.5">vai inteira para a VM · fora do gabinete</text>
 
   <!-- portas da 3090 -->
   <rect x="274" y="106" width="20" height="13" rx="2.5" fill="#3b82f6"/>
@@ -25,9 +25,9 @@
   <!-- RX 550 -->
   <rect x="44" y="278" width="230" height="128" rx="9" fill="#161a22" stroke="#39404f"/>
   <text x="62" y="306" fill="#e6e9ef" font-size="17" font-weight="600">RX 550</text>
-  <text x="62" y="329" fill="#79808f" font-size="12.5" font-family="ui-monospace, monospace">PCIEX16_2 · riser 20cm</text>
+  <text x="62" y="329" fill="#79808f" font-size="12.5" font-family="ui-monospace, monospace">PCIEX16_2 · direto no slot</text>
   <text x="62" y="348" fill="#79808f" font-size="12.5" font-family="ui-monospace, monospace">04:00.0 → amdgpu</text>
-  <text x="62" y="380" fill="#8d94a3" font-size="13">desenha o Linux · fora do gabinete</text>
+  <text x="62" y="380" fill="#8d94a3" font-size="13">desenha o Linux</text>
 
   <rect x="274" y="308" width="20" height="13" rx="2.5" fill="#3b82f6"/>
   <text x="302" y="319" fill="#c3c9d4" font-size="12" font-family="ui-monospace, monospace">DP</text>

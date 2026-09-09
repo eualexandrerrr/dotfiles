@@ -12,8 +12,8 @@ IOMMU, NX e Above 4G ligados e fTPM desligado. Ryzen 7 5700X, 31 GB.
 
 | Slot | Placa | Papel |
 |:--|:--|:--|
-| `PCIEX16_1`, topo | **RTX 3090** | vai inteira pra VM |
-| `PCIEX16_2`, base, via riser | **PCYes RX 550** | desenha o Linux |
+| `PCIEX16_1`, topo, via riser | **RTX 3090** | vai inteira pra VM |
+| `PCIEX16_2`, base, direto no slot | **PCYes RX 550** | desenha o Linux |
 
 A 3090 sai direto da CPU e fica sozinha no **grupo IOMMU 16** com o áudio dela — isolamento
 limpo, **sem ACS override**. Confirmado em 07/09/2026, depois da troca de placa-mãe:
@@ -25,11 +25,13 @@ for g in /sys/kernel/iommu_groups/*/devices/*; do echo "$(echo $g | cut -d/ -f5)
 O endereço PCI dela **mudou com a placa-mãe**: era `0000:0a:00.0/.1` na Gigabyte B450M, hoje
 é `0000:07:00.0/.1`. É o que os dois `<hostdev>` do `w11-3090.xml` apontam.
 
-A RX 550 entra por riser PCIe 3.0 x16 de 20 cm com plugue de 90°, porque a 3090 de 2,7 slots
-cobre o slot de baixo fisicamente. Ela **fica fora do gabinete**: apoiada deitada sobre
-papelão ou madeira, nunca pendurada pelo riser (o peso faz alavanca no conector) e nunca
-sobre o saco antiestático, que é condutivo por fora. Alimentação ela não usa — puxa os 75 W
-do próprio slot.
+**Quem sai por riser é a 3090**, PCIe 3.0 x16 de 20 cm com plugue de 90°: ela tem 2,7 slots
+de cooler e, montada no slot, cobre o de baixo fisicamente. Por isso fica **fora do
+gabinete**, apoiada — riser com placa desse peso nunca pendurado só pelo conector, que vira
+alavanca, e nunca sobre o saco antiestático, que é condutivo por fora.
+
+A RX 550 vai **direto no `PCIEX16_2`**, sem riser. Alimentação ela não usa: puxa os 75 W do
+próprio slot.
 
 ### Por que a RX 550 não pode ser a placa da VM
 
@@ -77,7 +79,8 @@ taxa sempre explícitas ali.
 A ordem importa: em cada passo, ou o cabo está onde a BIOS manda a imagem, ou você acabou de
 mudar sabendo por quê. **Nunca fique adivinhando onde a tela foi parar.**
 
-1. **Montar a RX 550 no riser.** Máquina desligada e fora da tomada. Cabos de vídeo como
+1. **Montar a 3090 no riser e a RX 550 direto no slot de baixo.** Máquina desligada e fora
+   da tomada. Cabos de vídeo como
    estão, ainda tudo na 3090.
 2. **BIOS: vídeo primário → `PCIEX16_2`.** A tela apaga ao salvar; é o esperado, o POST foi
    pra outra placa. Desligue no botão.
@@ -238,7 +241,6 @@ semanas mesmo com o vfio ativo — o `softdep` impede que ele carregue, e tirar 
   `ricepanel.service` usa: com o vertical desligado a unit é pulada limpa, senão o painel
   subiria em fullscreen por cima do monitor principal.
 - **A guarda do `vfio-ativar.sh` exige `amdgpu` em uso**, não só duas GPUs contadas. Uma
-  RX 550 enumerada e sem driver — riser mal encaixado — passava na guarda velha e deixaria o
-  host sem tela no boot seguinte.
-- **O `start.sh` do hook aborta pela mesma razão.** Hoje, sem a RX 550 montada, ele aborta —
-  e está certo.
+  RX 550 enumerada e sem driver passava na guarda velha e deixaria o host sem tela no boot
+  seguinte.
+- **O `start.sh` do hook aborta pela mesma razão**, se o `amdgpu` não estiver desenhando.

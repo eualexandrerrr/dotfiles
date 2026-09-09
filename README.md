@@ -100,17 +100,20 @@ Workspaces fixas por regra: **1** Chrome · **2** Discord · **3** RCode · **4*
 | CPU | Ryzen 7 5700X (8c/16t, sem vídeo integrado) |
 | Placa-mãe | ASUS TUF Gaming B550M-PLUS — **sem wifi e sem bluetooth** |
 | RAM | 32 GB DDR4 dual channel |
-| GPU da VM | Gainward RTX 3090 24 GB — slot `PCIEX16_1` (topo), direto na CPU |
-| GPU do host | PCYes Radeon RX 550 4 GB — slot `PCIEX16_2` (base), via riser |
+| GPU da VM | Gainward RTX 3090 24 GB — slot `PCIEX16_1` (topo, direto na CPU), **por riser** |
+| GPU do host | PCYes Radeon RX 550 4 GB — slot `PCIEX16_2` (base), direto no slot |
 | SSD | Corsair MP700 ELITE 932 GB, M.2 único |
 | Fonte | 850 W Gold |
 | Gabinete | PCYes Forcefield Mini Black Vulcan (GPU até 310 mm) |
 | Monitores | ASUS XG27ACS 1440p180 (principal) · LG UltraGear 1080p144 (em pé) |
 
 **Quem desenha o Linux é a RX 550.** A 3090 fica presa no `vfio-pci` e vai inteira para a VM
-Windows. A RX 550 mora **fora do gabinete**, deitada sobre madeira ou papelão — nunca
-pendurada pelo riser (o peso faz alavanca no conector) e nunca sobre o saco antiestático, que
-é condutivo por fora. Ela não usa alimentação: puxa os 75 W do próprio slot.
+Windows.
+
+A **3090 é que sai por riser** PCIe 3.0 x16 de 20 cm com plugue de 90°, e fica **fora do
+gabinete** — ela tem 2,7 slots de cooler e não cabe junto com a outra placa. Riser com placa
+desse peso pede apoio: nunca pendurada só pelo conector, que vira alavanca. A RX 550 vai
+**direto no slot de baixo**, sem riser e sem alimentação extra: puxa os 75 W do próprio slot.
 
 ![Placa-mãe e a 3090](docs/img/placas.jpg)
 
