@@ -221,5 +221,5 @@
       <target dev="sdc" bus="sata" />
       <readonly />
       </disk>
-    <disk type="file" device="disk"><driver name="qemu" type="raw" /><source file="/home/Alexandre/vms/autounattend-usb.img" /><target dev="sdz" bus="usb" removable="on" /></disk></devices>
+    <disk type="file" device="disk"><driver name="qemu" type="raw" /><source file="/home/Alexandre/vms/autounattend-usb.img" /><target dev="sdz" bus="usb" removable="on" /></disk><channel type="unix"><target type="virtio" name="org.qemu.guest_agent.0" /></channel></devices>
 </domain>

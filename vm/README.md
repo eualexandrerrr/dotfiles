@@ -92,7 +92,11 @@ mudar sabendo por quê. **Nunca fique adivinhando onde a tela foi parar.**
    e cria a entrada de recuperação. Reiniciar só depois que os três baterem. Sucesso =
    `lspci -nnk -s 07:00.0` com `Kernel driver in use: vfio-pci`.
 7. **`w11 janela`:** instalar Windows, virtio e o `looking-glass-host-setup.exe` **antes** de
-   tentar o perfil 3090 — depurar Windows sem tela é sofrimento.
+   tentar o perfil 3090 — depurar Windows sem tela é sofrimento. O `virtio-win-guest-tools`
+   só deixa o `viostor` no DriverStore: **o serviço de boot só nasce quando o Windows enxerga
+   um disco virtio de verdade.** Sem isso o perfil 3090 dá `INACCESSIBLE_BOOT_DEVICE (0x7B)`.
+   Suba uma vez ainda em SATA com um segundo disco `bus="virtio"` qualquer: o PnP registra o
+   `viostor` como `BOOT_START` e aí o boot em `vda` funciona.
 8. **`w11 3090`** + `vm/glass`.
 
 Se em qualquer passo a tela sumir, o monitor está na entrada errada ou a BIOS postou na outra
@@ -179,6 +183,26 @@ cria, dá acesso ao `libvirt-qemu` (ACL) e instala os hooks.
 | Hyper-V completo + `topoext` + `cache passthrough` | `topoext` é obrigatório: sem ele a topologia 6c/2t em AMD derruba o guest |
 | `hostdev`: 3090 + áudio HDMI + teclado + mouse USB | a entrada vai junto pra VM |
 | `shmem` 128 MB + SPICE sem display + `<video>` none | a tela é a janela do Looking Glass |
+
+## Operar a VM sem tela nem teclado
+
+Os três XMLs têm o canal `org.qemu.guest_agent.0`. Com o `qemu-ga` instalado no guest (vem
+no virtio-win-guest-tools), dá para rodar comando dentro do Windows pelo host:
+
+```sh
+sudo virsh -c qemu:///system qemu-agent-command w11 \
+  '{"execute":"guest-exec","arguments":{"path":"powershell.exe","arg":["-Command","..."],"capture-output":true}}'
+```
+
+É o caminho quando o monitor está desligado ou o teclado já foi para a VM: `virsh screenshot`
+mostra a tela do perfil `janela`, e o agente executa o resto. Sem ele sobra `virsh send-key`,
+que entrega **keycode**, não caractere -- o guest está em ABNT2, então `:` é
+`KEY_LEFTSHIFT KEY_SLASH` e `\` é `KEY_102ND`.
+
+**O SPICE precisa escutar em TCP.** Com `<listen type="none"/>` o Looking Glass morre em
+`Failed to connect to spice server`: o cliente fala SPICE por 127.0.0.1:5900 para levar
+teclado e mouse. Por isso o perfil 3090 usa `port="5900" autoport="no"` com listen em
+`127.0.0.1`.
 
 ## Pré-requisitos na máquina
 

@@ -217,5 +217,5 @@
     <audio id="1" type="spice" />
     <watchdog model="itco" action="reset" />
     <memballoon model="none" />
-  </devices>
+  <channel type="unix"><target type="virtio" name="org.qemu.guest_agent.0" /></channel></devices>
 </domain>
