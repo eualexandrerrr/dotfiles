@@ -2,6 +2,9 @@
 # Abre a tela da VM w11 (perfil 3090) numa janela do Hyprland, via Looking Glass.
 # Teclado e mouse vao por SPICE; Scroll Lock solta o mouse. -F = tela cheia.
 #
+# Usa /dev/kvmfr0 quando o modulo kvmfr esta carregado: o cliente importa o frame direto na
+# GPU, sem a copia em CPU que o arquivo em /dev/shm obriga. Cai no /dev/shm se ele nao existir.
+#
 # Usa o cliente da build de desenvolvimento quando ele existe, porque **o IDD so existe
 # nela**: o B7 estavel nao tem Indirect Display Driver, e sem IDD a resolucao fica presa no
 # que o EDID do monitor anuncia -- 1280x960 enquanto o ASUS estiver na entrada HDMI. Com o
@@ -12,4 +15,6 @@ set -uo pipefail
 DEV="$HOME/vms/lg-dev/looking-glass-B7-826-236efcb1/client/build/looking-glass-client"
 cliente="$([[ -x $DEV ]] && echo "$DEV" || echo looking-glass-client)"
 
-exec "$cliente" -f /dev/shm/looking-glass -m KEY_SCROLLLOCK "$@"
+SHM="$([[ -c /dev/kvmfr0 ]] && echo /dev/kvmfr0 || echo /dev/shm/looking-glass)"
+
+exec "$cliente" -f "$SHM" -m KEY_SCROLLLOCK "$@"

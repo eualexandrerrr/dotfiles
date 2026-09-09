@@ -7,7 +7,7 @@
 # host mantem tela e este script passa a ser o caminho normal.
 set -euo pipefail
 HERE="$(cd "$(dirname "$(readlink -f "$0")")" && pwd)"
-SHM=/dev/shm/looking-glass
+SHM="$([[ -c /dev/kvmfr0 ]] && echo /dev/kvmfr0 || echo /dev/shm/looking-glass)"
 
 if [[ $(virsh -c qemu:///system domstate w11 2>/dev/null) != running ]]; then
     gpus=$(lspci -nn | grep -ciE 'VGA compatible controller|3D controller' || true)
