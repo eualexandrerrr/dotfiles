@@ -33,4 +33,6 @@ for _ in $(seq 1 60); do
 done
 [[ -e $SHM ]] || { printf 'jogar: %s nao apareceu em 60s; a VM subiu sem o Looking Glass\n' "$SHM" >&2; exit 1; }
 
+bash "$HERE/guest-tela.sh" || printf 'jogar: a taxa da tela virtual ficou como estava\n' >&2
+
 exec "$HERE/glass"
