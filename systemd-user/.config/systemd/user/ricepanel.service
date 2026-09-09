@@ -7,7 +7,10 @@ After=graphical-session.target
 Type=simple
 ExecCondition=%h/.dotfiles/bin/monitor.sh vertical
 WorkingDirectory=%h/Apps/desktop/RicePanel
-ExecStart=/usr/bin/electron --password-store=basic --ozone-platform-hint=auto .
+# O Electron do projeto, nao o do sistema: o painel e fixado no 33 pelo
+# package.json, e subir com o 43 do Arch deu janela que nao pinta nada —
+# processo vivo, log rolando, tela so com o papel de parede.
+ExecStart=%h/Apps/desktop/RicePanel/node_modules/electron/dist/electron --password-store=basic --ozone-platform-hint=auto .
 Restart=on-failure
 RestartSec=5
 Environment=ELECTRON_OZONE_PLATFORM_HINT=auto
