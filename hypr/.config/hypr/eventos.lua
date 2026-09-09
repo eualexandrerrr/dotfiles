@@ -162,7 +162,7 @@ end
 -- `hyprctl reload`, so no login de verdade. Por isso fica global: o `setup.sh recarregar`
 -- chama ligar_vigia_cursor() direto por `hyprctl eval` depois do reload.
 function ligar_vigia_cursor()
-    local vigia_cursor = hl.timer(manter_cursor_no_principal, { timeout = 120, type = "repeat" })
+    local vigia_cursor = hl.timer(manter_cursor_no_principal, { timeout = 16, type = "repeat" })
     if vigia_cursor and vigia_cursor.set_enabled then vigia_cursor:set_enabled(true) end
 end
 hl.on("hyprland.start", ligar_vigia_cursor)
