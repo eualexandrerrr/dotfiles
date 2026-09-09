@@ -5,8 +5,7 @@ set -uo pipefail
 
 VM_DIR="$HOME/.dotfiles/vm"
 ICONE_DESLIGADA=$''
-ICONE_3090=$''
-ICONE_JANELA=$''
+ICONE_LIGADA=$''
 
 menu() {
     local escolha
@@ -26,11 +25,8 @@ case "${1:-}" in
     *)
         info="$("$VM_DIR/w11" perfil 2>/dev/null)"
         if [[ $info == *"estado: running"* ]]; then
-            if [[ $info == perfil:\ 3090* ]]; then
-                printf '{"text":"%s","tooltip":"VM w11 rodando — passthrough 3090 — clique pro menu","class":"rodando"}\n' "$ICONE_3090"
-            else
-                printf '{"text":"%s","tooltip":"VM w11 rodando — janela SPICE — clique pro menu","class":"rodando"}\n' "$ICONE_JANELA"
-            fi
+            [[ $info == perfil:\ 3090* ]] && detalhe="passthrough 3090" || detalhe="janela SPICE"
+            printf '{"text":"%s","tooltip":"VM w11 rodando — %s — clique pro menu","class":"rodando"}\n' "$ICONE_LIGADA" "$detalhe"
         else
             printf '{"text":"%s","tooltip":"VM w11 desligada — clique pro menu","class":"desligada"}\n' "$ICONE_DESLIGADA"
         fi
