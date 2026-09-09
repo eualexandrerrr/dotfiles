@@ -26,7 +26,7 @@ echo
 echo "confira ANTES de reiniciar -- os tres tem que bater:"
 grep . /etc/modprobe.d/vfio.conf
 grep ^MODULES /etc/mkinitcpio.conf
-printf 'vfio no initramfs: %s\n' "$(lsinitcpio /boot/initramfs-linux-zen.img 2>/dev/null | grep -c vfio)"
+printf 'vfio no initramfs: %s\n' "$(sudo lsinitcpio /boot/initramfs-linux-zen.img 2>/dev/null | grep -c vfio)"
 echo
 echo "se algo falhar no boot, escolha 'Arch Linux (zen, sem vfio)' no menu do systemd-boot."
 echo "com o vfio funcionando, kernel-nvidia e configure_nvidia() saem do install."
