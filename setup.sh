@@ -207,6 +207,97 @@ etapa_claude() {
     done
 }
 
+CONSOLE_TIRAR=(quiet nvidia_drm.fbdev=1 nvidia_drm.fbdev=0 loglevel=3 rd.udev.log_level=3)
+CONSOLE_POR=(
+    fbcon=nodefer
+    vt.global_cursor_default=0
+    systemd.show_status=yes
+    systemd.status_unit_format=name
+    vt.default_red=0x1e,0xf3,0xa6,0xf9,0x89,0xf5,0x94,0xba,0x58,0xf3,0xa6,0xf9,0x89,0xf5,0x94,0xa6
+    vt.default_grn=0x1e,0x8b,0xe3,0xe2,0xb4,0xc2,0xe2,0xc2,0x5b,0x8b,0xe3,0xe2,0xb4,0xc2,0xe2,0xad
+    vt.default_blu=0x2e,0xa8,0xa1,0xaf,0xfa,0xe7,0xd5,0xde,0x70,0xa8,0xa1,0xaf,0xfa,0xe7,0xd5,0xc8
+)
+
+console_cmdline() {
+    local entry antes depois p n=0
+    sudo test -d /boot/loader/entries || { falha "systemd-boot nao encontrado; ajuste a cmdline na mao"; return; }
+    while IFS= read -r entry; do
+        antes="$(sudo grep -m1 -E '^options ' "$entry" 2>/dev/null)"
+        [[ -n $antes ]] || continue
+        depois=" $antes "
+        for p in "${CONSOLE_TIRAR[@]}"; do depois="${depois// $p / }"; done
+        for p in "${CONSOLE_POR[@]}"; do [[ $depois == *" $p "* ]] || depois="$depois$p "; done
+        depois="$(printf '%s' "$depois" | tr -s ' ')"
+        depois="${depois# }"; depois="${depois% }"
+        [[ $depois == "$antes" ]] && continue
+        sudo cp -f "$entry" "$entry.bak"
+        sudo awk -v nova="$depois" '/^options /{print nova; next}{print}' "$entry" \
+            | sudo tee "$entry.novo" >/dev/null && sudo mv -f "$entry.novo" "$entry" \
+            && n=$((n+1))
+    done < <(sudo find /boot/loader/entries -maxdepth 1 -name '*.conf' 2>/dev/null)
+    if (( n )); then
+        ok "cmdline ajustada em $n entrada(s), backup em .bak (vale no proximo boot)"
+    else
+        ok "cmdline ja correta"
+    fi
+}
+
+etapa_console() {
+    log "console do boot e painel de desligamento"
+
+    local fonte='' f
+    for f in ter-132b ter-124b ter-118b; do
+        compgen -G "/usr/share/kbd/consolefonts/$f.psf*" >/dev/null && { fonte=$f; break; }
+    done
+    if [[ -n $fonte ]]; then
+        local keymap
+        keymap="$(sed -n 's/^KEYMAP=//p' /etc/vconsole.conf 2>/dev/null | head -1)"
+        printf 'KEYMAP=%s\nFONT=%s\n' "${keymap:-br-abnt2}" "$fonte" \
+            | sudo tee /etc/vconsole.conf >/dev/null \
+            && ok "fonte do console: $fonte" || falha "nao gravou /etc/vconsole.conf"
+        sudo setfont "$fonte" 2>/dev/null
+    else
+        falha "terminus-font ausente; rode o install.sh pra ter fonte legivel no console"
+    fi
+
+    local origem="$DOTFILES_DIR/bin/tela-desligar.sh"
+    local destino=/usr/local/bin/tela-desligar
+    if [[ -f $origem ]]; then
+        sudo install -Dm755 "$origem" "$destino" \
+            && ok "$destino" || falha "nao instalou $destino"
+    else
+        falha "$origem nao existe"
+        return
+    fi
+
+    sudo tee /etc/systemd/system/tela-desligar.service >/dev/null <<UNIT
+[Unit]
+Description=Painel de desligamento dos dotfiles
+Documentation=file://$destino
+DefaultDependencies=no
+After=umount.target
+Before=final.target
+
+[Service]
+Type=oneshot
+ExecStart=$destino
+TimeoutStartSec=10s
+TTYPath=/dev/console
+StandardOutput=tty
+StandardError=null
+
+[Install]
+WantedBy=final.target
+UNIT
+
+    sudo /usr/bin/systemctl daemon-reload 2>/dev/null
+    sudo /usr/bin/systemctl enable tela-desligar.service >/dev/null 2>&1 \
+        && ok "tela-desligar.service ativo no final.target" \
+        || falha "nao habilitou tela-desligar.service"
+
+    console_cmdline
+}
+
 etapa_recarregar() {
     log "recarregando hyprland, waybar e mako"
     tem_hyprland || { ok "sem sessao do Hyprland, nada a recarregar"; return; }
@@ -227,7 +318,7 @@ etapa_recarregar() {
     ok "recarregado"
 }
 
-ETAPAS=(links home perfil tema thunar energia audio dns wallpaper chrome claude recarregar)
+ETAPAS=(links home perfil tema thunar energia audio dns wallpaper console chrome claude recarregar)
 
 if [[ ${1:-} == --lista ]]; then
     printf 'etapas: %s\n' "${ETAPAS[*]}"

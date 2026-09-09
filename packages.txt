@@ -125,6 +125,7 @@ ttf-jetbrains-mono-nerd
 ttf-nerd-fonts-symbols
 otf-font-awesome
 ttf-liberation
+terminus-font
 
 [repo-oficial:shell-cli]
 ananicy-cpp

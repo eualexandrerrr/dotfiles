@@ -46,7 +46,7 @@ Hyprland o script de start precisa parar a sessao direto (ver `~/Claude/maquina/
 sem rede e em segundos. Mexeu numa config? `setup.sh`. Mexeu no `packages.txt`? `install.sh`.
 
 ```
-~/.dotfiles/setup.sh [etapa...]   # links home perfil tema energia audio dns wallpaper claude recarregar
+~/.dotfiles/setup.sh [etapa...]   # links home perfil tema energia audio dns wallpaper console claude recarregar
 ```
 
 O `install.sh` (etapas `home_enxuta` e `configure_hyprland`) chama o `setup.sh` em vez de
@@ -96,6 +96,7 @@ aqui: este repo e publico. Sem o clone, `git clone git@github.com:eualexandrerrr
 | Disposicao de telas, `monitores.lua`, wallpaper por geometria | `~/Claude/maquina/docs/monitores.md` |
 | DNS, keyring, por que NAO instalar gnome-keyring | `~/Claude/maquina/docs/dns-e-keyring.md` |
 | Suspender, hibernar, apagar monitor por inatividade | `~/Claude/maquina/docs/energia.md` |
+| Desligar travado, tela preta no shutdown, fonte e cor do console | `~/Claude/maquina/docs/energia.md` |
 | Pastas da home, XDG, onde criar projeto novo | `~/Claude/maquina/docs/home-enxuta.md` |
 | VM Windows, passthrough, vfio, a placa que vai chegar | `~/Claude/maquina/docs/vm-e-hardware.md` |
 | RDP no servidor Windows, onde a senha mora | `~/Claude/maquina/docs/rdp.md` |
