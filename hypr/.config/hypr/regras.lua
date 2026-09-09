@@ -101,6 +101,11 @@ hl.window_rule({
     match = { class = "looking-glass-client" },
     float = true,
     fullscreen = true,
+    immediate = true,
+    no_blur = true,
+    no_shadow = true,
+    rounding = 0,
+    border_size = 0,
 })
 
 hl.window_rule({

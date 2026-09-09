@@ -63,7 +63,7 @@ hl.config({
             inactive_border = "rgba(313244aa)",
         },
         resize_on_border = true,
-        allow_tearing = false,
+        allow_tearing = true,
         layout = "dwindle",
     },
 
@@ -129,10 +129,11 @@ hl.config({
         mouse_move_enables_dpms = true,
         key_press_enables_dpms = true,
         focus_on_activate = true,
+        vrr = 2,
     },
 
     cursor = {
-        no_hardware_cursors = true,
+        no_hardware_cursors = false,
     },
 
     xwayland = {
