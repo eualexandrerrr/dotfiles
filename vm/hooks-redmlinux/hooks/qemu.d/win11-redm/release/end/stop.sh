@@ -11,4 +11,6 @@ fi
 set -x
 
 systemctl stop "libvirt-nosleep@$1.service" || true
+for g in /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor; do echo powersave > "$g" || true; done
+for e in /sys/devices/system/cpu/cpu*/cpufreq/energy_performance_preference; do echo balance_performance > "$e" || true; done
 echo "== stop ok"

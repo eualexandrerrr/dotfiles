@@ -25,5 +25,7 @@ fi
 
 set -x
 systemctl start "libvirt-nosleep@$1.service" || true
+for g in /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor; do echo performance > "$g" || true; done
+for e in /sys/devices/system/cpu/cpu*/cpufreq/energy_performance_preference; do echo performance > "$e" || true; done
 lspci -k -s "${GPU_V#pci_}" 2>/dev/null || true
 echo "== start ok"

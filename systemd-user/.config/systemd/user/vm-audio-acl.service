@@ -1,0 +1,16 @@
+[Unit]
+Description=Grant libvirt-qemu access to the PipeWire socket so the Windows VM has sound
+PartOf=graphical-session.target
+After=graphical-session.target pipewire.socket
+Wants=pipewire.socket
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/bin/setfacl -m u:libvirt-qemu:x %t
+ExecStart=/usr/bin/setfacl -m u:libvirt-qemu:rw %t/pipewire-0
+ExecStop=-/usr/bin/setfacl -x u:libvirt-qemu %t/pipewire-0
+ExecStop=-/usr/bin/setfacl -x u:libvirt-qemu %t
+
+[Install]
+WantedBy=graphical-session.target

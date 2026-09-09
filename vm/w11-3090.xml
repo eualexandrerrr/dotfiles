@@ -1,4 +1,4 @@
-<domain xmlns:ns0="http://libosinfo.org/xmlns/libvirt/domain/1.0" type="kvm">
+<domain xmlns:ns0="http://libosinfo.org/xmlns/libvirt/domain/1.0" xmlns:qemu="http://libvirt.org/schemas/domain/qemu/1.0" type="kvm">
   <name>w11</name>
   <uuid>7ed380f9-c2dd-4aa5-9a3f-f50842ec7896</uuid>
   <metadata>
@@ -202,7 +202,10 @@
         <profile name="default-v1" />
       </backend>
     </tpm>
-    <audio id="1" type="none" />
+    <sound model="ich9" />
+    <audio id="1" type="pipewire" runtimeDir="/run/user/1000">
+      <output name="w11" />
+    </audio>
     <hostdev mode="subsystem" type="pci" managed="yes">
       <source>
         <address domain="0x0000" bus="0x07" slot="0x00" function="0x0" />
@@ -218,4 +221,8 @@
     <watchdog model="itco" action="reset" />
     <memballoon model="none" />
   <shmem name="looking-glass"><model type="ivshmem-plain" /><size unit="M">128</size></shmem><graphics type="spice" port="5900" autoport="no"><listen type="address" address="127.0.0.1" /><gl enable="no" /></graphics><video><model type="none" /></video><channel type="unix"><target type="virtio" name="org.qemu.guest_agent.0" /></channel></devices>
+  <qemu:commandline>
+    <qemu:arg value="-fw_cfg" />
+    <qemu:arg value="opt/ovmf/X-PciMmio64Mb,string=131072" />
+  </qemu:commandline>
 </domain>

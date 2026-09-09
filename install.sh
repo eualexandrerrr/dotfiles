@@ -632,6 +632,10 @@ configure_hyprland() {
         && ok "hyprpolkitagent.service habilitado" \
         || warn "hyprpolkitagent.service nao habilitado"
 
+    systemctl --user enable vm-audio-acl.service >/dev/null 2>&1 \
+        && ok "vm-audio-acl.service habilitado" \
+        || warn "vm-audio-acl.service nao habilitado"
+
     if [[ -d "$HOME/Apps/desktop/RicePanel" ]]; then
         systemctl --user enable ricepanel.service >/dev/null 2>&1 \
             && ok "ricepanel.service habilitado" \

@@ -231,6 +231,54 @@ que entrega **keycode**, não caractere -- o guest está em ABNT2, então `:` é
 teclado e mouse. Por isso o perfil 3090 usa `port="5900" autoport="no"` com listen em
 `127.0.0.1`.
 
+## Jogar RDR2/RedM na VM: as três coisas que faltavam
+
+**1. Sem placa de som o RAGE nem abre.** O perfil `w11-3090.xml` tinha só
+`<audio type="none">` e nenhum `<sound>`. O RDR2 morre em
+`RAGE error: ERR_AUD_MIXER_INIT — Failed to initialize audio`. Agora o perfil traz
+`<sound model="ich9" />` com backend **PipeWire**, e som de verdade sai no host.
+
+O QEMU roda como `libvirt-qemu`, que não entra em `/run/user/1000` (modo 0700). Quem abre a
+porta é `systemd-user/.config/systemd/user/vm-audio-acl.service`: um `oneshot` no
+`graphical-session.target` que dá ACL de `x` na pasta e `rw` no socket, e desfaz no stop.
+Sem esse serviço a VM não inicia — o QEMU não consegue conectar no PipeWire.
+
+Som não faz hot-plug: `attach-device` responde *anexo ativo do dispositivo 'sound' não é
+suportado*. Tem que desligar a VM.
+
+**2. Resizable BAR de 32 GB não cabe no MMIO padrão do OVMF.** A 3090 anuncia
+`BAR 1: current size: 32GB` (`lspci -vvs 07:00.0`). O firmware da VM não tem janela de 64 bits
+para mapear isso, o driver reporta os 24 GB mas o Vulkan não aloca nada, e o RedM cai em
+`VK_ERROR_OUT_OF_DEVICE_MEMORY` logo depois de escolher a GPU certa:
+
+```
+Render/ GPU Name: NVIDIA GeForce RTX 3090
+Render/ Error: Failed to allocate memory for Vulkan. VkResult: VK_ERROR_OUT_OF_DEVICE_MEMORY
+```
+
+A cura é abrir a janela no OVMF, pelo `qemu:commandline` do XML:
+
+```xml
+<qemu:commandline>
+  <qemu:arg value="-fw_cfg" />
+  <qemu:arg value="opt/ovmf/X-PciMmio64Mb,string=131072" />
+</qemu:commandline>
+```
+
+**65536 (64 GB) não bastou** para um BAR de 32 GB; 131072 (128 GB) resolveu. O `<domain>`
+precisa do namespace `xmlns:qemu="http://libvirt.org/schemas/domain/qemu/1.0"`.
+
+**3. Matar o jogo à força quebra o próximo Vulkan.** Depois de `Stop-Process -Force`, a
+alocação de device fica presa e o lançamento seguinte volta a dar `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+sem reiniciar a VM. Para reconectar, não relance o processo: abra o console com **F8** e digite
+`connect <ip>:<porta>`. De dentro da VM o servidor do host **não** é `localhost` — é o gateway
+da rede `default`, `192.168.122.1`.
+
+Duas coisas mais que ajudam, e já estão aplicadas: **MSI** ligado na 3090 e no áudio dela
+(`MessageSignaledInterruptProperties\MSISupported = 1` sob `Enum\PCI\VEN_10DE*`), e plano de
+energia **Alto desempenho** no Windows. No host, os hooks de `prepare/begin` e `release/end`
+põem o governor em `performance` enquanto a VM roda e devolvem `powersave` quando ela desliga.
+
 ## Pré-requisitos na máquina
 
 - `amd_iommu=on iommu=pt` no `arch.conf`
