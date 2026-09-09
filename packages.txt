@@ -213,3 +213,4 @@ cachyos-ananicy-rules-git
 ttf-ms-fonts
 visual-studio-code-bin
 waybar-git
+xembed-sni-proxy-standalone-git

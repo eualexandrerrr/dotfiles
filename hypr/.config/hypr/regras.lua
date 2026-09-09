@@ -112,3 +112,13 @@ hl.window_rule({
 hl.layer_rule({ match = { namespace = "waybar" }, blur = true, ignore_alpha = 0.2 })
 hl.layer_rule({ match = { namespace = "launcher" }, blur = true, ignore_alpha = 0.1, blur_popups = true })
 hl.layer_rule({ match = { namespace = "notifications" }, blur = true, ignore_alpha = 0.2 })
+
+-- Bandeja XEmbed: o Wine (Radmin VPN) so fala systray antigo, o xembedsniproxy adota o
+-- icone e repassa pra waybar por SNI. Sobram duas janelinhas de servico -- o container do
+-- proxy, sem classe, e o icone adotado -- que nao podem aparecer em workspace nenhuma.
+hl.window_rule({
+    name = "bandeja-xembed-container",
+    match = { class = "^$" },
+    workspace = "special:bandeja silent",
+    no_initial_focus = true,
+})

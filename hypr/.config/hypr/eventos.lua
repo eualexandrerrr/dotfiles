@@ -74,3 +74,29 @@ end)
 
 guardar_workspace()
 ajustar_resize_borda()
+
+-- Bandeja XEmbed do Wine: o Radmin VPN so fala systray antigo, entao o xembedsniproxy
+-- adota o icone e o repassa pra waybar por SNI. O icone adotado continua sendo uma janela
+-- X de 22x22 com a mesma classe e o mesmo titulo da janela real do app, o que nenhum
+-- window_rule consegue separar -- so o tamanho distingue. Sai da tela pela special.
+local BANDEJA = 48
+
+local function esconder_icones_de_bandeja()
+    for _, janela in ipairs(hl.get_windows() or {}) do
+        local tamanho = janela.size
+        local ws = janela.workspace
+        if tamanho and tamanho[1] and tamanho[1] <= BANDEJA and tamanho[2] <= BANDEJA
+            and ws and not ws.special then
+            hl.dispatch(hl.dsp.window.move({
+                workspace = "special:bandeja",
+                window = "address:" .. janela.address,
+                silent = true,
+            }))
+        end
+    end
+end
+
+hl.on("window.open", function()
+    local tarefa = hl.timer(esconder_icones_de_bandeja, { timeout = 400, type = "oneshot" })
+    if tarefa and tarefa.set_enabled then tarefa:set_enabled(true) end
+end)
