@@ -50,8 +50,18 @@ local function garantir_discord()
     hl.dispatch(hl.dsp.exec_cmd(mensageiro))
 end
 
+local function ajustar_resize_borda()
+    local ws = hl.get_active_workspace()
+    if not ws then return end
+    hl.config({ general = { resize_on_border = ws.windows > 1 } })
+end
+
 hl.on("hyprland.shutdown", function() saindo = true end)
 hl.on("workspace.active", guardar_workspace)
+hl.on("workspace.active", ajustar_resize_borda)
+hl.on("window.open", ajustar_resize_borda)
+hl.on("window.destroy", ajustar_resize_borda)
+hl.on("window.move_to_workspace", ajustar_resize_borda)
 
 hl.on("window.destroy", function()
     local tarefa = hl.timer(function()
@@ -63,3 +73,4 @@ hl.on("window.destroy", function()
 end)
 
 guardar_workspace()
+ajustar_resize_borda()
