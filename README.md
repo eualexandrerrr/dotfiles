@@ -1,196 +1,201 @@
+[Português](README.pt-BR.md)
+
 # dotfiles
 
-Pós-instalação da máquina de desenvolvimento: **Arch Linux + Hyprland** em Wayland, com
-passthrough da RTX 3090 para uma VM Windows. Cada configuração no seu pacote, linkada pelo
-GNU Stow.
+Post-install for my development machine: **Arch Linux + Hyprland** on Wayland, with RTX 3090
+passthrough to a Windows VM. Every config in its own package, symlinked by GNU Stow.
 
 ```
 git clone https://github.com/eualexandrerrr/dotfiles ~/.dotfiles
 bash ~/.dotfiles/install.sh
 ```
 
-`install.sh` é idempotente. `setup.sh` reconfigura e recarrega em segundos, sem rede:
+`install.sh` is idempotent. `setup.sh` reconfigures and reloads in seconds, no network needed:
 
-| | o quê | quando |
+| | what | when |
 |---|---|---|
-| `install.sh` | pacotes, driver, serviços, SDDM | mexeu no `packages.txt` |
-| `setup.sh` | configura e recarrega | mexeu numa config |
+| `install.sh` | packages, driver, services, SDDM | you touched `packages.txt` |
+| `setup.sh` | configures and reloads | you touched a config |
 
-Etapas: `links home perfil tema energia audio dns wallpaper console claude recarregar`.
+Steps: `links home perfil tema energia audio dns wallpaper console claude recarregar`.
 
 ---
 
-## O que eu uso
+## What I use
 
-| Função | Programa |
+| Role | Program |
 |---|---|
-| Compositor / barra / lançador | `hyprland` · `waybar` · `fuzzel` |
-| Notificações / bloqueio / inatividade | `mako` · `hyprlock` · `hypridle` |
-| Wallpaper / filtro noturno / OSD | `awww` · `hyprsunset` · `swayosd` |
-| Arquivos | `thunar` (GUI) · `yazi` (terminal) |
-| Captura | `grim` + `slurp` + `satty` |
-| Terminal | `ghostty` + zsh com `starship`, `atuin`, `fzf`, `zoxide` |
-| Alt+Tab / Super+Tab | `hyprexpose` (modificado) · `hyprswitch` |
+| Compositor / bar / launcher | `hyprland` · `waybar` · `fuzzel` |
+| Notifications / lock / idle | `mako` · `hyprlock` · `hypridle` |
+| Wallpaper / night filter / OSD | `awww` · `hyprsunset` · `swayosd` |
+| Files | `thunar` (GUI) · `yazi` (terminal) |
+| Screenshots | `grim` + `slurp` + `satty` |
+| Terminal | `ghostty` + zsh with `starship`, `atuin`, `fzf`, `zoxide` |
+| Alt+Tab / Super+Tab | `hyprexpose` (patched) · `hyprswitch` |
 
 ---
 
-## As cinco técnicas que sustentam tudo
+## The five techniques holding this up
 
-**1. A config do Hyprland é Lua, não hyprlang.** O `.conf` está deprecado desde a 0.55 e na
-0.56 as `windowrule` em hyprlang falham inteiras. Config errada **não dá erro na cara**: é
-ignorada e a sessão sobe torta. Por isso, antes de entregar qualquer mexida:
+**1. The Hyprland config is Lua, not hyprlang.** The `.conf` format has been deprecated since
+0.55, and on 0.56 hyprlang `windowrule` entries fail outright. A broken config **fails
+silently**: it is ignored and the session comes up crooked. So, before shipping any change:
 
 ```
-Hyprland --verify-config                # responde "config ok" ou lista os erros
+Hyprland --verify-config                # answers "config ok" or lists the errors
 bash ~/.dotfiles/setup.sh recarregar    # hyprctl reload + waybar + mako
 ```
 
-A referência offline casada com a versão instalada é `/usr/share/hypr/stubs/hl.meta.lua` —
-vale mais que a wiki, que descreve a versão mais nova.
+The offline reference matching the installed version is `/usr/share/hypr/stubs/hl.meta.lua` —
+worth more than the wiki, which documents the newest release instead of yours.
 
-**2. Monitor por marca, nunca por conector.** Trocar a placa-mãe renumera as portas, e com a
-regra presa ao conector o `transform` do vertical cai no principal, a waybar sobe sem barra e
-a tela de bloqueio fica sem campo de senha. Um sintoma só, quatro arquivos. Hoje nenhum
-arquivo versionado guarda `DP-x`: a marca mora em `hypr/.config/hypr/telas.lua` e é resolvida
-na hora — em Lua por `telas.desc()`, e fora dele por `bin/monitor.sh`. Waybar, mako, hyprlock
-e hyprswitch só aceitam nome de conector, então cada um sobe por um wrapper em `bin/` que
-resolve a marca e gera a config em `$XDG_RUNTIME_DIR`.
+**2. Match monitors by brand, never by connector.** Swapping the motherboard renumbers the
+ports, and with rules pinned to a connector the vertical monitor's `transform` lands on the
+main one, waybar comes up with no bar at all, and the lock screen loses its password field.
+One symptom, four files. Today no versioned file holds a `DP-x`: the brand lives in
+`hypr/.config/hypr/telas.lua` and is resolved at use time — from Lua via `telas.desc()`, and
+outside it via `bin/monitor.sh`. Waybar, mako, hyprlock and hyprswitch only accept connector
+names, so each one starts through a wrapper in `bin/` that resolves the brand and writes the
+config into `$XDG_RUNTIME_DIR`.
 
-**3. A sessão roda dentro do systemd.** O SDDM abre `hyprland-uwsm.desktop`, não o Hyprland
-puro: o [uwsm](https://github.com/Vladimir-csp/uwsm) é o que faz o `graphical-session.target`
-existir de verdade. Todo app da sessão sobe com `uwsm app -- <programa>`, vira um scope e
-morre junto com ela em vez de virar órfão. É também no `uwsm/env` que o driver gráfico é
-resolvido **lendo qual `card` é de qual GPU** — fixar `nvidia` ali joga todo app Electron em
-swiftshader, renderizando por CPU.
+**3. The session runs inside systemd.** SDDM launches `hyprland-uwsm.desktop`, not plain
+Hyprland: [uwsm](https://github.com/Vladimir-csp/uwsm) is what makes
+`graphical-session.target` actually exist. Every app in the session starts with
+`uwsm app -- <program>`, becomes a scope and dies with the session instead of being orphaned.
+`uwsm/env` is also where the graphics driver is resolved **by reading which `card` belongs to
+which GPU** — hardcoding `nvidia` there drops every Electron app into swiftshader, rendering
+on the CPU.
 
-**4. Stow com `--no-folding --restow`.** Sem o `--no-folding` o stow linka o diretório
-inteiro e os apps passam a gravar dentro do repo. Pacote é a pasta com entrada começando em
-ponto na raiz (`.config`, `.zshrc`); pasta sem isso é ferramenta.
+**4. Stow with `--no-folding --restow`.** Without `--no-folding`, stow symlinks the whole
+directory and apps start writing inside the repo. A package is any folder with a dotted entry
+at its root (`.config`, `.zshrc`); a folder without one is tooling.
 
-**5. Nenhum keyring instalado.** Sem keyring o Chrome usa o backend `basic` (cookies `v10`) e
-o perfil sobrevive ao format sem depender da senha de login. `gnome-keyring` passaria para
-`v11` e criaria essa dependência — por isso não está no `packages.txt` e não deve entrar por
-conveniência de app nenhum.
+**5. No keyring installed.** With no keyring, Chrome falls back to the `basic` backend (`v10`
+cookies) and the profile survives a reinstall without depending on the login password.
+`gnome-keyring` would move it to `v11` and create that dependency — which is why it is not in
+`packages.txt` and must not sneak in as some app's convenience.
 
 ---
 
-## Atalhos
+## Keybindings
 
-| Tecla | Ação |
+| Key | Action |
 |---|---|
-| `Meta+Return` · `Meta+R` · `Meta+E` · `Meta+B` | terminal · lançador · arquivos · navegador |
-| `Meta+Q` · `Meta+F` · `Meta+T` · `Meta+V` | fechar · tela cheia · flutuar · clipboard |
-| `Meta+1..9` / `Meta+Shift+1..9` | ir para workspace / mover janela |
-| `Meta+setas` / `Meta+Shift+setas` / `Meta+Alt+setas` | foco / mover / redimensionar |
-| `Alt+Tab` · `Super+Tab` | overview com preview · alternador |
-| `Print` · `Shift+Print` · `Meta+Shift+A` · `Meta+Shift+R` | tela · recorte · anotação · gravar |
-| `Meta+L` · `Meta+Shift+E` · `Ctrl+Shift+Home` | bloquear · encerrar · recarregar sessão |
+| `Meta+Return` · `Meta+R` · `Meta+E` · `Meta+B` | terminal · launcher · files · browser |
+| `Meta+Q` · `Meta+F` · `Meta+T` · `Meta+V` | close · fullscreen · float · clipboard |
+| `Meta+1..9` / `Meta+Shift+1..9` | go to workspace / move window there |
+| `Meta+arrows` / `Meta+Shift+arrows` / `Meta+Alt+arrows` | focus / move / resize |
+| `Alt+Tab` · `Super+Tab` | live-preview overview · window switcher |
+| `Print` · `Shift+Print` · `Meta+Shift+A` · `Meta+Shift+R` | screen · region · annotate · record |
+| `Meta+L` · `Meta+Shift+E` · `Ctrl+Shift+Home` | lock · log out · reload session |
 
-Workspaces fixas por regra: **1** Chrome · **2** Discord · **3** RCode · **4** VM/Jogos ·
-**6** terminais · **9** RicePanel na tela vertical.
+Workspaces are pinned by rule: **1** Chrome · **2** Discord · **3** RCode · **4** VM/games ·
+**6** terminals · **9** RicePanel on the vertical screen.
 
 ---
 
 ## Hardware
 
-![Máquina montada](docs/img/maquina.jpg)
+![The machine](docs/img/maquina.jpg)
 
-| Peça | Modelo |
+| Part | Model |
 |---|---|
-| CPU | Ryzen 7 5700X (8c/16t, sem vídeo integrado) |
-| Placa-mãe | ASUS TUF Gaming B550M-PLUS — **sem wifi e sem bluetooth** |
+| CPU | Ryzen 7 5700X (8c/16t, no integrated graphics) |
+| Motherboard | ASUS TUF Gaming B550M-PLUS — **no wifi, no bluetooth** |
 | RAM | 32 GB DDR4 dual channel |
-| GPU da VM | Gainward RTX 3090 24 GB — slot `PCIEX16_1` (topo, direto na CPU), **por riser** |
-| GPU do host | PCYes Radeon RX 550 4 GB — slot `PCIEX16_2` (base), direto no slot |
-| SSD | Corsair MP700 ELITE 932 GB, M.2 único |
-| Fonte | 850 W Gold |
-| Gabinete | PCYes Forcefield Mini Black Vulcan (GPU até 310 mm) |
-| Monitores | ASUS XG27ACS 1440p180 (principal) · LG UltraGear 1080p144 (em pé) |
+| VM GPU | Gainward RTX 3090 24 GB — `PCIEX16_1` (top, straight off the CPU), **on a riser** |
+| Host GPU | PCYes Radeon RX 550 4 GB — `PCIEX16_2` (bottom), straight into the slot |
+| SSD | Corsair MP700 ELITE 932 GB, single M.2 |
+| PSU | 850 W Gold |
+| Case | PCYes Forcefield Mini Black Vulcan (GPU up to 310 mm) |
+| Monitors | ASUS XG27ACS 1440p180 (main) · LG UltraGear 1080p144 (portrait) |
 
-**Quem desenha o Linux é a RX 550.** A 3090 fica presa no `vfio-pci` e vai inteira para a VM
-Windows.
+**The RX 550 is what draws Linux.** The 3090 is bound to `vfio-pci` and goes whole into the
+Windows VM.
 
-A **3090 é que sai por riser** PCIe 3.0 x16 de 20 cm com plugue de 90°, e fica **fora do
-gabinete** — ela tem 2,7 slots de cooler e não cabe junto com a outra placa. Riser com placa
-desse peso pede apoio: nunca pendurada só pelo conector, que vira alavanca. A RX 550 vai
-**direto no slot de baixo**, sem riser e sem alimentação extra: puxa os 75 W do próprio slot.
+**The 3090 is the card on the riser** — a 20 cm PCIe 3.0 x16 with a 90° plug — and it lives
+**outside the case**: its cooler is 2.7 slots thick and covers the bottom slot if mounted
+directly. A riser holding a card that heavy needs support; never let it hang from the
+connector alone, which turns into a lever. The RX 550 goes **straight into the bottom slot**,
+no riser and no extra power: it draws its 75 W from the slot.
 
-![Placa-mãe e a 3090](docs/img/placas.jpg)
+![Motherboard and the 3090](docs/img/placas.jpg)
 
-A 3090 fica sozinha no **grupo IOMMU 16** com o áudio dela, então o passthrough não precisa de
-ACS override. A RX 550 não serve para isso: o slot de baixo pendura no chipset, atrás da mesma
-bridge do grupo 15, que leva USB, SATA e a Ethernet junto.
+The 3090 sits alone in **IOMMU group 16** with its own audio function, so passthrough needs no
+ACS override. The RX 550 could not take its place: the bottom slot hangs off the chipset,
+behind the same bridge as group 15, which drags USB, SATA and Ethernet along with it.
 
 ---
 
-## Gabarito dos cabos
+## Cable map
 
-São 2 cabos DisplayPort, 2 HDMI e 1 de rede. O ASUS recebe **duas** entradas e alterna pelo
-botão: no dia a dia fica no HDMI (Linux), e para jogar troca para DP (Windows nativo). **A
-sessão não cai em nenhum dos dois casos.**
+Two DisplayPort cables, two HDMI and one Ethernet. The ASUS takes **two** inputs and switches
+with its own button: HDMI (Linux) day to day, DP (bare-metal Windows) to play. **The session
+survives either way.**
 
-![Ligação dos cabos entre as duas GPUs e os dois monitores](docs/img/cabos.png)
+![How the cables connect the two GPUs to the two monitors](docs/img/cabos.png)
 
-| Cabo | De | Para | Serve para |
+| Cable | From | To | For |
 |---|---|---|---|
-| DisplayPort | RTX 3090 | ASUS XG27ACS · entrada **DP** | Windows nativo, 2560x1440@180 |
-| HDMI | RX 550 | ASUS XG27ACS · entrada **HDMI** | Linux no dia a dia, 2560x1440@120 |
-| DisplayPort | RX 550 | LG UltraGear (girado) | RicePanel, 1920x1080@144 |
-| Dummy plug | RTX 3090 · DP livre | — | mantém display ativo na VM |
-| Rede | LAN 2.5G da placa-mãe | roteador | **único caminho: não há wifi** |
+| DisplayPort | RTX 3090 | ASUS XG27ACS · **DP** input | bare-metal Windows, 2560x1440@180 |
+| HDMI | RX 550 | ASUS XG27ACS · **HDMI** input | Linux, day to day, 2560x1440@120 |
+| DisplayPort | RX 550 | LG UltraGear (rotated) | RicePanel, 1920x1080@144 |
+| Dummy plug | RTX 3090 · free DP | — | keeps a display alive inside the VM |
+| Ethernet | motherboard 2.5G LAN | router | **the only way in: there is no wifi** |
 
-**Vídeo primário na BIOS: `PCIEX16_2`** (a RX 550), em Advanced › Onboard Devices
-Configuration. É onde vive o Linux e o menu do systemd-boot — a entrada de recuperação só
-serve se aparecer na tela que você usa todo dia.
+**Primary video in the BIOS: `PCIEX16_2`** (the RX 550), under Advanced › Onboard Devices
+Configuration. That is where Linux and the systemd-boot menu live — a recovery entry is only
+useful if it shows up on the screen you use every day.
 
-**Por que o Linux fica em 120 Hz:** 1440p@180 pede ~19,3 Gbps. A DP 1.4 dá 25,9 e passa; a
-HDMI 2.0b da RX 550 dá 18 e não passa. Foi decisão consciente para deixar a DP na 3090 — no
-Windows o resultado é idêntico. Por isso o `monitores.lua` pede `@120` no principal, e
-`mode = "highrr"` **não** resolve: ele maximiza a taxa e não a resolução, e derruba a tela
-para 1024x768@180.
+**Why Linux runs at 120 Hz:** 1440p@180 needs about 19.3 Gbps. DP 1.4 carries 25.9 and makes
+it; the RX 550's HDMI 2.0b carries 18 and does not. That was a deliberate trade to keep DP on
+the 3090 — inside Windows the result is identical. So `monitores.lua` asks for `@120` on the
+main screen, and `mode = "highrr"` does **not** fix it: it maximises refresh rate rather than
+resolution, and drops the screen to 1024x768@180.
 
-O dummy plug não é só para o caso de faltar cabo: com o ASUS ligado nas duas placas e a
-entrada dele no HDMI, o monitor pode derrubar o hot-plug detect da DP, e aí o Windows para de
-gerar frame no meio do jogo.
+The dummy plug is not just insurance against running out of cables: with the ASUS wired to
+both cards and its input set to HDMI, the monitor can drop DisplayPort hot-plug detect, and
+then Windows stops producing frames mid-game.
 
-A VM tem documentação própria em [`vm/README.md`](vm/README.md).
+The VM has its own documentation in [`vm/README.md`](vm/README.md).
 
 ---
 
-## Quando o desktop não sobe
+## When the desktop does not come up
 
-| Comando | O que faz |
+| Command | What it does |
 |---|---|
-| `dot status` | confere link do `hyprland.lua`, binários, sddm, autologin, serviços |
-| `dot telas` | GPUs, driver de cada `card`, saídas conectadas, `AQ_DRM_DEVICES` em uso |
-| `dot erros` / `dot log` | avisos da última instalação / log inteiro (`-f` acompanha) |
-| `dot instalar` / `dot zero` | `git pull` + reinstala / apaga tudo e clona do zero |
+| `dot status` | checks the `hyprland.lua` symlink, binaries, sddm, autologin, services |
+| `dot telas` | GPUs, driver per `card`, connected outputs, `AQ_DRM_DEVICES` in use |
+| `dot erros` / `dot log` | warnings from the last install / the whole log (`-f` follows) |
+| `dot instalar` / `dot zero` | `git pull` + reinstall / wipe and clone from scratch |
 
-Log em `~/.local/state/dotfiles/install.log`. Se nem isso resolver — compositor que não sobe
-deixa você numa tty, e tty sem rede não tem saída — o caminho é o pendrive: **opção 4** do
-menu do live reinstala os dotfiles sem formatar nada.
+The log lives in `~/.local/state/dotfiles/install.log`. If that is not enough — a compositor
+that will not start leaves you on a tty, and a tty with no network has no way out — the answer
+is the USB stick: **option 4** in the live menu reinstalls the dotfiles without formatting
+anything.
 
-### Pegadinhas
+### Gotchas
 
-- `hyprctl keyword` não existe mais. Para mudar config em runtime, `hyprctl dispatch` com
-  função Lua.
-- `hyprctl reload` não recarrega a waybar, e `SIGUSR2` não basta se ela subiu sem barra
-  nenhuma: o `setup.sh recarregar` mata e sobe de novo.
-- `transform = 1` é 90°. Se a tela vertical sair de cabeça para baixo, o valor certo é `3`.
-- O shell é zsh: `for p in $var` não faz word splitting. Use array ou `bash -c`.
-- `pacman -Q` mente sobre pacote instalado nesta máquina. Use `command -v` para binário e
-  `pacman -Si` para saber se existe nos repos.
+- `hyprctl keyword` is gone. To change config at runtime, use `hyprctl dispatch` with a Lua
+  function.
+- `hyprctl reload` does not reload waybar, and `SIGUSR2` is not enough when it came up with no
+  bar at all: `setup.sh recarregar` kills it and starts it again.
+- `transform = 1` is 90°. If the vertical screen comes up upside down, the right value is `3`.
+- The shell is zsh: `for p in $var` does not word-split. Use an array or `bash -c`.
+- `pacman -Q` lies about installed packages on this machine. Use `command -v` for a binary and
+  `pacman -Si` to check whether one exists in the repos.
 
 ---
 
-## Créditos
+## Credits
 
-O overview do `Alt+Tab` é o **[hyprexpose](https://github.com/ThiagoAVicente/hyprexpose)**, de
-ThiagoAVicente, sob licença MIT. Este repo usa uma **versão modificada**: `pacotes/hyprexpose/`
-compila o upstream com o patch `0001-ignorar-monitores-e-alt-tab.patch`, que adiciona a chave
-`ignore_monitors` (ausente no original) para deixar o monitor vertical de fora, ensina o
-overlay a ler `Tab` e o release do Alt na própria surface, e fixa o grid em uma linha só.
-Nada mais foi alterado.
+The `Alt+Tab` overview is **[hyprexpose](https://github.com/ThiagoAVicente/hyprexpose)**, by
+ThiagoAVicente, MIT licensed. This repo ships a **patched version**: `pacotes/hyprexpose/`
+builds upstream with `0001-ignorar-monitores-e-alt-tab.patch`, which adds an `ignore_monitors`
+key (absent upstream) to keep the vertical monitor out of the overview, teaches the overlay to
+read `Tab` and the Alt release on its own surface, and pins the grid to a single row. Nothing
+else was changed.
 
-O alternador do `Super+Tab` é o **[hyprswitch](https://github.com/egnrse/hyprswitch)** (fork de
-[H3rmt/hyprshell](https://github.com/H3rmt/hyprshell)), MIT, usado sem modificação.
+The `Super+Tab` switcher is **[hyprswitch](https://github.com/egnrse/hyprswitch)** (a fork of
+[H3rmt/hyprshell](https://github.com/H3rmt/hyprshell)), MIT, used unmodified.
