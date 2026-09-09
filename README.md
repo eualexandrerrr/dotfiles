@@ -102,7 +102,7 @@ Workspaces are pinned by rule: **1** Chrome · **2** Discord · **3** RCode · *
 |---|---|
 | CPU | Ryzen 7 5700X (8c/16t, no integrated graphics) |
 | Motherboard | ASUS TUF Gaming B550M-PLUS — **no wifi, no bluetooth** |
-| RAM | 32 GB DDR4 dual channel |
+| RAM | 64 GB DDR4 dual channel (4x16 GB) |
 | VM GPU | Gainward RTX 3090 24 GB — `PCIEX16_1` (top, straight off the CPU), **on a riser** |
 | Host GPU | PCYes Radeon RX 550 4 GB — `PCIEX16_2` (bottom), straight into the slot |
 | SSD | Corsair MP700 ELITE 932 GB, single M.2 |
