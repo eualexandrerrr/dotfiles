@@ -16,7 +16,7 @@ hl.bind(mod .. " + Q", hl.dsp.window.close())
 hl.bind(mod .. " + W", hl.dsp.window.close())
 hl.bind("ALT + W", hl.dsp.window.close())
 
-local FECHA_ABA_SOZINHO = { "[Gg]oogle%-chrome", "RCode", "[Cc]ode", "[Ff]irefox", "[Tt]hunar", "ghostty" }
+local FECHA_ABA_SOZINHO = { "[Gg]oogle%-chrome", "RCode", "[Cc]ode", "[Ff]irefox", "[Tt]hunar", "ghostty", ".*freerdp.*", "looking%-glass%-client" }
 
 -- non_consuming deixa o CTRL+W real chegar na janela, com press E release. Antes o bind
 -- engolia o evento e devolvia um send_shortcut sintetico: o app via o press, nunca via o
