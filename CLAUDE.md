@@ -98,7 +98,7 @@ aqui: este repo e publico. Sem o clone, `git clone git@github.com:eualexandrerrr
 | Disposicao de telas, `monitores.lua`, wallpaper por geometria | `~/Claude/maquina/docs/monitores.md` |
 | DNS, keyring, por que NAO instalar gnome-keyring | `~/Claude/maquina/docs/dns-e-keyring.md` |
 | Suspender, hibernar, apagar monitor por inatividade | `~/Claude/maquina/docs/energia.md` |
-| Desligar travado, tela preta no shutdown, fonte e cor do console | `~/Claude/maquina/docs/energia.md` |
+| Desligar travado ou lento, tela preta no shutdown, fonte e cor do console | `~/Claude/maquina/docs/energia.md` |
 | Pastas da home, XDG, onde criar projeto novo | `~/Claude/maquina/docs/home-enxuta.md` |
 | VM Windows, passthrough, vfio, a placa que vai chegar | `~/Claude/maquina/docs/vm-e-hardware.md` |
 | RDP no servidor Windows, onde a senha mora | `~/Claude/maquina/docs/rdp.md` |

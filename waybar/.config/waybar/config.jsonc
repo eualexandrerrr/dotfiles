@@ -171,7 +171,9 @@
 
     "custom/energia": {
         "format": "⏻",
-        "tooltip": false,
-        "on-click": "wlogout"
+        "tooltip-format": "Clique: desligar\nDireito: reiniciar\nMeio: sair da sessao",
+        "on-click": "systemctl poweroff",
+        "on-click-right": "systemctl reboot",
+        "on-click-middle": "uwsm stop"
     }
 }

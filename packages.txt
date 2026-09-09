@@ -203,7 +203,6 @@ spotify-launcher
 
 [aur]
 looking-glass
-wlogout
 fluent-cursor-theme-git
 android-studio
 bun-bin

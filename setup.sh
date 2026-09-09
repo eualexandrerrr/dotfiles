@@ -243,7 +243,7 @@ console_cmdline() {
 }
 
 etapa_console() {
-    log "console do boot e painel de desligamento"
+    log "console do boot"
 
     local fonte='' f
     for f in ter-132b ter-124b ter-118b; do
@@ -260,40 +260,12 @@ etapa_console() {
         falha "terminus-font ausente; rode o install.sh pra ter fonte legivel no console"
     fi
 
-    local origem="$DOTFILES_DIR/bin/screen-off.sh"
-    local destino=/usr/local/bin/tela-desligar
-    if [[ -f $origem ]]; then
-        sudo install -Dm755 "$origem" "$destino" \
-            && ok "$destino" || falha "nao instalou $destino"
-    else
-        falha "$origem nao existe"
-        return
+    if [[ -e /etc/systemd/system/tela-desligar.service || -e /usr/local/bin/tela-desligar ]]; then
+        sudo /usr/bin/systemctl disable --now tela-desligar.service >/dev/null 2>&1
+        sudo rm -f /etc/systemd/system/tela-desligar.service /usr/local/bin/tela-desligar
+        sudo /usr/bin/systemctl daemon-reload 2>/dev/null
+        ok "painel de desligamento removido, o console mostra o systemd cru"
     fi
-
-    sudo tee /etc/systemd/system/tela-desligar.service >/dev/null <<UNIT
-[Unit]
-Description=Painel de desligamento dos dotfiles
-Documentation=file://$destino
-DefaultDependencies=no
-After=umount.target
-Before=final.target
-
-[Service]
-Type=oneshot
-ExecStart=$destino
-TimeoutStartSec=10s
-TTYPath=/dev/console
-StandardOutput=tty
-StandardError=null
-
-[Install]
-WantedBy=final.target
-UNIT
-
-    sudo /usr/bin/systemctl daemon-reload 2>/dev/null
-    sudo /usr/bin/systemctl enable tela-desligar.service >/dev/null 2>&1 \
-        && ok "tela-desligar.service ativo no final.target" \
-        || falha "nao habilitou tela-desligar.service"
 
     console_cmdline
 }

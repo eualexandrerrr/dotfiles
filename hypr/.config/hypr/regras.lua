@@ -18,7 +18,7 @@ local EDITOR = ".*[Rr][Cc]ode.*"
 local JOGOS = ".*virt-manager.*|.*looking-glass.*|.*[Ss]team.*|steam_app.*|.*gamescope.*|.*lutris.*|.*heroic.*"
 local REMOTO = ".*freerdp.*"
 local MUSICA = ".*[Ss]potify.*"
-local FLUTUANTES = ".*pavucontrol.*|.*transparencia.*|.*nwg-.*|.*qt5ct.*|.*qt6ct.*|.*kvantum.*|.*xarchiver.*|.*[Tt]hunar.*|[Rr]ice[Pp]anel|.*wlogout.*|.*fuzzel.*|.*portal.*|.*satty.*"
+local FLUTUANTES = ".*pavucontrol.*|.*transparencia.*|.*nwg-.*|.*qt5ct.*|.*qt6ct.*|.*kvantum.*|.*xarchiver.*|.*[Tt]hunar.*|[Rr]ice[Pp]anel|.*fuzzel.*|.*portal.*|.*satty.*"
 
 hl.window_rule({ name = "chrome-na-1", match = { class = CHROME, title = ".*Google Chrome" }, workspace = "1 silent" })
 hl.window_rule({ name = "discord-na-2", match = { class = MENSAGEIRO }, workspace = "2 silent" })
