@@ -11,6 +11,10 @@ hl.env("HYPRCURSOR_SIZE", "24")
 hl.env("QT_QPA_PLATFORMTHEME", "qt6ct")
 hl.env("QT_QPA_PLATFORM", "wayland;xcb")
 hl.env("QT_WAYLAND_DISABLE_WINDOWDECORATION", "1")
+-- GTK 4.20 parou de resolver compose e dead key sozinho no Wayland quando nao ha IME
+-- instalado, e passou a cobrar isso do metodo de entrada. Sem esta linha o ghostty e
+-- qualquer app GTK engolem ´ ` ^ ~ e nao sai letra acentuada no teclado ABNT2.
+hl.env("GTK_IM_MODULE", "simple")
 hl.env("GDK_BACKEND", "wayland,x11")
 hl.env("SDL_VIDEODRIVER", "wayland")
 hl.env("MOZ_ENABLE_WAYLAND", "1")

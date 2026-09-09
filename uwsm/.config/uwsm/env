@@ -1,3 +1,10 @@
+# GTK 4.20 parou de fazer compose e dead key sozinho no Wayland quando nao existe IME
+# instalado: quem tem que resolver acento agora e o metodo de entrada. Sem isso o ghostty
+# e qualquer outro app GTK engolem ´ ` ^ ~ e nao sai letra acentuada. `simple` traz de
+# volta a implementacao antiga do proprio GTK, que basta para o teclado ABNT2.
+GTK_IM_MODULE=simple
+export GTK_IM_MODULE
+
 # O Spotify nao olha o LANG: sem LANGUAGE ele abre em ingles mesmo com pt_BR.UTF-8, e a
 # flag --language=pt-BR do spotify-launcher perde para a preferencia salva no app.
 LANGUAGE=pt_BR:pt
