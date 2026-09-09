@@ -29,11 +29,12 @@ de Plasma, KWin, powerdevil, Dolphin, Spectacle ou Windows-Modern sobrou. A deci
 
 A placa-mae nova ja esta montada e em uso desde 08/09/2026: **ASUS TUF Gaming B550M-PLUS**,
 sem wifi e sem bluetooth (a variante com wifi tem o sufixo no nome; esta nao tem). A 3090
-esta em `0000:07:00.0` (`card1`, driver `nvidia`) e a **RX 550 ja chegou**, em
+esta em `0000:07:00.0`, hoje presa no `vfio-pci` para a VM, e a **RX 550** esta em
 `0000:04:00.0` (`card2`, driver `amdgpu`).
 
-**Os dois monitores estao na RX 550** -- `DP-4` e `HDMI-A-2` sao saidas do `card2` --, entao
-e a AMD que desenha o desktop e a 3090 fica ociosa (`nvidia-smi` mostra ~6 MiB de 24576).
+**Os dois monitores estao na RX 550** -- `DP-1` e `HDMI-A-1` sao saidas do `card2` --, entao
+e a AMD que desenha o desktop. A 3090 nao pertence mais ao host: `nvidia-smi` nao existe
+aqui, e quem le os sensores dela e o Windows da VM.
 Toda variavel de driver grafico tem que seguir a AMD; o `uwsm/env` resolve isso no login
 lendo o driver de cada `card`, e `dot status` acusa se alguem voltar a fixar `nvidia`.
 
