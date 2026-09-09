@@ -75,10 +75,11 @@ hl.bind(mod .. " + ALT + right", hl.dsp.window.resize({ x = 40, y = 0 }), { repe
 hl.bind(mod .. " + ALT + up", hl.dsp.window.resize({ x = 0, y = -40 }), { repeating = true })
 hl.bind(mod .. " + ALT + down", hl.dsp.window.resize({ x = 0, y = 40 }), { repeating = true })
 
-hl.bind("ALT + Tab", hl.dsp.exec_cmd(dotfiles .. "/bin/expo.sh"))
-hl.bind("ALT_L", hl.dsp.exec_cmd(dotfiles .. "/bin/expo.sh confirmar"), { release = true, non_consuming = true })
-hl.bind("ALT_R", hl.dsp.exec_cmd(dotfiles .. "/bin/expo.sh confirmar"), { release = true, non_consuming = true })
-hl.bind(mod .. " + Tab", hl.dsp.exec_cmd(alternador .. " --switch-type client --sort-recent"))
+-- Alt+Tab alterna JANELA, como no Windows: tocar e soltar ja vai pra anterior; segurando o
+-- Alt, cada Tab avanca e soltar confirma. O overview das workspaces mudou pro Super+Tab.
+hl.bind("ALT + Tab", hl.dsp.exec_cmd(alternador))
+hl.bind("ALT + SHIFT + Tab", hl.dsp.exec_cmd(alternador .. " reverso"))
+hl.bind(mod .. " + Tab", hl.dsp.exec_cmd(dotfiles .. "/bin/expo.sh"))
 
 for i = 1, 9 do
     hl.bind(mod .. " + " .. i, hl.dsp.focus({ workspace = i }))
