@@ -1,5 +1,5 @@
 {
-    "layer": "top",
+    "layer": "overlay",
     "position": "top",
     "output": ["ASUSTek COMPUTER INC XG27ACS T9LMTF068180"],
     "height": 38,
