@@ -400,6 +400,45 @@ Medido em 09/09/2026, dentro do servidor Michigan, pelo contador do cliente
 (`ScrLk` + `D`): **UPS 94, FPS 76** a 2560x1440. Antes de casar a taxa da tela virtual o
 teto era 60.
 
+## Onde ficam os gráficos do RedM, e o que o preset otimizado rendeu
+
+O arquivo é o do RDR2, dentro da VM:
+
+```
+C:\Users\Alexandre\Documents\Rockstar Games\Red Dead Redemption 2\Settings\system.xml
+```
+
+**Não existe `system.xml` em `D:\Jogos\RedM`** — o CitizenFX não redireciona a pasta
+Documents. Edite com o jogo fechado: ele lê no início e não reescreve quando é morto à
+força. O backup do estado anterior fica em `system.xml.original`.
+
+Mapeamentos que o nome da chave não entrega (fonte: `Forceflow/rdr2_settings_parser`):
+
+| No menu | Chave | Faixa |
+|:--|:--|:--|
+| Resolução volumétrica próxima | `scatteringVolumeQuality` | níveis |
+| Resolução volumétrica distante | `volumetricsRaymarchQuality` | níveis |
+| DLSS | `dlssIndex` | 0 Off, 2 Quality, 3 Balanced, 4 Performance |
+| Nitidez de TAA | `sharpenIntensity` | 0 a 1 |
+| Detalhe da geometria | `lodScale` | 0,75 a 1 |
+| Detalhe da grama | `grassLod` | 0,5 a 3 |
+| Filtragem anisotrópica | `anisotropicFiltering` | índice 0 a 4, 4 = 16x |
+
+`locked` em `advancedGraphics` precisa ir para `false`, senão a seção avançada é ignorada.
+
+### O resultado, medido na mesma cena do servidor local
+
+| | antes | depois |
+|:--|--:|--:|
+| FPS do cliente | 99,8 | 101,8 |
+| UPS (frames vindos do convidado) | 93,8 | 93,8 |
+| Uso da GPU | 85% | 58% |
+| Potência da GPU | 305 W | 289 W |
+
+**O preset não deu quadro nenhum.** Ele devolveu um terço da GPU, o que é folga para as
+cenas pesadas, não taxa. O UPS ficou cravado em 93,8 nos dois testes com a placa a 58% —
+o teto é o processador, não a 3090.
+
 ## Pré-requisitos na máquina
 
 - `amd_iommu=on iommu=pt` no `arch.conf`
