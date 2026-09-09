@@ -1,6 +1,6 @@
 hl.window_rule({
     name = "ricepanel-vertical",
-    match = { class = "^RicePanel$" },
+    match = { class = "^[Rr]ice[Pp]anel$" },
     workspace = "9 silent",
     fullscreen = true,
     opacity = "1.0 1.0",
@@ -18,7 +18,7 @@ local EDITOR = ".*[Rr][Cc]ode.*"
 local JOGOS = ".*virt-manager.*|.*looking-glass.*|.*[Ss]team.*|steam_app.*|.*gamescope.*|.*lutris.*|.*heroic.*"
 local REMOTO = ".*freerdp.*"
 local MUSICA = ".*[Ss]potify.*"
-local FLUTUANTES = ".*pavucontrol.*|.*transparencia.*|.*nwg-.*|.*qt5ct.*|.*qt6ct.*|.*kvantum.*|.*xarchiver.*|.*[Tt]hunar.*|RicePanel|.*wlogout.*|.*fuzzel.*|.*portal.*"
+local FLUTUANTES = ".*pavucontrol.*|.*transparencia.*|.*nwg-.*|.*qt5ct.*|.*qt6ct.*|.*kvantum.*|.*xarchiver.*|.*[Tt]hunar.*|[Rr]ice[Pp]anel|.*wlogout.*|.*fuzzel.*|.*portal.*"
 
 hl.window_rule({ name = "chrome-na-1", match = { class = CHROME, title = ".*Google Chrome" }, workspace = "1 silent" })
 hl.window_rule({ name = "discord-na-2", match = { class = MENSAGEIRO }, workspace = "2 silent" })
@@ -83,6 +83,15 @@ hl.window_rule({
     name = "sem-idle-em-fullscreen",
     match = { class = ".*" },
     idle_inhibit = "fullscreen",
+})
+
+-- O RicePanel vive em tela cheia no monitor vertical, entao a regra de cima o fazia inibir
+-- o idle o tempo todo e a tela nunca apagava. Vem depois dela de proposito: a ultima regra
+-- que casa e a que vale.
+hl.window_rule({
+    name = "ricepanel-nao-segura-a-tela",
+    match = { class = "^[Rr]ice[Pp]anel$" },
+    idle_inhibit = "none",
 })
 
 hl.window_rule({ match = { class = "steam_app.*|gamescope" }, immediate = true })
