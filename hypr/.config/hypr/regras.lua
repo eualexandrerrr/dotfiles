@@ -25,11 +25,11 @@ hl.window_rule({ name = "discord-na-2", match = { class = MENSAGEIRO }, workspac
 hl.window_rule({ name = "rcode-na-3", match = { class = EDITOR }, workspace = "3 silent" })
 hl.window_rule({ name = "terminais-na-4", match = { class = TERMINAIS }, workspace = "4 silent" })
 hl.window_rule({ name = "spotify-na-5", match = { class = MUSICA }, workspace = "5 silent" })
-hl.window_rule({ name = "jogos-na-6", match = { class = JOGOS }, workspace = "6 silent" })
-hl.window_rule({ name = "rdp-na-7", match = { class = REMOTO }, workspace = "7 silent" })
+hl.window_rule({ name = "jogos-na-6", match = { class = JOGOS, float = false }, workspace = "6 silent" })
+hl.window_rule({ name = "rdp-na-7", match = { class = REMOTO, float = false }, workspace = "7 silent" })
 hl.window_rule({
     name = "resto-da-8-pra-frente",
-    match = { class = "negative:^(" .. TERMINAIS .. "|" .. CHROME .. "|" .. MENSAGEIRO .. "|" .. EDITOR .. "|" .. JOGOS .. "|" .. REMOTO .. "|" .. MUSICA .. "|" .. FLUTUANTES .. ")$" },
+    match = { class = "negative:^(" .. TERMINAIS .. "|" .. CHROME .. "|" .. MENSAGEIRO .. "|" .. EDITOR .. "|" .. JOGOS .. "|" .. REMOTO .. "|" .. MUSICA .. "|" .. FLUTUANTES .. ")$", float = false },
     workspace = "8 silent",
 })
 
