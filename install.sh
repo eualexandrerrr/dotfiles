@@ -389,7 +389,7 @@ options nouveau modeset=0
 enable_services() {
     log "habilitando servicos"
     local unit
-    for unit in NetworkManager.service sddm.service ananicy-cpp.service reflector.timer; do
+    for unit in NetworkManager.service sddm.service ananicy-cpp.service reflector.timer rtkit-daemon.service; do
         if sudo systemctl enable "$unit" >/dev/null 2>&1; then ok "$unit"; SERV_OK+=("$unit"); else warn "$unit nao habilitado"; SERV_FALHA+=("$unit"); fi
     done
 
