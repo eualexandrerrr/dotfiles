@@ -290,7 +290,7 @@ monitor no meio da partida. Eram quatro coisas independentes.
 `2560x1440@60` e o Windows guarda a última taxa que usou, então o RDR2 rodava travado
 em 60 fps por mais rápida que fosse a placa. O monitor faz 119,998.
 
-`vm/guest-tela.sh` lê a taxa do `hyprctl`, escreve em
+`vm/guest-display.sh` lê a taxa do `hyprctl`, escreve em
 `HKLM\SOFTWARE\LookingGlass\IDD\ExtraMode` no formato `LARGURAxALTURA@TAXA*` (o `*`
 marca o modo preferido), recria o IDD e aplica o modo. O `vm/jogar` chama ele antes de
 abrir a janela; quando a taxa já bate, sai sem fazer nada.

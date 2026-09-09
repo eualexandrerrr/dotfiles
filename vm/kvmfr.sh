@@ -1,21 +1,22 @@
 #!/usr/bin/env bash
-# Instala e carrega o kvmfr, o dispositivo de memoria compartilhada do Looking Glass.
-# Ele troca o arquivo em /dev/shm por um /dev/kvmfr0 que o cliente importa direto na GPU,
-# sem a copia intermediaria em CPU. Idempotente.
+# Install and load kvmfr, the Looking Glass shared memory device.
 #
-# O modulo vem do mesmo fonte do cliente dev em ~/vms/lg-dev -- a mesma versao do host e do
-# cliente, e o dkms recompila a cada kernel novo.
+# It replaces the file in /dev/shm with a /dev/kvmfr0 the client imports straight into the
+# GPU, without the CPU copy the plain file forces. Idempotent.
+#
+# The module is built from the same source as the dev client in ~/vms/lg-dev, so host and
+# client stay on one version, and dkms rebuilds it for every new kernel.
 set -uo pipefail
 MB="${KVMFR_MB:-128}"
 ok(){ printf '  ok   %s\n' "$*"; }
-aviso(){ printf '  !!   %s\n' "$*" >&2; }
+warn(){ printf '  !!   %s\n' "$*" >&2; }
 
-fonte="$(find "$HOME/vms/lg-dev" -maxdepth 2 -type d -name module -print -quit 2>/dev/null)"
+source_dir="$(find "$HOME/vms/lg-dev" -maxdepth 2 -type d -name module -print -quit 2>/dev/null)"
 
 if ! modinfo kvmfr >/dev/null 2>&1; then
-    [[ -n $fonte ]] || { aviso "fonte do kvmfr nao encontrada em ~/vms/lg-dev"; exit 0; }
-    ( cd "$fonte" && sudo dkms install "." ) >/dev/null 2>&1 || { aviso "dkms recusou o kvmfr"; exit 0; }
-    ok "kvmfr compilado pelo dkms"
+    [[ -n $source_dir ]] || { warn "kvmfr source not found under ~/vms/lg-dev"; exit 0; }
+    ( cd "$source_dir" && sudo dkms install "." ) >/dev/null 2>&1 || { warn "dkms refused kvmfr"; exit 0; }
+    ok "kvmfr built by dkms"
 fi
 
 printf 'options kvmfr static_size_mb=%s\n' "$MB" | sudo tee /etc/modprobe.d/kvmfr.conf >/dev/null
@@ -24,9 +25,9 @@ printf 'SUBSYSTEM=="kvmfr", GROUP="kvm", MODE="0660", TAG+="uaccess"\n' | sudo t
 sudo udevadm control --reload-rules >/dev/null 2>&1
 
 [[ -c /dev/kvmfr0 ]] || sudo modprobe kvmfr
-[[ -c /dev/kvmfr0 ]] && ok "/dev/kvmfr0 (${MB}M)" || aviso "kvmfr nao carregou"
+[[ -c /dev/kvmfr0 ]] && ok "/dev/kvmfr0 (${MB}M)" || warn "kvmfr did not load"
 
-# O QEMU roda confinado por cgroup e so abre os dispositivos da lista do qemu.conf.
+# QEMU runs confined by cgroup and only opens the devices listed in qemu.conf.
 if ! sudo grep -q '^cgroup_device_acl' /etc/libvirt/qemu.conf; then
     sudo tee -a /etc/libvirt/qemu.conf >/dev/null <<'CONF'
 
@@ -38,5 +39,5 @@ cgroup_device_acl = [
 ]
 CONF
     sudo systemctl restart libvirtd >/dev/null 2>&1
-    ok "cgroup_device_acl com /dev/kvmfr0"
+    ok "cgroup_device_acl with /dev/kvmfr0"
 fi

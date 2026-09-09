@@ -1,28 +1,29 @@
 #!/usr/bin/env bash
-# Funcoes para falar com o Windows da VM pelo qemu-guest-agent, sem tela e sem RDP.
-# Carregue com `source`; nao roda sozinho.
+# Talk to the VM's Windows through the qemu-guest-agent, with no screen and no RDP.
+# Source it; it does nothing on its own.
 #
-# guest_exec '<powershell>'   roda o script no guest e devolve stdout+stderr
-# guest_put  <local> <destino>  copia um arquivo do host para o guest
+# guest_exec '<powershell>'      run the script in the guest, return stdout and stderr
+# guest_put  <local> <remote>    copy a file from the host into the guest
+# guest_ready [tries]            wait until the agent answers
 #
-# O script vai por arquivo, nao por linha de comando: `guest-exec` tem limite de tamanho e
-# um Add-Type inteiro nao cabe. Os caminhos do guest usam barra normal porque o JSON do
-# agente engasga com a barra invertida.
+# The script travels as a file, not as a command line: guest-exec has a length limit and a
+# whole Add-Type does not fit. Guest paths use forward slashes because the agent's JSON
+# chokes on the backslash.
 VM="${VM:-w11}"
 
 _qga() { virsh -c qemu:///system qemu-agent-command "$VM" "$@"; }
 
 guest_put() {
-    local origem="$1" destino="${2//\\//}" b64 h
-    b64=$(base64 -w0 < "$origem")
-    h=$(_qga "{\"execute\":\"guest-file-open\",\"arguments\":{\"path\":\"$destino\",\"mode\":\"wb\"}}" \
+    local source="$1" target="${2//\\//}" b64 h
+    b64=$(base64 -w0 < "$source")
+    h=$(_qga "{\"execute\":\"guest-file-open\",\"arguments\":{\"path\":\"$target\",\"mode\":\"wb\"}}" \
         | python3 -c 'import sys,json;print(json.load(sys.stdin)["return"])')
     _qga "{\"execute\":\"guest-file-write\",\"arguments\":{\"handle\":$h,\"buf-b64\":\"$b64\"}}" >/dev/null
     _qga "{\"execute\":\"guest-file-close\",\"arguments\":{\"handle\":$h}}" >/dev/null
 }
 
 guest_exec() {
-    local tmp pid out fim
+    local tmp pid out done_
     tmp=$(mktemp); printf '%s\n' "$1" > "$tmp"
     guest_put "$tmp" 'C:/Windows/Temp/dotfiles-guest.ps1'
     rm -f "$tmp"
@@ -30,8 +31,8 @@ guest_exec() {
         | python3 -c 'import sys,json;print(json.load(sys.stdin)["return"]["pid"])')
     for _ in $(seq 1 180); do
         out=$(_qga "{\"execute\":\"guest-exec-status\",\"arguments\":{\"pid\":$pid}}")
-        fim=$(printf '%s' "$out" | python3 -c 'import sys,json;print(json.load(sys.stdin)["return"]["exited"])')
-        [[ $fim == True ]] && break
+        done_=$(printf '%s' "$out" | python3 -c 'import sys,json;print(json.load(sys.stdin)["return"]["exited"])')
+        [[ $done_ == True ]] && break
         sleep 1
     done
     printf '%s' "$out" | python3 -c '
@@ -43,7 +44,7 @@ for k in ("out-data", "err-data"):
 '
 }
 
-guest_pronto() {
+guest_ready() {
     local i
     for i in $(seq 1 "${1:-60}"); do
         _qga '{"execute":"guest-ping"}' >/dev/null 2>&1 && return 0
