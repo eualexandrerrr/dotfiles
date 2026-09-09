@@ -80,23 +80,40 @@ ajustar_resize_borda()
 -- X de 22x22 com a mesma classe e o mesmo titulo da janela real do app, o que nenhum
 -- window_rule consegue separar -- so o tamanho distingue. Sai da tela pela special.
 local BANDEJA = 48
+local candidatos = {}
 
+local function medir(janela)
+    -- size vem como { x = ..., y = ... }, nao como lista: size[1] e sempre nil.
+    local tamanho = janela.size or {}
+    return tamanho.x, tamanho.y
+end
+
+-- Duas passadas antes de esconder: a janela real do app tambem nasce pequena e so depois
+-- cresce, e engolir ela deixaria o Radmin sem interface nenhuma. So sai da tela o que
+-- continua do tamanho de um icone na leitura seguinte.
 local function esconder_icones_de_bandeja()
+    local vistos = {}
     for _, janela in ipairs(hl.get_windows() or {}) do
-        local tamanho = janela.size
+        local largura, altura = medir(janela)
         local ws = janela.workspace
-        if tamanho and tamanho[1] and tamanho[1] <= BANDEJA and tamanho[2] <= BANDEJA
-            and ws and not ws.special then
-            hl.dispatch(hl.dsp.window.move({
-                workspace = "special:bandeja",
-                window = "address:" .. janela.address,
-                silent = true,
-            }))
+        if largura and altura and largura <= BANDEJA and altura <= BANDEJA
+            and not (ws and ws.special) then
+            vistos[janela.address] = true
+            if candidatos[janela.address] then
+                hl.dispatch(hl.dsp.window.move({
+                    workspace = "special:bandeja",
+                    window = "address:" .. janela.address,
+                    silent = true,
+                }))
+            end
         end
     end
+    candidatos = vistos
 end
 
 hl.on("window.open", function()
-    local tarefa = hl.timer(esconder_icones_de_bandeja, { timeout = 400, type = "oneshot" })
-    if tarefa and tarefa.set_enabled then tarefa:set_enabled(true) end
+    for _, atraso in ipairs({ 400, 1200, 3000 }) do
+        local tarefa = hl.timer(esconder_icones_de_bandeja, { timeout = atraso, type = "oneshot" })
+        if tarefa and tarefa.set_enabled then tarefa:set_enabled(true) end
+    end
 end)

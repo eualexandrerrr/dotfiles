@@ -122,3 +122,12 @@ hl.window_rule({
     workspace = "special:bandeja silent",
     no_initial_focus = true,
 })
+
+-- A janela real do Radmin abre a partir do icone da bandeja: flutuante e no centro da
+-- workspace em que ele estiver, senao ela nasce atras do que ja estava aberto.
+hl.window_rule({
+    name = "radmin-vpn-flutuante",
+    match = { class = "^rvrvpngui\\.exe$" },
+    float = true,
+    center = true,
+})

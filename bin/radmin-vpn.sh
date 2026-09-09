@@ -21,6 +21,25 @@ fi
 
 [[ -f $CRED ]] && [[ $(stat -c %a "$CRED") == 600 ]] || chmod 600 "$CRED" 2>/dev/null
 
+parar() {
+    # O run.sh do AppImage respawna a GUI, entao TERM na arvore nao basta: ele fica preso
+    # em "Closing Radmin VPN..." com um filho em sleep. Mata de dentro pra fora, na marra.
+    local p
+    for p in $(pgrep -f 'RvRvpnGui\.exe|RvControlSvc\.exe|rvpn_launcher\.exe'); do kill -9 "$p" 2>/dev/null; done
+    for p in $(pgrep -f 'mount_Radmin.*run\.sh|mount_Radmin.*AppRun|RadminVPN-Linux'); do kill -9 "$p" 2>/dev/null; done
+    pkill -f 'radmin-vpn/tap_bridge' 2>/dev/null
+    wineserver -k 2>/dev/null
+    sleep 2
+    for p in $(pgrep -x wineserver); do kill -9 "$p" 2>/dev/null; done
+    ip link show radminvpn0 >/dev/null 2>&1 && sudo ip link delete radminvpn0 2>/dev/null
+    return 0
+}
+
+case "${1:-}" in
+    parar|stop) parar; exit 0 ;;
+    reiniciar|restart) parar; shift ;;
+esac
+
 pgrep -f 'RvControlSvc\.exe' >/dev/null 2>&1 && exit 0
 
 command -v xembedsniproxy >/dev/null 2>&1 &&
