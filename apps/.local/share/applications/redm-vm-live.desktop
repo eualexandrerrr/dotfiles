@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=RedM (servidor oficial)
+Comment=Mesma coisa, mas conectando no jogar.michiganroleplay.com em vez do servidor local.
+Exec=ghostty -e bash -c "SERVIDOR=jogar.michiganroleplay.com $HOME/.dotfiles/vm/jogar"
+Icon=virt-manager
+Terminal=false
+Categories=Game;

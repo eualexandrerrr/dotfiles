@@ -1,7 +1,7 @@
 [Desktop Entry]
 Type=Application
-Name=RedM (Windows + RTX 3090)
-Comment=Sobe a VM Windows e abre a tela dela pelo Looking Glass. Com uma GPU so, a sessao do Hyprland fecha.
+Name=RedM (servidor local)
+Comment=Sobe a VM Windows, o servidor local do Michigan e o RedM ja conectado nele, tudo numa janela do Looking Glass.
 Exec=ghostty -e bash -c "$HOME/.dotfiles/vm/jogar"
 Icon=virt-manager
 Terminal=false

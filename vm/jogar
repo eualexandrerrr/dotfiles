@@ -1,13 +1,41 @@
 #!/usr/bin/env bash
-# Sobe a VM w11 no perfil 3090 e abre a tela dela numa janela do KDE, pelo Looking Glass.
-# Uso: vm/jogar
+# Um comando so: sobe a VM w11 no perfil 3090, poe a tela virtual na taxa do monitor, sobe o
+# servidor local do Michigan se ele estiver fora, abre o RedM ja conectado nele e mostra
+# tudo numa janela do Hyprland pelo Looking Glass.
+# Uso: vm/jogar          (servidor local)
+#      SERVIDOR=jogar.michiganroleplay.com vm/jogar
 #
-# Enquanto o host tiver uma GPU so, o hook do libvirt derruba a sessao do KDE pra soltar a
-# placa: o Looking Glass nao chega a abrir e quem vale e o `w11 ir`. Com a RX 550 montada o
-# host mantem tela e este script passa a ser o caminho normal.
+# Enquanto o host tiver uma GPU so, o hook do libvirt derruba a sessao pra soltar a placa: o
+# Looking Glass nao chega a abrir e quem vale e o `w11 ir`. Com a RX 550 montada o host
+# mantem tela e este script passa a ser o caminho normal.
 set -euo pipefail
 HERE="$(cd "$(dirname "$(readlink -f "$0")")" && pwd)"
 SHM="$([[ -c /dev/kvmfr0 ]] && echo /dev/kvmfr0 || echo /dev/shm/looking-glass)"
+
+# De dentro da VM o host NAO e localhost: e o gateway da rede `default` do libvirt.
+SERVIDOR="${SERVIDOR:-192.168.122.1:30120}"
+TXDATA="${TXDATA:-$HOME/MichiganRoleplay/txData}"
+
+# O servidor local tem que estar respondendo ANTES do cliente bater nele. Se o RedM chega
+# enquanto o FXServer ainda monta os recursos, a conexao volta com
+# "Connection rejected by server: public key request failed" -- que parece licenca
+# invalida e e so pressa.
+sobe_servidor_local() {
+    [[ $SERVIDOR == 192.168.122.1:* ]] || return 0
+    curl -sf --max-time 3 http://127.0.0.1:30120/info.json >/dev/null 2>&1 && return 0
+    [[ -x $TXDATA/run.sh ]] || { printf 'jogar: sem %s/run.sh, subindo sem servidor local\n' "$TXDATA" >&2; return 0; }
+
+    printf '  subindo o servidor local\n'
+    ( cd "$TXDATA" && setsid ./run.sh +set txDataPath "$TXDATA" +set serverProfile devProfile \
+        >"${XDG_RUNTIME_DIR:-/tmp}/michigan-local.log" 2>&1 & )
+
+    local i
+    for i in $(seq 1 90); do
+        curl -sf --max-time 3 http://127.0.0.1:30120/info.json >/dev/null 2>&1 && { printf '  servidor local no ar\n'; return 0; }
+        sleep 2
+    done
+    printf 'jogar: o servidor local nao respondeu em 3 minutos\n' >&2
+}
 
 if [[ $(virsh -c qemu:///system domstate w11 2>/dev/null) != running ]]; then
     gpus=$(lspci -nn | grep -ciE 'VGA compatible controller|3D controller' || true)
@@ -34,5 +62,8 @@ done
 [[ -e $SHM ]] || { printf 'jogar: %s nao apareceu em 60s; a VM subiu sem o Looking Glass\n' "$SHM" >&2; exit 1; }
 
 bash "$HERE/guest-display.sh" || printf 'jogar: a taxa da tela virtual ficou como estava\n' >&2
+
+sobe_servidor_local
+REDM_CONNECT="$SERVIDOR" bash "$HERE/guest-redm.sh" || printf 'jogar: o RedM nao subiu sozinho\n' >&2
 
 exec "$HERE/glass"
