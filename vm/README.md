@@ -279,6 +279,90 @@ Duas coisas mais que ajudam, e já estão aplicadas: **MSI** ligado na 3090 e no
 energia **Alto desempenho** no Windows. No host, os hooks de `prepare/begin` e `release/end`
 põem o governor em `performance` enquanto a VM roda e devolvem `powersave` quando ela desliga.
 
+## Fazer a VM parecer nativa
+
+Depois que o jogo abriu, ele ainda não parecia fluido e o mouse fugia para o outro
+monitor no meio da partida. Eram quatro coisas independentes.
+
+### 1. A tela virtual nascia a 60 Hz
+
+**Esta é a que explica "não parece a 3090".** O display do IDD é criado com
+`2560x1440@60` e o Windows guarda a última taxa que usou, então o RDR2 rodava travado
+em 60 fps por mais rápida que fosse a placa. O monitor faz 119,998.
+
+`vm/guest-tela.sh` lê a taxa do `hyprctl`, escreve em
+`HKLM\SOFTWARE\LookingGlass\IDD\ExtraMode` no formato `LARGURAxALTURA@TAXA*` (o `*`
+marca o modo preferido), recria o IDD e aplica o modo. O `vm/jogar` chama ele antes de
+abrir a janela; quando a taxa já bate, sai sem fazer nada.
+
+Casar a taxa **exata** não é preciosismo: o manual do Looking Glass manda usar
+`119.970` em vez de `120` porque os dois relógios correm soltos, e a diferença vira
+uma serra no tempo de espera do frame.
+
+**As APIs de vídeo do `user32` não existem na sessão 0**, que é onde o
+`qemu-guest-agent` roda. `EnumDisplaySettings` volta falso lá e não adianta insistir.
+A troca vai por uma tarefa agendada com `LogonType Interactive`, que cai na sessão do
+console. E, no PowerShell, `$null` num parâmetro `string` de P/Invoke chega como string
+vazia, não como `NULL` — para o nome do dispositivo é preciso `[NullString]::Value`,
+senão toda chamada falha em silêncio.
+
+`vm/guest.sh` é a parte reaproveitável: `guest_exec` e `guest_put` falam com o Windows
+pelo agente, sem tela e sem RDP. O script vai por arquivo porque o `guest-exec` tem
+limite de tamanho e um `Add-Type` inteiro não cabe na linha de comando.
+
+### 2. O frame passava pela CPU
+
+O `ivshmem` apontava para um arquivo em `/dev/shm`. Trocado pelo **kvmfr**, um módulo
+de kernel que expõe a mesma memória como `/dev/kvmfr0` e deixa o cliente importar o
+frame direto na GPU. O log passa a dizer `Using DMA buffer support`.
+
+`vm/kvmfr.sh` compila o módulo pelo DKMS a partir do mesmo fonte do cliente dev, grava
+`static_size_mb=128`, a regra de udev e o `/dev/kvmfr0` na `cgroup_device_acl` do
+`qemu.conf` — sem essa última linha o QEMU não abre o dispositivo e a VM não sobe.
+
+**Se a VM subir antes do módulo carregar**, o QEMU cria `/dev/kvmfr0` como arquivo
+comum. Desligue a VM, apague o arquivo, carregue o módulo e confira que ele voltou como
+dispositivo de caractere (`crw-`).
+
+### 3. O mouse não ficava dentro do jogo
+
+O cliente não tinha arquivo de configuração nenhum, então rodava só com os padrões e
+nunca prendia o ponteiro. `looking-glass/.config/looking-glass/client.ini` liga
+`input:captureOnFocus` e `input:autoCapture`: com a janela em foco o ponteiro fica
+travado nela e não escapa mais para a outra tela.
+
+E `input:grabKeyboard` fica **desligado** de propósito. Ligado, o cliente pede o
+inibidor de atalhos do Wayland e o Hyprland entrega o teclado inteiro — aí `SUPER+3` e
+`Alt+Tab` morrem e só o Scroll Lock tira você de lá. Desligado, o compositor continua
+dono dos atalhos dele e sair do jogo para o RCode é uma tecla, como em qualquer janela.
+O Windows perde só as combinações que o Hyprland usa.
+
+### 4. O compositor redesenhava o que não precisava
+
+- `general:allow_tearing` ligado e `immediate` na regra da janela do Looking Glass.
+- Blur, sombra, arredondamento e borda fora dessa janela, para o compositor poder
+  mandar o buffer direto para a tela.
+- `misc:vrr = 2`, taxa variável só em tela cheia.
+- `cursor:no_hardware_cursors` de volta para `false`. Estava ligado por causa do host
+  NVIDIA que não existe mais; na AMD ele obrigava uma recomposição inteira a cada
+  movimento do mouse.
+
+### 5. AVIC
+
+`options kvm_amd avic=1` em `/etc/modprobe.d/kvm.conf`, escrito pelo `preparar.sh`. O
+AVIC entrega interrupção direto ao vCPU sem sair para o hipervisor. O perfil já trazia
+`<avic state="on"/>` no bloco `hyperv`, que é o que deixa o SynIC conviver com ele.
+
+Para conferir que não ficou inibido, com a VM subindo:
+
+```sh
+sudo bash -c 'cd /sys/kernel/tracing; echo kvm:kvm_apicv_inhibit_changed > set_event; echo 1 > tracing_on'
+```
+
+A última linha tem que terminar em `inhibits=0x0`. O IOMMU AVIC (interrupção de
+dispositivo) **não** existe nesta placa-mãe: o bit `GASup` de
+`/sys/class/iommu/ivhd*/amd-iommu/features` vem zerado.
+
 ## Pré-requisitos na máquina
 
 - `amd_iommu=on iommu=pt` no `arch.conf`
