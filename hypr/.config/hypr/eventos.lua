@@ -1,3 +1,5 @@
+local telas = require("telas")
+
 local navegador = "uwsm app -- google-chrome-stable"
 local mensageiro = "uwsm app -- discord"
 local historico = {}
@@ -117,3 +119,50 @@ hl.on("window.open", function()
         if tarefa and tarefa.set_enabled then tarefa:set_enabled(true) end
     end
 end)
+
+-- O Looking Glass so prende o cursor durante mira (autoCapture), pra deixar a barra
+-- alcancavel o resto do tempo (fb26f3e, 9d35d7a). Fora da mira o cursor anda livre e pode
+-- escorregar pro monitor vertical. So interessa quando o jogo e o que esta na tela do
+-- principal -- se ele estiver so rodando em segundo plano, o vertical continua livre.
+local function vm_na_tela_do_principal()
+    local nome = telas.nome("principal")
+    local mon = nome and hl.get_monitor(nome)
+    local ws = mon and mon.active_workspace
+    if not ws then return false end
+    for _, janela in ipairs(ws:get_windows() or {}) do
+        if janela.class == "looking-glass-client" then return true end
+    end
+    return false
+end
+
+-- monitor.focused nao dispara em warp programatico (so testei assim), e so segue mouse
+-- fisico via misc:mouse_move_focuses_monitor -- e o layout tem faixa de overlap entre os
+-- dois monitores (principal comeca em x=1080, vertical vai ate x=1920), entao "qual monitor
+-- esta ativo" e ambiguo bem na borda. Poll de posicao com clamp direto no retangulo do
+-- principal ignora as duas questoes: nao depende do evento, nao depende de qual monitor o
+-- Hyprland decidiu que esta "focado" na faixa cinzenta.
+local function manter_cursor_no_principal()
+    if not vm_na_tela_do_principal() then return end
+    local principal_nome = telas.nome("principal")
+    local principal = principal_nome and hl.get_monitor(principal_nome)
+    local pos = hl.get_cursor_pos()
+    if not principal or not pos then return end
+    local x = math.min(math.max(pos.x, principal.x), principal.x + principal.width - 1)
+    local y = math.min(math.max(pos.y, principal.y), principal.y + principal.height - 1)
+    if x ~= pos.x or y ~= pos.y then
+        hl.dispatch(hl.dsp.cursor.move({ x = x, y = y }))
+    end
+end
+
+-- hl.timer avaliado direto no corpo do arquivo derruba o --verify-config com SIGSEGV
+-- (ele roda o parse simulando carga do config). "config.reloaded" TAMBEM dispara durante
+-- o --verify-config (achado hoje, 09/09/2026 -- a memoria hyprctl-com-config-lua so cobria
+-- o topo do arquivo) entao um hl.timer dentro dele quebra do mesmo jeito. So
+-- "hyprland.start" fica de fora do --verify-config -- e ele nao volta a disparar num
+-- `hyprctl reload`, so no login de verdade. Por isso fica global: o `setup.sh recarregar`
+-- chama ligar_vigia_cursor() direto por `hyprctl eval` depois do reload.
+function ligar_vigia_cursor()
+    local vigia_cursor = hl.timer(manter_cursor_no_principal, { timeout = 120, type = "repeat" })
+    if vigia_cursor and vigia_cursor.set_enabled then vigia_cursor:set_enabled(true) end
+end
+hl.on("hyprland.start", ligar_vigia_cursor)

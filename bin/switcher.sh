@@ -13,5 +13,5 @@
 # Tab e sempre a janela anterior, nao a vizinha na tela.
 set -uo pipefail
 
-[[ ${1:-} == reverso ]] && exec hyprswitch simple --sort-recent true --reverse
-exec hyprswitch simple --sort-recent true
+[[ ${1:-} == reverso ]] && exec hyprswitch simple --sort-recent true --filter-current-monitor --reverse
+exec hyprswitch simple --sort-recent true --filter-current-monitor
