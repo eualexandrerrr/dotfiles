@@ -348,6 +348,21 @@ etapa_ddcutil() {
     fi
 }
 
+etapa_notificacoes() {
+    log "notificacoes do Plasma"
+    # Nao entra no stow: o Plasma grava neste arquivo sozinho toda vez que um app novo
+    # notifica (`[Applications][x] Seen=true`), e pelo symlink isso sujava o repo a cada
+    # sessao. Aqui so a chave que importa e gravada, o resto o Plasma administra.
+    if command -v kwriteconfig6 >/dev/null 2>&1; then
+        kwriteconfig6 --file plasmanotifyrc --group DoNotDisturb \
+            --key NotificationSoundsMuted true \
+            && ok "som de notificacao mudo" \
+            || falha "nao consegui gravar o plasmanotifyrc"
+    else
+        falha "kwriteconfig6 nao instalado"
+    fi
+}
+
 etapa_servicos() {
     log "servicos de usuario"
     /usr/bin/systemctl --user daemon-reload >/dev/null 2>&1 || true
@@ -392,7 +407,7 @@ etapa_servicos() {
         || falha "nao consegui mascarar o drkonqi-coredump-pickup"
 }
 
-ETAPAS=(links home perfil arquivos sistema vm ddcutil energia atalhos audio dns console chrome claude servicos)
+ETAPAS=(links home perfil arquivos sistema vm ddcutil energia atalhos audio dns console chrome claude notificacoes servicos)
 
 if [[ ${1:-} == --lista ]]; then
     printf 'etapas: %s\n' "${ETAPAS[*]}"
