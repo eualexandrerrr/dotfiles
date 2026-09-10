@@ -291,6 +291,25 @@ etapa_console() {
     console_cmdline
 }
 
+# A unit do pacote do swaync corre com o bin/swaync.sh que o Hyprland ja sobe no
+# login. Quem chega depois morre com "An instance of SwayNotificationCenter is
+# already running!", tenta quatro vezes e deixa a unit em failed para sempre --
+# vermelho eterno no `systemctl --user --failed` sem nada quebrado de verdade.
+# Mascarar e o unico jeito de a corrida nao existir: `disable` nao basta, porque
+# quem puxa a unit e o graphical-session.target.
+etapa_servicos() {
+    log "servicos do usuario"
+    local unit="swaync.service"
+    if [[ $(/usr/bin/systemctl --user is-enabled "$unit" 2>/dev/null) == masked ]]; then
+        ok "$unit ja mascarada"
+    else
+        /usr/bin/systemctl --user mask "$unit" >/dev/null 2>&1 \
+            && ok "$unit mascarada, quem sobe o swaync e o bin/swaync.sh" \
+            || falha "nao consegui mascarar $unit"
+    fi
+    /usr/bin/systemctl --user reset-failed "$unit" >/dev/null 2>&1
+}
+
 etapa_recarregar() {
     log "recarregando hyprland, waybar e swaync"
     tem_hyprland || { ok "sem sessao do Hyprland, nada a recarregar"; return; }
@@ -311,7 +330,7 @@ etapa_recarregar() {
     ok "recarregado"
 }
 
-ETAPAS=(links home perfil tema thunar energia audio dns wallpaper console chrome claude recarregar)
+ETAPAS=(links home perfil tema thunar energia audio dns wallpaper console chrome claude servicos recarregar)
 
 if [[ ${1:-} == --lista ]]; then
     printf 'etapas: %s\n' "${ETAPAS[*]}"
