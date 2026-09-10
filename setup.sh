@@ -235,7 +235,19 @@ etapa_console() {
 }
 
 etapa_arquivos() {
-    log "Dolphin como gerenciador de arquivos"
+    log "Dolphin como gerenciador de arquivos, ghostty como terminal"
+
+    # O KDE cai no konsole quando a chave nao existe (o fallback esta compilado na
+    # libKF6KIOWidgets), e o konsole nao esta mais instalado -- sem isto o "abrir terminal"
+    # do Dolphin e do KRunner nao abre nada.
+    if command -v kwriteconfig6 >/dev/null 2>&1 && command -v ghostty >/dev/null 2>&1; then
+        kwriteconfig6 --file kdeglobals --group General --key TerminalApplication ghostty
+        kwriteconfig6 --file kdeglobals --group General --key TerminalService com.mitchellh.ghostty.desktop
+        ok "ghostty e o terminal padrao do Plasma"
+    else
+        falha "ghostty ou kwriteconfig6 ausente, terminal padrao nao configurado"
+    fi
+
     # O Dolphin e o nativo do Plasma e ja se registra sozinho; isto so garante que nenhum
     # outro app tenha ficado como dono de inode/directory de instalacoes anteriores.
     if command -v xdg-mime >/dev/null 2>&1 && [[ -f /usr/share/applications/org.kde.dolphin.desktop ]]; then

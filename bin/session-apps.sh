@@ -16,7 +16,9 @@ LISTA_VM="${XDG_STATE_HOME:-$HOME/.local/state}/w11-apps"
 
 # Apps que nao devem voltar sozinhos: o terminal porque o Alexandre abre quando quer, e o
 # instalador porque reabrir no login e pedido de tela de update em cima do trabalho.
-IGNORAR='^(org\.kde\.konsole|org\.kde\.discover)$'
+# O ghostty ainda entra por outro motivo: ele nomeia o scope de
+# `app-ghostty-surface-transient-<pid>`, que nao e id de .desktop e o kstart nao abriria.
+IGNORAR='^(ghostty.*|org\.kde\.konsole|org\.kde\.discover)$'
 
 salvar() {
     mkdir -p "$(dirname "$LISTA")"

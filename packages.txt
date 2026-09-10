@@ -46,7 +46,6 @@ vulkan-icd-loader
 
 [repo-oficial:kde]
 plasma-meta
-konsole
 kate
 ark
 gwenview
