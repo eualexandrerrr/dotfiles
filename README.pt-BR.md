@@ -35,6 +35,11 @@ Etapas: `links home perfil energia audio dns console chrome claude`.
 | Captura | `spectacle` (tela, recorte, anotação e vídeo) |
 | Terminal | `ghostty` + zsh com `starship`, `atuin`, `fzf`, `zoxide` |
 
+O visual da barra sai de um tema derivado do Breeze que mora aqui
+(`plasma/.local/share/plasma/desktoptheme/breeze-transparente`, LGPL, do KDE Visual Design
+Group). A decoração de janela é o **[Willow](https://github.com/doncsugar/willow-theme)**, de
+**doncsugar** (GPLv3) — não está copiado neste repo: o `install.sh` clona e gera na hora.
+
 ---
 
 ## As quatro técnicas que sustentam tudo

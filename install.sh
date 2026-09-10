@@ -567,6 +567,40 @@ sessao_wayland() {
     printf 'plasma.desktop'
 }
 
+configure_tema_janela() {
+    log "decoracao de janela estilo Windows 11 (Willow, de doncsugar)"
+
+    # O tema e GPLv3 de terceiro: em vez de copiar o codigo dele pra dentro deste repo,
+    # clonamos e geramos aqui. Os SVGs nao vem prontos, saem do genThemes.sh.
+    local origem="$HOME/.cache/willow-theme"
+    local destino="$HOME/.local/share/aurorae/themes/WillowDark"
+
+    if [[ -d $destino ]]; then
+        ok "WillowDark ja instalado"
+    else
+        rm -rf "$origem"
+        if ! git clone -q --depth 1 https://github.com/doncsugar/willow-theme.git "$origem" 2>/dev/null; then
+            warn "nao consegui clonar o willow-theme; janela fica no Breeze"
+            return
+        fi
+        ( cd "$origem/aurorae-themes" && bash genThemes.sh >/dev/null 2>&1 )
+        if [[ -d $origem/aurorae-themes/output/WillowDark ]]; then
+            mkdir -p "$HOME/.local/share/aurorae/themes"
+            cp -r "$origem/aurorae-themes/output/WillowDark" "$destino" \
+                && ok "WillowDark instalado em ~/.local/share/aurorae/themes"
+        else
+            warn "genThemes.sh nao gerou o WillowDark"
+            return
+        fi
+    fi
+
+    kwriteconfig6 --file kwinrc --group org.kde.kdecoration2 --key library org.kde.kwin.aurorae
+    kwriteconfig6 --file kwinrc --group org.kde.kdecoration2 --key theme __aurorae__svg__WillowDark
+    qdbus6 org.kde.KWin /KWin reconfigure >/dev/null 2>&1 \
+        && ok "decoracao WillowDark aplicada" \
+        || warn "KWin nao recarregou; a decoracao entra no proximo login"
+}
+
 configure_sistema() {
     log "tuning de sistema: zram, sysctl de jogos e layout do teclado no X"
 
@@ -588,6 +622,17 @@ configure_sistema() {
         && ok "/etc/sysctl.d/99-zram.conf"
 
     sudo sysctl --system >/dev/null 2>&1
+
+    # Desempenho maximo o tempo todo: esta maquina nunca corre em bateria e o custo de manter
+    # CPU e GPU no teto e so consumo. O tmpfiles roda a cada boot, depois que os drivers ja
+    # criaram os arquivos em /sys -- por isso aqui, e nao num sysctl.
+    printf '%s\n' \
+        'w- /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor - - - - performance' \
+        'w- /sys/devices/system/cpu/cpu*/cpufreq/energy_performance_preference - - - - performance' \
+        'w- /sys/class/drm/card*/device/power_dpm_force_performance_level - - - - high' \
+        | sudo tee /etc/tmpfiles.d/99-desempenho.conf >/dev/null \
+        && ok "/etc/tmpfiles.d/99-desempenho.conf (CPU e GPU no teto a cada boot)"
+    sudo systemd-tmpfiles --create /etc/tmpfiles.d/99-desempenho.conf >/dev/null 2>&1
 
     # Sem isso o Xwayland nasce com teclado us e o ABNT2 some dentro de app X11 (RedM, Wine).
     if command -v localectl >/dev/null 2>&1; then
@@ -824,6 +869,7 @@ main() {
     etapa configure_resiliencia_boot
     etapa configure_ddcutil
     etapa configure_sistema
+    etapa configure_tema_janela
     etapa configure_vm
     etapa enable_services
     etapa link_dotfiles
