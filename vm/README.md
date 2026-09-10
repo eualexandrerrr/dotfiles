@@ -156,8 +156,9 @@ Com duas GPUs **a sessão gráfica não é derrubada**: ligar a VM não fecha na
 Alt-Tab entre Linux e Windows funciona pela janela do Looking Glass. Isso aposenta a
 mecânica de salvar e reabrir aplicativos:
 
-- `salvar_apps()` no script `w11` e o `vm/reabrir-apps.sh` viram código morto. Ficam por
-  enquanto — saem quando o passthrough estiver comprovadamente de pé.
+- `salvar_apps()` no script `w11` virou caso particular: a mecânica de guardar e reabrir
+  aplicativos passou a valer pra todo desligamento, no `bin/sessao-apps.sh`, e não só pra
+  volta da VM. O `vm/reabrir-apps.sh` saiu.
 - O login automático do `sddm` continua valendo pra ligar o PC, não mais pra "voltar da VM".
 
 ## Alta resolução sem dummy plug: o IDD

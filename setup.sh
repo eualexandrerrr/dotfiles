@@ -364,7 +364,18 @@ etapa_notificacoes() {
 }
 
 etapa_servicos() {
-    log "servicos de usuario"
+    log "servicos de usuario e restauracao da sessao"
+
+    # Desligar e ligar o PC tem que cair no mesmo lugar. Sao duas metades:
+    #  - o restore nativo do Plasma, que cobre app que fala o protocolo de sessao;
+    #  - o sessao-apps.service, pros que nao falam (Chrome, Discord, Electron em geral),
+    #    que guarda a lista de scopes ao sair e reabre no login.
+    if command -v kwriteconfig6 >/dev/null 2>&1; then
+        kwriteconfig6 --file ksmserverrc --group General --key loginMode restorePreviousLogout \
+            && ok "Plasma restaura a sessao anterior no login" \
+            || falha "nao consegui gravar o ksmserverrc"
+    fi
+
     /usr/bin/systemctl --user daemon-reload >/dev/null 2>&1 || true
 
     /usr/bin/systemctl --user enable vm-audio-acl.service >/dev/null 2>&1 \
@@ -373,9 +384,14 @@ etapa_servicos() {
 
     # As duas entram por graphical-session.target: como .desktop de autostart nao davam
     # certo -- o gerador do systemd nao expande $HOME no Exec e as units falhavam todo boot.
-    /usr/bin/systemctl --user enable telas-aplicar.service reabrir-apps.service >/dev/null 2>&1 \
-        && ok "telas-aplicar e reabrir-apps ligadas na sessao grafica" \
+    /usr/bin/systemctl --user enable telas-aplicar.service sessao-apps.service >/dev/null 2>&1 \
+        && ok "telas-aplicar e sessao-apps ligadas na sessao grafica" \
         || falha "units de sessao grafica nao habilitadas"
+
+    /usr/bin/systemctl --user enable sessao-apps.timer >/dev/null 2>&1 \
+        && /usr/bin/systemctl --user start sessao-apps.timer >/dev/null 2>&1 \
+        && ok "sessao-apps.timer habilitado" \
+        || falha "sessao-apps.timer nao habilitado"
 
     /usr/bin/systemctl --user enable telas-aplicar.timer >/dev/null 2>&1 \
         && /usr/bin/systemctl --user start telas-aplicar.timer >/dev/null 2>&1 \
