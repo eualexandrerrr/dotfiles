@@ -6,8 +6,8 @@
 set -uo pipefail
 
 DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
-PRIVADO="${PRIVADO:-$HOME/.dotfiles-private}"
-REPO_PRIVADO="${REPO_PRIVADO:-git@github.com:eualexandrerrr/dotfiles-private.git}"
+PRIVADO="${PRIVADO:-$HOME/.secret-keys}"
+REPO_PRIVADO="${REPO_PRIVADO:-git@github.com:eualexandrerrr/secret-keys.git}"
 source "$DOTFILES_DIR/segredos/comum.sh"
 
 command -v age >/dev/null 2>&1 || { aviso "age nao instalado, credenciais nao restauradas"; exit 0; }
@@ -15,7 +15,7 @@ command -v age >/dev/null 2>&1 || { aviso "age nao instalado, credenciais nao re
 if [[ ! -d $PRIVADO/.git ]]; then
     git clone --quiet "$REPO_PRIVADO" "$PRIVADO" 2>/dev/null \
         || { aviso "nao consegui clonar $REPO_PRIVADO; credenciais ficam pra depois"; exit 0; }
-    ok "dotfiles-private clonado"
+    ok "secret-keys clonado"
 else
     git -C "$PRIVADO" pull --quiet --ff-only 2>/dev/null || true
 fi

@@ -482,7 +482,7 @@ home_enxuta() {
 }
 
 restaurar_segredos() {
-    log "credenciais do dotfiles-private"
+    log "credenciais do secret-keys"
     local script="$DOTFILES_DIR/segredos/restaurar.sh"
     [[ -f $script ]] || { warn "$script ausente, credenciais nao restauradas"; return 0; }
 

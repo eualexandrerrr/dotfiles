@@ -9,13 +9,13 @@
 set -euo pipefail
 
 DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
-PRIVADO="${PRIVADO:-$HOME/.dotfiles-private}"
+PRIVADO="${PRIVADO:-$HOME/.secret-keys}"
 LISTA="$DOTFILES_DIR/segredos/lista.txt"
 source "$DOTFILES_DIR/segredos/comum.sh"
 
 command -v age >/dev/null 2>&1 || { erro "age nao instalado (esta no packages.txt)"; exit 1; }
 [[ -f $LISTA ]] || { erro "$LISTA nao existe"; exit 1; }
-[[ -d $PRIVADO ]] || { erro "$PRIVADO nao existe; clone o dotfiles-private primeiro"; exit 1; }
+[[ -d $PRIVADO ]] || { erro "$PRIVADO nao existe; clone o secret-keys primeiro"; exit 1; }
 
 montar_pendrive || { erro "pendrive $ROTULO_PENDRIVE nao encontrado; espeta ele e roda de novo"; exit 1; }
 
