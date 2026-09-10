@@ -31,7 +31,7 @@ Etapas: `links home perfil energia audio dns console chrome claude`.
 | Função | Programa |
 |---|---|
 | Desktop | `plasma-meta` (painel, KRunner, Klipper, powerdevil) |
-| Arquivos | `dolphin` (GUI) · `yazi` (terminal) |
+| Arquivos | `thunar` (GUI) · `yazi` (terminal) |
 | Captura | `spectacle` (tela, recorte, anotação e vídeo) |
 | Terminal | `ghostty` + zsh com `starship`, `atuin`, `fzf`, `zoxide` |
 

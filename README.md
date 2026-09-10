@@ -30,7 +30,7 @@ Steps: `links home perfil energia audio dns console chrome claude`.
 | Role | Program |
 |---|---|
 | Desktop | `plasma-meta` (panel, KRunner, Klipper, powerdevil) |
-| Files | `dolphin` (GUI) · `yazi` (terminal) |
+| Files | `thunar` (GUI) · `yazi` (terminal) |
 | Screenshots | `spectacle` (screen, region, annotation and video) |
 | Terminal | `ghostty` + zsh with `starship`, `atuin`, `fzf`, `zoxide` |
 

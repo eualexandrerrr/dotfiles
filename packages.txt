@@ -46,7 +46,6 @@ vulkan-icd-loader
 
 [repo-oficial:kde]
 plasma-meta
-dolphin
 konsole
 kate
 ark
@@ -69,6 +68,10 @@ xclip
 sddm
 
 [repo-oficial:arquivos]
+thunar
+thunar-volman
+thunar-archive-plugin
+xfconf
 tumbler
 ffmpegthumbnailer
 poppler-glib

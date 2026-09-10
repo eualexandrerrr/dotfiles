@@ -221,7 +221,31 @@ etapa_console() {
     console_cmdline
 }
 
-ETAPAS=(links home perfil energia audio dns console chrome claude)
+etapa_thunar() {
+    log "Thunar como gerenciador de arquivos"
+    # O thunarrc de ~/.config/Thunar e ignorado pelo Thunar 4.20: as preferencias moram no
+    # xfconf (canal thunar), e o xfconfd reescreve o XML sozinho -- por isso isto nao entra
+    # no stow, e sim numa etapa que grava por xfconf-query.
+    if ! command -v xfconf-query >/dev/null 2>&1; then
+        falha "xfconf-query nao instalado"
+        return
+    fi
+    xfconf-query -c thunar -p /default-view -n -t string -s ThunarDetailsView 2>/dev/null
+    xfconf-query -c thunar -p /last-view -n -t string -s ThunarDetailsView 2>/dev/null
+    # ligado para que a pasta que o Alexandre mudar a mao guarde a escolha dela e so dela
+    xfconf-query -c thunar -p /misc-directory-specific-settings -n -t bool -s true 2>/dev/null
+    ok "abre em lista detalhada, com preferencia por pasta"
+
+    # Sem isto o Plasma abre pasta no Dolphin: quem registra inode/directory por ultimo
+    # ganha. O mimeapps.list nao entra no stow porque os apps escrevem nele em runtime.
+    if command -v xdg-mime >/dev/null 2>&1 && [[ -f /usr/share/applications/thunar.desktop ]]; then
+        xdg-mime default thunar.desktop inode/directory 2>/dev/null \
+            && ok "Thunar e o padrao para abrir pasta" \
+            || falha "nao consegui registrar o Thunar em inode/directory"
+    fi
+}
+
+ETAPAS=(links home perfil thunar energia audio dns console chrome claude)
 
 if [[ ${1:-} == --lista ]]; then
     printf 'etapas: %s\n' "${ETAPAS[*]}"
