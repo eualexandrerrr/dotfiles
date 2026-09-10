@@ -21,7 +21,7 @@ bash ~/.dotfiles/install.sh
 | `install.sh` | packages, driver, services, SDDM | you touched `packages.txt` |
 | `setup.sh` | configures and reloads | you touched a config |
 
-Steps: `links home perfil energia audio dns console chrome claude`.
+Steps: `links home perfil thunar energia atalhos audio dns console chrome claude`.
 
 ---
 
@@ -33,12 +33,6 @@ Steps: `links home perfil energia audio dns console chrome claude`.
 | Files | `thunar` (GUI) · `yazi` (terminal) |
 | Screenshots | `spectacle` (screen, region, annotation and video) |
 | Terminal | `ghostty` + zsh with `starship`, `atuin`, `fzf`, `zoxide` |
-
-The look is not mine: the Plasma theme is
-**[Dream Color Plasma](https://store.kde.org/p/2313892)** by **l4k1** (GPL-3.0+), and the
-window decoration is **[Willow](https://github.com/doncsugar/willow-theme)** by **doncsugar**
-(GPLv3). Neither is vendored here — `install.sh` fetches each from its source and
-`setup.sh barra` applies them.
 
 ---
 

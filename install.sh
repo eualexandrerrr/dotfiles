@@ -25,7 +25,7 @@ mkdir -p "$LOGDIR"
 LOGFILE="${LOGFILE:-$LOGDIR/install.log}"
 T0=$SECONDS
 STEP=0
-TOTAL_STEPS=24
+TOTAL_STEPS=23
 [[ ${SKIP_NVIDIA:-0} == 1 ]] && TOTAL_STEPS=22
 WARNS=()
 ETAPAS_FALHA=()
@@ -567,74 +567,6 @@ sessao_wayland() {
     printf 'plasma.desktop'
 }
 
-configure_tema() {
-    log "tema Dream Dark Color, de l4k1 (global, plasma, janela, icones e splash)"
-
-    # Tudo GPL-3.0+ de terceiro: nada disso e copiado pra dentro deste repo, o instalador
-    # busca cada pedaco da loja. O Global Theme so aplica de verdade se os cinco estiverem
-    # instalados -- o que faltar, o Plasma silenciosamente troca pelo Breeze.
-    #
-    #   id da loja : pasta que sai do tar : onde mora
-    local componentes=(
-        "2313907:Dream-Dark-Color-Global-6:$HOME/.local/share/plasma/look-and-feel"
-        "2313892:Dream-Color-Plasma:$HOME/.local/share/plasma/desktoptheme"
-        "2313845:Dream-Color-Dark-Aurorae-6:$HOME/.local/share/aurorae/themes"
-        "2297910:Slot-Symbolic-Dark-Icons:$HOME/.local/share/icons"
-        "2136626:Magna-Splash-6:$HOME/.local/share/plasma/look-and-feel"
-    )
-
-    local item id pasta raiz destino link tmp guardado n=0
-    for item in "${componentes[@]}"; do
-        id="${item%%:*}"; item="${item#*:}"
-        pasta="${item%%:*}"; raiz="${item#*:}"
-        destino="$raiz/$pasta"
-
-        if [[ -d $destino ]]; then
-            n=$((n+1))
-            continue
-        fi
-
-        tmp="$(mktemp -d)"
-        # O tar salvo a mao em ~/Downloads vem primeiro: sobrevive ao format junto com a
-        # /home e nao depende da loja estar no ar.
-        guardado=""
-        for ext in tar.gz tar.xz; do
-            [[ -f $HOME/Downloads/$pasta.$ext ]] && guardado="$HOME/Downloads/$pasta.$ext" && break
-        done
-
-        if [[ -n $guardado ]]; then
-            cp "$guardado" "$tmp/pacote"
-        else
-            link="$(curl -s --max-time 30 "https://api.pling.com/ocs/v1/content/data/$id" \
-                | sed -n 's|.*<downloadlink1>\(.*\)</downloadlink1>.*|\1|p')"
-            if [[ -z $link ]] || ! curl -sL --max-time 180 "$link" -o "$tmp/pacote"; then
-                warn "$pasta nao baixou"
-                rm -rf "$tmp"; continue
-            fi
-        fi
-
-        if tar xf "$tmp/pacote" -C "$tmp" 2>/dev/null && [[ -d $tmp/$pasta ]]; then
-            mkdir -p "$raiz"
-            cp -r "$tmp/$pasta" "$destino" && n=$((n+1))
-        else
-            warn "o pacote de $pasta nao abriu"
-        fi
-        rm -rf "$tmp"
-    done
-    ok "$n de ${#componentes[@]} componentes no lugar"
-
-    # O esquema de cores nao vem em pacote proprio: e um .colors solto dentro do repo.
-    if [[ -f $DOTFILES_DIR/plasma/.local/share/color-schemes/DreamVioletDarkColor.colors ]]; then
-        ok "esquema de cores versionado no repo"
-    fi
-
-    if command -v lookandfeeltool >/dev/null 2>&1; then
-        lookandfeeltool --apply Dream-Dark-Color-Global-6 >/dev/null 2>&1 \
-            && ok "Global Theme aplicado (cores, icones, janela, painel e splash)" \
-            || warn "lookandfeeltool nao aplicou o Global Theme"
-    fi
-}
-
 configure_sistema() {
     log "tuning de sistema: zram, sysctl de jogos e layout do teclado no X"
 
@@ -913,7 +845,6 @@ main() {
     etapa configure_resiliencia_boot
     etapa configure_ddcutil
     etapa configure_sistema
-    etapa configure_tema
     etapa configure_vm
     etapa enable_services
     etapa link_dotfiles
