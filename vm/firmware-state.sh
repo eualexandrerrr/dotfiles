@@ -12,8 +12,8 @@
 #   - o swtpm e o TPM 2.0 que o Windows 11 exige. Perder equivale a trocar de TPM: BitLocker
 #     pede a chave de recuperacao, o PIN do Hello some e o Windows pode pedir reativacao.
 #
-#   vm/firmware-estado.sh salvar      copia pra ~/vms/firmware (na /home, sobrevive)
-#   vm/firmware-estado.sh restaurar   devolve pra / depois do format, se estiver faltando
+#   vm/firmware-state.sh salvar      copia pra ~/vms/firmware (na /home, sobrevive)
+#   vm/firmware-state.sh restaurar   devolve pra / depois do format, se estiver faltando
 #
 # O `salvar` NAO depende de o Alexandre lembrar: o hook release/end do libvirt chama sozinho
 # toda vez que a VM desliga, que e exatamente quando esse estado acabou de mudar. Rodando de
@@ -74,5 +74,5 @@ restaurar() {
 case "${1:-}" in
     salvar)    salvar ;;
     restaurar) restaurar ;;
-    *) echo "uso: firmware-estado.sh salvar|restaurar" >&2; exit 1 ;;
+    *) echo "uso: firmware-state.sh salvar|restaurar" >&2; exit 1 ;;
 esac

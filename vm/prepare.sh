@@ -2,7 +2,7 @@
 # Deixa o host pronto pra VM w11: libvirtd, rede default, disco em ~/vms (sobrevive ao format),
 # o UEFI/vTPM restaurados de ~/vms/firmware (que NAO sobrevivem sozinhos),
 # acesso do libvirt-qemu a ~/vms e os hooks do RedMLinux. Idempotente. Nao mexe no vfio:
-# isso e o vfio-ativar.sh, so depois da segunda GPU.
+# isso e o vfio-enable.sh, so depois da segunda GPU.
 set -uo pipefail
 DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"; VMS="$HOME/vms"
 ok(){ printf '  ok   %s\n' "$*"; }
@@ -12,8 +12,8 @@ mkdir -p "$VMS"
 [[ -f $VMS/win.raw ]] || { qemu-img create -f raw -o preallocation=falloc "$VMS/win.raw" 200G >/dev/null && ok "win.raw 200G"; }
 sudo setfacl -m u:libvirt-qemu:x "$HOME"; sudo setfacl -R -m u:libvirt-qemu:rwx "$VMS"; sudo setfacl -R -d -m u:libvirt-qemu:rwx "$VMS"; ok "acl do libvirt-qemu em ~/vms"
 # Antes dos hooks: se a / e nova (format), devolve o UEFI e o vTPM da VM, que moram la e
-# nao sobrevivem. Nao sobrescreve nada que ja exista -- ver vm/firmware-estado.sh.
-bash "$DOTFILES_DIR/vm/firmware-estado.sh" restaurar
+# nao sobrevivem. Nao sobrescreve nada que ja exista -- ver vm/firmware-state.sh.
+bash "$DOTFILES_DIR/vm/firmware-state.sh" restaurar
 
 # Define o dominio se ele nao existir. So nesse caso: um define incondicional sobrescreveria
 # o perfil ativo (3090 x janela) toda vez que o install.sh rodasse. O vm/w11 continua sendo
@@ -29,5 +29,5 @@ sudo bash "$DOTFILES_DIR/vm/hooks-redmlinux/install-hooks.sh" w11 "$USER" >/dev/
 sudo install -Dm644 "$DOTFILES_DIR/vm/looking-glass.tmpfiles" /etc/tmpfiles.d/10-looking-glass.conf && sudo systemd-tmpfiles --create /etc/tmpfiles.d/10-looking-glass.conf && ok "shmem do Looking Glass"
 bash "$DOTFILES_DIR/vm/kvmfr.sh"
 printf 'options kvm_amd avic=1\n' | sudo tee /etc/modprobe.d/kvm.conf >/dev/null; ok "AVIC do kvm_amd"
-bash "$DOTFILES_DIR/vm/autounattend-vm.sh"
+bash "$DOTFILES_DIR/vm/autounattend.sh"
 [[ -f $VMS/virtio-win.iso ]] || curl -sSL -o "$VMS/virtio-win.iso" https://fedorapeople.org/groups/virt/virtio-win/direct-downloads/stable-virtio/virtio-win.iso && ok "virtio-win.iso"

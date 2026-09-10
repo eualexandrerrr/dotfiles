@@ -52,8 +52,8 @@ etapa_home() {
 
 etapa_perfil() {
     log "avatar do usuario"
-    local origem="$DOTFILES_DIR/perfil/avatar.png"
-    [[ -f $origem ]] || { falha "perfil/avatar.png ausente"; return; }
+    local origem="$DOTFILES_DIR/profile/avatar.png"
+    [[ -f $origem ]] || { falha "profile/avatar.png ausente"; return; }
     install -m 644 "$origem" "$HOME/.face"
     ok "~/.face (sddm e tela de bloqueio do Plasma)"
 }
@@ -69,9 +69,9 @@ etapa_energia() {
         kwriteconfig6 --file kscreenlockerrc --group Daemon --key LockOnResume false
         ok "bloqueio automatico de tela desligado"
 
-        if [[ -f $DOTFILES_DIR/estado/powermanagementprofilesrc && \
+        if [[ -f $DOTFILES_DIR/state/powermanagementprofilesrc && \
               ! -f $HOME/.config/powermanagementprofilesrc ]]; then
-            cp "$DOTFILES_DIR/estado/powermanagementprofilesrc" "$HOME/.config/" \
+            cp "$DOTFILES_DIR/state/powermanagementprofilesrc" "$HOME/.config/" \
                 && ok "perfil de energia do Plasma restaurado"
         fi
     fi
@@ -82,7 +82,7 @@ etapa_atalhos() {
     # Nao entra no stow: o KDE reescreve o kglobalshortcutsrc sozinho quando um atalho muda,
     # e o symlink faria isso sujar o repo. O arquivo do repo e semente, nao espelho -- pra
     # atualizar a semente depois de mexer nos atalhos, copie a mao por cima do de plasma/estado.
-    local semente="$DOTFILES_DIR/estado/kglobalshortcutsrc"
+    local semente="$DOTFILES_DIR/state/kglobalshortcutsrc"
     [[ -f $semente ]] || { falha "sem semente de atalhos no repo"; return; }
 
     if [[ -f $HOME/.config/kglobalshortcutsrc ]]; then
@@ -320,11 +320,11 @@ etapa_vm() {
         fi
     fi
 
-    # preparar.sh ja e idempotente (so cria win.raw e baixa o virtio-win se faltarem) e ja
+    # prepare.sh ja e idempotente (so cria win.raw e baixa o virtio-win se faltarem) e ja
     # chama o kvmfr.sh sozinho, que faz o dkms, o modules-load.d e o cgroup_device_acl.
-    DOTFILES_DIR="$DOTFILES_DIR" bash "$DOTFILES_DIR/vm/preparar.sh" || falha "vm/preparar.sh falhou"
+    DOTFILES_DIR="$DOTFILES_DIR" bash "$DOTFILES_DIR/vm/prepare.sh" || falha "vm/prepare.sh falhou"
 
-    # O vfio-ativar.sh roda mkinitcpio -P inteiro, que e lento: so vale a pena quando a 3090
+    # O vfio-enable.sh roda mkinitcpio -P inteiro, que e lento: so vale a pena quando a 3090
     # ainda nao esta presa. Ele tem guarda propria e aborta sozinho se a RX 550 nao estiver
     # desenhando, entao rodar aqui nao arrisca deixar o host sem tela.
     if lspci -nnk -d 10de:2204: 2>/dev/null | grep -q 'Kernel driver in use: vfio-pci'; then
@@ -332,8 +332,8 @@ etapa_vm() {
     elif [[ -f /etc/modprobe.d/vfio.conf ]] && grep -q '10de:2204' /etc/modprobe.d/vfio.conf; then
         ok "vfio ja configurado, falta reiniciar pra valer"
     else
-        DOTFILES_DIR="$DOTFILES_DIR" bash "$DOTFILES_DIR/vm/vfio-ativar.sh" \
-            || falha "vfio-ativar.sh abortou (confira se a RX 550 esta montada e desenhando)"
+        DOTFILES_DIR="$DOTFILES_DIR" bash "$DOTFILES_DIR/vm/vfio-enable.sh" \
+            || falha "vfio-enable.sh abortou (confira se a RX 550 esta montada e desenhando)"
     fi
 }
 
@@ -368,7 +368,7 @@ etapa_servicos() {
 
     # Desligar e ligar o PC tem que cair no mesmo lugar. Sao duas metades:
     #  - o restore nativo do Plasma, que cobre app que fala o protocolo de sessao;
-    #  - o sessao-apps.service, pros que nao falam (Chrome, Discord, Electron em geral),
+    #  - o session-apps.service, pros que nao falam (Chrome, Discord, Electron em geral),
     #    que guarda a lista de scopes ao sair e reabre no login.
     if command -v kwriteconfig6 >/dev/null 2>&1; then
         kwriteconfig6 --file ksmserverrc --group General --key loginMode restorePreviousLogout \
@@ -384,19 +384,19 @@ etapa_servicos() {
 
     # As duas entram por graphical-session.target: como .desktop de autostart nao davam
     # certo -- o gerador do systemd nao expande $HOME no Exec e as units falhavam todo boot.
-    /usr/bin/systemctl --user enable telas-aplicar.service sessao-apps.service >/dev/null 2>&1 \
-        && ok "telas-aplicar e sessao-apps ligadas na sessao grafica" \
+    /usr/bin/systemctl --user enable apply-screens.service session-apps.service >/dev/null 2>&1 \
+        && ok "apply-screens e session-apps ligadas na sessao grafica" \
         || falha "units de sessao grafica nao habilitadas"
 
-    /usr/bin/systemctl --user enable sessao-apps.timer >/dev/null 2>&1 \
-        && /usr/bin/systemctl --user start sessao-apps.timer >/dev/null 2>&1 \
-        && ok "sessao-apps.timer habilitado" \
-        || falha "sessao-apps.timer nao habilitado"
+    /usr/bin/systemctl --user enable session-apps.timer >/dev/null 2>&1 \
+        && /usr/bin/systemctl --user start session-apps.timer >/dev/null 2>&1 \
+        && ok "session-apps.timer habilitado" \
+        || falha "session-apps.timer nao habilitado"
 
-    /usr/bin/systemctl --user enable telas-aplicar.timer >/dev/null 2>&1 \
-        && /usr/bin/systemctl --user start telas-aplicar.timer >/dev/null 2>&1 \
-        && ok "telas-aplicar.timer habilitado" \
-        || falha "telas-aplicar.timer nao habilitado"
+    /usr/bin/systemctl --user enable apply-screens.timer >/dev/null 2>&1 \
+        && /usr/bin/systemctl --user start apply-screens.timer >/dev/null 2>&1 \
+        && ok "apply-screens.timer habilitado" \
+        || falha "apply-screens.timer nao habilitado"
 
     if [[ -d "$HOME/Apps/desktop/RicePanel" ]]; then
         /usr/bin/systemctl --user enable ricepanel.service >/dev/null 2>&1 \

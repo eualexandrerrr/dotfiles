@@ -22,12 +22,12 @@ export XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
 export DBUS_SESSION_BUS_ADDRESS="${DBUS_SESSION_BUS_ADDRESS:-unix:path=$XDG_RUNTIME_DIR/bus}"
 
 log "telas"
-if [[ -x $DOTFILES_DIR/bin/telas-aplicar.sh ]]; then
-    bash "$DOTFILES_DIR/bin/telas-aplicar.sh" \
+if [[ -x $DOTFILES_DIR/bin/apply-screens.sh ]]; then
+    bash "$DOTFILES_DIR/bin/apply-screens.sh" \
         && ok "taxa, rotacao e posicao reaplicadas" \
-        || falha "telas-aplicar.sh"
+        || falha "apply-screens.sh"
 else
-    falha "bin/telas-aplicar.sh ausente"
+    falha "bin/apply-screens.sh ausente"
 fi
 
 log "audio"

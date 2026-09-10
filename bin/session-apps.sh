@@ -6,11 +6,11 @@
 # O restore nativo do Plasma nao cobre isto sozinho: no Wayland ele depende de o app falar
 # o protocolo de gerenciamento de sessao, e Chrome, Discord e Electron em geral nao falam.
 #
-#   ~/.dotfiles/bin/sessao-apps.sh salvar     # tira a foto (roda ao encerrar a sessao)
-#   ~/.dotfiles/bin/sessao-apps.sh restaurar  # reabre (roda ao entrar)
+#   ~/.dotfiles/bin/session-apps.sh salvar     # tira a foto (roda ao encerrar a sessao)
+#   ~/.dotfiles/bin/session-apps.sh restaurar  # reabre (roda ao entrar)
 set -uo pipefail
 
-LISTA="${XDG_STATE_HOME:-$HOME/.local/state}/sessao-apps"
+LISTA="${XDG_STATE_HOME:-$HOME/.local/state}/session-apps"
 # Lista da VM: quando ela leva a GPU e derruba a sessao, quem escreve e o `vm/w11`.
 LISTA_VM="${XDG_STATE_HOME:-$HOME/.local/state}/w11-apps"
 

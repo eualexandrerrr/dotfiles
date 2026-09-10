@@ -2,7 +2,7 @@
 Description=Rede de seguranca da lista de apps da sessao
 
 [Timer]
-Unit=sessao-apps-salvar.service
+Unit=session-apps-save.service
 # No desligamento os scopes dos apps as vezes morrem antes do ExecStop, e a foto sai vazia.
 # Este timer mantem uma foto recente pra esse caso -- salvar e barato e nunca sobrescreve
 # a lista boa com uma vazia.

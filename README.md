@@ -41,7 +41,7 @@ Three scripts, that is all. All idempotent:
 
 **1. Match monitors by brand, never by connector.** Swapping the motherboard renumbers the
 ports, and a rule pinned to `DP-1` starts applying to the wrong screen. No versioned file
-holds a connector name: the brand lives in `telas.conf` and is resolved at use time by
+holds a connector name: the brand lives in `screens.conf` and is resolved at use time by
 `bin/monitor.sh`, which reads the EDID straight from `/sys/class/drm`. Depending on no
 compositor, it works the same inside the session, on a tty, or in a systemd
 `ExecCondition=`.
@@ -131,7 +131,7 @@ useful if it shows up on the screen you use every day.
 
 **Why Linux does not reach 180 Hz:** 1440p@180 needs about 19.3 Gbps. DP 1.4 carries 25.9 and
 makes it; the RX 550's HDMI 2.0b carries 18 and does not. That was a deliberate trade to keep
-DP on the 3090 — inside Windows the result is identical. `bin/telas-aplicar.sh` asks for what
+DP on the 3090 — inside Windows the result is identical. `bin/apply-screens.sh` asks for what
 the cable can carry, `2560x1440@144`, and reapplies it on a timer because KWin forgets on its
 own after the screen blanks.
 
@@ -149,7 +149,7 @@ The VM has its own documentation in [`vm/README.md`](vm/README.md).
 |---|---|
 | `dot config` / `dot reload` | runs `setup.sh` / reloads displays, audio, panel and KWin |
 | `dot status` | checks Plasma binaries, sddm, autologin, services and the displays |
-| `dot telas` | GPUs, driver per `card`, connected outputs, roles from `telas.conf` |
+| `dot telas` | GPUs, driver per `card`, connected outputs, roles from `screens.conf` |
 | `dot erros` / `dot log` | warnings from the last install / the whole log (`-f` follows) |
 | `dot instalar` / `dot zero` | `git pull` + reinstall / wipe and clone from scratch |
 

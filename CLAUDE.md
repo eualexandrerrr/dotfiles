@@ -46,7 +46,7 @@ Toda variavel de driver grafico tem que seguir a AMD; o
 cada `card`, e `dot status` acusa se alguem voltar a fixar `nvidia`.
 
 Com duas GPUs o cenario de single-GPU passthrough (que derruba a sessao) nao se aplica mais
--- ver `vm/modo-jogo` e `~/Claude/maquina/docs/vm-e-hardware.md`.
+-- ver `vm/game-mode` e `~/Claude/maquina/docs/vm-e-hardware.md`.
 
 ## Tres scripts, e so
 
@@ -60,6 +60,12 @@ Com duas GPUs o cenario de single-GPU passthrough (que derruba a sessao) nao se 
 ~/.dotfiles/setup.sh [etapa...]
 # links home perfil arquivos sistema vm ddcutil energia atalhos audio dns console chrome claude notificacoes servicos
 ```
+
+**Nome de pasta, arquivo e unit sempre em ingles.** Este repo e publico: `secrets/`, nao
+`segredos/`; `apply-screens.sh`, nao `telas-aplicar.sh`. Vale pra tudo que tem nome no disco,
+inclusive comando que ele digita (`vm/play`, `vm/game-mode`). Comentario e mensagem de saida
+continuam em portugues, e o `README.pt-BR.md` fica -- o sufixo diz o idioma do conteudo, nao
+e nome em portugues.
 
 Config nova entra como **etapa do `setup.sh`**, nunca como script solto novo na raiz. O que
 mora em `bin/` e ferramenta chamada pelas etapas (ou pelo Alexandre a mao), nao ponto de
@@ -95,7 +101,7 @@ aqui: este repo e publico. Sem o clone, `git clone git@github.com:eualexandrerrr
 | Format, o que sobrevive em `/home`, perfil do Chrome, particoes | `~/Claude/maquina/docs/particoes-e-format.md` |
 | Pacote do stow, onde um arquivo novo entra, regra do `--no-folding` | `~/Claude/maquina/docs/estrutura-repo.md` |
 | Rodar o `install.sh`, entender etapa que falhou | `~/Claude/maquina/docs/install-fluxo.md` |
-| Disposicao de telas, marca de cada monitor (`telas.conf`) | `~/Claude/maquina/docs/monitores.md` |
+| Disposicao de telas, marca de cada monitor (`screens.conf`) | `~/Claude/maquina/docs/monitores.md` |
 | DNS, keyring, por que NAO instalar gnome-keyring | `~/Claude/maquina/docs/dns-e-keyring.md` |
 | Suspender, hibernar, apagar monitor por inatividade | `~/Claude/maquina/docs/energia.md` |
 | Desligar travado ou lento, tela preta no shutdown, fonte e cor do console | `~/Claude/maquina/docs/energia.md` |

@@ -7,7 +7,7 @@ echo "== stop $(date -Is)"
 # ANTES do filtro de perfil: o UEFI e o vTPM mudam nos dois perfis, e este e o unico
 # momento em que o estado acabou de ser gravado. Sem isto o backup so existiria se alguem
 # lembrasse de rodar na mao antes de formatar -- e nao existiria.
-DONO=@USERNAME@ bash "/home/@USERNAME@/.dotfiles/vm/firmware-estado.sh" salvar || true
+DONO=@USERNAME@ bash "/home/@USERNAME@/.dotfiles/vm/firmware-state.sh" salvar || true
 
 XML=""; [[ -t 0 ]] || XML="$(cat)"
 if [[ -n $XML ]] && ! grep -q "<hostdev mode='subsystem' type='pci'" <<<"$XML"; then

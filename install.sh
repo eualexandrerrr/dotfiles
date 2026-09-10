@@ -483,7 +483,7 @@ home_enxuta() {
 
 restaurar_segredos() {
     log "credenciais do secret-keys"
-    local script="$DOTFILES_DIR/segredos/restaurar.sh"
+    local script="$DOTFILES_DIR/secrets/restore.sh"
     [[ -f $script ]] || { warn "$script ausente, credenciais nao restauradas"; return 0; }
 
     # Nunca fatal: sem pendrive, sem rede ou sem repo privado a instalacao segue. O

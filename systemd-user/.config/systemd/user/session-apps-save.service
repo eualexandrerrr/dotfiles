@@ -3,4 +3,4 @@ Description=Guarda a lista de apps abertos
 
 [Service]
 Type=oneshot
-ExecStart=%h/.dotfiles/bin/sessao-apps.sh salvar
+ExecStart=%h/.dotfiles/bin/session-apps.sh salvar

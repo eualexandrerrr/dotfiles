@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Coleta as credenciais do $HOME, cifra com age e grava no repo privado.
 #
-#   ~/.dotfiles/segredos/guardar.sh
+#   ~/.dotfiles/secrets/save.sh
 #
 # A chave privada mora no pendrive do Ventoy, nunca no repo. O repo guarda so o
 # segredos.tar.age e uma copia da propria chave cifrada por senha (chave.txt.age), que e o
@@ -10,8 +10,8 @@ set -euo pipefail
 
 DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
 PRIVADO="${PRIVADO:-$HOME/.secret-keys}"
-LISTA="$DOTFILES_DIR/segredos/lista.txt"
-source "$DOTFILES_DIR/segredos/comum.sh"
+LISTA="$DOTFILES_DIR/secrets/list.txt"
+source "$DOTFILES_DIR/secrets/common.sh"
 
 command -v age >/dev/null 2>&1 || { erro "age nao instalado (esta no packages.txt)"; exit 1; }
 [[ -f $LISTA ]] || { erro "$LISTA nao existe"; exit 1; }

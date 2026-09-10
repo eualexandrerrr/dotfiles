@@ -1,6 +1,6 @@
 [Unit]
 Description=Sessao: reabre os apps no login e guarda a lista ao sair
-Documentation=file:%h/.dotfiles/bin/sessao-apps.sh
+Documentation=file:%h/.dotfiles/bin/session-apps.sh
 After=graphical-session.target
 PartOf=graphical-session.target
 
@@ -9,8 +9,8 @@ PartOf=graphical-session.target
 # ExecStop rodar la no fim -- quando a sessao grafica cai no logout ou no desligamento.
 Type=oneshot
 RemainAfterExit=yes
-ExecStart=%h/.dotfiles/bin/sessao-apps.sh restaurar
-ExecStop=%h/.dotfiles/bin/sessao-apps.sh salvar
+ExecStart=%h/.dotfiles/bin/session-apps.sh restaurar
+ExecStop=%h/.dotfiles/bin/session-apps.sh salvar
 
 [Install]
 WantedBy=graphical-session.target

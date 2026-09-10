@@ -10,7 +10,7 @@ adaptados pra **esta máquina**: ASUS TUF Gaming B550M-PLUS, Ryzen 7 5700X (sem 
 systemd-boot (myarch), nvidia-open-dkms, **KDE Plasma + SDDM**.
 
 > **Desde 08/09/2026 isto é plano C, não plano B.** A RX 550 entrou como GPU do host, então a 3090 vai pra VM
-> sem derrubar a sessão -- ver `vm/modo-jogo` e `~/Claude/maquina/docs/vm-e-hardware.md`. Os hooks abaixo só
+> sem derrubar a sessão -- ver `vm/game-mode` e `~/Claude/maquina/docs/vm-e-hardware.md`. Os hooks abaixo só
 > valem se a RX 550 sair da máquina e o host voltar a ter uma GPU só.
 
 ## 0-bis. ATUALIZAÇÃO 05/09/2026: a seção 0 abaixo ficou obsoleta

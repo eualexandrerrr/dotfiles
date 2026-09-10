@@ -5,7 +5,7 @@ PartOf=graphical-session.target
 
 [Service]
 Type=oneshot
-ExecStart=%h/.dotfiles/bin/telas-aplicar.sh
+ExecStart=%h/.dotfiles/bin/apply-screens.sh
 
 [Install]
 WantedBy=graphical-session.target

@@ -20,9 +20,9 @@ A `/home` sobrevive, a `/` não. Do lado da VM isso divide as coisas em duas pil
 | variáveis UEFI | `/var/lib/libvirt/qemu/nvram/win11-redm_VARS.fd` | entrada do Windows Boot Manager e chaves de Secure Boot (`secure='yes'`); a VM cai no shell da UEFI |
 | estado do vTPM | `/var/lib/libvirt/swtpm/<uuid>/` | é trocar de TPM: BitLocker pede a chave de recuperação, o PIN do Hello some, o Windows pode pedir reativação |
 
-Por isso existe o `vm/firmware-estado.sh`: `salvar` copia os dois pra `~/vms/firmware`, e
+Por isso existe o `vm/firmware-state.sh`: `salvar` copia os dois pra `~/vms/firmware`, e
 `restaurar` devolve depois do format — sem sobrescrever nada que já exista na `/`. O
-`vm/preparar.sh` chama o `restaurar` sozinho, então o `install.sh` já cobre isso.
+`vm/prepare.sh` chama o `restaurar` sozinho, então o `install.sh` já cobre isso.
 
 O `salvar` **não depende de ninguém lembrar**: o hook `release/end` do libvirt chama sozinho
 toda vez que a VM desliga, que é exatamente quando esse estado acabou de mudar. Ele roda antes
@@ -30,8 +30,8 @@ do filtro de perfil do `stop.sh`, porque o firmware muda tanto no perfil `3090` 
 `janela`. O backup é de 564 KB e é reescrito de forma atômica (`.novo` e `mv`), então hook
 interrompido no meio não deixa tar truncado no lugar do bom.
 
-Depois do format o `vm/preparar.sh` restaura os dois e **define o domínio** se ele não existir
-— e o `install.sh` chama o `preparar.sh`. Não há passo manual.
+Depois do format o `vm/prepare.sh` restaura os dois e **define o domínio** se ele não existir
+— e o `install.sh` chama o `prepare.sh`. Não há passo manual.
 
 
 ## O hardware
@@ -120,7 +120,7 @@ mudar sabendo por quê. **Nunca fique adivinhando onde a tela foi parar.**
    RX 550 com `Kernel driver in use: amdgpu`, a 3090 ainda em `nvidia`. **Ponto de
    não-retorno:** enquanto o desktop não estiver desenhando pela AMD, o passthrough não
    começa. Aqui também troca o modo do monitor pra `@144`.
-6. **`vm/vfio-ativar.sh`.** Ele confere as guardas sozinho, imprime os três itens a verificar
+6. **`vm/vfio-enable.sh`.** Ele confere as guardas sozinho, imprime os três itens a verificar
    e cria a entrada de recuperação. Reiniciar só depois que os três baterem. Sucesso =
    `lspci -nnk -s 07:00.0` com `Kernel driver in use: vfio-pci`.
 7. **`w11 janela`:** instalar Windows, virtio e o `looking-glass-host-setup.exe` **antes** de
@@ -137,7 +137,7 @@ placa. Troque a entrada no botão antes de concluir que algo quebrou — é quas
 ## Dois perfis, um domínio
 
 `w11-3090.xml` é o passthrough (a 3090 inteira vai pra VM; o host continua desenhando na
-RX 550). `w11-janela.xml` é vídeo emulado + SPICE numa janela, sem 3D: serve para
+RX 550). `w11-window.xml` é vídeo emulado + SPICE numa janela, sem 3D: serve para
 instalar/ajustar o Windows, **não roda RedM**. O script `w11` faz o `define` do perfil
 escolhido e liga: `w11 janela`, `w11 3090`, `w11 perfil`, `w11 desligar`.
 
@@ -157,7 +157,7 @@ Alt-Tab entre Linux e Windows funciona pela janela do Looking Glass. Isso aposen
 mecânica de salvar e reabrir aplicativos:
 
 - `salvar_apps()` no script `w11` virou caso particular: a mecânica de guardar e reabrir
-  aplicativos passou a valer pra todo desligamento, no `bin/sessao-apps.sh`, e não só pra
+  aplicativos passou a valer pra todo desligamento, no `bin/session-apps.sh`, e não só pra
   volta da VM. O `vm/reabrir-apps.sh` saiu.
 - O login automático do `sddm` continua valendo pra ligar o PC, não mais pra "voltar da VM".
 
@@ -193,7 +193,7 @@ e o `vm/glass` desenha numa janela do desktop. 2560×1440 pede ~40 MB (`w*h*4*2 
 
 Teclado e mouse vão por SPICE (sem display); Scroll Lock solta o mouse. Cliente B7 do AUR; o
 host pro guest está em `~/vms/looking-glass-host-B7.zip` (a versão tem que ser a mesma dos
-dois lados). O `preparar.sh` cria o shmem com dono certo por tmpfiles.
+dois lados). O `prepare.sh` cria o shmem com dono certo por tmpfiles.
 
 **O dummy plug** vai numa DP livre da 3090. Não é só pelo caso de ficar sem cabo: com o ASUS
 ligado nas duas placas e a entrada dele no HDMI, o monitor pode derrubar o hot-plug detect do
@@ -224,7 +224,7 @@ sudo virsh -c qemu:///system define ~/.dotfiles/vm/w11-3090.xml
 ```
 
 O disco é `~/vms/win.raw` (raw, 200 GB, `falloc`): fica em `/home`, que sobrevive ao format.
-Windows ocupa ~40 GB e o RedM com cache de assets passa fácil de 100 GB. O `vm/preparar.sh`
+Windows ocupa ~40 GB e o RedM com cache de assets passa fácil de 100 GB. O `vm/prepare.sh`
 cria, dá acesso ao `libvirt-qemu` (ACL) e instala os hooks.
 
 ## O que está configurado, e por quê
@@ -322,7 +322,7 @@ em 60 fps por mais rápida que fosse a placa. O monitor faz 119,998.
 
 `vm/guest-display.sh` lê a taxa do `kscreen-doctor`, escreve em
 `HKLM\SOFTWARE\LookingGlass\IDD\ExtraMode` no formato `LARGURAxALTURA@TAXA*` (o `*`
-marca o modo preferido), recria o IDD e aplica o modo. O `vm/jogar` chama ele antes de
+marca o modo preferido), recria o IDD e aplica o modo. O `vm/play` chama ele antes de
 abrir a janela; quando a taxa já bate, sai sem fazer nada.
 
 Casar a taxa **exata** não é preciosismo: o manual do Looking Glass manda usar
@@ -379,7 +379,7 @@ O Windows perde só as combinações que o Plasma usa.
 
 ### 5. AVIC
 
-`options kvm_amd avic=1` em `/etc/modprobe.d/kvm.conf`, escrito pelo `preparar.sh`. O
+`options kvm_amd avic=1` em `/etc/modprobe.d/kvm.conf`, escrito pelo `prepare.sh`. O
 AVIC entrega interrupção direto ao vCPU sem sair para o hipervisor. O perfil já trazia
 `<avic state="on"/>` no bloco `hyperv`, que é o que deixa o SynIC conviver com ele.
 
@@ -472,7 +472,7 @@ o teto é o processador, não a 3090.
 ## Pré-requisitos na máquina
 
 - `amd_iommu=on iommu=pt` no `arch.conf`
-- Hooks do libvirt em `/etc/libvirt/hooks/qemu.d/w11/`, instalados pelo `preparar.sh`
+- Hooks do libvirt em `/etc/libvirt/hooks/qemu.d/w11/`, instalados pelo `prepare.sh`
 - Grupo IOMMU 16 com só a 3090 e o áudio dela
 
 ### A rota de recuperação que não existia
@@ -481,7 +481,7 @@ A versão antiga deste arquivo dizia que o `arch-fallback.conf` ficava sem os pa
 nvidia, de propósito, como rota de fuga. **Era falso:** os dois arquivos são idênticos, então
 os dois bootariam sem tela do mesmo jeito. Quem resolve é `module_blacklist=vfio_pci`, que
 vale mesmo com o módulo dentro do initramfs — e é o que a entrada **`Arch Linux (zen, sem
-vfio)`** carrega. Ela é criada pelo `vfio-ativar.sh`, junto com o vfio, na hora certa.
+vfio)`** carrega. Ela é criada pelo `vfio-enable.sh`, junto com o vfio, na hora certa.
 
 ## O que sai do repo, e só depois do vfio provado
 
@@ -502,7 +502,7 @@ semanas mesmo com o vfio ativo — o `softdep` impede que ele carregue, e tirar 
 - **`bin/monitor.sh` sai != 0** quando a tela não está presente. É o que o `ExecCondition` do
   `ricepanel.service` usa: com o vertical desligado a unit é pulada limpa, senão o painel
   subiria em fullscreen por cima do monitor principal.
-- **A guarda do `vfio-ativar.sh` exige `amdgpu` em uso**, não só duas GPUs contadas. Uma
+- **A guarda do `vfio-enable.sh` exige `amdgpu` em uso**, não só duas GPUs contadas. Uma
   RX 550 enumerada e sem driver passava na guarda velha e deixaria o host sem tela no boot
   seguinte.
 - **O `start.sh` do hook aborta pela mesma razão**, se o `amdgpu` não estiver desenhando.

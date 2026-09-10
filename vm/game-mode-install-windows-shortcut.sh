@@ -9,9 +9,9 @@ source "$HERE/guest.sh"
 
 GUEST_USER="${GUEST_USER:-Alexandre}"
 
-guest_ready 30 || { echo "modo-jogo: o agente da VM nao respondeu" >&2; exit 1; }
+guest_ready 30 || { echo "game-mode: o agente da VM nao respondeu" >&2; exit 1; }
 
-cat >/tmp/modo-jogo-hotkey.ps1 <<'PS1'
+cat >/tmp/game-mode-hotkey.ps1 <<'PS1'
 $src = @"
 using System;
 using System.Runtime.InteropServices;
@@ -35,14 +35,15 @@ Add-Type -AssemblyName System.Windows.Forms
 Add-Type -TypeDefinition $src -ReferencedAssemblies System.Windows.Forms
 [System.Windows.Forms.Application]::Run((New-Object HotkeyForm))
 PS1
-guest_put /tmp/modo-jogo-hotkey.ps1 'C:/Windows/Temp/modo-jogo-hotkey.ps1'
-rm -f /tmp/modo-jogo-hotkey.ps1
+guest_put /tmp/game-mode-hotkey.ps1 'C:/Windows/Temp/game-mode-hotkey.ps1'
+rm -f /tmp/game-mode-hotkey.ps1
 
 guest_exec "
-\$action = New-ScheduledTaskAction -Execute 'powershell.exe' -Argument '-WindowStyle Hidden -NoProfile -ExecutionPolicy Bypass -File C:\Windows\Temp\modo-jogo-hotkey.ps1'
+Unregister-ScheduledTask -TaskName 'dotfiles-modo-jogo-hotkey' -Confirm:\$false -ErrorAction SilentlyContinue
+\$action = New-ScheduledTaskAction -Execute 'powershell.exe' -Argument '-WindowStyle Hidden -NoProfile -ExecutionPolicy Bypass -File C:\Windows\Temp\game-mode-hotkey.ps1'
 \$trigger = New-ScheduledTaskTrigger -AtLogOn -User '$GUEST_USER'
 \$who = New-ScheduledTaskPrincipal -UserId '$GUEST_USER' -LogonType Interactive -RunLevel Highest
-Register-ScheduledTask -TaskName 'dotfiles-modo-jogo-hotkey' -Action \$action -Trigger \$trigger -Principal \$who -Force | Out-Null
-Start-ScheduledTask -TaskName 'dotfiles-modo-jogo-hotkey'
+Register-ScheduledTask -TaskName 'dotfiles-game-mode-hotkey' -Action \$action -Trigger \$trigger -Principal \$who -Force | Out-Null
+Start-ScheduledTask -TaskName 'dotfiles-game-mode-hotkey'
 "
 echo "  CTRL+ALT+Home instalado -- ativo agora e em todo login futuro"

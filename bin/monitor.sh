@@ -4,11 +4,11 @@
 #
 # Le o EDID direto de /sys/class/drm, de proposito: nao depende de compositor nenhum, entao
 # serve igual dentro do Plasma, de um tty ou de um ExecCondition do systemd, que roda antes
-# da sessao grafica existir. A marca sai do telas.conf, unica fonte da verdade.
+# da sessao grafica existir. A marca sai do screens.conf, unica fonte da verdade.
 set -uo pipefail
 
 DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
-telas="$DOTFILES_DIR/telas.conf"
+telas="$DOTFILES_DIR/screens.conf"
 
 campo="name"
 if [[ ${1:-} == --desc ]]; then

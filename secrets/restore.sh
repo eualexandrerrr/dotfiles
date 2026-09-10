@@ -2,13 +2,13 @@
 # Restaura as credenciais do repo privado. Chamado pelo install.sh; nunca derruba a
 # instalacao: sem pendrive, sem repo ou sem rede, avisa e sai com 0.
 #
-#   ~/.dotfiles/segredos/restaurar.sh
+#   ~/.dotfiles/secrets/restore.sh
 set -uo pipefail
 
 DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
 PRIVADO="${PRIVADO:-$HOME/.secret-keys}"
 REPO_PRIVADO="${REPO_PRIVADO:-git@github.com:eualexandrerrr/secret-keys.git}"
-source "$DOTFILES_DIR/segredos/comum.sh"
+source "$DOTFILES_DIR/secrets/common.sh"
 
 command -v age >/dev/null 2>&1 || { aviso "age nao instalado, credenciais nao restauradas"; exit 0; }
 

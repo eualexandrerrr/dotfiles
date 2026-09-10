@@ -124,7 +124,7 @@ status() {
         if [[ -n $conector ]]; then
             printf '%sok%s tela %s em %s\n' "$GRN" "$END" "$papel" "$conector"
         else
-            printf '%s!!%s tela %s nao encontrada pelo EDID (telas.conf)\n' "$YEL" "$END" "$papel"
+            printf '%s!!%s tela %s nao encontrada pelo EDID (screens.conf)\n' "$YEL" "$END" "$papel"
         fi
     done
 
@@ -146,7 +146,7 @@ telas() {
         [[ -e $d ]] || continue
         printf '  %-22s %-10s enabled=%s\n' "$(basename "$(dirname "$d")")" "$(cat "$d")" "$(cat "$(dirname "$d")/enabled" 2>/dev/null || echo '?')"
     done
-    printf '\n%s== papeis do telas.conf ==%s\n' "$BLD" "$END"
+    printf '\n%s== papeis do screens.conf ==%s\n' "$BLD" "$END"
     local papel
     for papel in principal vertical; do
         printf '  %-10s %-14s %s\n' "$papel" \

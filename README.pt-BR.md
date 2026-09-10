@@ -42,7 +42,7 @@ Etapas do `setup.sh`: `links home perfil arquivos sistema vm ddcutil energia ata
 
 **1. Monitor por marca, nunca por conector.** Trocar a placa-mãe renumera as portas, e regra
 presa a `DP-1` passa a valer para a tela errada. Nenhum arquivo versionado guarda conector: a
-marca mora em `telas.conf` e é resolvida na hora por `bin/monitor.sh`, que lê o EDID direto
+marca mora em `screens.conf` e é resolvida na hora por `bin/monitor.sh`, que lê o EDID direto
 de `/sys/class/drm`. Sem depender de compositor, funciona igual dentro da sessão, numa tty ou
 num `ExecCondition=` de unit do systemd.
 
@@ -130,7 +130,7 @@ serve se aparecer na tela que você usa todo dia.
 
 **Por que o Linux não chega aos 180 Hz:** 1440p@180 pede ~19,3 Gbps. A DP 1.4 dá 25,9 e
 passa; a HDMI 2.0b da RX 550 dá 18 e não passa. Foi decisão consciente para deixar a DP na
-3090 — no Windows o resultado é idêntico. O `bin/telas-aplicar.sh` pede o teto que o cabo
+3090 — no Windows o resultado é idêntico. O `bin/apply-screens.sh` pede o teto que o cabo
 aguenta, `2560x1440@144`, e reaplica de tempos em tempos porque o KWin esquece sozinho
 depois de apagar a tela por inatividade.
 
@@ -148,7 +148,7 @@ A VM tem documentação própria em [`vm/README.md`](vm/README.md).
 |---|---|
 | `dot config` / `dot reload` | roda o `setup.sh` / recarrega telas, áudio, painel e KWin |
 | `dot status` | confere binários do Plasma, sddm, autologin, serviços e as telas |
-| `dot telas` | GPUs, driver de cada `card`, saídas conectadas, papéis do `telas.conf` |
+| `dot telas` | GPUs, driver de cada `card`, saídas conectadas, papéis do `screens.conf` |
 | `dot erros` / `dot log` | avisos da última instalação / log inteiro (`-f` acompanha) |
 | `dot instalar` / `dot zero` | `git pull` + reinstala / apaga tudo e clona do zero |
 
