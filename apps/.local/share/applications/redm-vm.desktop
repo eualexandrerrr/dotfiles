@@ -1,8 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=RedM (servidor local)
-Comment=Sobe a VM Windows, o servidor local do Michigan e o RedM ja conectado nele, tudo numa janela do Looking Glass.
-Exec=ghostty -e bash -c "$HOME/.dotfiles/vm/play"
-Icon=virt-manager
-Terminal=false
-Categories=Game;

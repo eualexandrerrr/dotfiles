@@ -2,7 +2,7 @@
 Type=Application
 Name=Radmin VPN
 Comment=Radmin VPN pelo Wine, com o icone na bandeja do sistema
-Exec=bash -c "$HOME/.dotfiles/bin/radmin-vpn.sh"
+Exec=sh -c "\\$HOME/.dotfiles/bin/radmin-vpn.sh"
 Icon=network-vpn
 Terminal=false
 StartupNotify=false

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=Iniciar FiveM
+GenericName=FiveM na VM Windows
+Comment=Sobe a VM com a RTX 3090 e abre o FiveM numa janela do Looking Glass
+Exec=sh -c "ghostty -e \\$HOME/.dotfiles/vm/play fivem"
+Icon=virt-manager
+Terminal=false
+Categories=Game;
+StartupNotify=true

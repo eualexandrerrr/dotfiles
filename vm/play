@@ -2,7 +2,8 @@
 # Um comando so: sobe a VM w11 no perfil 3090, poe a tela virtual na taxa do monitor, sobe o
 # servidor local do Michigan se ele estiver fora, abre o RedM ja conectado nele e mostra
 # tudo numa janela do desktop pelo Looking Glass.
-# Uso: vm/play          (servidor local)
+# Uso: vm/play                (RedM no servidor local)
+#      vm/play fivem          (FiveM)
 #      SERVIDOR=jogar.michiganroleplay.com vm/play
 #
 # Enquanto o host tiver uma GPU so, o hook do libvirt derruba a sessao pra soltar a placa: o
@@ -13,6 +14,7 @@ HERE="$(cd "$(dirname "$(readlink -f "$0")")" && pwd)"
 SHM="$([[ -c /dev/kvmfr0 ]] && echo /dev/kvmfr0 || echo /dev/shm/looking-glass)"
 
 # De dentro da VM o host NAO e localhost: e o gateway da rede `default` do libvirt.
+JOGO="${1:-redm}"
 SERVIDOR="${SERVIDOR:-192.168.122.1:30120}"
 TXDATA="${TXDATA:-$HOME/MichiganRoleplay/txData}"
 
@@ -63,7 +65,12 @@ done
 
 bash "$HERE/guest-display.sh" || printf 'jogar: a taxa da tela virtual ficou como estava\n' >&2
 
-sobe_servidor_local
-REDM_CONNECT="$SERVIDOR" bash "$HERE/guest-redm.sh" || printf 'jogar: o RedM nao subiu sozinho\n' >&2
+# O servidor local so vale pro RedM: e o FXServer do Michigan. Com `set -e` no topo, um
+# `[[ ... ]] && cmd` que da falso derrubaria o script inteiro -- por isso o if.
+if [[ $JOGO == redm ]]; then
+    sobe_servidor_local
+fi
+bash "$HERE/guest-game.sh" "$JOGO" "$SERVIDOR" \
+    || printf 'play: o %s nao subiu sozinho\n' "$JOGO" >&2
 
 exec "$HERE/glass"

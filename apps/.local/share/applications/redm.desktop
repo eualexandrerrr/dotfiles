@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=Iniciar RedM
+GenericName=RedM na VM Windows
+Comment=Sobe a VM com a RTX 3090, o servidor local do Michigan e o RedM ja conectado, tudo numa janela do Looking Glass
+Exec=sh -c "ghostty -e \\$HOME/.dotfiles/vm/play redm"
+Icon=virt-manager
+Terminal=false
+Categories=Game;
+StartupNotify=true
