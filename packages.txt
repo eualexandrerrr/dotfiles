@@ -1,6 +1,10 @@
 # Um pacote por linha. Seções [repo-oficial:*] vão pro pacman, [aur] vai pro paru.
 
 [repo-oficial:base]
+ntfs-3g
+socat
+ydotool
+zram-generator
 age
 archlinux-keyring
 attr
@@ -161,6 +165,8 @@ zsh-completions
 zsh-syntax-highlighting
 
 [repo-oficial:dev-web]
+git-filter-repo
+rust
 docker
 docker-buildx
 docker-compose
@@ -186,6 +192,7 @@ cloudflared
 ddcutil
 dnsmasq
 libvirt
+virt-viewer
 mariadb
 mariadb-clients
 qemu-full
@@ -201,6 +208,24 @@ freerdp
 obsidian
 rclone
 spotify-launcher
+
+[repo-oficial:diagnostico]
+# Ferramental de medicao usado pra depurar GPU, disco e memoria desta maquina. Sem eles,
+# toda investigacao de desempenho recomeca com "instala isso primeiro".
+dmidecode
+fio
+glmark2
+libva-utils
+lib32-mangohud
+mangohud
+mesa-utils
+nvme-cli
+radeontop
+smartmontools
+stress-ng
+vkmark
+vulkan-tools
+wayland-utils
 
 [aur]
 looking-glass
