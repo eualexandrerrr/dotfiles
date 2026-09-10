@@ -389,7 +389,10 @@ options nouveau modeset=0
 enable_services() {
     log "habilitando servicos"
     local unit
-    for unit in NetworkManager.service sddm.service ananicy-cpp.service reflector.timer rtkit-daemon.service; do
+    # fstrim mantem o TRIM do NVMe, paccache poda o cache do pacman e o resolved e quem o
+    # bin/dns-fastest.sh alimenta -- os tres estavam ligados na mao e sumiriam no format.
+    for unit in NetworkManager.service sddm.service ananicy-cpp.service reflector.timer rtkit-daemon.service \
+                fstrim.timer paccache.timer systemd-resolved.service; do
         if sudo systemctl enable "$unit" >/dev/null 2>&1; then ok "$unit"; SERV_OK+=("$unit"); else warn "$unit nao habilitado"; SERV_FALHA+=("$unit"); fi
     done
 
@@ -588,6 +591,36 @@ EOF
     printf 'hyprland.desktop'
 }
 
+configure_sistema() {
+    log "tuning de sistema: zram, sysctl de jogos e layout do teclado no X"
+
+    # O RedM e a Proton mapeiam muita regiao de memoria; o padrao do kernel (65530) estoura e
+    # o jogo morre com "out of memory" mesmo com RAM sobrando.
+    printf 'vm.max_map_count = 2147483642\n' | sudo tee /etc/sysctl.d/99-jogos.conf >/dev/null \
+        && ok "/etc/sysctl.d/99-jogos.conf (max_map_count pro RedM)"
+
+    # zram com zstd: metade da RAM, teto de 8 GB. Os valores de vm.* sao os recomendados
+    # quando o swap e comprimido em RAM -- swappiness alto de proposito, porque paginar pro
+    # zram custa CPU, nao disco.
+    sudo mkdir -p /etc/systemd
+    printf '[zram0]\nzram-size = min(ram / 2, 8192)\ncompression-algorithm = zstd\n' \
+        | sudo tee /etc/systemd/zram-generator.conf >/dev/null \
+        && ok "/etc/systemd/zram-generator.conf (zstd, min(ram/2, 8192))"
+
+    printf 'vm.swappiness = 180\nvm.watermark_boost_factor = 0\nvm.watermark_scale_factor = 125\nvm.page-cluster = 0\n' \
+        | sudo tee /etc/sysctl.d/99-zram.conf >/dev/null \
+        && ok "/etc/sysctl.d/99-zram.conf"
+
+    sudo sysctl --system >/dev/null 2>&1
+
+    # Sem isso o Xwayland nasce com teclado us e o ABNT2 some dentro de app X11 (RedM, Wine).
+    if command -v localectl >/dev/null 2>&1; then
+        sudo localectl set-x11-keymap br >/dev/null 2>&1 \
+            && ok "layout br no X11 (/etc/X11/xorg.conf.d/00-keyboard.conf)" \
+            || warn "localectl set-x11-keymap br falhou"
+    fi
+}
+
 configure_vm() {
     log "VM w11: host, kvmfr e vfio"
 
@@ -602,6 +635,22 @@ configure_vm() {
         params+=(intel_iommu=on iommu=pt)
     fi
     add_kernel_params "${params[@]}"
+
+    # Saida de emergencia: a mesma entry, com o vfio_pci bloqueado. Sem ela, uma 3090 presa
+    # no vfio com a VM quebrada deixa o host sem jeito de devolver a placa. O add_kernel_params
+    # so acrescenta parametro em entry existente -- nunca cria esta, entao ela morre no format.
+    if sudo test -d /boot/loader/entries && sudo test -f /boot/loader/entries/arch.conf; then
+        if sudo test -f /boot/loader/entries/arch-sem-vfio.conf; then
+            ok "entry 'sem vfio' ja existe"
+        else
+            sudo sed -e 's|^title \(.*\))[[:space:]]*$|title \1, sem vfio)|' \
+                     -e 's|^title \([^(]*\)$|title \1 (sem vfio)|' \
+                     -e 's|^options \(.*\) rw |options \1 rw module_blacklist=vfio_pci |' \
+                /boot/loader/entries/arch.conf \
+                | sudo tee /boot/loader/entries/arch-sem-vfio.conf >/dev/null \
+                && ok "/boot/loader/entries/arch-sem-vfio.conf criada a partir da arch.conf"
+        fi
+    fi
 
     # preparar.sh ja e idempotente (so cria win.raw e baixa o virtio-win se faltarem) e ja
     # chama o kvmfr.sh sozinho, que faz o dkms, o modules-load.d e o cgroup_device_acl.
@@ -811,6 +860,7 @@ main() {
     etapa configure_nvidia
     etapa configure_resiliencia_boot
     etapa configure_ddcutil
+    etapa configure_sistema
     etapa configure_vm
     etapa enable_services
     etapa link_dotfiles
