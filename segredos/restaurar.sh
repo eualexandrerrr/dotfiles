@@ -70,24 +70,40 @@ if (( ${#entradas[@]} == 0 )); then
     exit 0
 fi
 
-sobrescritos=()
+# O que ja existe no $HOME VENCE o pacote. A /home sobrevive ao format (particao Files), entao
+# o caso normal e reinstalar com as credenciais atuais no lugar -- restaurar por cima
+# trocaria elas por uma foto velha e deslogaria tudo. So entra o que esta faltando, que e o
+# caso que importa de verdade: home nova depois de perder o disco.
+# FORCAR=1 inverte, pra quando o pacote e que esta certo.
+existentes=(); faltando=()
 for rel in "${entradas[@]}"; do
-    [[ -f "$HOME/$rel" ]] && sobrescritos+=("$rel")
+    if [[ -e "$HOME/$rel" && ${FORCAR:-0} != 1 ]]; then existentes+=("$rel"); else faltando+=("$rel"); fi
 done
-if (( ${#sobrescritos[@]} )); then
+
+if (( ${#existentes[@]} )); then
+    ok "${#existentes[@]} ja existiam no HOME e foram mantidos (FORCAR=1 sobrescreve)"
+fi
+
+if (( ${#faltando[@]} == 0 )); then
+    rm -rf "$tmp"
+    ok "nada faltando, credenciais atuais preservadas"
+    exit 0
+fi
+
+if (( ${#existentes[@]} )); then
     anteriores="$HOME/.local/state/dotfiles"
     mkdir -p "$anteriores"
     guardado="$anteriores/segredos-anteriores-$(date +%Y%m%d%H%M%S).tar.gz"
-    tar czf "$guardado" -C "$HOME" "${sobrescritos[@]}" 2>/dev/null \
-        && ok "$(basename "$guardado") guarda os ${#sobrescritos[@]} arquivos substituidos"
+    tar czf "$guardado" -C "$HOME" "${existentes[@]}" 2>/dev/null \
+        && ok "$(basename "$guardado") guarda o que ja estava no HOME"
 fi
 
-if ! tar xzf "$pacote" -C "$HOME" 2>/dev/null; then
+if ! tar xzf "$pacote" -C "$HOME" "${faltando[@]}" 2>/dev/null; then
     rm -rf "$tmp"
     aviso "a extracao falhou, credenciais nao restauradas"
     exit 0
 fi
-n=${#entradas[@]}
+n=${#faltando[@]}
 rm -rf "$tmp"
 
 chmod 700 "$HOME/.ssh" 2>/dev/null || true

@@ -40,7 +40,11 @@ printf 'guardando %d itens:\n' "${#itens[@]}"
 printf '  %s\n' "${itens[@]}"
 (( ${#faltando[@]} )) && printf 'ausentes (ignorados): %s\n' "${faltando[*]}"
 
-tar czf - -C "$HOME" "${itens[@]}" | age -r "$destinatario" -o "$PRIVADO/segredos.tar.age"
+# Perfil de navegador nao e credencial: automacao (MCP) cria um dentro do Claude/.secrets e
+# ele sozinho tem ~94 MB, o que levava o pacote de 23 KB pra 39 MB -- e o git guarda TODA
+# versao, entao o repo privado incharia sem volta. O perfil vive na /home, que sobrevive.
+EXCLUIR=(--exclude=perfil-navegador --exclude=Cache --exclude=node_modules --exclude='*.log')
+tar czf - -C "$HOME" "${EXCLUIR[@]}" "${itens[@]}" | age -r "$destinatario" -o "$PRIVADO/segredos.tar.age"
 ok "segredos.tar.age gravado ($(du -h "$PRIVADO/segredos.tar.age" | cut -f1))"
 
 if [[ ! -f $PRIVADO/chave.txt.age ]]; then
