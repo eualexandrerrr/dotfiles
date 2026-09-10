@@ -32,9 +32,10 @@ Etapas do `setup.sh`: `links home perfil arquivos sistema vm ddcutil energia ata
 | Função | Programa |
 |---|---|
 | Desktop | `plasma-meta` (painel, KRunner, Klipper, powerdevil) |
-| Arquivos | `dolphin` (GUI) · `yazi` (terminal) |
+| Arquivos | `dolphin` |
 | Captura | `spectacle` (tela, recorte, anotação e vídeo) |
 | Terminal | `ghostty` + zsh com `starship`, `atuin`, `fzf`, `zoxide` |
+| Editor | `micro` (terminal) · RCode (gráfico) |
 
 ---
 

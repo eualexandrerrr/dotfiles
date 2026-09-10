@@ -31,7 +31,7 @@ source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 
 export BROWSER="google-chrome-stable"
 export TERMINAL="ghostty"
-export EDITOR="nano"
+export EDITOR="micro"
 
 # Aliases
 alias poweroff="sudo poweroff"
@@ -58,18 +58,6 @@ command -v dust    >/dev/null 2>&1 && alias du="dust"
 command -v duf     >/dev/null 2>&1 && alias df="duf"
 command -v procs   >/dev/null 2>&1 && alias ps="procs"
 
-# yazi que devolve o diretorio onde voce parou, em vez de voltar pro de origem
-if command -v yazi >/dev/null 2>&1; then
-    y() {
-        local tmp cwd
-        tmp="$(mktemp -t yazi-cwd.XXXXXX)"
-        yazi "$@" --cwd-file="$tmp"
-        if cwd="$(cat -- "$tmp" 2>/dev/null)" && [[ -n $cwd && $cwd != "$PWD" ]]; then
-            builtin cd -- "$cwd" || return
-        fi
-        rm -f -- "$tmp"
-    }
-fi
 # x: Claude Code sem parar pra pedir permissao a cada ferramenta. Sem --model de
 # proposito: assim obedece o "model" do ~/.claude/settings.json (hoje opus[1m],
 # Opus 5 com 1M de contexto) e o que for escolhido no /model.

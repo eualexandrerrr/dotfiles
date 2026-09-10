@@ -31,9 +31,10 @@ Three scripts, that is all. All idempotent:
 | Role | Program |
 |---|---|
 | Desktop | `plasma-meta` (panel, KRunner, Klipper, powerdevil) |
-| Files | `dolphin` (GUI) · `yazi` (terminal) |
+| Files | `dolphin` |
 | Screenshots | `spectacle` (screen, region, annotation and video) |
 | Terminal | `ghostty` + zsh with `starship`, `atuin`, `fzf`, `zoxide` |
+| Editor | `micro` (terminal) · RCode (GUI) |
 
 ---
 
