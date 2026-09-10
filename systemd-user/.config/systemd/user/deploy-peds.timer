@@ -1,0 +1,12 @@
+[Unit]
+Description=Deploy [peds] as 02:50, 09:50 e 16:50
+
+[Timer]
+OnCalendar=*-*-* 02:50:00
+OnCalendar=*-*-* 09:50:00
+OnCalendar=*-*-* 16:50:00
+Persistent=true
+AccuracySec=1min
+
+[Install]
+WantedBy=timers.target

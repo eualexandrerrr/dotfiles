@@ -72,6 +72,37 @@ etapa_perfil() {
 etapa_energia() {
     log "energia: nunca dormir, monitores em 5 min"
     bash "$DOTFILES_DIR/bin/power.sh" || falha "power.sh"
+
+    # O power.sh cuida do lado systemd; estas duas sao do Plasma e ficavam de fora.
+    if command -v kwriteconfig6 >/dev/null 2>&1; then
+        # A tela nunca trava sozinha no meio do trabalho -- Meta+L continua travando a mao.
+        kwriteconfig6 --file kscreenlockerrc --group Daemon --key Autolock false
+        kwriteconfig6 --file kscreenlockerrc --group Daemon --key LockOnResume false
+        ok "bloqueio automatico de tela desligado"
+
+        if [[ -f $DOTFILES_DIR/estado/powermanagementprofilesrc && \
+              ! -f $HOME/.config/powermanagementprofilesrc ]]; then
+            cp "$DOTFILES_DIR/estado/powermanagementprofilesrc" "$HOME/.config/" \
+                && ok "perfil de energia do Plasma restaurado"
+        fi
+    fi
+}
+
+etapa_atalhos() {
+    log "atalhos de teclado do Plasma"
+    # Nao entra no stow: o KDE reescreve o kglobalshortcutsrc sozinho quando um atalho muda,
+    # e o symlink faria isso sujar o repo. O arquivo do repo e semente, nao espelho -- pra
+    # atualizar a semente depois de mexer nos atalhos, copie a mao por cima do de plasma/estado.
+    local semente="$DOTFILES_DIR/estado/kglobalshortcutsrc"
+    [[ -f $semente ]] || { falha "sem semente de atalhos no repo"; return; }
+
+    if [[ -f $HOME/.config/kglobalshortcutsrc ]]; then
+        ok "atalhos ja existem, semente do repo nao aplicada por cima"
+    else
+        cp "$semente" "$HOME/.config/kglobalshortcutsrc" \
+            && ok "atalhos restaurados do repo" \
+            || falha "nao consegui restaurar os atalhos"
+    fi
 }
 
 etapa_audio() {
@@ -282,12 +313,68 @@ etapa_barra() {
         --group Containments --group "$id" --group General --key alignment 132
     ok "painel $id: colado no rodape, translucido, 48px, icones centralizados"
 
+    # Os dois espacadores sao o que de fato empurra o bloco de icones pro meio: sem eles o
+    # alignment sozinho nao move nada. addWidget sempre anexa no fim, entao a ordem certa e
+    # escrita depois, no AppletOrder. Idempotente: so mexe se ainda nao houver dois.
+    local script='
+        var p = panels()[0];
+        var ws = p.widgets();
+        var espacos = 0;
+        for (var i = 0; i < ws.length; i++) {
+            if (ws[i].type == "org.kde.plasma.panelspacer") espacos++;
+        }
+        if (espacos < 2) {
+            for (var j = espacos; j < 2; j++) p.addWidget("org.kde.plasma.panelspacer");
+            print("criados");
+        } else {
+            print("ja tinha");
+        }'
+    local resposta
+    resposta="$(qdbus6 org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript \
+        "$script" 2>/dev/null)"
+    if [[ $resposta == criados ]]; then
+        # Ordem final: espacador, bloco de icones, espacador, bandeja/relogio. Os ids saem do
+        # proprio arquivo porque o Plasma os numera na ordem em que os applets nasceram.
+        local ordem
+        ordem="$(python3 - "$id" <<'PY'
+import configparser, os, re, sys
+alvo = os.path.expanduser('~/.config/plasma-org.kde.plasma.desktop-appletsrc')
+cid = sys.argv[1]
+c = configparser.RawConfigParser(strict=False); c.optionxform = str; c.read(alvo)
+pref = '[Containments][%s][Applets][' % cid
+plug = {}
+for s in c.sections():
+    m = re.fullmatch(re.escape(pref) + r'(\d+)\]', s)
+    if m and c.has_option(s, 'plugin'):
+        plug[m.group(1)] = c.get(s, 'plugin')
+espacos = [i for i, p in plug.items() if p == 'org.kde.plasma.panelspacer']
+direita = [i for i, p in plug.items()
+           if p in ('org.kde.plasma.systemtray', 'org.kde.plasma.digitalclock',
+                    'org.kde.plasma.showdesktop')]
+meio = [i for i in plug if i not in espacos and i not in direita]
+if len(espacos) < 2:
+    sys.exit(1)
+ordena = lambda xs: sorted(xs, key=int)
+print(';'.join([espacos[0]] + ordena(meio) + [espacos[1]] + ordena(direita)))
+PY
+)"
+        if [[ -n $ordem ]]; then
+            kwriteconfig6 --file plasma-org.kde.plasma.desktop-appletsrc \
+                --group Containments --group "$id" --group General --key AppletOrder "$ordem"
+            ok "espacadores criados e ordem do painel gravada ($ordem)"
+        else
+            falha "nao consegui calcular a ordem dos applets"
+        fi
+    else
+        ok "espacadores do painel ja estavam no lugar"
+    fi
+
     systemctl --user restart plasma-plasmashell.service >/dev/null 2>&1 \
         && ok "plasmashell recarregado" \
         || falha "plasmashell nao recarregou"
 }
 
-ETAPAS=(links home perfil thunar energia audio dns console chrome claude barra)
+ETAPAS=(links home perfil thunar energia atalhos audio dns console chrome claude barra)
 
 if [[ ${1:-} == --lista ]]; then
     printf 'etapas: %s\n' "${ETAPAS[*]}"

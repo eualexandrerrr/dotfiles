@@ -567,76 +567,72 @@ sessao_wayland() {
     printf 'plasma.desktop'
 }
 
-configure_tema_plasma() {
-    log "tema do Plasma: Dream Color Plasma, de l4k1"
+configure_tema() {
+    log "tema Dream Dark Color, de l4k1 (global, plasma, janela, icones e splash)"
 
-    # GPL-3.0+ de terceiro, entao nao entra neste repo: baixa da KDE Store na hora. O link
-    # direto carrega token que expira, por isso a URL sai da API OCS a cada instalacao.
-    local destino="$HOME/.local/share/plasma/desktoptheme/Dream-Color-Plasma"
-    if [[ -d $destino ]]; then
-        ok "Dream-Color-Plasma ja instalado"
-        return
-    fi
+    # Tudo GPL-3.0+ de terceiro: nada disso e copiado pra dentro deste repo, o instalador
+    # busca cada pedaco da loja. O Global Theme so aplica de verdade se os cinco estiverem
+    # instalados -- o que faltar, o Plasma silenciosamente troca pelo Breeze.
+    #
+    #   id da loja : pasta que sai do tar : onde mora
+    local componentes=(
+        "2313907:Dream-Dark-Color-Global-6:$HOME/.local/share/plasma/look-and-feel"
+        "2313892:Dream-Color-Plasma:$HOME/.local/share/plasma/desktoptheme"
+        "2313845:Dream-Color-Dark-Aurorae-6:$HOME/.local/share/aurorae/themes"
+        "2297910:Slot-Symbolic-Dark-Icons:$HOME/.local/share/icons"
+        "2136626:Magna-Splash-6:$HOME/.local/share/plasma/look-and-feel"
+    )
 
-    local tmp guardado="$HOME/Downloads/Dream-Color-Plasma.tar.gz"
-    tmp="$(mktemp -d)"
+    local item id pasta raiz destino link tmp guardado n=0
+    for item in "${componentes[@]}"; do
+        id="${item%%:*}"; item="${item#*:}"
+        pasta="${item%%:*}"; raiz="${item#*:}"
+        destino="$raiz/$pasta"
 
-    # A copia em ~/Downloads sobrevive ao format junto com a /home e nao depende da store
-    # estar no ar; a KDE Store e o plano B.
-    if [[ -f $guardado ]]; then
-        cp "$guardado" "$tmp/tema.tar.gz" && ok "usando o tar guardado em ~/Downloads"
-    else
-        local link
-        link="$(curl -s --max-time 30 'https://api.kde-look.org/ocs/v1/content/data/2313892' \
-            | sed -n 's|.*<downloadlink1>\(.*\)</downloadlink1>.*|\1|p')"
-        if [[ -z $link ]] || ! curl -sL --max-time 120 "$link" -o "$tmp/tema.tar.gz"; then
-            warn "nao consegui o Dream-Color-Plasma; Plasma fica no Breeze"
-            rm -rf "$tmp"
-            return
+        if [[ -d $destino ]]; then
+            n=$((n+1))
+            continue
         fi
-    fi
 
-    if tar xzf "$tmp/tema.tar.gz" -C "$tmp" 2>/dev/null && [[ -d $tmp/Dream-Color-Plasma ]]; then
-        mkdir -p "$HOME/.local/share/plasma/desktoptheme"
-        cp -r "$tmp/Dream-Color-Plasma" "$destino" && ok "Dream-Color-Plasma instalado"
-    else
-        warn "o tar do Dream-Color-Plasma nao abriu"
-    fi
-    rm -rf "$tmp"
-}
+        tmp="$(mktemp -d)"
+        # O tar salvo a mao em ~/Downloads vem primeiro: sobrevive ao format junto com a
+        # /home e nao depende da loja estar no ar.
+        guardado=""
+        for ext in tar.gz tar.xz; do
+            [[ -f $HOME/Downloads/$pasta.$ext ]] && guardado="$HOME/Downloads/$pasta.$ext" && break
+        done
 
-configure_tema_janela() {
-    log "decoracao de janela estilo Windows 11 (Willow, de doncsugar)"
-
-    # O tema e GPLv3 de terceiro: em vez de copiar o codigo dele pra dentro deste repo,
-    # clonamos e geramos aqui. Os SVGs nao vem prontos, saem do genThemes.sh.
-    local origem="$HOME/.cache/willow-theme"
-    local destino="$HOME/.local/share/aurorae/themes/WillowDark"
-
-    if [[ -d $destino ]]; then
-        ok "WillowDark ja instalado"
-    else
-        rm -rf "$origem"
-        if ! git clone -q --depth 1 https://github.com/doncsugar/willow-theme.git "$origem" 2>/dev/null; then
-            warn "nao consegui clonar o willow-theme; janela fica no Breeze"
-            return
-        fi
-        ( cd "$origem/aurorae-themes" && bash genThemes.sh >/dev/null 2>&1 )
-        if [[ -d $origem/aurorae-themes/output/WillowDark ]]; then
-            mkdir -p "$HOME/.local/share/aurorae/themes"
-            cp -r "$origem/aurorae-themes/output/WillowDark" "$destino" \
-                && ok "WillowDark instalado em ~/.local/share/aurorae/themes"
+        if [[ -n $guardado ]]; then
+            cp "$guardado" "$tmp/pacote"
         else
-            warn "genThemes.sh nao gerou o WillowDark"
-            return
+            link="$(curl -s --max-time 30 "https://api.pling.com/ocs/v1/content/data/$id" \
+                | sed -n 's|.*<downloadlink1>\(.*\)</downloadlink1>.*|\1|p')"
+            if [[ -z $link ]] || ! curl -sL --max-time 180 "$link" -o "$tmp/pacote"; then
+                warn "$pasta nao baixou"
+                rm -rf "$tmp"; continue
+            fi
         fi
+
+        if tar xf "$tmp/pacote" -C "$tmp" 2>/dev/null && [[ -d $tmp/$pasta ]]; then
+            mkdir -p "$raiz"
+            cp -r "$tmp/$pasta" "$destino" && n=$((n+1))
+        else
+            warn "o pacote de $pasta nao abriu"
+        fi
+        rm -rf "$tmp"
+    done
+    ok "$n de ${#componentes[@]} componentes no lugar"
+
+    # O esquema de cores nao vem em pacote proprio: e um .colors solto dentro do repo.
+    if [[ -f $DOTFILES_DIR/plasma/.local/share/color-schemes/DreamVioletDarkColor.colors ]]; then
+        ok "esquema de cores versionado no repo"
     fi
 
-    kwriteconfig6 --file kwinrc --group org.kde.kdecoration2 --key library org.kde.kwin.aurorae
-    kwriteconfig6 --file kwinrc --group org.kde.kdecoration2 --key theme __aurorae__svg__WillowDark
-    qdbus6 org.kde.KWin /KWin reconfigure >/dev/null 2>&1 \
-        && ok "decoracao WillowDark aplicada" \
-        || warn "KWin nao recarregou; a decoracao entra no proximo login"
+    if command -v lookandfeeltool >/dev/null 2>&1; then
+        lookandfeeltool --apply Dream-Dark-Color-Global-6 >/dev/null 2>&1 \
+            && ok "Global Theme aplicado (cores, icones, janela, painel e splash)" \
+            || warn "lookandfeeltool nao aplicou o Global Theme"
+    fi
 }
 
 configure_sistema() {
@@ -792,6 +788,16 @@ configure_kde() {
         warn "~/Apps/desktop/RicePanel ausente, ricepanel.service nao habilitado"
     fi
 
+    # Deploy da pasta [peds] do Michigan, 3x por dia. Depende do repo de deploy estar clonado.
+    if [[ -x "$HOME/MichiganRoleplay/DeployFiles/autosync.sh" ]]; then
+        systemctl --user enable deploy-peds.timer >/dev/null 2>&1 \
+            && systemctl --user start deploy-peds.timer >/dev/null 2>&1 \
+            && ok "deploy-peds.timer habilitado" \
+            || warn "deploy-peds.timer nao habilitado"
+    else
+        warn "~/MichiganRoleplay/DeployFiles ausente, deploy-peds.timer nao habilitado"
+    fi
+
 }
 
 install_maestro() {
@@ -907,8 +913,7 @@ main() {
     etapa configure_resiliencia_boot
     etapa configure_ddcutil
     etapa configure_sistema
-    etapa configure_tema_plasma
-    etapa configure_tema_janela
+    etapa configure_tema
     etapa configure_vm
     etapa enable_services
     etapa link_dotfiles

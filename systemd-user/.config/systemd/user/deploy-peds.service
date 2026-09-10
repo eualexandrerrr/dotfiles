@@ -1,0 +1,11 @@
+[Unit]
+Description=Deploy FTP da pasta [peds] do Michigan Roleplay
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=%h/MichiganRoleplay/DeployFiles
+Environment=NODE_BIN=/usr/bin/node
+ExecStart=%h/MichiganRoleplay/DeployFiles/autosync.sh
+TimeoutStartSec=1800
