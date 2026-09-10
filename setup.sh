@@ -348,7 +348,51 @@ etapa_ddcutil() {
     fi
 }
 
-ETAPAS=(links home perfil arquivos sistema vm ddcutil energia atalhos audio dns console chrome claude)
+etapa_servicos() {
+    log "servicos de usuario"
+    /usr/bin/systemctl --user daemon-reload >/dev/null 2>&1 || true
+
+    /usr/bin/systemctl --user enable vm-audio-acl.service >/dev/null 2>&1 \
+        && ok "vm-audio-acl.service habilitado" \
+        || falha "vm-audio-acl.service nao habilitado"
+
+    # As duas entram por graphical-session.target: como .desktop de autostart nao davam
+    # certo -- o gerador do systemd nao expande $HOME no Exec e as units falhavam todo boot.
+    /usr/bin/systemctl --user enable telas-aplicar.service reabrir-apps.service >/dev/null 2>&1 \
+        && ok "telas-aplicar e reabrir-apps ligadas na sessao grafica" \
+        || falha "units de sessao grafica nao habilitadas"
+
+    /usr/bin/systemctl --user enable telas-aplicar.timer >/dev/null 2>&1 \
+        && /usr/bin/systemctl --user start telas-aplicar.timer >/dev/null 2>&1 \
+        && ok "telas-aplicar.timer habilitado" \
+        || falha "telas-aplicar.timer nao habilitado"
+
+    if [[ -d "$HOME/Apps/desktop/RicePanel" ]]; then
+        /usr/bin/systemctl --user enable ricepanel.service >/dev/null 2>&1 \
+            && ok "ricepanel.service habilitado" \
+            || falha "ricepanel.service nao habilitado"
+    else
+        falha "~/Apps/desktop/RicePanel ausente, ricepanel.service nao habilitado"
+    fi
+
+    # Deploy da pasta [peds] do Michigan, 3x por dia. Depende do repo de deploy estar clonado.
+    if [[ -x "$HOME/MichiganRoleplay/DeployFiles/autosync.sh" ]]; then
+        /usr/bin/systemctl --user enable deploy-peds.timer >/dev/null 2>&1 \
+            && /usr/bin/systemctl --user start deploy-peds.timer >/dev/null 2>&1 \
+            && ok "deploy-peds.timer habilitado" \
+            || falha "deploy-peds.timer nao habilitado"
+    else
+        falha "~/MichiganRoleplay/DeployFiles ausente, deploy-peds.timer nao habilitado"
+    fi
+
+    # O drkonqi fica 30 min esperando crash pendente e morre por timeout todo boot, sujando
+    # o --failed. Mascarado: o DrKonqi continua abrindo quando um app trava na frente dele.
+    /usr/bin/systemctl --user mask drkonqi-coredump-pickup.service >/dev/null 2>&1 \
+        && ok "drkonqi-coredump-pickup mascarado" \
+        || falha "nao consegui mascarar o drkonqi-coredump-pickup"
+}
+
+ETAPAS=(links home perfil arquivos sistema vm ddcutil energia atalhos audio dns console chrome claude servicos)
 
 if [[ ${1:-} == --lista ]]; then
     printf 'etapas: %s\n' "${ETAPAS[*]}"

@@ -25,8 +25,8 @@ mkdir -p "$LOGDIR"
 LOGFILE="${LOGFILE:-$LOGDIR/install.log}"
 T0=$SECONDS
 STEP=0
-TOTAL_STEPS=24
-[[ ${SKIP_NVIDIA:-0} == 1 ]] && TOTAL_STEPS=23
+TOTAL_STEPS=20
+[[ ${SKIP_NVIDIA:-0} == 1 ]] && TOTAL_STEPS=19
 WARNS=()
 ETAPAS_FALHA=()
 OFICIAL_PEDIDOS=0; OFICIAL_NOVOS=(); OFICIAL_FALTANDO=()
@@ -570,38 +570,6 @@ install_vencord() {
     fi
 }
 
-configure_servicos_usuario() {
-    log "servicos de usuario"
-    systemctl --user daemon-reload >/dev/null 2>&1 || true
-
-    systemctl --user enable vm-audio-acl.service >/dev/null 2>&1 \
-        && ok "vm-audio-acl.service habilitado" \
-        || warn "vm-audio-acl.service nao habilitado"
-
-    systemctl --user enable telas-aplicar.timer >/dev/null 2>&1 \
-        && systemctl --user start telas-aplicar.timer >/dev/null 2>&1 \
-        && ok "telas-aplicar.timer habilitado" \
-        || warn "telas-aplicar.timer nao habilitado"
-
-    if [[ -d "$HOME/Apps/desktop/RicePanel" ]]; then
-        systemctl --user enable ricepanel.service >/dev/null 2>&1 \
-            && ok "ricepanel.service habilitado" \
-            || warn "ricepanel.service nao habilitado"
-    else
-        warn "~/Apps/desktop/RicePanel ausente, ricepanel.service nao habilitado"
-    fi
-
-    # Deploy da pasta [peds] do Michigan, 3x por dia. Depende do repo de deploy estar clonado.
-    if [[ -x "$HOME/MichiganRoleplay/DeployFiles/autosync.sh" ]]; then
-        systemctl --user enable deploy-peds.timer >/dev/null 2>&1 \
-            && systemctl --user start deploy-peds.timer >/dev/null 2>&1 \
-            && ok "deploy-peds.timer habilitado" \
-            || warn "deploy-peds.timer nao habilitado"
-    else
-        warn "~/MichiganRoleplay/DeployFiles ausente, deploy-peds.timer nao habilitado"
-    fi
-
-}
 
 summary() {
     local cor=$GRN titulo="instalacao concluida sem pendencias"
@@ -695,7 +663,6 @@ main() {
     etapa restaurar_segredos
     etapa clonar_central
     etapa configure_sddm
-    etapa configure_servicos_usuario
     etapa verificar
     summary
 }

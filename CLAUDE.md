@@ -58,7 +58,7 @@ Com duas GPUs o cenario de single-GPU passthrough (que derruba a sessao) nao se 
 
 ```
 ~/.dotfiles/setup.sh [etapa...]
-# links home perfil arquivos sistema vm ddcutil energia atalhos audio dns console chrome claude
+# links home perfil arquivos sistema vm ddcutil energia atalhos audio dns console chrome claude servicos
 ```
 
 Config nova entra como **etapa do `setup.sh`**, nunca como script solto novo na raiz. O que

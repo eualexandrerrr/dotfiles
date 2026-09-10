@@ -22,7 +22,7 @@ Three scripts, that is all. All idempotent:
 | `setup.sh` | configures everything, VM included — no network | you touched a config |
 | `reload.sh` | reloads the session already running | something drifted just now |
 
-`setup.sh` steps: `links home perfil arquivos sistema vm ddcutil energia atalhos audio dns console chrome claude`.
+`setup.sh` steps: `links home perfil arquivos sistema vm ddcutil energia atalhos audio dns console chrome claude servicos`.
 
 ---
 

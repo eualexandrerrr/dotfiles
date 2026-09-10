@@ -5,3 +5,6 @@ After=graphical-session.target
 [Service]
 Type=oneshot
 ExecStart=%h/.dotfiles/bin/telas-aplicar.sh
+
+[Install]
+WantedBy=graphical-session.target
