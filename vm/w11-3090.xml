@@ -6,8 +6,8 @@
       <ns0:os id="http://microsoft.com/win/11" />
     </ns0:libosinfo>
   </metadata>
-  <memory unit="KiB">16777216</memory>
-  <currentMemory unit="KiB">16777216</currentMemory>
+  <memory unit="KiB">25165824</memory>
+  <currentMemory unit="KiB">25165824</currentMemory>
   <vcpu placement="static">12</vcpu>
   <iothreads>1</iothreads>
   <cputune>
