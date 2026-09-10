@@ -183,6 +183,7 @@ scrcpy
 
 [repo-oficial:banco-infra]
 cloudflared
+ddcutil
 dnsmasq
 libvirt
 mariadb

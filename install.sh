@@ -588,6 +588,17 @@ EOF
     printf 'hyprland.desktop'
 }
 
+configure_ddcutil() {
+    log "i2c-dev pro ddcutil (troca de entrada do monitor pelo modo-jogo)"
+    if printf 'i2c-dev\n' | sudo cmp -s - /etc/modules-load.d/i2c-dev.conf 2>/dev/null; then
+        ok "/etc/modules-load.d/i2c-dev.conf ja correto"
+    else
+        printf 'i2c-dev\n' | sudo tee /etc/modules-load.d/i2c-dev.conf >/dev/null
+        sudo modprobe i2c-dev
+        ok "/etc/modules-load.d/i2c-dev.conf"
+    fi
+}
+
 configure_sddm() {
     log "configurando sddm (sessao Hyprland via uwsm, login automatico)"
     [[ -f /usr/share/wayland-sessions/hyprland.desktop ]] \
@@ -767,6 +778,7 @@ main() {
     etapa install_vencord
     etapa configure_nvidia
     etapa configure_resiliencia_boot
+    etapa configure_ddcutil
     etapa enable_services
     etapa link_dotfiles
     etapa home_enxuta
