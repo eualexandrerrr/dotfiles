@@ -139,6 +139,24 @@ voltar() {
     if usb_anexado; then
         echo "  devolvendo o controlador USB pro host"
         sudo virsh detach-device w11 "$USB_XML" --live >/dev/null
+
+        # detach-device --live so confirma que o QEMU ACEITOU o pedido (device_del), nao que
+        # o Windows de fato soltou o dispositivo -- o hot-unplug de PCI depende do driver do
+        # guest processar a remocao por ACPI. Sem esperar, o script seguia em frente e
+        # dizia "devolvido" com o teclado e o mouse ainda presos na VM (visto em 10/09/2026).
+        for _ in $(seq 1 20); do
+            usb_anexado || break
+            sleep 0.5
+        done
+        if usb_anexado; then
+            echo "  !! o Windows nao soltou o controlador USB a tempo, tentando de novo" >&2
+            sudo virsh detach-device w11 "$USB_XML" --live >/dev/null 2>&1 || true
+            for _ in $(seq 1 20); do
+                usb_anexado || break
+                sleep 0.5
+            done
+            usb_anexado && echo "  !! teclado e mouse continuam presos na VM -- rode 'vm/modo-jogo voltar' de novo" >&2
+        fi
     fi
 
     echo "  voltando o monitor pro HDMI (RX 550)"
