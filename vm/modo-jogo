@@ -99,6 +99,68 @@ Get-Content C:\Windows\Temp\modo-jogo-resolucao.log
 " >/dev/null
 }
 
+desligar_idd() {
+    cat >/tmp/modo-jogo-idd.ps1 <<'PS1'
+$log = 'C:\Windows\Temp\modo-jogo-idd.log'
+"start" | Out-File $log -Encoding utf8
+function L($m) { $m | Out-File $log -Append -Encoding utf8 }
+$src = @"
+using System;
+using System.Runtime.InteropServices;
+public class Idd {
+  [StructLayout(LayoutKind.Sequential, CharSet=CharSet.Unicode)]
+  public struct DISPLAY_DEVICE {
+    public int cb;
+    [MarshalAs(UnmanagedType.ByValTStr, SizeConst=32)] public string DeviceName;
+    [MarshalAs(UnmanagedType.ByValTStr, SizeConst=128)] public string DeviceString;
+    public int StateFlags;
+    [MarshalAs(UnmanagedType.ByValTStr, SizeConst=128)] public string DeviceID;
+    [MarshalAs(UnmanagedType.ByValTStr, SizeConst=128)] public string DeviceKey;
+  }
+  [DllImport("user32.dll", CharSet=CharSet.Unicode)] public static extern bool EnumDisplayDevicesW(string lpDevice, int iDevNum, ref DISPLAY_DEVICE lpDisplayDevice, int dwFlags);
+}
+"@
+Add-Type -TypeDefinition $src
+
+function IddAnexado {
+    $dd = New-Object Idd+DISPLAY_DEVICE
+    $dd.cb = [Runtime.InteropServices.Marshal]::SizeOf([type]([Idd+DISPLAY_DEVICE]))
+    for ($i = 0; $i -lt 8; $i++) {
+        if (-not [Idd]::EnumDisplayDevicesW([NullString]::Value, $i, [ref]$dd, 0)) { break }
+        if ($dd.DeviceString -like "*Looking Glass*" -and ($dd.StateFlags -band 1)) { return $true }
+    }
+    return $false
+}
+
+# Disable-PnpDevice comanda a desativacao mas nao espera o Windows tirar o dispositivo do
+# desktop -- confirmado em 10/09/2026: o IDD continuava ATTACHED_TO_DESKTOP e primario depois
+# do comando "ter sucesso", e a 3090 ficava sem tela nenhuma. Confere e tenta de novo.
+for ($tent = 1; $tent -le 3; $tent++) {
+    if (-not (IddAnexado)) { L "IDD ja desanexado (tentativa $tent)"; break }
+    L "tentativa ${tent}: desligando"
+    Disable-PnpDevice -InstanceId 'ROOT\DISPLAY\0000' -Confirm:$false
+    for ($s = 0; $s -lt 10; $s++) {
+        if (-not (IddAnexado)) { break }
+        Start-Sleep -Seconds 1
+    }
+}
+if (IddAnexado) { L "FALHOU: IDD continua anexado" } else { L "IDD desanexado com sucesso" }
+PS1
+    guest_put /tmp/modo-jogo-idd.ps1 'C:/Windows/Temp/modo-jogo-idd.ps1'
+    rm -f /tmp/modo-jogo-idd.ps1
+
+    guest_exec "
+\$action = New-ScheduledTaskAction -Execute 'powershell.exe' -Argument '-NoProfile -ExecutionPolicy Bypass -File C:\Windows\Temp\modo-jogo-idd.ps1'
+\$who = New-ScheduledTaskPrincipal -UserId '$GUEST_USER' -LogonType Interactive -RunLevel Highest
+Register-ScheduledTask -TaskName 'dotfiles-modo-jogo-idd' -Action \$action -Principal \$who -Force | Out-Null
+Start-ScheduledTask -TaskName 'dotfiles-modo-jogo-idd'
+Start-Sleep -Seconds 35
+Unregister-ScheduledTask -TaskName 'dotfiles-modo-jogo-idd' -Confirm:\$false
+Get-Content C:\Windows\Temp\modo-jogo-idd.log
+" | tee /tmp/modo-jogo-idd-resultado.log
+    grep -q "IDD desanexado com sucesso" /tmp/modo-jogo-idd-resultado.log
+}
+
 entrar() {
     [[ $(LC_ALL=C sudo virsh domstate w11 2>/dev/null) == running ]] || { echo "modo-jogo: a VM nao esta ligada (vm/w11 3090)" >&2; exit 1; }
     touch "$MARCADOR"
@@ -114,7 +176,7 @@ entrar() {
     fi
 
     echo "  desligando o IDD do Looking Glass"
-    guest_exec "Disable-PnpDevice -InstanceId '$IDD_ID' -Confirm:\$false" >/dev/null
+    desligar_idd || echo "modo-jogo: IDD nao confirmou desligado -- a 3090 pode ficar sem tela" >&2
 
     if ! usb_anexado; then
         echo "  anexando o controlador USB isolado (teclado e mouse vao pra VM AGORA)"
