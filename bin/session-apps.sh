@@ -53,6 +53,13 @@ restaurar() {
     local n=0 id
     while read -r id; do
         [[ -n $id ]] || continue
+        # App desinstalado desde a ultima sessao continua na lista: sem esta checagem o
+        # kstart falha calado e o login fica com erro que ninguem ve.
+        if ! find /usr/share/applications "$HOME/.local/share/applications" \
+                -maxdepth 1 -name "$id.desktop" -print -quit 2>/dev/null | grep -q .; then
+            printf '  %s nao esta mais instalado, pulando\n' "$id"
+            continue
+        fi
         kstart "$id" >/dev/null 2>&1 && n=$((n+1))
         # Chrome e Electron restauram as abas sozinhos; abrir em rajada faz os tres
         # brigarem por disco no primeiro segundo do login.
