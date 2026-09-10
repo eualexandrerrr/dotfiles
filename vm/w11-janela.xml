@@ -214,7 +214,11 @@
       <target type="virtio" name="com.redhat.spice.0" />
     </channel>
     <sound model="ich9" />
-    <audio id="1" type="spice" />
+    <!-- pipewire, nao spice: o Looking Glass nao carrega audio, entao o som do guest tem
+         que sair direto no PipeWire do host. E o que a VM viva ja usa. -->
+    <audio id="1" type="pipewire" runtimeDir="/run/user/1000">
+      <output name="w11" />
+    </audio>
     <watchdog model="itco" action="reset" />
     <memballoon model="none" />
   <channel type="unix"><target type="virtio" name="org.qemu.guest_agent.0" /></channel></devices>
