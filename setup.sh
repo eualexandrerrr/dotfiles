@@ -252,12 +252,12 @@ etapa_barra() {
         return
     fi
 
-    # A barra so fica de fato transparente com tema proprio: panelOpacity sozinho ainda
-    # desenha o fundo escuro do Breeze. O tema vem linkado pelo stow, do pacote plasma.
+    # O Breeze nao tem barra transparente nem blur: quem da o visual e o Dream Color Plasma,
+    # baixado pelo install.sh (etapa configure_tema_plasma).
     if command -v plasma-apply-desktoptheme >/dev/null 2>&1; then
-        plasma-apply-desktoptheme breeze-transparente >/dev/null 2>&1 \
-            && ok "tema breeze-transparente aplicado" \
-            || falha "nao consegui aplicar o tema breeze-transparente"
+        plasma-apply-desktoptheme Dream-Color-Plasma >/dev/null 2>&1 \
+            && ok "tema Dream-Color-Plasma aplicado" \
+            || falha "Dream-Color-Plasma nao aplicado; rode o install.sh"
     fi
 
     # O blur atras da barra e do KWin, nao do painel.

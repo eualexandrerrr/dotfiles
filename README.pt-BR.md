@@ -35,10 +35,11 @@ Etapas: `links home perfil energia audio dns console chrome claude`.
 | Captura | `spectacle` (tela, recorte, anotação e vídeo) |
 | Terminal | `ghostty` + zsh com `starship`, `atuin`, `fzf`, `zoxide` |
 
-O visual da barra sai de um tema derivado do Breeze que mora aqui
-(`plasma/.local/share/plasma/desktoptheme/breeze-transparente`, LGPL, do KDE Visual Design
-Group). A decoração de janela é o **[Willow](https://github.com/doncsugar/willow-theme)**, de
-**doncsugar** (GPLv3) — não está copiado neste repo: o `install.sh` clona e gera na hora.
+O visual não é meu: o tema do Plasma é o
+**[Dream Color Plasma](https://store.kde.org/p/2313892)**, de **l4k1** (GPL-3.0+), e a
+decoração de janela é o **[Willow](https://github.com/doncsugar/willow-theme)**, de
+**doncsugar** (GPLv3). Nenhum dos dois está copiado aqui — o `install.sh` baixa cada um da
+origem e o `setup.sh barra` aplica.
 
 ---
 

@@ -567,6 +567,35 @@ sessao_wayland() {
     printf 'plasma.desktop'
 }
 
+configure_tema_plasma() {
+    log "tema do Plasma: Dream Color Plasma, de l4k1"
+
+    # GPL-3.0+ de terceiro, entao nao entra neste repo: baixa da KDE Store na hora. O link
+    # direto carrega token que expira, por isso a URL sai da API OCS a cada instalacao.
+    local destino="$HOME/.local/share/plasma/desktoptheme/Dream-Color-Plasma"
+    if [[ -d $destino ]]; then
+        ok "Dream-Color-Plasma ja instalado"
+    else
+        local link tmp
+        link="$(curl -s --max-time 30 'https://api.kde-look.org/ocs/v1/content/data/2313892' \
+            | sed -n 's|.*<downloadlink1>\(.*\)</downloadlink1>.*|\1|p')"
+        if [[ -z $link ]]; then
+            warn "a KDE Store nao devolveu o link do tema; Plasma fica no Breeze"
+            return
+        fi
+        tmp="$(mktemp -d)"
+        if curl -sL --max-time 120 "$link" -o "$tmp/tema.tar.gz" \
+            && tar xzf "$tmp/tema.tar.gz" -C "$tmp" 2>/dev/null \
+            && [[ -d $tmp/Dream-Color-Plasma ]]; then
+            mkdir -p "$HOME/.local/share/plasma/desktoptheme"
+            cp -r "$tmp/Dream-Color-Plasma" "$destino" && ok "Dream-Color-Plasma instalado"
+        else
+            warn "download do Dream-Color-Plasma falhou"
+        fi
+        rm -rf "$tmp"
+    fi
+}
+
 configure_tema_janela() {
     log "decoracao de janela estilo Windows 11 (Willow, de doncsugar)"
 
@@ -869,6 +898,7 @@ main() {
     etapa configure_resiliencia_boot
     etapa configure_ddcutil
     etapa configure_sistema
+    etapa configure_tema_plasma
     etapa configure_tema_janela
     etapa configure_vm
     etapa enable_services

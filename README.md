@@ -34,10 +34,11 @@ Steps: `links home perfil energia audio dns console chrome claude`.
 | Screenshots | `spectacle` (screen, region, annotation and video) |
 | Terminal | `ghostty` + zsh with `starship`, `atuin`, `fzf`, `zoxide` |
 
-The panel look comes from a Breeze-derived theme kept in this repo
-(`plasma/.local/share/plasma/desktoptheme/breeze-transparente`, LGPL, by the KDE Visual Design
-Group). Window decoration is **[Willow](https://github.com/doncsugar/willow-theme)** by
-**doncsugar** (GPLv3) — not vendored here: `install.sh` clones and builds it on the fly.
+The look is not mine: the Plasma theme is
+**[Dream Color Plasma](https://store.kde.org/p/2313892)** by **l4k1** (GPL-3.0+), and the
+window decoration is **[Willow](https://github.com/doncsugar/willow-theme)** by **doncsugar**
+(GPLv3). Neither is vendored here — `install.sh` fetches each from its source and
+`setup.sh barra` applies them.
 
 ---
 
