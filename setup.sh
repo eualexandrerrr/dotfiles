@@ -47,17 +47,6 @@ etapa_home() {
     done
     mkdir -p "$HOME/Downloads" "$HOME/.local/share/desktop"
 
-    # Workspaces do VS Code, espelhando a arvore de workspaces/ dentro de ~/Workspaces.
-    # Nao entram no stow porque o ~/Workspaces e do usuario, nao do repo: copia so o
-    # que falta, e nunca por cima do que ele editou.
-    local novos=0 origem destino
-    while IFS= read -r origem; do
-        destino="$HOME/Workspaces/${origem#"$DOTFILES_DIR/workspaces/"}"
-        [[ -f $destino ]] && continue
-        mkdir -p "$(dirname "$destino")"
-        cp "$origem" "$destino" && novos=$((novos+1))
-    done < <(find "$DOTFILES_DIR/workspaces" -name '*.code-workspace' -type f 2>/dev/null)
-    (( novos )) && ok "$novos workspace(s) do VS Code criado(s)"
     ok "$removidas pasta(s) padrao removida(s)"
 }
 

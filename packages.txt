@@ -197,4 +197,3 @@ insync
 paru
 cachyos-ananicy-rules-git
 ttf-ms-fonts
-visual-studio-code-bin
