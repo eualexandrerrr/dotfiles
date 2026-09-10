@@ -159,6 +159,34 @@ etapa_chrome() {
     if [[ -f $politica ]]; then
         sudo rm -f "$politica" && ok "politica de pagina inicial removida"
     fi
+
+    # A RX 550 (Polaris) decodifica H.264 e HEVC em hardware e nao decodifica VP9 nem AV1
+    # (confirmado por vainfo). O YouTube serve VP9 por padrao, entao todo video cai em decode
+    # por software: medido em 09/09/2026, 20 s de 1080p60 custam 4,93 s de CPU em VP9 contra
+    # 1,88 s em H.264 pela VA-API -- 2,4x mais. E o "video atrasadinho" que ele relatou.
+    #
+    # A extensao forca o YouTube a entregar so H.264. O preco e o teto: o YouTube nao codifica
+    # 1440p nem 4K nesse codec, entao o player para em 1080p. Da pra reabrir VP9 pelo popup da
+    # extensao quando a nitidez importar mais que a fluidez -- por isso ela fica instalada e
+    # nao desinstalada.
+    #
+    # ExtensionInstallForcelist e o unico caminho que sobrevive a formatacao: instala sozinho
+    # no primeiro logon, sem passar pela loja a mao.
+    local extensoes="/etc/opt/chrome/policies/managed/extensoes.json"
+    local h264ify="omkfmpieigblcllmkgbflkikinpkodlk"
+    if [[ -f $extensoes ]] && grep -q "$h264ify" "$extensoes" 2>/dev/null; then
+        ok "politica de extensoes ja no lugar"
+    else
+        sudo mkdir -p "$(dirname "$extensoes")"
+        printf '%s\n' \
+            '{' \
+            '  "ExtensionInstallForcelist": [' \
+            "    \"$h264ify;https://clients2.google.com/service/update2/crx\"" \
+            '  ]' \
+            '}' | sudo tee "$extensoes" >/dev/null \
+            && ok "enhanced-h264ify forcado por politica (vale no proximo start do Chrome)" \
+            || falha "nao consegui escrever $extensoes"
+    fi
 }
 
 etapa_claude() {
