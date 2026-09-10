@@ -1,0 +1,7 @@
+[Unit]
+Description=Reforca a config de tela (taxa, rotacao, posicao)
+After=graphical-session.target
+
+[Service]
+Type=oneshot
+ExecStart=%h/.dotfiles/bin/telas-aplicar.sh

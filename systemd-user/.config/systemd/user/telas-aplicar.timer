@@ -1,0 +1,9 @@
+[Unit]
+Description=Reforca a config de tela a cada 5 minutos
+
+[Timer]
+OnActiveSec=1min
+OnUnitActiveSec=5min
+
+[Install]
+WantedBy=timers.target

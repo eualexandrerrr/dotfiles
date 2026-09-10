@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Reforcar config de tela
+Comment=Taxa, rotacao e posicao dos monitores -- o KWin sozinho as vezes esquece apos DPMS
+Exec=sh -c "$HOME/.dotfiles/bin/telas-aplicar.sh"
+X-KDE-autostart-phase=2
+NoDisplay=true

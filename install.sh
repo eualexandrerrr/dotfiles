@@ -696,6 +696,11 @@ configure_kde() {
         && ok "vm-audio-acl.service habilitado" \
         || warn "vm-audio-acl.service nao habilitado"
 
+    systemctl --user enable telas-aplicar.timer >/dev/null 2>&1 \
+        && systemctl --user start telas-aplicar.timer >/dev/null 2>&1 \
+        && ok "telas-aplicar.timer habilitado" \
+        || warn "telas-aplicar.timer nao habilitado"
+
     if [[ -d "$HOME/Apps/desktop/RicePanel" ]]; then
         systemctl --user enable ricepanel.service >/dev/null 2>&1 \
             && ok "ricepanel.service habilitado" \
