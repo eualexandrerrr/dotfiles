@@ -28,8 +28,12 @@ hl.monitor({
     scale = "auto",
 })
 
+-- persistent segura a workspace no monitor mesmo num desconecte curto -- o modo-jogo
+-- (vm/modo-jogo) troca a entrada do ASUS por ddcutil, e a entrada que sai perde o HPD por
+-- um instante: sem isso, o Hyprland via o principal sumir e realocava tudo pro vertical por
+-- uma fracao de segundo (visto em 09/09/2026, RCode piscando no monitor do RicePanel).
 for i = 1, 8 do
-    hl.workspace_rule({ workspace = tostring(i), monitor = principal })
+    hl.workspace_rule({ workspace = tostring(i), monitor = principal, persistent = true })
 end
-hl.workspace_rule({ workspace = "1", monitor = principal, default = true })
+hl.workspace_rule({ workspace = "1", monitor = principal, default = true, persistent = true })
 hl.workspace_rule({ workspace = "9", monitor = vertical, default = true })

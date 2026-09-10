@@ -142,7 +142,19 @@ end
 -- entao monitor.focused simplesmente nao dispara la -- zero custo, zero briga. So corrige
 -- quando o mouse de verdade cruza pro vertical fora da mira (menu, alt-tab, etc), via
 -- misc:mouse_move_focuses_monitor.
+-- No modo jogo nativo (vm/modo-jogo entrar) o principal mostra a saida direta da 3090, nao
+-- a janela do Looking Glass -- prender o cursor ali nao serve mais pra nada, e o
+-- monitor.focused que dispara durante a troca de entrada/USB fazia o cursor voltar sozinho
+-- pro principal e um flash de foco piscar no monitor vertical (visto em 09/09/2026: RCode
+-- "piscando" no monitor do RicePanel).
+local function modo_jogo_ativo()
+    local f = io.open("/tmp/modo-jogo-ativo", "r")
+    if f then f:close() end
+    return f ~= nil
+end
+
 local function manter_cursor_no_principal()
+    if modo_jogo_ativo() then return end
     local vertical = telas.nome("vertical")
     local ativo = hl.get_active_monitor()
     if not vertical or not ativo or ativo.name ~= vertical then return end

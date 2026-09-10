@@ -25,6 +25,7 @@ GUEST_USER="${GUEST_USER:-Alexandre}"
 USB_XML="/tmp/modo-jogo-usb.xml"
 IDD_ID='ROOT\DISPLAY\0000'
 LISTENER_PID="/tmp/modo-jogo-listener.pid"
+MARCADOR="/tmp/modo-jogo-ativo"   # eventos.lua le isso pra nao prender o cursor no principal
 
 cat >"$USB_XML" <<'XML'
 <hostdev mode='subsystem' type='pci' managed='yes'>
@@ -98,6 +99,7 @@ Get-Content C:\Windows\Temp\modo-jogo-resolucao.log
 
 entrar() {
     [[ $(sudo virsh domstate w11 2>/dev/null) == executando ]] || { echo "modo-jogo: a VM nao esta ligada (vm/w11 3090)" >&2; exit 1; }
+    touch "$MARCADOR"
     guest_ready 30 || { echo "modo-jogo: o agente da VM nao respondeu" >&2; exit 1; }
 
     echo "  desligando o IDD do Looking Glass"
@@ -122,6 +124,7 @@ entrar() {
 }
 
 voltar() {
+    rm -f "$MARCADOR"
     if usb_anexado; then
         echo "  devolvendo o controlador USB pro host"
         sudo virsh detach-device w11 "$USB_XML" --live >/dev/null
