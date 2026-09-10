@@ -78,7 +78,6 @@ poppler-glib
 gvfs
 gvfs-mtp
 udiskie
-xarchiver
 yazi
 
 [repo-oficial:visualizadores]
