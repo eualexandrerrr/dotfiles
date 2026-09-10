@@ -3,7 +3,7 @@ hl.window_rule({
     match = { class = "^[Rr]ice[Pp]anel$" },
     workspace = "9 silent",
     fullscreen = true,
-    opacity = "1.0 1.0",
+    opacity = "1.0 override 1.0 override",
     border_size = 0,
     rounding = 0,
     no_shadow = true,
@@ -85,7 +85,7 @@ hl.window_rule({
 hl.window_rule({
     name = "sempre-solido",
     match = { class = "looking-glass-client|virt-manager|com.freerdp.client.*|.*freerdp.*|steam_app.*|gamescope|mpv|vlc" },
-    opacity = "1.0 1.0",
+    opacity = "1.0 override 1.0 override",
 })
 
 hl.window_rule({
@@ -157,4 +157,19 @@ hl.window_rule({
     match = { class = "^rvrvpngui\\.exe$" },
     float = true,
     center = true,
+})
+
+-- Chrome opaco e sem blur. O "override" e obrigatorio: sem ele o Hyprland MULTIPLICA a
+-- opacidade da regra pelo global do hyprland.lua (1.0 x 0.96 = 0.96), e a janela continua
+-- translucida. Testado A/B em 09/09/2026.
+hl.window_rule({
+    name = "chrome-opaco",
+    match = { class = [[^google\-chrome$]] },
+    opacity = "1.0 override 1.0 override",
+})
+
+hl.window_rule({
+    name = "chrome-sem-blur",
+    match = { class = [[^google\-chrome$]] },
+    no_blur = true,
 })
