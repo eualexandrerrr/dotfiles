@@ -5,6 +5,29 @@ Não fica em `links/`: o `install.sh` symlinka `links/config/*` para `~/.config/
 libvirt **de sistema** (`qemu:///system`), então um symlink ali só criaria confusão entre
 os dois. Aqui é fonte de verdade versionada; aplicar é explícito.
 
+## O que a VM perde num format
+
+A `/home` sobrevive, a `/` não. Do lado da VM isso divide as coisas em duas pilhas:
+
+| Sobrevive | Onde |
+|---|---|
+| disco do Windows | `~/vms/win.raw` |
+| definição do domínio | `vm/w11-*.xml` no repo (o `vm/w11 <perfil>` faz `virsh define`) |
+| ISO do virtio | `~/vms/virtio-win.iso` |
+
+| **Morre** | Onde | O que quebra sem ele |
+|---|---|---|
+| variáveis UEFI | `/var/lib/libvirt/qemu/nvram/win11-redm_VARS.fd` | entrada do Windows Boot Manager e chaves de Secure Boot (`secure='yes'`); a VM cai no shell da UEFI |
+| estado do vTPM | `/var/lib/libvirt/swtpm/<uuid>/` | é trocar de TPM: BitLocker pede a chave de recuperação, o PIN do Hello some, o Windows pode pedir reativação |
+
+Por isso existe o `vm/firmware-estado.sh`: `salvar` copia os dois pra `~/vms/firmware`, e
+`restaurar` devolve depois do format — sem sobrescrever nada que já exista na `/`. O
+`vm/preparar.sh` chama o `restaurar` sozinho, então o `install.sh` já cobre isso.
+
+**Rode `vm/firmware-estado.sh salvar` antes de formatar.** O backup é de 564 KB e só vale a
+partir do momento em que foi tirado.
+
+
 ## O hardware
 
 Placa-mãe **ASUS TUF Gaming B550M-PLUS** (BIOS 3636, AGESA ComboV2PI_1.2.0.F), com SVM,

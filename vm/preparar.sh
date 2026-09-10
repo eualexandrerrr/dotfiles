@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # Deixa o host pronto pra VM w11: libvirtd, rede default, disco em ~/vms (sobrevive ao format),
+# o UEFI/vTPM restaurados de ~/vms/firmware (que NAO sobrevivem sozinhos),
 # acesso do libvirt-qemu a ~/vms e os hooks do RedMLinux. Idempotente. Nao mexe no vfio:
 # isso e o vfio-ativar.sh, so depois da segunda GPU.
 set -uo pipefail
@@ -10,6 +11,9 @@ virsh -c qemu:///system net-autostart default >/dev/null 2>&1; virsh -c qemu:///
 mkdir -p "$VMS"
 [[ -f $VMS/win.raw ]] || { qemu-img create -f raw -o preallocation=falloc "$VMS/win.raw" 200G >/dev/null && ok "win.raw 200G"; }
 sudo setfacl -m u:libvirt-qemu:x "$HOME"; sudo setfacl -R -m u:libvirt-qemu:rwx "$VMS"; sudo setfacl -R -d -m u:libvirt-qemu:rwx "$VMS"; ok "acl do libvirt-qemu em ~/vms"
+# Antes dos hooks: se a / e nova (format), devolve o UEFI e o vTPM da VM, que moram la e
+# nao sobrevivem. Nao sobrescreve nada que ja exista -- ver vm/firmware-estado.sh.
+bash "$DOTFILES_DIR/vm/firmware-estado.sh" restaurar
 sudo bash "$DOTFILES_DIR/vm/hooks-redmlinux/install-hooks.sh" w11 "$USER" >/dev/null 2>&1 && ok "hooks em /etc/libvirt/hooks/qemu.d/w11"
 sudo install -Dm644 "$DOTFILES_DIR/vm/looking-glass.tmpfiles" /etc/tmpfiles.d/10-looking-glass.conf && sudo systemd-tmpfiles --create /etc/tmpfiles.d/10-looking-glass.conf && ok "shmem do Looking Glass"
 bash "$DOTFILES_DIR/vm/kvmfr.sh"
