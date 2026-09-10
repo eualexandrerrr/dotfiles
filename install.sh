@@ -591,6 +591,18 @@ EOF
 configure_vm() {
     log "VM w11: host, kvmfr e vfio"
 
+    # Sem IOMMU nao existe passthrough: o vfio-pci ate prende a placa, mas nao ha grupo pra
+    # entregar pra VM. Nao vem de graca em instalacao nova -- estava na cmdline desta maquina
+    # so porque alguem pos na mao um dia. `transparent_hugepage=always` e o que deixa o XML
+    # dispensar hugepage estatica (ver comentario no w11-3090.xml).
+    local params=(transparent_hugepage=always)
+    if grep -qi 'AuthenticAMD' /proc/cpuinfo; then
+        params+=(amd_iommu=on iommu=pt)
+    else
+        params+=(intel_iommu=on iommu=pt)
+    fi
+    add_kernel_params "${params[@]}"
+
     # preparar.sh ja e idempotente (so cria win.raw e baixa o virtio-win se faltarem) e ja
     # chama o kvmfr.sh sozinho, que faz o dkms, o modules-load.d e o cgroup_device_acl.
     DOTFILES_DIR="$DOTFILES_DIR" bash "$DOTFILES_DIR/vm/preparar.sh" || warn "vm/preparar.sh falhou"
