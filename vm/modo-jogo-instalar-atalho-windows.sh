@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Instala o ALT+F1 dentro do Windows: roda uma vez (a tarefa agendada "AtLogOn" cobre os
+# Instala o CTRL+ALT+Home dentro do Windows: roda uma vez (a tarefa agendada "AtLogOn" cobre os
 # proximos boots sozinha). RegisterHotKey precisa de sessao interativa com loop de mensagens
 # -- por isso vira tarefa agendada com LogonType Interactive, ligada tambem agora, pra nao
 # esperar o proximo login.
@@ -21,7 +21,7 @@ public class HotkeyForm : Form {
   protected override void OnLoad(EventArgs e) {
     this.Visible = false;
     this.ShowInTaskbar = false;
-    RegisterHotKey(this.Handle, 1, 0x0001, 0x70); // ALT + F1
+    RegisterHotKey(this.Handle, 1, 0x0003, 0x24); // CTRL + ALT + Home
   }
   protected override void WndProc(ref Message m) {
     if (m.Msg == 0x0312 && m.WParam.ToInt32() == 1) {
@@ -45,4 +45,4 @@ guest_exec "
 Register-ScheduledTask -TaskName 'dotfiles-modo-jogo-hotkey' -Action \$action -Trigger \$trigger -Principal \$who -Force | Out-Null
 Start-ScheduledTask -TaskName 'dotfiles-modo-jogo-hotkey'
 "
-echo "  ALT+F1 instalado -- ativo agora e em todo login futuro"
+echo "  CTRL+ALT+Home instalado -- ativo agora e em todo login futuro"

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # Escuta so no IP da bridge da libvirt: o unico jeito de bater aqui e vindo da VM, que e
-# exatamente o caso de uso (Alt+F1 dentro do Windows chama isto pra rodar "voltar" no host).
+# exatamente o caso de uso (Ctrl+Alt+Home dentro do Windows chama isto pra rodar "voltar" no host).
 import http.server
 import subprocess
 import sys
