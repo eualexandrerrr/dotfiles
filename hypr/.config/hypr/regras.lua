@@ -25,7 +25,7 @@ hl.window_rule({ name = "discord-na-2", match = { class = MENSAGEIRO }, workspac
 hl.window_rule({ name = "rcode-na-3", match = { class = EDITOR }, workspace = "3 silent" })
 hl.window_rule({ name = "jogos-na-4", match = { class = JOGOS, float = false }, workspace = "4 silent" })
 hl.window_rule({ name = "spotify-na-5", match = { class = MUSICA }, workspace = "5 silent" })
-hl.window_rule({ name = "terminais-na-6", match = { class = TERMINAIS }, workspace = "6 silent" })
+hl.window_rule({ name = "terminais-na-6", match = { class = TERMINAIS }, workspace = 6 })
 hl.window_rule({ name = "rdp-na-7", match = { class = REMOTO, float = false }, workspace = "7 silent" })
 -- A workspace 4 e so do jogo. As regras de workspace acima casam com `float = false`, entao
 -- qualquer janela que ja nasce flutuante -- Thunar, pavucontrol, dialogo de portal -- escapava
