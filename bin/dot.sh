@@ -54,7 +54,11 @@ ver_log() {
     if [[ ${1:-} == -f ]]; then
         tail -f "$LOGFILE"
     else
-        ${PAGER:-less -R} "$LOGFILE"
+        # Array porque o valor tem argumento junto: com aspas viraria um binario
+        # chamado "less -R", e sem aspas dependeria do word splitting dar certo.
+        local -a pager
+        if [[ -n ${PAGER:-} ]]; then read -ra pager <<<"$PAGER"; else pager=(less -R); fi
+        "${pager[@]}" "$LOGFILE"
     fi
 }
 
@@ -81,8 +85,9 @@ status() {
         || { printf '%s!!%s /etc/sddm.conf.d/10-dotfiles.conf ausente\n' "$YEL" "$END"; faltou=1; }
 
     local u
-    for u in ricepanel.service; do
-        systemctl --user is-enabled "$u" >/dev/null 2>&1 \
+    for u in ricepanel.service vm-audio-acl.service apply-screens.service \
+             session-apps.service apply-screens.timer session-apps.timer deploy-peds.timer; do
+        /usr/bin/systemctl --user is-enabled "$u" >/dev/null 2>&1 \
             && printf '%sok%s %s\n' "$GRN" "$END" "$u" \
             || printf '%s!!%s %s nao habilitado -- systemctl --user enable %s\n' "$YEL" "$END" "$u" "$u"
     done
@@ -118,7 +123,7 @@ status() {
         printf '%s!!%s renderizando por software, na CPU: %s\n' "$RED" "$END" "$software"; faltou=1
     fi
 
-    local papel conector
+    local papel
     for papel in principal vertical; do
         conector="$("$DOTFILES_DIR/bin/monitor.sh" "$papel" 2>/dev/null)"
         if [[ -n $conector ]]; then

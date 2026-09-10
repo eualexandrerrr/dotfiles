@@ -30,16 +30,16 @@ if sudo test -f /etc/kernel/cmdline; then
     printf '  ok   /etc/kernel/cmdline atualizado\n'
 fi
 
-if [[ -f /etc/default/grub ]]; then
+# So mexe no GRUB se ele puder ser regerado: editar o /etc/default/grub sem rodar o
+# grub-mkconfig deixa o arquivo divergindo do grub.cfg que o boot realmente le.
+if [[ -f /etc/default/grub ]] && command -v grub-mkconfig >/dev/null 2>&1 && [[ -d /boot/grub ]]; then
     for p in "${params[@]}"; do
         grep -qF -- "$p" /etc/default/grub \
             || sudo sed -i "s|^\(GRUB_CMDLINE_LINUX_DEFAULT=\"[^\"]*\)\"|\1 $p\"|" /etc/default/grub
     done
-    if command -v grub-mkconfig >/dev/null 2>&1 && [[ -d /boot/grub ]]; then
-        sudo grub-mkconfig -o /boot/grub/grub.cfg
-        aplicado=1
-        printf '  ok   GRUB regerado\n'
-    fi
+    sudo grub-mkconfig -o /boot/grub/grub.cfg
+    aplicado=1
+    printf '  ok   GRUB regerado\n'
 fi
 
 if (( aplicado )); then

@@ -74,6 +74,9 @@ if ! extrair "$TMP"; then
     exit 1
 fi
 
+# Conferir antes de apagar: se o zip mudar de layout, o rm -rf levaria o maestro que
+# funciona e o mv nao teria o que por no lugar.
+[[ -d "$TMP/maestro" ]] || { falha "o zip do maestro nao trouxe a pasta esperada"; rm -rf "$TMP" "$ZIP"; exit 1; }
 rm -rf "$DESTINO"
 mv "$TMP/maestro" "$DESTINO"
 rm -rf "$TMP" "$ZIP"

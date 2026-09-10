@@ -126,8 +126,11 @@ recolher_avd() {
     mkdir -p "$AVD_HOME"
     rm -rf "${AVD_HOME:?}/$nome.avd"
     mv "$origem/$nome.avd" "$AVD_HOME/"
-    sed "s|$origem|$AVD_HOME|" "$origem/$nome.ini" > "$AVD_HOME/$nome.ini"
-    rm -f "$origem/$nome.ini"
+    # Sem esta guarda o sed grava um .ini vazio e o AVD nasce corrompido.
+    if [[ -f "$origem/$nome.ini" ]]; then
+        sed "s|$origem|$AVD_HOME|" "$origem/$nome.ini" > "$AVD_HOME/$nome.ini"
+        rm -f "$origem/$nome.ini"
+    fi
     rmdir "$origem" "$(dirname "$origem")" 2>/dev/null
 }
 
@@ -179,11 +182,11 @@ fazer_avds() {
 
 estado() {
     printf 'SDK      %s\n' "$([[ -d $SDK ]] && echo "$SDK" || echo 'FALTA')"
-    printf 'java     %s\n' "$(java -version 2>&1 | head -1 || echo 'FALTA')"
+    printf 'java     %s\n' "$(command -v java >/dev/null 2>&1 && java -version 2>&1 | head -1 || echo 'FALTA')"
     printf 'adb      %s\n' "$(command -v adb || echo 'FALTA')"
     printf 'emulator %s\n' "$([[ -x $SDK/emulator/emulator ]] && echo "$SDK/emulator/emulator" || echo 'FALTA')"
     printf 'kvm      %s\n' "$([[ -w /dev/kvm ]] && echo 'ok' || echo 'SEM PERMISSAO -- veja o grupo kvm')"
-    printf 'AVDs     %s\n' "$("$SDK/emulator/emulator" -list-avds 2>/dev/null | tr '\n' ' ' || echo 'FALTA')"
+    printf 'AVDs     %s\n' "$([[ -x $SDK/emulator/emulator ]] && "$SDK/emulator/emulator" -list-avds 2>/dev/null | tr '\n' ' ' || echo 'FALTA')"
 }
 
 case "${1:-tudo}" in

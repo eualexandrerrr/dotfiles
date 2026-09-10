@@ -18,7 +18,7 @@ LISTA_VM="${XDG_STATE_HOME:-$HOME/.local/state}/w11-apps"
 # instalador porque reabrir no login e pedido de tela de update em cima do trabalho.
 # O ghostty ainda entra por outro motivo: ele nomeia o scope de
 # `app-ghostty-surface-transient-<pid>`, que nao e id de .desktop e o kstart nao abriria.
-IGNORAR='^(ghostty.*|org\.kde\.konsole|org\.kde\.discover)$'
+IGNORAR='^(ghostty.*|org\.kde\.discover)$'
 
 salvar() {
     mkdir -p "$(dirname "$LISTA")"

@@ -39,7 +39,23 @@ alias reboot="sudo reboot"
 alias pacman="sudo pacman"
 alias pacman-key="sudo pacman-key"
 alias mkinitcpio="sudo mkinitcpio"
-alias systemctl="sudo systemctl"
+# Funcao, nao alias: `systemctl --user` com sudo vira o gerenciador do ROOT, que nao
+# enxerga as units da sessao -- dai `--user list-units` devolver zero no terminal e o
+# numero certo quando chamado por caminho absoluto. Aqui o sudo so entra quando o comando
+# e de sistema E realmente muda estado.
+systemctl() {
+    local arg
+    for arg in "$@"; do
+        case "$arg" in
+            --user|--machine=*) command systemctl "$@"; return ;;
+        esac
+    done
+    case "${1:-}" in
+        status|list-*|show|cat|is-*|get-default|help|--help|--version|"")
+            command systemctl "$@" ;;
+        *)  sudo systemctl "$@" ;;
+    esac
+}
 alias rsync="sudo rsync"
 alias dd="sudo dd"
 alias dot="$HOME/.dotfiles/bin/dot.sh"

@@ -5,7 +5,7 @@
 # 10/09/2026 o arquivo foi regravado horas depois de aplicado, provavelmente por um ciclo de
 # DPMS (tela apagando por inatividade) que fez o KWin re-negociar o EDID. Cada monitor vai no
 # teto real dele (ver Modes: no kscreen-doctor -o -- nao adianta pedir mais que isso): o ASUS
-# em 2560x1440@144 e o LG em 1920x1080@143.98, que ja e o modo preferred/nativo dele. Isso era
+# em 2560x1440@144 e o LG em 1920x1080@144 (143,98 real), que e o preferred dele. Isso era
 # resolvido pelo monitores.lua no Hyprland, que era declarativo e reaplicava toda vez.
 #
 # Idempotente e silencioso: nao imprime nada quando ja esta certo, so age quando falta.
@@ -19,6 +19,7 @@ vertical="$("$DOTFILES_DIR/bin/monitor.sh" vertical 2>/dev/null)"
 command -v kscreen-doctor >/dev/null 2>&1 || exit 0
 
 kscreen-doctor \
+    "output.$vertical.mode.1920x1080@144" \
     "output.$vertical.rotation.left" \
     "output.$vertical.position.0,0" \
     "output.$vertical.priority.2" \
