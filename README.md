@@ -55,10 +55,16 @@ the displays hang off the AMD card kills video acceleration.
 directory and apps start writing inside the repo. A package is any folder with a dotted entry
 at its root (`.config`, `.zshrc`); a folder without one is tooling.
 
-**4. No keyring installed.** With no keyring, Chrome falls back to the `basic` backend
-(`v10` cookies) and the profile survives a reinstall without depending on the login password.
-`gnome-keyring` would move it to `v11` and create that dependency — which is why it is not in
-`packages.txt` and must not sneak in for any app's convenience.
+**4. The Chrome profile must not depend on a keyring.** On the `basic` backend cookies are
+`v10` and self-contained: the profile survives a reinstall without depending on the login
+password staying the same. On `v11` the key moves into the keyring, and since login here is
+automatic nobody types the password that unlocks it — you would wake up logged out of
+everything.
+
+Until 09/2026 this was guaranteed by installing no keyring at all. `plasma-meta` pulls in
+`kwallet-pam`, and `pam_kwallet` lands in `/etc/pam.d/sddm` on its own, so now there is one.
+What holds the guarantee is `--password-store=basic` in `chrome/.config/chrome-flags.conf`.
+`gnome-keyring` stays out of `packages.txt`.
 
 ---
 

@@ -55,10 +55,15 @@ AMD tira a aceleração de vídeo.
 inteiro e os apps passam a gravar dentro do repo. Pacote é a pasta com entrada começando em
 ponto na raiz (`.config`, `.zshrc`); pasta sem isso é ferramenta.
 
-**4. Nenhum keyring instalado.** Sem keyring o Chrome usa o backend `basic` (cookies `v10`) e
-o perfil sobrevive ao format sem depender da senha de login. `gnome-keyring` passaria para
-`v11` e criaria essa dependência — por isso não está no `packages.txt` e não deve entrar por
-conveniência de app nenhum.
+**4. O perfil do Chrome não pode depender de keyring.** Com o backend `basic` os cookies são
+`v10`, autossuficientes: o perfil sobrevive ao format sem depender de a senha de login
+continuar a mesma. No `v11` a chave passa a morar no keyring, e como o login aqui é
+automático ninguém digita a senha que o destrava — seria acordar deslogado de tudo.
+
+Até 09/2026 isso se garantia não instalando keyring nenhum. O `plasma-meta` trouxe o
+`kwallet-pam` como dependência e o `pam_kwallet` entra sozinho no `/etc/pam.d/sddm`, então
+agora existe um. Quem segura a garantia é o `--password-store=basic` no
+`chrome/.config/chrome-flags.conf`. `gnome-keyring` continua fora do `packages.txt`.
 
 ---
 
