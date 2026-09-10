@@ -245,7 +245,49 @@ etapa_thunar() {
     fi
 }
 
-ETAPAS=(links home perfil thunar energia audio dns console chrome claude)
+etapa_barra() {
+    log "barra do Plasma transparente"
+    if ! command -v kwriteconfig6 >/dev/null 2>&1; then
+        falha "kwriteconfig6 nao instalado"
+        return
+    fi
+
+    # A barra so fica de fato transparente com tema proprio: panelOpacity sozinho ainda
+    # desenha o fundo escuro do Breeze. O tema vem linkado pelo stow, do pacote plasma.
+    if command -v plasma-apply-desktoptheme >/dev/null 2>&1; then
+        plasma-apply-desktoptheme breeze-transparente >/dev/null 2>&1 \
+            && ok "tema breeze-transparente aplicado" \
+            || falha "nao consegui aplicar o tema breeze-transparente"
+    fi
+
+    # O blur atras da barra e do KWin, nao do painel.
+    kwriteconfig6 --file kwinrc --group Plugins --key blurEnabled true
+    kwriteconfig6 --file kwinrc --group Effect-blur --key BlurStrength 3
+    kwriteconfig6 --file kwinrc --group Effect-blur --key NoiseStrength 0
+    qdbus6 org.kde.KWin /KWin reconfigure >/dev/null 2>&1 && ok "blur do KWin recarregado"
+
+    # Opacidade e espessura moram no plasmashellrc, e o id do painel muda a cada instalacao.
+    local id
+    id="$(qdbus6 org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript \
+        'var p = panels(); print(p.length ? p[0].id : "")' 2>/dev/null | tr -dc '0-9')"
+    if [[ -z $id ]]; then
+        falha "plasmashell nao respondeu, barra nao configurada"
+        return
+    fi
+    kwriteconfig6 --file plasmashellrc --group PlasmaViews --group "Panel $id" --key floating 0
+    kwriteconfig6 --file plasmashellrc --group PlasmaViews --group "Panel $id" --group Defaults --key panelOpacity 2
+    kwriteconfig6 --file plasmashellrc --group PlasmaViews --group "Panel $id" --group Defaults --key thickness 48
+    # 132 = Qt::AlignHCenter|AlignVCenter, os icones no meio da barra
+    kwriteconfig6 --file plasma-org.kde.plasma.desktop-appletsrc \
+        --group Containments --group "$id" --group General --key alignment 132
+    ok "painel $id: colado no rodape, translucido, 48px, icones centralizados"
+
+    systemctl --user restart plasma-plasmashell.service >/dev/null 2>&1 \
+        && ok "plasmashell recarregado" \
+        || falha "plasmashell nao recarregou"
+}
+
+ETAPAS=(links home perfil thunar energia audio dns console chrome claude barra)
 
 if [[ ${1:-} == --lista ]]; then
     printf 'etapas: %s\n' "${ETAPAS[*]}"
