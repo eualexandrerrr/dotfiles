@@ -25,8 +25,8 @@ mkdir -p "$LOGDIR"
 LOGFILE="${LOGFILE:-$LOGDIR/install.log}"
 T0=$SECONDS
 STEP=0
-TOTAL_STEPS=22
-[[ ${SKIP_NVIDIA:-0} == 1 ]] && TOTAL_STEPS=20
+TOTAL_STEPS=24
+[[ ${SKIP_NVIDIA:-0} == 1 ]] && TOTAL_STEPS=22
 WARNS=()
 ETAPAS_FALHA=()
 OFICIAL_PEDIDOS=0; OFICIAL_NOVOS=(); OFICIAL_FALTANDO=()
@@ -588,6 +588,26 @@ EOF
     printf 'hyprland.desktop'
 }
 
+configure_vm() {
+    log "VM w11: host, kvmfr e vfio"
+
+    # preparar.sh ja e idempotente (so cria win.raw e baixa o virtio-win se faltarem) e ja
+    # chama o kvmfr.sh sozinho, que faz o dkms, o modules-load.d e o cgroup_device_acl.
+    DOTFILES_DIR="$DOTFILES_DIR" bash "$DOTFILES_DIR/vm/preparar.sh" || warn "vm/preparar.sh falhou"
+
+    # O vfio-ativar.sh roda mkinitcpio -P inteiro, que e lento: so vale a pena quando a 3090
+    # ainda nao esta presa. Ele tem guarda propria e aborta sozinho se a RX 550 nao estiver
+    # desenhando, entao rodar aqui nao arrisca deixar o host sem tela.
+    if lspci -nnk -d 10de:2204: 2>/dev/null | grep -q 'Kernel driver in use: vfio-pci'; then
+        ok "3090 ja esta no vfio-pci"
+    elif [[ -f /etc/modprobe.d/vfio.conf ]] && grep -q '10de:2204' /etc/modprobe.d/vfio.conf; then
+        ok "vfio ja configurado, falta reiniciar pra valer"
+    else
+        DOTFILES_DIR="$DOTFILES_DIR" bash "$DOTFILES_DIR/vm/vfio-ativar.sh" \
+            || warn "vfio-ativar.sh abortou (confira se a RX 550 esta montada e desenhando)"
+    fi
+}
+
 configure_ddcutil() {
     log "i2c-dev pro ddcutil (troca de entrada do monitor pelo modo-jogo)"
     if printf 'i2c-dev\n' | sudo cmp -s - /etc/modules-load.d/i2c-dev.conf 2>/dev/null; then
@@ -779,6 +799,7 @@ main() {
     etapa configure_nvidia
     etapa configure_resiliencia_boot
     etapa configure_ddcutil
+    etapa configure_vm
     etapa enable_services
     etapa link_dotfiles
     etapa home_enxuta

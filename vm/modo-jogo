@@ -49,7 +49,16 @@ PERFIL_COR="0x09"     # 14: 10000 K
 PERFIL_BRILHO="64"
 PERFIL_CONTRASTE="50"
 
+# Trocar a entrada derruba o canal DDC por alguns segundos (o mesmo HPD que o kernel ve como
+# desconexao). Escrever antes dele voltar da DDCRC_DISCONNECTED e o perfil fica o do jogo.
 restaurar_imagem() {
+    local i
+    for i in $(seq 1 20); do
+        sudo ddcutil --model "$MONITOR" getvcp DC >/dev/null 2>&1 && break
+        sleep 1
+    done
+    sudo ddcutil --model "$MONITOR" getvcp DC >/dev/null 2>&1 || return 1
+
     sudo ddcutil --model "$MONITOR" setvcp DC "$PERFIL_MODO" || return 1
     sleep 1
     sudo ddcutil --model "$MONITOR" setvcp 14 "$PERFIL_COR"
@@ -121,6 +130,15 @@ entrar() {
     [[ $(sudo virsh domstate w11 2>/dev/null) == executando ]] || { echo "modo-jogo: a VM nao esta ligada (vm/w11 3090)" >&2; exit 1; }
     touch "$MARCADOR"
     guest_ready 30 || { echo "modo-jogo: o agente da VM nao respondeu" >&2; exit 1; }
+
+    # O hotkey mora dentro do Windows (tarefa agendada no win.raw), entao sobrevive a format
+    # do host mas nao a uma VM recriada. Se faltar, instala sozinho -- sem isso o Ctrl+Alt+Home
+    # de volta nao existe e o teclado ja foi pra VM.
+    if ! guest_exec "(Get-ScheduledTask -TaskName 'dotfiles-modo-jogo-hotkey' -ErrorAction SilentlyContinue).TaskName" 2>/dev/null | grep -q 'dotfiles-modo-jogo-hotkey'; then
+        echo "  instalando o atalho Ctrl+Alt+Home dentro do Windows (estava faltando)"
+        bash "$HERE/modo-jogo-instalar-atalho-windows.sh" >/dev/null \
+            || echo "modo-jogo: nao consegui instalar o hotkey do Windows -- pra voltar, rode 'vm/modo-jogo voltar' daqui" >&2
+    fi
 
     echo "  desligando o IDD do Looking Glass"
     guest_exec "Disable-PnpDevice -InstanceId '$IDD_ID' -Confirm:\$false" >/dev/null
