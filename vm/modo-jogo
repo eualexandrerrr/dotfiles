@@ -20,7 +20,9 @@ set -euo pipefail
 HERE="$(cd "$(dirname "$(readlink -f "$0")")" && pwd)"
 source "$HERE/guest.sh"
 
-MONITOR="${MONITOR:-1}"                    # ddcutil --display N do ASUS (principal)
+# Por modelo, nao por indice: `--display N` e posicional e muda de ordem quando um cabo sai
+# ou a maquina e reinstalada.
+MONITOR="${MONITOR:-XG27ACS}"
 GUEST_USER="${GUEST_USER:-Alexandre}"
 USB_XML="/tmp/modo-jogo-usb.xml"
 IDD_ID='ROOT\DISPLAY\0000'
@@ -36,6 +38,24 @@ cat >"$USB_XML" <<'XML'
 XML
 
 usb_anexado() { sudo virsh dumpxml w11 | grep -q "bus='0x09'.*slot='0x00'.*function='0x3'"; }
+
+# Enquanto a 3090 manda no monitor pelo DP, o driver da NVIDIA empurra preset de imagem por
+# DDC/CI -- e o XG27ACS guarda UM perfil so, compartilhado entre as entradas. Resultado: volta
+# pro HDMI com o preset de jogo aplicado (achado em 09/09/2026: voltou em Games/10000K, com
+# gradiente e blur achatados). "Professional" e o unico modo que desliga o processamento
+# interno inteiro (ASCR, VividPixel, shadow boost), que e o que come o gradiente.
+PERFIL_MODO="0x07"    # DC: Professional (all signal processing disabled)
+PERFIL_COR="0x09"     # 14: 10000 K
+PERFIL_BRILHO="64"
+PERFIL_CONTRASTE="50"
+
+restaurar_imagem() {
+    sudo ddcutil --model "$MONITOR" setvcp DC "$PERFIL_MODO" || return 1
+    sleep 1
+    sudo ddcutil --model "$MONITOR" setvcp 14 "$PERFIL_COR"
+    sudo ddcutil --model "$MONITOR" setvcp 10 "$PERFIL_BRILHO"
+    sudo ddcutil --model "$MONITOR" setvcp 12 "$PERFIL_CONTRASTE"
+}
 
 corrigir_resolucao() {
     cat >/tmp/modo-jogo-resolucao.ps1 <<'PS1'
@@ -111,7 +131,7 @@ entrar() {
     fi
 
     echo "  trocando o monitor pro DP (3090)"
-    sudo ddcutil --display "$MONITOR" setvcp 60 x0f
+    sudo ddcutil --model "$MONITOR" setvcp 60 x0f
 
     echo "  corrigindo a resolucao"
     corrigir_resolucao || echo "modo-jogo: resolucao pode ter ficado errada, ajusta na mao" >&2
@@ -131,7 +151,10 @@ voltar() {
     fi
 
     echo "  voltando o monitor pro HDMI (RX 550)"
-    sudo ddcutil --display "$MONITOR" setvcp 60 x11
+    sudo ddcutil --model "$MONITOR" setvcp 60 x11
+
+    echo "  restaurando o perfil de imagem do monitor"
+    restaurar_imagem || echo "modo-jogo: nao consegui restaurar o perfil de imagem" >&2
 
     echo "  religando o IDD do Looking Glass"
     guest_exec "Enable-PnpDevice -InstanceId '$IDD_ID' -Confirm:\$false" >/dev/null
