@@ -14,6 +14,17 @@ sudo setfacl -m u:libvirt-qemu:x "$HOME"; sudo setfacl -R -m u:libvirt-qemu:rwx 
 # Antes dos hooks: se a / e nova (format), devolve o UEFI e o vTPM da VM, que moram la e
 # nao sobrevivem. Nao sobrescreve nada que ja exista -- ver vm/firmware-estado.sh.
 bash "$DOTFILES_DIR/vm/firmware-estado.sh" restaurar
+
+# Define o dominio se ele nao existir. So nesse caso: um define incondicional sobrescreveria
+# o perfil ativo (3090 x janela) toda vez que o install.sh rodasse. O vm/w11 continua sendo
+# quem troca de perfil.
+if ! virsh -c qemu:///system dumpxml w11 >/dev/null 2>&1; then
+    virsh -c qemu:///system define "$DOTFILES_DIR/vm/w11-3090.xml" >/dev/null 2>&1 \
+        && ok "dominio w11 definido (perfil 3090)" \
+        || printf '  !!   nao consegui definir o dominio w11\n' >&2
+else
+    ok "dominio w11 ja definido"
+fi
 sudo bash "$DOTFILES_DIR/vm/hooks-redmlinux/install-hooks.sh" w11 "$USER" >/dev/null 2>&1 && ok "hooks em /etc/libvirt/hooks/qemu.d/w11"
 sudo install -Dm644 "$DOTFILES_DIR/vm/looking-glass.tmpfiles" /etc/tmpfiles.d/10-looking-glass.conf && sudo systemd-tmpfiles --create /etc/tmpfiles.d/10-looking-glass.conf && ok "shmem do Looking Glass"
 bash "$DOTFILES_DIR/vm/kvmfr.sh"

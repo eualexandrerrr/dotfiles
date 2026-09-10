@@ -24,8 +24,14 @@ Por isso existe o `vm/firmware-estado.sh`: `salvar` copia os dois pra `~/vms/fir
 `restaurar` devolve depois do format — sem sobrescrever nada que já exista na `/`. O
 `vm/preparar.sh` chama o `restaurar` sozinho, então o `install.sh` já cobre isso.
 
-**Rode `vm/firmware-estado.sh salvar` antes de formatar.** O backup é de 564 KB e só vale a
-partir do momento em que foi tirado.
+O `salvar` **não depende de ninguém lembrar**: o hook `release/end` do libvirt chama sozinho
+toda vez que a VM desliga, que é exatamente quando esse estado acabou de mudar. Ele roda antes
+do filtro de perfil do `stop.sh`, porque o firmware muda tanto no perfil `3090` quanto no
+`janela`. O backup é de 564 KB e é reescrito de forma atômica (`.novo` e `mv`), então hook
+interrompido no meio não deixa tar truncado no lugar do bom.
+
+Depois do format o `vm/preparar.sh` restaura os dois e **define o domínio** se ele não existir
+— e o `install.sh` chama o `preparar.sh`. Não há passo manual.
 
 
 ## O hardware

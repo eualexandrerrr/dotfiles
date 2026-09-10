@@ -14,9 +14,14 @@
 #
 #   vm/firmware-estado.sh salvar      copia pra ~/vms/firmware (na /home, sobrevive)
 #   vm/firmware-estado.sh restaurar   devolve pra / depois do format, se estiver faltando
+#
+# O `salvar` NAO depende de o Alexandre lembrar: o hook release/end do libvirt chama sozinho
+# toda vez que a VM desliga, que e exatamente quando esse estado acabou de mudar. Rodando de
+# la ja se esta como root e sem HOME do usuario, dai o DONO/VMS_DIR.
 set -uo pipefail
 
-VMS="$HOME/vms"
+DONO="${DONO:-$USER}"
+VMS="${VMS_DIR:-$(getent passwd "$DONO" | cut -d: -f6)/vms}"
 GUARDA="$VMS/firmware"
 NVRAM=/var/lib/libvirt/qemu/nvram
 SWTPM=/var/lib/libvirt/swtpm
@@ -24,16 +29,28 @@ SWTPM=/var/lib/libvirt/swtpm
 ok(){ printf '  ok   %s\n' "$*"; }
 aviso(){ printf '  !!   %s\n' "$*" >&2; }
 
+# Chamado tanto pela mao (usuario) quanto pelo hook do libvirt (root). sudo dentro do hook
+# nao existe no PATH minimo dele, entao so usa quando realmente falta privilegio.
+priv(){ if [[ $EUID -eq 0 ]]; then "$@"; else sudo "$@"; fi; }
+
 salvar() {
-    mkdir -p "$GUARDA"
-    if sudo test -d "$NVRAM"; then
-        sudo tar -C "$(dirname "$NVRAM")" -cf "$GUARDA/nvram.tar" "$(basename "$NVRAM")" \
-            && sudo chown "$USER:$USER" "$GUARDA/nvram.tar" && ok "nvram salvo"
-    fi
-    if sudo test -d "$SWTPM"; then
-        sudo tar -C "$(dirname "$SWTPM")" -cf "$GUARDA/swtpm.tar" "$(basename "$SWTPM")" \
-            && sudo chown "$USER:$USER" "$GUARDA/swtpm.tar" && ok "swtpm salvo"
-    fi
+    mkdir -p "$GUARDA" 2>/dev/null || priv mkdir -p "$GUARDA"
+    local par
+    for par in "nvram:$NVRAM" "swtpm:$SWTPM"; do
+        local nome="${par%%:*}" origem="${par#*:}"
+        priv test -d "$origem" || continue
+        # Escreve em .novo e so troca no fim: hook interrompido no meio nao deixa um tar
+        # truncado no lugar do backup bom.
+        if priv tar -C "$(dirname "$origem")" -cf "$GUARDA/$nome.tar.novo" "$(basename "$origem")"; then
+            priv mv -f "$GUARDA/$nome.tar.novo" "$GUARDA/$nome.tar"
+            priv chown "$DONO:$DONO" "$GUARDA/$nome.tar"
+            ok "$nome salvo"
+        else
+            priv rm -f "$GUARDA/$nome.tar.novo"
+            aviso "nao consegui salvar $nome"
+        fi
+    done
+    priv chown "$DONO:$DONO" "$GUARDA" 2>/dev/null || true
 }
 
 # Nunca sobrescreve: se o arquivo ja existe na /, quem manda e a maquina, nao o backup. Isso
@@ -44,12 +61,12 @@ restaurar() {
         local tar="$GUARDA/$t.tar" destino
         [[ -f $tar ]] || continue
         destino=$([[ $t == nvram ]] && echo "$NVRAM" || echo "$SWTPM")
-        if sudo test -n "$(sudo ls -A "$destino" 2>/dev/null)"; then
+        if [[ -n "$(priv ls -A "$destino" 2>/dev/null)" ]]; then
             ok "$t ja tem conteudo, nao mexo"
             continue
         fi
-        sudo mkdir -p "$(dirname "$destino")"
-        sudo tar -C "$(dirname "$destino")" -xf "$tar" && ok "$t restaurado de $tar" \
+        priv mkdir -p "$(dirname "$destino")"
+        priv tar -C "$(dirname "$destino")" -xf "$tar" && ok "$t restaurado de $tar" \
             || aviso "nao consegui restaurar $t"
     done
 }

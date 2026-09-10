@@ -4,6 +4,11 @@
 exec >>/var/log/libvirt/hooks-win11-redm.log 2>&1
 echo "== stop $(date -Is)"
 
+# ANTES do filtro de perfil: o UEFI e o vTPM mudam nos dois perfis, e este e o unico
+# momento em que o estado acabou de ser gravado. Sem isto o backup so existiria se alguem
+# lembrasse de rodar na mao antes de formatar -- e nao existiria.
+DONO=@USERNAME@ bash "/home/@USERNAME@/.dotfiles/vm/firmware-estado.sh" salvar || true
+
 XML=""; [[ -t 0 ]] || XML="$(cat)"
 if [[ -n $XML ]] && ! grep -q "<hostdev mode='subsystem' type='pci'" <<<"$XML"; then
     echo "sem hostdev PCI no XML: perfil janela, nada a fazer"; exit 0
