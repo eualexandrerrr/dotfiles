@@ -291,6 +291,11 @@ etapa_barra() {
             || falha "Dream-Color-Plasma nao aplicado; rode o install.sh"
     fi
 
+    # O Plasma so tem tres estados de opacidade; o meio-termo sai do SVG do tema.
+    bash "$DOTFILES_DIR/bin/painel-opacidade.sh" 25 >/dev/null 2>&1 \
+        && ok "fundo da barra em 25%" \
+        || falha "nao consegui ajustar a opacidade do fundo da barra"
+
     # O blur atras da barra e do KWin, nao do painel.
     kwriteconfig6 --file kwinrc --group Plugins --key blurEnabled true
     kwriteconfig6 --file kwinrc --group Effect-blur --key BlurStrength 3
