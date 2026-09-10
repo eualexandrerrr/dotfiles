@@ -137,7 +137,7 @@ etapa_thunar() {
 }
 
 etapa_chrome() {
-    log "Chrome: handler de link e pagina inicial"
+    log "Chrome: handler de link"
 
     # Link vindo de fora (Discord, RCode, terminal) tem de cair como aba na janela que ja
     # existe. Sem declarar http/https aqui, cada app resolve o handler por conta e algum
@@ -153,19 +153,12 @@ etapa_chrome() {
         falha "xdg-mime nao instalado"
     fi
 
-    local inicio="$HOME/.local/share/inicio/index.html"
-    local destino="/etc/opt/chrome/policies/managed/inicio.json"
-    [[ -f $inicio ]] || { falha "$inicio nao existe; rode a etapa links antes"; return; }
-    local url="file://$inicio"
-    local json
-    json=$(printf '{\n  "HomepageLocation": "%s",\n  "HomepageIsNewTabPage": false,\n  "NewTabPageLocation": "%s",\n  "ShowHomeButton": true,\n  "RestoreOnStartup": 4,\n  "RestoreOnStartupURLs": ["%s"]\n}\n' "$url" "$url" "$url")
-    if [[ -f $destino ]] && [[ $(cat "$destino") == "$json" ]]; then
-        ok "politica ja aplicada"
-        return
+    # A pagina inicial customizada saiu em 09/09/2026: a politica gerenciada some junto, senao
+    # o Chrome continua forcando um file:// que nao existe mais.
+    local politica="/etc/opt/chrome/policies/managed/inicio.json"
+    if [[ -f $politica ]]; then
+        sudo rm -f "$politica" && ok "politica de pagina inicial removida"
     fi
-    sudo mkdir -p "$(dirname "$destino")" 2>/dev/null || { falha "sem permissao em $(dirname "$destino")"; return; }
-    printf '%s' "$json" | sudo tee "$destino" >/dev/null || { falha "nao gravou $destino"; return; }
-    ok "pagina inicial em $url"
 }
 
 etapa_claude() {
