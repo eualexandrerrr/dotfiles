@@ -15,14 +15,15 @@ git clone https://github.com/eualexandrerrr/dotfiles ~/.dotfiles
 bash ~/.dotfiles/install.sh
 ```
 
-`install.sh` é idempotente. `setup.sh` reconfigura e recarrega em segundos, sem rede:
+São três scripts, e só. Todos idempotentes:
 
 | | o quê | quando |
 |---|---|---|
-| `install.sh` | pacotes, driver, serviços, SDDM | mexeu no `packages.txt` |
-| `setup.sh` | configura e recarrega | mexeu numa config |
+| `install.sh` | pacotes, driver, kernel, serviços, SDDM | mexeu no `packages.txt` |
+| `setup.sh` | configura tudo, VM inclusa — sem rede | mexeu numa config |
+| `reload.sh` | recarrega a sessão que já está de pé | algo saiu do lugar agora |
 
-Etapas: `links home perfil arquivos energia atalhos audio dns console chrome claude`.
+Etapas do `setup.sh`: `links home perfil arquivos sistema vm ddcutil energia atalhos audio dns console chrome claude`.
 
 ---
 
@@ -145,6 +146,7 @@ A VM tem documentação própria em [`vm/README.md`](vm/README.md).
 
 | Comando | O que faz |
 |---|---|
+| `dot config` / `dot reload` | roda o `setup.sh` / recarrega telas, áudio, painel e KWin |
 | `dot status` | confere binários do Plasma, sddm, autologin, serviços e as telas |
 | `dot telas` | GPUs, driver de cada `card`, saídas conectadas, papéis do `telas.conf` |
 | `dot erros` / `dot log` | avisos da última instalação / log inteiro (`-f` acompanha) |

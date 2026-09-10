@@ -258,7 +258,108 @@ etapa_arquivos() {
     fi
 }
 
-ETAPAS=(links home perfil arquivos energia atalhos audio dns console chrome claude)
+etapa_sistema() {
+    log "tuning de sistema: zram, sysctl e desempenho maximo"
+
+    # O RedM e a Proton mapeiam muita regiao de memoria; o padrao do kernel (65530) estoura e
+    # o jogo morre com "out of memory" mesmo com RAM sobrando.
+    printf 'vm.max_map_count = 2147483642\n' | sudo tee /etc/sysctl.d/99-jogos.conf >/dev/null \
+        && ok "/etc/sysctl.d/99-jogos.conf (max_map_count pro RedM)"
+
+    # zram com zstd: metade da RAM, teto de 8 GB. Os valores de vm.* sao os recomendados
+    # quando o swap e comprimido em RAM -- swappiness alto de proposito, porque paginar pro
+    # zram custa CPU, nao disco.
+    sudo mkdir -p /etc/systemd
+    printf '[zram0]\nzram-size = min(ram / 2, 8192)\ncompression-algorithm = zstd\n' \
+        | sudo tee /etc/systemd/zram-generator.conf >/dev/null \
+        && ok "/etc/systemd/zram-generator.conf (zstd, min(ram/2, 8192))"
+
+    printf 'vm.swappiness = 180\nvm.watermark_boost_factor = 0\nvm.watermark_scale_factor = 125\nvm.page-cluster = 0\n' \
+        | sudo tee /etc/sysctl.d/99-zram.conf >/dev/null \
+        && ok "/etc/sysctl.d/99-zram.conf"
+
+    sudo sysctl --system >/dev/null 2>&1
+
+    # Desempenho maximo o tempo todo: esta maquina nunca corre em bateria e o custo de manter
+    # CPU e GPU no teto e so consumo. O tmpfiles roda a cada boot, depois que os drivers ja
+    # criaram os arquivos em /sys -- por isso aqui, e nao num sysctl.
+    printf '%s\n' \
+        'w- /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor - - - - performance' \
+        'w- /sys/devices/system/cpu/cpu*/cpufreq/energy_performance_preference - - - - performance' \
+        'w- /sys/class/drm/card*/device/power_dpm_force_performance_level - - - - high' \
+        | sudo tee /etc/tmpfiles.d/99-desempenho.conf >/dev/null \
+        && ok "/etc/tmpfiles.d/99-desempenho.conf (CPU e GPU no teto a cada boot)"
+    sudo systemd-tmpfiles --create /etc/tmpfiles.d/99-desempenho.conf >/dev/null 2>&1
+
+    # Sem isso o Xwayland nasce com teclado us e o ABNT2 some dentro de app X11 (RedM, Wine).
+    if command -v localectl >/dev/null 2>&1; then
+        sudo localectl set-x11-keymap br >/dev/null 2>&1 \
+            && ok "layout br no X11 (/etc/X11/xorg.conf.d/00-keyboard.conf)" \
+            || falha "localectl set-x11-keymap br falhou"
+    fi
+}
+
+etapa_vm() {
+    log "VM w11: vfio, kvmfr, hooks e firmware"
+
+    # Sem IOMMU nao existe passthrough: o vfio-pci ate prende a placa, mas nao ha grupo pra
+    # entregar pra VM. Nao vem de graca em instalacao nova -- estava na cmdline desta maquina
+    # so porque alguem pos na mao um dia. `transparent_hugepage=always` e o que deixa o XML
+    # dispensar hugepage estatica (ver comentario no w11-3090.xml).
+    local params=(transparent_hugepage=always)
+    if grep -qi 'AuthenticAMD' /proc/cpuinfo; then
+        params+=(amd_iommu=on iommu=pt)
+    else
+        params+=(intel_iommu=on iommu=pt)
+    fi
+    bash "$DOTFILES_DIR/bin/kernel-params.sh" "${params[@]}" \
+        || falha "parametros de kernel do IOMMU nao gravados"
+
+    # Saida de emergencia: a mesma entry, com o vfio_pci bloqueado. Sem ela, uma 3090 presa
+    # no vfio com a VM quebrada deixa o host sem jeito de devolver a placa. O add_kernel_params
+    # so acrescenta parametro em entry existente -- nunca cria esta, entao ela morre no format.
+    if sudo test -d /boot/loader/entries && sudo test -f /boot/loader/entries/arch.conf; then
+        if sudo test -f /boot/loader/entries/arch-sem-vfio.conf; then
+            ok "entry 'sem vfio' ja existe"
+        else
+            sudo sed -e 's|^title \(.*\))[[:space:]]*$|title \1, sem vfio)|' \
+                     -e 's|^title \([^(]*\)$|title \1 (sem vfio)|' \
+                     -e 's|^options \(.*\) rw |options \1 rw module_blacklist=vfio_pci |' \
+                /boot/loader/entries/arch.conf \
+                | sudo tee /boot/loader/entries/arch-sem-vfio.conf >/dev/null \
+                && ok "/boot/loader/entries/arch-sem-vfio.conf criada a partir da arch.conf"
+        fi
+    fi
+
+    # preparar.sh ja e idempotente (so cria win.raw e baixa o virtio-win se faltarem) e ja
+    # chama o kvmfr.sh sozinho, que faz o dkms, o modules-load.d e o cgroup_device_acl.
+    DOTFILES_DIR="$DOTFILES_DIR" bash "$DOTFILES_DIR/vm/preparar.sh" || falha "vm/preparar.sh falhou"
+
+    # O vfio-ativar.sh roda mkinitcpio -P inteiro, que e lento: so vale a pena quando a 3090
+    # ainda nao esta presa. Ele tem guarda propria e aborta sozinho se a RX 550 nao estiver
+    # desenhando, entao rodar aqui nao arrisca deixar o host sem tela.
+    if lspci -nnk -d 10de:2204: 2>/dev/null | grep -q 'Kernel driver in use: vfio-pci'; then
+        ok "3090 ja esta no vfio-pci"
+    elif [[ -f /etc/modprobe.d/vfio.conf ]] && grep -q '10de:2204' /etc/modprobe.d/vfio.conf; then
+        ok "vfio ja configurado, falta reiniciar pra valer"
+    else
+        DOTFILES_DIR="$DOTFILES_DIR" bash "$DOTFILES_DIR/vm/vfio-ativar.sh" \
+            || falha "vfio-ativar.sh abortou (confira se a RX 550 esta montada e desenhando)"
+    fi
+}
+
+etapa_ddcutil() {
+    log "i2c-dev pro ddcutil (troca de entrada do monitor)"
+    if printf 'i2c-dev\n' | sudo cmp -s - /etc/modules-load.d/i2c-dev.conf 2>/dev/null; then
+        ok "/etc/modules-load.d/i2c-dev.conf ja correto"
+    else
+        printf 'i2c-dev\n' | sudo tee /etc/modules-load.d/i2c-dev.conf >/dev/null
+        sudo modprobe i2c-dev
+        ok "/etc/modules-load.d/i2c-dev.conf"
+    fi
+}
+
+ETAPAS=(links home perfil arquivos sistema vm ddcutil energia atalhos audio dns console chrome claude)
 
 if [[ ${1:-} == --lista ]]; then
     printf 'etapas: %s\n' "${ETAPAS[*]}"

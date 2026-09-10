@@ -238,40 +238,8 @@ add_kernel_params() {
     local params=("$@")
     [[ ${#params[@]} -eq 0 ]] && params=("${KERNEL_PARAMS[@]}")
     log "gravando parametros de kernel: ${params[*]}"
-    local applied=0 p entry
-
-    if sudo test -d /boot/loader/entries && command -v bootctl >/dev/null 2>&1; then
-        while IFS= read -r entry; do
-            sudo grep -qE '^options ' "$entry" || continue
-            for p in "${params[@]}"; do
-                sudo grep -qF -- "$p" "$entry" || sudo sed -i "s|^options .*|& $p|" "$entry"
-            done
-            applied=1
-            ok "systemd-boot: $(basename "$entry") com os parametros"
-        done < <(sudo find /boot/loader/entries -maxdepth 1 -name '*.conf' 2>/dev/null)
-    fi
-
-    if sudo test -f /etc/kernel/cmdline; then
-        for p in "${params[@]}"; do
-            sudo grep -qF -- "$p" /etc/kernel/cmdline || printf ' %s' "$p" | sudo tee -a /etc/kernel/cmdline >/dev/null
-        done
-        applied=1
-        ok "/etc/kernel/cmdline atualizado"
-    fi
-
-    if [[ -f /etc/default/grub ]]; then
-        for p in "${params[@]}"; do
-            grep -qF -- "$p" /etc/default/grub || \
-                sudo sed -i "s|^\(GRUB_CMDLINE_LINUX_DEFAULT=\"[^\"]*\)\"|\1 $p\"|" /etc/default/grub
-        done
-        if command -v grub-mkconfig >/dev/null 2>&1 && [[ -d /boot/grub ]]; then
-            sudo grub-mkconfig -o /boot/grub/grub.cfg
-            applied=1
-            ok "GRUB regerado"
-        fi
-    fi
-
-    [[ $applied -eq 1 ]] || warn "nenhum bootloader reconhecido, adicione na mao: ${params[*]}"
+    bash "$DOTFILES_DIR/bin/kernel-params.sh" "${params[@]}" \
+        || warn "parametros de kernel nao gravados"
 }
 
 configure_resiliencia_boot() {
@@ -547,105 +515,8 @@ sessao_wayland() {
     printf 'plasma.desktop'
 }
 
-configure_sistema() {
-    log "tuning de sistema: zram, sysctl de jogos e layout do teclado no X"
 
-    # O RedM e a Proton mapeiam muita regiao de memoria; o padrao do kernel (65530) estoura e
-    # o jogo morre com "out of memory" mesmo com RAM sobrando.
-    printf 'vm.max_map_count = 2147483642\n' | sudo tee /etc/sysctl.d/99-jogos.conf >/dev/null \
-        && ok "/etc/sysctl.d/99-jogos.conf (max_map_count pro RedM)"
 
-    # zram com zstd: metade da RAM, teto de 8 GB. Os valores de vm.* sao os recomendados
-    # quando o swap e comprimido em RAM -- swappiness alto de proposito, porque paginar pro
-    # zram custa CPU, nao disco.
-    sudo mkdir -p /etc/systemd
-    printf '[zram0]\nzram-size = min(ram / 2, 8192)\ncompression-algorithm = zstd\n' \
-        | sudo tee /etc/systemd/zram-generator.conf >/dev/null \
-        && ok "/etc/systemd/zram-generator.conf (zstd, min(ram/2, 8192))"
-
-    printf 'vm.swappiness = 180\nvm.watermark_boost_factor = 0\nvm.watermark_scale_factor = 125\nvm.page-cluster = 0\n' \
-        | sudo tee /etc/sysctl.d/99-zram.conf >/dev/null \
-        && ok "/etc/sysctl.d/99-zram.conf"
-
-    sudo sysctl --system >/dev/null 2>&1
-
-    # Desempenho maximo o tempo todo: esta maquina nunca corre em bateria e o custo de manter
-    # CPU e GPU no teto e so consumo. O tmpfiles roda a cada boot, depois que os drivers ja
-    # criaram os arquivos em /sys -- por isso aqui, e nao num sysctl.
-    printf '%s\n' \
-        'w- /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor - - - - performance' \
-        'w- /sys/devices/system/cpu/cpu*/cpufreq/energy_performance_preference - - - - performance' \
-        'w- /sys/class/drm/card*/device/power_dpm_force_performance_level - - - - high' \
-        | sudo tee /etc/tmpfiles.d/99-desempenho.conf >/dev/null \
-        && ok "/etc/tmpfiles.d/99-desempenho.conf (CPU e GPU no teto a cada boot)"
-    sudo systemd-tmpfiles --create /etc/tmpfiles.d/99-desempenho.conf >/dev/null 2>&1
-
-    # Sem isso o Xwayland nasce com teclado us e o ABNT2 some dentro de app X11 (RedM, Wine).
-    if command -v localectl >/dev/null 2>&1; then
-        sudo localectl set-x11-keymap br >/dev/null 2>&1 \
-            && ok "layout br no X11 (/etc/X11/xorg.conf.d/00-keyboard.conf)" \
-            || warn "localectl set-x11-keymap br falhou"
-    fi
-}
-
-configure_vm() {
-    log "VM w11: host, kvmfr e vfio"
-
-    # Sem IOMMU nao existe passthrough: o vfio-pci ate prende a placa, mas nao ha grupo pra
-    # entregar pra VM. Nao vem de graca em instalacao nova -- estava na cmdline desta maquina
-    # so porque alguem pos na mao um dia. `transparent_hugepage=always` e o que deixa o XML
-    # dispensar hugepage estatica (ver comentario no w11-3090.xml).
-    local params=(transparent_hugepage=always)
-    if grep -qi 'AuthenticAMD' /proc/cpuinfo; then
-        params+=(amd_iommu=on iommu=pt)
-    else
-        params+=(intel_iommu=on iommu=pt)
-    fi
-    add_kernel_params "${params[@]}"
-
-    # Saida de emergencia: a mesma entry, com o vfio_pci bloqueado. Sem ela, uma 3090 presa
-    # no vfio com a VM quebrada deixa o host sem jeito de devolver a placa. O add_kernel_params
-    # so acrescenta parametro em entry existente -- nunca cria esta, entao ela morre no format.
-    if sudo test -d /boot/loader/entries && sudo test -f /boot/loader/entries/arch.conf; then
-        if sudo test -f /boot/loader/entries/arch-sem-vfio.conf; then
-            ok "entry 'sem vfio' ja existe"
-        else
-            sudo sed -e 's|^title \(.*\))[[:space:]]*$|title \1, sem vfio)|' \
-                     -e 's|^title \([^(]*\)$|title \1 (sem vfio)|' \
-                     -e 's|^options \(.*\) rw |options \1 rw module_blacklist=vfio_pci |' \
-                /boot/loader/entries/arch.conf \
-                | sudo tee /boot/loader/entries/arch-sem-vfio.conf >/dev/null \
-                && ok "/boot/loader/entries/arch-sem-vfio.conf criada a partir da arch.conf"
-        fi
-    fi
-
-    # preparar.sh ja e idempotente (so cria win.raw e baixa o virtio-win se faltarem) e ja
-    # chama o kvmfr.sh sozinho, que faz o dkms, o modules-load.d e o cgroup_device_acl.
-    DOTFILES_DIR="$DOTFILES_DIR" bash "$DOTFILES_DIR/vm/preparar.sh" || warn "vm/preparar.sh falhou"
-
-    # O vfio-ativar.sh roda mkinitcpio -P inteiro, que e lento: so vale a pena quando a 3090
-    # ainda nao esta presa. Ele tem guarda propria e aborta sozinho se a RX 550 nao estiver
-    # desenhando, entao rodar aqui nao arrisca deixar o host sem tela.
-    if lspci -nnk -d 10de:2204: 2>/dev/null | grep -q 'Kernel driver in use: vfio-pci'; then
-        ok "3090 ja esta no vfio-pci"
-    elif [[ -f /etc/modprobe.d/vfio.conf ]] && grep -q '10de:2204' /etc/modprobe.d/vfio.conf; then
-        ok "vfio ja configurado, falta reiniciar pra valer"
-    else
-        DOTFILES_DIR="$DOTFILES_DIR" bash "$DOTFILES_DIR/vm/vfio-ativar.sh" \
-            || warn "vfio-ativar.sh abortou (confira se a RX 550 esta montada e desenhando)"
-    fi
-}
-
-configure_ddcutil() {
-    log "i2c-dev pro ddcutil (troca de entrada do monitor pelo modo-jogo)"
-    if printf 'i2c-dev\n' | sudo cmp -s - /etc/modules-load.d/i2c-dev.conf 2>/dev/null; then
-        ok "/etc/modules-load.d/i2c-dev.conf ja correto"
-    else
-        printf 'i2c-dev\n' | sudo tee /etc/modules-load.d/i2c-dev.conf >/dev/null
-        sudo modprobe i2c-dev
-        ok "/etc/modules-load.d/i2c-dev.conf"
-    fi
-}
 
 configure_sddm() {
     log "configurando sddm (sessao Plasma Wayland, login automatico)"
@@ -674,13 +545,33 @@ EOF
     ok "/etc/sddm.conf.d/10-dotfiles.conf (login automatico de $USER em $sessao)"
 }
 
-configure_kde() {
-    log "KDE: setup.sh completo e servicos de usuario"
 
-    DOTFILES_DIR="$DOTFILES_DIR" bash "$DOTFILES_DIR/setup.sh" \
-        && ok "setup.sh completo: links, home, perfil, arquivos, energia, atalhos, audio, dns" \
-        || warn "setup.sh terminou com avisos, confira as linhas acima"
+install_maestro() {
+    log "maestro cli"
+    local sh="$DOTFILES_DIR/bin/maestro.sh"
+    [[ -f $sh ]] || { warn "bin/maestro.sh ausente, pulando"; return 1; }
+    if bash "$sh"; then
+        ok "maestro pronto"
+    else
+        warn "maestro nao entrou; depois rode: bash ~/.dotfiles/bin/maestro.sh"
+        return 1
+    fi
+}
 
+install_vencord() {
+    log "vencord (fork eualexandrerrr/Vencord) injetado no Discord"
+    local sh="$DOTFILES_DIR/bin/vencord.sh"
+    [[ -f $sh ]] || { warn "bin/vencord.sh ausente, pulando"; return 1; }
+    if bash "$sh"; then
+        ok "vencord injetado"
+    else
+        warn "vencord nao injetou; depois rode: bash ~/.dotfiles/bin/vencord.sh"
+        return 1
+    fi
+}
+
+configure_servicos_usuario() {
+    log "servicos de usuario"
     systemctl --user daemon-reload >/dev/null 2>&1 || true
 
     systemctl --user enable vm-audio-acl.service >/dev/null 2>&1 \
@@ -710,30 +601,6 @@ configure_kde() {
         warn "~/MichiganRoleplay/DeployFiles ausente, deploy-peds.timer nao habilitado"
     fi
 
-}
-
-install_maestro() {
-    log "maestro cli"
-    local sh="$DOTFILES_DIR/bin/maestro.sh"
-    [[ -f $sh ]] || { warn "bin/maestro.sh ausente, pulando"; return 1; }
-    if bash "$sh"; then
-        ok "maestro pronto"
-    else
-        warn "maestro nao entrou; depois rode: bash ~/.dotfiles/bin/maestro.sh"
-        return 1
-    fi
-}
-
-install_vencord() {
-    log "vencord (fork eualexandrerrr/Vencord) injetado no Discord"
-    local sh="$DOTFILES_DIR/bin/vencord.sh"
-    [[ -f $sh ]] || { warn "bin/vencord.sh ausente, pulando"; return 1; }
-    if bash "$sh"; then
-        ok "vencord injetado"
-    else
-        warn "vencord nao injetou; depois rode: bash ~/.dotfiles/bin/vencord.sh"
-        return 1
-    fi
 }
 
 summary() {
@@ -822,16 +689,13 @@ main() {
     etapa install_vencord
     etapa configure_nvidia
     etapa configure_resiliencia_boot
-    etapa configure_ddcutil
-    etapa configure_sistema
-    etapa configure_vm
     etapa enable_services
     etapa link_dotfiles
     etapa home_enxuta
     etapa restaurar_segredos
     etapa clonar_central
     etapa configure_sddm
-    etapa configure_kde
+    etapa configure_servicos_usuario
     etapa verificar
     summary
 }

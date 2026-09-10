@@ -24,6 +24,8 @@ ${BLD}dot${END} -- ciclo dos dotfiles
   ${BLD}dot${END} ${BLU}log${END}         mostra o log da ultima instalacao
   ${BLD}dot${END} ${BLU}log -f${END}      acompanha o log ao vivo
   ${BLD}dot${END} ${BLU}erros${END}       so os avisos e erros do ultimo log
+  ${BLD}dot${END} ${BLU}config${END}      roda o setup.sh (configura tudo, sem rede)
+  ${BLD}dot${END} ${BLU}reload${END}      recarrega a sessao: telas, audio, painel e KWin
   ${BLD}dot${END} ${BLU}status${END}      confere o que o desktop precisa pra subir
   ${BLD}dot${END} ${BLU}telas${END}       o que o kernel enxerga de GPU e de saida de video
   ${BLD}dot${END} ${BLU}reiniciar${END}   reinicia a maquina
@@ -162,6 +164,8 @@ case "${1:-}" in
     zero)             zero ;;
     log)              shift; ver_log "${1:-}" ;;
     erros|erro)       erros ;;
+    config|setup)     bash "$DOTFILES_DIR/setup.sh" "${@:2}" ;;
+    reload|recarregar) bash "$DOTFILES_DIR/reload.sh" ;;
     status|check)     status ;;
     telas|gpu)        telas ;;
     reiniciar|reboot) sudo reboot ;;

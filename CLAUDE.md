@@ -48,17 +48,23 @@ cada `card`, e `dot status` acusa se alguem voltar a fixar `nvidia`.
 Com duas GPUs o cenario de single-GPU passthrough (que derruba a sessao) nao se aplica mais
 -- ver `vm/modo-jogo` e `~/Claude/maquina/docs/vm-e-hardware.md`.
 
-## install.sh x setup.sh
+## Tres scripts, e so
 
-`install.sh` instala (pacotes, driver, servicos, SDDM). `setup.sh` configura e recarrega,
-sem rede e em segundos. Mexeu numa config? `setup.sh`. Mexeu no `packages.txt`? `install.sh`.
+| | o que faz | quando roda |
+|---|---|---|
+| `install.sh` | pacotes, driver, kernel, servicos, SDDM | mexeu no `packages.txt` |
+| `setup.sh` | configura tudo, VM inclusa -- sem rede, em segundos | mexeu numa config |
+| `reload.sh` | recarrega a sessao de pe (telas, audio, plasmashell, KWin) | algo saiu do lugar agora |
 
 ```
-~/.dotfiles/setup.sh [etapa...]   # links home perfil energia audio dns console chrome claude
+~/.dotfiles/setup.sh [etapa...]
+# links home perfil arquivos sistema vm ddcutil energia atalhos audio dns console chrome claude
 ```
 
-O `install.sh` (etapas `home_enxuta` e `configure_kde`) chama o `setup.sh` em vez de
-repetir as etapas. Etapa que falha vira aviso e as outras seguem.
+Config nova entra como **etapa do `setup.sh`**, nunca como script solto novo na raiz. O que
+mora em `bin/` e ferramenta chamada pelas etapas (ou pelo Alexandre a mao), nao ponto de
+entrada. O `install.sh` chama o `setup.sh` no fim em vez de repetir etapa. Etapa que falha
+vira aviso e as outras seguem.
 
 **Toda mudanca de config termina aplicada na sessao real dele.** Ele acompanha olhando a
 tela e decide vendo; config gravada que so aparece no proximo login e trabalho nao entregue.

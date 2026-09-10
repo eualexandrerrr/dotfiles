@@ -14,14 +14,15 @@ git clone https://github.com/eualexandrerrr/dotfiles ~/.dotfiles
 bash ~/.dotfiles/install.sh
 ```
 
-`install.sh` is idempotent. `setup.sh` reconfigures and reloads in seconds, no network needed:
+Three scripts, that is all. All idempotent:
 
 | | what | when |
 |---|---|---|
-| `install.sh` | packages, driver, services, SDDM | you touched `packages.txt` |
-| `setup.sh` | configures and reloads | you touched a config |
+| `install.sh` | packages, driver, kernel, services, SDDM | you touched `packages.txt` |
+| `setup.sh` | configures everything, VM included — no network | you touched a config |
+| `reload.sh` | reloads the session already running | something drifted just now |
 
-Steps: `links home perfil arquivos energia atalhos audio dns console chrome claude`.
+`setup.sh` steps: `links home perfil arquivos sistema vm ddcutil energia atalhos audio dns console chrome claude`.
 
 ---
 
@@ -146,6 +147,7 @@ The VM has its own documentation in [`vm/README.md`](vm/README.md).
 
 | Command | What it does |
 |---|---|
+| `dot config` / `dot reload` | runs `setup.sh` / reloads displays, audio, panel and KWin |
 | `dot status` | checks Plasma binaries, sddm, autologin, services and the displays |
 | `dot telas` | GPUs, driver per `card`, connected outputs, roles from `telas.conf` |
 | `dot erros` / `dot log` | warnings from the last install / the whole log (`-f` follows) |
