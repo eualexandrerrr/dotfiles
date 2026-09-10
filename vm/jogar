@@ -37,7 +37,7 @@ sobe_servidor_local() {
     printf 'jogar: o servidor local nao respondeu em 3 minutos\n' >&2
 }
 
-if [[ $(virsh -c qemu:///system domstate w11 2>/dev/null) != running ]]; then
+if [[ $(LC_ALL=C virsh -c qemu:///system domstate w11 2>/dev/null) != running ]]; then
     gpus=$(lspci -nn | grep -ciE 'VGA compatible controller|3D controller' || true)
     if (( gpus < 2 )); then
         cat <<'TXT'

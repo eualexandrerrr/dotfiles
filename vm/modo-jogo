@@ -127,7 +127,7 @@ Get-Content C:\Windows\Temp\modo-jogo-resolucao.log
 }
 
 entrar() {
-    [[ $(sudo virsh domstate w11 2>/dev/null) == executando ]] || { echo "modo-jogo: a VM nao esta ligada (vm/w11 3090)" >&2; exit 1; }
+    [[ $(LC_ALL=C sudo virsh domstate w11 2>/dev/null) == running ]] || { echo "modo-jogo: a VM nao esta ligada (vm/w11 3090)" >&2; exit 1; }
     touch "$MARCADOR"
     guest_ready 30 || { echo "modo-jogo: o agente da VM nao respondeu" >&2; exit 1; }
 

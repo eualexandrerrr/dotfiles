@@ -11,7 +11,7 @@ set -euo pipefail
 HERE="$(cd "$(dirname "$(readlink -f "$0")")" && pwd)"
 v() { virsh -c qemu:///system "$@"; }
 
-estado() { v domstate w11 2>/dev/null || echo "nao definida"; }
+estado() { LC_ALL=C v domstate w11 2>/dev/null || echo "nao definida"; }
 
 # O Plasma lanca cada aplicativo num scope do systemd chamado app-<desktop-id>-<pid>.scope.
 # Isso da a lista exata do que o usuario abriu, ja com o id do .desktop pra reabrir depois.
