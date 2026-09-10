@@ -575,25 +575,34 @@ configure_tema_plasma() {
     local destino="$HOME/.local/share/plasma/desktoptheme/Dream-Color-Plasma"
     if [[ -d $destino ]]; then
         ok "Dream-Color-Plasma ja instalado"
+        return
+    fi
+
+    local tmp guardado="$HOME/Downloads/Dream-Color-Plasma.tar.gz"
+    tmp="$(mktemp -d)"
+
+    # A copia em ~/Downloads sobrevive ao format junto com a /home e nao depende da store
+    # estar no ar; a KDE Store e o plano B.
+    if [[ -f $guardado ]]; then
+        cp "$guardado" "$tmp/tema.tar.gz" && ok "usando o tar guardado em ~/Downloads"
     else
-        local link tmp
+        local link
         link="$(curl -s --max-time 30 'https://api.kde-look.org/ocs/v1/content/data/2313892' \
             | sed -n 's|.*<downloadlink1>\(.*\)</downloadlink1>.*|\1|p')"
-        if [[ -z $link ]]; then
-            warn "a KDE Store nao devolveu o link do tema; Plasma fica no Breeze"
+        if [[ -z $link ]] || ! curl -sL --max-time 120 "$link" -o "$tmp/tema.tar.gz"; then
+            warn "nao consegui o Dream-Color-Plasma; Plasma fica no Breeze"
+            rm -rf "$tmp"
             return
         fi
-        tmp="$(mktemp -d)"
-        if curl -sL --max-time 120 "$link" -o "$tmp/tema.tar.gz" \
-            && tar xzf "$tmp/tema.tar.gz" -C "$tmp" 2>/dev/null \
-            && [[ -d $tmp/Dream-Color-Plasma ]]; then
-            mkdir -p "$HOME/.local/share/plasma/desktoptheme"
-            cp -r "$tmp/Dream-Color-Plasma" "$destino" && ok "Dream-Color-Plasma instalado"
-        else
-            warn "download do Dream-Color-Plasma falhou"
-        fi
-        rm -rf "$tmp"
     fi
+
+    if tar xzf "$tmp/tema.tar.gz" -C "$tmp" 2>/dev/null && [[ -d $tmp/Dream-Color-Plasma ]]; then
+        mkdir -p "$HOME/.local/share/plasma/desktoptheme"
+        cp -r "$tmp/Dream-Color-Plasma" "$destino" && ok "Dream-Color-Plasma instalado"
+    else
+        warn "o tar do Dream-Color-Plasma nao abriu"
+    fi
+    rm -rf "$tmp"
 }
 
 configure_tema_janela() {
