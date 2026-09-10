@@ -6,8 +6,12 @@ os hooks devolvem a GPU e o SDDM volta. Zero hardware novo. Performance ~95% do 
 
 Base: [QaidVoid/Complete-Single-GPU-Passthrough](https://github.com/QaidVoid/Complete-Single-GPU-Passthrough) e o
 vídeo [Single GPU Passthrough (Arch-based distros) Tutorial 2026](https://www.youtube.com/watch?v=h7rYSFBjyr4) (PlayF0R3v3R, 19/05/2026),
-adaptados pra **esta máquina**: Gigabyte B450M GAMING, Ryzen 7 5700X (sem iGPU), RTX 3090, 32 GB, systemd-boot
-(myarch), nvidia-open-dkms, **KDE Plasma Wayland + SDDM**.
+adaptados pra **esta máquina**: ASUS TUF Gaming B550M-PLUS, Ryzen 7 5700X (sem iGPU), RTX 3090, 64 GB,
+systemd-boot (myarch), nvidia-open-dkms, **Hyprland + SDDM**.
+
+> **Desde 08/09/2026 isto é plano C, não plano B.** A RX 550 entrou como GPU do host, então a 3090 vai pra VM
+> sem derrubar a sessão -- ver `vm/modo-jogo` e `~/Claude/maquina/docs/vm-e-hardware.md`. Os hooks abaixo só
+> valem se a RX 550 sair da máquina e o host voltar a ter uma GPU só.
 
 ## 0-bis. ATUALIZAÇÃO 05/09/2026: a seção 0 abaixo ficou obsoleta
 

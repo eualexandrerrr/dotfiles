@@ -27,7 +27,7 @@ Steps: `links home perfil tema energia audio dns wallpaper console claude recarr
 |---|---|
 | Compositor / bar / launcher | `hyprland` · `waybar` · `fuzzel` |
 | Notifications / lock / idle | `swaync` · `hyprlock` · `hypridle` |
-| Wallpaper / night filter / OSD | `awww` · `hyprsunset` · `swayosd` |
+| Wallpaper / night filter / OSD | `awww` · `hyprsunset` (on demand) · `swayosd` |
 | Files | `thunar` (GUI) · `yazi` (terminal) |
 | Screenshots | `grim` + `slurp` + `satty` |
 | Terminal | `ghostty` + zsh with `starship`, `atuin`, `fzf`, `zoxide` |

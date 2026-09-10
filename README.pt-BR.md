@@ -28,7 +28,7 @@ Etapas: `links home perfil tema energia audio dns wallpaper console claude recar
 |---|---|
 | Compositor / barra / lançador | `hyprland` · `waybar` · `fuzzel` |
 | Notificações / bloqueio / inatividade | `swaync` · `hyprlock` · `hypridle` |
-| Wallpaper / filtro noturno / OSD | `awww` · `hyprsunset` · `swayosd` |
+| Wallpaper / filtro noturno / OSD | `awww` · `hyprsunset` (sob demanda) · `swayosd` |
 | Arquivos | `thunar` (GUI) · `yazi` (terminal) |
 | Captura | `grim` + `slurp` + `satty` |
 | Terminal | `ghostty` + zsh com `starship`, `atuin`, `fzf`, `zoxide` |

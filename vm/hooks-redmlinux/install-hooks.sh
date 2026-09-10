@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # RedMLinux plano B: instala os hooks do libvirt pra single GPU passthrough da RTX 3090.
 # Detecta o PCI ID da 3090 e do audio HDMI, grava o dispatcher /etc/libvirt/hooks/qemu e os scripts
-# start.sh / stop.sh em /etc/libvirt/hooks/qemu.d/<VM>/, adaptados pra SDDM + KDE Plasma Wayland.
+# start.sh / stop.sh em /etc/libvirt/hooks/qemu.d/<VM>/, adaptados pra SDDM + Hyprland.
 #
 # Uso: sudo ./install-hooks.sh [nome-da-vm] [usuario]     (padrao: win11-redm alexandre)
 set -euo pipefail

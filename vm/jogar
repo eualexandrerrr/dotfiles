@@ -44,8 +44,8 @@ if [[ $(LC_ALL=C virsh -c qemu:///system domstate w11 2>/dev/null) != running ]]
 
   ==> Windows + RTX 3090
 
-  O host tem uma GPU so: o hook vai entregar a 3090 pra VM e a sessao do KDE
-  FECHA. Tudo que esta aberto vai fechar -- salve antes. O Looking Glass nao
+  O host tem uma GPU so: o hook vai entregar a 3090 pra VM e a sessao do
+  Hyprland FECHA. Tudo que esta aberto vai fechar -- salve antes. O Looking Glass nao
   abre nesse cenario; a tela do Windows vai pro monitor fisico.
   Para voltar: no Windows, Ctrl+Alt+L (ou desligar o Windows).
 
