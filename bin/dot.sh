@@ -62,15 +62,9 @@ erros() {
 }
 
 status() {
-    local faltou=0 bin alvo="$HOME/.config/hypr/hyprland.lua"
+    local faltou=0 bin
 
-    if [[ -L $alvo && -e $alvo ]]; then
-        printf '%sok%s hyprland.lua -> %s\n' "$GRN" "$END" "$(readlink -f "$alvo")"
-    else
-        printf '%s!!%s %s nao e link valido pro repo\n' "$RED" "$END" "$alvo"; faltou=1
-    fi
-
-    for bin in Hyprland waybar swaync fuzzel uwsm stow; do
+    for bin in startplasma-wayland plasmashell systemsettings stow; do
         command -v "$bin" >/dev/null 2>&1 \
             && printf '%sok%s %s\n' "$GRN" "$END" "$bin" \
             || { printf '%s!!%s %s nao instalado\n' "$RED" "$END" "$bin"; faltou=1; }
@@ -85,7 +79,7 @@ status() {
         || { printf '%s!!%s /etc/sddm.conf.d/10-dotfiles.conf ausente\n' "$YEL" "$END"; faltou=1; }
 
     local u
-    for u in hyprpolkitagent.service ricepanel.service; do
+    for u in ricepanel.service; do
         systemctl --user is-enabled "$u" >/dev/null 2>&1 \
             && printf '%sok%s %s\n' "$GRN" "$END" "$u" \
             || printf '%s!!%s %s nao habilitado -- systemctl --user enable %s\n' "$YEL" "$END" "$u" "$u"
@@ -122,19 +116,15 @@ status() {
         printf '%s!!%s renderizando por software, na CPU: %s\n' "$RED" "$END" "$software"; faltou=1
     fi
 
-    if command -v hyprctl >/dev/null 2>&1 && hyprctl monitors >/dev/null 2>&1; then
-        local principal barra
-        principal="$("$DOTFILES_DIR/bin/monitor.sh" principal 2>/dev/null)"
-        barra="$(hyprctl layers 2>/dev/null | awk '/^Monitor /{m=$2} /namespace: waybar/{print m; exit}' | tr -d ':')"
-        if [[ -z $barra ]]; then
-            printf '%s!!%s waybar sem layer em nenhuma tela\n' "$RED" "$END"; faltou=1
-        elif [[ -n $principal && $barra != "$principal" ]]; then
-            printf '%s!!%s waybar no %s; o principal e o %s -- bin/waybar.sh resolveu a marca errada\n' \
-                "$RED" "$END" "$barra" "$principal"; faltou=1
+    local papel conector
+    for papel in principal vertical; do
+        conector="$("$DOTFILES_DIR/bin/monitor.sh" "$papel" 2>/dev/null)"
+        if [[ -n $conector ]]; then
+            printf '%sok%s tela %s em %s\n' "$GRN" "$END" "$papel" "$conector"
         else
-            printf '%sok%s waybar no monitor principal (%s)\n' "$GRN" "$END" "$barra"
+            printf '%s!!%s tela %s nao encontrada pelo EDID (telas.conf)\n' "$YEL" "$END" "$papel"
         fi
-    fi
+    done
 
     (( faltou )) && { printf '\n%s!!%s falta coisa pro desktop subir. Log: dot erros\n' "$RED" "$END"; return 1; }
     printf '\n%sok%s tudo no lugar\n' "$GRN" "$END"
@@ -154,11 +144,16 @@ telas() {
         [[ -e $d ]] || continue
         printf '  %-22s %-10s enabled=%s\n' "$(basename "$(dirname "$d")")" "$(cat "$d")" "$(cat "$(dirname "$d")/enabled" 2>/dev/null || echo '?')"
     done
-    printf '\n%s== AQ_DRM_DEVICES ==%s\n' "$BLD" "$END"
-    printf '  %s\n' "${AQ_DRM_DEVICES:-nao definido nesta shell (so vale dentro da sessao do uwsm)}"
-    if command -v hyprctl >/dev/null 2>&1 && hyprctl monitors >/dev/null 2>&1; then
-        printf '\n%s== hyprctl monitors ==%s\n' "$BLD" "$END"
-        hyprctl monitors | grep -E '^Monitor|^\s+(description|active workspace|availableModes)' | head -30
+    printf '\n%s== papeis do telas.conf ==%s\n' "$BLD" "$END"
+    local papel
+    for papel in principal vertical; do
+        printf '  %-10s %-14s %s\n' "$papel" \
+            "$("$DOTFILES_DIR/bin/monitor.sh" "$papel" 2>/dev/null || echo ausente)" \
+            "$("$DOTFILES_DIR/bin/monitor.sh" --desc "$papel" 2>/dev/null || true)"
+    done
+    if command -v kscreen-doctor >/dev/null 2>&1; then
+        printf '\n%s== kscreen-doctor ==%s\n' "$BLD" "$END"
+        kscreen-doctor -o 2>/dev/null | head -30
     fi
 }
 

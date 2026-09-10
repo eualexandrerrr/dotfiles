@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Um comando so: sobe a VM w11 no perfil 3090, poe a tela virtual na taxa do monitor, sobe o
 # servidor local do Michigan se ele estiver fora, abre o RedM ja conectado nele e mostra
-# tudo numa janela do Hyprland pelo Looking Glass.
+# tudo numa janela do desktop pelo Looking Glass.
 # Uso: vm/jogar          (servidor local)
 #      SERVIDOR=jogar.michiganroleplay.com vm/jogar
 #
@@ -45,7 +45,7 @@ if [[ $(LC_ALL=C virsh -c qemu:///system domstate w11 2>/dev/null) != running ]]
   ==> Windows + RTX 3090
 
   O host tem uma GPU so: o hook vai entregar a 3090 pra VM e a sessao do
-  Hyprland FECHA. Tudo que esta aberto vai fechar -- salve antes. O Looking Glass nao
+  sessao FECHA. Tudo que esta aberto vai fechar -- salve antes. O Looking Glass nao
   abre nesse cenario; a tela do Windows vai pro monitor fisico.
   Para voltar: no Windows, Ctrl+Alt+L (ou desligar o Windows).
 

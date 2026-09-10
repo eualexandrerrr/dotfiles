@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Abre a tela da VM w11 (perfil 3090) numa janela do Hyprland, via Looking Glass.
+# Abre a tela da VM w11 (perfil 3090) numa janela do desktop, via Looking Glass.
 # Teclado e mouse vao por SPICE; Scroll Lock solta o mouse. -F = tela cheia.
 #
 # Usa /dev/kvmfr0 quando o modulo kvmfr esta carregado: o cliente importa o frame direto na

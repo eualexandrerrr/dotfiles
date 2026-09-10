@@ -2,7 +2,7 @@
 # Reconfigura e recarrega os dotfiles. NAO instala pacote nenhum -- isso e o install.sh.
 #
 #   ~/.dotfiles/setup.sh                  tudo
-#   ~/.dotfiles/setup.sh links wallpaper  so as etapas citadas
+#   ~/.dotfiles/setup.sh links chrome     so as etapas citadas
 #   ~/.dotfiles/setup.sh --lista          mostra as etapas
 #
 set -uo pipefail
@@ -18,8 +18,6 @@ TOTAL=0
 log()   { N=$((N+1)); printf '\n%s==>%s [%d/%d] %s\n' "$BLU" "$END" "$N" "$TOTAL" "$*"; }
 ok()    { printf '%s  ok%s %s\n' "$GRN" "$END" "$*"; }
 falha() { printf '%s  !!%s %s\n' "$YEL" "$END" "$*" >&2; FALHAS+=("$*"); }
-
-tem_hyprland() { [[ -n ${HYPRLAND_INSTANCE_SIGNATURE:-} ]] && command -v hyprctl >/dev/null 2>&1; }
 
 etapa_links() {
     log "links do stow"
@@ -68,7 +66,7 @@ etapa_perfil() {
     local origem="$DOTFILES_DIR/perfil/avatar.png"
     [[ -f $origem ]] || { falha "perfil/avatar.png ausente"; return; }
     install -m 644 "$origem" "$HOME/.face"
-    ok "~/.face (hyprlock e sddm)"
+    ok "~/.face (sddm e tela de bloqueio do Plasma)"
 }
 
 etapa_energia() {
@@ -86,54 +84,6 @@ etapa_dns() {
     local sh="$DOTFILES_DIR/bin/dns-fastest.sh"
     [[ -x $sh ]] || { falha "dns-fastest.sh ausente"; return; }
     bash "$sh" || falha "dns-fastest.sh"
-}
-
-etapa_wallpaper() {
-    log "wallpaper por monitor"
-    tem_hyprland || { ok "sem sessao do Hyprland, pulado"; return; }
-    bash "$DOTFILES_DIR/bin/wallpaper.sh" || falha "wallpaper.sh"
-}
-
-etapa_tema() {
-    log "tema GTK e Qt"
-    local gtk3="$HOME/.config/gtk-3.0/settings.ini"
-    mkdir -p "$(dirname "$gtk3")" "$HOME/.config/gtk-4.0"
-    cat > "$gtk3" <<'EOF'
-[Settings]
-gtk-theme-name=adw-gtk3-dark
-gtk-icon-theme-name=Papirus-Dark
-gtk-cursor-theme-name=Fluent-dark-cursors
-gtk-cursor-theme-size=24
-gtk-font-name=Inter 11
-gtk-application-prefer-dark-theme=1
-gtk-cursor-blink=1
-gtk-cursor-blink-time=500
-EOF
-    cp "$gtk3" "$HOME/.config/gtk-4.0/settings.ini"
-    if command -v gsettings >/dev/null 2>&1; then
-        gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark' 2>/dev/null || true
-        gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3-dark' 2>/dev/null || true
-        gsettings set org.gnome.desktop.interface icon-theme 'Papirus-Dark' 2>/dev/null || true
-        gsettings set org.gnome.desktop.interface cursor-blink true 2>/dev/null || true
-        gsettings set org.gnome.desktop.interface cursor-blink-time 500 2>/dev/null || true
-    fi
-    ok "GTK escuro (adw-gtk3-dark + Papirus-Dark)"
-}
-
-etapa_thunar() {
-    log "padroes do Thunar"
-    # O thunarrc de ~/.config/Thunar e ignorado pelo Thunar 4.20: as preferencias moram no
-    # xfconf (canal thunar), e o xfconfd reescreve o XML sozinho -- por isso isto nao entra
-    # no stow, e sim numa etapa que grava por xfconf-query.
-    if ! command -v xfconf-query >/dev/null 2>&1; then
-        falha "xfconf-query nao instalado"
-        return
-    fi
-    xfconf-query -c thunar -p /default-view -n -t string -s ThunarDetailsView 2>/dev/null
-    xfconf-query -c thunar -p /last-view -n -t string -s ThunarDetailsView 2>/dev/null
-    # ligado para que a pasta que o Alexandre mudar a mao guarde a escolha dela e so dela
-    xfconf-query -c thunar -p /misc-directory-specific-settings -n -t bool -s true 2>/dev/null
-    ok "abre em lista detalhada, com preferencia por pasta"
 }
 
 etapa_chrome() {
@@ -271,46 +221,7 @@ etapa_console() {
     console_cmdline
 }
 
-# A unit do pacote do swaync corre com o bin/swaync.sh que o Hyprland ja sobe no
-# login. Quem chega depois morre com "An instance of SwayNotificationCenter is
-# already running!", tenta quatro vezes e deixa a unit em failed para sempre --
-# vermelho eterno no `systemctl --user --failed` sem nada quebrado de verdade.
-# Mascarar e o unico jeito de a corrida nao existir: `disable` nao basta, porque
-# quem puxa a unit e o graphical-session.target.
-etapa_servicos() {
-    log "servicos do usuario"
-    local unit="swaync.service"
-    if [[ $(/usr/bin/systemctl --user is-enabled "$unit" 2>/dev/null) == masked ]]; then
-        ok "$unit ja mascarada"
-    else
-        /usr/bin/systemctl --user mask "$unit" >/dev/null 2>&1 \
-            && ok "$unit mascarada, quem sobe o swaync e o bin/swaync.sh" \
-            || falha "nao consegui mascarar $unit"
-    fi
-    /usr/bin/systemctl --user reset-failed "$unit" >/dev/null 2>&1
-}
-
-etapa_recarregar() {
-    log "recarregando hyprland, waybar e swaync"
-    tem_hyprland || { ok "sem sessao do Hyprland, nada a recarregar"; return; }
-    hyprctl reload >/dev/null 2>&1 || falha "hyprctl reload"
-    pkill -x waybar 2>/dev/null
-    uwsm app -- "$DOTFILES_DIR/bin/waybar.sh" >/dev/null 2>&1 &
-    pkill -x swaync 2>/dev/null
-    uwsm app -- "$DOTFILES_DIR/bin/swaync.sh" >/dev/null 2>&1 &
-    if command -v hyprexpose >/dev/null 2>&1; then
-        pkill -x hyprexpose 2>/dev/null
-        uwsm app -- "$DOTFILES_DIR/bin/hyprexpose.sh" >/dev/null 2>&1 &
-    fi
-    if command -v hyprswitch >/dev/null 2>&1; then
-        pkill -x hyprswitch 2>/dev/null
-        uwsm app -- hyprswitch init --custom-css "$HOME/.config/hyprswitch/style.css" \
-            --show-title --workspaces-per-row 5 --size-factor 5 >/dev/null 2>&1 &
-    fi
-    ok "recarregado"
-}
-
-ETAPAS=(links home perfil tema thunar energia audio dns wallpaper console chrome claude servicos recarregar)
+ETAPAS=(links home perfil energia audio dns console chrome claude)
 
 if [[ ${1:-} == --lista ]]; then
     printf 'etapas: %s\n' "${ETAPAS[*]}"

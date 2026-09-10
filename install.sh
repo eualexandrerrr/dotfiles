@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Pós-instalação do Arch: pacotes, NVIDIA, Hyprland, serviços e os pacotes stow deste repo.
+# Pós-instalação do Arch: pacotes, NVIDIA, KDE Plasma, serviços e os pacotes stow deste repo.
 # Idempotente: pode rodar de novo a qualquer hora.
 #
 #   SKIP_NVIDIA=1 ./install.sh    força pular driver e parâmetros de kernel
@@ -489,7 +489,7 @@ link_dotfiles() {
     local stowdir="$DOTFILES_DIR"
 
     # Os pacotes ficam na raiz do repo, um por programa, e espelham o $HOME: zsh/.zshrc vira
-    # ~/.zshrc, hypr/.config/hypr/hyprland.lua vira ~/.config/hypr/hyprland.lua. O que distingue um pacote de uma
+    # ~/.zshrc, git/.gitconfig vira ~/.gitconfig. O que distingue um pacote de uma
     # pasta de ferramenta (bin, vm, wallpaper, perfil) e ter uma entrada com ponto na
     # raiz -- .config, .local, .zshrc -- porque isso e o que o stow vai espelhar.
     #
@@ -521,12 +521,6 @@ link_dotfiles() {
         fi
     done
     rm -f "$LOGFILE.stow"
-
-    local conf="$HOME/.config/hypr/hyprland.conf"
-    if [[ -f $conf && ! -L $conf ]]; then
-        mv "$conf" "$conf.bak-$(date +%Y%m%d%H%M%S)"
-        ok "hyprland.conf autogerado movido pra .bak"
-    fi
 
     update-desktop-database "$HOME/.local/share/applications" >/dev/null 2>&1 || true
     ok "$LINKS arquivos linkados"
@@ -569,26 +563,8 @@ clonar_central() {
 }
 
 sessao_wayland() {
-    local dir=/usr/share/wayland-sessions
-    if [[ -f $dir/hyprland-uwsm.desktop ]]; then
-        printf 'hyprland-uwsm.desktop'
-        return 0
-    fi
-    if command -v uwsm >/dev/null 2>&1 && [[ -f $dir/hyprland.desktop ]]; then
-        sudo mkdir -p "$dir"
-        cat <<'EOF' | sudo tee "$dir/hyprland-uwsm.desktop" >/dev/null
-[Desktop Entry]
-Name=Hyprland (uwsm)
-Comment=Hyprland gerenciado pelo uwsm
-Exec=uwsm start -- hyprland.desktop
-DesktopNames=Hyprland
-Type=Application
-EOF
-        ok "hyprland-uwsm.desktop nao existia, criado"
-        printf 'hyprland-uwsm.desktop'
-        return 0
-    fi
-    printf 'hyprland.desktop'
+    # O plasma-meta instala a sessao sozinho; nao ha .desktop pra escrever a mao aqui.
+    printf 'plasma.desktop'
 }
 
 configure_sistema() {
@@ -681,9 +657,9 @@ configure_ddcutil() {
 }
 
 configure_sddm() {
-    log "configurando sddm (sessao Hyprland via uwsm, login automatico)"
-    [[ -f /usr/share/wayland-sessions/hyprland.desktop ]] \
-        || warn "hyprland nao esta instalado, o sddm nao vai ter sessao pra subir"
+    log "configurando sddm (sessao Plasma Wayland, login automatico)"
+    [[ -f /usr/share/wayland-sessions/plasma.desktop ]] \
+        || warn "plasma nao esta instalado, o sddm nao vai ter sessao pra subir"
     local sessao
     sessao="$(sessao_wayland)"
     sudo mkdir -p /etc/sddm.conf.d
@@ -703,26 +679,18 @@ User=$USER
 Session=$sessao
 Relogin=false
 
-[Theme]
-CursorTheme=Fluent-dark-cursors
 EOF
     ok "/etc/sddm.conf.d/10-dotfiles.conf (login automatico de $USER em $sessao)"
 }
 
-configure_hyprland() {
-    log "Hyprland: setup.sh completo e servicos de usuario"
+configure_kde() {
+    log "KDE: setup.sh completo e servicos de usuario"
 
     DOTFILES_DIR="$DOTFILES_DIR" bash "$DOTFILES_DIR/setup.sh" \
         && ok "setup.sh completo: links, home, perfil, tema, energia, audio, dns, wallpaper" \
         || warn "setup.sh terminou com avisos, confira as linhas acima"
 
     systemctl --user daemon-reload >/dev/null 2>&1 || true
-
-    # O binario mora em /usr/lib/hyprpolkitagent/, fora do PATH: chamar por exec-once nao
-    # funciona. O pacote traz uma unit WantedBy=graphical-session.target, que o uwsm ativa.
-    systemctl --user enable hyprpolkitagent.service >/dev/null 2>&1 \
-        && ok "hyprpolkitagent.service habilitado" \
-        || warn "hyprpolkitagent.service nao habilitado"
 
     systemctl --user enable vm-audio-acl.service >/dev/null 2>&1 \
         && ok "vm-audio-acl.service habilitado" \
@@ -769,7 +737,7 @@ summary() {
     printf '%s  %s em %s%s\n' "$cor" "$titulo" "$(elapsed)" "$END"
     printf '%s========================================================%s\n\n' "$cor" "$END"
     printf 'dotfiles:   %s (branch %s), %d arquivos via stow\n' "$DOTFILES_DIR" "$DOTFILES_BRANCH" "$LINKS"
-    printf 'desktop:    Hyprland (Wayland) via sddm + uwsm\n'
+    printf 'desktop:    KDE Plasma (Wayland) via sddm\n'
     if [[ $SKIP_NVIDIA == 1 ]]; then
         printf 'driver:     pulado (sem placa NVIDIA ou SKIP_NVIDIA=1)\n'
     else
@@ -779,7 +747,7 @@ summary() {
     printf 'AUR:        %d instalados, %d ja estavam, %d falharam\n' "${#AUR_OK[@]}" "${#AUR_JA[@]}" "${#AUR_FALHA[@]}"
     printf 'servicos:   %d habilitados, %d falharam\n' "${#SERV_OK[@]}" "${#SERV_FALHA[@]}"
     printf 'claude:     %s\n' "$CLAUDE_VER"
-    printf 'shell:      waybar + fuzzel + swaync, wallpaper pelo awww\n'
+    printf 'shell:      Plasma padrao: painel, KRunner, Klipper e Spectacle nativos\n'
     printf 'log:        %s\n\n' "$LOGFILE"
     if (( ${#OFICIAL_FALTANDO[@]} )); then printf '%s  oficiais faltando:%s %s\n' "$RED" "$END" "${OFICIAL_FALTANDO[*]}"; fi
     if (( ${#AUR_FALHA[@]} )); then printf '%s  AUR que falharam:%s %s\n  refazer: paru -S --needed %s\n' "$RED" "$END" "${AUR_FALHA[*]}" "${AUR_FALHA[*]}"; fi
@@ -794,7 +762,7 @@ summary() {
         printf '%s  ->%s confira depois do boot: cat /sys/module/nvidia_drm/parameters/modeset (tem que dar Y)\n' "$YEL" "$END"
     fi
     printf '%s  ->%s reinicie para carregar o kernel novo, o initramfs e os grupos do usuario\n' "$YEL" "$END"
-    printf '%s  ->%s no sddm a sessao e "Hyprland (uwsm)"; atalhos em hypr/atalhos.lua (Meta+R abre o menu)\n' "$YEL" "$END"
+    printf '%s  ->%s no sddm a sessao e "Plasma (Wayland)"; atalhos e tema pelo Configuracoes do sistema\n' "$YEL" "$END"
     printf '%s  ->%s dot status confere o desktop, dot erros mostra os avisos, dot instalar roda isto de novo\n' "$YEL" "$END"
     printf '%s  ->%s se o desktop nao subir: pendrive, opcao 4 do menu do live reinstala sem formatar\n' "$YEL" "$END"
 }
@@ -802,18 +770,8 @@ summary() {
 verificar() {
     log "conferindo o que precisa estar de pe pro desktop subir"
     local faltou=0
-    local alvo="$HOME/.config/hypr/hyprland.lua"
-
-    if [[ -L $alvo && -e $alvo ]]; then
-        ok "hyprland.lua linkado -> $(readlink -f "$alvo")"
-    else
-        printf '%s  !!%s %s nao e um link valido pro repo: o Hyprland vai subir com a config padrao\n' "$RED" "$END" "$alvo"
-        WARNS+=("hyprland.lua nao linkado")
-        faltou=1
-    fi
-
     local bin
-    for bin in Hyprland waybar swaync fuzzel uwsm stow; do
+    for bin in startplasma-wayland plasmashell systemsettings stow; do
         command -v "$bin" >/dev/null 2>&1 || { printf '%s  !!%s %s nao instalado\n' "$RED" "$END" "$bin"; WARNS+=("$bin ausente"); faltou=1; }
     done
 
@@ -868,7 +826,7 @@ main() {
     etapa restaurar_segredos
     etapa clonar_central
     etapa configure_sddm
-    etapa configure_hyprland
+    etapa configure_kde
     etapa verificar
     summary
 }

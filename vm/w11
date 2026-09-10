@@ -13,8 +13,8 @@ v() { virsh -c qemu:///system "$@"; }
 
 estado() { LC_ALL=C v domstate w11 2>/dev/null || echo "nao definida"; }
 
-# O `uwsm app --` lanca cada aplicativo num scope do systemd chamado
-# app-<desktop-id>-<pid>.scope -- e por isso que tudo aqui abre por uwsm. Isso da a lista
+# O Plasma lanca cada aplicativo num scope do systemd chamado
+# app-<desktop-id>-<pid>.scope. Isso da a lista
 # exata do que o usuario abriu, ja com o id do .desktop pra reabrir depois.
 salvar_apps() {
     local lista="${XDG_STATE_HOME:-$HOME/.local/state}/w11-apps"

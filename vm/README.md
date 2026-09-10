@@ -55,7 +55,7 @@ RTX 3090     <--dummy plug numa das 2 DP que sobram
 ```
 
 Sobra um cabo HDMI de reserva. O ASUS recebe **duas** entradas e alterna pelo botão: no dia
-a dia fica no HDMI; pra jogar, ou `vm/glass -F` sem sair do Hyprland, ou troca pra DP e vê o
+a dia fica no HDMI; pra jogar, ou `vm/glass -F` sem sair do desktop, ou troca pra DP e vê o
 Windows nativo. **A sessão não cai em nenhum dos dois casos.**
 
 **Vídeo primário na BIOS: a RX 550** (`PCIEX16_2`), em Advanced › Onboard Devices
@@ -86,10 +86,10 @@ mudar sabendo por quê. **Nunca fique adivinhando onde a tela foi parar.**
    pra outra placa. Desligue no botão.
 3. **Passar os três cabos** conforme a topologia, mais o dummy plug numa DP livre da 3090.
 4. **Ligar com o ASUS na entrada HDMI.** Tem que aparecer o POST, o menu do systemd-boot e o
-   Hyprland. *Se você vê o menu de boot, a rota de recuperação existe; sem isso não siga.*
+   o desktop. *Se você vê o menu de boot, a rota de recuperação existe; sem isso não siga.*
 5. **Provar que o host está na AMD:** `lspci -nnk | grep -A3 -iE 'vga|3d'` — duas placas, a
    RX 550 com `Kernel driver in use: amdgpu`, a 3090 ainda em `nvidia`. **Ponto de
-   não-retorno:** enquanto o Hyprland não estiver desenhando pela AMD, o passthrough não
+   não-retorno:** enquanto o desktop não estiver desenhando pela AMD, o passthrough não
    começa. Aqui também troca o modo do monitor pra `@144`.
 6. **`vm/vfio-ativar.sh`.** Ele confere as guardas sozinho, imprime os três itens a verificar
    e cria a entrada de recuperação. Reiniciar só depois que os três baterem. Sucesso =
@@ -123,7 +123,7 @@ coisa capaz de deixar o PC sem tela. O `stop.sh` só solta a trava: a 3090 volta
 
 ## A sessão não cai mais
 
-Com duas GPUs **a sessão do Hyprland não é derrubada**: ligar a VM não fecha nada, e o
+Com duas GPUs **a sessão gráfica não é derrubada**: ligar a VM não fecha nada, e o
 Alt-Tab entre Linux e Windows funciona pela janela do Looking Glass. Isso aposenta a
 mecânica de salvar e reabrir aplicativos:
 
@@ -158,7 +158,7 @@ os arquivos — quem registra o driver é o `LGIddInstall`.
 ## Looking Glass (`vm/glass`)
 
 O Windows renderiza na 3090, copia o frame pra `/dev/shm/looking-glass` (ivshmem, **128 MB**)
-e o `vm/glass` desenha numa janela do Hyprland. 2560×1440 pede ~40 MB (`w*h*4*2 + 10 MB`); os
+e o `vm/glass` desenha numa janela do desktop. 2560×1440 pede ~40 MB (`w*h*4*2 + 10 MB`); os
 128 MB cobrem até 4K, que é o que o EDID do dummy plug anuncia — foi por isso que subiu de 64.
 
 Teclado e mouse vão por SPICE (sem display); Scroll Lock solta o mouse. Cliente B7 do AUR; o
@@ -202,7 +202,7 @@ cria, dá acesso ao `libvirt-qemu` (ACL) e instala os hooks.
 | | |
 |:--|:--|
 | 12 vCPUs fixadas nos núcleos 2-7 | no 5700X `core N = CPU N e N+8`, então os pares HT ficam juntos: `(2,10) (3,11) (4,12) (5,13) (6,14) (7,15)` |
-| `emulatorpin 0,8` e `iothreadpin 1,9` | o I/O do QEMU não rouba tempo do jogo; dois núcleos físicos bastam pro host, que só desenha o Hyprland e o cliente Looking Glass |
+| `emulatorpin 0,8` e `iothreadpin 1,9` | o I/O do QEMU não rouba tempo do jogo; dois núcleos físicos bastam pro host, que só desenha o desktop e o cliente Looking Glass |
 | 16 GB | o host tem 31 GB; deixa ~15 GB. Já houve OOM com 20 GB |
 | sem hugepages estáticas | o kernel já roda `transparent_hugepage=always`; reservar fixo prejudicaria o host com a VM desligada |
 | `memballoon` desligado | ballooning atrapalha jogo |
@@ -290,7 +290,7 @@ monitor no meio da partida. Eram quatro coisas independentes.
 `2560x1440@60` e o Windows guarda a última taxa que usou, então o RDR2 rodava travado
 em 60 fps por mais rápida que fosse a placa. O monitor faz 119,998.
 
-`vm/guest-display.sh` lê a taxa do `hyprctl`, escreve em
+`vm/guest-display.sh` lê a taxa do `kscreen-doctor`, escreve em
 `HKLM\SOFTWARE\LookingGlass\IDD\ExtraMode` no formato `LARGURAxALTURA@TAXA*` (o `*`
 marca o modo preferido), recria o IDD e aplica o modo. O `vm/jogar` chama ele antes de
 abrir a janela; quando a taxa já bate, sai sem fazer nada.
@@ -332,10 +332,10 @@ nunca prendia o ponteiro. `looking-glass/.config/looking-glass/client.ini` liga
 travado nela e não escapa mais para a outra tela.
 
 E `input:grabKeyboard` fica **desligado** de propósito. Ligado, o cliente pede o
-inibidor de atalhos do Wayland e o Hyprland entrega o teclado inteiro — aí `SUPER+3` e
+inibidor de atalhos do Wayland e o compositor entrega o teclado inteiro — aí `SUPER+3` e
 `Alt+Tab` morrem e só o Scroll Lock tira você de lá. Desligado, o compositor continua
 dono dos atalhos dele e sair do jogo para o RCode é uma tecla, como em qualquer janela.
-O Windows perde só as combinações que o Hyprland usa.
+O Windows perde só as combinações que o Plasma usa.
 
 ### 4. O compositor redesenhava o que não precisava
 
@@ -461,7 +461,7 @@ vfio)`** carrega. Ela é criada pelo `vfio-ativar.sh`, junto com o vfio, na hora
 | `kernel-nvidia` (`packages.txt:30`) | depois da etapa 6 provada |
 | `configure_nvidia()` (`install.sh:295`) | idem |
 | autostart `nvidia-performance.sh` | idem |
-| `custom/gpu` da waybar (chama `nvidia-smi`) | idem |
+| widget de GPU que chame `nvidia-smi` | idem |
 
 **Não remover antes:** é o caminho de volta. O `nvidia-open-dkms` vale manter instalado por
 semanas mesmo com o vfio ativo — o `softdep` impede que ele carregue, e tirar o

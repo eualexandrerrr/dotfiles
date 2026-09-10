@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Garante que o PC nunca durma: nem suspender, nem hibernar, nem desligar por inatividade.
-# A unica coisa que a inatividade faz e apagar os monitores, em 5 minutos -- e isso quem
-# faz e o hypridle (hypr/hypridle.conf), nao este script.
+# A unica coisa que a inatividade faz e apagar os monitores -- e isso quem faz e o
+# powerdevil do Plasma (Configuracoes do sistema > Energia), nao este script.
 #
 #   ~/.dotfiles/bin/power.sh
 set -uo pipefail
@@ -51,14 +51,4 @@ elif sudo -n true 2>/dev/null || [[ -t 0 ]]; then
     fi
 else
     aviso "sem sudo agora; $CONF nao foi escrito"
-fi
-
-if pidof hypridle >/dev/null 2>&1; then
-    pkill -x hypridle 2>/dev/null || true
-    if command -v uwsm >/dev/null 2>&1 && [[ -n ${WAYLAND_DISPLAY:-} ]]; then
-        uwsm app -- hypridle >/dev/null 2>&1 &
-    else
-        hypridle >/dev/null 2>&1 &
-    fi
-    ok "hypridle reiniciado"
 fi

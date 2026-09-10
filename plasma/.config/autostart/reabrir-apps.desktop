@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Reabrir apps depois da VM
+Comment=Consome ~/.local/state/w11-apps quando a VM levou a GPU e derrubou a sessao
+Exec=sh -c "$HOME/.dotfiles/vm/reabrir-apps.sh"
+X-KDE-autostart-phase=2
+NoDisplay=true

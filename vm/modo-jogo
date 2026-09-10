@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Troca entre o desktop Linux e a saida nativa da 3090, sem nunca derrubar o Hyprland: troca
+# Troca entre o desktop Linux e a saida nativa da 3090, sem nunca derrubar a sessao: troca
 # a entrada do monitor ASUS e o dono do controlador USB isolado, sem passar pelo Looking
 # Glass. O IDD do Looking Glass e a saida fisica da 3090 nao coexistem -- o driver da NVIDIA
 # so ativa a saida fisica com o IDD desligado (`nvidia-smi -q` prova: Display Active vira
@@ -9,7 +9,7 @@
 # Uso: vm/modo-jogo entrar   (Linux -> Windows nativo: tela, teclado e mouse direto na VM)
 #      vm/modo-jogo voltar   (Windows -> Linux: devolve tudo, Looking Glass volta a valer)
 #
-# Atalhos, em qualquer tela: CTRL+ALT+Home no Hyprland chama "entrar"; CTRL+ALT+Home dentro
+# Atalhos, em qualquer tela: CTRL+ALT+Home no desktop chama "entrar"; CTRL+ALT+Home dentro
 # do Windows chama "voltar" -- via `modo-jogo-listener.py` (sobe aqui) e o hotkey do
 # `modo-jogo-instalar-atalho-windows.sh` (instala uma vez la dentro, sobrevive a reboot).
 #

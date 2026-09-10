@@ -7,9 +7,9 @@
 # lista so aparece se a VM levar a unica placa de video.
 #
 # Entao a lista e feita na mao pelo `vm/w11` antes de ligar a VM, a partir dos scopes
-# do systemd (app-<desktop-id>-<pid>.scope), que e como o uwsm lanca cada aplicativo.
+# do systemd (app-<desktop-id>-<pid>.scope), que e como o Plasma lanca cada aplicativo.
 #
-# Roda no login pelo autostart do hypr (hyprland.lua). Consome a lista:
+# Roda no login pelo autostart do Plasma (plasma/.config/autostart/). Consome a lista:
 # so dispara na volta da VM, num boot normal o arquivo nao existe e ele sai calado.
 set -uo pipefail
 
@@ -22,7 +22,7 @@ mv -f "$lista" "$usado"
 
 while read -r id; do
     [[ -n $id ]] || continue
-    uwsm app -- "$id" >/dev/null 2>&1 || true
+    kstart "$id" >/dev/null 2>&1 || true
     # Os apps pesados (Chrome, VS Code) restauram abas/janelas sozinhos; abrir em
     # rajada faz os tres brigarem por disco no primeiro segundo do login.
     sleep 1

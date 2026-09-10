@@ -44,48 +44,31 @@ nvidia-settings
 nvidia-utils
 vulkan-icd-loader
 
-[repo-oficial:hyprland]
-hyprland
-uwsm
-xdg-desktop-portal-hyprland
+[repo-oficial:kde]
+plasma-meta
+dolphin
+konsole
+kate
+ark
+gwenview
+spectacle
+kcalc
 xdg-desktop-portal-gtk
-awww
-hypridle
-hyprlock
-hyprsunset
-hyprpicker
-hyprpolkitagent
 qt6-wayland
 qt5-wayland
 xorg-xwayland
 
 [repo-oficial:shell-grafico]
 ghostty
-fuzzel
 gtk4
 libadwaita
 python-gobject
-swaync
 libnotify
-swayosd
-cliphist
 wl-clipboard
-wl-clip-persist
 xclip
-nwg-displays
 sddm
 
-[repo-oficial:captura]
-hyprshot
-grim
-slurp
-satty
-wf-recorder
-
 [repo-oficial:arquivos]
-thunar
-thunar-volman
-thunar-archive-plugin
 tumbler
 ffmpegthumbnailer
 poppler-glib
@@ -103,21 +86,13 @@ zathura-pdf-mupdf
 tesseract-data-eng
 
 [repo-oficial:tema]
-nwg-look
-qt6ct
-qt5ct
-kvantum
 papirus-icon-theme
 adw-gtk-theme
 gnome-themes-extra
-matugen
 
 [repo-oficial:desktop]
 networkmanager
-network-manager-applet
-pavucontrol
 playerctl
-brightnessctl
 pipewire
 pipewire-alsa
 pipewire-pulse
@@ -229,16 +204,12 @@ wayland-utils
 
 [aur]
 looking-glass
-fluent-cursor-theme-git
 android-studio
 bun-bin
 claude-code
 google-chrome
-hyprswitch
 insync
 paru
 cachyos-ananicy-rules-git
 ttf-ms-fonts
 visual-studio-code-bin
-waybar-git
-xembed-sni-proxy-standalone-git

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Depois que a VM desliga: a 3090 volta pro vfio-pci (nao pro host) e o Hyprland nunca
+# Depois que a VM desliga: a 3090 volta pro vfio-pci (nao pro host) e a sessao nunca
 # parou, entao so ha a trava de suspensao pra soltar.
 exec >>/var/log/libvirt/hooks-win11-redm.log 2>&1
 echo "== stop $(date -Is)"

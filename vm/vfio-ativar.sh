@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Prende a RTX 3090 (10de:2204 + audio 10de:1aef) no vfio-pci desde o boot. SO RODE COM A
-# RX 550 MONTADA e o Hyprland desenhando nela: com uma placa so, o proximo boot fica sem tela.
+# RX 550 MONTADA e o desktop desenhando nela: com uma placa so, o proximo boot fica sem tela.
 set -euo pipefail
 
 n=$(lspci -nn | grep -ciE 'vga|3d'); (( n >= 2 )) || { echo "so $n GPU: sem a RX 550, isso deixa o host sem tela. Abortado."; exit 1; }

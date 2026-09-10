@@ -4,8 +4,8 @@
 # The IDD is created at 2560x1440@60 and Windows keeps the rate it used last, so the game
 # runs at 60 fps no matter how fast the 3090 is. An approximate rate is not enough either:
 # the Looking Glass manual asks for the exact value, otherwise the two free-running clocks
-# beat against each other and frames arrive late. That is why the rate comes from hyprctl,
-# with its three decimals.
+# beat against each other and frames arrive late. That is why the rate comes from
+# kscreen-doctor, with its decimals, instead of being rounded to 60/120/144.
 #
 # The user32 display APIs do not exist in session 0, where the guest agent runs. The change
 # goes through a scheduled task with LogonType Interactive, which lands in the console
@@ -17,18 +17,31 @@ source "$HERE/guest.sh"
 BRAND="${BRAND:-ASUSTek COMPUTER INC XG27ACS}"
 GUEST_USER="${GUEST_USER:-Alexandre}"
 
+# O conector sai do bin/monitor.sh (que le o EDID e nao depende de sessao); o modo atual
+# sai do kscreen-doctor, que e quem sabe a taxa de verdade.
 read_monitor() {
-    hyprctl monitors -j | python3 -c "
-import sys, json
-for m in json.load(sys.stdin):
-    if m['description'].startswith('''$BRAND'''):
-        print(m['width'], m['height'], round(m['refreshRate'], 3))
-        break
+    local conector
+    conector="$("${DOTFILES_DIR:-$HOME/.dotfiles}/bin/monitor.sh" principal 2>/dev/null)"
+    [[ -n $conector ]] || return 1
+    kscreen-doctor -j 2>/dev/null | CONECTOR="$conector" python3 -c "
+import sys, json, os
+alvo = os.environ['CONECTOR']
+dados = json.load(sys.stdin)
+for o in dados.get('outputs', []):
+    if o.get('name') != alvo:
+        continue
+    atual = o.get('currentModeId')
+    for m in o.get('modes', []):
+        if m.get('id') == atual:
+            t = m['size']
+            print(t['width'], t['height'], round(m['refreshRate'], 3))
+            sys.exit(0)
+sys.exit(1)
 "
 }
 
 read -r WIDTH HEIGHT HZ <<<"$(read_monitor)"
-[[ -n ${HZ:-} ]] || { echo "guest-display: monitor '$BRAND' is not connected" >&2; exit 1; }
+[[ -n ${HZ:-} ]] || { echo "guest-display: could not read the mode of monitor '$BRAND'" >&2; exit 1; }
 HZ_INT=$(python3 -c "print(round($HZ))")
 echo "  target ${WIDTH}x${HEIGHT}@${HZ}"
 

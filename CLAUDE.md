@@ -1,13 +1,13 @@
 # CLAUDE.md
 
-Pos-instalacao da maquina de desenvolvimento: pacotes, driver, Hyprland, servicos e os
+Pos-instalacao da maquina de desenvolvimento: pacotes, driver, KDE Plasma, servicos e os
 arquivos de configuracao que valem versionar, cada um no seu pacote, linkado pelo GNU Stow.
 Repo remoto: `github.com/eualexandrerrr/dotfiles`, branch `main`.
 
 ## Quem e o que
 
 Xande (`eualexandrerrr`), dev Lua/JS, dono do servidor MichiganRoleplay (RedM). Esta e a
-maquina de desenvolvimento dele, Arch Linux com **Hyprland** em Wayland. O repo e a
+maquina de desenvolvimento dele, Arch Linux com **KDE Plasma** em Wayland. O repo e a
 pos-instalacao: pacotes, driver, compositor, servicos e os arquivos de configuracao que
 valem versionar, cada um no seu pacote, linkado pelo GNU Stow.
 
@@ -20,12 +20,18 @@ sem mencionar Claude na mensagem.
 
 Ele vai **formatar** e reinstalar pelo instalador proprio (`github.com/eualexandrerrr/myarch`,
 opcao 3 da ISO clona este repo e roda o `install.sh`). O objetivo e o desktop sair
-configurado inteiro de primeira: compositor, barra, wallpaper, monitores, tudo sem toque
-manual.
+configurado inteiro de primeira, sem toque manual.
 
-Em 07/09/2026 o KDE Plasma foi **removido inteiro** e o repo passou a ser Hyprland. Nada
-de Plasma, KWin, powerdevil, Dolphin, Spectacle ou Windows-Modern sobrou. A decisao anterior
-(04/09/2026, "no dotfiles quero usar KDE") esta revogada.
+Em 10/09/2026 o repo voltou pro **KDE Plasma**, e desta vez **de fabrica**: painel, lancador,
+notificacao, captura e configuracao de tela sao os nativos do Plasma. Todo o stack Hyprland
+saiu -- hyprland, waybar, swaync, fuzzel, uwsm, awww, swayosd, hyprexpose, hyprswitch,
+hypridle, hyprlock, hyprsunset -- junto com ~20 scripts de `bin/` que existiam so pra suprir
+o que o Plasma ja faz sozinho.
+
+O motivo nao foi tecnico: ele cansou de perder dia com o desktop em vez de trabalhar. Entao
+**nao proponha personalizacao de desktop**. Tema pronto, painel padrao, atalho padrao. O que
+este repo cuida e do que o Plasma nao faz: passthrough, tuning de sistema, pacotes,
+credenciais e as ferramentas de trabalho dele.
 
 A placa-mae nova ja esta montada e em uso desde 08/09/2026: **ASUS TUF Gaming B550M-PLUS**,
 sem wifi e sem bluetooth (a variante com wifi tem o sufixo no nome; esta nao tem). A 3090
@@ -35,11 +41,12 @@ esta em `0000:07:00.0`, hoje presa no `vfio-pci` para a VM, e a **RX 550** esta 
 **Os dois monitores estao na RX 550** -- `DP-1` e `HDMI-A-1` sao saidas do `card2` --, entao
 e a AMD que desenha o desktop. A 3090 nao pertence mais ao host: `nvidia-smi` nao existe
 aqui, e quem le os sensores dela e o Windows da VM.
-Toda variavel de driver grafico tem que seguir a AMD; o `uwsm/env` resolve isso no login
-lendo o driver de cada `card`, e `dot status` acusa se alguem voltar a fixar `nvidia`.
+Toda variavel de driver grafico tem que seguir a AMD; o
+`plasma/.config/plasma-workspace/env/dotfiles.sh` resolve isso no login lendo o driver de
+cada `card`, e `dot status` acusa se alguem voltar a fixar `nvidia`.
 
-Atencao: os hooks de single-GPU passthrough dos tutoriais assumem display manager; com
-Hyprland o script de start precisa parar a sessao direto (ver `~/Claude/maquina/docs/vm-e-hardware.md`).
+Com duas GPUs o cenario de single-GPU passthrough (que derruba a sessao) nao se aplica mais
+-- ver `vm/modo-jogo` e `~/Claude/maquina/docs/vm-e-hardware.md`.
 
 ## install.sh x setup.sh
 
@@ -47,30 +54,19 @@ Hyprland o script de start precisa parar a sessao direto (ver `~/Claude/maquina/
 sem rede e em segundos. Mexeu numa config? `setup.sh`. Mexeu no `packages.txt`? `install.sh`.
 
 ```
-~/.dotfiles/setup.sh [etapa...]   # links home perfil tema energia audio dns wallpaper console claude recarregar
+~/.dotfiles/setup.sh [etapa...]   # links home perfil energia audio dns console chrome claude
 ```
 
-O `install.sh` (etapas `home_enxuta` e `configure_hyprland`) chama o `setup.sh` em vez de
+O `install.sh` (etapas `home_enxuta` e `configure_kde`) chama o `setup.sh` em vez de
 repetir as etapas. Etapa que falha vira aviso e as outras seguem.
 
-**Toda mudanca de config termina com refresh forcado.** Ele acompanha olhando a tela e
-decide vendo; config gravada que so aparece no proximo login e trabalho nao entregue.
-Aplicar sempre na sessao real dele e recarregar no mesmo passo:
+**Toda mudanca de config termina aplicada na sessao real dele.** Ele acompanha olhando a
+tela e decide vendo; config gravada que so aparece no proximo login e trabalho nao entregue.
+No Plasma isso e `kwriteconfig6` mais o sinal certo, ou a propria GUI -- nunca "reinicia e ve".
 
-```
-bash ~/.dotfiles/setup.sh recarregar
-```
-
-A etapa faz `hyprctl reload` e reinicia waybar e swaync (mata e sobe de novo). Diferente do
-Plasma, o Hyprland aplica a config na hora e sem reiniciar nada -- entao nao existe mais
-desculpa de "so no proximo login".
-
-**A config do Hyprland e Lua, nao hyprlang.** Desde a 0.55 o `.conf` esta deprecado; na
-0.56 as `windowrule` em hyprlang falham inteiras. Antes de entregar qualquer mexida em
-`hypr/`, rodar **`Hyprland --verify-config`** -- ele valida sem subir sessao e responde
-`config ok`. Config errada nao da erro na cara: e ignorada, e a sessao sobe torta. A
-referencia offline da versao instalada e `/usr/share/hypr/stubs/hl.meta.lua`; consultar
-ela antes da wiki, que descreve a versao mais nova. Detalhe em `~/Claude/maquina/docs/hyprland.md`.
+**A tela dele nao pode cair.** Ele roda o Claude Code num terminal dentro da sessao grafica:
+derrubar o compositor mata a conversa junto. Nada de `uwsm stop`, `systemctl restart sddm` ou
+logout sem ele mandar, por escrito, naquela mensagem.
 
 Nesta maquina `systemctl` e `pacman` pelados caem num wrapper com `sudo` que o sandbox
 recusa ("sinalizador sem novos privilegios"). Use `/usr/bin/systemctl --user ...`; e nao
@@ -90,12 +86,10 @@ aqui: este repo e publico. Sem o clone, `git clone git@github.com:eualexandrerrr
 
 | Vou mexer em... | Ler primeiro |
 |---|---|
-| Compositor, atalhos, regras de janela, waybar, barra | `~/Claude/maquina/docs/hyprland.md` |
-| Notificacoes, swaync, silenciar app, central de historico | `~/Claude/maquina/docs/notificacoes.md` |
 | Format, o que sobrevive em `/home`, perfil do Chrome, particoes | `~/Claude/maquina/docs/particoes-e-format.md` |
 | Pacote do stow, onde um arquivo novo entra, regra do `--no-folding` | `~/Claude/maquina/docs/estrutura-repo.md` |
 | Rodar o `install.sh`, entender etapa que falhou | `~/Claude/maquina/docs/install-fluxo.md` |
-| Disposicao de telas, `monitores.lua`, wallpaper por geometria | `~/Claude/maquina/docs/monitores.md` |
+| Disposicao de telas, marca de cada monitor (`telas.conf`) | `~/Claude/maquina/docs/monitores.md` |
 | DNS, keyring, por que NAO instalar gnome-keyring | `~/Claude/maquina/docs/dns-e-keyring.md` |
 | Suspender, hibernar, apagar monitor por inatividade | `~/Claude/maquina/docs/energia.md` |
 | Desligar travado ou lento, tela preta no shutdown, fonte e cor do console | `~/Claude/maquina/docs/energia.md` |
@@ -103,7 +97,7 @@ aqui: este repo e publico. Sem o clone, `git clone git@github.com:eualexandrerrr
 | VM Windows, passthrough, vfio, a placa que vai chegar | `~/Claude/maquina/docs/vm-e-hardware.md` |
 | Memoria RAM, frequencia, timings, FCLK, DOCP, 4 pentes | `~/Claude/maquina/docs/memoria-ram.md` |
 | RDP no servidor Windows, onde a senha mora | `~/Claude/maquina/docs/rdp.md` |
-| Radmin VPN, bandeja XEmbed do Wine, icone que nao aparece na waybar | `~/Claude/maquina/docs/radmin-vpn.md` |
+| Radmin VPN, bandeja XEmbed do Wine, icone que nao aparece na bandeja | `~/Claude/maquina/docs/radmin-vpn.md` |
 | Pagina inicial do Chrome, politica gerenciada | `~/Claude/maquina/docs/chrome-inicio.md` |
 | Algo quebrado depois do format | `~/Claude/maquina/docs/se-quebrar-no-format.md` |
 | Saber por que uma correcao foi feita | `~/Claude/maquina/docs/historico-commits.md` |
