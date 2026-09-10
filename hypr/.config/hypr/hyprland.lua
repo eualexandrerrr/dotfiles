@@ -39,7 +39,6 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("uwsm app -- " .. os.getenv("HOME") .. "/.dotfiles/bin/hyprexpose.sh")
     hl.exec_cmd("uwsm app -- hyprswitch init --custom-css " .. os.getenv("HOME") .. "/.config/hyprswitch/style.css --show-title --workspaces-per-row 5 --size-factor 5")
     hl.exec_cmd("uwsm app -- hypridle")
-    hl.exec_cmd("uwsm app -- hyprsunset")
     hl.exec_cmd("uwsm app -- swayosd-server")
     hl.exec_cmd("uwsm app -- xembedsniproxy")
     hl.exec_cmd(os.getenv("HOME") .. "/.dotfiles/bin/login-apps.sh")
@@ -70,8 +69,8 @@ hl.config({
     decoration = {
         rounding = 10,
         rounding_power = 2,
-        active_opacity = 0.96,
-        inactive_opacity = 0.90,
+        active_opacity = 1.0,
+        inactive_opacity = 1.0,
         fullscreen_opacity = 1.0,
 
         shadow = {
@@ -132,8 +131,15 @@ hl.config({
         vrr = 0,
     },
 
+    render = {
+        -- O cm do Hyprland mapeava tudo pra srgb num painel de gamut largo e o auto_hdr
+        -- estourava o vermelho. Live USB do KDE, sem cm nenhum, mostrava a cor certa.
+        cm_enabled = false,
+        cm_auto_hdr = 0,
+    },
+
     cursor = {
-        no_hardware_cursors = false,
+        no_hardware_cursors = true,
     },
 
 
