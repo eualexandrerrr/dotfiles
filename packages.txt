@@ -77,11 +77,9 @@ ffmpegthumbnailer
 poppler-glib
 gvfs
 gvfs-mtp
-udiskie
 yazi
 
 [repo-oficial:visualizadores]
-imv
 mpv
 zathura
 zathura-pdf-mupdf
@@ -176,7 +174,8 @@ qemu-full
 virt-manager
 
 [repo-oficial:painel-segundo-monitor]
-electron
+# O RicePanel roda pelo electron do proprio node_modules (ver ricepanel.service), nao pelo
+# pacote do sistema -- por isso so o lm_sensors fica aqui.
 lm_sensors
 
 [repo-oficial:apps]
