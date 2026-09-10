@@ -3,8 +3,9 @@
 #
 # O KWin salva isso sozinho em ~/.config/kwinoutputconfig.json, mas nao e confiavel: em
 # 10/09/2026 o arquivo foi regravado horas depois de aplicado, provavelmente por um ciclo de
-# DPMS (tela apagando por inatividade) que fez o KWin re-negociar o EDID e escolher de novo a
-# maior taxa disponivel (144Hz) em vez de manter a taxa configurada (120Hz). Isso era
+# DPMS (tela apagando por inatividade) que fez o KWin re-negociar o EDID. Cada monitor vai no
+# teto real dele (ver Modes: no kscreen-doctor -o -- nao adianta pedir mais que isso): o ASUS
+# em 2560x1440@144 e o LG em 1920x1080@143.98, que ja e o modo preferred/nativo dele. Isso era
 # resolvido pelo monitores.lua no Hyprland, que era declarativo e reaplicava toda vez.
 #
 # Idempotente e silencioso: nao imprime nada quando ja esta certo, so age quando falta.
@@ -21,7 +22,7 @@ kscreen-doctor \
     "output.$vertical.rotation.left" \
     "output.$vertical.position.0,0" \
     "output.$vertical.priority.2" \
-    "output.$principal.mode.2560x1440@120" \
+    "output.$principal.mode.2560x1440@144" \
     "output.$principal.position.1080,240" \
     "output.$principal.priority.1" \
     >/dev/null 2>&1
