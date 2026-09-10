@@ -101,6 +101,7 @@ aqui: este repo e publico. Sem o clone, `git clone git@github.com:eualexandrerrr
 | Desligar travado ou lento, tela preta no shutdown, fonte e cor do console | `~/Claude/maquina/docs/energia.md` |
 | Pastas da home, XDG, onde criar projeto novo | `~/Claude/maquina/docs/home-enxuta.md` |
 | VM Windows, passthrough, vfio, a placa que vai chegar | `~/Claude/maquina/docs/vm-e-hardware.md` |
+| Memoria RAM, frequencia, timings, FCLK, DOCP, 4 pentes | `~/Claude/maquina/docs/memoria-ram.md` |
 | RDP no servidor Windows, onde a senha mora | `~/Claude/maquina/docs/rdp.md` |
 | Radmin VPN, bandeja XEmbed do Wine, icone que nao aparece na waybar | `~/Claude/maquina/docs/radmin-vpn.md` |
 | Pagina inicial do Chrome, politica gerenciada | `~/Claude/maquina/docs/chrome-inicio.md` |
