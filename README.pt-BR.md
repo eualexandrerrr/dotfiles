@@ -22,7 +22,7 @@ bash ~/.dotfiles/install.sh
 | `install.sh` | pacotes, driver, serviços, SDDM | mexeu no `packages.txt` |
 | `setup.sh` | configura e recarrega | mexeu numa config |
 
-Etapas: `links home perfil thunar energia atalhos audio dns console chrome claude`.
+Etapas: `links home perfil arquivos energia atalhos audio dns console chrome claude`.
 
 ---
 
@@ -31,7 +31,7 @@ Etapas: `links home perfil thunar energia atalhos audio dns console chrome claud
 | Função | Programa |
 |---|---|
 | Desktop | `plasma-meta` (painel, KRunner, Klipper, powerdevil) |
-| Arquivos | `thunar` (GUI) · `yazi` (terminal) |
+| Arquivos | `dolphin` (GUI) · `yazi` (terminal) |
 | Captura | `spectacle` (tela, recorte, anotação e vídeo) |
 | Terminal | `ghostty` + zsh com `starship`, `atuin`, `fzf`, `zoxide` |
 
@@ -118,7 +118,7 @@ sessão não cai em nenhum dos dois casos.**
 | Cabo | De | Para | Serve para |
 |---|---|---|---|
 | DisplayPort | RTX 3090 | ASUS XG27ACS · entrada **DP** | Windows nativo, 2560x1440@180 |
-| HDMI | RX 550 | ASUS XG27ACS · entrada **HDMI** | Linux no dia a dia, 2560x1440@120 |
+| HDMI | RX 550 | ASUS XG27ACS · entrada **HDMI** | Linux no dia a dia, 2560x1440@144 |
 | DisplayPort | RX 550 | LG UltraGear (girado) | RicePanel, 1920x1080@144 |
 | Dummy plug | RTX 3090 · DP livre | — | mantém display ativo na VM |
 | Rede | LAN 2.5G da placa-mãe | roteador | **único caminho: não há wifi** |
@@ -127,11 +127,11 @@ sessão não cai em nenhum dos dois casos.**
 Configuration. É onde vive o Linux e o menu do systemd-boot — a entrada de recuperação só
 serve se aparecer na tela que você usa todo dia.
 
-**Por que o Linux fica em 120 Hz:** 1440p@180 pede ~19,3 Gbps. A DP 1.4 dá 25,9 e passa; a
-HDMI 2.0b da RX 550 dá 18 e não passa. Foi decisão consciente para deixar a DP na 3090 — no
-Windows o resultado é idêntico. Por isso o `monitores.lua` pede `@120` no principal, e
-`mode = "highrr"` **não** resolve: ele maximiza a taxa e não a resolução, e derruba a tela
-para 1024x768@180.
+**Por que o Linux não chega aos 180 Hz:** 1440p@180 pede ~19,3 Gbps. A DP 1.4 dá 25,9 e
+passa; a HDMI 2.0b da RX 550 dá 18 e não passa. Foi decisão consciente para deixar a DP na
+3090 — no Windows o resultado é idêntico. O `bin/telas-aplicar.sh` pede o teto que o cabo
+aguenta, `2560x1440@144`, e reaplica de tempos em tempos porque o KWin esquece sozinho
+depois de apagar a tela por inatividade.
 
 O dummy plug não é só para o caso de faltar cabo: com o ASUS ligado nas duas placas e a
 entrada dele no HDMI, o monitor pode derrubar o hot-plug detect da DP, e aí o Windows para de

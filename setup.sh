@@ -242,41 +242,23 @@ etapa_console() {
         falha "terminus-font ausente; rode o install.sh pra ter fonte legivel no console"
     fi
 
-    if [[ -e /etc/systemd/system/tela-desligar.service || -e /usr/local/bin/tela-desligar ]]; then
-        sudo /usr/bin/systemctl disable --now tela-desligar.service >/dev/null 2>&1
-        sudo rm -f /etc/systemd/system/tela-desligar.service /usr/local/bin/tela-desligar
-        sudo /usr/bin/systemctl daemon-reload 2>/dev/null
-        ok "painel de desligamento removido, o console mostra o systemd cru"
-    fi
-
     console_cmdline
 }
 
-etapa_thunar() {
-    log "Thunar como gerenciador de arquivos"
-    # O thunarrc de ~/.config/Thunar e ignorado pelo Thunar 4.20: as preferencias moram no
-    # xfconf (canal thunar), e o xfconfd reescreve o XML sozinho -- por isso isto nao entra
-    # no stow, e sim numa etapa que grava por xfconf-query.
-    if ! command -v xfconf-query >/dev/null 2>&1; then
-        falha "xfconf-query nao instalado"
-        return
-    fi
-    xfconf-query -c thunar -p /default-view -n -t string -s ThunarDetailsView 2>/dev/null
-    xfconf-query -c thunar -p /last-view -n -t string -s ThunarDetailsView 2>/dev/null
-    # ligado para que a pasta que o Alexandre mudar a mao guarde a escolha dela e so dela
-    xfconf-query -c thunar -p /misc-directory-specific-settings -n -t bool -s true 2>/dev/null
-    ok "abre em lista detalhada, com preferencia por pasta"
-
-    # Sem isto o Plasma abre pasta no Dolphin: quem registra inode/directory por ultimo
-    # ganha. O mimeapps.list nao entra no stow porque os apps escrevem nele em runtime.
-    if command -v xdg-mime >/dev/null 2>&1 && [[ -f /usr/share/applications/thunar.desktop ]]; then
-        xdg-mime default thunar.desktop inode/directory 2>/dev/null \
-            && ok "Thunar e o padrao para abrir pasta" \
-            || falha "nao consegui registrar o Thunar em inode/directory"
+etapa_arquivos() {
+    log "Dolphin como gerenciador de arquivos"
+    # O Dolphin e o nativo do Plasma e ja se registra sozinho; isto so garante que nenhum
+    # outro app tenha ficado como dono de inode/directory de instalacoes anteriores.
+    if command -v xdg-mime >/dev/null 2>&1 && [[ -f /usr/share/applications/org.kde.dolphin.desktop ]]; then
+        xdg-mime default org.kde.dolphin.desktop inode/directory 2>/dev/null \
+            && ok "Dolphin e o padrao para abrir pasta" \
+            || falha "nao consegui registrar o Dolphin em inode/directory"
+    else
+        falha "dolphin nao instalado"
     fi
 }
 
-ETAPAS=(links home perfil thunar energia atalhos audio dns console chrome claude)
+ETAPAS=(links home perfil arquivos energia atalhos audio dns console chrome claude)
 
 if [[ ${1:-} == --lista ]]; then
     printf 'etapas: %s\n' "${ETAPAS[*]}"

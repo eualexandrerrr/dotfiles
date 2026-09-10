@@ -21,7 +21,7 @@ bash ~/.dotfiles/install.sh
 | `install.sh` | packages, driver, services, SDDM | you touched `packages.txt` |
 | `setup.sh` | configures and reloads | you touched a config |
 
-Steps: `links home perfil thunar energia atalhos audio dns console chrome claude`.
+Steps: `links home perfil arquivos energia atalhos audio dns console chrome claude`.
 
 ---
 
@@ -30,7 +30,7 @@ Steps: `links home perfil thunar energia atalhos audio dns console chrome claude
 | Role | Program |
 |---|---|
 | Desktop | `plasma-meta` (panel, KRunner, Klipper, powerdevil) |
-| Files | `thunar` (GUI) · `yazi` (terminal) |
+| Files | `dolphin` (GUI) · `yazi` (terminal) |
 | Screenshots | `spectacle` (screen, region, annotation and video) |
 | Terminal | `ghostty` + zsh with `starship`, `atuin`, `fzf`, `zoxide` |
 
@@ -119,7 +119,7 @@ survives either way.**
 | Cable | From | To | For |
 |---|---|---|---|
 | DisplayPort | RTX 3090 | ASUS XG27ACS · **DP** input | bare-metal Windows, 2560x1440@180 |
-| HDMI | RX 550 | ASUS XG27ACS · **HDMI** input | Linux, day to day, 2560x1440@120 |
+| HDMI | RX 550 | ASUS XG27ACS · **HDMI** input | Linux, day to day, 2560x1440@144 |
 | DisplayPort | RX 550 | LG UltraGear (rotated) | RicePanel, 1920x1080@144 |
 | Dummy plug | RTX 3090 · free DP | — | keeps a display alive inside the VM |
 | Ethernet | motherboard 2.5G LAN | router | **the only way in: there is no wifi** |
@@ -128,11 +128,11 @@ survives either way.**
 Configuration. That is where Linux and the systemd-boot menu live — a recovery entry is only
 useful if it shows up on the screen you use every day.
 
-**Why Linux runs at 120 Hz:** 1440p@180 needs about 19.3 Gbps. DP 1.4 carries 25.9 and makes
-it; the RX 550's HDMI 2.0b carries 18 and does not. That was a deliberate trade to keep DP on
-the 3090 — inside Windows the result is identical. So `monitores.lua` asks for `@120` on the
-main screen, and `mode = "highrr"` does **not** fix it: it maximises refresh rate rather than
-resolution, and drops the screen to 1024x768@180.
+**Why Linux does not reach 180 Hz:** 1440p@180 needs about 19.3 Gbps. DP 1.4 carries 25.9 and
+makes it; the RX 550's HDMI 2.0b carries 18 and does not. That was a deliberate trade to keep
+DP on the 3090 — inside Windows the result is identical. `bin/telas-aplicar.sh` asks for what
+the cable can carry, `2560x1440@144`, and reapplies it on a timer because KWin forgets on its
+own after the screen blanks.
 
 The dummy plug is not just insurance against running out of cables: with the ASUS wired to
 both cards and its input set to HDMI, the monitor can drop DisplayPort hot-plug detect, and

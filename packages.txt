@@ -64,35 +64,21 @@ libadwaita
 python-gobject
 libnotify
 wl-clipboard
-xclip
 sddm
 
 [repo-oficial:arquivos]
-thunar
-thunar-volman
-thunar-archive-plugin
-xfconf
-tumbler
-ffmpegthumbnailer
-poppler-glib
+dolphin
 gvfs
 gvfs-mtp
 yazi
 
 [repo-oficial:visualizadores]
+okular
 mpv
-zathura
-zathura-pdf-mupdf
 tesseract-data-eng
-
-[repo-oficial:tema]
-papirus-icon-theme
-adw-gtk-theme
-gnome-themes-extra
 
 [repo-oficial:desktop]
 networkmanager
-playerctl
 pipewire
 pipewire-alsa
 pipewire-pulse
@@ -103,8 +89,6 @@ rtkit
 noto-fonts
 noto-fonts-emoji
 ttf-jetbrains-mono-nerd
-ttf-nerd-fonts-symbols
-otf-font-awesome
 ttf-liberation
 terminus-font
 

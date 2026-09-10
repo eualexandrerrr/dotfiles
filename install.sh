@@ -25,8 +25,8 @@ mkdir -p "$LOGDIR"
 LOGFILE="${LOGFILE:-$LOGDIR/install.log}"
 T0=$SECONDS
 STEP=0
-TOTAL_STEPS=23
-[[ ${SKIP_NVIDIA:-0} == 1 ]] && TOTAL_STEPS=22
+TOTAL_STEPS=24
+[[ ${SKIP_NVIDIA:-0} == 1 ]] && TOTAL_STEPS=23
 WARNS=()
 ETAPAS_FALHA=()
 OFICIAL_PEDIDOS=0; OFICIAL_NOVOS=(); OFICIAL_FALTANDO=()
@@ -202,26 +202,6 @@ install_aur() {
         warn "AUR que nao instalaram: ${AUR_FALHA[*]}"
         warn "depois rode: paru -S --needed ${AUR_FALHA[*]}"
     fi
-}
-
-install_pacotes_locais() {
-    local dir pkg nome ok_n=0
-    dir="$DOTFILES_DIR/pacotes"
-    [[ -d $dir ]] || return 0
-    local pkgbuilds=()
-    mapfile -t pkgbuilds < <(find "$dir" -mindepth 2 -maxdepth 2 -name PKGBUILD | sort)
-    [[ ${#pkgbuilds[@]} -gt 0 ]] || return 0
-    log "compilando ${#pkgbuilds[@]} pacote(s) proprio(s) de pacotes/"
-    for pkg in "${pkgbuilds[@]}"; do
-        nome="$(basename "$(dirname "$pkg")")"
-        if ( cd "$(dirname "$pkg")" && makepkg -si --noconfirm --needed --cleanbuild ); then
-            ok "$nome instalado"
-            ok_n=$((ok_n+1))
-        else
-            warn "$nome falhou, seguindo"
-        fi
-    done
-    ok "pacotes proprios: $ok_n de ${#pkgbuilds[@]}"
 }
 
 install_node_tools() {
@@ -698,7 +678,7 @@ configure_kde() {
     log "KDE: setup.sh completo e servicos de usuario"
 
     DOTFILES_DIR="$DOTFILES_DIR" bash "$DOTFILES_DIR/setup.sh" \
-        && ok "setup.sh completo: links, home, perfil, tema, energia, audio, dns, wallpaper" \
+        && ok "setup.sh completo: links, home, perfil, arquivos, energia, atalhos, audio, dns" \
         || warn "setup.sh terminou com avisos, confira as linhas acima"
 
     systemctl --user daemon-reload >/dev/null 2>&1 || true
@@ -836,7 +816,6 @@ main() {
     etapa install_official
     etapa bootstrap_paru
     etapa install_aur
-    etapa install_pacotes_locais
     etapa install_node_tools
     etapa install_android_sdk
     etapa install_maestro
