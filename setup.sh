@@ -404,7 +404,7 @@ etapa_notificacoes() {
 }
 
 etapa_painel() {
-    log "barra de tarefas: lancadores, icone de audio e badge de grupo"
+    log "barra de tarefas: lancadores, icone de audio, badge de grupo e fonte"
     "$DOTFILES_DIR/bin/apply-launchers.sh" \
         && ok "Dolphin, Chrome, Discord e RCode fixados, icone de audio desligado" \
         || falha "nao consegui ajustar a barra de tarefas"
@@ -417,6 +417,16 @@ etapa_painel() {
         kwriteconfig6 --file plasmarc --group PlasmaToolTips --key Delay 1 \
             && ok "preview ao passar o mouse sem atraso" \
             || falha "nao consegui zerar o atraso do tooltip"
+
+        # A miniatura de janela do hover no icone agrupado nao tem tamanho proprio pra
+        # configurar -- escala com Kirigami.Units.gridUnit, que vem da fonte geral. Um ponto
+        # a menos encolhe o preview (e o resto da interface, mais discreto).
+        local fonte="Noto Sans,9,-1,5,50,0,0,0,0,0"
+        kwriteconfig6 --file kdeglobals --group General --key font "$fonte"
+        kwriteconfig6 --file kdeglobals --group General --key menuFont "$fonte"
+        kwriteconfig6 --file kdeglobals --group General --key toolBarFont "$fonte" \
+            && ok "fonte geral em 9pt, preview do hover menor" \
+            || falha "nao consegui reduzir a fonte geral"
     fi
 }
 
