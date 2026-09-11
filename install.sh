@@ -109,14 +109,62 @@ de_valido() {
     return 1
 }
 
+# Trocar de desktop tem que TIRAR o anterior. O install.sh so soma pacote, entao sem isto
+# quem sai do KDE pro GNOME fica com os dois instalados -- e pacote instalado e sem uso e
+# lixo. Nunca remove o que a base ou o desktop novo tambem pedem (o sddm, por exemplo,
+# serve KDE, XFCE e Hyprland), e -Rns leva junto a dependencia que ficou orfa.
+remover_de_antigo() {
+    local antigo="$1" novo="$2"
+    [[ $antigo == "$novo" ]] && return 0
+
+    local base; base="$(dirname "$(pkgfile)")"
+    local lista="$base/packages/$antigo.txt"
+    [[ -f $lista ]] || return 0
+
+    local manter sobra=() p
+    manter="$(read_section "$(pkgfile)" '^repo-oficial'
+              [[ -f $base/packages/$novo.txt ]] && read_section "$base/packages/$novo.txt" '^repo-oficial')"
+    while read -r p; do
+        [[ -n $p ]] || continue
+        grep -qx "$p" <<<"$manter" && continue
+        pacman -Qq "$p" >/dev/null 2>&1 && sobra+=("$p")
+    done < <(read_section "$lista" '^repo-oficial')
+
+    (( ${#sobra[@]} )) || { ok "nada do desktop $antigo sobrou instalado"; return 0; }
+
+    printf '%s  !!%s trocando de %s pra %s: %d pacote(s) do %s continuam instalados\n' \
+        "$YEL" "$END" "$antigo" "$novo" "${#sobra[@]}" "$antigo"
+    printf '     %s\n' "${sobra[*]}"
+
+    # Sem terminal interativo nao remove nada: apagar pacote sem ninguem na frente pra ver
+    # e forte demais pra uma instalacao automatizada.
+    if [[ ! -t 0 ]]; then
+        warn "sem terminal interativo, nao removi nada -- rode: sudo pacman -Rns ${sobra[*]}"
+        return 0
+    fi
+
+    local resp
+    read -r -p "     remover agora? [s/N] " resp
+    if [[ ${resp,,} == s ]]; then
+        sudo pacman -Rns --noconfirm "${sobra[@]}" \
+            && ok "${#sobra[@]} pacote(s) do desktop $antigo removidos" \
+            || warn "pacman recusou remover (algum e dependencia de outra coisa), nada foi tirado"
+    else
+        warn "mantidos -- pra tirar depois: sudo pacman -Rns ${sobra[*]}"
+    fi
+}
+
 # Ordem: --de=<nome> > variavel DE > escolha gravada da ultima vez > pergunta > kde.
 # So pergunta com terminal interativo: a ISO do myarch roda este script sem ninguem na
 # frente, e prompt sem tty penduraria a instalacao inteira.
 escolher_de() {
+    local antigo=""
+    [[ -f $DEFILE ]] && de_valido "$(<"$DEFILE")" && antigo="$(<"$DEFILE")"
+
     if [[ -n ${DE:-} ]]; then
         de_valido "$DE" || die "desktop invalido: $DE (use: ${DES_VALIDOS[*]})"
-    elif [[ -f $DEFILE ]] && de_valido "$(<"$DEFILE")"; then
-        DE="$(<"$DEFILE")"
+    elif [[ -n $antigo ]]; then
+        DE="$antigo"
         ok "desktop ja escolhido antes: $DE"
     elif [[ -t 0 ]]; then
         printf '%s\n' "${BLU}==>${END} qual desktop instalar?"
@@ -132,6 +180,9 @@ escolher_de() {
 
     printf '%s\n' "$DE" > "$DEFILE"
     ok "desktop: $DE (sessao $(de_sessao "$DE").desktop, login por $(de_dm "$DE"))"
+
+    [[ -n $antigo ]] && remover_de_antigo "$antigo" "$DE"
+    return 0
 }
 
 preflight() {

@@ -97,6 +97,25 @@ status() {
         && printf '%sok%s autologin configurado\n' "$GRN" "$END" \
         || { printf '%s!!%s %s ausente\n' "$YEL" "$END" "$conf"; faltou=1; }
 
+    # Pacote de desktop que nao e o escolhido = instalado e sem uso. Compara so o que e
+    # exclusivo do outro desktop: o que a base ou o desktop atual tambem pedem nao conta.
+    local dir="${DOTFILES_DIR:-$HOME/.dotfiles}" outro sobra meus
+    if [[ -d $dir/packages ]]; then
+        meus="$(cat "$dir/packages.txt" "$dir/packages/$de.txt" 2>/dev/null | grep -vE '^\[|^#|^[[:space:]]*$')"
+        sobra=""
+        for outro in "$dir"/packages/*.txt; do
+            [[ $(basename "$outro" .txt) == "$de" ]] && continue
+            while read -r p; do
+                [[ -n $p ]] || continue
+                grep -qx "$p" <<<"$meus" && continue
+                pacman -Qq "$p" >/dev/null 2>&1 && sobra+="$p "
+            done < <(grep -vE '^\[|^#|^[[:space:]]*$' "$outro")
+        done
+        [[ -z $sobra ]] \
+            && printf '%sok%s nenhum pacote de outro desktop instalado\n' "$GRN" "$END" \
+            || printf '%s!!%s pacotes de outro desktop instalados sem uso: %s-- sudo pacman -Rns %s\n' "$YEL" "$END" "$sobra" "$sobra"
+    fi
+
     local u
     for u in ricepanel.service vm-audio-acl.service apply-screens.service \
              session-apps.service apply-screens.timer session-apps.timer deploy-peds.timer; do
