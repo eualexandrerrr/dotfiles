@@ -62,8 +62,13 @@ instalar() {
     clonar_ou_atualizar
     ( cd "$DIR" && CI=true pnpm install ) || die "pnpm install falhou"
     ( cd "$DIR" && pnpm build ) || die "pnpm build falhou"
-    ( cd "$DIR" && node scripts/runInstaller.mjs -- --install --branch stable ) \
-        || die "injecao falhou"
+    local tentativa
+    for tentativa in 1 2 3 4 5; do
+        ( cd "$DIR" && node scripts/runInstaller.mjs -- --install --branch stable ) && break
+        (( tentativa == 5 )) && die "injecao falhou"
+        printf '  injecao falhou (tentativa %s/5), repetindo em 10 s\n' "$tentativa"
+        sleep 10
+    done
     ok "Vencord injetado no Discord stable"
 }
 
