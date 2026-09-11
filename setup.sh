@@ -431,10 +431,10 @@ etapa_painel() {
 }
 
 etapa_tema() {
-    log "tema Win11Nord"
-    "$DOTFILES_DIR/bin/apply-theme-win11nord.sh" \
-        && ok "cores, decoracao de janela, Kvantum e splash do Win11Nord aplicados" \
-        || falha "nao consegui aplicar o tema Win11Nord"
+    log "tema Win11OS-dark"
+    "$DOTFILES_DIR/bin/apply-theme-win11os-dark.sh" \
+        && ok "cores, decoracao de janela, Kvantum, splash e painel opaco aplicados" \
+        || falha "nao consegui aplicar o tema Win11OS-dark"
 }
 
 etapa_servicos() {

@@ -165,10 +165,12 @@ menu do live reinstala os dotfiles sem formatar nada.
 
 ## Créditos
 
-O pacote `plasma/` vendoriza o [tema Win11Nord KDE](https://github.com/yeyushengfan258/Win11Nord-kde)
+O pacote `plasma/` vendoriza a variante escura do [tema Win11OS KDE](https://github.com/yeyushengfan258/Win11OS-kde)
 de [yeyushengfan258](https://github.com/yeyushengfan258), licença GPLv3 (mantida em
-`plasma/vendor-win11nord/`). Só entraram a decoração de janela Aurorae, o esquema de cores,
-o estilo Kvantum, o tema de desktop do Plasma, a splash screen do look-and-feel e o papel de
-parede, copiados sem alteração; o tema de ícones e o de cursor que o pacote referencia são
-downloads separados da KDE Store e não fazem parte deste repositório, por isso
-`bin/apply-theme-win11nord.sh` nunca mexe nessas duas chaves.
+`plasma/vendor-win11os/`). Só entraram a decoração de janela Aurorae, o esquema de cores, o
+estilo Kvantum e o tema de desktop/splash do look-and-feel da variante dark; o tema de
+ícones e o de cursor que o pacote referencia são downloads separados da KDE Store e não
+fazem parte deste repositório, por isso `bin/apply-theme-win11os-dark.sh` nunca mexe nessas
+duas chaves. O `.kvconfig` vendorizado tem uma mudança deliberada em relação ao original:
+`translucent_windows`, `blurring` e `popup_blurring` viraram `false` (janela e menu opacos
+em vez do efeito vidro padrão do tema).
