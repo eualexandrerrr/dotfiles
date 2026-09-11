@@ -435,6 +435,11 @@ etapa_tema() {
     "$DOTFILES_DIR/bin/apply-theme-win11os-dark.sh" \
         && ok "cores, decoracao de janela, Kvantum, splash e painel opaco aplicados" \
         || falha "nao consegui aplicar o tema Win11OS-dark"
+
+    log "aparencia Catppuccin (Layan/Tela/Bibata/RosePine)"
+    "$DOTFILES_DIR/bin/apply-theme-catppuccin.sh" \
+        && ok "Kvantum, icones, cursor e GTK trocados, decoracao Win11OS-dark mantida" \
+        || falha "nao consegui aplicar a camada Catppuccin"
 }
 
 etapa_servicos() {
