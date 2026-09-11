@@ -1,0 +1,19 @@
+[1]
+Description=RicePanel: preso no monitor vertical, fora da barra
+position=0,0
+positionrule=2
+size=1080,1920
+sizerule=2
+skippager=true
+skippagerrule=2
+skipswitcher=true
+skipswitcherrule=2
+skiptaskbar=true
+skiptaskbarrule=2
+wmclass=(?i)ricepanel
+wmclasscomplete=false
+wmclassmatch=3
+
+[General]
+count=1
+rules=1
