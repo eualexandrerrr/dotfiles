@@ -153,6 +153,22 @@ status() {
         printf '%s!!%s renderizando por software, na CPU: %s\n' "$RED" "$END" "$software"; faltou=1
     fi
 
+    # bin/power.sh so aplica com sudo sem senha na hora; sem isso so avisa e a maquina fica
+    # livre pra suspender sozinha. Aconteceu em 11/09/2026: ~47 min de suspensao por acao do
+    # proprio powerdevil, sem nenhum dos tres travados.
+    local alvo alvos_soltos=()
+    for alvo in sleep.target suspend.target hibernate.target hybrid-sleep.target suspend-then-hibernate.target; do
+        [[ "$(systemctl is-enabled "$alvo" 2>/dev/null)" == masked ]] || alvos_soltos+=("$alvo")
+    done
+    if (( ${#alvos_soltos[@]} )); then
+        printf '%s!!%s alvo(s) de sono sem mascarar: %s -- rode setup.sh energia\n' \
+            "$RED" "$END" "${alvos_soltos[*]}"; faltou=1
+    elif [[ ! -f /etc/systemd/logind.conf.d/99-nunca-dormir.conf ]]; then
+        printf '%s!!%s logind sem IdleAction=ignore -- rode setup.sh energia\n' "$RED" "$END"; faltou=1
+    else
+        printf '%sok%s maquina nao suspende sozinha\n' "$GRN" "$END"
+    fi
+
     local papel
     for papel in principal vertical; do
         conector="$("$DOTFILES_DIR/bin/monitor.sh" "$papel" 2>/dev/null)"
