@@ -358,6 +358,28 @@ etapa_ddcutil() {
         sudo modprobe i2c-dev
         ok "/etc/modules-load.d/i2c-dev.conf"
     fi
+
+    printf '%s\n' \
+        '[Unit]' \
+        'Description=ASUS na entrada HDMI (RX 550) no boot' \
+        'After=systemd-modules-load.service systemd-udev-settle.service' \
+        'Before=display-manager.service' \
+        'StartLimitBurst=5' \
+        '' \
+        '[Service]' \
+        'Type=oneshot' \
+        'TimeoutStartSec=20' \
+        'Restart=on-failure' \
+        'RestartSec=3' \
+        'ExecStart=/usr/bin/ddcutil --model XG27ACS setvcp 60 x11' \
+        '' \
+        '[Install]' \
+        'WantedBy=multi-user.target' \
+        | sudo tee /etc/systemd/system/monitor-hdmi.service >/dev/null \
+        && sudo systemctl daemon-reload \
+        && sudo systemctl enable monitor-hdmi.service >/dev/null 2>&1 \
+        && ok "monitor-hdmi.service (ASUS abre no HDMI a cada boot)" \
+        || falha "monitor-hdmi.service nao habilitado"
 }
 
 etapa_notificacoes() {
