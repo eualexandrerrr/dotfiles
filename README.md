@@ -177,21 +177,12 @@ Kvantum config has one deliberate change from upstream: `translucent_windows`, `
 and `popup_blurring` are set to `false` (opaque windows/menus instead of the theme's default
 glass effect).
 
-`bin/apply-theme-catppuccin.sh` layers on top of it (Kvantum style, icon theme, cursor
-theme, GTK theme and color scheme only — window decoration and Plasma theme stay
-Win11OS-dark), assembled from the original upstream sources of each component rather than
-vendoring the [prasanthrangan/dotfiles](https://github.com/prasanthrangan/dotfiles) rice
-that inspired the combination (that repo predates Plasma 6 and has no license):
+The icon theme and cursor theme the Win11OS package leaves out are filled in from their own
+upstream sources:
 
-- [Layan-kde](https://github.com/vinceliuice/Layan-kde) (Kvantum `LayanDark`) by
-  [vinceliuice](https://github.com/vinceliuice), GPLv3, credits in `plasma/vendor-layan-kvantum/`.
-- [Tela-icon-theme](https://github.com/vinceliuice/Tela-icon-theme) (`Tela-dracula-dark`)
-  by vinceliuice, GPLv3, credits in `plasma/vendor-tela-icons/`.
+- [Tela-icon-theme](https://github.com/vinceliuice/Tela-icon-theme) (`Tela-dracula-dark`,
+  plus the `Tela-dracula` base it inherits from) by
+  [vinceliuice](https://github.com/vinceliuice), GPLv3, credits in `plasma/vendor-tela-icons/`.
 - [Bibata_Cursor](https://github.com/ful1e5/Bibata_Cursor) (`Bibata-Modern-Ice`, prebuilt
   release asset) by [ful1e5](https://github.com/ful1e5), GPLv3, credits in
   `plasma/vendor-bibata-cursor/`.
-- [Rose-Pine-GTK-Theme](https://github.com/Fausto-Korpsvart/Rose-Pine-GTK-Theme) (built
-  locally from source, dark variant) by [Fausto-Korpsvart](https://github.com/Fausto-Korpsvart),
-  GPLv3, credits in `plasma/vendor-rosepine-gtk/`.
-- [catppuccin/kde](https://github.com/catppuccin/kde) (`CatppuccinMochaRed` color scheme),
-  MIT.

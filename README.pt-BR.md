@@ -175,22 +175,12 @@ duas chaves. O `.kvconfig` vendorizado tem uma mudança deliberada em relação 
 `translucent_windows`, `blurring` e `popup_blurring` viraram `false` (janela e menu opacos
 em vez do efeito vidro padrão do tema).
 
-O `bin/apply-theme-catppuccin.sh` entra por cima (estilo Kvantum, tema de ícones, cursor,
-tema GTK e esquema de cores só — decoração de janela e tema do Plasma continuam
-Win11OS-dark), montado a partir da fonte original de cada peça em vez de vendorizar o rice
-[prasanthrangan/dotfiles](https://github.com/prasanthrangan/dotfiles) que inspirou a
-combinação (esse repo é de antes do Plasma 6 existir e não tem licença):
+O tema de ícones e o de cursor que faltam no pacote Win11OS entram da fonte original de
+cada um:
 
-- [Layan-kde](https://github.com/vinceliuice/Layan-kde) (Kvantum `LayanDark`) de
-  [vinceliuice](https://github.com/vinceliuice), GPLv3, créditos em `plasma/vendor-layan-kvantum/`.
-- [Tela-icon-theme](https://github.com/vinceliuice/Tela-icon-theme) (`Tela-dracula-dark`)
-  de vinceliuice, GPLv3, créditos em `plasma/vendor-tela-icons/`.
+- [Tela-icon-theme](https://github.com/vinceliuice/Tela-icon-theme) (`Tela-dracula-dark`,
+  mais a base `Tela-dracula` de que ele herda) de
+  [vinceliuice](https://github.com/vinceliuice), GPLv3, créditos em `plasma/vendor-tela-icons/`.
 - [Bibata_Cursor](https://github.com/ful1e5/Bibata_Cursor) (`Bibata-Modern-Ice`, pacote
   pré-compilado da release) de [ful1e5](https://github.com/ful1e5), GPLv3, créditos em
   `plasma/vendor-bibata-cursor/`.
-- [Rose-Pine-GTK-Theme](https://github.com/Fausto-Korpsvart/Rose-Pine-GTK-Theme)
-  (compilado localmente a partir do código-fonte, variante escura) de
-  [Fausto-Korpsvart](https://github.com/Fausto-Korpsvart), GPLv3, créditos em
-  `plasma/vendor-rosepine-gtk/`.
-- [catppuccin/kde](https://github.com/catppuccin/kde) (esquema de cores
-  `CatppuccinMochaRed`), MIT.
