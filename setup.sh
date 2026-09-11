@@ -375,6 +375,13 @@ etapa_notificacoes() {
     fi
 }
 
+etapa_painel() {
+    log "barra de tarefas: lancadores fixados"
+    "$DOTFILES_DIR/bin/apply-launchers.sh" \
+        && ok "Dolphin, Chrome, Discord e RCode fixados na ordem" \
+        || falha "nao consegui fixar os lancadores da barra"
+}
+
 etapa_servicos() {
     log "servicos de usuario e restauracao da sessao"
 
@@ -451,7 +458,7 @@ etapa_servicos() {
         || falha "nao consegui mascarar o drkonqi-coredump-pickup"
 }
 
-ETAPAS=(links home perfil arquivos sistema vm ddcutil energia atalhos audio dns console chrome claude notificacoes servicos)
+ETAPAS=(links home perfil arquivos sistema vm ddcutil energia atalhos audio dns console chrome claude notificacoes painel servicos)
 
 if [[ ${1:-} == --lista ]]; then
     printf 'etapas: %s\n' "${ETAPAS[*]}"
