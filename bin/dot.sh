@@ -68,21 +68,34 @@ erros() {
 }
 
 status() {
-    local faltou=0 bin
+    local faltou=0 bin de dm binarios conf
 
-    for bin in startplasma-wayland plasmashell systemsettings stow; do
+    # Desktop escolhido no install.sh; sem o arquivo, kde (o unico com config versionada).
+    de="$(cat "${XDG_STATE_HOME:-$HOME/.local/state}/dotfiles/de" 2>/dev/null)"
+    de="${de:-kde}"
+    case "$de" in
+        kde)      binarios="startplasma-wayland plasmashell systemsettings"; dm=sddm ;;
+        gnome)    binarios="gnome-shell nautilus";                           dm=gdm  ;;
+        xfce)     binarios="xfce4-session thunar";                           dm=sddm ;;
+        hyprland) binarios="Hyprland waybar";                                dm=sddm ;;
+        *)        binarios="";                                              dm=sddm ;;
+    esac
+    printf '%sok%s desktop %s\n' "$GRN" "$END" "$de"
+
+    for bin in $binarios stow; do
         command -v "$bin" >/dev/null 2>&1 \
             && printf '%sok%s %s\n' "$GRN" "$END" "$bin" \
             || { printf '%s!!%s %s nao instalado\n' "$RED" "$END" "$bin"; faltou=1; }
     done
 
-    systemctl is-enabled sddm.service >/dev/null 2>&1 \
-        && printf '%sok%s sddm habilitado\n' "$GRN" "$END" \
-        || { printf '%s!!%s sddm nao habilitado, o boot cai na tty -- sudo systemctl enable sddm.service\n' "$RED" "$END"; faltou=1; }
+    systemctl is-enabled "$dm.service" >/dev/null 2>&1 \
+        && printf '%sok%s %s habilitado\n' "$GRN" "$END" "$dm" \
+        || { printf '%s!!%s %s nao habilitado, o boot cai na tty -- sudo systemctl enable %s.service\n' "$RED" "$END" "$dm" "$dm"; faltou=1; }
 
-    [[ -f /etc/sddm.conf.d/10-dotfiles.conf ]] \
+    [[ $dm == gdm ]] && conf=/etc/gdm/custom.conf || conf=/etc/sddm.conf.d/10-dotfiles.conf
+    [[ -f $conf ]] \
         && printf '%sok%s autologin configurado\n' "$GRN" "$END" \
-        || { printf '%s!!%s /etc/sddm.conf.d/10-dotfiles.conf ausente\n' "$YEL" "$END"; faltou=1; }
+        || { printf '%s!!%s %s ausente\n' "$YEL" "$END" "$conf"; faltou=1; }
 
     local u
     for u in ricepanel.service vm-audio-acl.service apply-screens.service \

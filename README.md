@@ -18,11 +18,32 @@ Three scripts, that is all. All idempotent:
 
 | | what | when |
 |---|---|---|
-| `install.sh` | packages, driver, kernel, services, SDDM | you touched `packages.txt` |
+| `install.sh` | packages, driver, kernel, services, login manager | you touched `packages.txt` |
 | `setup.sh` | configures everything, VM included — no network | you touched a config |
 | `reload.sh` | reloads the session already running | something drifted just now |
 
-`setup.sh` steps: `links home perfil arquivos sistema vm ddcutil energia atalhos audio dns console chrome claude notificacoes servicos`.
+`setup.sh` steps: `links home perfil arquivos sistema vm ddcutil energia atalhos audio dns console chrome claude notificacoes painel tema servicos`.
+
+## Which desktop
+
+`install.sh` asks which one to install and records the answer in
+`~/.local/state/dotfiles/de`:
+
+```
+./install.sh --de=gnome     # skip the question (or DE=gnome ./install.sh)
+```
+
+| | |
+|---|---|
+| `packages.txt` | base: what any desktop needs |
+| `packages/kde.txt` · `gnome` · `xfce` · `hyprland` | only the chosen one gets installed |
+
+**Only KDE is configured here** — it is this machine's desktop. Picking another one
+installs it stock: the `plasma/` stow package and the `arquivos atalhos notificacoes painel
+tema` steps are skipped. The catch is that `plasma/.config/plasma-workspace/env/dotfiles.sh`
+— the only place exporting `GTK_IM_MODULE=simple` (dead keys in GTK apps on ABNT2),
+`LIBVA_DRIVER_NAME` and `KWIN_DRM_DEVICES` — is read by Plasma alone, so on another desktop
+those variables are gone.
 
 ---
 

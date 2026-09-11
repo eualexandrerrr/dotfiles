@@ -1,0 +1,15 @@
+# KDE Plasma. Mesmo formato do packages.txt da raiz, que traz a base comum a todo desktop.
+# Este e o unico desktop com configuracao versionada neste repo (pacote stow plasma/ e as
+# etapas arquivos, atalhos, notificacoes, painel e tema do setup.sh).
+
+[repo-oficial:kde]
+plasma-meta
+ark
+gwenview
+spectacle
+kvantum
+dolphin
+okular
+
+[repo-oficial:kde-login]
+sddm

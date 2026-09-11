@@ -23,7 +23,27 @@ São três scripts, e só. Todos idempotentes:
 | `setup.sh` | configura tudo, VM inclusa — sem rede | mexeu numa config |
 | `reload.sh` | recarrega a sessão que já está de pé | algo saiu do lugar agora |
 
-Etapas do `setup.sh`: `links home perfil arquivos sistema vm ddcutil energia atalhos audio dns console chrome claude notificacoes servicos`.
+Etapas do `setup.sh`: `links home perfil arquivos sistema vm ddcutil energia atalhos audio dns console chrome claude notificacoes painel tema servicos`.
+
+## Qual desktop
+
+O `install.sh` pergunta qual instalar e grava a escolha em `~/.local/state/dotfiles/de`:
+
+```
+./install.sh --de=gnome     # sem perguntar (ou DE=gnome ./install.sh)
+```
+
+| | |
+|---|---|
+| `packages.txt` | base: o que vale pra qualquer desktop |
+| `packages/kde.txt` · `gnome` · `xfce` · `hyprland` | só o do escolhido é instalado |
+
+**Só o KDE tem configuração versionada aqui** — é o desktop desta máquina. Escolher outro
+instala ele de fábrica: o pacote stow `plasma/` e as etapas `arquivos atalhos notificacoes
+painel tema` são puladas. O preço é que `plasma/.config/plasma-workspace/env/dotfiles.sh`,
+único lugar que exporta `GTK_IM_MODULE=simple` (acento em app GTK no ABNT2),
+`LIBVA_DRIVER_NAME` e `KWIN_DRM_DEVICES`, só é lido pelo Plasma — em outro desktop essas
+variáveis somem.
 
 ---
 

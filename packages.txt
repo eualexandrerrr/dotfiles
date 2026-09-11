@@ -1,4 +1,8 @@
 # Um pacote por linha. Seções [repo-oficial:*] vão pro pacman, [aur] vai pro paru.
+#
+# Este arquivo é a BASE: o que vale pra qualquer desktop. Os pacotes de cada desktop moram
+# em packages/<de>.txt (kde, gnome, xfce, hyprland) e o install.sh instala só o escolhido.
+# Pacote que serve a mais de um desktop fica aqui, não lá.
 
 [repo-oficial:base]
 ntfs-3g
@@ -44,16 +48,13 @@ nvidia-settings
 nvidia-utils
 vulkan-icd-loader
 
-[repo-oficial:kde]
-plasma-meta
-ark
-gwenview
-spectacle
+# Wayland e Qt cru, sem Plasma: qualquer desktop Wayland precisa destes, inclusive os que
+# nem usam Qt (app solto usa). O que e de Plasma mesmo esta em packages/kde.txt.
+[repo-oficial:wayland]
 xdg-desktop-portal-gtk
 qt6-wayland
 qt5-wayland
 xorg-xwayland
-kvantum
 
 [repo-oficial:shell-grafico]
 ghostty
@@ -62,16 +63,13 @@ libadwaita
 python-gobject
 libnotify
 wl-clipboard
-sddm
 
 [repo-oficial:arquivos]
-dolphin
 gvfs
 gvfs-mtp
 
 [repo-oficial:visualizadores]
 qalculate-gtk
-okular
 mpv
 tesseract-data-eng
 

@@ -1,15 +1,25 @@
 #!/usr/bin/env bash
-# Pós-instalação do Arch: pacotes, NVIDIA, KDE Plasma, serviços e os pacotes stow deste repo.
+# Pós-instalação do Arch: pacotes, NVIDIA, desktop, serviços e os pacotes stow deste repo.
 # Idempotente: pode rodar de novo a qualquer hora.
 #
 #   SKIP_NVIDIA=1 ./install.sh    força pular driver e parâmetros de kernel
 #   (sem a variável, detecta pelo PCI: sem placa NVIDIA = pula sozinho)
+#
+#   ./install.sh --de=gnome       instala esse desktop sem perguntar (ou DE=gnome ./install.sh)
+#   (sem isso, pergunta; sem terminal interativo, assume kde)
 
 set -uo pipefail
 
 DOTFILES_REPO="${DOTFILES_REPO:-https://github.com/eualexandrerrr/dotfiles.git}"
 DOTFILES_BRANCH="${DOTFILES_BRANCH:-main}"
 DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
+
+for arg in "$@"; do
+    case "$arg" in
+        --de=*) DE="${arg#--de=}" ;;
+        *) printf 'uso: %s [--de=kde|gnome|xfce|hyprland]\n' "$0" >&2; exit 1 ;;
+    esac
+done
 # Sem SKIP_NVIDIA na chamada, decide pelo hardware: vendor 0x10de em algum device PCI = NVIDIA.
 if [[ -z ${SKIP_NVIDIA:-} ]]; then
     if grep -qsx 0x10de /sys/bus/pci/devices/*/vendor 2>/dev/null; then SKIP_NVIDIA=0; else SKIP_NVIDIA=1; fi
@@ -23,6 +33,9 @@ RED=$'\e[1;31m'; GRN=$'\e[1;32m'; YEL=$'\e[1;33m'; BLU=$'\e[1;34m'; END=$'\e[0m'
 LOGDIR="${XDG_STATE_HOME:-$HOME/.local/state}/dotfiles"
 mkdir -p "$LOGDIR"
 LOGFILE="${LOGFILE:-$LOGDIR/install.log}"
+# Desktop escolhido. Fica no state do usuario, nao no repo: e escolha desta maquina, e o
+# repo e publico. O setup.sh e o dot status leem daqui pra saber o que aplicar.
+DEFILE="$LOGDIR/de"
 T0=$SECONDS
 STEP=0
 TOTAL_STEPS=20
@@ -59,6 +72,68 @@ need_sudo() {
     while true; do sudo -n true; sleep 60; kill -0 "$$" 2>/dev/null || exit; done 2>/dev/null &
 }
 
+# ---------------------------------------------------------------- desktop escolhido
+# Tudo que muda de um desktop pro outro mora nesta tabela: nome da sessao do DM, o DM em si
+# e os binarios que provam que ele subiu. Adicionar um desktop novo e acrescentar uma linha
+# aqui e um packages/<nome>.txt -- nada mais no script sabe nome de desktop.
+DES_VALIDOS=(kde gnome xfce hyprland)
+
+de_sessao() {
+    case "$1" in
+        kde)      printf 'plasma'    ;;
+        gnome)    printf 'gnome'     ;;
+        xfce)     printf 'xfce'      ;;
+        hyprland) printf 'hyprland'  ;;
+    esac
+}
+
+de_dm() {
+    case "$1" in
+        gnome) printf 'gdm'  ;;
+        *)     printf 'sddm' ;;
+    esac
+}
+
+de_binarios() {
+    case "$1" in
+        kde)      printf 'startplasma-wayland plasmashell systemsettings' ;;
+        gnome)    printf 'gnome-shell nautilus'                           ;;
+        xfce)     printf 'xfce4-session thunar'                           ;;
+        hyprland) printf 'Hyprland waybar'                                ;;
+    esac
+}
+
+de_valido() {
+    local d
+    for d in "${DES_VALIDOS[@]}"; do [[ $1 == "$d" ]] && return 0; done
+    return 1
+}
+
+# Ordem: --de=<nome> > variavel DE > escolha gravada da ultima vez > pergunta > kde.
+# So pergunta com terminal interativo: a ISO do myarch roda este script sem ninguem na
+# frente, e prompt sem tty penduraria a instalacao inteira.
+escolher_de() {
+    if [[ -n ${DE:-} ]]; then
+        de_valido "$DE" || die "desktop invalido: $DE (use: ${DES_VALIDOS[*]})"
+    elif [[ -f $DEFILE ]] && de_valido "$(<"$DEFILE")"; then
+        DE="$(<"$DEFILE")"
+        ok "desktop ja escolhido antes: $DE"
+    elif [[ -t 0 ]]; then
+        printf '%s\n' "${BLU}==>${END} qual desktop instalar?"
+        local escolha
+        select escolha in "${DES_VALIDOS[@]}"; do
+            [[ -n $escolha ]] && { DE="$escolha"; break; }
+            printf '%s\n' "  escolha um numero de 1 a ${#DES_VALIDOS[@]}"
+        done
+    else
+        DE=kde
+        warn "sem terminal interativo, assumindo desktop $DE"
+    fi
+
+    printf '%s\n' "$DE" > "$DEFILE"
+    ok "desktop: $DE (sessao $(de_sessao "$DE").desktop, login por $(de_dm "$DE"))"
+}
+
 preflight() {
     [[ $EUID -ne 0 ]] || die "nao rode como root, o script usa sudo quando precisa"
     command -v pacman >/dev/null 2>&1 || die "isso aqui e so pra Arch e derivados"
@@ -73,6 +148,14 @@ pkgfile() {
         [[ -f $f ]] && { printf '%s' "$f"; return 0; }
     done
     die "packages.txt nao encontrado"
+}
+
+# Lista do desktop escolhido, ao lado do packages.txt da base. Silencioso se nao existir:
+# quem instala um DE sem lista propria so leva a base.
+defile() {
+    local base; base="$(dirname "$(pkgfile)")"
+    local f="$base/packages/$DE.txt"
+    [[ -f $f ]] && printf '%s' "$f"
 }
 
 read_section() {
@@ -115,9 +198,11 @@ sync_system() {
 }
 
 install_official() {
-    local file pkgs
+    local file defile pkgs
     file="$(pkgfile)"
-    mapfile -t pkgs < <(read_section "$file" '^repo-oficial')
+    defile="$(defile)"
+    mapfile -t pkgs < <(read_section "$file" '^repo-oficial'
+                        [[ -n $defile ]] && read_section "$defile" '^repo-oficial')
     if [[ $SKIP_NVIDIA == 1 ]]; then
         mapfile -t pkgs < <(printf '%s\n' "${pkgs[@]}" | grep -vE '^(nvidia|lib32-nvidia|libva-nvidia|egl-wayland)')
     fi
@@ -175,10 +260,12 @@ bootstrap_paru() {
 }
 
 install_aur() {
-    local file pkgs p
+    local file defile pkgs p
     command -v paru >/dev/null 2>&1 || { log "AUR"; warn "paru ausente, etapa do AUR pulada"; return 1; }
     file="$(pkgfile)"
-    mapfile -t pkgs < <(read_section "$file" '^aur$' | grep -vxE 'paru|paru-bin')
+    defile="$(defile)"
+    mapfile -t pkgs < <({ read_section "$file" '^aur$'
+                          [[ -n $defile ]] && read_section "$defile" '^aur$'; } | grep -vxE 'paru|paru-bin')
     [[ ${#pkgs[@]} -gt 0 ]] || { warn "nenhum pacote AUR na lista"; return 0; }
     log "instalando ${#pkgs[@]} pacotes do AUR"
     printf '  lista: %s\n' "${pkgs[*]}"
@@ -339,7 +426,7 @@ enable_services() {
     local unit
     # fstrim mantem o TRIM do NVMe, paccache poda o cache do pacman e o resolved e quem o
     # bin/dns-fastest.sh alimenta -- os tres estavam ligados na mao e sumiriam no format.
-    for unit in NetworkManager.service sddm.service ananicy-cpp.service reflector.timer rtkit-daemon.service \
+    for unit in NetworkManager.service "$(de_dm "$DE").service" ananicy-cpp.service reflector.timer rtkit-daemon.service \
                 fstrim.timer paccache.timer systemd-resolved.service; do
         if sudo systemctl enable "$unit" >/dev/null 2>&1; then ok "$unit"; SERV_OK+=("$unit"); else warn "$unit nao habilitado"; SERV_FALHA+=("$unit"); fi
     done
@@ -511,19 +598,35 @@ clonar_central() {
 }
 
 sessao_wayland() {
-    # O plasma-meta instala a sessao sozinho; nao ha .desktop pra escrever a mao aqui.
-    printf 'plasma.desktop'
+    # Cada DE instala o proprio .desktop de sessao; nao ha nada pra escrever a mao aqui.
+    printf '%s.desktop' "$(de_sessao "$DE")"
 }
 
 
 
 
-configure_sddm() {
-    log "configurando sddm (sessao Plasma Wayland, login automatico)"
-    [[ -f /usr/share/wayland-sessions/plasma.desktop ]] \
-        || warn "plasma nao esta instalado, o sddm nao vai ter sessao pra subir"
-    local sessao
+configure_login() {
+    local dm sessao
+    dm="$(de_dm "$DE")"
     sessao="$(sessao_wayland)"
+    log "configurando $dm (sessao $sessao, login automatico)"
+
+    # XFCE e X11, o resto e Wayland -- por isso procura nos dois diretorios de sessao.
+    [[ -f /usr/share/wayland-sessions/$sessao || -f /usr/share/xsessions/$sessao ]] \
+        || warn "$DE nao esta instalado, o $dm nao vai ter sessao pra subir"
+
+    if [[ $dm == gdm ]]; then
+        # O gdm nao tem conf.d: o autologin mora no custom.conf dele, em formato ini.
+        sudo mkdir -p /etc/gdm
+        cat <<EOF | sudo tee /etc/gdm/custom.conf >/dev/null
+[daemon]
+AutomaticLoginEnable=true
+AutomaticLogin=$USER
+EOF
+        ok "/etc/gdm/custom.conf (login automatico de $USER)"
+        return 0
+    fi
+
     sudo mkdir -p /etc/sddm.conf.d
     # Login automatico. Relogin=false faz valer so na PRIMEIRA subida do sddm, que sao
     # exatamente os dois casos desejados: ligar o PC, e a volta da VM w11 (o hook para e
@@ -533,7 +636,7 @@ configure_sddm() {
     # Heredoc sem aspas de proposito: o $USER precisa expandir aqui.
     cat <<EOF | sudo tee /etc/sddm.conf.d/10-dotfiles.conf >/dev/null
 [General]
-DisplayServer=wayland
+DisplayServer=$([[ $DE == xfce ]] && printf x11 || printf wayland)
 GreeterEnvironment=QT_WAYLAND_SHELL_INTEGRATION=layer-shell
 
 [Autologin]
@@ -578,7 +681,7 @@ summary() {
     printf '%s  %s em %s%s\n' "$cor" "$titulo" "$(elapsed)" "$END"
     printf '%s========================================================%s\n\n' "$cor" "$END"
     printf 'dotfiles:   %s (branch %s), %d arquivos via stow\n' "$DOTFILES_DIR" "$DOTFILES_BRANCH" "$LINKS"
-    printf 'desktop:    KDE Plasma (Wayland) via sddm\n'
+    printf 'desktop:    %s via %s\n' "$DE" "$(de_dm "$DE")"
     if [[ $SKIP_NVIDIA == 1 ]]; then
         printf 'driver:     pulado (sem placa NVIDIA ou SKIP_NVIDIA=1)\n'
     else
@@ -588,7 +691,11 @@ summary() {
     printf 'AUR:        %d instalados, %d ja estavam, %d falharam\n' "${#AUR_OK[@]}" "${#AUR_JA[@]}" "${#AUR_FALHA[@]}"
     printf 'servicos:   %d habilitados, %d falharam\n' "${#SERV_OK[@]}" "${#SERV_FALHA[@]}"
     printf 'claude:     %s\n' "$CLAUDE_VER"
-    printf 'shell:      Plasma padrao: painel, KRunner, Klipper e Spectacle nativos\n'
+    if [[ $DE == kde ]]; then
+        printf 'shell:      Plasma padrao: painel, KRunner, Klipper e Spectacle nativos\n'
+    else
+        printf 'shell:      %s de fabrica -- este repo nao versiona config de %s\n' "$DE" "$DE"
+    fi
     printf 'log:        %s\n\n' "$LOGFILE"
     if (( ${#OFICIAL_FALTANDO[@]} )); then printf '%s  oficiais faltando:%s %s\n' "$RED" "$END" "${OFICIAL_FALTANDO[*]}"; fi
     if (( ${#AUR_FALHA[@]} )); then printf '%s  AUR que falharam:%s %s\n  refazer: paru -S --needed %s\n' "$RED" "$END" "${AUR_FALHA[*]}" "${AUR_FALHA[*]}"; fi
@@ -603,7 +710,7 @@ summary() {
         printf '%s  ->%s confira depois do boot: cat /sys/module/nvidia_drm/parameters/modeset (tem que dar Y)\n' "$YEL" "$END"
     fi
     printf '%s  ->%s reinicie para carregar o kernel novo, o initramfs e os grupos do usuario\n' "$YEL" "$END"
-    printf '%s  ->%s no sddm a sessao e "Plasma (Wayland)"; atalhos e tema pelo Configuracoes do sistema\n' "$YEL" "$END"
+    printf '%s  ->%s no %s a sessao e "%s"; trocar de desktop: ./install.sh --de=<nome>\n' "$YEL" "$END" "$(de_dm "$DE")" "$(sessao_wayland)"
     printf '%s  ->%s dot status confere o desktop, dot erros mostra os avisos, dot instalar roda isto de novo\n' "$YEL" "$END"
     printf '%s  ->%s se o desktop nao subir: pendrive, opcao 4 do menu do live reinstala sem formatar\n' "$YEL" "$END"
 }
@@ -611,28 +718,30 @@ summary() {
 verificar() {
     log "conferindo o que precisa estar de pe pro desktop subir"
     local faltou=0
-    local bin
-    for bin in startplasma-wayland plasmashell systemsettings stow; do
+    local bin dm conf
+    dm="$(de_dm "$DE")"
+    for bin in $(de_binarios "$DE") stow; do
         command -v "$bin" >/dev/null 2>&1 || { printf '%s  !!%s %s nao instalado\n' "$RED" "$END" "$bin"; WARNS+=("$bin ausente"); faltou=1; }
     done
 
-    # Conferir e avisar nao serve de nada aqui: se o sddm nao esta habilitado o proximo boot
+    # Conferir e avisar nao serve de nada aqui: se o DM nao esta habilitado o proximo boot
     # cai na tty, e quem le o aviso ja esta sem desktop. Entao tenta habilitar na hora. O
     # enable dentro de chroot as vezes nao pega (a opcao 4 do myarch passa por aqui), e e
     # justamente nesse caso que o usuario nao tem como perceber antes de reiniciar.
-    if systemctl is-enabled sddm.service >/dev/null 2>&1; then
-        ok "sddm habilitado"
-    elif sudo systemctl enable sddm.service >/dev/null 2>&1; then
-        ok "sddm nao estava habilitado, habilitado agora"
+    if systemctl is-enabled "$dm.service" >/dev/null 2>&1; then
+        ok "$dm habilitado"
+    elif sudo systemctl enable "$dm.service" >/dev/null 2>&1; then
+        ok "$dm nao estava habilitado, habilitado agora"
     else
-        printf '%s  !!%s sddm nao habilitado e nao consegui habilitar, o boot cai na tty\n' "$RED" "$END"
-        WARNS+=("sddm nao habilitado")
+        printf '%s  !!%s %s nao habilitado e nao consegui habilitar, o boot cai na tty\n' "$RED" "$END" "$dm"
+        WARNS+=("$dm nao habilitado")
         faltou=1
     fi
 
-    [[ -f /etc/sddm.conf.d/10-dotfiles.conf ]] \
+    [[ $dm == gdm ]] && conf=/etc/gdm/custom.conf || conf=/etc/sddm.conf.d/10-dotfiles.conf
+    [[ -f $conf ]] \
         && ok "autologin configurado" \
-        || { warn "/etc/sddm.conf.d/10-dotfiles.conf ausente"; faltou=1; }
+        || { warn "$conf ausente"; faltou=1; }
 
     if (( faltou )); then
         printf '%s  ->%s detalhes: dot erros    conferir de novo: dot status    reinstalar: dot instalar\n' "$YEL" "$END"
@@ -644,6 +753,7 @@ verificar() {
 
 main() {
     preflight
+    escolher_de
     etapa enable_multilib
     etapa sync_system
     etapa fetch_dotfiles
@@ -662,7 +772,7 @@ main() {
     etapa home_enxuta
     etapa restaurar_segredos
     etapa clonar_central
-    etapa configure_sddm
+    etapa configure_login
     etapa verificar
     summary
 }

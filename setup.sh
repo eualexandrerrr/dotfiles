@@ -19,6 +19,22 @@ log()   { N=$((N+1)); printf '\n%s==>%s [%d/%d] %s\n' "$BLU" "$END" "$N" "$TOTAL
 ok()    { printf '%s  ok%s %s\n' "$GRN" "$END" "$*"; }
 falha() { printf '%s  !!%s %s\n' "$YEL" "$END" "$*" >&2; FALHAS+=("$*"); }
 
+# Desktop escolhido no install.sh. Sem o arquivo, kde: era o unico desktop que existia
+# antes desta divisao, e e o unico com configuracao versionada aqui.
+DEFILE="${XDG_STATE_HOME:-$HOME/.local/state}/dotfiles/de"
+DE="${DE:-$( [[ -f $DEFILE ]] && <"$DEFILE" )}"
+DE="${DE:-kde}"
+
+# Etapas que so fazem sentido no Plasma: mexem em kwriteconfig6, plasmashell, KWin ou
+# Aurorae. Em outro desktop elas nao falham -- sao puladas com aviso.
+ETAPAS_KDE=(arquivos atalhos notificacoes painel tema)
+
+etapa_e_de_kde() {
+    local e
+    for e in "${ETAPAS_KDE[@]}"; do [[ $1 == "$e" ]] && return 0; done
+    return 1
+}
+
 etapa_links() {
     log "links do stow"
     command -v stow >/dev/null 2>&1 || { falha "stow nao instalado"; return; }
@@ -26,6 +42,8 @@ etapa_links() {
     for pkg in "$DOTFILES_DIR"/*/; do
         nome="$(basename "$pkg")"
         [[ $nome == .git ]] && continue
+        # plasma/ e config de KDE: linkar isso em GNOME/XFCE/Hyprland so suja a home.
+        [[ $nome == plasma && $DE != kde ]] && continue
         find "$pkg" -mindepth 1 -maxdepth 1 -name '.*' -print -quit 2>/dev/null | grep -q . || continue
         if stow --no-folding --restow --target="$HOME" --dir="$DOTFILES_DIR" "$nome" 2>/dev/null; then
             n=$((n+1))
@@ -62,8 +80,9 @@ etapa_energia() {
     log "energia: nunca dormir, monitores em 5 min"
     bash "$DOTFILES_DIR/bin/power.sh" || falha "power.sh"
 
-    # O power.sh cuida do lado systemd; estas duas sao do Plasma e ficavam de fora.
-    if command -v kwriteconfig6 >/dev/null 2>&1; then
+    # O power.sh cuida do lado systemd, que vale em qualquer desktop; daqui pra baixo e
+    # Plasma (kscreenlocker e powerdevil), entao so roda no KDE.
+    if [[ $DE == kde ]] && command -v kwriteconfig6 >/dev/null 2>&1; then
         # A tela nunca trava sozinha no meio do trabalho -- Meta+L continua travando a mao.
         kwriteconfig6 --file kscreenlockerrc --group Daemon --key Autolock false
         kwriteconfig6 --file kscreenlockerrc --group Daemon --key LockOnResume false
@@ -444,7 +463,7 @@ etapa_servicos() {
     #  - o restore nativo do Plasma, que cobre app que fala o protocolo de sessao;
     #  - o session-apps.service, pros que nao falam (Chrome, Discord, Electron em geral),
     #    que guarda a lista de scopes ao sair e reabre no login.
-    if command -v kwriteconfig6 >/dev/null 2>&1; then
+    if [[ $DE == kde ]] && command -v kwriteconfig6 >/dev/null 2>&1; then
         kwriteconfig6 --file ksmserverrc --group General --key loginMode restorePreviousLogout \
             && ok "Plasma restaura a sessao anterior no login" \
             || falha "nao consegui gravar o ksmserverrc"
@@ -488,7 +507,9 @@ etapa_servicos() {
     # e a mesma que o apply-screens.sh fixa no vertical (0,0 1080x1920), e a classe da
     # janela e "RicePanel" com maiuscula, apesar do --class=ricepanel -- dai o regex la.
     # Aqui so falta avisar o KWin, que le o arquivo uma vez e nao fica vigiando.
-    if [[ -f "$HOME/.config/kwinrulesrc" ]]; then
+    if [[ $DE != kde ]]; then
+        ok "regra de janela do RicePanel e do KWin, pulada em $DE"
+    elif [[ -f "$HOME/.config/kwinrulesrc" ]]; then
         qdbus6 org.kde.KWin /KWin reconfigure >/dev/null 2>&1 \
             && ok "regra de janela do RicePanel recarregada no KWin" \
             || falha "KWin nao recarregou (sessao grafica de pe?)"
@@ -508,9 +529,12 @@ etapa_servicos() {
 
     # O drkonqi fica 30 min esperando crash pendente e morre por timeout todo boot, sujando
     # o --failed. Mascarado: o DrKonqi continua abrindo quando um app trava na frente dele.
-    /usr/bin/systemctl --user mask drkonqi-coredump-pickup.service >/dev/null 2>&1 \
-        && ok "drkonqi-coredump-pickup mascarado" \
-        || falha "nao consegui mascarar o drkonqi-coredump-pickup"
+    # E unit do KDE: em outro desktop nem existe pra mascarar.
+    if [[ $DE == kde ]]; then
+        /usr/bin/systemctl --user mask drkonqi-coredump-pickup.service >/dev/null 2>&1 \
+            && ok "drkonqi-coredump-pickup mascarado" \
+            || falha "nao consegui mascarar o drkonqi-coredump-pickup"
+    fi
 }
 
 ETAPAS=(links home perfil arquivos sistema vm ddcutil energia atalhos audio dns console chrome claude notificacoes painel tema servicos)
@@ -529,8 +553,21 @@ else
     pedidas=("${ETAPAS[@]}")
 fi
 
+# Tira as etapas de KDE da lista antes de contar, senao o [n/total] mente.
+if [[ $DE != kde ]]; then
+    puladas=()
+    restantes=()
+    for p in "${pedidas[@]}"; do
+        if etapa_e_de_kde "$p"; then puladas+=("$p"); else restantes+=("$p"); fi
+    done
+    if (( ${#puladas[@]} )); then
+        printf '%s  --%s desktop e %s: pulando etapa(s) de KDE: %s\n' "$YEL" "$END" "$DE" "${puladas[*]}"
+    fi
+    pedidas=("${restantes[@]}")
+fi
+
 TOTAL=${#pedidas[@]}
-printf '%s==>%s setup dos dotfiles em %s\n' "$BLU" "$END" "$(date '+%d/%m/%Y %H:%M:%S')"
+printf '%s==>%s setup dos dotfiles em %s (desktop: %s)\n' "$BLU" "$END" "$(date '+%d/%m/%Y %H:%M:%S')" "$DE"
 for p in "${pedidas[@]}"; do "etapa_$p"; done
 
 printf '\n'

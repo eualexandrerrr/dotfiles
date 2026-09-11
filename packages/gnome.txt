@@ -1,0 +1,18 @@
+# GNOME. Minimo pra subir a sessao -- sem configuracao versionada neste repo: escolher
+# GNOME instala ele de fabrica. Ajuste a lista a vontade.
+#
+# O DM aqui e o gdm, nao o sddm: o GNOME depende dele pra desbloquear o chaveiro e pro
+# login no Wayland.
+
+[repo-oficial:gnome]
+gnome-shell
+nautilus
+gnome-console
+gnome-control-center
+gnome-text-editor
+loupe
+file-roller
+xdg-desktop-portal-gnome
+
+[repo-oficial:gnome-login]
+gdm

@@ -1,0 +1,20 @@
+# Hyprland. Minimo pra subir a sessao -- sem configuracao versionada neste repo: escolher
+# Hyprland instala ele de fabrica, sem config nenhuma, e ele nao sobe util sem uma.
+# Ajuste a lista a vontade.
+#
+# Este stack ja morou neste repo inteiro (waybar, swaync, fuzzel, hypridle, hyprlock e ~20
+# scripts de bin/) e saiu em 10/09/2026 -- ver CLAUDE.md. O que sobrou aqui e so a lista de
+# pacotes.
+
+[repo-oficial:hyprland]
+hyprland
+waybar
+wofi
+swaync
+hyprpaper
+hyprlock
+xdg-desktop-portal-hyprland
+thunar
+
+[repo-oficial:hyprland-login]
+sddm

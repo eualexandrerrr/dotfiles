@@ -69,8 +69,26 @@ e nome em portugues.
 
 Config nova entra como **etapa do `setup.sh`**, nunca como script solto novo na raiz. O que
 mora em `bin/` e ferramenta chamada pelas etapas (ou pelo Alexandre a mao), nao ponto de
-entrada. O `install.sh` chama o `setup.sh` no fim em vez de repetir etapa. Etapa que falha
-vira aviso e as outras seguem.
+entrada. Etapa que falha vira aviso e as outras seguem. (O `install.sh` hoje so chama a
+etapa `home` do `setup.sh`; o resto ele repete por conta propria.)
+
+## Desktop escolhido na instalacao
+
+O `install.sh` pergunta qual desktop instalar -- `kde`, `gnome`, `xfce` ou `hyprland` -- e
+grava a resposta em `~/.local/state/dotfiles/de`. Sem terminal interativo (a ISO do myarch
+roda ele sozinho) assume `kde`; `--de=<nome>` ou `DE=<nome>` pulam a pergunta.
+
+`packages.txt` e a base comum a qualquer desktop; cada desktop tem o seu
+`packages/<nome>.txt`, e so o escolhido e instalado. A tabela do que muda entre eles
+(`de_sessao`, `de_dm`, `de_binarios`) fica no topo do `install.sh` -- desktop novo e uma
+linha em cada uma mais um `packages/<nome>.txt`.
+
+**So o KDE tem configuracao versionada aqui.** As etapas `arquivos atalhos notificacoes
+painel tema` e o pacote stow `plasma/` sao puladas em qualquer outro desktop, que sobe de
+fabrica. Consequencia: `plasma/.config/plasma-workspace/env/dotfiles.sh` e o unico lugar
+que exporta `GTK_IM_MODULE=simple` (acento em app GTK no ABNT2), `LIBVA_DRIVER_NAME` e
+`KWIN_DRM_DEVICES`, e so o Plasma le esse diretorio -- em outro desktop essas variaveis
+somem.
 
 **Toda mudanca de config termina aplicada na sessao real dele.** Ele acompanha olhando a
 tela e decide vendo; config gravada que so aparece no proximo login e trabalho nao entregue.
