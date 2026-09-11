@@ -30,8 +30,12 @@ kwriteconfig6 --file "$HOME/.config/Kvantum/kvantum.kvconfig" --group General --
 # O nome depois de __aurorae__svg__ e o da pasta em aurorae/themes/, Win11OS-dark.
 kwriteconfig6 --file kwinrc --group org.kde.kdecoration2 --key library org.kde.kwin.aurorae
 kwriteconfig6 --file kwinrc --group org.kde.kdecoration2 --key theme "__aurorae__svg__Win11OS-dark"
-kwriteconfig6 --file kwinrc --group org.kde.kdecoration2 --key ButtonsOnLeft "XAI"
-kwriteconfig6 --file kwinrc --group org.kde.kdecoration2 --key ButtonsOnRight ""
+
+# Letras de src/kcms/decoration/utils.cpp do KWin: I=Minimize, A=Maximize, X=Close. O
+# default do pacote original poe os tres a esquerda (XAI); o Alexandre quer a direita,
+# ordem do Windows.
+kwriteconfig6 --file kwinrc --group org.kde.kdecoration2 --key ButtonsOnLeft ""
+kwriteconfig6 --file kwinrc --group org.kde.kdecoration2 --key ButtonsOnRight "IAX"
 
 kwriteconfig6 --file plasmarc --group Theme --key name Win11OS-dark
 kwriteconfig6 --file ksplashrc --group KSplash --key Theme "com.github.yeyushengfan258.Win11OS-dark"
