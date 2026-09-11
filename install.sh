@@ -163,13 +163,16 @@ remover_de_antigo() {
 
 # O firstboot do myarch roda este script por runuser, com a saida indo pra um tee: stdin
 # nem sempre continua sendo o tty1, e ai o [[ -t 0 ]] sozinho matava o menu justamente na
-# instalacao automatizada, que e onde nao da pra passar --de=. Entao tenta fd 0, depois o
-# /dev/tty do servico, e so desiste se nao houver console nenhum.
+# instalacao automatizada, que e onde nao da pra passar --de=. O /dev/tty vem primeiro
+# tambem na escrita (fd 4): pelo stdout o menu atravessa o tee e o journal, que prefixa
+# cada linha com timestamp e nome do servico e desmonta o desenho inteiro.
 abrir_console() {
-    [[ -t 0 ]] && { exec 3<&0; return 0; }
-    ( exec 3</dev/tty ) 2>/dev/null || return 1
-    exec 3</dev/tty
-    return 0
+    if ( exec 3</dev/tty 4>/dev/tty ) 2>/dev/null; then
+        exec 3</dev/tty 4>/dev/tty
+        return 0
+    fi
+    [[ -t 0 ]] && { exec 3<&0 4>&1; return 0; }
+    return 1
 }
 
 # Ordem: --de=<nome> > variavel DE > menu > escolha gravada da ultima vez > kde.
@@ -184,21 +187,21 @@ escolher_de() {
     if [[ -n ${DE:-} ]]; then
         de_valido "$DE" || die "desktop invalido: $DE (use: ${DES_VALIDOS[*]})"
     elif abrir_console; then
-        # Mesmo desenho do myarch-menu: cabecalho, numero em negrito, "opcao:" e case que
-        # repete no invalido. Sem clear -- o que o preflight ja imprimiu tem que continuar na tela.
+        # Mesmo desenho do myarch-menu: tela limpa, cabecalho, numero em negrito, "opcao:"
+        # e case que repete no invalido. O que o preflight imprimiu fica no log.
         local op="" marca_kde="" marca_gnome="" marca_xfce="" marca_hyprland=""
         [[ -n $antigo ]] && printf -v "marca_$antigo" '  %s<- atual%s' "$GRN" "$END"
         while [[ -z $op ]]; do
-            printf '\n%s' "$BLU"
-            printf '  %s\n' '=================================' '   D E S K T O P   |   dotfiles' '================================='
-            printf '%s\n' "$END"
-            printf '  %s1%s) KDE Plasma  -- o desta maquina, o unico com configuracao versionada aqui%s\n' "$BLD" "$END" "$marca_kde"
-            printf '  %s2%s) GNOME       -- de fabrica, login pelo gdm%s\n' "$BLD" "$END" "$marca_gnome"
-            printf '  %s3%s) XFCE        -- de fabrica, X11 em vez de Wayland%s\n' "$BLD" "$END" "$marca_xfce"
-            printf '  %s4%s) Hyprland    -- de fabrica, sobe sem config nenhuma%s\n\n' "$BLD" "$END" "$marca_hyprland"
-            printf '  opcao [Enter mantem %s, 120 s tambem]: ' "$padrao"
+            printf '\033[2J\033[H%s' "$BLU" >&4
+            printf '  %s\n' '=================================' '   D E S K T O P   |   dotfiles' '=================================' >&4
+            printf '%s\n' "$END" >&4
+            printf '  %s1%s) KDE Plasma  -- o desta maquina, o unico com configuracao versionada aqui%s\n' "$BLD" "$END" "$marca_kde" >&4
+            printf '  %s2%s) GNOME       -- de fabrica, login pelo gdm%s\n' "$BLD" "$END" "$marca_gnome" >&4
+            printf '  %s3%s) XFCE        -- de fabrica, X11 em vez de Wayland%s\n' "$BLD" "$END" "$marca_xfce" >&4
+            printf '  %s4%s) Hyprland    -- de fabrica, sobe sem config nenhuma%s\n\n' "$BLD" "$END" "$marca_hyprland" >&4
+            printf '  opcao [Enter mantem %s, 120 s tambem]: ' "$padrao" >&4
             if ! read -r -t 120 op <&3; then
-                printf '\n'
+                printf '\n' >&4
                 DE="$padrao"
                 warn "sem resposta em 120 s, seguindo com o desktop $DE"
                 break
@@ -212,7 +215,8 @@ escolher_de() {
                 *) op=""       ;;
             esac
         done
-        exec 3<&-
+        printf '\n' >&4
+        exec 3<&- 4>&-
     else
         DE="$padrao"
         warn "sem console pra perguntar, assumindo desktop $DE"
