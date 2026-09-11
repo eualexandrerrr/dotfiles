@@ -257,6 +257,12 @@ etapa_arquivos() {
     else
         falha "dolphin nao instalado"
     fi
+
+    if command -v kwriteconfig6 >/dev/null 2>&1; then
+        kwriteconfig6 --file dolphinrc --group DetailsMode --key ExpandableFolders false \
+            && ok "sem seta de expandir pasta no modo Detalhes" \
+            || falha "nao consegui desligar as pastas expansiveis do Dolphin"
+    fi
 }
 
 etapa_sistema() {
