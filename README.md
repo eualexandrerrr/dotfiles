@@ -27,7 +27,9 @@ Three scripts, that is all. All idempotent:
 ## Which desktop
 
 `install.sh` shows a numbered menu (same layout as the ISO's `myarch-menu`) and records the answer in
-`~/.local/state/dotfiles/de`:
+`~/.local/state/dotfiles/de`. The menu shows up on every run: a previous answer is flagged as the
+current one and Enter keeps it, so switching desktops is running it again and picking another
+number:
 
 ```
 ./install.sh --de=gnome     # skip the question (or DE=gnome ./install.sh)

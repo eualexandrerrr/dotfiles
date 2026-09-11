@@ -154,31 +154,36 @@ remover_de_antigo() {
     fi
 }
 
-# Ordem: --de=<nome> > variavel DE > escolha gravada da ultima vez > pergunta > kde.
+# Ordem: --de=<nome> > variavel DE > menu > escolha gravada da ultima vez > kde.
 # So pergunta com terminal interativo: a ISO do myarch roda este script sem ninguem na
-# frente, e prompt sem tty penduraria a instalacao inteira.
+# frente, e prompt sem tty penduraria a instalacao inteira. Ter escolha gravada nao pula o
+# menu: ela vira o padrao, marcada como atual, e Enter mantem -- trocar de desktop e so
+# rodar de novo e escolher outro numero.
 escolher_de() {
     local antigo=""
     [[ -f $DEFILE ]] && de_valido "$(<"$DEFILE")" && antigo="$(<"$DEFILE")"
 
     if [[ -n ${DE:-} ]]; then
         de_valido "$DE" || die "desktop invalido: $DE (use: ${DES_VALIDOS[*]})"
-    elif [[ -n $antigo ]]; then
-        DE="$antigo"
-        ok "desktop ja escolhido antes: $DE"
     elif [[ -t 0 ]]; then
         # Mesmo desenho do myarch-menu: cabecalho, numero em negrito, "opcao:" e case que
         # repete no invalido. Sem clear -- o que o preflight ja imprimiu tem que continuar na tela.
-        local op=""
+        local op="" marca_kde="" marca_gnome="" marca_xfce="" marca_hyprland=""
+        [[ -n $antigo ]] && printf -v "marca_$antigo" '  %s<- atual%s' "$GRN" "$END"
         while [[ -z $op ]]; do
             printf '\n%s' "$BLU"
             printf '  %s\n' '=================================' '   D E S K T O P   |   dotfiles' '================================='
             printf '%s\n' "$END"
-            printf '  %s1%s) KDE Plasma  -- o desta maquina, o unico com configuracao versionada aqui\n' "$BLD" "$END"
-            printf '  %s2%s) GNOME       -- de fabrica, login pelo gdm\n' "$BLD" "$END"
-            printf '  %s3%s) XFCE        -- de fabrica, X11 em vez de Wayland\n' "$BLD" "$END"
-            printf '  %s4%s) Hyprland    -- de fabrica, sobe sem config nenhuma\n\n' "$BLD" "$END"
-            read -rp '  opcao: ' op
+            printf '  %s1%s) KDE Plasma  -- o desta maquina, o unico com configuracao versionada aqui%s\n' "$BLD" "$END" "$marca_kde"
+            printf '  %s2%s) GNOME       -- de fabrica, login pelo gdm%s\n' "$BLD" "$END" "$marca_gnome"
+            printf '  %s3%s) XFCE        -- de fabrica, X11 em vez de Wayland%s\n' "$BLD" "$END" "$marca_xfce"
+            printf '  %s4%s) Hyprland    -- de fabrica, sobe sem config nenhuma%s\n\n' "$BLD" "$END" "$marca_hyprland"
+            if [[ -n $antigo ]]; then
+                read -rp "  opcao [Enter mantem $antigo]: " op
+                [[ -z $op ]] && { DE="$antigo"; break; }
+            else
+                read -rp '  opcao: ' op
+            fi
             case "$op" in
                 1) DE=kde      ;;
                 2) DE=gnome    ;;
@@ -187,6 +192,9 @@ escolher_de() {
                 *) op=""       ;;
             esac
         done
+    elif [[ -n $antigo ]]; then
+        DE="$antigo"
+        ok "desktop ja escolhido antes: $DE"
     else
         DE=kde
         warn "sem terminal interativo, assumindo desktop $DE"

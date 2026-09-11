@@ -75,8 +75,10 @@ etapa `home` do `setup.sh`; o resto ele repete por conta propria.)
 ## Desktop escolhido na instalacao
 
 O `install.sh` abre um menu numerado (mesmo desenho do `myarch-menu` da ISO) com `kde`, `gnome`, `xfce` e `hyprland`, e
-grava a resposta em `~/.local/state/dotfiles/de`. Sem terminal interativo (a ISO do myarch
-roda ele sozinho) assume `kde`; `--de=<nome>` ou `DE=<nome>` pulam a pergunta.
+grava a resposta em `~/.local/state/dotfiles/de`. O menu aparece toda vez, mesmo com escolha
+gravada: ela vem marcada como atual e Enter mantem, entao trocar de desktop e rodar de novo e
+escolher outro numero. Sem terminal interativo (a ISO do myarch roda ele sozinho) usa a escolha
+gravada, ou `kde` se nao houver; `--de=<nome>` ou `DE=<nome>` pulam a pergunta.
 
 `packages.txt` e a base comum a qualquer desktop; cada desktop tem o seu
 `packages/<nome>.txt`, e so o escolhido e instalado. A tabela do que muda entre eles
