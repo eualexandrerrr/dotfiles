@@ -16,8 +16,10 @@ kwriteconfig6 --file kdeglobals --group KDE --key widgetStyle kvantum
 
 kwriteconfig6 --file "$HOME/.config/Kvantum/kvantum.kvconfig" --group General --key theme Win11OS-Nord
 
+# O nome depois de __aurorae__svg__ e o da pasta em aurorae/themes/, Win11OS-Nord --
+# nao confundir com Windows11-Nord, nome do tema de desktop/look-and-feel do mesmo autor.
 kwriteconfig6 --file kwinrc --group org.kde.kdecoration2 --key library org.kde.kwin.aurorae
-kwriteconfig6 --file kwinrc --group org.kde.kdecoration2 --key theme "__aurorae__svg__Windows11-Nord"
+kwriteconfig6 --file kwinrc --group org.kde.kdecoration2 --key theme "__aurorae__svg__Win11OS-Nord"
 kwriteconfig6 --file kwinrc --group org.kde.kdecoration2 --key ButtonsOnLeft "XAI"
 kwriteconfig6 --file kwinrc --group org.kde.kdecoration2 --key ButtonsOnRight ""
 

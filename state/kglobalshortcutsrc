@@ -269,4 +269,6 @@ toggle do not disturb=none,none,Alternar o "Não perturbe"
 
 [services][org.kde.spectacle.desktop]
 CurrentMonitorScreenShot=none
+FullScreenScreenShot=Meta+Shift+Print
 OpenWithoutScreenshot=none
+RectangularRegionScreenShot=Shift+Print
