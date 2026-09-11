@@ -1,7 +1,11 @@
 [Unit]
 Description=RicePanel: painel do monitor vertical
 PartOf=graphical-session.target
-After=graphical-session.target
+After=graphical-session.target apply-screens.service
+# Sem isso os dois sobem juntos no login (mesmo segundo) e o Electron le a tela
+# antes do apply-screens girar/posicionar -- painel nasce na tela errada e so se
+# acha de novo se o Wayland mandar o evento de metrica certo, o que nem sempre manda.
+Wants=apply-screens.service
 
 [Service]
 Type=simple

@@ -418,6 +418,35 @@ etapa_servicos() {
         falha "~/Apps/desktop/RicePanel ausente, ricepanel.service nao habilitado"
     fi
 
+    # No Wayland o cliente nao escolhe onde nasce: o setBounds({x,y}) do Electron e
+    # aceito pelo app e ignorado pelo compositor -- o painel loga que foi pro vertical
+    # e o KWin mantem ele no ASUS. No Hyprland o proprio app contornava por hyprctl,
+    # que aqui nao existe. Entao quem prende e a regra de janela, do lado do KWin.
+    # A geometria e a mesma que o apply-screens.sh fixa no monitor vertical: 0,0 1080x1920.
+    # A classe e "RicePanel" com maiuscula, apesar do --class=ricepanel: por isso o regex.
+    if command -v kwriteconfig6 >/dev/null 2>&1; then
+        kwriteconfig6 --file kwinrulesrc --group 1 --key Description "RicePanel: preso no monitor vertical, fora da barra"
+        kwriteconfig6 --file kwinrulesrc --group 1 --key wmclass "(?i)ricepanel"
+        kwriteconfig6 --file kwinrulesrc --group 1 --key wmclassmatch 3
+        kwriteconfig6 --file kwinrulesrc --group 1 --key wmclasscomplete false
+        kwriteconfig6 --file kwinrulesrc --group 1 --key position "0,0"
+        kwriteconfig6 --file kwinrulesrc --group 1 --key positionrule 2
+        kwriteconfig6 --file kwinrulesrc --group 1 --key size "1080,1920"
+        kwriteconfig6 --file kwinrulesrc --group 1 --key sizerule 2
+        kwriteconfig6 --file kwinrulesrc --group 1 --key skiptaskbar true
+        kwriteconfig6 --file kwinrulesrc --group 1 --key skiptaskbarrule 2
+        kwriteconfig6 --file kwinrulesrc --group 1 --key skippager true
+        kwriteconfig6 --file kwinrulesrc --group 1 --key skippagerrule 2
+        kwriteconfig6 --file kwinrulesrc --group 1 --key skipswitcher true
+        kwriteconfig6 --file kwinrulesrc --group 1 --key skipswitcherrule 2
+        kwriteconfig6 --file kwinrulesrc --group General --key count 1
+        kwriteconfig6 --file kwinrulesrc --group General --key rules 1
+        qdbus6 org.kde.KWin /KWin reconfigure >/dev/null 2>&1 || true
+        ok "regra de janela do RicePanel gravada"
+    else
+        falha "kwriteconfig6 ausente, regra de janela do RicePanel nao gravada"
+    fi
+
     # Deploy da pasta [peds] do Michigan, 3x por dia. Depende do repo de deploy estar clonado.
     if [[ -x "$HOME/MichiganRoleplay/DeployFiles/autosync.sh" ]]; then
         /usr/bin/systemctl --user enable deploy-peds.timer >/dev/null 2>&1 \

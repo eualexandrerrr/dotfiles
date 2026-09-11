@@ -27,3 +27,17 @@ kscreen-doctor \
     "output.$principal.position.1080,240" \
     "output.$principal.priority.1" \
     >/dev/null 2>&1
+
+# A 3090 (nvidia) tem dummy plug pro IDD/modo-jogo: fica com saida conectada mesmo sem
+# desktop nenhum ali. Sem isso o KWin trata como tela de verdade -- sobrepoe o espaco
+# virtual dos monitores reais (RX 550) e o Plasma duplica wallpaper/painel nelas.
+for st in /sys/class/drm/card*-*/status; do
+    [[ -e $st ]] || continue
+    [[ $(cat "$st") == connected ]] || continue
+    dir="$(dirname "$st")"
+    card="$(basename "$dir")"; card="${card%%-*}"
+    drv="$(basename "$(readlink -f "/sys/class/drm/$card/device/driver" 2>/dev/null)")"
+    [[ $drv == nvidia ]] || continue
+    saida="$(basename "$dir")"; saida="${saida#*-}"
+    kscreen-doctor "output.$saida.disable" >/dev/null 2>&1
+done
