@@ -37,11 +37,14 @@ LOGFILE="${LOGFILE:-$LOGDIR/install.log}"
 # repo e publico. O setup.sh e o dot status leem daqui pra saber o que aplicar.
 DEFILE="$LOGDIR/de"
 
-# Cache de pacotes na home. A /home e a particao Files, que a opcao 3 da ISO preserva no
-# format: o que ja foi baixado e o que ja foi compilado continuam aqui do outro lado da
-# reinstalacao, e a instalacao seguinte so busca o que mudou de versao.
-CACHE_OFICIAL="${XDG_CACHE_HOME:-$HOME/.cache}/dotfiles/pacman"
-CACHE_AUR="${XDG_CACHE_HOME:-$HOME/.cache}/dotfiles/aur"
+# Cache de pacotes na /home, que e a particao Files e a opcao 3 da ISO nao formata: o que ja
+# foi baixado e o que ja foi compilado continuam aqui do outro lado da reinstalacao, e a
+# instalacao seguinte so busca o que mudou de versao. Fora de $HOME de proposito -- o pacman
+# 6.1 baixa como o usuario alpm, e a home e 700, entao dentro dela o download morre em
+# permissao negada antes de gravar o .part.
+CACHE_BASE="${PKGCACHE_DIR:-/home/.pkgcache}"
+CACHE_OFICIAL="$CACHE_BASE/pacman"
+CACHE_AUR="$CACHE_BASE/aur"
 
 T0=$SECONDS
 STEP=0
@@ -278,8 +281,23 @@ set_pacman_option() {
 # makepkg guarda o .pkg.tar.zst do que compilou em PKGDEST. Apontar os dois pra home e o
 # que faz a instalacao seguinte nao repetir download nem build.
 configurar_cache() {
-    log "cache de pacotes na home (sobrevive ao format da root)"
-    mkdir -p "$CACHE_OFICIAL" "$CACHE_AUR"
+    log "cache de pacotes na /home (sobrevive ao format da root)"
+    sudo mkdir -p "$CACHE_OFICIAL" "$CACHE_AUR"
+    sudo chmod 755 "$CACHE_BASE" "$CACHE_OFICIAL" "$CACHE_AUR"
+
+    # Quem grava em cada um: o alpm baixa os oficiais, o usuario compila o AUR.
+    local dono=root
+    getent passwd alpm >/dev/null 2>&1 && dono=alpm
+    sudo chown "$dono:$dono" "$CACHE_OFICIAL"
+    sudo chown "$USER:$USER" "$CACHE_AUR"
+
+    local antigo="${XDG_CACHE_HOME:-$HOME/.cache}/dotfiles"
+    if [[ -d $antigo ]]; then
+        sudo find "$antigo" -name '*.pkg.tar.zst' -exec mv -n {} "$CACHE_AUR/" \; 2>/dev/null
+        sudo rm -rf "$antigo"
+        ok "cache antigo de dentro da home migrado"
+    fi
+
     set_pacman_option CacheDir "$CACHE_OFICIAL"
     ok "pacman: CacheDir em $CACHE_OFICIAL ($(du -sh "$CACHE_OFICIAL" 2>/dev/null | cut -f1) guardados)"
 
@@ -290,10 +308,10 @@ configurar_cache() {
     else
         printf 'PKGDEST=%s\n' "$CACHE_AUR" >> "$mk"
     fi
-    ok "makepkg: PKGDEST em $CACHE_AUR ($(ls "$CACHE_AUR"/*.pkg.tar.zst 2>/dev/null | wc -l) pacotes guardados)"
+    ok "makepkg: PKGDEST em $CACHE_AUR ($(find "$CACHE_AUR" -name '*.pkg.tar.zst' 2>/dev/null | wc -l) pacotes guardados)"
 
     # O paccache.timer poda /var/cache/pacman/pkg por padrao, que agora nao e mais o cache
-    # de ninguem: sem isto a home cresceria sem limite.
+    # de ninguem: sem isto a /home cresceria sem limite.
     sudo mkdir -p /etc/systemd/system/paccache.service.d
     printf '[Service]\nExecStart=\nExecStart=/usr/bin/paccache -rk2 -c %s -c %s\n' "$CACHE_OFICIAL" "$CACHE_AUR" \
         | sudo tee /etc/systemd/system/paccache.service.d/10-dotfiles.conf >/dev/null
@@ -837,7 +855,7 @@ summary() {
     fi
     printf 'oficiais:   %d pedidos, %d pacotes novos no sistema, %d faltando\n' "$OFICIAL_PEDIDOS" "${#OFICIAL_NOVOS[@]}" "${#OFICIAL_FALTANDO[@]}"
     printf 'AUR:        %d compilados, %d do cache, %d ja estavam, %d falharam\n' "${#AUR_OK[@]}" "${#AUR_CACHE[@]}" "${#AUR_JA[@]}" "${#AUR_FALHA[@]}"
-    printf 'cache:      %s oficiais, %s AUR, em %s\n' "$(du -sh "$CACHE_OFICIAL" 2>/dev/null | cut -f1)" "$(du -sh "$CACHE_AUR" 2>/dev/null | cut -f1)" "$(dirname "$CACHE_AUR")"
+    printf 'cache:      %s oficiais, %s AUR, em %s\n' "$(du -sh "$CACHE_OFICIAL" 2>/dev/null | cut -f1)" "$(du -sh "$CACHE_AUR" 2>/dev/null | cut -f1)" "$CACHE_BASE"
     printf 'servicos:   %d habilitados, %d falharam\n' "${#SERV_OK[@]}" "${#SERV_FALHA[@]}"
     printf 'claude:     %s\n' "$CLAUDE_VER"
     if [[ $DE == kde ]]; then

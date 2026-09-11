@@ -26,7 +26,7 @@ Three scripts, that is all. All idempotent:
 
 ## Package cache
 
-Pacman and makepkg keep everything under `~/.cache/dotfiles/`, which lives on the `Files`
+Pacman and makepkg keep everything under `/home/.pkgcache/`, which lives on the `Files`
 partition and is never formatted. Reinstalling redownloads and rebuilds only what changed
 version.
 

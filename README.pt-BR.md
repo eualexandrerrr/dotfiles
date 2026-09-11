@@ -27,7 +27,7 @@ Etapas do `setup.sh`: `links home perfil arquivos sistema vm ddcutil energia ata
 
 ## Cache de pacotes
 
-Pacman e makepkg guardam tudo em `~/.cache/dotfiles/`, que fica na partição `Files` e não é
+Pacman e makepkg guardam tudo em `/home/.pkgcache/`, que fica na partição `Files` e não é
 formatada. Reinstalar não rebaixa nem recompila nada que não mudou de versão.
 
 ## Qual desktop
