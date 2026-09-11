@@ -3,11 +3,24 @@
 #
 # XFCE e X11, nao Wayland: as variaveis de sessao e o tuning de Wayland do repo nao valem
 # aqui.
+#
+# Pacote por pacote de proposito, nada de grupo: `xfce4` e `xfce4-goodies` sao GRUPOS (14 e
+# 36 pacotes) e trariam um monte de coisa sem uso. Alem disso `pacman -Qq` nao casa com nome
+# de grupo, entao o install acharia que nada instalou e a remocao ao trocar de desktop nao
+# acharia o que tirar.
 
 [repo-oficial:xfce]
-xfce4
-xfce4-goodies
+xfce4-session
+xfwm4
+xfce4-panel
+xfdesktop
+xfce4-settings
+xfce4-appfinder
+xfce4-terminal
+xfce4-screenshooter
+xfconf
 thunar
+thunar-volman
 ristretto
 xarchiver
 
