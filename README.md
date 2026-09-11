@@ -24,6 +24,12 @@ Three scripts, that is all. All idempotent:
 
 `setup.sh` steps: `links home perfil arquivos sistema vm ddcutil energia atalhos audio dns console chrome claude notificacoes painel tema servicos`.
 
+## Package cache
+
+Pacman and makepkg keep everything under `~/.cache/dotfiles/`, which lives on the `Files`
+partition and is never formatted. Reinstalling redownloads and rebuilds only what changed
+version.
+
 ## Which desktop
 
 `install.sh` shows a numbered menu (same layout as the ISO's `myarch-menu`) and records the answer in

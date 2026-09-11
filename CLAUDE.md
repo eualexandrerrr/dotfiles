@@ -82,6 +82,15 @@ gravada, ou `kde` se nao houver; `--de=<nome>` ou `DE=<nome>` pulam a pergunta. 
 do myarch o menu aparece igual: o script le do `/dev/tty` quando o stdin nao e tty, e sem
 resposta em 120 s segue no padrao.
 
+## Cache de pacotes
+
+`CacheDir` do pacman e `PKGDEST` do makepkg apontam pra `~/.cache/dotfiles/` (`pacman/` e
+`aur/`). Como a `/home` e a particao `Files`, que a opcao 3 da ISO nao formata, o que ja foi
+baixado e o que ja foi compilado atravessam a reinstalacao: o pacman so busca o que mudou de
+versao, e o `install_aur` compara a versao publicada no AUR com o `.pkg.tar.zst` guardado e
+instala com `pacman -U` quando bate, caindo no `paru` so quando mudou. O `paccache.timer`
+ganha um drop-in pra podar esses dois caches em vez de `/var/cache/pacman/pkg`.
+
 `packages.txt` e a base comum a qualquer desktop; cada desktop tem o seu
 `packages/<nome>.txt`, e so o escolhido e instalado. A tabela do que muda entre eles
 (`de_sessao`, `de_dm`, `de_binarios`) fica no topo do `install.sh` -- desktop novo e uma

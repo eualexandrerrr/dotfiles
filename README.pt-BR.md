@@ -25,6 +25,11 @@ São três scripts, e só. Todos idempotentes:
 
 Etapas do `setup.sh`: `links home perfil arquivos sistema vm ddcutil energia atalhos audio dns console chrome claude notificacoes painel tema servicos`.
 
+## Cache de pacotes
+
+Pacman e makepkg guardam tudo em `~/.cache/dotfiles/`, que fica na partição `Files` e não é
+formatada. Reinstalar não rebaixa nem recompila nada que não mudou de versão.
+
 ## Qual desktop
 
 O `install.sh` abre um menu numerado (mesmo desenho do `myarch-menu` da ISO) e grava a escolha em `~/.local/state/dotfiles/de`. O menu aparece toda vez: a escolha anterior vem marcada como atual e Enter mantem, entao pra trocar de desktop e so rodar de novo e escolher outro numero:

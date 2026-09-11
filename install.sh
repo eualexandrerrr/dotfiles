@@ -36,14 +36,21 @@ LOGFILE="${LOGFILE:-$LOGDIR/install.log}"
 # Desktop escolhido. Fica no state do usuario, nao no repo: e escolha desta maquina, e o
 # repo e publico. O setup.sh e o dot status leem daqui pra saber o que aplicar.
 DEFILE="$LOGDIR/de"
+
+# Cache de pacotes na home. A /home e a particao Files, que a opcao 3 da ISO preserva no
+# format: o que ja foi baixado e o que ja foi compilado continuam aqui do outro lado da
+# reinstalacao, e a instalacao seguinte so busca o que mudou de versao.
+CACHE_OFICIAL="${XDG_CACHE_HOME:-$HOME/.cache}/dotfiles/pacman"
+CACHE_AUR="${XDG_CACHE_HOME:-$HOME/.cache}/dotfiles/aur"
+
 T0=$SECONDS
 STEP=0
-TOTAL_STEPS=20
+TOTAL_STEPS=21
 [[ ${SKIP_NVIDIA:-0} == 1 ]] && TOTAL_STEPS=19
 WARNS=()
 ETAPAS_FALHA=()
 OFICIAL_PEDIDOS=0; OFICIAL_NOVOS=(); OFICIAL_FALTANDO=()
-AUR_OK=(); AUR_JA=(); AUR_FALHA=()
+AUR_OK=(); AUR_JA=(); AUR_CACHE=(); AUR_FALHA=()
 SERV_OK=(); SERV_FALHA=()
 CLAUDE_VER="nao instalado"
 LINKS=0
@@ -263,6 +270,33 @@ set_pacman_option() {
     fi
 }
 
+# O pacman ja compara o que esta no cache com a versao do repo e so baixa o que mudou, e o
+# makepkg guarda o .pkg.tar.zst do que compilou em PKGDEST. Apontar os dois pra home e o
+# que faz a instalacao seguinte nao repetir download nem build.
+configurar_cache() {
+    log "cache de pacotes na home (sobrevive ao format da root)"
+    mkdir -p "$CACHE_OFICIAL" "$CACHE_AUR"
+    set_pacman_option CacheDir "$CACHE_OFICIAL"
+    ok "pacman: CacheDir em $CACHE_OFICIAL ($(du -sh "$CACHE_OFICIAL" 2>/dev/null | cut -f1) guardados)"
+
+    local mk="${XDG_CONFIG_HOME:-$HOME/.config}/pacman/makepkg.conf"
+    mkdir -p "$(dirname "$mk")"
+    if grep -qs '^PKGDEST=' "$mk"; then
+        sed -i -E "s|^PKGDEST=.*|PKGDEST=$CACHE_AUR|" "$mk"
+    else
+        printf 'PKGDEST=%s\n' "$CACHE_AUR" >> "$mk"
+    fi
+    ok "makepkg: PKGDEST em $CACHE_AUR ($(ls "$CACHE_AUR"/*.pkg.tar.zst 2>/dev/null | wc -l) pacotes guardados)"
+
+    # O paccache.timer poda /var/cache/pacman/pkg por padrao, que agora nao e mais o cache
+    # de ninguem: sem isto a home cresceria sem limite.
+    sudo mkdir -p /etc/systemd/system/paccache.service.d
+    printf '[Service]\nExecStart=\nExecStart=/usr/bin/paccache -rk2 -c %s -c %s\n' "$CACHE_OFICIAL" "$CACHE_AUR" \
+        | sudo tee /etc/systemd/system/paccache.service.d/10-dotfiles.conf >/dev/null
+    sudo systemctl daemon-reload >/dev/null 2>&1
+    ok "paccache poda os dois caches, mantendo as 2 ultimas versoes"
+}
+
 enable_multilib() {
     log "pacman: downloads paralelos, cor"
     # multilib nao entra mais: era so pros lib32-* de Wine, Steam e Proton, que sairam do
@@ -343,6 +377,26 @@ bootstrap_paru() {
     ok "paru instalado: $(paru --version | head -1)"
 }
 
+# Versao que o AUR publica hoje. Vazio quando a consulta falha -- ai o caminho e compilar,
+# como antes.
+aur_versao() {
+    paru -Sia "$1" 2>/dev/null | awk '/^Version/ { sub(/^[^:]*: */, "", $0); print; exit }' | tr -d ' '
+}
+
+# Instala o .pkg.tar.zst que ficou no cache, se a versao bater com a do AUR. Falha de
+# proposito quando o pacote tem dependencia do AUR que nao esta instalada: quem resolve
+# isso e o paru, e o chamador cai nele.
+aur_do_cache() {
+    local p="$1" ver="$2" arq
+    [[ -n $ver ]] || return 1
+    for arq in "$CACHE_AUR/$p-$ver-"*.pkg.tar.zst; do
+        [[ -f $arq ]] || return 1
+        sudo pacman -U --noconfirm --needed "$arq" >/dev/null 2>&1 && return 0
+        return 1
+    done
+    return 1
+}
+
 install_aur() {
     local file defile pkgs p
     command -v paru >/dev/null 2>&1 || { log "AUR"; warn "paru ausente, etapa do AUR pulada"; return 1; }
@@ -353,13 +407,19 @@ install_aur() {
     [[ ${#pkgs[@]} -gt 0 ]] || { warn "nenhum pacote AUR na lista"; return 0; }
     log "instalando ${#pkgs[@]} pacotes do AUR"
     printf '  lista: %s\n' "${pkgs[*]}"
-    local i=0 n=${#pkgs[@]} t
+    local i=0 n=${#pkgs[@]} t ver
     for p in "${pkgs[@]}"; do
         i=$((i+1)); t=$SECONDS
         printf '%s  --%s [%d/%d] %s\n' "$BLU" "$END" "$i" "$n" "$p"
         if paru -Qq "$p" >/dev/null 2>&1; then
             ok "$p ja instalado"
             AUR_JA+=("$p")
+            continue
+        fi
+        ver="$(aur_versao "$p")"
+        if aur_do_cache "$p" "$ver"; then
+            ok "$p $ver veio do cache, sem compilar"
+            AUR_CACHE+=("$p")
         elif paru -S --noconfirm --needed --skipreview "$p"; then
             ok "$p instalado em $(( (SECONDS-t)/60 ))m$(( (SECONDS-t)%60 ))s"
             AUR_OK+=("$p")
@@ -368,7 +428,7 @@ install_aur() {
             AUR_FALHA+=("$p")
         fi
     done
-    ok "AUR: ${#AUR_OK[@]} instalados, ${#AUR_JA[@]} ja estavam, ${#AUR_FALHA[@]} falharam"
+    ok "AUR: ${#AUR_OK[@]} compilados, ${#AUR_CACHE[@]} do cache, ${#AUR_JA[@]} ja estavam, ${#AUR_FALHA[@]} falharam"
     if (( ${#AUR_FALHA[@]} )); then
         warn "AUR que nao instalaram: ${AUR_FALHA[*]}"
         warn "depois rode: paru -S --needed ${AUR_FALHA[*]}"
@@ -772,7 +832,8 @@ summary() {
         printf 'driver:     nvidia-open-dkms + %s\n' "${KERNEL_PARAMS[*]}"
     fi
     printf 'oficiais:   %d pedidos, %d pacotes novos no sistema, %d faltando\n' "$OFICIAL_PEDIDOS" "${#OFICIAL_NOVOS[@]}" "${#OFICIAL_FALTANDO[@]}"
-    printf 'AUR:        %d instalados, %d ja estavam, %d falharam\n' "${#AUR_OK[@]}" "${#AUR_JA[@]}" "${#AUR_FALHA[@]}"
+    printf 'AUR:        %d compilados, %d do cache, %d ja estavam, %d falharam\n' "${#AUR_OK[@]}" "${#AUR_CACHE[@]}" "${#AUR_JA[@]}" "${#AUR_FALHA[@]}"
+    printf 'cache:      %s oficiais, %s AUR, em %s\n' "$(du -sh "$CACHE_OFICIAL" 2>/dev/null | cut -f1)" "$(du -sh "$CACHE_AUR" 2>/dev/null | cut -f1)" "$(dirname "$CACHE_AUR")"
     printf 'servicos:   %d habilitados, %d falharam\n' "${#SERV_OK[@]}" "${#SERV_FALHA[@]}"
     printf 'claude:     %s\n' "$CLAUDE_VER"
     if [[ $DE == kde ]]; then
@@ -838,6 +899,7 @@ verificar() {
 main() {
     preflight
     escolher_de
+    etapa configurar_cache
     etapa enable_multilib
     etapa sync_system
     etapa fetch_dotfiles
