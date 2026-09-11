@@ -154,18 +154,29 @@ remover_de_antigo() {
     fi
 }
 
+# O firstboot do myarch roda este script por runuser, com a saida indo pra um tee: stdin
+# nem sempre continua sendo o tty1, e ai o [[ -t 0 ]] sozinho matava o menu justamente na
+# instalacao automatizada, que e onde nao da pra passar --de=. Entao tenta fd 0, depois o
+# /dev/tty do servico, e so desiste se nao houver console nenhum.
+abrir_console() {
+    [[ -t 0 ]] && { exec 3<&0; return 0; }
+    ( exec 3</dev/tty ) 2>/dev/null || return 1
+    exec 3</dev/tty
+    return 0
+}
+
 # Ordem: --de=<nome> > variavel DE > menu > escolha gravada da ultima vez > kde.
-# So pergunta com terminal interativo: a ISO do myarch roda este script sem ninguem na
-# frente, e prompt sem tty penduraria a instalacao inteira. Ter escolha gravada nao pula o
-# menu: ela vira o padrao, marcada como atual, e Enter mantem -- trocar de desktop e so
-# rodar de novo e escolher outro numero.
+# Ter escolha gravada nao pula o menu: ela vira o padrao, marcada como atual, e Enter
+# mantem -- trocar de desktop e so rodar de novo e escolher outro numero. Sem resposta em
+# 120 s segue no padrao, pra uma instalacao sem ninguem na frente nao ficar pendurada.
 escolher_de() {
-    local antigo=""
+    local antigo="" padrao
     [[ -f $DEFILE ]] && de_valido "$(<"$DEFILE")" && antigo="$(<"$DEFILE")"
+    padrao="${antigo:-kde}"
 
     if [[ -n ${DE:-} ]]; then
         de_valido "$DE" || die "desktop invalido: $DE (use: ${DES_VALIDOS[*]})"
-    elif [[ -t 0 ]]; then
+    elif abrir_console; then
         # Mesmo desenho do myarch-menu: cabecalho, numero em negrito, "opcao:" e case que
         # repete no invalido. Sem clear -- o que o preflight ja imprimiu tem que continuar na tela.
         local op="" marca_kde="" marca_gnome="" marca_xfce="" marca_hyprland=""
@@ -178,12 +189,14 @@ escolher_de() {
             printf '  %s2%s) GNOME       -- de fabrica, login pelo gdm%s\n' "$BLD" "$END" "$marca_gnome"
             printf '  %s3%s) XFCE        -- de fabrica, X11 em vez de Wayland%s\n' "$BLD" "$END" "$marca_xfce"
             printf '  %s4%s) Hyprland    -- de fabrica, sobe sem config nenhuma%s\n\n' "$BLD" "$END" "$marca_hyprland"
-            if [[ -n $antigo ]]; then
-                read -rp "  opcao [Enter mantem $antigo]: " op
-                [[ -z $op ]] && { DE="$antigo"; break; }
-            else
-                read -rp '  opcao: ' op
+            printf '  opcao [Enter mantem %s, 120 s tambem]: ' "$padrao"
+            if ! read -r -t 120 op <&3; then
+                printf '\n'
+                DE="$padrao"
+                warn "sem resposta em 120 s, seguindo com o desktop $DE"
+                break
             fi
+            [[ -z $op ]] && { DE="$padrao"; break; }
             case "$op" in
                 1) DE=kde      ;;
                 2) DE=gnome    ;;
@@ -192,12 +205,10 @@ escolher_de() {
                 *) op=""       ;;
             esac
         done
-    elif [[ -n $antigo ]]; then
-        DE="$antigo"
-        ok "desktop ja escolhido antes: $DE"
+        exec 3<&-
     else
-        DE=kde
-        warn "sem terminal interativo, assumindo desktop $DE"
+        DE="$padrao"
+        warn "sem console pra perguntar, assumindo desktop $DE"
     fi
 
     printf '%s\n' "$DE" > "$DEFILE"

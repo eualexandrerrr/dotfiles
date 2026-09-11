@@ -78,7 +78,9 @@ O `install.sh` abre um menu numerado (mesmo desenho do `myarch-menu` da ISO) com
 grava a resposta em `~/.local/state/dotfiles/de`. O menu aparece toda vez, mesmo com escolha
 gravada: ela vem marcada como atual e Enter mantem, entao trocar de desktop e rodar de novo e
 escolher outro numero. Sem terminal interativo (a ISO do myarch roda ele sozinho) usa a escolha
-gravada, ou `kde` se nao houver; `--de=<nome>` ou `DE=<nome>` pulam a pergunta.
+gravada, ou `kde` se nao houver; `--de=<nome>` ou `DE=<nome>` pulam a pergunta. No firstboot
+do myarch o menu aparece igual: o script le do `/dev/tty` quando o stdin nao e tty, e sem
+resposta em 120 s segue no padrao.
 
 `packages.txt` e a base comum a qualquer desktop; cada desktop tem o seu
 `packages/<nome>.txt`, e so o escolhido e instalado. A tabela do que muda entre eles
