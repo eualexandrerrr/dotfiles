@@ -37,6 +37,10 @@ kwriteconfig6 --file kwinrc --group org.kde.kdecoration2 --key theme "__aurorae_
 kwriteconfig6 --file kwinrc --group org.kde.kdecoration2 --key ButtonsOnLeft ""
 kwriteconfig6 --file kwinrc --group org.kde.kdecoration2 --key ButtonsOnRight "IAX"
 
+# Sem isso, janela maximizada mantem a faixa de borda invisivel do Aurorae e o cursor de
+# redimensionar aparece encostado na tela -- sem borda visivel pra redimensionar de verdade.
+kwriteconfig6 --file kwinrc --group Windows --key BorderlessMaximizedWindows true
+
 kwriteconfig6 --file plasmarc --group Theme --key name Win11OS-dark
 kwriteconfig6 --file ksplashrc --group KSplash --key Theme "com.github.yeyushengfan258.Win11OS-dark"
 
