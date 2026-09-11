@@ -115,6 +115,36 @@ status() {
             printf '%s!!%s LIBVA_DRIVER_NAME=nvidia com as telas na %s: sem aceleracao de video\n' \
                 "$RED" "$END" "$desenha"; faltou=1
         fi
+
+        # Nao basta o driver certo nas variaveis: o KWin escolhe a placa de render sozinho e
+        # em 11/09/2026 escolheu a 3090, compondo o desktop nela pra copiar pela PCIe ate a
+        # AMD, que e quem tem os monitores. Aparecia so como "KDE arrastado", sem erro nenhum.
+        local render
+        render="$(qdbus6 org.kde.KWin /KWin org.kde.KWin.supportInformation 2>/dev/null \
+            | grep -m1 '^OpenGL renderer string:')"
+        render="${render#*: }"
+        if [[ -n $render ]]; then
+            if [[ $desenha != nvidia && $render == *NVIDIA* ]]; then
+                printf '%s!!%s KWin renderiza na NVIDIA (%s) com as telas na %s: cada quadro atravessa a PCIe -- falta KWIN_DRM_DEVICES no env da sessao\n' \
+                    "$RED" "$END" "$render" "$desenha"; faltou=1
+            else
+                printf '%sok%s KWin renderiza em %s\n' "$GRN" "$END" "$render"
+            fi
+        fi
+    fi
+
+    # CPU e GPU no teto vem do /etc/tmpfiles.d/99-desempenho.conf, que a etapa `sistema`
+    # grava. Depois do format de 11/09/2026 ele faltava e ninguem percebeu: a maquina passou
+    # a manha inteira em powersave.
+    local gov epp dpm
+    gov="$(cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor 2>/dev/null)"
+    epp="$(cat /sys/devices/system/cpu/cpu0/cpufreq/energy_performance_preference 2>/dev/null)"
+    dpm="$(cat /sys/class/drm/card0/device/power_dpm_force_performance_level 2>/dev/null)"
+    if [[ $gov == performance && $epp == performance && $dpm == high ]]; then
+        printf '%sok%s CPU e GPU no teto (governor, EPP e dpm)\n' "$GRN" "$END"
+    else
+        printf '%s!!%s desempenho fora do teto: governor=%s EPP=%s dpm=%s -- rode setup.sh sistema\n' \
+            "$RED" "$END" "${gov:-?}" "${epp:-?}" "${dpm:-?}"; faltou=1
     fi
 
     local software
