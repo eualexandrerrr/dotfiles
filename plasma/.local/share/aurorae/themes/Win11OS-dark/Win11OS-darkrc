@@ -13,9 +13,9 @@ BorderBottom=4
 
 TitleEdgeTop=0
 TitleEdgeBottom=-4
-TitleEdgeLeft=0
+TitleEdgeLeft=8
 TitleEdgeRight=0
-TitleBorderLeft=0
+TitleBorderLeft=8
 TitleBorderRight=0
 TitleHeight=29
 
