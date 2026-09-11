@@ -398,10 +398,20 @@ etapa_notificacoes() {
 }
 
 etapa_painel() {
-    log "barra de tarefas: lancadores e icone de audio"
+    log "barra de tarefas: lancadores, icone de audio e badge de grupo"
     "$DOTFILES_DIR/bin/apply-launchers.sh" \
         && ok "Dolphin, Chrome, Discord e RCode fixados, icone de audio desligado" \
         || falha "nao consegui ajustar a barra de tarefas"
+
+    "$DOTFILES_DIR/bin/apply-task-group-icon.sh" \
+        && ok "badge de + nas janelas agrupadas removido do tema" \
+        || falha "nao consegui remover o badge de grupo do tema"
+
+    if command -v kwriteconfig6 >/dev/null 2>&1; then
+        kwriteconfig6 --file plasmarc --group PlasmaToolTips --key Delay 1 \
+            && ok "preview ao passar o mouse sem atraso" \
+            || falha "nao consegui zerar o atraso do tooltip"
+    fi
 }
 
 etapa_servicos() {
