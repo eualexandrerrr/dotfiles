@@ -7,8 +7,8 @@
 #
 # forceblur/tilegaps do rice original ficam de fora: forceblur chama xprop e o proprio
 # README diz "does not support wayland" (esta sessao e Wayland puro); tilegaps nao tem
-# versao mantida em lugar nenhum que eu achei. O blur nativo do KWin (Effect-blur) e
-# Wayland-safe e entra aqui.
+# versao mantida em lugar nenhum que eu achei. Blur nativo do KWin tambem saiu: o pedido
+# e opacidade total, sem alpha em lugar nenhum.
 set -uo pipefail
 
 command -v kwriteconfig6 >/dev/null 2>&1 || exit 0
@@ -29,9 +29,10 @@ kwriteconfig6 --file "$GTK3" --group Settings --key gtk-theme-name Rosepine-Dark
 kwriteconfig6 --file "$GTK3" --group Settings --key gtk-icon-theme-name Tela-dracula-dark
 kwriteconfig6 --file "$GTK3" --group Settings --key gtk-cursor-theme-name Bibata-Modern-Ice
 
-kwriteconfig6 --file kwinrc --group Plugins --key blurEnabled true
-kwriteconfig6 --file kwinrc --group Effect-blur --key BlurStrength 8
-kwriteconfig6 --file kwinrc --group Effect-blur --key NoiseStrength 0
+# Nada de alpha: blur e contraste de fundo desligados, e o Kvantum tambem entrega janela,
+# menu e tooltip 100% opacos (translucent_windows/blurring no .kvconfig, opacity:1 no .svg).
+kwriteconfig6 --file kwinrc --group Plugins --key blurEnabled false
+kwriteconfig6 --file kwinrc --group Plugins --key contrastEnabled false
 
 # A regra global "sem titlebar/borda em nenhuma janela" (do rice original) foi testada e
 # revertida no mesmo dia: sem titlebar nao da pra arrastar Dolphin/ghostty/nada pela borda.

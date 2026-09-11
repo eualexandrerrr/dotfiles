@@ -5271,16 +5271,16 @@
      style="opacity:0.18999999;fill:#ffffff" />
   <path
      inkscape:connector-curvature="0"
-     style="opacity:0.93;fill:#31313a;fill-rule:evenodd;paint-order:normal"
+     style="opacity:1;fill:#31313a;fill-rule:evenodd;paint-order:normal"
      d="m 370.79,887.72 h 30 v 30 h -30 z"
      id="window-normal" />
   <path
      inkscape:connector-curvature="0"
-     style="opacity:0.93;fill:#31313a;fill-rule:evenodd;paint-order:normal"
+     style="opacity:1;fill:#31313a;fill-rule:evenodd;paint-order:normal"
      d="m 402.79,887.72 h 30 v 30 h -30 z"
      id="window-normal-inactive" />
   <path
-     style="opacity:0.8;fill:#44454b;fill-rule:evenodd"
+     style="opacity:1;fill:#44454b;fill-rule:evenodd"
      inkscape:connector-curvature="0"
      d="m 470.19,644.5 h 48 v 48 h -48 z"
      id="tooltip-normal" />
