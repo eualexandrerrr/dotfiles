@@ -398,10 +398,10 @@ etapa_notificacoes() {
 }
 
 etapa_painel() {
-    log "barra de tarefas: lancadores fixados"
+    log "barra de tarefas: lancadores e icone de audio"
     "$DOTFILES_DIR/bin/apply-launchers.sh" \
-        && ok "Dolphin, Chrome, Discord e RCode fixados na ordem" \
-        || falha "nao consegui fixar os lancadores da barra"
+        && ok "Dolphin, Chrome, Discord e RCode fixados, icone de audio desligado" \
+        || falha "nao consegui ajustar a barra de tarefas"
 }
 
 etapa_servicos() {

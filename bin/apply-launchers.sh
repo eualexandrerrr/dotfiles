@@ -7,14 +7,18 @@
 # aberta. O rcode.desktop quem instala e o proprio RCode (scripts/instalar.mjs); aqui so se
 # aponta pra ele, igual o setup faz com o RicePanel.
 #
-# Idempotente e silencioso: so age quando a lista esta diferente. Quando age, derruba o
+# Tambem desliga o icone de auto-falante que o Plasma poe em cima de janela com audio
+# (indicateAudioStreams, mesmo grupo do applet): e cosmetico, some sozinho quando o audio
+# para, e o Alexandre nao quer isso na barra.
+#
+# Idempotente e silencioso: so age quando algo esta diferente. Quando age, derruba o
 # plasmashell ANTES de gravar -- ele mantem a config em memoria e regrava o arquivo ao sair,
 # entao escrever com ele de pe perde a alteracao no proximo logout.
 set -uo pipefail
 
 ARQUIVO="plasma-org.kde.plasma.desktop-appletsrc"
 CAMINHO="${XDG_CONFIG_HOME:-$HOME/.config}/$ARQUIVO"
-DESEJADO="applications:org.kde.dolphin.desktop,applications:google-chrome.desktop,applications:discord.desktop,applications:rcode.desktop"
+LANCADORES_DESEJADOS="applications:org.kde.dolphin.desktop,applications:google-chrome.desktop,applications:discord.desktop,applications:rcode.desktop"
 
 [[ -f $CAMINHO ]] || exit 0
 command -v kwriteconfig6 >/dev/null 2>&1 || exit 0
@@ -29,10 +33,13 @@ grupo="$(awk '
 cont="${BASH_REMATCH[1]}"
 applet="${BASH_REMATCH[2]}"
 
-cfg=(--file "$ARQUIVO" --group Containments --group "$cont" --group Applets --group "$applet"
-     --group Configuration --group General --key launchers)
+base=(--file "$ARQUIVO" --group Containments --group "$cont" --group Applets --group "$applet"
+      --group Configuration --group General)
 
-[[ "$(kreadconfig6 "${cfg[@]}" 2>/dev/null)" == "$DESEJADO" ]] && exit 0
+lancadores_atuais="$(kreadconfig6 "${base[@]}" --key launchers 2>/dev/null)"
+audio_atual="$(kreadconfig6 "${base[@]}" --key indicateAudioStreams 2>/dev/null)"
+
+[[ "$lancadores_atuais" == "$LANCADORES_DESEJADOS" && "$audio_atual" == "false" ]] && exit 0
 
 de_pe=0
 if /usr/bin/systemctl --user is-active --quiet plasma-plasmashell.service; then
@@ -40,7 +47,8 @@ if /usr/bin/systemctl --user is-active --quiet plasma-plasmashell.service; then
     de_pe=1
 fi
 
-kwriteconfig6 "${cfg[@]}" "$DESEJADO"
+kwriteconfig6 "${base[@]}" --key launchers "$LANCADORES_DESEJADOS"
+kwriteconfig6 "${base[@]}" --key indicateAudioStreams false
 
 if (( de_pe )); then
     /usr/bin/systemctl --user start plasma-plasmashell.service
