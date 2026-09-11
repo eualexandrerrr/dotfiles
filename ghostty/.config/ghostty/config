@@ -2,7 +2,7 @@
 theme = Catppuccin Mocha
 
 font-family = JetBrainsMono Nerd Font
-font-size = 12
+font-size = 11
 font-feature = calt
 font-feature = liga
 font-thicken = true
@@ -21,9 +21,11 @@ cursor-style-blink = true
 adjust-cursor-thickness = 2
 
 # ─── Janela ───────────────────────────────────────────────────
-window-decoration = true
+# server = decoracao do KWin (Aurorae Win11OS-dark), igual toda outra janela.
+# gtk-titlebar=true desenhava a barra propria do GTK por cima em vez dessa.
+window-decoration = server
 window-theme = ghostty
-gtk-titlebar = true
+gtk-titlebar = false
 gtk-tabs-location = top
 window-inherit-working-directory = true
 confirm-close-surface = false
