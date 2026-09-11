@@ -11,10 +11,6 @@
 # (indicateAudioStreams, mesmo grupo do applet): e cosmetico, some sozinho quando o audio
 # para, e o Alexandre nao quer isso na barra.
 #
-# E desliga o agrupamento por programa (groupingStrategy=0, "Do Not Group" no main.xml do
-# applet): com ele ligado (default=1), 2+ janelas do mesmo app viram um icone so com bolha
-# "+N"; desligado, cada janela fica com o proprio icone e a bolha nunca aparece.
-#
 # Idempotente e silencioso: so age quando algo esta diferente. Quando age, derruba o
 # plasmashell ANTES de gravar -- ele mantem a config em memoria e regrava o arquivo ao sair,
 # entao escrever com ele de pe perde a alteracao no proximo logout.
@@ -42,12 +38,8 @@ base=(--file "$ARQUIVO" --group Containments --group "$cont" --group Applets --g
 
 lancadores_atuais="$(kreadconfig6 "${base[@]}" --key launchers 2>/dev/null)"
 audio_atual="$(kreadconfig6 "${base[@]}" --key indicateAudioStreams 2>/dev/null)"
-agrupar_atual="$(kreadconfig6 "${base[@]}" --key groupingStrategy 2>/dev/null)"
 
-if [[ "$lancadores_atuais" == "$LANCADORES_DESEJADOS" && "$audio_atual" == "false" \
-      && "$agrupar_atual" == "0" ]]; then
-    exit 0
-fi
+[[ "$lancadores_atuais" == "$LANCADORES_DESEJADOS" && "$audio_atual" == "false" ]] && exit 0
 
 de_pe=0
 if /usr/bin/systemctl --user is-active --quiet plasma-plasmashell.service; then
@@ -57,7 +49,6 @@ fi
 
 kwriteconfig6 "${base[@]}" --key launchers "$LANCADORES_DESEJADOS"
 kwriteconfig6 "${base[@]}" --key indicateAudioStreams false
-kwriteconfig6 "${base[@]}" --key groupingStrategy 0
 
 if (( de_pe )); then
     /usr/bin/systemctl --user start plasma-plasmashell.service
