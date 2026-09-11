@@ -169,7 +169,7 @@ anything.
 
 The `plasma/` package vendors the dark variant of the [Win11OS KDE theme](https://github.com/yeyushengfan258/Win11OS-kde)
 by [yeyushengfan258](https://github.com/yeyushengfan258), licensed GPLv3 (kept in
-`plasma/vendor-win11os/`). Only the Aurorae window decoration, color scheme, Kvantum style
+`vendor/win11os/`). Only the Aurorae window decoration, color scheme, Kvantum style
 and Plasma desktop/look-and-feel splash for the dark variant are included; the icon theme
 and cursor theme it references are separate KDE Store downloads and are not part of this
 repo, so `bin/apply-theme-win11os-dark.sh` never touches those two settings. The vendored
@@ -182,7 +182,7 @@ upstream sources:
 
 - [Tela-icon-theme](https://github.com/vinceliuice/Tela-icon-theme) (`Tela-dracula-dark`,
   plus the `Tela-dracula` base it inherits from) by
-  [vinceliuice](https://github.com/vinceliuice), GPLv3, credits in `plasma/vendor-tela-icons/`.
+  [vinceliuice](https://github.com/vinceliuice), GPLv3, credits in `vendor/tela-icons/`.
 - [Bibata_Cursor](https://github.com/ful1e5/Bibata_Cursor) (`Bibata-Modern-Ice`, prebuilt
   release asset) by [ful1e5](https://github.com/ful1e5), GPLv3, credits in
-  `plasma/vendor-bibata-cursor/`.
+  `vendor/bibata-cursor/`.

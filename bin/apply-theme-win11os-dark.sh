@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Aplica o tema Win11OS-dark (creditos em plasma/vendor-win11os/) depois que o stow ja
+# Aplica o tema Win11OS-dark (creditos em vendor/win11os/) depois que o stow ja
 # colocou os arquivos em ~/.local/share e ~/.config/Kvantum. So gravar o arquivo nao muda
 # nada na tela -- cada peca do tema tem a propria chave de config.
 #
@@ -27,8 +27,8 @@ kwriteconfig6 --file kdeglobals --group General --key AccentColor "128,128,128"
 
 kwriteconfig6 --file "$HOME/.config/Kvantum/kvantum.kvconfig" --group General --key theme Win11OS-dark
 
-# Icones e cursor de terceiros (creditos em plasma/vendor-tela-icons e
-# plasma/vendor-bibata-cursor). Sao os unicos restos da camada Catppuccin que ficaram: o
+# Icones e cursor de terceiros (creditos em vendor/tela-icons e
+# vendor/bibata-cursor). Sao os unicos restos da camada Catppuccin que ficaram: o
 # Kvantum Layan e o esquema de cores dela saiam em 11/09/2026 -- fundo cinza claro e
 # destaque rosa, os dois recusados. Aqui o tema inteiro e o Win11OS-dark.
 kwriteconfig6 --file kdeglobals --group Icons --key Theme Tela-dracula-dark

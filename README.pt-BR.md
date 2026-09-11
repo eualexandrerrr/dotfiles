@@ -167,7 +167,7 @@ menu do live reinstala os dotfiles sem formatar nada.
 
 O pacote `plasma/` vendoriza a variante escura do [tema Win11OS KDE](https://github.com/yeyushengfan258/Win11OS-kde)
 de [yeyushengfan258](https://github.com/yeyushengfan258), licença GPLv3 (mantida em
-`plasma/vendor-win11os/`). Só entraram a decoração de janela Aurorae, o esquema de cores, o
+`vendor/win11os/`). Só entraram a decoração de janela Aurorae, o esquema de cores, o
 estilo Kvantum e o tema de desktop/splash do look-and-feel da variante dark; o tema de
 ícones e o de cursor que o pacote referencia são downloads separados da KDE Store e não
 fazem parte deste repositório, por isso `bin/apply-theme-win11os-dark.sh` nunca mexe nessas
@@ -180,7 +180,7 @@ cada um:
 
 - [Tela-icon-theme](https://github.com/vinceliuice/Tela-icon-theme) (`Tela-dracula-dark`,
   mais a base `Tela-dracula` de que ele herda) de
-  [vinceliuice](https://github.com/vinceliuice), GPLv3, créditos em `plasma/vendor-tela-icons/`.
+  [vinceliuice](https://github.com/vinceliuice), GPLv3, créditos em `vendor/tela-icons/`.
 - [Bibata_Cursor](https://github.com/ful1e5/Bibata_Cursor) (`Bibata-Modern-Ice`, pacote
   pré-compilado da release) de [ful1e5](https://github.com/ful1e5), GPLv3, créditos em
-  `plasma/vendor-bibata-cursor/`.
+  `vendor/bibata-cursor/`.
