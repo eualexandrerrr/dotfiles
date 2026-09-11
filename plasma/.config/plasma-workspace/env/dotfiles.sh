@@ -47,7 +47,7 @@ fi
 # deixa de enxergar as saidas do dummy plug da 3090, que entravam como tela de verdade.
 # Caminho por by-path porque cardN troca de numero entre boots. Sem AMD, nao fixa nada.
 if [ -n "$_amd_pci" ] && [ -e "/dev/dri/by-path/pci-$_amd_pci-card" ]; then
-    KWIN_DRM_DEVICES="/dev/dri/by-path/pci-$_amd_pci-card"
+    KWIN_DRM_DEVICES="$(readlink -f "/dev/dri/by-path/pci-$_amd_pci-card")"
     export KWIN_DRM_DEVICES
 fi
 
