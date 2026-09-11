@@ -74,7 +74,7 @@ etapa `home` do `setup.sh`; o resto ele repete por conta propria.)
 
 ## Desktop escolhido na instalacao
 
-O `install.sh` pergunta qual desktop instalar -- `kde`, `gnome`, `xfce` ou `hyprland` -- e
+O `install.sh` abre um menu numerado (mesmo desenho do `myarch-menu` da ISO) com `kde`, `gnome`, `xfce` e `hyprland`, e
 grava a resposta em `~/.local/state/dotfiles/de`. Sem terminal interativo (a ISO do myarch
 roda ele sozinho) assume `kde`; `--de=<nome>` ou `DE=<nome>` pulam a pergunta.
 

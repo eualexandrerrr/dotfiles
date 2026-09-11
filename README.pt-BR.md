@@ -19,7 +19,7 @@ São três scripts, e só. Todos idempotentes:
 
 | | o quê | quando |
 |---|---|---|
-| `install.sh` | pacotes, driver, kernel, serviços, SDDM | mexeu no `packages.txt` |
+| `install.sh` | pacotes, driver, kernel, serviços, gerenciador de login | mexeu no `packages.txt` |
 | `setup.sh` | configura tudo, VM inclusa — sem rede | mexeu numa config |
 | `reload.sh` | recarrega a sessão que já está de pé | algo saiu do lugar agora |
 
@@ -27,7 +27,7 @@ Etapas do `setup.sh`: `links home perfil arquivos sistema vm ddcutil energia ata
 
 ## Qual desktop
 
-O `install.sh` pergunta qual instalar e grava a escolha em `~/.local/state/dotfiles/de`:
+O `install.sh` abre um menu numerado (mesmo desenho do `myarch-menu` da ISO) e grava a escolha em `~/.local/state/dotfiles/de`:
 
 ```
 ./install.sh --de=gnome     # sem perguntar (ou DE=gnome ./install.sh)

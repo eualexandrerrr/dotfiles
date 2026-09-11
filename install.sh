@@ -28,7 +28,7 @@ fi
 KERNEL_PARAMS=(nvidia_drm.modeset=1 nvidia.NVreg_PreserveVideoMemoryAllocations=1)
 NVIDIA_MODULES=(nvidia nvidia_modeset nvidia_uvm nvidia_drm)
 
-RED=$'\e[1;31m'; GRN=$'\e[1;32m'; YEL=$'\e[1;33m'; BLU=$'\e[1;34m'; END=$'\e[0m'
+RED=$'\e[1;31m'; GRN=$'\e[1;32m'; YEL=$'\e[1;33m'; BLU=$'\e[1;34m'; BLD=$'\e[1m'; END=$'\e[0m'
 
 LOGDIR="${XDG_STATE_HOME:-$HOME/.local/state}/dotfiles"
 mkdir -p "$LOGDIR"
@@ -167,11 +167,25 @@ escolher_de() {
         DE="$antigo"
         ok "desktop ja escolhido antes: $DE"
     elif [[ -t 0 ]]; then
-        printf '%s\n' "${BLU}==>${END} qual desktop instalar?"
-        local escolha
-        select escolha in "${DES_VALIDOS[@]}"; do
-            [[ -n $escolha ]] && { DE="$escolha"; break; }
-            printf '%s\n' "  escolha um numero de 1 a ${#DES_VALIDOS[@]}"
+        # Mesmo desenho do myarch-menu: cabecalho, numero em negrito, "opcao:" e case que
+        # repete no invalido. Sem clear -- o que o preflight ja imprimiu tem que continuar na tela.
+        local op=""
+        while [[ -z $op ]]; do
+            printf '\n%s' "$BLU"
+            printf '  %s\n' '=================================' '   D E S K T O P   |   dotfiles' '================================='
+            printf '%s\n' "$END"
+            printf '  %s1%s) KDE Plasma  -- o desta maquina, o unico com configuracao versionada aqui\n' "$BLD" "$END"
+            printf '  %s2%s) GNOME       -- de fabrica, login pelo gdm\n' "$BLD" "$END"
+            printf '  %s3%s) XFCE        -- de fabrica, X11 em vez de Wayland\n' "$BLD" "$END"
+            printf '  %s4%s) Hyprland    -- de fabrica, sobe sem config nenhuma\n\n' "$BLD" "$END"
+            read -rp '  opcao: ' op
+            case "$op" in
+                1) DE=kde      ;;
+                2) DE=gnome    ;;
+                3) DE=xfce     ;;
+                4) DE=hyprland ;;
+                *) op=""       ;;
+            esac
         done
     else
         DE=kde

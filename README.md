@@ -26,7 +26,7 @@ Three scripts, that is all. All idempotent:
 
 ## Which desktop
 
-`install.sh` asks which one to install and records the answer in
+`install.sh` shows a numbered menu (same layout as the ISO's `myarch-menu`) and records the answer in
 `~/.local/state/dotfiles/de`:
 
 ```
