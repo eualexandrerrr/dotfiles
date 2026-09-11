@@ -162,3 +162,13 @@ menu do live reinstala os dotfiles sem formatar nada.
 - O shell é zsh: `for p in $var` não faz word splitting. Use array ou `bash -c`.
 - `pacman -Q` mente sobre pacote instalado nesta máquina. Use `command -v` para binário e
   `pacman -Si` para saber se existe nos repos.
+
+## Créditos
+
+O pacote `plasma/` vendoriza o [tema Win11Nord KDE](https://github.com/yeyushengfan258/Win11Nord-kde)
+de [yeyushengfan258](https://github.com/yeyushengfan258), licença GPLv3 (mantida em
+`plasma/vendor-win11nord/`). Só entraram a decoração de janela Aurorae, o esquema de cores,
+o estilo Kvantum, o tema de desktop do Plasma, a splash screen do look-and-feel e o papel de
+parede, copiados sem alteração; o tema de ícones e o de cursor que o pacote referencia são
+downloads separados da KDE Store e não fazem parte deste repositório, por isso
+`bin/apply-theme-win11nord.sh` nunca mexe nessas duas chaves.

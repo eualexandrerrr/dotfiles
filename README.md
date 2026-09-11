@@ -164,3 +164,13 @@ anything.
 - The shell is zsh: `for p in $var` does not word-split. Use an array or `bash -c`.
 - `pacman -Q` lies about installed packages on this machine. Use `command -v` for a binary and
   `pacman -Si` to check whether one exists in the repos.
+
+## Credits
+
+The `plasma/` package vendors the [Win11Nord KDE theme](https://github.com/yeyushengfan258/Win11Nord-kde)
+by [yeyushengfan258](https://github.com/yeyushengfan258), licensed GPLv3 (kept in
+`plasma/vendor-win11nord/`). Only the Aurorae window decoration, color scheme, Kvantum
+style, Plasma desktop theme, look-and-feel splash screen and wallpaper are included, copied
+unmodified; the icon theme and cursor theme it references are separate KDE Store downloads
+and are not part of this repo, so `bin/apply-theme-win11nord.sh` never touches those two
+settings.

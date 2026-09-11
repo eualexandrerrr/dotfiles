@@ -58,7 +58,7 @@ Com duas GPUs o cenario de single-GPU passthrough (que derruba a sessao) nao se 
 
 ```
 ~/.dotfiles/setup.sh [etapa...]
-# links home perfil arquivos sistema vm ddcutil energia atalhos audio dns console chrome claude notificacoes servicos
+# links home perfil arquivos sistema vm ddcutil energia atalhos audio dns console chrome claude notificacoes painel tema servicos
 ```
 
 **Nome de pasta, arquivo e unit sempre em ingles.** Este repo e publico: `secrets/`, nao

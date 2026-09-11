@@ -53,6 +53,7 @@ xdg-desktop-portal-gtk
 qt6-wayland
 qt5-wayland
 xorg-xwayland
+kvantum
 
 [repo-oficial:shell-grafico]
 ghostty

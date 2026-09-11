@@ -414,6 +414,13 @@ etapa_painel() {
     fi
 }
 
+etapa_tema() {
+    log "tema Win11Nord"
+    "$DOTFILES_DIR/bin/apply-theme-win11nord.sh" \
+        && ok "cores, decoracao de janela, Kvantum e splash do Win11Nord aplicados" \
+        || falha "nao consegui aplicar o tema Win11Nord"
+}
+
 etapa_servicos() {
     log "servicos de usuario e restauracao da sessao"
 
@@ -490,7 +497,7 @@ etapa_servicos() {
         || falha "nao consegui mascarar o drkonqi-coredump-pickup"
 }
 
-ETAPAS=(links home perfil arquivos sistema vm ddcutil energia atalhos audio dns console chrome claude notificacoes painel servicos)
+ETAPAS=(links home perfil arquivos sistema vm ddcutil energia atalhos audio dns console chrome claude notificacoes painel tema servicos)
 
 if [[ ${1:-} == --lista ]]; then
     printf 'etapas: %s\n' "${ETAPAS[*]}"
