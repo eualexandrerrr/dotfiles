@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # Um lancador por projeto no menu de aplicativos: cada entrada abre o .code-workspace dele no
-# VS Code. Os .code-workspace moram em ~/Workspaces (fora do repo: caminho e projeto pessoal),
-# o icone opcional em ~/Workspaces/icons/<Nome>.png, e a tabela abaixo diz quais viram lancador.
+# VS Code. Os .code-workspace moram na raiz de ~/Workspaces, sem subpasta (fora do repo: caminho
+# e projeto pessoal); o icone opcional e `workspace-<Base>.png` no tema de icones do usuario
+# (~/.local/share/icons/hicolor/96x96/apps). A tabela abaixo diz quais viram lancador.
 set -uo pipefail
 
 WORKSPACES="$HOME/Workspaces"
@@ -11,8 +12,8 @@ mkdir -p "$DESTINO"
 # nome no menu | arquivo relativo a ~/Workspaces
 PROJETOS=(
     "MichiganRoleplay|MichiganRoleplay.code-workspace"
-    "dotfiles|desktop/Dotfiles.code-workspace"
-    "MeuEscolar|mobile/MeuEscolarApp.code-workspace"
+    "dotfiles|Dotfiles.code-workspace"
+    "MeuEscolar|MeuEscolarApp.code-workspace"
 )
 
 feitos=0
@@ -21,7 +22,7 @@ for entrada in "${PROJETOS[@]}"; do
     [[ -f $WORKSPACES/$arquivo ]] || { printf '  !! %s: %s nao existe\n' "$nome" "$WORKSPACES/$arquivo"; continue; }
     base="$(basename "$arquivo" .code-workspace)"
     icone="code-oss"
-    [[ -f $WORKSPACES/icons/$base.png ]] && icone="$WORKSPACES/icons/$base.png"
+    [[ -f ${XDG_DATA_HOME:-$HOME/.local/share}/icons/hicolor/96x96/apps/workspace-$base.png ]] && icone="workspace-$base"
     desktop="$DESTINO/workspace-$base.desktop"
     tmp="$desktop.tmp"
     cat >"$tmp" <<FIM
