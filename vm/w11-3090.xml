@@ -226,7 +226,11 @@
     <memballoon model="none" />
     <!-- Regiao do Vypr (janela nativa por aplicacao da VM, vm/vypr.sh): 512 MB dao tres
          buffers 4K ou varios 1080p, sem codec. Convive com o ivshmem do Looking Glass
-         (qemu:commandline abaixo); o guest ve dois dispositivos IVSHMEM. -->
+         (qemu:commandline abaixo); o guest ve dois dispositivos IVSHMEM. A ORDEM importa:
+         o IDD e o host do Looking Glass pegam o primeiro IVSHMEM que o Windows enumera,
+         e com este na frente o IDD escrevia um contador a 1 kHz em cima do cabecalho do
+         Vypr (12/09/2026). Por isso o do Looking Glass esta pregado em pcie.0 addr 0x1,
+         antes deste (slot 0x4). -->
     <shmem name="vypr">
       <model type="ivshmem-plain" />
       <size unit="M">512</size>
@@ -236,7 +240,7 @@
     <qemu:arg value="-fw_cfg" />
     <qemu:arg value="opt/ovmf/X-PciMmio64Mb,string=131072" />
     <qemu:arg value="-device" />
-    <qemu:arg value="{'driver':'ivshmem-plain','id':'lgshmem','memdev':'looking-glass'}" />
+    <qemu:arg value="{'driver':'ivshmem-plain','id':'lgshmem','memdev':'looking-glass','bus':'pcie.0','addr':'0x1'}" />
     <qemu:arg value="-object" />
     <qemu:arg value="{'qom-type':'memory-backend-file','id':'looking-glass','mem-path':'/dev/kvmfr0','size':134217728,'share':true}" />
   </qemu:commandline>
