@@ -387,6 +387,38 @@ SUBSYSTEM==\"drm\", KERNEL==\"card[0-9]*\", ENV{ID_PATH}==\"pci-$outra\", TAG+=\
         /usr/bin/systemctl --user set-environment "$linha" 2>/dev/null
     done < "$envdir/50-dotfiles.conf"
     ok "variaveis aplicadas no systemd --user desta sessao"
+
+    # Layout de tela: o mesmo script que a apply-screens.service roda no login. Aqui vale a
+    # regra de sempre -- config que so aparece no proximo login nao esta entregue.
+    bash "$DOTFILES_DIR/bin/apply-screens.sh" \
+        && ok "layout de tela aplicado" \
+        || falha "apply-screens.sh nao aplicou o layout"
+
+    # A tela de login do gdm e outro mutter, com config propria: sem copiar isto, o login
+    # nasce sem a rotacao e com a tela primaria trocada. O arquivo so existe depois que uma
+    # sessao do GNOME aplicou o layout -- quem aplica e o bin/apply-screens.sh.
+    #
+    # O gdm novo nao tem mais usuario fixo `gdm`: o greeter roda com usuario dinamico e a
+    # config dele mora em /var/lib/gdm/seat0/config. Por isso o dono sai do proprio diretorio,
+    # e nao de um nome -- o uid muda de instalacao pra instalacao.
+    local gdmcfg=""
+    for gdmcfg in /var/lib/gdm/seat*/config /var/lib/gdm/.config; do
+        [[ -d $gdmcfg ]] && break || gdmcfg=""
+    done
+    if [[ -f "$HOME/.config/monitors.xml" && -n $gdmcfg ]]; then
+        local dono
+        dono="$(sudo stat -c '%u:%g' "$gdmcfg")"
+        sudo install -o "${dono%%:*}" -g "${dono##*:}" -m 644                 "$HOME/.config/monitors.xml" "$gdmcfg/monitors.xml" \
+            && ok "$gdmcfg/monitors.xml (tela de login com o mesmo layout)" \
+            || falha "nao consegui copiar o monitors.xml pro gdm"
+    fi
+}
+
+etapa_wallpaper() {
+    log "papel de parede nos dois monitores"
+    bash "$DOTFILES_DIR/bin/apply-wallpaper.sh" \
+        && ok "arte deitada no principal, em pe no girado (onde o desktop separa)" \
+        || falha "apply-wallpaper.sh falhou"
 }
 
 etapa_vm() {
@@ -601,7 +633,7 @@ etapa_servicos() {
     fi
 }
 
-ETAPAS=(links home perfil arquivos sistema graficos vm ddcutil energia atalhos audio dns console chrome claude notificacoes painel tema servicos)
+ETAPAS=(links home perfil arquivos sistema graficos wallpaper vm ddcutil energia atalhos audio dns console chrome claude notificacoes painel tema servicos)
 
 if [[ ${1:-} == --lista ]]; then
     printf 'etapas: %s\n' "${ETAPAS[*]}"

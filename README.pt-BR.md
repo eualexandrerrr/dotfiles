@@ -23,7 +23,7 @@ São três scripts, e só. Todos idempotentes:
 | `setup.sh` | configura tudo, VM inclusa — sem rede | mexeu numa config |
 | `reload.sh` | recarrega a sessão que já está de pé | algo saiu do lugar agora |
 
-Etapas do `setup.sh`: `links home perfil arquivos sistema graficos vm ddcutil energia atalhos audio dns console chrome claude notificacoes painel tema servicos`.
+Etapas do `setup.sh`: `links home perfil arquivos sistema graficos wallpaper vm ddcutil energia atalhos audio dns console chrome claude notificacoes painel tema servicos`.
 
 ## Cache de pacotes
 
@@ -52,7 +52,15 @@ tudo flutuante e centralizado, sem workspace nenhum.
 instala ele de fábrica: o pacote stow `plasma/` e as etapas `arquivos atalhos notificacoes
 painel tema` são puladas.
 
-Hardware é a exceção e mora na etapa `graficos`, que roda em qualquer desktop. Ela pergunta
+Hardware é a exceção. Layout de tela e papel de parede são disposição de monitor, não
+personalização: o `bin/apply-screens.sh` e o `bin/apply-wallpaper.sh` têm um backend por
+família -- kscreen-doctor no Plasma, D-Bus do mutter no GNOME, xrandr nos X11 (XFCE, Cinnamon,
+MATE, LXQt, Budgie), `hl.monitor` e hyprpaper no Hyprland e no NAnDoroid, cosmic-randr no
+COSMIC. A disposição está escrita uma vez só, no topo do `apply-screens.sh`, e qual conector é
+qual tela sai sempre do `bin/monitor.sh`, pela marca no EDID. O nome da saída muda de backend
+pra backend: o kernel diz `HDMI-A-2`, o mutter diz `HDMI-2` e o X diz `DisplayPort-0`.
+
+O driver de vídeo é a outra exceção e mora na etapa `graficos`, que roda em qualquer desktop. Ela pergunta
 ao `bin/render-gpu.sh` qual GPU tem monitor ligado e grava
 `~/.config/environment.d/50-dotfiles.conf` (`GTK_IM_MODULE=simple` para acento em app GTK no
 ABNT2, `LANGUAGE`, `LIBVA_DRIVER_NAME`, `KWIN_DRM_DEVICES`, `AQ_DRM_DEVICES`) e

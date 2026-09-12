@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
-# Resolve um monitor pela MARCA, nao pelo conector: monitor.sh [--desc] principal|vertical
-# imprime o conector atual (DP-1, HDMI-A-1...) ou a descricao completa do EDID.
+# Resolve um monitor pela MARCA, nao pelo conector: monitor.sh [--desc|--xrandr] principal|vertical
+# imprime o conector do kernel (DP-1, HDMI-A-1...), a descricao completa do EDID ou o nome
+# que o servidor X da ao mesmo monitor (DisplayPort-0, HDMI-A-0...), que nao e o mesmo.
 #
 # Le o EDID direto de /sys/class/drm, de proposito: nao depende de compositor nenhum, entao
 # serve igual dentro do Plasma, de um tty ou de um ExecCondition do systemd, que roda antes
@@ -11,10 +12,10 @@ DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
 telas="$DOTFILES_DIR/screens.conf"
 
 campo="name"
-if [[ ${1:-} == --desc ]]; then
-    campo="description"
-    shift
-fi
+case "${1:-}" in
+    --desc)   campo="description"; shift ;;
+    --xrandr) campo="xrandr";      shift ;;
+esac
 papel="${1:-principal}"
 
 [[ -f $telas ]] || exit 1
@@ -41,6 +42,33 @@ def texto_edid(b):
     modelo = next((v for t, v in nomes if t == 0xFC), "")
     return " ".join(x for x in (fab, modelo) if x)
 
+def nome_no_x(edid):
+    # `xrandr --verbose` imprime o EDID em hex, 16 bytes por linha, indentado sob a saida.
+    import re, subprocess
+    try:
+        saida = subprocess.run(["xrandr", "--verbose"], capture_output=True, text=True,
+                               timeout=10).stdout
+    except (OSError, subprocess.SubprocessError):
+        return ""
+    atual, hexa, lendo = "", [], False
+    achados = {}
+    for linha in saida.splitlines() + ["fim conectado"]:
+        if re.match(r"^\S+ (connected|disconnected)", linha):
+            if atual and hexa:
+                achados[atual] = "".join(hexa)
+            atual, hexa, lendo = linha.split()[0], [], False
+        elif "EDID:" in linha:
+            lendo = True
+        elif lendo and re.match(r"^\s+[0-9a-f]+\s*$", linha):
+            hexa.append(linha.strip())
+        elif lendo:
+            lendo = False
+    alvo_hex = edid[:128].hex()
+    for nome, blob in achados.items():
+        if blob.startswith(alvo_hex):
+            return nome
+    return ""
+
 marca = os.environ["MARCA"]
 campo = os.environ["CAMPO"]
 
@@ -60,8 +88,16 @@ for caminho in sorted(glob.glob("/sys/class/drm/card*-*/edid")):
     if not dados:
         continue
     desc = texto_edid(dados)
-    if alvo and alvo in desc.upper():
-        print(conector if campo == "name" else desc)
-        sys.exit(0)
+    if not alvo or alvo not in desc.upper():
+        continue
+    if campo == "description":
+        print(desc)
+    elif campo == "xrandr":
+        # O X nomeia a mesma saida de outro jeito (DisplayPort-0 no lugar de DP-4), entao
+        # casar os dois pelo EDID, que e o mesmo byte a byte nos dois lados.
+        print(nome_no_x(dados) or "")
+    else:
+        print(conector)
+    sys.exit(0)
 sys.exit(1)
 PY

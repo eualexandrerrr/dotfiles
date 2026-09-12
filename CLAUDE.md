@@ -58,7 +58,7 @@ Com duas GPUs o cenario de single-GPU passthrough (que derruba a sessao) nao se 
 
 ```
 ~/.dotfiles/setup.sh [etapa...]
-# links home perfil arquivos sistema graficos vm ddcutil energia atalhos audio dns console chrome claude notificacoes painel tema servicos
+# links home perfil arquivos sistema graficos wallpaper vm ddcutil energia atalhos audio dns console chrome claude notificacoes painel tema servicos
 ```
 
 **Nome de pasta, arquivo e unit sempre em ingles.** Este repo e publico: `secrets/`, nao
@@ -115,7 +115,17 @@ pra flutuar centralizada, tira os binds de workspace e troca o alt-tab por
 painel tema` e o pacote stow `plasma/` sao puladas em qualquer outro desktop, que sobe de
 fabrica.
 
-**O que e hardware, porem, vale nos quatro desktops e mora na etapa `graficos`.** Ela le a
+**O que e hardware vale em todos os dez desktops.** Layout de tela e papel de parede sao
+disposicao de monitor, nao personalizacao: o `bin/apply-screens.sh` e o `bin/apply-wallpaper.sh`
+tem um backend por familia -- kscreen-doctor no Plasma, D-Bus do mutter no GNOME, xrandr nos
+X11 (XFCE, Cinnamon, MATE, LXQt, Budgie), `hl.monitor` e hyprpaper no Hyprland e no NAnDoroid,
+cosmic-randr no COSMIC. A disposicao em si esta escrita uma vez so, no topo do
+`apply-screens.sh`; qual conector e qual tela sai sempre do `bin/monitor.sh`, pela marca no
+EDID. Cuidado: o nome da saida muda de backend pra backend -- o kernel diz `HDMI-A-2`, o
+mutter diz `HDMI-2` e o X diz `DisplayPort-0`. Por isso o mutter casa por marca e o X11 casa
+o EDID byte a byte (`monitor.sh --xrandr`).
+
+**O que e driver de video vale nos quatro desktops e mora na etapa `graficos`.** Ela le a
 GPU que tem monitor ligado pelo `bin/render-gpu.sh` e grava dois arquivos gerados, nenhum
 deles versionado: `~/.config/environment.d/50-dotfiles.conf`, com `GTK_IM_MODULE=simple`
 (acento em app GTK no ABNT2), `LANGUAGE`, `LIBVA_DRIVER_NAME`, `KWIN_DRM_DEVICES` e

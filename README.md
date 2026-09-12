@@ -22,7 +22,7 @@ Three scripts, that is all. All idempotent:
 | `setup.sh` | configures everything, VM included — no network | you touched a config |
 | `reload.sh` | reloads the session already running | something drifted just now |
 
-`setup.sh` steps: `links home perfil arquivos sistema graficos vm ddcutil energia atalhos audio dns console chrome claude notificacoes painel tema servicos`.
+`setup.sh` steps: `links home perfil arquivos sistema graficos wallpaper vm ddcutil energia atalhos audio dns console chrome claude notificacoes painel tema servicos`.
 
 ## Package cache
 
@@ -55,7 +55,16 @@ desktop — everything floating and centered, no workspaces at all.
 installs it stock: the `plasma/` stow package and the `arquivos atalhos notificacoes painel
 tema` steps are skipped.
 
-Hardware is the exception and lives in the `graficos` step, which runs on every desktop. It
+Hardware is the exception. Screen layout and wallpaper are monitor arrangement, not
+decoration, so `bin/apply-screens.sh` and `bin/apply-wallpaper.sh` carry one backend per
+family: kscreen-doctor on Plasma, the mutter D-Bus API on GNOME, xrandr on the X11 ones
+(XFCE, Cinnamon, MATE, LXQt, Budgie), `hl.monitor` and hyprpaper on Hyprland and NAnDoroid,
+cosmic-randr on COSMIC. The arrangement itself is written once, at the top of
+`apply-screens.sh`, and which connector is which screen always comes from `bin/monitor.sh`,
+by the brand in the EDID. Output names differ per backend: the kernel says `HDMI-A-2`, mutter
+says `HDMI-2`, X says `DisplayPort-0`.
+
+The graphics driver is the other exception and lives in the `graficos` step, which runs on every desktop. It
 asks `bin/render-gpu.sh` which GPU has a monitor attached, then writes
 `~/.config/environment.d/50-dotfiles.conf` (`GTK_IM_MODULE=simple` for dead keys in GTK apps
 on ABNT2, `LANGUAGE`, `LIBVA_DRIVER_NAME`, `KWIN_DRM_DEVICES`, `AQ_DRM_DEVICES`) and
