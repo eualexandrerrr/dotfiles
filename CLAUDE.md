@@ -140,7 +140,7 @@ Cada fork tem **duas branches**: `master` (ou `main`) e espelho intocado do upst
 Atualizar o COSMIC e `cosmic-forks.sh rebase`, e cada patch nosso continua sendo um commit
 isolado, pronto pra virar PR no upstream. Tudo GPL-3.0-only, com credito no topo do README.
 
-O `bin/cosmic-forks.sh` clona em `~/ReCosmicLabs/<repo>`, compila com cargo (o pacote do
+O `bin/cosmic-forks.sh` clona em `~/Apps/desktop/ReCosmicLabs/<repo>`, compila com cargo (o pacote do
 painel chama `cosmic-panel-bin`) e instala em `~/.local/bin`, que vem antes de `/usr/bin` no
 PATH da sessao; so recompila quando o HEAD mudou desde o marcador em
 `~/.local/state/dotfiles/fork-<bin>.commit`. Subcomandos: `estado`, `rebase`, `forkar`.

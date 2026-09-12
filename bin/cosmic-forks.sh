@@ -22,7 +22,7 @@
 set -uo pipefail
 
 ORG="${COSMIC_FORKS_ORG:-ReCosmicLabs}"
-BASE="${COSMIC_FORKS_BASE:-$HOME/ReCosmicLabs}"
+BASE="${COSMIC_FORKS_BASE:-$HOME/Apps/desktop/ReCosmicLabs}"
 BIN="$HOME/.local/bin"
 ESTADO="${XDG_STATE_HOME:-$HOME/.local/state}/dotfiles"
 RAMO="recosmic"

@@ -667,13 +667,13 @@ etapa_servicos() {
     fi
 
     # Deploy da pasta [peds] do Michigan, 3x por dia. Depende do repo de deploy estar clonado.
-    if [[ -x "$HOME/MichiganRoleplay/DeployFiles/autosync.sh" ]]; then
+    if [[ -x "$HOME/Apps/servidor/MichiganRoleplay/DeployFiles/autosync.sh" ]]; then
         /usr/bin/systemctl --user enable deploy-peds.timer >/dev/null 2>&1 \
             && /usr/bin/systemctl --user start deploy-peds.timer >/dev/null 2>&1 \
             && ok "deploy-peds.timer habilitado" \
             || falha "deploy-peds.timer nao habilitado"
     else
-        falha "~/MichiganRoleplay/DeployFiles ausente, deploy-peds.timer nao habilitado"
+        falha "~/Apps/servidor/MichiganRoleplay/DeployFiles ausente, deploy-peds.timer nao habilitado"
     fi
 
     # O drkonqi fica 30 min esperando crash pendente e morre por timeout todo boot, sujando
