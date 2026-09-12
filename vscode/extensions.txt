@@ -1,22 +1,19 @@
 # Extensoes instaladas pela etapa `vscode` do setup.sh, uma por linha (id do Open VSX).
+# Ficaram de fora por nao existirem no Open VSX (12/09/2026): color-picker-hex, align-by-regex,
+# remove-comments, file-and-folder-icons, tal7aouy.icons.
 anthropic.claude-code
 ms-ceintl.vscode-language-pack-pt-br
 catppuccin.catppuccin-vsc
 beardedbear.beardedicons
 eamodio.gitlens
 aaron-bond.better-comments
-ekstasis.vscode-color-picker-hex
 evgeniypeshkov.syntax-highlighter
 foxundermoon.shell-format
 timonwong.shellcheck
 github.vscode-github-actions
-janjoerke.align-by-regex
 mechatroner.rainbow-csv
 mguellsegarra.highlight-on-copy
-plibither8.remove-comments
 miguelsolorio.fluent-icons
-nextbook.file-and-folder-icons
-tal7aouy.icons
 rocketseat.theme-omni
 openai.chatgpt
 vscjava.vscode-java-pack
