@@ -1,0 +1,140 @@
+- generic [ref=f5e2]:
+  - generic [ref=f5e3]:
+    - link "Skip to content" [ref=f5e4] [cursor=pointer]:
+      - /url: "#start-of-content"
+    - banner "Global navigation menu" [ref=f5e8]:
+      - generic [ref=f5e9]:
+        - generic [ref=f5e10]:
+          - button "Open menu" [ref=f5e12] [cursor=pointer]
+          - link "Homepage (g then d)" [ref=f5e15] [cursor=pointer]:
+            - /url: /
+        - generic [ref=f5e18]:
+          - navigation "Breadcrumbs" [ref=f5e19]:
+            - list [ref=f5e20]:
+              - listitem [ref=f5e21]:
+                - link "ReCosmicLabs" [ref=f5e22] [cursor=pointer]:
+                  - /url: /ReCosmicLabs
+          - button "Open quick search dialog, type / to search" [ref=f5e26] [cursor=pointer]:
+            - generic [ref=f5e28]:
+              - generic:
+                - text: Type
+                - generic: /
+                - text: to search
+        - generic [ref=f5e29]:
+          - generic [ref=f5e30]:
+            - generic [ref=f5e33]:
+              - link "Chat with Copilot" [ref=f5e35] [cursor=pointer]:
+                - /url: /copilot
+              - button "Open Copilot…" [ref=f5e40] [cursor=pointer]
+            - button "Create new..." [ref=f5e42] [cursor=pointer]
+            - generic [ref=f5e44]:
+              - link "All issues (g then i)" [ref=f5e45] [cursor=pointer]:
+                - /url: /issues
+              - link "All pull requests (g then p)" [ref=f5e49] [cursor=pointer]:
+                - /url: /pulls
+              - link "All repositories" [ref=f5e52] [cursor=pointer]:
+                - /url: /repos
+          - link "You have unread notifications (g then n)" [ref=f5e55] [cursor=pointer]:
+            - /url: /notifications
+          - button "Open user navigation menu" [ref=f5e59] [cursor=pointer]:
+            - img "Alexandre Rangel" [ref=f5e60]
+      - heading "Organization navigation" [level=2] [ref=f5e61]
+      - navigation "Organization" [ref=f5e62]:
+        - list [ref=f5e63]:
+          - listitem [ref=f5e64]:
+            - link "Overview" [ref=f5e65] [cursor=pointer]:
+              - /url: /ReCosmicLabs
+          - listitem [ref=f5e70]:
+            - link "Repositories" [ref=f5e71] [cursor=pointer]:
+              - /url: /orgs/ReCosmicLabs/repositories
+          - listitem [ref=f5e76]:
+            - link "Projects" [ref=f5e77] [cursor=pointer]:
+              - /url: /orgs/ReCosmicLabs/projects
+          - listitem [ref=f5e82]:
+            - link "Packages" [ref=f5e83] [cursor=pointer]:
+              - /url: /orgs/ReCosmicLabs/packages
+          - listitem [ref=f5e88]:
+            - link "Teams" [ref=f5e89] [cursor=pointer]:
+              - /url: /orgs/ReCosmicLabs/teams
+          - listitem [ref=f5e94]:
+            - link "People (1)" [ref=f5e95] [cursor=pointer]:
+              - /url: /orgs/ReCosmicLabs/people
+              - generic [ref=f5e99]: People
+              - generic [ref=f5e100]:
+                - generic [aria-hidden] [ref=f5e101]: "1"
+                - generic [ref=f5e102]: (1)
+          - listitem [ref=f5e103]:
+            - link "Insights" [ref=f5e104] [cursor=pointer]:
+              - /url: /orgs/ReCosmicLabs/insights
+          - listitem [ref=f5e109]:
+            - link "Settings" [ref=f5e110] [cursor=pointer]:
+              - /url: /organizations/ReCosmicLabs/settings/profile
+  - main [ref=f5e117]:
+    - generic [ref=f5e121]:
+      - generic [ref=f5e122]: Start collaborating
+      - heading "Welcome to ReCosmicLabs" [level=1] [ref=f5e123]
+      - heading "Add organization members" [level=2] [ref=f5e124]
+      - paragraph [ref=f5e125]: Organization members will be able to view repositories, organize into teams, review code, and tag other members using @mentions.
+      - paragraph [ref=f5e126]:
+        - link "Learn more about permissions for organizations →" [ref=f5e127] [cursor=pointer]:
+          - /url: https://docs.github.com/articles/permission-levels-for-an-organization
+      - generic [ref=f5e129]:
+        - generic [ref=f5e131]:
+          - generic [ref=f5e132]: Search by username, full name or email address
+          - combobox "Search by username, full name or email address" [ref=f5e137]
+        - generic:
+          - list
+        - button "Complete setup" [ref=f5e138] [cursor=pointer]
+        - link "Skip this step" [ref=f5e140] [cursor=pointer]:
+          - /url: /ReCosmicLabs
+  - contentinfo [ref=f5e141]:
+    - heading "Footer" [level=2] [ref=f5e142]
+    - generic [ref=f5e143]:
+      - generic [ref=f5e144]:
+        - link "GitHub Homepage" [ref=f5e145] [cursor=pointer]:
+          - /url: https://github.com
+        - generic [ref=f5e148]: © 2026 GitHub, Inc.
+      - navigation "Footer" [ref=f5e149]:
+        - heading "Footer navigation" [level=3] [ref=f5e150]
+        - list "Footer navigation" [ref=f5e151]:
+          - listitem [ref=f5e152]:
+            - link "Terms" [ref=f5e153] [cursor=pointer]:
+              - /url: https://docs.github.com/site-policy/github-terms/github-terms-of-service
+          - listitem [ref=f5e154]:
+            - link "Privacy" [ref=f5e155] [cursor=pointer]:
+              - /url: https://docs.github.com/site-policy/privacy-policies/github-privacy-statement
+          - listitem [ref=f5e156]:
+            - link "Security" [ref=f5e157] [cursor=pointer]:
+              - /url: https://github.com/security
+          - listitem [ref=f5e158]:
+            - link "Status" [ref=f5e159] [cursor=pointer]:
+              - /url: https://www.githubstatus.com/
+          - listitem [ref=f5e160]:
+            - link "Community" [ref=f5e161] [cursor=pointer]:
+              - /url: https://github.community/
+          - listitem [ref=f5e162]:
+            - link "Docs" [ref=f5e163] [cursor=pointer]:
+              - /url: https://docs.github.com/
+          - listitem [ref=f5e164]:
+            - link "Contact" [ref=f5e165] [cursor=pointer]:
+              - /url: https://support.github.com?tags=dotcom-footer
+          - listitem [ref=f5e166]:
+            - button "Manage cookies" [ref=f5e168] [cursor=pointer]
+          - listitem [ref=f5e169]:
+            - button "Do not share my personal information" [ref=f5e171] [cursor=pointer]
+  - alert [ref=f5e173]:
+    - paragraph [ref=f5e178]:
+      - text: We use optional cookies to improve your experience on our websites and to display personalized advertising based on your online activity. If you reject optional cookies, only cookies necessary to provide you the services listed above will be used. You may change your selection on which cookies to accept by clicking "Manage Cookies" at the bottom of the page to change your selection. This selection is maintained for 180 days. Please review your selections regularly.
+      - link "How to manage cookie preferences" [ref=f5e179] [cursor=pointer]:
+        - /url: https://docs.github.com/account-and-profile/setting-up-and-managing-your-personal-account-on-github/managing-personal-account-settings/managing-your-cookie-preferences-for-githubs-enterprise-marketing-pages
+      - text: "|"
+      - link "Privacy Statement" [ref=f5e180] [cursor=pointer]:
+        - /url: https://docs.github.com/site-policy/privacy-policies/github-privacy-statement
+      - text: "|"
+      - link "Third-Party Cookies" [ref=f5e181] [cursor=pointer]:
+        - /url: https://docs.github.com/site-policy/privacy-policies/github-subprocessors-and-cookies
+      - text: .
+    - generic [ref=f5e182]:
+      - button "Accept" [ref=f5e183] [cursor=pointer]
+      - button "Reject" [ref=f5e184] [cursor=pointer]
+      - button "Manage cookies" [ref=f5e185] [cursor=pointer]

@@ -122,21 +122,33 @@ la: painel embaixo, apps no centro e status a direita, `background_per_group` (u
 grupo), favoritos, `ignored = ["RicePanel"]`, atalhos `SUPER+E`, `Shift+Print`, `ALT+D` e
 `SUPER+D` (`bin/minimize-all.py`, pywayland falando direto com o
 `zcosmic_toplevel_manager_v1`), e `repeat_delay: 210`. Varias dessas chaves nao existem no
-COSMIC de fabrica -- `background_per_group`, `exclusive_gap` (painel), `ignored`,
-`show_divider`, `hover_popup_delay_ms` (app-list) -- e vem dos **forks**
-`eualexandrerrr/cosmic-panel` e `eualexandrerrr/cosmic-applets` (GPL-3.0-only, credito no
-README de cada um). A ala esquerda tem o Spotify: `cosmic-ext-applet-now-playing`, fork do
-AdityaHebballe (prefere Spotify a aba de navegador, card compacto com icone e capa); o pacote
-do AUR fica na lista so pelo `.desktop` e pelo icone, o binario vem do fork. O alt-tab e o
-`cosmic-launcher` em modo `alt-tab`, e o fork `eualexandrerrr/cosmic-launcher` desenha ele
-centralizado e na horizontal. O RicePanel nasce no monitor errado porque cliente Wayland nao
-escolhe saida: o `bin/cosmic-move-window.py` (protocolo `zcosmic_toplevel_manager_v1`) leva a
-janela pro vertical no `ExecStartPost` da `ricepanel.service`. O
-`bin/cosmic-forks.sh` clona em `~/<repo>`, compila com cargo (o pacote do painel chama
-`cosmic-panel-bin`) e instala em `~/.local/bin`, que vem antes de `/usr/bin` no PATH da
-sessao; so recompila quando o HEAD mudou desde o marcador em
-`~/.local/state/dotfiles/fork-<bin>.commit`. Commit nos forks vai direto na branch principal
-(`master` nos do pop-os, `main` no do applet).
+COSMIC de fabrica e vem dos forks da org **`github.com/ReCosmicLabs`** (12/09/2026), que
+espelha os 32 repositorios do ecossistema da interface -- os cinco com patch nosso e o resto
+so como espelho, pronto pra receber patch sem virar fork solto depois.
+
+| fork | o que ele acrescenta |
+|---|---|
+| `cosmic-panel` | `background_per_group` (uma pilula por grupo), `exclusive_gap` (folga da janela maximizada), `side_inset` (folga das laterais) |
+| `cosmic-applets` | no `cosmic-app-list`: `ignored` (app fora da barra, o `skipTaskbar` que o Wayland nao tem), `show_divider`, `hover_popup_delay_ms` |
+| `cosmic-launcher` | alt-tab centralizado na tela e na horizontal |
+| `cosmic-settings` | secao **ReCosmic** na pagina Painel, com todas as chaves acima na interface grafica, em pt-BR |
+| `cosmic-ext-applet-now-playing` | Spotify na ala esquerda: prefere Spotify a aba de navegador, card compacto com icone, capa e miniatura de video (derivado do AdityaHebballe, nao do pop-os) |
+
+Cada fork tem **duas branches**: `master` (ou `main`) e espelho intocado do upstream, e
+`recosmic` -- a branch padrao -- tem so os nossos patches, rebaseados em cima do espelho.
+Atualizar o COSMIC e `cosmic-forks.sh rebase`, e cada patch nosso continua sendo um commit
+isolado, pronto pra virar PR no upstream. Tudo GPL-3.0-only, com credito no topo do README.
+
+O `bin/cosmic-forks.sh` clona em `~/ReCosmicLabs/<repo>`, compila com cargo (o pacote do
+painel chama `cosmic-panel-bin`) e instala em `~/.local/bin`, que vem antes de `/usr/bin` no
+PATH da sessao; so recompila quando o HEAD mudou desde o marcador em
+`~/.local/state/dotfiles/fork-<bin>.commit`. Subcomandos: `estado`, `rebase`, `forkar`.
+O pacote do AUR do now-playing fica na lista so pelo `.desktop` e pelo icone, o binario vem
+do fork.
+
+O RicePanel nasce no monitor errado porque cliente Wayland nao escolhe saida: o
+`bin/cosmic-move-window.py` (protocolo `zcosmic_toplevel_manager_v1`) leva a janela pro
+vertical e maximiza (`--fill`) no `ExecStartPost` da `ricepanel.service`.
 Cuidado com `size_wings`: e `Option<(Option, Option)>`, e preencher as duas alas derruba o
 painel em loop de erro de protocolo; a forma certa e `Some((None, Some(XS)))`.
 
