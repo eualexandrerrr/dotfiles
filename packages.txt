@@ -159,8 +159,18 @@ ninja
 vulkan-headers
 
 [repo-oficial:painel-segundo-monitor]
-# O RicePanel roda pelo electron do proprio node_modules (ver ricepanel.service), nao pelo
-# pacote do sistema -- por isso so o lm_sensors fica aqui.
+# RicePanel nativo (12/09/2026): musica pelo MPRIS, historico do Chrome, video do navegador
+# (yt-dlp resolve, GStreamer toca; gst-libav decodifica a live em H.264+AAC) e o build em Rust.
+playerctl
+sqlite
+gst-plugins-base
+gst-plugins-good
+gst-libav
+gst-plugin-va
+yt-dlp
+python-pywayland
+# A Estacao do RicePanel (consoles do txAdmin, Dev, Monitor) segue no electron do proprio
+# node_modules, nao no pacote do sistema; o Mirante e o binario em Rust do ricepanel.service.
 lm_sensors
 
 [repo-oficial:apps]

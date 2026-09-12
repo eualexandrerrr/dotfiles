@@ -634,6 +634,87 @@ etapa_notificacoes() {
     fi
 }
 
+# RicePanel nativo (12/09/2026): o Mirante em Rust em ~/Apps/desktop/RicePanel/cosmic e a ponte
+# com o Chrome. Tudo aqui se refaz a partir do repo e da chave da extensao, que vem do pendrive
+# (secrets/list.txt): com a mesma chave o ID nao muda e o Chrome reconhece a extensao de antes.
+etapa_ricepanel() {
+    log "RicePanel: build, host do Chrome e extensao ponte"
+    local repo="$HOME/Apps/desktop/RicePanel/cosmic"
+    if [[ ! -d $repo ]]; then
+        ok "repo do RicePanel ausente, etapa pulada"
+        return
+    fi
+
+    # A Estacao abre pelo electron fixado no package.json do diretorio de cima.
+    if [[ ! -x $repo/../node_modules/electron/dist/electron ]] && command -v npm >/dev/null 2>&1; then
+        (cd "$repo/.." && npm install >/dev/null 2>&1) \
+            && ok "node_modules da Estacao instalado" \
+            || falha "npm install do RicePanel falhou (a Estacao nao abre)"
+    fi
+
+    if command -v cargo >/dev/null 2>&1; then
+        (cd "$repo" && cargo build --release >/dev/null 2>&1) \
+            && ok "ricepanel compilado em release" \
+            || falha "cargo build --release do RicePanel falhou"
+    else
+        falha "cargo ausente: o RicePanel nao compila"
+    fi
+
+    # Chave da extensao: sem ela uma nova e gerada, e o ID muda junto (o host acompanha).
+    local chave="$repo/.extensao-chave.pem"
+    if [[ ! -f $chave ]]; then
+        openssl genrsa -out "$chave" 2048 2>/dev/null && chmod 600 "$chave" \
+            && ok "chave nova da extensao (ID novo)" || falha "nao consegui gerar a chave da extensao"
+    fi
+    local pub id
+    pub=$(openssl rsa -in "$chave" -pubout -outform DER 2>/dev/null | base64 -w0)
+    id=$(openssl rsa -in "$chave" -pubout -outform DER 2>/dev/null | sha256sum | cut -c1-32 | tr '0-9a-f' 'a-p')
+    printf '%s\n' "$id" > "$repo/extensao/id.txt"
+    # O manifest leva a chave publica: e ela que fixa o ID no carregamento sem compactacao.
+    python3 - "$repo/extensao/manifest.json" "$pub" <<'PY'
+import json, sys
+p, pub = sys.argv[1], sys.argv[2]
+m = json.load(open(p)); m["key"] = pub
+json.dump(m, open(p, "w"), ensure_ascii=False, indent=2); open(p, "a").write("\n")
+PY
+
+    # Host de native messaging: o Chrome sobe o proprio binario do painel com a origem da extensao.
+    local hosts="$HOME/.config/google-chrome/NativeMessagingHosts"
+    mkdir -p "$hosts"
+    cat > "$hosts/br.com.eualexandre.ricepanel.json" <<JSON
+{
+  "name": "br.com.eualexandre.ricepanel",
+  "description": "RicePanel: abas de video do Chrome",
+  "path": "$repo/target/release/ricepanel",
+  "type": "stdio",
+  "allowed_origins": ["chrome-extension://$id/"]
+}
+JSON
+    ok "host de native messaging registrado para $id"
+
+    # Extensao externa do Chrome no Linux: CRX empacotado + JSON em /usr/share. Na primeira
+    # abertura o Chrome avisa que uma extensao foi adicionada e pede para ativar -- um clique.
+    local crx_dir="$HOME/.local/share/ricepanel" tmp
+    mkdir -p "$crx_dir"
+    tmp=$(mktemp -d)
+    cp -r "$repo/extensao" "$tmp/ricepanel-ponte"
+    rm -f "$tmp/ricepanel-ponte/id.txt"
+    if google-chrome-stable --headless=new --user-data-dir="$tmp/perfil" --no-first-run \
+        --pack-extension="$tmp/ricepanel-ponte" --pack-extension-key="$chave" >/dev/null 2>&1 \
+        && [[ -f $tmp/ricepanel-ponte.crx ]]; then
+        cp "$tmp/ricepanel-ponte.crx" "$crx_dir/ricepanel-ponte.crx"
+        local versao
+        versao=$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["version"])' "$repo/extensao/manifest.json")
+        printf '{\n  "external_crx": "%s",\n  "external_version": "%s"\n}\n' "$crx_dir/ricepanel-ponte.crx" "$versao" \
+            | sudo tee "/usr/share/google-chrome/extensions/$id.json" >/dev/null \
+            && ok "extensao ponte instalada como externa (ativar no aviso do Chrome)" \
+            || falha "nao consegui gravar /usr/share/google-chrome/extensions/$id.json"
+    else
+        falha "nao consegui empacotar a extensao ponte"
+    fi
+    rm -rf "$tmp"
+}
+
 etapa_painel() {
     log "barra de tarefas: lancadores, icone de audio, badge de grupo e fonte"
     "$DOTFILES_DIR/bin/apply-launchers.sh" \
@@ -749,7 +830,7 @@ etapa_servicos() {
     fi
 }
 
-ETAPAS=(links home perfil arquivos sistema graficos wallpaper cosmic vm ddcutil energia atalhos audio dns console chrome vscode claude notificacoes painel tema servicos)
+ETAPAS=(links home perfil arquivos sistema graficos wallpaper cosmic vm ddcutil energia atalhos audio dns console chrome ricepanel vscode claude notificacoes painel tema servicos)
 
 if [[ ${1:-} == --lista ]]; then
     printf 'etapas: %s\n' "${ETAPAS[*]}"

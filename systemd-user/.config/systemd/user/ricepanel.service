@@ -1,26 +1,20 @@
 [Unit]
-Description=RicePanel: painel do monitor vertical
+Description=RicePanel: painel do monitor vertical (nativo, COSMIC)
 PartOf=graphical-session.target
 After=graphical-session.target apply-screens.service
-# Sem isso os dois sobem juntos no login (mesmo segundo) e o Electron le a tela
-# antes do apply-screens girar/posicionar -- painel nasce na tela errada e so se
-# acha de novo se o Wayland mandar o evento de metrica certo, o que nem sempre manda.
+# Sem isso os dois sobem juntos no login e o painel pode pedir a saída antes de
+# o apply-screens girar e posicionar o monitor.
 Wants=apply-screens.service
 
 [Service]
 Type=simple
 ExecCondition=%h/.dotfiles/bin/monitor.sh vertical
-WorkingDirectory=%h/Apps/desktop/RicePanel
-# O Electron do projeto, nao o do sistema: o painel e fixado no 33 pelo
-# package.json, e subir com o 43 do Arch deu janela que nao pinta nada —
-# processo vivo, log rolando, tela so com o papel de parede.
-ExecStart=%h/Apps/desktop/RicePanel/node_modules/electron/dist/electron --password-store=basic --ozone-platform-hint=auto .
-# No COSMIC o cliente nao escolhe o monitor: quem leva a janela pro vertical e o compositor,
-# pelo protocolo de toplevel. Fora do COSMIC o script sai com 0 sem fazer nada.
-ExecStartPost=-/bin/sh -c 'exec %h/.dotfiles/bin/cosmic-move-window.py --wait 25 --fill RicePanel "$(%h/.dotfiles/bin/monitor.sh vertical)"'
+WorkingDirectory=%h/Apps/desktop/RicePanel/cosmic
+# Layer surface: o compositor sabe em que saída o painel mora, então não há
+# mais ExecStartPost movendo janela. A saída vem do cosmic-config (`saida`).
+ExecStart=%h/Apps/desktop/RicePanel/cosmic/target/release/ricepanel
 Restart=on-failure
 RestartSec=5
-Environment=ELECTRON_OZONE_PLATFORM_HINT=auto
 
 [Install]
 WantedBy=graphical-session.target
