@@ -12,7 +12,7 @@
     "workbench.startupEditor": "none",
     "workbench.sideBar.location": "left",
     "workbench.secondarySideBar.defaultVisibility": "hidden",
-    "terminal.integrated.defaultLocation": "view",
+    "terminal.integrated.defaultLocation": "editor",
     "workbench.editor.openSideBySideDirection": "right",
     "scm.defaultViewMode": "tree",
     "claudeCode.useTerminal": true,
@@ -22,6 +22,12 @@
     "terminal.integrated.profiles.linux": {
         "zsh": {
             "path": "/usr/bin/zsh"
+        },
+        "Claude": {
+            "path": "/usr/bin/claude",
+            "icon": "sparkle",
+            "color": "terminal.ansiMagenta",
+            "overrideName": true
         }
     },
     "terminal.integrated.defaultProfile.linux": "zsh",

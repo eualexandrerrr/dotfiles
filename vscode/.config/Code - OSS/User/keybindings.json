@@ -1,2 +1,18 @@
+// Ctrl+N abre o Claude CLI como aba do editor, no lugar do "novo arquivo" (conceito do RCode).
+// Nunca no painel de terminal embaixo: location=editor aqui e defaultLocation=editor no settings.
+// Arquivo em branco de verdade: Ctrl+Alt+N.
 [
+    {
+        "key": "ctrl+n",
+        "command": "-workbench.action.files.newUntitledFile"
+    },
+    {
+        "key": "ctrl+n",
+        "command": "workbench.action.terminal.newWithProfile",
+        "args": { "profileName": "Claude", "location": "editor" }
+    },
+    {
+        "key": "ctrl+alt+n",
+        "command": "workbench.action.files.newUntitledFile"
+    }
 ]
