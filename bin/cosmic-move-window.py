@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """Move as janelas de um app pra saida pedida, na sessao COSMIC.
 
-    cosmic-move-window.py [--wait SEG] [--fill] <app_id> <saida>
+    cosmic-move-window.py [--wait SEG] [--fill|--fullscreen] <app_id> <saida>
     cosmic-move-window.py --wait 20 --fill RicePanel DP-1
+    cosmic-move-window.py --list                 lista app_id, titulo e saida de cada janela
 
 Cliente Wayland nao escolhe em que monitor nasce, e o COSMIC 1.8 nao tem regra de janela
 por saida. Quem move e o zcosmic_toplevel_manager_v1 (move_to_ext_workspace), que precisa
@@ -37,6 +38,8 @@ def main():
     args = sys.argv[1:]
     espera = 0.0
     encher = False
+    tela_cheia = False
+    listar = False
     while args and args[0].startswith("--"):
         if args[0] == "--wait":
             espera = float(args[1])
@@ -44,8 +47,16 @@ def main():
         elif args[0] == "--fill":
             encher = True
             args = args[1:]
+        elif args[0] == "--fullscreen":
+            tela_cheia = True
+            args = args[1:]
+        elif args[0] == "--list":
+            listar = True
+            args = args[1:]
         else:
             break
+    if listar:
+        args = ["", ""]
     if len(args) != 2:
         print("uso: cosmic-move-window.py [--wait SEG] <app_id> <saida>", file=sys.stderr)
         return 2
@@ -101,9 +112,10 @@ def main():
     achados["areas"].dispatcher["workspace"] = nova_area
 
     def nova_janela(_l, handle):
-        info = {"app": None, "cosmic": None, "saidas": set(), "areas": set()}
+        info = {"app": None, "titulo": None, "cosmic": None, "saidas": set(), "areas": set()}
         janelas[handle] = info
         handle.dispatcher["app_id"] = lambda h, a: info.__setitem__("app", a)
+        handle.dispatcher["title"] = lambda h, t: info.__setitem__("titulo", t)
         cosmic = achados["info"].get_cosmic_toplevel(handle)
         info["cosmic"] = cosmic
         cosmic.dispatcher["output_enter"] = lambda c, o: info["saidas"].add(o)
@@ -128,6 +140,13 @@ def main():
         display.roundtrip()
         if all(j["saidas"] for j in janelas.values()):
             break
+
+    if listar:
+        for j in janelas.values():
+            print("%-28s %-40s %s" % (j["app"], (j["titulo"] or "")[:40],
+                                      ",".join(saidas.get(o) or "?" for o in j["saidas"])))
+        display.disconnect()
+        return 0
 
     if os.environ.get("COSMIC_MOVE_DEBUG"):
         for j in janelas.values():
@@ -174,10 +193,12 @@ def main():
             movidas += 1
         if encher:
             achados["manager"].set_maximized(j["cosmic"])
+        if tela_cheia:
+            achados["manager"].set_fullscreen(j["cosmic"], saida_alvo)
 
     display.roundtrip()
     display.disconnect()
-    if not movidas and not encher and not any(j["app"] == alvo_app for j in janelas.values()):
+    if not movidas and not encher and not tela_cheia and not any(j["app"] == alvo_app for j in janelas.values()):
         print("cosmic-move-window: nenhuma janela com app_id '%s'" % alvo_app, file=sys.stderr)
         return 1
     return 0
