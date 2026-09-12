@@ -124,6 +124,10 @@ FIM
 # que gera o VK_ERROR_OUT_OF_DEVICE_MEMORY, ver vm/guest-game.sh) e ja conecta no servidor
 # local (o host visto da VM e 192.168.122.1, nunca localhost); sem servidor no ar o RedM cai
 # no menu normal.
+# Tambem forca borderless 2560x1440 no system.xml que o RedM usa de verdade
+# (%APPDATA%\CitizenFX\rdr3_settings, nao o de Documents): o RAGE grava o tamanho da janela
+# quando o modo de video muda com o jogo aberto, e "borderless" e a janela nesse tamanho --
+# ficou 1706x920 passando pelo DWM, e o stream caiu pra 35 fps.
 app_redm() {
     local exe='D:\Jogos\RedM\RedM.exe' cache='D:\Jogos\RedM\RedM.app\data\cache'
     local servidor="${GAME_CONNECT:-192.168.122.1:30120}"
@@ -143,6 +147,12 @@ FIM
 New-Item -ItemType Directory -Force -Path \$dir | Out-Null
 @'
 Remove-Item '$cache' -Recurse -Force -ErrorAction SilentlyContinue
+\$xml = \"\$env:APPDATA\\CitizenFX\\rdr3_settings\\system.xml\"
+if (Test-Path \$xml) {
+    \$s = Get-Content \$xml -Raw
+    \$s = \$s -replace '<screenWidthWindowed value=\"\\d+\" />', '<screenWidthWindowed value=\"2560\" />' -replace '<screenHeightWindowed value=\"\\d+\" />', '<screenHeightWindowed value=\"1440\" />' -replace '<windowed value=\"\\d\" />', '<windowed value=\"2\" />'
+    Set-Content \$xml \$s -NoNewline
+}
 Start-Process -FilePath '$exe' -ArgumentList 'redm://connect/$servidor'
 '@ | Set-Content -Path \"\$dir\\vypr-redm.ps1\" -Encoding ASCII
 \$action = New-ScheduledTaskAction -Execute 'powershell.exe' -Argument \"-NoProfile -WindowStyle Hidden -ExecutionPolicy Bypass -File \$dir\\vypr-redm.ps1\"
