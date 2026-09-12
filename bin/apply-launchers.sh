@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
-# Fixa os lancadores da barra de tarefas, na ordem de uso: Dolphin, Chrome, Discord, RCode.
+# Fixa os lancadores da barra de tarefas, na ordem de uso: Dolphin, Chrome, Discord, VS Code.
 # O menu iniciar e applet separado (kickoff), ja no painel de fabrica -- nao entra aqui.
 #
 # Chrome pelo google-chrome.desktop, e nao pelo com.google.Chrome.desktop: a janela anuncia
 # a classe `google-chrome`, e so o .desktop de nome igual funde o icone fixado com a janela
-# aberta. O rcode.desktop quem instala e o proprio RCode (scripts/instalar.mjs); aqui so se
+# aberta. O code-oss.desktop vem do pacote code-rcode (bin/vscode-build.sh); aqui so se
 # aponta pra ele, igual o setup faz com o RicePanel.
 #
 # Tambem desliga o icone de auto-falante que o Plasma poe em cima de janela com audio
@@ -18,7 +18,7 @@ set -uo pipefail
 
 ARQUIVO="plasma-org.kde.plasma.desktop-appletsrc"
 CAMINHO="${XDG_CONFIG_HOME:-$HOME/.config}/$ARQUIVO"
-LANCADORES_DESEJADOS="applications:org.kde.dolphin.desktop,applications:google-chrome.desktop,applications:discord.desktop,applications:rcode.desktop"
+LANCADORES_DESEJADOS="applications:org.kde.dolphin.desktop,applications:google-chrome.desktop,applications:discord.desktop,applications:code-oss.desktop"
 
 [[ -f $CAMINHO ]] || exit 0
 command -v kwriteconfig6 >/dev/null 2>&1 || exit 0

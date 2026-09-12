@@ -1,13 +1,13 @@
 [Unit]
 Description=Deploy FTP da pasta [peds] do Michigan Roleplay
-Documentation=file:%h/Apps/servidor/MichiganRoleplay/DeployFiles/autosync.sh
+Documentation=file:%h/MichiganRoleplay/DeployFiles/autosync.sh
 
 [Service]
 Type=oneshot
-WorkingDirectory=%h/Apps/servidor/MichiganRoleplay/DeployFiles
+WorkingDirectory=%h/MichiganRoleplay/DeployFiles
 Environment=NODE_BIN=/usr/bin/node
 # network-online.target nao existe no gerenciador de usuario -- um Wants= nele e ignorado
 # em silencio e o deploy sairia sem rede. Aqui a espera e explicita, com teto de 2 min.
 ExecStartPre=/usr/bin/bash -c 'for _ in $(seq 1 24); do getent hosts github.com >/dev/null 2>&1 && exit 0; sleep 5; done; exit 1'
-ExecStart=%h/Apps/servidor/MichiganRoleplay/DeployFiles/autosync.sh
+ExecStart=%h/MichiganRoleplay/DeployFiles/autosync.sh
 TimeoutStartSec=1800

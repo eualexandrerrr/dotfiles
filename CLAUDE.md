@@ -135,15 +135,18 @@ so como espelho, pronto pra receber patch sem virar fork solto depois.
 | `cosmic-files` | menu lateral redimensionavel pela borda (alca de 6 px), largura salva em `nav_bar_width`; pasta pessoal aparece com o nome do usuario, nao "Pasta pessoal" |
 | `cosmic-ext-applet-now-playing` | Spotify na ala esquerda: prefere Spotify a aba de navegador, card compacto com icone, capa e miniatura de video, e volume do proprio app no popup (derivado do AdityaHebballe, nao do pop-os) |
 
-Cada fork tem **duas branches**: `master` (ou `main`) e espelho intocado do upstream, e
-`recosmic` -- a branch padrao -- tem so os nossos patches, rebaseados em cima do espelho.
+Cada fork tem **duas branches**: `upstream` e espelho intocado do upstream (o `master` ou
+`main` deles), e `main` -- a branch padrao, **sempre `main`, regra dele** -- tem so os nossos
+patches, rebaseados em cima do espelho; num repo sem patch as duas apontam pro mesmo commit.
 Atualizar o COSMIC e `cosmic-forks.sh rebase`, e cada patch nosso continua sendo um commit
 isolado, pronto pra virar PR no upstream. Tudo GPL-3.0-only, com credito no topo do README.
+O `cosmic-forks.sh ramos` poe um fork nesse padrao (fork novo nasce so com a branch deles; o
+rename do GitHub e assincrono, por isso ele tenta de novo).
 
 O `bin/cosmic-forks.sh` clona em `~/Apps/desktop/ReCosmicLabs/<repo>`, compila com cargo (o pacote do
 painel chama `cosmic-panel-bin`) e instala em `~/.local/bin`, que vem antes de `/usr/bin` no
 PATH da sessao; so recompila quando o HEAD mudou desde o marcador em
-`~/.local/state/dotfiles/fork-<bin>.commit`. Subcomandos: `estado`, `rebase`, `forkar`.
+`~/.local/state/dotfiles/fork-<bin>.commit`. Subcomandos: `estado`, `rebase`, `forkar`, `ramos`.
 O pacote do AUR do now-playing fica na lista so pelo `.desktop` e pelo icone, o binario vem
 do fork.
 
@@ -159,6 +162,20 @@ O RicePanel nasce no monitor errado porque cliente Wayland nao escolhe saida: o
 vertical e maximiza (`--fill`) no `ExecStartPost` da `ricepanel.service`.
 Cuidado com `size_wings`: e `Option<(Option, Option)>`, e preencher as duas alas derruba o
 painel em loop de erro de protocolo; a forma certa e `Some((None, Some(XS)))`.
+
+**O editor e o VS Code compilado do fork privado dele** (`github.com/eualexandrerrr/vscode`,
+desde 12/09/2026; o RCode, editor proprio em Electron, parou de ser desenvolvido). Mesmo
+modelo dos forks do COSMIC: `upstream` espelha o microsoft/vscode, `main` tem os patches
+rebaseados em cima da tag que o Arch empacota (`1.137.0` hoje), e o produto e o pacote
+`code-rcode` -- o PKGBUILD do Arch pro `code`, copiado em `vscode/pkg/` com a fonte trocada,
+`provides=('code')`, instalado em `/usr/lib/code` como o original. Quem compila e o
+`bin/vscode-build.sh` (etapa `vscode` do `setup.sh`), so quando a `main` mudou desde o
+marcador; o build exige Node do major do `.nvmrc` (24) e a maquina tem o 26, entao ele baixa
+um Node 24 avulso pra `~/.cache/dotfiles/node` que so entra no PATH do makepkg. O `pkgver()`
+le a tag pelo clone do GitHub: a tag tem que estar no fork (`vscode-build.sh rebase <tag>` sobe
+ela junto). Config vai por stow: pacote `vscode/` com `settings.json` em `~/.config/Code - OSS`
+e `~/.vscode-oss/argv.json` (`password-store: basic`, sem keyring); extensoes do Open VSX em
+`vscode/extensions.txt`. `pkg/` e `extensions.txt` estao no `.stow-local-ignore`.
 
 **O que e hardware vale em todos os dez desktops.** Layout de tela e papel de parede sao
 disposicao de monitor, nao personalizacao: o `bin/apply-screens.sh` e o `bin/apply-wallpaper.sh`
@@ -225,6 +242,7 @@ aqui: este repo e publico. Sem o clone, `git clone git@github.com:eualexandrerrr
 | Rodar o `install.sh`, entender etapa que falhou | `~/Claude/maquina/docs/install-fluxo.md` |
 | Disposicao de telas, marca de cada monitor (`screens.conf`) | `~/Claude/maquina/docs/monitores.md` |
 | COSMIC: chaves do painel, seeds em `state/cosmic/`, forks, armadilhas | `~/Claude/maquina/docs/cosmic.md` |
+| VS Code: fork privado, pacote `code-rcode`, `bin/vscode-build.sh`, extensoes | `~/Claude/maquina/docs/vscode.md` |
 | DNS, keyring, por que NAO instalar gnome-keyring | `~/Claude/maquina/docs/dns-e-keyring.md` |
 | Suspender, hibernar, apagar monitor por inatividade | `~/Claude/maquina/docs/energia.md` |
 | Desligar travado ou lento, tela preta no shutdown, fonte e cor do console | `~/Claude/maquina/docs/energia.md` |

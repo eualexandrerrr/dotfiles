@@ -162,6 +162,31 @@ etapa_chrome() {
     fi
 }
 
+etapa_vscode() {
+    log "VS Code: pacote code-rcode do fork, extensoes"
+
+    # O editor e o Code - OSS compilado do fork privado eualexandrerrr/vscode (branch rcode),
+    # como pacote code-rcode -- modelo dos forks do COSMIC, so que o produto e um pacote do
+    # pacman em vez de um binario em ~/.local/bin. So recompila quando a branch mudou.
+    bash "$DOTFILES_DIR/bin/vscode-build.sh" || falha "vscode-build.sh falhou"
+    command -v code >/dev/null 2>&1 || { falha "code nao instalado, extensoes ficam pra depois"; return; }
+
+    # settings.json e argv.json vem pelo stow (pacote vscode/). As extensoes vem do Open VSX,
+    # uma por linha em vscode/extensions.txt; instala so o que falta.
+    local instaladas faltam=0 ext
+    instaladas="$(code --list-extensions 2>/dev/null | tr '[:upper:]' '[:lower:]')"
+    while IFS= read -r ext; do
+        [[ -z $ext || $ext == \#* ]] && continue
+        grep -qx "${ext,,}" <<<"$instaladas" && continue
+        if code --install-extension "$ext" >/dev/null 2>&1; then
+            faltam=$((faltam+1))
+        else
+            falha "extensao $ext nao instalou (existe no Open VSX?)"
+        fi
+    done <"$DOTFILES_DIR/vscode/extensions.txt"
+    ok "$faltam extensao(oes) instalada(s), o resto ja estava"
+}
+
 etapa_claude() {
     log "settings do Claude Code"
     # A pasta mora no repo PRIVADO ~/Claude, nunca aqui: skills, comandos e settings sao
@@ -574,7 +599,7 @@ etapa_notificacoes() {
 etapa_painel() {
     log "barra de tarefas: lancadores, icone de audio, badge de grupo e fonte"
     "$DOTFILES_DIR/bin/apply-launchers.sh" \
-        && ok "Dolphin, Chrome, Discord e RCode fixados, icone de audio desligado" \
+        && ok "Dolphin, Chrome, Discord e VS Code fixados, icone de audio desligado" \
         || falha "nao consegui ajustar a barra de tarefas"
 
     "$DOTFILES_DIR/bin/apply-task-group-icon.sh" \
@@ -667,13 +692,13 @@ etapa_servicos() {
     fi
 
     # Deploy da pasta [peds] do Michigan, 3x por dia. Depende do repo de deploy estar clonado.
-    if [[ -x "$HOME/Apps/servidor/MichiganRoleplay/DeployFiles/autosync.sh" ]]; then
+    if [[ -x "$HOME/MichiganRoleplay/DeployFiles/autosync.sh" ]]; then
         /usr/bin/systemctl --user enable deploy-peds.timer >/dev/null 2>&1 \
             && /usr/bin/systemctl --user start deploy-peds.timer >/dev/null 2>&1 \
             && ok "deploy-peds.timer habilitado" \
             || falha "deploy-peds.timer nao habilitado"
     else
-        falha "~/Apps/servidor/MichiganRoleplay/DeployFiles ausente, deploy-peds.timer nao habilitado"
+        falha "~/MichiganRoleplay/DeployFiles ausente, deploy-peds.timer nao habilitado"
     fi
 
     # O drkonqi fica 30 min esperando crash pendente e morre por timeout todo boot, sujando
@@ -686,7 +711,7 @@ etapa_servicos() {
     fi
 }
 
-ETAPAS=(links home perfil arquivos sistema graficos wallpaper cosmic vm ddcutil energia atalhos audio dns console chrome claude notificacoes painel tema servicos)
+ETAPAS=(links home perfil arquivos sistema graficos wallpaper cosmic vm ddcutil energia atalhos audio dns console chrome vscode claude notificacoes painel tema servicos)
 
 if [[ ${1:-} == --lista ]]; then
     printf 'etapas: %s\n' "${ETAPAS[*]}"

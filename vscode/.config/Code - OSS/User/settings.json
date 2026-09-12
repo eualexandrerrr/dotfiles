@@ -1,0 +1,21 @@
+{
+    "terminal.integrated.mouseWheelScrollSensitivity": 3,
+    "terminal.integrated.fontFamily": "JetBrainsMono Nerd Font",
+    "terminal.integrated.gpuAcceleration": "off",
+    "workbench.iconTheme": "bearded-icons",
+    "explorer.confirmDelete": false,
+    "explorer.confirmPasteNative": false,
+    "security.workspace.trust.untrustedFiles": "open",
+    "extensions.ignoreRecommendations": true,
+    "java.gradle.buildServer.enabled": "off",
+    "task.allowAutomaticTasks": "on",
+    "workbench.startupEditor": "none",
+    "workbench.sideBar.location": "left",
+    "workbench.secondarySideBar.defaultVisibility": "visible",
+    "terminal.integrated.defaultLocation": "view",
+    "workbench.editor.openSideBySideDirection": "right",
+    "scm.defaultViewMode": "tree",
+    "claudeCode.useTerminal": true,
+    "claudeCode.autosave": true,
+    "workbench.colorTheme": "Catppuccin Mocha"
+}

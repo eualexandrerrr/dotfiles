@@ -1,0 +1,7 @@
+// Argumentos permanentes do Code - OSS. `password-store: basic` porque esta maquina nao tem
+// gnome-keyring nem kwallet de proposito (ver ~/Claude/maquina/docs/dns-e-keyring.md).
+{
+	"locale": "pt-br",
+	"password-store": "basic",
+	"enable-crash-reporter": false
+}
