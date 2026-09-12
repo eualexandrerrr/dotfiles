@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Move as janelas de um app pra saida pedida, na sessao COSMIC.
 
-    cosmic-move-window.py [--wait SEG] <app_id> <saida>
-    cosmic-move-window.py --wait 20 RicePanel DP-1
+    cosmic-move-window.py [--wait SEG] [--fill] <app_id> <saida>
+    cosmic-move-window.py --wait 20 --fill RicePanel DP-1
 
 Cliente Wayland nao escolhe em que monitor nasce, e o COSMIC 1.8 nao tem regra de janela
 por saida. Quem move e o zcosmic_toplevel_manager_v1 (move_to_ext_workspace), que precisa
@@ -10,6 +10,10 @@ de uma area de trabalho daquela saida. O ext_workspace do COSMIC nao anuncia out
 nos grupos, entao a relacao area -> saida sai das janelas ja abertas: o handle do COSMIC de
 cada toplevel diz em que saida e em que area ele esta. Se nenhuma janela esta na saida alvo,
 sobra por eliminacao o grupo que nao pertence a nenhuma outra saida.
+
+Com --fill a janela ainda e maximizada na saida nova: mudar de area de trabalho preserva a
+posicao relativa que ela tinha na saida antiga, entao uma janela do tamanho da tela chega
+deslocada; maximizar encosta ela no lugar certo.
 
 Fora do COSMIC (sem os protocolos) sai com 0 sem fazer nada, pra poder ficar numa unit.
 """
@@ -32,9 +36,16 @@ def carregar_ligacoes():
 def main():
     args = sys.argv[1:]
     espera = 0.0
-    if args[:1] == ["--wait"]:
-        espera = float(args[1])
-        args = args[2:]
+    encher = False
+    while args and args[0].startswith("--"):
+        if args[0] == "--wait":
+            espera = float(args[1])
+            args = args[2:]
+        elif args[0] == "--fill":
+            encher = True
+            args = args[1:]
+        else:
+            break
     if len(args) != 2:
         print("uso: cosmic-move-window.py [--wait SEG] <app_id> <saida>", file=sys.stderr)
         return 2
@@ -156,14 +167,17 @@ def main():
 
     movidas = 0
     for j in janelas.values():
-        if j["app"] != alvo_app or saida_alvo in j["saidas"]:
+        if j["app"] != alvo_app:
             continue
-        achados["manager"].move_to_ext_workspace(j["cosmic"], area_alvo, saida_alvo)
-        movidas += 1
+        if saida_alvo not in j["saidas"]:
+            achados["manager"].move_to_ext_workspace(j["cosmic"], area_alvo, saida_alvo)
+            movidas += 1
+        if encher:
+            achados["manager"].set_maximized(j["cosmic"])
 
     display.roundtrip()
     display.disconnect()
-    if not movidas and not any(j["app"] == alvo_app for j in janelas.values()):
+    if not movidas and not encher and not any(j["app"] == alvo_app for j in janelas.values()):
         print("cosmic-move-window: nenhuma janela com app_id '%s'" % alvo_app, file=sys.stderr)
         return 1
     return 0
