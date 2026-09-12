@@ -47,7 +47,7 @@ FORKS=(
     "cosmic-idle|||pop-os|master"
     "cosmic-randr|||pop-os|master"
     "cosmic-screenshot|||pop-os|master"
-    "cosmic-files|||pop-os|master"
+    "cosmic-files|cosmic-files|cosmic-files|pop-os|master"
     "cosmic-term|||pop-os|master"
     "cosmic-edit|||pop-os|master"
     "cosmic-store|||pop-os|master"
@@ -110,7 +110,7 @@ construir() {
         ok "$binario instalado em $BIN (log em $ESTADO/fork-$binario.log)"
         case "$binario" in
             cosmic-launcher) REINICIAR_LAUNCHER=1 ;;
-            cosmic-settings) ;;
+            cosmic-settings|cosmic-files) ;;
             *) REINICIAR_PAINEL=1 ;;
         esac
     else
