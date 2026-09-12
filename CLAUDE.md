@@ -127,7 +127,11 @@ COSMIC de fabrica -- `background_per_group`, `exclusive_gap` (painel), `ignored`
 `eualexandrerrr/cosmic-panel` e `eualexandrerrr/cosmic-applets` (GPL-3.0-only, credito no
 README de cada um). A ala esquerda tem o Spotify: `cosmic-ext-applet-now-playing`, fork do
 AdityaHebballe (prefere Spotify a aba de navegador, card compacto com icone e capa); o pacote
-do AUR fica na lista so pelo `.desktop` e pelo icone, o binario vem do fork. O
+do AUR fica na lista so pelo `.desktop` e pelo icone, o binario vem do fork. O alt-tab e o
+`cosmic-launcher` em modo `alt-tab`, e o fork `eualexandrerrr/cosmic-launcher` desenha ele
+centralizado e na horizontal. O RicePanel nasce no monitor errado porque cliente Wayland nao
+escolhe saida: o `bin/cosmic-move-window.py` (protocolo `zcosmic_toplevel_manager_v1`) leva a
+janela pro vertical no `ExecStartPost` da `ricepanel.service`. O
 `bin/cosmic-forks.sh` clona em `~/<repo>`, compila com cargo (o pacote do painel chama
 `cosmic-panel-bin`) e instala em `~/.local/bin`, que vem antes de `/usr/bin` no PATH da
 sessao; so recompila quando o HEAD mudou desde o marcador em

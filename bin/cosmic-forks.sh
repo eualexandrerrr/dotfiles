@@ -10,6 +10,7 @@
 #   github.com/eualexandrerrr/cosmic-panel                  background_per_group, exclusive_gap
 #   github.com/eualexandrerrr/cosmic-applets                ignored, show_divider, hover_popup_delay_ms
 #   github.com/eualexandrerrr/cosmic-ext-applet-now-playing  Spotify na ala esquerda (derivado do AdityaHebballe)
+#   github.com/eualexandrerrr/cosmic-launcher               alt-tab horizontal e centralizado
 #
 # So recompila quando o HEAD do repo mudou desde o ultimo binario instalado: o marcador em
 # ~/.local/state/dotfiles/ guarda o commit. Compilar do zero leva uns 3 min; incremental, 30 s.
@@ -25,6 +26,7 @@ FORKS=(
     "cosmic-panel|cosmic-panel-bin|cosmic-panel|pop-os|master"
     "cosmic-applets|cosmic-app-list|cosmic-app-list|pop-os|master"
     "cosmic-ext-applet-now-playing|cosmic-ext-applet-now-playing|cosmic-ext-applet-now-playing|AdityaHebballe|main"
+    "cosmic-launcher|cosmic-launcher|cosmic-launcher|pop-os|master"
 )
 
 ok()   { printf '  ok %s\n' "$*"; }
@@ -57,16 +59,20 @@ instalar() {
             install -Dm755 "$dir/target/release/$binario" "$BIN/$binario"
             printf '%s' "$head" >"$marca"
             ok "$binario instalado em $BIN (log em $ESTADO/fork-$binario.log)"
-            REINICIAR_PAINEL=1
+            if [[ $binario == cosmic-launcher ]]; then REINICIAR_LAUNCHER=1; else REINICIAR_PAINEL=1; fi
         else
             warn "$binario: cargo build falhou -- veja $ESTADO/fork-$binario.log"
         fi
     done
 
     # O painel so le binario novo quando nasce de novo. So mexe se a sessao for COSMIC e o
-    # painel estiver de pe; o cosmic-session respawna sozinho.
+    # painel estiver de pe; o cosmic-session respawna sozinho (com espera que dobra a cada
+    # reinicio seguido, entao nada de matar sem ter compilado algo).
     if [[ ${REINICIAR_PAINEL:-0} == 1 ]] && pgrep -x cosmic-panel >/dev/null 2>&1; then
         pkill -x cosmic-panel && ok "cosmic-panel reiniciado com os binarios novos"
+    fi
+    if [[ ${REINICIAR_LAUNCHER:-0} == 1 ]] && pgrep -x cosmic-launcher >/dev/null 2>&1; then
+        pkill -x cosmic-launcher && ok "cosmic-launcher reiniciado com o binario novo"
     fi
 }
 
@@ -86,6 +92,7 @@ estado() {
 }
 
 REINICIAR_PAINEL=0
+REINICIAR_LAUNCHER=0
 case "${1:-instalar}" in
     instalar) instalar ;;
     estado)   estado ;;
