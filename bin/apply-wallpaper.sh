@@ -135,8 +135,10 @@ backend_hyprpaper() {
 }
 
 # O cosmic-bg guarda um arquivo por chave em ~/.config/cosmic/com.system76.CosmicBackground/v1,
-# em RON: `same-on-all`, `backgrounds` com a lista de saidas e um arquivo por saida, cujo nome
-# e o proprio conector. `all` e o padrao de quem nao tiver arquivo proprio.
+# em RON: `same-on-all`, `backgrounds` com a lista de saidas e um arquivo por saida, chamado
+# `output.<conector>` (cosmic-bg-config le `["output.", nome].concat()`; um arquivo so com o
+# nome do conector e ignorado e a saida cai no `all`, que e o padrao de quem nao tiver o seu).
+# Formato e o mesmo que o cosmic-settings grava: tupla sem o nome `Entry`.
 backend_cosmic() {
     local dir="$CFG/cosmic/com.system76.CosmicBackground/v1"
     mkdir -p "$dir"
@@ -144,11 +146,12 @@ backend_cosmic() {
     printf '["%s", "%s"]' "$principal" "$vertical" > "$dir/backgrounds"
 
     entrada() {
-        printf 'Entry(\n    output: "%s",\n    source: Path("%s"),\n    filter_by_theme: false,\n    rotation_frequency: 300,\n    filter_method: Lanczos,\n    scaling_mode: Zoom,\n    sampling_method: Alphanumeric,\n)\n' "$1" "$2"
+        printf '(\n    output: "%s",\n    source: Path("%s"),\n    filter_by_theme: false,\n    rotation_frequency: 300,\n    filter_method: Lanczos,\n    scaling_mode: Zoom,\n    sampling_method: Alphanumeric,\n)\n' "$1" "$2"
     }
     entrada all "$DEITADA" > "$dir/all"
-    [[ -n $principal ]] && entrada "$principal" "$DEITADA" > "$dir/$principal"
-    [[ -n $vertical ]] && entrada "$vertical" "$EM_PE" > "$dir/$vertical"
+    # Versao anterior deste script gravava so o nome do conector; limpa o que sobrou.
+    [[ -n $principal ]] && { rm -f "$dir/$principal"; entrada "$principal" "$DEITADA" > "$dir/output.$principal"; }
+    [[ -n $vertical ]] && { rm -f "$dir/$vertical"; entrada "$vertical" "$EM_PE" > "$dir/output.$vertical"; }
     return 0
 }
 
