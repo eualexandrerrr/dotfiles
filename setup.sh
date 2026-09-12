@@ -334,7 +334,7 @@ etapa_graficos() {
 
     local info
     info="$(bash "$DOTFILES_DIR/bin/render-gpu.sh")" || { falha "nenhuma GPU com monitor ligado"; return; }
-    local GPU_DRIVER GPU_PCI GPU_CARD GPU_OUTRAS
+    local GPU_DRIVER GPU_PCI GPU_CARD GPU_OUTRAS GPU_IDS
     eval "$info"
 
     # environment.d e lido pelo systemd --user, que e quem sobe a sessao no GNOME, no Plasma
@@ -362,7 +362,10 @@ etapa_graficos() {
         # O cosmic-comp escolhe a GPU de render sozinho e pega a Boot VGA, igual ao KWin e ao
         # mutter: em 12/09/2026 ele renderizava na 3090 e copiava pela PCIe pra AMD, e a tela
         # parecia travada mesmo com os dois monitores a 144 Hz. Aceita o caminho pci- direto.
-        printf 'COSMIC_RENDER_DEVICE=pci-%s\n' "$GPU_PCI"
+        # Pelo par vendor:device, nao pelo `pci-...`: nesse formato o cosmic-comp 1.8 le o
+        # symlink de by-path e tenta abrir o alvo relativo (`../renderD129`), que nao existe --
+        # "failed to get node from path". Com o id ele nao resolve caminho nenhum.
+        [[ -n ${GPU_IDS:-} ]] && printf 'COSMIC_RENDER_DEVICE=%s\n' "$GPU_IDS"
     } > "$envdir/50-dotfiles.conf"
     ok "~/.config/environment.d/50-dotfiles.conf (telas na $GPU_DRIVER, $GPU_PCI)"
 

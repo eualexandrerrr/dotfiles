@@ -51,3 +51,9 @@ printf 'GPU_DRIVER=%s\n' "$candidato_drv"
 printf 'GPU_PCI=%s\n' "$candidato_pci"
 printf 'GPU_CARD=/dev/dri/by-path/pci-%s-card\n' "$candidato_pci"
 printf 'GPU_OUTRAS=%s\n' "${outras[*]-}"
+
+# vendor:device do PCI. O cosmic-comp aceita esse par e nao resolve caminho nenhum -- o
+# formato `pci-...` dele le o symlink de by-path e nao resolve o `../`, entao falha.
+_dev="/sys/bus/pci/devices/$candidato_pci"
+[[ -r $_dev/vendor && -r $_dev/device ]] &&
+    printf 'GPU_IDS=%s:%s\n' "$(<"$_dev/vendor")" "$(<"$_dev/device")"
