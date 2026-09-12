@@ -73,12 +73,19 @@ status() {
     # Desktop escolhido no install.sh; sem o arquivo, kde (o unico com config versionada).
     de="$(cat "${XDG_STATE_HOME:-$HOME/.local/state}/dotfiles/de" 2>/dev/null)"
     de="${de:-kde}"
+    # Mesma tabela do de_binarios/de_dm do install.sh -- desktop novo entra nos dois lugares.
     case "$de" in
-        kde)      binarios="startplasma-wayland plasmashell systemsettings"; dm=sddm ;;
-        gnome)    binarios="gnome-shell nautilus";                           dm=gdm  ;;
-        xfce)     binarios="xfce4-session thunar";                           dm=sddm ;;
-        hyprland) binarios="Hyprland waybar";                                dm=sddm ;;
-        *)        binarios="";                                              dm=sddm ;;
+        kde)       binarios="startplasma-wayland plasmashell systemsettings"; dm=sddm ;;
+        gnome)     binarios="gnome-shell nautilus";                           dm=gdm  ;;
+        xfce)      binarios="xfce4-session thunar";                           dm=sddm ;;
+        cinnamon)  binarios="cinnamon-session nemo";                          dm=sddm ;;
+        mate)      binarios="mate-session caja";                              dm=sddm ;;
+        lxqt)      binarios="lxqt-session pcmanfm-qt openbox";                dm=sddm ;;
+        budgie)    binarios="budgie-desktop nemo";                            dm=sddm ;;
+        cosmic)    binarios="cosmic-session cosmic-files";                    dm=sddm ;;
+        hyprland)  binarios="Hyprland waybar";                                dm=sddm ;;
+        nandoroid) binarios="Hyprland quickshell";                            dm=sddm ;;
+        *)         binarios="";                                               dm=sddm ;;
     esac
     printf '%sok%s desktop %s\n' "$GRN" "$END" "$de"
 
@@ -175,6 +182,15 @@ status() {
                 printf '%sok%s KWin renderiza em %s\n' "$GRN" "$END" "$render"
             fi
         fi
+    fi
+
+    # Keyring na maquina passa os cookies do Chrome de v10 pra v11, presos a senha de login --
+    # e com login automatico ninguem digita essa senha. O perfil pararia de sobreviver ao format.
+    if command -v gnome-keyring-daemon >/dev/null 2>&1; then
+        printf '%s!!%s gnome-keyring instalado: o perfil do Chrome deixa de sobreviver ao format -- sudo pacman -Rns gnome-keyring\n' \
+            "$RED" "$END"; faltou=1
+    else
+        printf '%sok%s sem keyring na maquina (perfil do Chrome sobrevive ao format)\n' "$GRN" "$END"
     fi
 
     # CPU e GPU no teto vem do /etc/tmpfiles.d/99-desempenho.conf, que a etapa `sistema`

@@ -9,6 +9,12 @@
 # quickshell: o shell pede 0.5.0+, e o extra ainda esta no 0.2.1 -- por isso quickshell-git
 # do AUR, e nao o do repo oficial. Se um dia o extra alcancar, e trocar de secao.
 
+# Sem gnome-keyring de proposito, mesmo o shell pedindo: com keyring na maquina o Chrome
+# migra o perfil de `basic` (cookies v10, que se bastam) pra v11, preso a senha de login --
+# e com login automatico ninguem digita essa senha. O perfil deixaria de sobreviver ao
+# format, que e justamente o que a /home preservada existe pra garantir. Ver
+# ~/Claude/maquina/docs/dns-e-keyring.md.
+
 [repo-oficial:nandoroid]
 hyprland
 hyprlock
@@ -43,7 +49,6 @@ fd
 cava
 zenity
 easyeffects
-gnome-keyring
 
 [repo-oficial:nandoroid-login]
 sddm
