@@ -102,13 +102,18 @@ hook_pre_run() {
     mkdir -p "$CONF/hooks"
     cat >"$CONF/hooks/pre-run" <<'FIM'
 #!/usr/bin/env bash
-# Desliga o IDD do Looking Glass no guest antes da sessao do Vypr (ver vm/vypr.sh).
-source "${DOTFILES_DIR:-$HOME/.dotfiles}/vm/guest.sh"
+# Desliga o IDD do Looking Glass no guest antes da sessao do Vypr e poe a tela do guest na
+# taxa do monitor daqui (ver vm/vypr.sh; 180 Hz no guest deu VK_ERROR_OUT_OF_DEVICE_MEMORY).
+DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
+source "$DOTFILES_DIR/vm/guest.sh"
 guest_ready 10 || exit 0
 estado=$(guest_exec '(Get-PnpDevice -InstanceId "ROOT\DISPLAY\0000" -ErrorAction SilentlyContinue).Status' 2>/dev/null | tr -d '\r\n ')
-[[ $estado == OK ]] || exit 0
-guest_exec 'Disable-PnpDevice -InstanceId "ROOT\DISPLAY\0000" -Confirm:$false -ErrorAction SilentlyContinue' >/dev/null 2>&1
-printf 'vypr: IDD do Looking Glass desligado no guest\n'
+if [[ $estado == OK ]]; then
+    guest_exec 'Disable-PnpDevice -InstanceId "ROOT\DISPLAY\0000" -Confirm:$false -ErrorAction SilentlyContinue' >/dev/null 2>&1
+    printf 'vypr: IDD do Looking Glass desligado no guest\n'
+    sleep 3
+fi
+"$DOTFILES_DIR/vm/guest-display.sh" 2>&1 | sed 's/^/vypr: /'
 FIM
     chmod +x "$CONF/hooks/pre-run"
     ok "hook pre-run (IDD do Looking Glass desligado antes da sessao)"

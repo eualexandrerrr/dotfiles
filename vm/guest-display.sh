@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 # Put the Looking Glass virtual display on the SAME refresh rate as the physical monitor.
 #
+# Without the IDD (Vypr disables it, ver vm/vypr.sh) the same goes for the physical display
+# on the 3090, which Windows brings up at 59 Hz.
+#
 # The IDD is created at 2560x1440@60 and Windows keeps the rate it used last, so the game
 # runs at 60 fps no matter how fast the 3090 is. An approximate rate is not enough either:
 # the Looking Glass manual asks for the exact value, otherwise the two free-running clocks
@@ -93,10 +96,21 @@ echo "  target ${WIDTH}x${HEIGHT}@${HZ}"
 
 guest_ready 60 || { echo "guest-display: the Windows agent did not answer" >&2; exit 1; }
 
+# With Vypr the IDD is disabled (vm/vypr.sh pre-run hook) and the guest desktop lives on the
+# physical DP of the 3090, which Windows brings up at 59 Hz: the same mode change applies to
+# that display, only without recreating the IDD.
+idd=$(guest_exec '(Get-PnpDevice -InstanceId "ROOT\DISPLAY\0000" -ErrorAction SilentlyContinue).Status' | tr -d '\r\n ')
+if [[ $idd == OK ]]; then
+    filtro="\$_.Name -like '*Indirect*'"
+else
+    echo "  IDD is off, targeting the primary display"
+    filtro="\$_.Name -notlike '*Indirect*' -and \$_.CurrentHorizontalResolution"
+fi
+
 # Leave early when it is already right: recreating the IDD blanks the screen for a moment
 # and there is no reason to do that before every match.
 current=$(guest_exec "
-\$v = Get-CimInstance Win32_VideoController | Where-Object { \$_.Name -like '*Indirect*' }
+\$v = Get-CimInstance Win32_VideoController | Where-Object { $filtro } | Select-Object -First 1
 \"\$(\$v.CurrentHorizontalResolution)x\$(\$v.CurrentVerticalResolution)@\$(\$v.CurrentRefreshRate)\"
 " | tr -d '\r\n ')
 
@@ -110,7 +124,7 @@ for hz in $HZ_INT $((HZ_INT - 1)); do
 done
 echo "  currently at ${current:-?}"
 
-guest_exec "
+[[ $idd == OK ]] && guest_exec "
 Set-ItemProperty -Path 'HKLM:\\SOFTWARE\\LookingGlass\\IDD' -Name ExtraMode -Value '${WIDTH}x${HEIGHT}@${HZ}*'
 Get-ItemProperty 'HKLM:\\SOFTWARE\\LookingGlass\\IDD' | Select-Object -ExpandProperty ExtraMode
 Disable-PnpDevice -InstanceId 'ROOT\\DISPLAY\\0000' -Confirm:\$false
@@ -163,7 +177,7 @@ for (\$m = 0; \$m -lt 400; \$m++) {
     if (\$dm.dmDisplayFrequency -eq $HZ_INT) { \$target = \$dm; break }
   }
 }
-if (\$target -eq \$null) { L "${WIDTH}x${HEIGHT}@${HZ_INT} is not in the IDD mode list"; exit 2 }
+if (\$target -eq \$null) { L "${WIDTH}x${HEIGHT}@${HZ_INT} is not in the mode list of the display"; exit 2 }
 
 \$target.dmFields = 0x00080000 -bor 0x00100000 -bor 0x00400000 -bor 0x00040000
 L "change = \$([Screen]::ChangeDisplaySettingsW([ref]\$target, 1))"
