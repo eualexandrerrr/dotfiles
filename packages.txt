@@ -156,6 +156,7 @@ virt-manager
 # Vypr (vm/vypr.sh): janela nativa por aplicacao da VM, compilado do fork com SDL3.
 sdl3
 ninja
+vulkan-headers
 
 [repo-oficial:painel-segundo-monitor]
 # O RicePanel roda pelo electron do proprio node_modules (ver ricepanel.service), nao pelo
