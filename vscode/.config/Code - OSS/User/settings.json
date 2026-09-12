@@ -33,5 +33,6 @@
     "security.workspace.trust.banner": "never",
     "security.workspace.trust.emptyWindow": true,
     "terminal.integrated.enablePersistentSessions": false,
-    "terminal.integrated.hideOnStartup": "always"
+    "terminal.integrated.hideOnStartup": "always",
+    "redhat.telemetry.enabled": true
 }

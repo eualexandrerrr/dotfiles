@@ -162,6 +162,17 @@ etapa_chrome() {
     fi
 }
 
+# Extensao que nao existe no Open VSX: baixa o .vsix do marketplace da Microsoft (uso pessoal)
+# pra ~/.cache/dotfiles/vsix e instala do arquivo. O cache sobrevive ao format.
+vsix_marketplace() {
+    local id="$1" pub="${1%%.*}" nome="${1#*.}" dir="${XDG_CACHE_HOME:-$HOME/.cache}/dotfiles/vsix"
+    mkdir -p "$dir"
+    [[ -s $dir/$id.vsix ]] || curl -fsSL --compressed -o "$dir/$id.vsix" \
+        "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/$pub/vsextensions/$nome/latest/vspackage" 2>/dev/null \
+        || { rm -f "$dir/$id.vsix"; return 1; }
+    code --install-extension "$dir/$id.vsix" >/dev/null 2>&1
+}
+
 etapa_vscode() {
     log "VS Code: pacote code-rcode do fork, extensoes"
 
@@ -178,10 +189,10 @@ etapa_vscode() {
     while IFS= read -r ext; do
         [[ -z $ext || $ext == \#* ]] && continue
         grep -qx "${ext,,}" <<<"$instaladas" && continue
-        if code --install-extension "$ext" >/dev/null 2>&1; then
+        if code --install-extension "$ext" >/dev/null 2>&1 || vsix_marketplace "$ext"; then
             faltam=$((faltam+1))
         else
-            falha "extensao $ext nao instalou (existe no Open VSX?)"
+            falha "extensao $ext nao instalou (nem Open VSX, nem .vsix do marketplace)"
         fi
     done <"$DOTFILES_DIR/vscode/extensions.txt"
     ok "$faltam extensao(oes) instalada(s), o resto ja estava"

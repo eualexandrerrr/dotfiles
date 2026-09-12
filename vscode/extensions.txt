@@ -1,6 +1,7 @@
-# Extensoes instaladas pela etapa `vscode` do setup.sh, uma por linha (id do Open VSX).
-# Ficaram de fora por nao existirem no Open VSX (12/09/2026): color-picker-hex, align-by-regex,
-# remove-comments, file-and-folder-icons, tal7aouy.icons.
+# Extensoes instaladas pela etapa `vscode` do setup.sh, uma por linha. Primeiro tenta o Open VSX
+# (o unico marketplace que o Code - OSS fala); o que nao existe la (color-picker-hex,
+# align-by-regex, remove-comments, file-and-folder-icons, tal7aouy.icons) a etapa baixa como
+# .vsix do marketplace da Microsoft pra ~/.cache/dotfiles/vsix e instala do arquivo.
 anthropic.claude-code
 ms-ceintl.vscode-language-pack-pt-br
 catppuccin.catppuccin-vsc
@@ -18,3 +19,8 @@ rocketseat.theme-omni
 vscjava.vscode-java-pack
 vscjava.vscode-gradle
 vscjava.vscode-maven
+ekstasis.vscode-color-picker-hex
+janjoerke.align-by-regex
+plibither8.remove-comments
+nextbook.file-and-folder-icons
+tal7aouy.icons
