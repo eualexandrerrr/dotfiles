@@ -65,11 +65,15 @@ for v in json.load(sys.stdin):
 
 compilar() {
     sincronizar || return 1
-    local head marca="$ESTADO/fork-vscode.commit"
+    # A versao do pacote carrega a tag, a contagem de commits e o sha (pkgver() do PKGBUILD):
+    # comparar com o que o pacman tem instalado e o que diz se precisa compilar.
+    local head marca="$ESTADO/fork-vscode.commit" tag esperado instalado
     head="$(git -C "$REPO" rev-parse HEAD)"
-    if command -v code >/dev/null 2>&1 && pacman -Q code-rcode >/dev/null 2>&1 \
-        && [[ -f $marca && $(<"$marca") == "$head" ]]; then
-        ok "code-rcode ja esta no commit ${head:0:8}"
+    tag="$(git -C "$REPO" describe --tags --abbrev=0)"
+    esperado="$tag.r$(git -C "$REPO" rev-list --count "$tag..HEAD").g${head:0:7}"
+    instalado="$(/usr/bin/pacman -Q code-rcode 2>/dev/null | cut -d' ' -f2)"
+    if [[ $instalado == "$esperado-"* ]]; then
+        ok "code-rcode $instalado ja e o commit ${head:0:8}"
         return 0
     fi
 
@@ -82,7 +86,7 @@ compilar() {
     printf '  compilando o VS Code (%s)... uns 20 min, log em %s\n' "${head:0:8}" "$ESTADO/fork-vscode.log"
     if (cd "$BUILD" && PATH="$nodebin:$PATH" makepkg -si --noconfirm >"$ESTADO/fork-vscode.log" 2>&1); then
         printf '%s' "$head" >"$marca"
-        ok "code-rcode $(pacman -Q code-rcode | cut -d' ' -f2) instalado"
+        ok "code-rcode $(/usr/bin/pacman -Q code-rcode | cut -d' ' -f2) instalado"
     else
         warn "makepkg falhou -- veja $ESTADO/fork-vscode.log"
         return 1
@@ -114,7 +118,7 @@ rebase() {
 }
 
 estado() {
-    printf 'pacote:  %s\n' "$(pacman -Q code-rcode 2>/dev/null || echo 'nao instalado')"
+    printf 'pacote:  %s\n' "$(/usr/bin/pacman -Q code-rcode 2>/dev/null || echo 'nao instalado')"
     if [[ -d $REPO/.git ]]; then
         printf 'fork:    %s em %s, %s patch(es) sobre a tag %s\n' "$RAMO" "$REPO" \
             "$(git -C "$REPO" rev-list --count "$(git -C "$REPO" describe --tags --abbrev=0 "$RAMO")..$RAMO")" \
