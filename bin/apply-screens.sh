@@ -246,6 +246,18 @@ backend_cosmic() {
     while read -r saida; do
         [[ -n $saida ]] && cosmic-randr disable "$saida" >/dev/null 2>&1
     done < <(saidas_nvidia)
+
+    # O painel guarda o conector pelo nome, e o nome muda: com a 3090 saindo pro vfio, o que
+    # era HDMI-A-2 virou HDMI-A-1 e o painel sumiu da tela inteira, sem erro no log
+    # (12/09/2026). Reescrever com o nome de agora, e so reiniciar quando mudou mesmo.
+    local arq="$CFG/cosmic/com.system76.CosmicPanel.Panel/v1/output"
+    if [[ -f $arq ]]; then
+        local desejado="Name(\"$principal\")"
+        if [[ $(<"$arq") != "$desejado" ]]; then
+            printf '%s' "$desejado" > "$arq"
+            pkill -x cosmic-panel >/dev/null 2>&1
+        fi
+    fi
     return 0
 }
 
