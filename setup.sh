@@ -500,7 +500,9 @@ etapa_cosmic() {
         rel="${f#"$origem"/}"
         mkdir -p "$destino/$(dirname "$rel")"
         if ! cmp -s "$f" "$destino/$rel"; then
-            cp "$f" "$destino/$rel"
+            # Atomico: o painel le a chave por inotify no instante que ela muda, e um cp
+            # trunca antes de escrever -- ele leria o arquivo pela metade.
+            cp "$f" "$destino/$rel.tmp" && mv "$destino/$rel.tmp" "$destino/$rel"
             n=$((n+1))
         fi
     done < <(find "$origem" -type f -print0)
