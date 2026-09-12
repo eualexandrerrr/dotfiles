@@ -48,8 +48,8 @@ CACHE_AUR="$CACHE_BASE/aur"
 
 T0=$SECONDS
 STEP=0
-TOTAL_STEPS=21
-[[ ${SKIP_NVIDIA:-0} == 1 ]] && TOTAL_STEPS=19
+TOTAL_STEPS=22
+[[ ${SKIP_NVIDIA:-0} == 1 ]] && TOTAL_STEPS=$((TOTAL_STEPS - 1))
 WARNS=()
 ETAPAS_FALHA=()
 OFICIAL_PEDIDOS=0; OFICIAL_NOVOS=(); OFICIAL_FALTANDO=()
@@ -86,14 +86,20 @@ need_sudo() {
 # Tudo que muda de um desktop pro outro mora nesta tabela: nome da sessao do DM, o DM em si
 # e os binarios que provam que ele subiu. Adicionar um desktop novo e acrescentar uma linha
 # aqui e um packages/<nome>.txt -- nada mais no script sabe nome de desktop.
-DES_VALIDOS=(kde gnome xfce hyprland)
+DES_VALIDOS=(kde gnome xfce cinnamon mate lxqt budgie cosmic hyprland nandoroid)
 
 de_sessao() {
     case "$1" in
-        kde)      printf 'plasma'    ;;
-        gnome)    printf 'gnome'     ;;
-        xfce)     printf 'xfce'      ;;
-        hyprland) printf 'hyprland'  ;;
+        kde)       printf 'plasma'          ;;
+        gnome)     printf 'gnome'           ;;
+        xfce)      printf 'xfce'            ;;
+        cinnamon)  printf 'cinnamon'        ;;
+        mate)      printf 'mate'            ;;
+        lxqt)      printf 'lxqt'            ;;
+        budgie)    printf 'budgie-desktop'  ;;
+        cosmic)    printf 'cosmic'          ;;
+        hyprland)  printf 'hyprland'        ;;
+        nandoroid) printf 'hyprland'        ;;
     esac
 }
 
@@ -104,12 +110,58 @@ de_dm() {
     esac
 }
 
+# Em que servidor grafico a sessao roda. O sddm precisa disto no DisplayServer, e o greeter
+# em Wayland nao lista sessao X11 nenhuma.
+de_servidor() {
+    case "$1" in
+        xfce|cinnamon|mate|lxqt|budgie) printf 'x11'     ;;
+        *)                              printf 'wayland' ;;
+    esac
+}
+
 de_binarios() {
     case "$1" in
-        kde)      printf 'startplasma-wayland plasmashell systemsettings' ;;
-        gnome)    printf 'gnome-shell nautilus'                           ;;
-        xfce)     printf 'xfce4-session thunar'                           ;;
-        hyprland) printf 'Hyprland waybar'                                ;;
+        kde)       printf 'startplasma-wayland plasmashell systemsettings' ;;
+        gnome)     printf 'gnome-shell nautilus'                           ;;
+        xfce)      printf 'xfce4-session thunar'                           ;;
+        cinnamon)  printf 'cinnamon-session nemo'                          ;;
+        mate)      printf 'mate-session caja'                              ;;
+        lxqt)      printf 'lxqt-session pcmanfm-qt openbox'                ;;
+        budgie)    printf 'budgie-desktop nemo'                            ;;
+        cosmic)    printf 'cosmic-session cosmic-files'                    ;;
+        hyprland)  printf 'Hyprland waybar'                                ;;
+        nandoroid) printf 'Hyprland quickshell'                            ;;
+    esac
+}
+
+# Nome e uma linha de descricao, so pro menu.
+de_nome() {
+    case "$1" in
+        kde)       printf 'KDE Plasma' ;;
+        gnome)     printf 'GNOME'      ;;
+        xfce)      printf 'XFCE'       ;;
+        cinnamon)  printf 'Cinnamon'   ;;
+        mate)      printf 'MATE'       ;;
+        lxqt)      printf 'LXQt'       ;;
+        budgie)    printf 'Budgie'     ;;
+        cosmic)    printf 'COSMIC'     ;;
+        hyprland)  printf 'Hyprland'   ;;
+        nandoroid) printf 'NAnDoroid'  ;;
+    esac
+}
+
+de_desc() {
+    case "$1" in
+        kde)       printf 'o desta maquina, o unico com configuracao versionada aqui' ;;
+        gnome)     printf 'de fabrica, login pelo gdm'                                ;;
+        xfce)      printf 'de fabrica, X11, leve e sem surpresa'                      ;;
+        cinnamon)  printf 'de fabrica, X11, o layout classico do Mint'                ;;
+        mate)      printf 'de fabrica, X11, continuacao do GNOME 2'                   ;;
+        lxqt)      printf 'de fabrica, X11 com openbox, o mais leve dos completos'    ;;
+        budgie)    printf 'de fabrica, painel proprio e a barra lateral Raven'        ;;
+        cosmic)    printf 'de fabrica, Wayland, o novo da System76 em Rust'           ;;
+        hyprland)  printf 'de fabrica, sobe sem config nenhuma'                       ;;
+        nandoroid) printf 'Hyprland + shell NAnDoroid, janelas soltas, cara de Android' ;;
     esac
 }
 
@@ -192,17 +244,18 @@ escolher_de() {
     elif abrir_console; then
         # Mesmo desenho do myarch-menu: tela limpa, cabecalho, numero em negrito, "opcao:"
         # e case que repete no invalido. O que o preflight imprimiu fica no log.
-        local op="" marca_kde="" marca_gnome="" marca_xfce="" marca_hyprland=""
-        [[ -n $antigo ]] && printf -v "marca_$antigo" '  %s<- atual%s' "$GRN" "$END"
+        local op="" i d marca
         while [[ -z $op ]]; do
             printf '\033[2J\033[H%s' "$BLU" >&4
             printf '  %s\n' '=================================' '   D E S K T O P   |   dotfiles' '=================================' >&4
             printf '%s\n' "$END" >&4
-            printf '  %s1%s) KDE Plasma  -- o desta maquina, o unico com configuracao versionada aqui%s\n' "$BLD" "$END" "$marca_kde" >&4
-            printf '  %s2%s) GNOME       -- de fabrica, login pelo gdm%s\n' "$BLD" "$END" "$marca_gnome" >&4
-            printf '  %s3%s) XFCE        -- de fabrica, X11 em vez de Wayland%s\n' "$BLD" "$END" "$marca_xfce" >&4
-            printf '  %s4%s) Hyprland    -- de fabrica, sobe sem config nenhuma%s\n\n' "$BLD" "$END" "$marca_hyprland" >&4
-            printf '  opcao [Enter mantem %s, 120 s tambem]: ' "$padrao" >&4
+            for i in "${!DES_VALIDOS[@]}"; do
+                d="${DES_VALIDOS[$i]}"
+                marca=""
+                [[ $d == "$antigo" ]] && marca="  ${GRN}<- atual${END}"
+                printf '  %s%2d%s) %-10s -- %s%s\n' "$BLD" "$((i+1))" "$END" "$(de_nome "$d")" "$(de_desc "$d")" "$marca" >&4
+            done
+            printf '\n  opcao [Enter mantem %s, 120 s tambem]: ' "$padrao" >&4
             if ! read -r -t 120 op <&3; then
                 printf '\n' >&4
                 DE="$padrao"
@@ -210,13 +263,11 @@ escolher_de() {
                 break
             fi
             [[ -z $op ]] && { DE="$padrao"; break; }
-            case "$op" in
-                1) DE=kde      ;;
-                2) DE=gnome    ;;
-                3) DE=xfce     ;;
-                4) DE=hyprland ;;
-                *) op=""       ;;
-            esac
+            if [[ $op =~ ^[0-9]+$ ]] && (( op >= 1 && op <= ${#DES_VALIDOS[@]} )); then
+                DE="${DES_VALIDOS[$((op-1))]}"
+            else
+                op=""
+            fi
         done
         printf '\n' >&4
         exec 3<&- 4>&-
@@ -777,7 +828,7 @@ configure_login() {
     sessao="$(sessao_wayland)"
     log "configurando $dm (sessao $sessao, login automatico)"
 
-    # XFCE e X11, o resto e Wayland -- por isso procura nos dois diretorios de sessao.
+    # Tem desktop de X11 e de Wayland na tabela -- por isso procura nos dois diretorios.
     [[ -f /usr/share/wayland-sessions/$sessao || -f /usr/share/xsessions/$sessao ]] \
         || warn "$DE nao esta instalado, o $dm nao vai ter sessao pra subir"
 
@@ -802,7 +853,7 @@ EOF
     # Heredoc sem aspas de proposito: o $USER precisa expandir aqui.
     cat <<EOF | sudo tee /etc/sddm.conf.d/10-dotfiles.conf >/dev/null
 [General]
-DisplayServer=$([[ $DE == xfce ]] && printf x11 || printf wayland)
+DisplayServer=$(de_servidor "$DE")
 GreeterEnvironment=QT_WAYLAND_SHELL_INTEGRATION=layer-shell
 
 [Autologin]
@@ -823,6 +874,24 @@ install_maestro() {
         ok "maestro pronto"
     else
         warn "maestro nao entrou; depois rode: bash ~/.dotfiles/bin/maestro.sh"
+        return 1
+    fi
+}
+
+# So faz sentido no desktop nandoroid: nos outros o shell nao tem onde rodar. A etapa
+# aparece na contagem de qualquer jeito pra nao mentir o [n/total] de uma instalacao pra outra.
+install_nandoroid() {
+    log "shell NAnDoroid"
+    if [[ $DE != nandoroid ]]; then
+        ok "desktop e $DE, etapa pulada"
+        return 0
+    fi
+    local sh="$DOTFILES_DIR/bin/nandoroid.sh"
+    [[ -f $sh ]] || { warn "bin/nandoroid.sh ausente, pulando"; return 1; }
+    if bash "$sh"; then
+        ok "shell NAnDoroid pronto"
+    else
+        warn "NAnDoroid nao entrou; depois rode: bash ~/.dotfiles/bin/nandoroid.sh"
         return 1
     fi
 }
@@ -933,6 +1002,7 @@ main() {
     etapa install_android_sdk
     etapa install_maestro
     etapa install_vencord
+    etapa install_nandoroid
     etapa configure_nvidia
     etapa configure_resiliencia_boot
     etapa enable_services

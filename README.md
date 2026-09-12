@@ -44,7 +44,12 @@ number:
 | | |
 |---|---|
 | `packages.txt` | base: what any desktop needs |
-| `packages/kde.txt` · `gnome` · `xfce` · `hyprland` | only the chosen one gets installed |
+| `packages/<name>.txt` | `kde` `gnome` `xfce` `cinnamon` `mate` `lxqt` `budgie` `cosmic` `hyprland` `nandoroid` — only the chosen one gets installed |
+
+`nandoroid` is the odd one out: not a desktop but Hyprland plus the
+[NAnDoroid](https://github.com/na-ive/nandoroid-shell) shell, styled after Android 16.
+`bin/nandoroid.sh` clones the shell and writes a Hyprland config that behaves like a windowed
+desktop — everything floating and centered, no workspaces at all.
 
 **Only KDE is configured here** — it is this machine's desktop. Picking another one
 installs it stock: the `plasma/` stow package and the `arquivos atalhos notificacoes painel

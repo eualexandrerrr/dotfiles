@@ -41,7 +41,12 @@ O `install.sh` abre um menu numerado (mesmo desenho do `myarch-menu` da ISO) e g
 | | |
 |---|---|
 | `packages.txt` | base: o que vale pra qualquer desktop |
-| `packages/kde.txt` · `gnome` · `xfce` · `hyprland` | só o do escolhido é instalado |
+| `packages/<nome>.txt` | `kde` `gnome` `xfce` `cinnamon` `mate` `lxqt` `budgie` `cosmic` `hyprland` `nandoroid` — só o do escolhido é instalado |
+
+`nandoroid` é o único que não é um desktop pronto: é o Hyprland com o shell
+[NAnDoroid](https://github.com/na-ive/nandoroid-shell) por cima, com a cara do Android 16. O
+`bin/nandoroid.sh` clona o shell e escreve a config do Hyprland como desktop de janelas —
+tudo flutuante e centralizado, sem workspace nenhum.
 
 **Só o KDE tem configuração versionada aqui** — é o desktop desta máquina. Escolher outro
 instala ele de fábrica: o pacote stow `plasma/` e as etapas `arquivos atalhos notificacoes

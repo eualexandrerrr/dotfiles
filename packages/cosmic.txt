@@ -1,0 +1,12 @@
+# COSMIC, da System76. Minimo pra subir a sessao -- sem configuracao versionada neste repo:
+# escolher COSMIC instala ele de fabrica. Ajuste a lista a vontade.
+#
+# Ele tem gerenciador de login proprio (cosmic-greeter), mas aqui o login continua no sddm:
+# o autologin do repo inteiro e escrito pra ele, e o cosmic sobe igual pelos dois.
+
+[repo-oficial:cosmic]
+cosmic
+xdg-desktop-portal-cosmic
+
+[repo-oficial:cosmic-login]
+sddm

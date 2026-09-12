@@ -1,0 +1,18 @@
+# Budgie. Minimo pra subir a sessao -- sem configuracao versionada neste repo: escolher
+# Budgie instala ele de fabrica. Ajuste a lista a vontade.
+#
+# O Budgie usa o painel e o Raven proprios, mas pega emprestado o gerenciador de arquivos
+# do Cinnamon (nemo) e o centro de controle dele mesmo.
+
+[repo-oficial:budgie]
+budgie-desktop
+budgie-desktop-view
+budgie-control-center
+budgie-screensaver
+nemo
+gnome-terminal
+network-manager-applet
+xdg-desktop-portal-gtk
+
+[repo-oficial:budgie-login]
+sddm

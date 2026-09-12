@@ -1,0 +1,56 @@
+# NAnDoroid: o Hyprland como compositor e o shell NAnDoroid (na-ive/nandoroid-shell) por
+# cima, com a cara do Android 16. Nao e um desktop pronto -- o shell desenha painel,
+# notificacoes, launcher e lockscreen, e o resto (gerenciador de arquivos, portal, terminal)
+# vem desta lista.
+#
+# O bin/nandoroid.sh clona o shell e escreve a config do Hyprland em janelas flutuantes,
+# sem workspace. Sem ele, isto aqui e so um Hyprland pelado.
+#
+# quickshell: o shell pede 0.5.0+, e o extra ainda esta no 0.2.1 -- por isso quickshell-git
+# do AUR, e nao o do repo oficial. Se um dia o extra alcancar, e trocar de secao.
+
+[repo-oficial:nandoroid]
+hyprland
+hyprlock
+hypridle
+hyprpicker
+hyprsunset
+hyprpolkitagent
+xdg-desktop-portal-hyprland
+xdg-desktop-portal-gtk
+thunar
+kitty
+adw-gtk-theme
+ttf-jetbrains-mono-nerd
+jq
+python
+imagemagick
+ffmpeg
+grim
+slurp
+wf-recorder
+wl-clipboard
+cliphist
+brightnessctl
+ddcutil
+playerctl
+libqalculate
+zbar
+tesseract
+tesseract-data-eng
+tesseract-data-por
+fd
+cava
+zenity
+easyeffects
+gnome-keyring
+
+[repo-oficial:nandoroid-login]
+sddm
+
+[aur]
+quickshell-git
+dgop
+matugen
+ttf-material-symbols-variable-git
+songrec

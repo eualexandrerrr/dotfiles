@@ -1,0 +1,16 @@
+# Cinnamon. Minimo pra subir a sessao -- sem configuracao versionada neste repo: escolher
+# Cinnamon instala ele de fabrica. Ajuste a lista a vontade.
+#
+# X11: o Cinnamon nao tem sessao Wayland estavel, entao o sddm sobe em X11 aqui.
+
+[repo-oficial:cinnamon]
+cinnamon
+nemo
+nemo-fileroller
+xfce4-terminal
+xed
+gnome-screenshot
+xdg-desktop-portal-xapp
+
+[repo-oficial:cinnamon-login]
+sddm

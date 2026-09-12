@@ -98,6 +98,19 @@ ganha um drop-in pra podar esses dois caches em vez de `/var/cache/pacman/pkg`.
 (`de_sessao`, `de_dm`, `de_binarios`) fica no topo do `install.sh` -- desktop novo e uma
 linha em cada uma mais um `packages/<nome>.txt`.
 
+**Os desktops disponiveis estao numa tabela so.** `DES_VALIDOS`, `de_sessao`, `de_dm`,
+`de_servidor`, `de_binarios`, `de_nome` e `de_desc` no `install.sh` -- acrescentar um desktop
+e uma linha em cada uma mais um `packages/<nome>.txt`. O menu e gerado da tabela, entao nada
+precisa ser mexido nele. Hoje sao dez: `kde gnome xfce cinnamon mate lxqt budgie cosmic
+hyprland nandoroid`.
+
+**`nandoroid` nao e um desktop, e um shell.** E o Hyprland com o shell NAnDoroid
+(na-ive/nandoroid-shell) por cima, instalado pelo `bin/nandoroid.sh` na etapa
+`install_nandoroid`. A config do Hyprland deles e em Lua; o script copia os modulos deles e
+escreve por ultimo o `configs/janelas.lua`, que e o unico arquivo nosso: ele poe toda janela
+pra flutuar centralizada, tira os binds de workspace e troca o alt-tab por
+`cyclenext + bringactivetotop`. O pedido era desktop de janelas, sem workspace nenhum.
+
 **So o KDE tem configuracao versionada aqui.** As etapas `arquivos atalhos notificacoes
 painel tema` e o pacote stow `plasma/` sao puladas em qualquer outro desktop, que sobe de
 fabrica.

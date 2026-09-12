@@ -1,0 +1,16 @@
+# LXQt. Minimo pra subir a sessao -- sem configuracao versionada neste repo: escolher
+# LXQt instala ele de fabrica. Ajuste a lista a vontade.
+#
+# X11: o LXQt so gerencia a sessao, quem desenha as janelas e outro programa. Openbox e o
+# padrao dele; trocar por kwin ou labwc e mudar uma linha em ~/.config/lxqt/session.conf.
+
+[repo-oficial:lxqt]
+lxqt
+openbox
+qterminal
+breeze-icons
+xdg-desktop-portal-lxqt
+xscreensaver
+
+[repo-oficial:lxqt-login]
+sddm
