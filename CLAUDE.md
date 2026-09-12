@@ -128,11 +128,11 @@ so como espelho, pronto pra receber patch sem virar fork solto depois.
 
 | fork | o que ele acrescenta |
 |---|---|
-| `cosmic-panel` | `background_per_group` (uma pilula por grupo), `exclusive_gap` (folga da janela maximizada), `side_inset` (folga das laterais) |
+| `cosmic-panel` | `background_per_group` (uma pilula por grupo), `exclusive_gap` (folga da janela maximizada), `side_inset` (folga das laterais), `wing_inset` (pilula das alas mais fina) |
 | `cosmic-applets` | no `cosmic-app-list`: `ignored` (app fora da barra, o `skipTaskbar` que o Wayland nao tem), `show_divider`, `hover_popup_delay_ms` |
-| `cosmic-launcher` | alt-tab centralizado na tela e na horizontal |
+| `cosmic-launcher` | alt-tab centralizado na tela e na horizontal, e janela da lista `ignored` fora dele |
 | `cosmic-settings` | secao **ReCosmic** na pagina Painel, com todas as chaves acima na interface grafica, em pt-BR |
-| `cosmic-ext-applet-now-playing` | Spotify na ala esquerda: prefere Spotify a aba de navegador, card compacto com icone, capa e miniatura de video (derivado do AdityaHebballe, nao do pop-os) |
+| `cosmic-ext-applet-now-playing` | Spotify na ala esquerda: prefere Spotify a aba de navegador, card compacto com icone, capa e miniatura de video, e volume do proprio app no popup (derivado do AdityaHebballe, nao do pop-os) |
 
 Cada fork tem **duas branches**: `master` (ou `main`) e espelho intocado do upstream, e
 `recosmic` -- a branch padrao -- tem so os nossos patches, rebaseados em cima do espelho.
@@ -145,6 +145,13 @@ PATH da sessao; so recompila quando o HEAD mudou desde o marcador em
 `~/.local/state/dotfiles/fork-<bin>.commit`. Subcomandos: `estado`, `rebase`, `forkar`.
 O pacote do AUR do now-playing fica na lista so pelo `.desktop` e pelo icone, o binario vem
 do fork.
+
+Nome de app na barra e no lancador: o `bin/cosmic-app-names.sh` escreve um `.desktop` nosso em
+`~/.local/share/applications` (que ganha do `/usr/share/applications`) tirando o "COSMIC" do fim
+do nome e trocando o portugues de Portugal pelo do Brasil -- "Ficheiros COSMIC" virou "Arquivos",
+"Definicoes COSMIC" virou "Configuracoes". Vazava porque nem todo `.desktop` da System76 tem
+`Name[pt_BR]` e o `LANGUAGE=pt_BR:pt` faz cair no `pt`; por isso o script grava `Name`,
+`Name[pt]` e `Name[pt_BR]` com o mesmo texto.
 
 O RicePanel nasce no monitor errado porque cliente Wayland nao escolhe saida: o
 `bin/cosmic-move-window.py` (protocolo `zcosmic_toplevel_manager_v1`) leva a janela pro

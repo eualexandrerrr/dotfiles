@@ -467,7 +467,10 @@ etapa_cosmic() {
     done < <(find "$origem" -type f -print0)
     ok "$n chave(s) do COSMIC atualizada(s) em ~/.config/cosmic (as demais ja batiam)"
 
-    # Os forks: cosmic-panel com fundo por grupo, cosmic-app-list com ignored e show_divider.
+    # Nome dos apps sem "COSMIC" no fim e em portugues do Brasil, nao de Portugal.
+    bash "$DOTFILES_DIR/bin/cosmic-app-names.sh" || falha "cosmic-app-names.sh falhou"
+
+    # Os forks da org ReCosmicLabs, compilados e instalados em ~/.local/bin.
     bash "$DOTFILES_DIR/bin/cosmic-forks.sh" || falha "cosmic-forks.sh falhou"
 }
 
