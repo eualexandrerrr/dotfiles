@@ -22,12 +22,6 @@
     "terminal.integrated.profiles.linux": {
         "zsh": {
             "path": "/usr/bin/zsh"
-        },
-        "Claude": {
-            "path": "/usr/bin/claude",
-            "icon": "sparkle",
-            "color": "terminal.ansiMagenta",
-            "overrideName": true
         }
     },
     "terminal.integrated.defaultProfile.linux": "zsh",
@@ -37,5 +31,7 @@
     "security.workspace.trust.enabled": false,
     "security.workspace.trust.startupPrompt": "never",
     "security.workspace.trust.banner": "never",
-    "security.workspace.trust.emptyWindow": true
+    "security.workspace.trust.emptyWindow": true,
+    "terminal.integrated.enablePersistentSessions": false,
+    "terminal.integrated.hideOnStartup": "always"
 }
