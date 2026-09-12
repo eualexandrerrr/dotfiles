@@ -15,7 +15,6 @@ mechatroner.rainbow-csv
 mguellsegarra.highlight-on-copy
 miguelsolorio.fluent-icons
 rocketseat.theme-omni
-openai.chatgpt
 vscjava.vscode-java-pack
 vscjava.vscode-gradle
 vscjava.vscode-maven

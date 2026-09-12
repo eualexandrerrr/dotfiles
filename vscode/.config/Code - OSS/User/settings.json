@@ -30,5 +30,8 @@
             "overrideName": true
         }
     },
-    "terminal.integrated.defaultProfile.linux": "zsh"
+    "terminal.integrated.defaultProfile.linux": "zsh",
+    "claudeCode.hideOnboarding": true,
+    "claudeCode.disableLoginPrompt": true,
+    "claudeCode.preferredLocation": "panel"
 }
