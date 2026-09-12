@@ -388,6 +388,21 @@ SUBSYSTEM==\"drm\", KERNEL==\"card[0-9]*\", ENV{ID_PATH}==\"pci-$outra\", TAG+=\
     done < "$envdir/50-dotfiles.conf"
     ok "variaveis aplicadas no systemd --user desta sessao"
 
+    # O SDDM nao le environment.d: sessao que ele abre (todo desktop menos o GNOME, que usa
+    # gdm) nasceria sem essas variaveis, e sem AQ_DRM_DEVICES o Hyprland desenha tambem na
+    # 3090, trazendo os dummy plugs dela como tela. O /etc/environment o pam_env le sempre.
+    local bloco_ini="# dotfiles: inicio (setup.sh graficos) -- nao editar a mao"
+    local bloco_fim="# dotfiles: fim"
+    local atual novo
+    atual="$(sudo sed "/^$bloco_ini$/,/^$bloco_fim$/d" /etc/environment 2>/dev/null)"
+    novo="$atual
+$bloco_ini
+$(grep -v '^#' "$envdir/50-dotfiles.conf")
+$bloco_fim"
+    printf '%s\n' "$novo" | sudo tee /etc/environment >/dev/null \
+        && ok "/etc/environment (as mesmas variaveis pra sessao aberta pelo sddm)" \
+        || falha "nao consegui gravar o /etc/environment"
+
     # Layout de tela: o mesmo script que a apply-screens.service roda no login. Aqui vale a
     # regra de sempre -- config que so aparece no proximo login nao esta entregue.
     bash "$DOTFILES_DIR/bin/apply-screens.sh" \

@@ -138,7 +138,10 @@ deles versionado: `~/.config/environment.d/50-dotfiles.conf`, com `GTK_IM_MODULE
 variavel equivalente ao `KWIN_DRM_DEVICES`: sem essa regra ele elege a GPU primaria pela
 Boot VGA, pega a 3090 e desenha o GNOME nos dummy plugs dela, deixando o monitor real na
 tela azul (11/09/2026). A regra de udev tambem vale no gdm, que roda como outro usuario e
-nao le `environment.d` nenhum. O `plasma/.config/plasma-workspace/env/dotfiles.sh` hoje so
+nao le `environment.d` nenhum. As mesmas variaveis vao tambem pro `/etc/environment`: o SDDM
+nao le `environment.d`, entao sem isso a sessao que ele abre nasce sem `AQ_DRM_DEVICES` e o
+Hyprland desenha na 3090 pra copiar pra AMD -- `EGL (blit): failed to blit` em rajada no log
+e os dummy plugs entrando como tela (12/09/2026). O `plasma/.config/plasma-workspace/env/dotfiles.sh` hoje so
 faz source do arquivo gerado, pro caso de uma sessao do Plasma nascer fora do systemd.
 
 **Toda mudanca de config termina aplicada na sessao real dele.** Ele acompanha olhando a

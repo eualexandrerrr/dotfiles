@@ -66,6 +66,33 @@ copiar_configs() {
     fi
 }
 
+# O Hyprland 0.56 apagou chaves que a config deles ainda usa (decoration.shadow.ignore_window,
+# misc.vfr) e reclama delas na tela a cada login. Em vez de fixar uma lista que envelhece,
+# pergunta ao proprio Hyprland quais chaves ele nao conhece e comenta so essas linhas.
+limpar_chaves_mortas() {
+    local erros arquivo chave folha n=0
+    while (( n < 5 )); do
+        n=$((n+1))
+        if [[ -n ${HYPRLAND_INSTANCE_SIGNATURE:-} ]] && command -v hyprctl >/dev/null 2>&1; then
+            erros="$(hyprctl configerrors 2>/dev/null)"
+        else
+            erros="$(Hyprland --verify-config 2>&1)"
+        fi
+        grep -q "unknown config key" <<<"$erros" || break
+
+        while read -r linha; do
+            arquivo="${linha%%:*}"
+            chave="$(sed -n "s/.*unknown config key '\([^']*\)'.*/\1/p" <<<"$linha")"
+            folha="${chave##*.}"
+            [[ -f $arquivo && -n $folha ]] || continue
+            sed -i "s/^\([[:space:]]*\)\($folha[[:space:]]*=\)/\1-- removido pelo nandoroid.sh: o Hyprland desta versao nao conhece $chave\n\1-- \2/" "$arquivo"
+            ok "chave morta comentada: $chave ($(basename "$arquivo"))"
+        done < <(grep "unknown config key" <<<"$erros")
+
+        [[ -n ${HYPRLAND_INSTANCE_SIGNATURE:-} ]] && hyprctl reload >/dev/null 2>&1
+    done
+}
+
 escrever_config_janelas() {
     cat > "$CFG/hypr/configs/janelas.lua" <<'LUA'
 -- Gerado por ~/.dotfiles/bin/nandoroid.sh -- reescrito a cada execucao, nao edite aqui.
@@ -165,6 +192,7 @@ instalar() {
     clonar_ou_atualizar
     copiar_configs
     escrever_config_janelas
+    limpar_chaves_mortas
     ok "pronto -- entre na sessao Hyprland e o shell sobe junto"
 }
 

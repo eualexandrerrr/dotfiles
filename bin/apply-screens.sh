@@ -222,6 +222,15 @@ LUA
         printf '\n-- Acrescentado por ~/.dotfiles/bin/apply-screens.sh\nrequire("configs/screens")\n' >> "$raiz"
     fi
 
+    # A 3090 so sai de cena pelo AQ_DRM_DEVICES, e o SDDM nao le environment.d: enquanto a
+    # variavel nao pega, os dummy plugs dela entram como tela de verdade e o desktop ganha
+    # dois monitores fantasma. Desligar por nome resolve na sessao que ja esta de pe.
+    local saida
+    while read -r saida; do
+        [[ -n $saida ]] || continue
+        printf 'hl.monitor({ output = "%s", disabled = true })\n' "$saida" >> "$CFG/hypr/configs/screens.lua"
+    done < <(saidas_nvidia)
+
     [[ -n ${HYPRLAND_INSTANCE_SIGNATURE:-} ]] && hyprctl reload >/dev/null 2>&1
     return 0
 }
