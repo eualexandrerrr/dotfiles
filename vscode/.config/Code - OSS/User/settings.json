@@ -40,5 +40,17 @@
     "security.workspace.trust.emptyWindow": true,
     "terminal.integrated.enablePersistentSessions": false,
     "terminal.integrated.hideOnStartup": "always",
-    "redhat.telemetry.enabled": true
+    "redhat.telemetry.enabled": true,
+    "catppuccin.accentColor": "lavender",
+    "catppuccin.workbenchMode": "flat",
+    "catppuccin.colorOverrides": {
+        "mocha": {
+            "base": "#0d0d12",
+            "mantle": "#050507",
+            "crust": "#000000",
+            "surface0": "#1b1b24",
+            "surface1": "#26262f",
+            "surface2": "#2a2a36"
+        }
+    }
 }
