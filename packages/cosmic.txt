@@ -17,5 +17,8 @@ capitaine-cursors
 sddm
 
 [aur]
+# Badge de nao lidas do Discord e afins: o Electron so publica o contador no D-Bus
+# (com.canonical.Unity.LauncherEntry) se achar a libunity; o app-list do fork escuta.
+libunity
 # Faixa e artista do Spotify na ala esquerda do painel, com controles no popup (MPRIS).
 cosmic-ext-applet-now-playing-extended-git
