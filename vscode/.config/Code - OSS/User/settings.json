@@ -17,7 +17,7 @@
     "scm.defaultViewMode": "tree",
     "claudeCode.useTerminal": false,
     "claudeCode.autosave": true,
-    "workbench.colorTheme": "Catppuccin Mocha",
+    "workbench.colorTheme": "One Dark Pro",
     "chat.disableAIFeatures": true,
     "terminal.integrated.profiles.linux": {
         "zsh": {
