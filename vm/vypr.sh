@@ -162,8 +162,25 @@ Register-ScheduledTask -TaskName 'vypr-redm' -Action \$action -Principal \$who -
 " >/dev/null 2>&1 && ok "app redm: cache limpo e conectado em $servidor a cada abertura" || warn "tarefa vypr-redm nao registrada no guest"
 }
 
+# Cliente Wayland nao escolhe saida: o compositor abre a janela embaixo do ponteiro, e o jogo
+# nascia no LG vertical quando o mouse estava la. O vyprd (patch do fork) chama este hook
+# depois de criar cada janela; o cosmic-move-window.py leva ela pro monitor principal.
+hook_window() {
+    cat >"$CONF/hooks/window" <<'FIM'
+#!/usr/bin/env bash
+# Leva a janela do Vypr pro monitor principal (ver vm/vypr.sh). Args: titulo, chave, pid.
+DOTFILES_DIR="${DOTFILES_DIR:-$HOME/.dotfiles}"
+saida="$("$DOTFILES_DIR/bin/monitor.sh" principal 2>/dev/null)" || exit 0
+[[ -n $saida ]] || exit 0
+exec "$DOTFILES_DIR/bin/cosmic-move-window.py" --wait 10 vypr-window "$saida" >/dev/null 2>&1
+FIM
+    chmod +x "$CONF/hooks/window"
+    ok "hook window (janela do Vypr vai pro monitor principal)"
+}
+
 configurar() {
     hook_pre_run
+    hook_window
     app_redm
     if [[ ! -f $CONF/config ]]; then
         local ip
