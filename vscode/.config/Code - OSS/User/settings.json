@@ -19,7 +19,6 @@
     "claudeCode.autosave": true,
     "workbench.colorTheme": "Catppuccin Mocha",
     "chat.disableAIFeatures": true,
-    "chat.commandCenter.enabled": false,
     "terminal.integrated.profiles.linux": {
         "zsh": {
             "path": "/usr/bin/zsh"
