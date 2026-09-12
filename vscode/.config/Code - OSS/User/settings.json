@@ -33,5 +33,9 @@
     "terminal.integrated.defaultProfile.linux": "zsh",
     "claudeCode.hideOnboarding": true,
     "claudeCode.disableLoginPrompt": true,
-    "claudeCode.preferredLocation": "panel"
+    "claudeCode.preferredLocation": "panel",
+    "security.workspace.trust.enabled": false,
+    "security.workspace.trust.startupPrompt": "never",
+    "security.workspace.trust.banner": "never",
+    "security.workspace.trust.emptyWindow": true
 }
