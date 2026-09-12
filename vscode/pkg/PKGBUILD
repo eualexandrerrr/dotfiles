@@ -191,8 +191,10 @@ package() {
   # (o gulp instala isso no .deb/.rpm, o PKGBUILD do Arch nao).
   install -Dm 644 vscode/resources/linux/code-workspace.xml "$pkgdir"/usr/share/mime/packages/code-oss-workspace.xml
   install -Dm 644 VSCode-linux-$_vscode_arch/resources/app/resources/linux/code.png "$pkgdir"/usr/share/pixmaps/com.visualstudio.code.oss.png
-  mkdir --parents --verbose "$pkgdir"/usr/share/icons/hicolor/scalable/apps
-  ln --symbolic --force /usr/lib/code/out/media/code-icon.svg "$pkgdir"/usr/share/icons/hicolor/scalable/apps/com.visualstudio.code.oss.svg
+  # O Arch linka o code-icon.svg como icone escalavel, mas ele nao e o logo (e um desenho generico
+  # de editor), e todo tema prefere o escalavel: a dock do COSMIC ficava sem o logo. O logo de
+  # verdade e o code.png de 1024 px.
+  install -Dm 644 VSCode-linux-$_vscode_arch/resources/app/resources/linux/code.png "$pkgdir"/usr/share/icons/hicolor/1024x1024/apps/com.visualstudio.code.oss.png
 
   # Install bash and zsh completions
   install -Dm 644 vscode/resources/completions/bash/code "$pkgdir"/usr/share/bash-completion/completions/code

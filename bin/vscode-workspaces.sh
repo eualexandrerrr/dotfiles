@@ -49,3 +49,15 @@ if [[ -f /usr/share/mime/packages/code-oss-workspace.xml && -f $MIME_USUARIO/pac
 fi
 command -v xdg-mime >/dev/null 2>&1 && xdg-mime default code-oss.desktop application/x-code-oss-workspace 2>/dev/null \
     && printf '  ok .code-workspace abre no VS Code\n'
+
+# Icone do VS Code na dock: enquanto o pacote instalado ainda traz o code-icon.svg generico como
+# escalavel, um SVG nosso em ~/.local/share/icons embrulha o logo em PNG; some quando o pacote
+# passa a instalar o PNG de 1024 px.
+ICONE_USUARIO="${XDG_DATA_HOME:-$HOME/.local/share}/icons/hicolor/scalable/apps/com.visualstudio.code.oss.svg"
+if [[ -f /usr/share/icons/hicolor/1024x1024/apps/com.visualstudio.code.oss.png && -f $ICONE_USUARIO ]]; then
+    rm -f "$ICONE_USUARIO"
+elif [[ ! -f /usr/share/icons/hicolor/1024x1024/apps/com.visualstudio.code.oss.png && ! -f $ICONE_USUARIO && -f /usr/lib/code/resources/linux/code.png ]]; then
+    mkdir -p "$(dirname "$ICONE_USUARIO")"
+    printf '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1024 1024" width="1024" height="1024"><image width="1024" height="1024" xlink:href="data:image/png;base64,%s"/></svg>' \
+        "$(base64 -w0 /usr/lib/code/resources/linux/code.png)" >"$ICONE_USUARIO"
+fi
