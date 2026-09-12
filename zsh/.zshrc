@@ -96,6 +96,10 @@ command -v starship >/dev/null 2>&1 && eval "$(starship init zsh)"
 # mas o atuin e o fzf reescrevem bindings, entao amarrar depois deles garante.
 bindkey '^[^?' backward-kill-word
 bindkey '^H'   backward-kill-word
+# Ctrl+Delete apaga a palavra pra frente: cosmic-term, ghostty e o terminal do VS Code
+# mandam \e[3;5~, que o zsh nao conhece de fabrica (e Delete puro, \e[3~, tambem nao).
+bindkey '^[[3~'   delete-char
+bindkey '^[[3;5~' kill-word
 
 # Seta pra cima filtra o historico pelo que ja esta escrito: "cd" + seta so passeia pelos
 # cd anteriores. Com o cursor no meio de um comando de varias linhas, anda entre as linhas.
