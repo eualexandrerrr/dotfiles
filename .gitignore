@@ -6,3 +6,6 @@ pacotes/*/*
 !pacotes/*/*.patch
 
 __pycache__/
+
+# Saida do MCP do Playwright (snapshot, console, screenshot) -- nunca versionar
+.playwright-mcp/
