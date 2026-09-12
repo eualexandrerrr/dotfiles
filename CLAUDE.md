@@ -195,6 +195,7 @@ aqui: este repo e publico. Sem o clone, `git clone git@github.com:eualexandrerrr
 | Pacote do stow, onde um arquivo novo entra, regra do `--no-folding` | `~/Claude/maquina/docs/estrutura-repo.md` |
 | Rodar o `install.sh`, entender etapa que falhou | `~/Claude/maquina/docs/install-fluxo.md` |
 | Disposicao de telas, marca de cada monitor (`screens.conf`) | `~/Claude/maquina/docs/monitores.md` |
+| COSMIC: chaves do painel, seeds em `state/cosmic/`, forks, armadilhas | `~/Claude/maquina/docs/cosmic.md` |
 | DNS, keyring, por que NAO instalar gnome-keyring | `~/Claude/maquina/docs/dns-e-keyring.md` |
 | Suspender, hibernar, apagar monitor por inatividade | `~/Claude/maquina/docs/energia.md` |
 | Desligar travado ou lento, tela preta no shutdown, fonte e cor do console | `~/Claude/maquina/docs/energia.md` |
