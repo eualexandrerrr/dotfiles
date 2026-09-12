@@ -129,8 +129,8 @@ so como espelho, pronto pra receber patch sem virar fork solto depois.
 | fork | o que ele acrescenta |
 |---|---|
 | `cosmic-panel` | `background_per_group` (uma pilula por grupo), `exclusive_gap` (folga da janela maximizada), `side_inset` (folga das laterais), `wing_inset` (pilula das alas mais fina) |
-| `cosmic-applets` | no `cosmic-app-list`: `ignored` (app fora da barra, o `skipTaskbar` que o Wayland nao tem), `show_divider`, `hover_popup_delay_ms` |
-| `cosmic-launcher` | alt-tab centralizado e horizontal, janela da lista `ignored` fora dele, menu abrindo de baixo pra cima (encostado no painel) e grade com todos os apps em vez da lista de recentes |
+| `cosmic-applets` | no `cosmic-app-list`: `ignored` (app fora da barra, o `skipTaskbar` que o Wayland nao tem), `show_divider`, `hover_popup_delay_ms`, `click_last_window` (clique vai pra ultima janela usada; a lista fica no hover) |
+| `cosmic-launcher` | alt-tab centralizado e horizontal, janela da lista `ignored` fora dele, menu abrindo de baixo pra cima (encostado no painel) com todos os apps em lista em vez dos recentes, rodape com Configuracoes, Bloquear, Sair, Reiniciar e Desligar, e app antes das janelas abertas na busca |
 | `cosmic-settings` | secao **ReCosmic** na pagina Painel, com todas as chaves acima na interface grafica, em pt-BR |
 | `cosmic-ext-applet-now-playing` | Spotify na ala esquerda: prefere Spotify a aba de navegador, card compacto com icone, capa e miniatura de video, e volume do proprio app no popup (derivado do AdityaHebballe, nao do pop-os) |
 
