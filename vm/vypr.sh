@@ -129,7 +129,7 @@ guest_put_grande() {
     local origem="$1" destino="${2//\\//}" h pedaco
     h=$(_qga "{\"execute\":\"guest-file-open\",\"arguments\":{\"path\":\"$destino\",\"mode\":\"wb\"}}" \
         | python3 -c 'import sys,json;print(json.load(sys.stdin)["return"])') || return 1
-    while IFS= read -r pedaco; do
+    while IFS= read -r pedaco || [[ -n $pedaco ]]; do
         _qga "{\"execute\":\"guest-file-write\",\"arguments\":{\"handle\":$h,\"buf-b64\":\"$pedaco\"}}" >/dev/null || return 1
     done < <(base64 -w0 <"$origem" | fold -w 65536)
     _qga "{\"execute\":\"guest-file-close\",\"arguments\":{\"handle\":$h}}" >/dev/null
