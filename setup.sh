@@ -359,6 +359,10 @@ etapa_graficos() {
         # o desktop nela so pra copiar quadro a quadro pela PCIe ate quem tem os monitores.
         # Caminho por by-path porque cardN troca de numero entre boots.
         printf 'KWIN_DRM_DEVICES=%s\nAQ_DRM_DEVICES=%s\n' "$GPU_CARD" "$GPU_CARD"
+        # O cosmic-comp escolhe a GPU de render sozinho e pega a Boot VGA, igual ao KWin e ao
+        # mutter: em 12/09/2026 ele renderizava na 3090 e copiava pela PCIe pra AMD, e a tela
+        # parecia travada mesmo com os dois monitores a 144 Hz. Aceita o caminho pci- direto.
+        printf 'COSMIC_RENDER_DEVICE=pci-%s\n' "$GPU_PCI"
     } > "$envdir/50-dotfiles.conf"
     ok "~/.config/environment.d/50-dotfiles.conf (telas na $GPU_DRIVER, $GPU_PCI)"
 
