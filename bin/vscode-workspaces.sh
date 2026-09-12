@@ -21,7 +21,7 @@ for entrada in "${PROJETOS[@]}"; do
     IFS='|' read -r nome arquivo <<<"$entrada"
     [[ -f $WORKSPACES/$arquivo ]] || { printf '  !! %s: %s nao existe\n' "$nome" "$WORKSPACES/$arquivo"; continue; }
     base="$(basename "$arquivo" .code-workspace)"
-    icone="code-oss"
+    icone="com.visualstudio.code.oss"
     [[ -f ${XDG_DATA_HOME:-$HOME/.local/share}/icons/hicolor/96x96/apps/workspace-$base.png ]] && icone="workspace-$base"
     desktop="$DESTINO/workspace-$base.desktop"
     tmp="$desktop.tmp"
@@ -55,6 +55,10 @@ command -v xdg-mime >/dev/null 2>&1 && xdg-mime default code-oss.desktop applica
 # escalavel, um SVG nosso em ~/.local/share/icons embrulha o logo em PNG; some quando o pacote
 # passa a instalar o PNG de 1024 px.
 ICONE_USUARIO="${XDG_DATA_HOME:-$HOME/.local/share}/icons/hicolor/scalable/apps/com.visualstudio.code.oss.svg"
+# O .code-workspace no gerenciador de arquivos usa o icone do tipo MIME; aponta pro logo.
+MIME_ICONE="${XDG_DATA_HOME:-$HOME/.local/share}/icons/hicolor/scalable/mimetypes/application-x-code-oss-workspace.svg"
+mkdir -p "$(dirname "$MIME_ICONE")"
+[[ -L $MIME_ICONE ]] || ln -sf ../apps/com.visualstudio.code.oss.svg "$MIME_ICONE"
 if [[ -f /usr/share/icons/hicolor/1024x1024/apps/com.visualstudio.code.oss.png && -f $ICONE_USUARIO ]]; then
     rm -f "$ICONE_USUARIO"
 elif [[ ! -f /usr/share/icons/hicolor/1024x1024/apps/com.visualstudio.code.oss.png && ! -f $ICONE_USUARIO && -f /usr/lib/code/resources/linux/code.png ]]; then
