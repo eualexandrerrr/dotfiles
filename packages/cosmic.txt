@@ -10,6 +10,8 @@ xdg-desktop-portal-cosmic
 # O bin/minimize-all.py fala o protocolo de toplevel do COSMIC por aqui: o compositor nao tem
 # acao de "minimizar tudo" e o Minimize dos atalhos so pega a janela em foco.
 python-pywayland
+# Cursor capitaine-cursors-light (XCURSOR_THEME no environment.d, etapa graficos).
+capitaine-cursors
 
 [repo-oficial:cosmic-login]
 sddm

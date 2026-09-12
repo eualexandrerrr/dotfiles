@@ -395,6 +395,10 @@ etapa_graficos() {
         printf 'GTK_IM_MODULE=simple\n'
         # O Spotify nao olha o LANG: sem LANGUAGE ele abre em ingles mesmo com pt_BR.UTF-8.
         printf 'LANGUAGE=pt_BR:pt\n'
+        # O cosmic-comp so le o tema de cursor destas duas variaveis (na subida, entao vale
+        # no login seguinte); Chrome, Electron e Xwayland leem as mesmas. Plasma e GNOME
+        # ignoram e usam o proprio ajuste.
+        printf 'XCURSOR_THEME=capitaine-cursors-light\nXCURSOR_SIZE=24\n'
         if [[ $GPU_DRIVER == nvidia ]]; then
             printf 'LIBVA_DRIVER_NAME=nvidia\n__GLX_VENDOR_LIBRARY_NAME=nvidia\nNVD_BACKEND=direct\n'
         else
@@ -514,6 +518,13 @@ etapa_cosmic() {
         fi
     done < <(find "$origem" -type f -print0)
     ok "$n chave(s) do COSMIC atualizada(s) em ~/.config/cosmic (as demais ja batiam)"
+
+    # App GTK le o cursor do gsettings, nao do XCURSOR_THEME; o cosmic-settings-daemon replica
+    # so o icon_theme pra la. Vale na hora.
+    if command -v gsettings >/dev/null 2>&1; then
+        gsettings set org.gnome.desktop.interface cursor-theme capitaine-cursors-light 2>/dev/null
+        gsettings set org.gnome.desktop.interface cursor-size 24 2>/dev/null
+    fi
 
     # Nome dos apps sem "COSMIC" no fim e em portugues do Brasil, nao de Portugal.
     bash "$DOTFILES_DIR/bin/cosmic-app-names.sh" || falha "cosmic-app-names.sh falhou"
