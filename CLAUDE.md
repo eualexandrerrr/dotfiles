@@ -132,7 +132,7 @@ so como espelho, pronto pra receber patch sem virar fork solto depois.
 | `cosmic-applets` | no `cosmic-app-list`: `ignored` (app fora da barra, o `skipTaskbar` que o Wayland nao tem), `show_divider`, `hover_popup_delay_ms`, `click_last_window` (clique vai pra ultima janela usada; a lista fica no hover) |
 | `cosmic-launcher` | alt-tab centralizado e horizontal, janela da lista `ignored` fora dele, menu abrindo de baixo pra cima (encostado no painel) com todos os apps em lista em vez dos recentes, rodape com Configuracoes, Bloquear, Sair, Reiniciar e Desligar, e app antes das janelas abertas na busca |
 | `cosmic-settings` | secao **ReCosmic** na pagina Painel, com todas as chaves acima na interface grafica, em pt-BR |
-| `cosmic-files` | menu lateral redimensionavel pela borda (alca de 6 px), largura salva em `nav_bar_width` |
+| `cosmic-files` | menu lateral redimensionavel pela borda (alca de 6 px), largura salva em `nav_bar_width`; pasta pessoal aparece com o nome do usuario, nao "Pasta pessoal" |
 | `cosmic-ext-applet-now-playing` | Spotify na ala esquerda: prefere Spotify a aba de navegador, card compacto com icone, capa e miniatura de video, e volume do proprio app no popup (derivado do AdityaHebballe, nao do pop-os) |
 
 Cada fork tem **duas branches**: `master` (ou `main`) e espelho intocado do upstream, e
