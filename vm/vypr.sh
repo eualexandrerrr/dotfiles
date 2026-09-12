@@ -92,7 +92,31 @@ chave() {
     fi
 }
 
+# O IDD do Looking Glass pega o primeiro IVSHMEM que o Windows enumera -- ignora o
+# shmDevice -- e escreve um contador a 1 kHz em cima da regiao do Vypr, que perde o cabecalho
+# e o agente diz "none holding a vypr region" (12/09/2026). Enquanto o Vypr roda, o IDD fica
+# desligado: a 3090 continua com display pelo dummy plug e pelo DP do ASUS. O hook pre-run do
+# launcher (patch do fork) chama isto antes de cada sessao, porque o modo jogo e o
+# guest-display.sh religam o IDD.
+hook_pre_run() {
+    mkdir -p "$CONF/hooks"
+    cat >"$CONF/hooks/pre-run" <<'FIM'
+#!/usr/bin/env bash
+# Desliga o IDD do Looking Glass no guest antes da sessao do Vypr (ver vm/vypr.sh).
+source "${DOTFILES_DIR:-$HOME/.dotfiles}/vm/guest.sh"
+guest_ready 10 || exit 0
+estado=$(guest_exec '(Get-PnpDevice -InstanceId "ROOT\DISPLAY\0000" -ErrorAction SilentlyContinue).Status' 2>/dev/null | tr -d '
+ ')
+[[ $estado == OK ]] || exit 0
+guest_exec 'Disable-PnpDevice -InstanceId "ROOT\DISPLAY\0000" -Confirm:$false -ErrorAction SilentlyContinue' >/dev/null 2>&1
+printf 'vypr: IDD do Looking Glass desligado no guest\n'
+FIM
+    chmod +x "$CONF/hooks/pre-run"
+    ok "hook pre-run (IDD do Looking Glass desligado antes da sessao)"
+}
+
 configurar() {
+    hook_pre_run
     if [[ ! -f $CONF/config ]]; then
         local ip
         ip="$(v net-dhcp-leases default 2>/dev/null | awk '/52:54:00:7b:68:56/ {split($5,a,"/"); print a[1]; exit}')"
