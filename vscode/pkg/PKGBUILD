@@ -34,7 +34,7 @@ depends=(
 optdepends=('bash-completion: Bash completions'
             'zsh-completions: ZSH completitons'
             'x11-ssh-askpass: SSH authentication')
-makedepends=('git' 'nodejs' 'npm' 'python' 'desktop-file-utils' 'zip' 'jq')
+makedepends=('git' 'nodejs' 'npm' 'librsvg' 'python' 'desktop-file-utils' 'zip' 'jq')
 provides=('vscode' 'code')
 conflicts=('code')
 options=('!strip' '!debug')
@@ -190,11 +190,15 @@ package() {
   # Tipo MIME do .code-workspace, pra clique duplo no gerenciador de arquivos abrir no editor
   # (o gulp instala isso no .deb/.rpm, o PKGBUILD do Arch nao).
   install -Dm 644 vscode/resources/linux/code-workspace.xml "$pkgdir"/usr/share/mime/packages/code-oss-workspace.xml
-  install -Dm 644 VSCode-linux-$_vscode_arch/resources/app/resources/linux/code.png "$pkgdir"/usr/share/pixmaps/com.visualstudio.code.oss.png
+  # O code.png do repo e o desenho generico do Code - OSS (documento azul), nao o logo do VS Code:
+  # o app usa o logo de verdade (vscode.svg, ao lado do PKGBUILD) e o desenho fica so no mimetype.
+  rsvg-convert -w 1024 -h 1024 "$startdir"/vscode.svg -o code-logo.png
+  install -Dm 644 code-logo.png "$pkgdir"/usr/share/pixmaps/com.visualstudio.code.oss.png
+  install -Dm 644 "$startdir"/vscode.svg "$pkgdir"/usr/share/icons/hicolor/scalable/apps/com.visualstudio.code.oss.svg
   # O Arch linka o code-icon.svg como icone escalavel, mas ele nao e o logo (e um desenho generico
   # de editor), e todo tema prefere o escalavel: a dock do COSMIC ficava sem o logo. O logo de
   # verdade e o code.png de 1024 px.
-  install -Dm 644 VSCode-linux-$_vscode_arch/resources/app/resources/linux/code.png "$pkgdir"/usr/share/icons/hicolor/1024x1024/apps/com.visualstudio.code.oss.png
+  install -Dm 644 code-logo.png "$pkgdir"/usr/share/icons/hicolor/1024x1024/apps/com.visualstudio.code.oss.png
   install -Dm 644 VSCode-linux-$_vscode_arch/resources/app/resources/linux/code.png "$pkgdir"/usr/share/icons/hicolor/1024x1024/mimetypes/application-x-code-oss-workspace.png
 
   # Install bash and zsh completions
