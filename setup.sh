@@ -443,6 +443,34 @@ etapa_wallpaper() {
         || falha "apply-wallpaper.sh falhou"
 }
 
+etapa_cosmic() {
+    log "COSMIC: barra, atalhos, teclado e os forks do painel"
+    if [[ $DE != cosmic ]]; then
+        ok "desktop e $DE, etapa do COSMIC pulada"
+        return
+    fi
+
+    # Semente, nao espelho: o cosmic-settings e o proprio painel gravam nesses arquivos (fixar
+    # um app pelo clique direito, por exemplo), entao symlink do stow nao serve. Copia por cima
+    # so as chaves que o repo conhece; o resto de ~/.config/cosmic fica como esta. O `output`
+    # do painel fica de fora de proposito: o conector muda de nome e quem cuida dele e o
+    # bin/apply-screens.sh.
+    local origem="$DOTFILES_DIR/state/cosmic" destino="${XDG_CONFIG_HOME:-$HOME/.config}/cosmic"
+    local n=0 f rel
+    while IFS= read -r -d '' f; do
+        rel="${f#"$origem"/}"
+        mkdir -p "$destino/$(dirname "$rel")"
+        if ! cmp -s "$f" "$destino/$rel"; then
+            cp "$f" "$destino/$rel"
+            n=$((n+1))
+        fi
+    done < <(find "$origem" -type f -print0)
+    ok "$n chave(s) do COSMIC atualizada(s) em ~/.config/cosmic (as demais ja batiam)"
+
+    # Os forks: cosmic-panel com fundo por grupo, cosmic-app-list com ignored e show_divider.
+    bash "$DOTFILES_DIR/bin/cosmic-forks.sh" || falha "cosmic-forks.sh falhou"
+}
+
 etapa_vm() {
     log "VM w11: vfio, kvmfr, hooks e firmware"
 
@@ -655,7 +683,7 @@ etapa_servicos() {
     fi
 }
 
-ETAPAS=(links home perfil arquivos sistema graficos wallpaper vm ddcutil energia atalhos audio dns console chrome claude notificacoes painel tema servicos)
+ETAPAS=(links home perfil arquivos sistema graficos wallpaper cosmic vm ddcutil energia atalhos audio dns console chrome claude notificacoes painel tema servicos)
 
 if [[ ${1:-} == --lista ]]; then
     printf 'etapas: %s\n' "${ETAPAS[*]}"

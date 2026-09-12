@@ -1,0 +1,6 @@
+{
+    (modifiers: [Super], key: "e"): System(HomeFolder),
+    (modifiers: [Shift], key: "Print"): System(Screenshot),
+    (modifiers: [Alt], key: "d"): Spawn("/home/Alexandre/.dotfiles/bin/minimize-all.py"),
+    (modifiers: [Super], key: "d"): Spawn("/home/Alexandre/.dotfiles/bin/minimize-all.py"),
+}

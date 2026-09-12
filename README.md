@@ -22,7 +22,7 @@ Three scripts, that is all. All idempotent:
 | `setup.sh` | configures everything, VM included — no network | you touched a config |
 | `reload.sh` | reloads the session already running | something drifted just now |
 
-`setup.sh` steps: `links home perfil arquivos sistema graficos wallpaper vm ddcutil energia atalhos audio dns console chrome claude notificacoes painel tema servicos`.
+`setup.sh` steps: `links home perfil arquivos sistema graficos wallpaper cosmic vm ddcutil energia atalhos audio dns console chrome claude notificacoes painel tema servicos`.
 
 ## Package cache
 
@@ -67,11 +67,20 @@ says `HDMI-2`, X says `DisplayPort-0`.
 The graphics driver is the other exception and lives in the `graficos` step, which runs on every desktop. It
 asks `bin/render-gpu.sh` which GPU has a monitor attached, then writes
 `~/.config/environment.d/50-dotfiles.conf` (`GTK_IM_MODULE=simple` for dead keys in GTK apps
-on ABNT2, `LANGUAGE`, `LIBVA_DRIVER_NAME`, `KWIN_DRM_DEVICES`, `AQ_DRM_DEVICES`) and
+on ABNT2, `LANGUAGE`, `LIBVA_DRIVER_NAME`, `KWIN_DRM_DEVICES`, `AQ_DRM_DEVICES`, `COSMIC_RENDER_DEVICE`) and
 `/etc/udev/rules.d/61-dotfiles-gpu.rules`, which tags the AMD card
 `mutter-device-preferred-primary` and the 3090 `mutter-device-ignore`. Mutter has no
 `KWIN_DRM_DEVICES`: without that rule it picks the primary GPU by Boot VGA, lands on the
 3090 and paints GNOME onto its dummy plugs, leaving the real monitor on a blank blue screen.
+
+COSMIC is the one other desktop with versioned config. It keeps one RON file per key under
+`~/.config/cosmic/`, hot-reloaded, so it cannot be stowed; the `cosmic` step copies the files in
+`state/cosmic/` over the home ones only when they differ (panel layout, favorites, shortcuts,
+keyboard repeat delay). Three of those keys come from my forks,
+[cosmic-panel](https://github.com/eualexandrerrr/cosmic-panel) (`background_per_group`, one pill
+per panel group) and [cosmic-applets](https://github.com/eualexandrerrr/cosmic-applets)
+(`ignored` and `show_divider` in the app list). `bin/cosmic-forks.sh` clones, builds and installs
+them into `~/.local/bin`, ahead of the distro packages.
 
 ---
 

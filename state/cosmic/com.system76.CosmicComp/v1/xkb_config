@@ -1,0 +1,9 @@
+(
+    rules: "",
+    model: "",
+    layout: "br",
+    variant: "",
+    options: None,
+    repeat_delay: 210,
+    repeat_rate: 25,
+)

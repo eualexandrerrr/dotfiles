@@ -23,7 +23,7 @@ São três scripts, e só. Todos idempotentes:
 | `setup.sh` | configura tudo, VM inclusa — sem rede | mexeu numa config |
 | `reload.sh` | recarrega a sessão que já está de pé | algo saiu do lugar agora |
 
-Etapas do `setup.sh`: `links home perfil arquivos sistema graficos wallpaper vm ddcutil energia atalhos audio dns console chrome claude notificacoes painel tema servicos`.
+Etapas do `setup.sh`: `links home perfil arquivos sistema graficos wallpaper cosmic vm ddcutil energia atalhos audio dns console chrome claude notificacoes painel tema servicos`.
 
 ## Cache de pacotes
 
@@ -63,11 +63,20 @@ pra backend: o kernel diz `HDMI-A-2`, o mutter diz `HDMI-2` e o X diz `DisplayPo
 O driver de vídeo é a outra exceção e mora na etapa `graficos`, que roda em qualquer desktop. Ela pergunta
 ao `bin/render-gpu.sh` qual GPU tem monitor ligado e grava
 `~/.config/environment.d/50-dotfiles.conf` (`GTK_IM_MODULE=simple` para acento em app GTK no
-ABNT2, `LANGUAGE`, `LIBVA_DRIVER_NAME`, `KWIN_DRM_DEVICES`, `AQ_DRM_DEVICES`) e
+ABNT2, `LANGUAGE`, `LIBVA_DRIVER_NAME`, `KWIN_DRM_DEVICES`, `AQ_DRM_DEVICES`, `COSMIC_RENDER_DEVICE`) e
 `/etc/udev/rules.d/61-dotfiles-gpu.rules`, que marca a AMD como
 `mutter-device-preferred-primary` e a 3090 como `mutter-device-ignore`. O mutter não tem
 `KWIN_DRM_DEVICES`: sem essa regra ele escolhe a GPU primária pela Boot VGA, cai na 3090 e
 desenha o GNOME nos dummy plugs dela, deixando o monitor real numa tela azul vazia.
+
+O COSMIC é o outro desktop com configuração versionada. Ele guarda um arquivo RON por chave em
+`~/.config/cosmic/`, com hot reload, então não dá pra fazer stow; a etapa `cosmic` copia os
+arquivos de `state/cosmic/` por cima dos da home só quando diferem (layout do painel, favoritos,
+atalhos, atraso de repetição do teclado). Três dessas chaves vêm dos meus forks,
+[cosmic-panel](https://github.com/eualexandrerrr/cosmic-panel) (`background_per_group`, uma
+pílula por grupo do painel) e [cosmic-applets](https://github.com/eualexandrerrr/cosmic-applets)
+(`ignored` e `show_divider` na lista de apps). O `bin/cosmic-forks.sh` clona, compila e instala
+os dois em `~/.local/bin`, na frente dos pacotes da distro.
 
 ---
 

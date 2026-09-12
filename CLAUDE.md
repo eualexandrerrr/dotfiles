@@ -58,7 +58,7 @@ Com duas GPUs o cenario de single-GPU passthrough (que derruba a sessao) nao se 
 
 ```
 ~/.dotfiles/setup.sh [etapa...]
-# links home perfil arquivos sistema graficos wallpaper vm ddcutil energia atalhos audio dns console chrome claude notificacoes painel tema servicos
+# links home perfil arquivos sistema graficos wallpaper cosmic vm ddcutil energia atalhos audio dns console chrome claude notificacoes painel tema servicos
 ```
 
 **Nome de pasta, arquivo e unit sempre em ingles.** Este repo e publico: `secrets/`, nao
@@ -111,9 +111,25 @@ escreve por ultimo o `configs/janelas.lua`, que e o unico arquivo nosso: ele poe
 pra flutuar centralizada, tira os binds de workspace e troca o alt-tab por
 `cyclenext + bringactivetotop`. O pedido era desktop de janelas, sem workspace nenhum.
 
-**So o KDE tem configuracao versionada aqui.** As etapas `arquivos atalhos notificacoes
-painel tema` e o pacote stow `plasma/` sao puladas em qualquer outro desktop, que sobe de
-fabrica.
+**So o KDE e o COSMIC tem configuracao versionada aqui.** As etapas `arquivos atalhos
+notificacoes painel tema` e o pacote stow `plasma/` sao puladas em qualquer outro desktop, que
+sobe de fabrica. A excecao e a etapa `cosmic`: o COSMIC guarda a config em
+`~/.config/cosmic/<componente>/v1/<chave>`, um arquivo RON por chave, recarregado por inotify
+-- entao nao da pra fazer stow (o cosmic-settings reescreve o arquivo e quebra o link). Os
+arquivos que valem ficam em `state/cosmic/` e a etapa copia cada um por cima do da home so
+quando o conteudo difere, nunca o `output` (que muda com o conector, ver abaixo). O que esta
+la: painel embaixo, apps no centro e status a direita, `background_per_group` (uma pilula por
+grupo), favoritos, `ignored = ["RicePanel"]`, atalhos `SUPER+E`, `Shift+Print`, `ALT+D` e
+`SUPER+D` (`bin/minimize-all.py`, pywayland falando direto com o
+`zcosmic_toplevel_manager_v1`), e `repeat_delay: 210`. Tres dessas chaves nao existem no
+COSMIC de fabrica -- `background_per_group`, `ignored`, `show_divider` -- e vem dos **forks**
+`eualexandrerrr/cosmic-panel` e `eualexandrerrr/cosmic-applets` (GPL-3.0-only, credito no
+README de cada um). O `bin/cosmic-forks.sh` clona em `~/<repo>`, compila com cargo (o pacote
+do painel chama `cosmic-panel-bin`) e instala em `~/.local/bin`, que vem antes de `/usr/bin`
+no PATH da sessao; so recompila quando o HEAD mudou desde o marcador em
+`~/.local/state/dotfiles/fork-<bin>.commit`. Commit nos forks vai direto na `master`.
+Cuidado com `size_wings`: e `Option<(Option, Option)>`, e preencher as duas alas derruba o
+painel em loop de erro de protocolo; a forma certa e `Some((None, Some(XS)))`.
 
 **O que e hardware vale em todos os dez desktops.** Layout de tela e papel de parede sao
 disposicao de monitor, nao personalizacao: o `bin/apply-screens.sh` e o `bin/apply-wallpaper.sh`
@@ -127,13 +143,18 @@ dispara e o `autostart/` mais o `apply-screens.timer`, nao a unit. A disposicao 
 escrita uma vez so, no topo do `apply-screens.sh`; qual conector e qual tela sai sempre do `bin/monitor.sh`, pela marca no
 EDID. Cuidado: o nome da saida muda de backend pra backend -- o kernel diz `HDMI-A-2`, o
 mutter diz `HDMI-2` e o X diz `DisplayPort-0`. Por isso o mutter casa por marca e o X11 casa
-o EDID byte a byte (`monitor.sh --xrandr`).
+o EDID byte a byte (`monitor.sh --xrandr`). E o nome do kernel tambem muda quando uma GPU
+some: com a 3090 no `vfio-pci` o `HDMI-A-2`/`DP-4` viram `HDMI-A-1`/`DP-1`. O painel do COSMIC
+guarda o conector na chave `output`, entao o `apply-screens.sh` reescreve essa chave toda vez.
+O `COSMIC_RENDER_DEVICE` vai no formato `0x1002:0x699f` (vendor:device): a forma `pci-...`
+nao resolve o symlink relativo de `by-path` no cosmic-comp 1.8 e o compositor cai na 3090,
+com o desktop parecendo 30 Hz.
 
 **O que e driver de video vale nos quatro desktops e mora na etapa `graficos`.** Ela le a
 GPU que tem monitor ligado pelo `bin/render-gpu.sh` e grava dois arquivos gerados, nenhum
 deles versionado: `~/.config/environment.d/50-dotfiles.conf`, com `GTK_IM_MODULE=simple`
 (acento em app GTK no ABNT2), `LANGUAGE`, `LIBVA_DRIVER_NAME`, `KWIN_DRM_DEVICES` e
-`AQ_DRM_DEVICES`; e `/etc/udev/rules.d/61-dotfiles-gpu.rules`, que marca a AMD como
+`AQ_DRM_DEVICES` e `COSMIC_RENDER_DEVICE`; e `/etc/udev/rules.d/61-dotfiles-gpu.rules`, que marca a AMD como
 `mutter-device-preferred-primary` e a 3090 como `mutter-device-ignore`. O mutter nao tem
 variavel equivalente ao `KWIN_DRM_DEVICES`: sem essa regra ele elege a GPU primaria pela
 Boot VGA, pega a 3090 e desenha o GNOME nos dummy plugs dela, deixando o monitor real na
