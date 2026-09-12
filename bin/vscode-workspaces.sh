@@ -1,46 +1,14 @@
 #!/usr/bin/env bash
-# Um lancador por projeto no menu de aplicativos: cada entrada abre o .code-workspace dele no
-# VS Code. Os .code-workspace moram na raiz de ~/Workspaces, sem subpasta (fora do repo: caminho
-# e projeto pessoal); o icone opcional e `workspace-<Base>.png` no tema de icones do usuario
-# (~/.local/share/icons/hicolor/96x96/apps). A tabela abaixo diz quais viram lancador.
+# O .code-workspace abre no VS Code pelo clique duplo e mostra o logo dele no gerenciador de
+# arquivos. Os .code-workspace moram na raiz de ~/Workspaces (fora do repo: caminho e projeto
+# pessoal). Sem lancador por projeto no menu de aplicativos: em 12/09/2026 ele pediu pra tirar,
+# projeto no menu incomodava.
 set -uo pipefail
 
-WORKSPACES="$HOME/Workspaces"
 DESTINO="${XDG_DATA_HOME:-$HOME/.local/share}/applications"
-mkdir -p "$DESTINO"
-
-# nome no menu | arquivo relativo a ~/Workspaces
-PROJETOS=(
-    "MichiganRoleplay|MichiganRoleplay.code-workspace"
-    "dotfiles|Dotfiles.code-workspace"
-    "MeuEscolar|MeuEscolarApp.code-workspace"
-)
-
-feitos=0
-for entrada in "${PROJETOS[@]}"; do
-    IFS='|' read -r nome arquivo <<<"$entrada"
-    [[ -f $WORKSPACES/$arquivo ]] || { printf '  !! %s: %s nao existe\n' "$nome" "$WORKSPACES/$arquivo"; continue; }
-    base="$(basename "$arquivo" .code-workspace)"
-    icone="com.visualstudio.code.oss"
-    [[ -f ${XDG_DATA_HOME:-$HOME/.local/share}/icons/hicolor/96x96/apps/workspace-$base.png ]] && icone="workspace-$base"
-    desktop="$DESTINO/workspace-$base.desktop"
-    tmp="$desktop.tmp"
-    cat >"$tmp" <<FIM
-[Desktop Entry]
-Type=Application
-Name=$nome
-Comment=Abrir o projeto $nome no VS Code
-Exec=code "$WORKSPACES/$arquivo"
-Icon=$icone
-Terminal=false
-Categories=Development;IDE;
-StartupWMClass=code-oss
-Keywords=workspace;projeto;$nome;
-FIM
-    if cmp -s "$tmp" "$desktop"; then rm -f "$tmp"; else mv "$tmp" "$desktop"; feitos=$((feitos + 1)); fi
-done
+# Apaga os lancadores que este script escrevia antes.
+rm -f "$DESTINO"/workspace-*.desktop
 command -v update-desktop-database >/dev/null 2>&1 && update-desktop-database "$DESTINO" 2>/dev/null
-printf '  ok %s lancador(es) de projeto escrito(s) em %s\n' "$feitos" "$DESTINO"
 
 # Clique duplo num .code-workspace abre no VS Code: o tipo MIME vem do pacote code-rcode
 # (/usr/share/mime/packages/code-oss-workspace.xml); aqui so se fixa o editor como padrao.
