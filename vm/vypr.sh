@@ -119,8 +119,41 @@ FIM
     ok "hook pre-run (IDD do Looking Glass desligado antes da sessao)"
 }
 
+# O RedM no Vypr: entrada em apps/ com captura automatica (menu com cursor, jogo capturado) e
+# a tarefa do guest que o launcher dispara. A tarefa limpa o cache do RedM antes (e o cache
+# que gera o VK_ERROR_OUT_OF_DEVICE_MEMORY, ver vm/guest-game.sh) e ja conecta no servidor
+# local (o host visto da VM e 192.168.122.1, nunca localhost); sem servidor no ar o RedM cai
+# no menu normal.
+app_redm() {
+    local exe='D:\Jogos\RedM\RedM.exe' cache='D:\Jogos\RedM\RedM.app\data\cache'
+    local servidor="${GAME_CONNECT:-192.168.122.1:30120}"
+    mkdir -p "$CONF/apps"
+    cat >"$CONF/apps/redm.conf" <<FIM
+NAME="RedM"
+TASK=vypr-redm
+CAPTURE=auto
+MATCHES=("RedM" )
+FIM
+    # shellcheck source=guest.sh
+    source "$DOTFILES_DIR/vm/guest.sh"
+    guest_ready 10 || { warn "guest sem resposta, tarefa vypr-redm fica pra proxima"; return 0; }
+    guest_exec "
+\$dir = 'C:\\ProgramData\\dotfiles'
+New-Item -ItemType Directory -Force -Path \$dir | Out-Null
+@'
+Remove-Item '$cache' -Recurse -Force -ErrorAction SilentlyContinue
+Start-Process -FilePath '$exe' -ArgumentList 'redm://connect/$servidor'
+'@ | Set-Content -Path \"\$dir\\vypr-redm.ps1\" -Encoding ASCII
+\$action = New-ScheduledTaskAction -Execute 'powershell.exe' -Argument \"-NoProfile -WindowStyle Hidden -ExecutionPolicy Bypass -File \$dir\\vypr-redm.ps1\"
+\$who = New-ScheduledTaskPrincipal -UserId '$GUEST_USER' -LogonType Interactive -RunLevel Limited
+Register-ScheduledTask -TaskName 'vypr-redm' -Action \$action -Principal \$who -Force | Out-Null
+'ok'
+" >/dev/null 2>&1 && ok "app redm: cache limpo e conectado em $servidor a cada abertura" || warn "tarefa vypr-redm nao registrada no guest"
+}
+
 configurar() {
     hook_pre_run
+    app_redm
     if [[ ! -f $CONF/config ]]; then
         local ip
         ip="$(v net-dhcp-leases default 2>/dev/null | awk '/52:54:00:7b:68:56/ {split($5,a,"/"); print a[1]; exit}')"
