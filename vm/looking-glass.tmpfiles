@@ -1,1 +1,2 @@
 f /dev/shm/looking-glass 0660 Alexandre kvm -
+f /dev/shm/vypr 0660 Alexandre kvm -

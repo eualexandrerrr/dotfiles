@@ -194,11 +194,11 @@
     </console>
     <!-- EVDEV (mouse/teclado fisico direto pro guest) tentado em 09/09/2026: travou
          teclado e mouse do host assim que a VM ligou, sem toggle nenhum, o grab pegou
-         de cara. Revertido pro tablet/PS2 ate entender por que grab_all nao esperou o
-         ctrl-ctrl nesse setup (SPICE+Looking Glass, sem janela propria do QEMU). -->
-    <input type="tablet" bus="usb">
-      <address type="usb" bus="0" port="1" />
-    </input>
+         de cara. Revertido pro PS2 ate entender por que grab_all nao esperou o
+         ctrl-ctrl nesse setup (SPICE+Looking Glass, sem janela propria do QEMU).
+         O tablet USB saiu em 12/09/2026 pelo Vypr: e um dispositivo absoluto, e jogo que
+         le raw input (RedM, FiveM) trata a coordenada absoluta como delta e joga a camera
+         pro canto, seja quem for que mande o input. O mouse relativo PS2 fica. -->
     <input type="mouse" bus="ps2" />
     <input type="keyboard" bus="ps2" />
     <tpm model="tpm-crb">
@@ -224,12 +224,19 @@
     </hostdev>
     <watchdog model="itco" action="reset" />
     <memballoon model="none" />
+    <!-- Regiao do Vypr (janela nativa por aplicacao da VM, vm/vypr.sh): 512 MB dao tres
+         buffers 4K ou varios 1080p, sem codec. Convive com o ivshmem do Looking Glass
+         (qemu:commandline abaixo); o guest ve dois dispositivos IVSHMEM. -->
+    <shmem name="vypr">
+      <model type="ivshmem-plain" />
+      <size unit="M">512</size>
+    </shmem>
   <graphics type="spice" port="5900" autoport="no"><listen type="address" address="127.0.0.1" /><gl enable="no" /></graphics><video><model type="none" /></video><channel type="unix"><target type="virtio" name="org.qemu.guest_agent.0" /></channel></devices>
   <qemu:commandline>
     <qemu:arg value="-fw_cfg" />
     <qemu:arg value="opt/ovmf/X-PciMmio64Mb,string=131072" />
     <qemu:arg value="-device" />
-    <qemu:arg value="{'driver':'ivshmem-plain','id':'shmem0','memdev':'looking-glass'}" />
+    <qemu:arg value="{'driver':'ivshmem-plain','id':'lgshmem','memdev':'looking-glass'}" />
     <qemu:arg value="-object" />
     <qemu:arg value="{'qom-type':'memory-backend-file','id':'looking-glass','mem-path':'/dev/kvmfr0','size':134217728,'share':true}" />
   </qemu:commandline>

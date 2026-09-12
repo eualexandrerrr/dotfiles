@@ -562,6 +562,10 @@ etapa_vm() {
         DOTFILES_DIR="$DOTFILES_DIR" bash "$DOTFILES_DIR/vm/vfio-enable.sh" \
             || falha "vfio-enable.sh abortou (confira se a RX 550 esta montada e desenhando)"
     fi
+
+    # Vypr: app da VM como janela nativa (fork eualexandrerrr/Vypr), binarios em ~/.local/bin,
+    # regiao /dev/shm/vypr, chave e config. O lado Windows e o `vm/vypr.sh guest`, uma vez.
+    bash "$DOTFILES_DIR/vm/vypr.sh" || falha "vypr.sh falhou"
 }
 
 etapa_ddcutil() {
