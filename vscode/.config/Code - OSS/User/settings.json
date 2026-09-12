@@ -11,11 +11,25 @@
     "task.allowAutomaticTasks": "on",
     "workbench.startupEditor": "none",
     "workbench.sideBar.location": "left",
-    "workbench.secondarySideBar.defaultVisibility": "visible",
+    "workbench.secondarySideBar.defaultVisibility": "hidden",
     "terminal.integrated.defaultLocation": "view",
     "workbench.editor.openSideBySideDirection": "right",
     "scm.defaultViewMode": "tree",
     "claudeCode.useTerminal": true,
     "claudeCode.autosave": true,
-    "workbench.colorTheme": "Catppuccin Mocha"
+    "workbench.colorTheme": "Catppuccin Mocha",
+    "chat.disableAIFeatures": true,
+    "chat.commandCenter.enabled": false,
+    "terminal.integrated.profiles.linux": {
+        "zsh": {
+            "path": "/usr/bin/zsh"
+        },
+        "Claude": {
+            "path": "/usr/bin/claude",
+            "icon": "sparkle",
+            "color": "terminal.ansiMagenta",
+            "overrideName": true
+        }
+    },
+    "terminal.integrated.defaultProfile.linux": "zsh"
 }
