@@ -121,7 +121,9 @@ quando o conteudo difere, nunca o `output` (que muda com o conector, ver abaixo)
 la: painel embaixo, apps no centro e status a direita, `background_per_group` (uma pilula por
 grupo), favoritos, `ignored = ["RicePanel"]`, atalhos `SUPER+E`, `Shift+Print`, `ALT+D` e
 `SUPER+D` (`bin/minimize-all.py`, pywayland falando direto com o
-`zcosmic_toplevel_manager_v1`), e `repeat_delay: 210`. Varias dessas chaves nao existem no
+`zcosmic_toplevel_manager_v1`), `repeat_delay: 210` e o tema de icones `Tela-dracula-dark`
+(`com.system76.CosmicTk/v1/icon_theme`; o tema em si e o pacote stow `icons/`, que vale em
+qualquer desktop -- sem ele o COSMIC cai no PNG de 48 px do Chrome, esticado na dock). Varias dessas chaves nao existem no
 COSMIC de fabrica e vem dos forks da org **`github.com/ReCosmicLabs`** (12/09/2026), que
 espelha os 32 repositorios do ecossistema da interface -- os cinco com patch nosso e o resto
 so como espelho, pronto pra receber patch sem virar fork solto depois.
