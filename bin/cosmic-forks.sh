@@ -38,7 +38,7 @@ FORKS=(
     "cosmic-launcher|cosmic-launcher|cosmic-launcher|pop-os|master"
     "cosmic-settings|cosmic-settings|cosmic-settings|pop-os|master"
     "cosmic-ext-applet-now-playing|cosmic-ext-applet-now-playing|cosmic-ext-applet-now-playing|AdityaHebballe|main"
-    "cosmic-comp|||pop-os|master"
+    "cosmic-comp|cosmic-comp|cosmic-comp|pop-os|master"
     "cosmic-session|||pop-os|master"
     "cosmic-settings-daemon|||pop-os|master"
     "cosmic-app-library|||pop-os|master"
@@ -113,6 +113,7 @@ construir() {
         case "$binario" in
             cosmic-launcher) REINICIAR_LAUNCHER=1 ;;
             cosmic-settings|cosmic-files) ;;
+            cosmic-comp) warn "cosmic-comp novo entra so no proximo login (o compositor nao reinicia com a sessao de pe)" ;;
             *) REINICIAR_PAINEL=1 ;;
         esac
     else
