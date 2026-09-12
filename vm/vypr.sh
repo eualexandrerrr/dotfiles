@@ -105,8 +105,7 @@ hook_pre_run() {
 # Desliga o IDD do Looking Glass no guest antes da sessao do Vypr (ver vm/vypr.sh).
 source "${DOTFILES_DIR:-$HOME/.dotfiles}/vm/guest.sh"
 guest_ready 10 || exit 0
-estado=$(guest_exec '(Get-PnpDevice -InstanceId "ROOT\DISPLAY\0000" -ErrorAction SilentlyContinue).Status' 2>/dev/null | tr -d '
- ')
+estado=$(guest_exec '(Get-PnpDevice -InstanceId "ROOT\DISPLAY\0000" -ErrorAction SilentlyContinue).Status' 2>/dev/null | tr -d '\r\n ')
 [[ $estado == OK ]] || exit 0
 guest_exec 'Disable-PnpDevice -InstanceId "ROOT\DISPLAY\0000" -Confirm:$false -ErrorAction SilentlyContinue' >/dev/null 2>&1
 printf 'vypr: IDD do Looking Glass desligado no guest\n'
