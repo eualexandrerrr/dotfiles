@@ -150,7 +150,7 @@ Remove-Item '$cache' -Recurse -Force -ErrorAction SilentlyContinue
 \$xml = \"\$env:APPDATA\\CitizenFX\\rdr3_settings\\system.xml\"
 if (Test-Path \$xml) {
     \$s = Get-Content \$xml -Raw
-    \$s = \$s -replace '<screenWidthWindowed value=\"\\d+\" />', '<screenWidthWindowed value=\"2560\" />' -replace '<screenHeightWindowed value=\"\\d+\" />', '<screenHeightWindowed value=\"1440\" />' -replace '<windowed value=\"\\d\" />', '<windowed value=\"2\" />'
+    \$s = \$s -replace '<screenWidthWindowed value=\"\\d+\" />', '<screenWidthWindowed value=\"2560\" />' -replace '<screenHeightWindowed value=\"\\d+\" />', '<screenHeightWindowed value=\"1440\" />' -replace '<windowed value=\"\\d\" />', '<windowed value=\"2\" />' -replace '<refreshRateNumerator value=\"\\d+\" />', '<refreshRateNumerator value=\"144\" />'
     Set-Content \$xml \$s -NoNewline
 }
 Start-Process -FilePath '$exe' -ArgumentList 'redm://connect/$servidor'
