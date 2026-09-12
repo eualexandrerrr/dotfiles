@@ -40,3 +40,12 @@ FIM
 done
 command -v update-desktop-database >/dev/null 2>&1 && update-desktop-database "$DESTINO" 2>/dev/null
 printf '  ok %s lancador(es) de projeto escrito(s) em %s\n' "$feitos" "$DESTINO"
+
+# Clique duplo num .code-workspace abre no VS Code: o tipo MIME vem do pacote code-rcode
+# (/usr/share/mime/packages/code-oss-workspace.xml); aqui so se fixa o editor como padrao.
+MIME_USUARIO="${XDG_DATA_HOME:-$HOME/.local/share}/mime"
+if [[ -f /usr/share/mime/packages/code-oss-workspace.xml && -f $MIME_USUARIO/packages/code-oss-workspace.xml ]]; then
+    rm -f "$MIME_USUARIO/packages/code-oss-workspace.xml" && update-mime-database "$MIME_USUARIO" 2>/dev/null
+fi
+command -v xdg-mime >/dev/null 2>&1 && xdg-mime default code-oss.desktop application/x-code-oss-workspace 2>/dev/null \
+    && printf '  ok .code-workspace abre no VS Code\n'

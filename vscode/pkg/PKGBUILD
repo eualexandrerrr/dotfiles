@@ -128,7 +128,7 @@ prepare() {
           s|@@EXEC@@|code-oss|g
           s|@@LICENSE@@|MIT|g
           s|@@URLPROTOCOL@@|vscode|g' \
-          resources/linux/code{.appdata.xml,.desktop,-url-handler.desktop}
+          resources/linux/code{.appdata.xml,.desktop,-url-handler.desktop,-workspace.xml}
 
   desktop-file-edit --set-key StartupWMClass --set-value code-oss resources/linux/code.desktop
 
@@ -187,6 +187,9 @@ package() {
   install -Dm 644 vscode/resources/linux/code.desktop "$pkgdir"/usr/share/applications/code-oss.desktop
   install -Dm 644 vscode/resources/linux/code-url-handler.desktop "$pkgdir"/usr/share/applications/code-url-handler.desktop
   install -Dm 644 vscode/resources/linux/code-oss-url-handler.desktop "$pkgdir"/usr/share/applications/code-oss-url-handler.desktop
+  # Tipo MIME do .code-workspace, pra clique duplo no gerenciador de arquivos abrir no editor
+  # (o gulp instala isso no .deb/.rpm, o PKGBUILD do Arch nao).
+  install -Dm 644 vscode/resources/linux/code-workspace.xml "$pkgdir"/usr/share/mime/packages/code-oss-workspace.xml
   install -Dm 644 VSCode-linux-$_vscode_arch/resources/app/resources/linux/code.png "$pkgdir"/usr/share/pixmaps/com.visualstudio.code.oss.png
   mkdir --parents --verbose "$pkgdir"/usr/share/icons/hicolor/scalable/apps
   ln --symbolic --force /usr/lib/code/out/media/code-icon.svg "$pkgdir"/usr/share/icons/hicolor/scalable/apps/com.visualstudio.code.oss.svg
