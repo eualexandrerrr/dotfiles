@@ -19,6 +19,38 @@ for _v in XDG_CURRENT_DESKTOP XDG_SESSION_TYPE WAYLAND_DISPLAY DISPLAY HYPRLAND_
 done
 unset _v _val
 
+# Qual familia de desktop aplicar. A sessao de pe manda; sem ela (o setup.sh logo depois do
+# format, antes do primeiro login) vale a escolha gravada pelo install.sh. Backend que so
+# funciona com o compositor rodando sai vazio nesse caso -- quem aplica dali e a
+# apply-screens.service, no login.
+DEFILE="${XDG_STATE_HOME:-$HOME/.local/state}/dotfiles/de"
+familia() {
+    if [[ -n ${HYPRLAND_INSTANCE_SIGNATURE:-} ]]; then printf 'hypr'; return; fi
+    case "${XDG_CURRENT_DESKTOP:-}" in
+        *COSMIC*)   printf 'cosmic'; return ;;
+        *KDE*)      printf 'kde';    return ;;
+        *Hyprland*) printf 'hypr';   return ;;
+        *XFCE*)     printf 'xfce';   return ;;
+        *Cinnamon*) printf 'cinnamon'; return ;;
+        *MATE*)     printf 'mate';   return ;;
+        *LXQt*)     printf 'lxqt';   return ;;
+        *GNOME*|*Budgie*) printf 'gnome'; return ;;
+    esac
+
+    local escolhido=""
+    [[ -f $DEFILE ]] && escolhido="$(<"$DEFILE")"
+    case "${escolhido//[[:space:]]/}" in
+        kde)                 printf 'kde'      ;;
+        gnome|budgie)        printf 'gnome'    ;;
+        xfce)                printf 'xfce'     ;;
+        cinnamon)            printf 'cinnamon' ;;
+        mate)                printf 'mate'     ;;
+        lxqt)                printf 'lxqt'     ;;
+        cosmic)              printf 'cosmic'   ;;
+        hyprland|nandoroid)  printf 'hypr'     ;;
+    esac
+}
+
 DEITADA="$DOTFILES_DIR/wallpaper/Jason_and_Lucia_Robbery_landscape.jpg"
 EM_PE="$DOTFILES_DIR/wallpaper/Real_Dimez_portrait.jpg"
 [[ -f $DEITADA && -f $EM_PE ]] || exit 0
@@ -102,37 +134,60 @@ backend_hyprpaper() {
     fi
 }
 
-# O COSMIC guarda cada campo num arquivo separado, em RON. `same-on-all` desligado e a chave
-# de ter arte diferente por monitor; a lista de saidas usa o nome do conector.
+# O cosmic-bg guarda um arquivo por chave em ~/.config/cosmic/com.system76.CosmicBackground/v1,
+# em RON: `same-on-all`, `backgrounds` com a lista de saidas e um arquivo por saida, cujo nome
+# e o proprio conector. `all` e o padrao de quem nao tiver arquivo proprio.
 backend_cosmic() {
     local dir="$CFG/cosmic/com.system76.CosmicBackground/v1"
     mkdir -p "$dir"
     printf 'false' > "$dir/same-on-all"
-    local saida img
-    for saida in "$principal:$DEITADA" "$vertical:$EM_PE"; do
-        [[ -n ${saida%%:*} ]] || continue
-        img="${saida#*:}"
-        mkdir -p "$dir/backgrounds"
-        printf 'Entry(\n    output: "%s",\n    source: Path("%s"),\n    filter_by_theme: true,\n    rotation_frequency: 300,\n    filter_method: Lanczos,\n    scaling_mode: Zoom,\n    sampling_method: Alphanumeric,\n)\n' \
-            "${saida%%:*}" "$img" > "$dir/output.${saida%%:*}"
-    done
+    printf '["%s", "%s"]' "$principal" "$vertical" > "$dir/backgrounds"
+
+    entrada() {
+        printf 'Entry(\n    output: "%s",\n    source: Path("%s"),\n    filter_by_theme: false,\n    rotation_frequency: 300,\n    filter_method: Lanczos,\n    scaling_mode: Zoom,\n    sampling_method: Alphanumeric,\n)\n' "$1" "$2"
+    }
+    entrada all "$DEITADA" > "$dir/all"
+    [[ -n $principal ]] && entrada "$principal" "$DEITADA" > "$dir/$principal"
+    [[ -n $vertical ]] && entrada "$vertical" "$EM_PE" > "$dir/$vertical"
+    return 0
 }
 
-if [[ ${XDG_CURRENT_DESKTOP:-} == *KDE* ]] && command -v qdbus6 >/dev/null 2>&1; then
-    backend_plasma
-elif [[ ${XDG_CURRENT_DESKTOP:-} == *COSMIC* ]]; then
-    backend_cosmic
-elif [[ -n ${HYPRLAND_INSTANCE_SIGNATURE:-} ]] || [[ ${XDG_CURRENT_DESKTOP:-} == *Hyprland* ]]; then
-    backend_hyprpaper
-elif [[ ${XDG_CURRENT_DESKTOP:-} == *XFCE* ]] && command -v xfconf-query >/dev/null 2>&1; then
-    backend_xfce
-elif [[ ${XDG_CURRENT_DESKTOP:-} == *Cinnamon* ]]; then
-    backend_gsettings org.cinnamon.desktop.background uri
-elif [[ ${XDG_CURRENT_DESKTOP:-} == *MATE* ]]; then
-    backend_gsettings org.mate.background filename
-elif [[ ${XDG_CURRENT_DESKTOP:-} == *LXQt* ]] && command -v pcmanfm-qt >/dev/null 2>&1; then
-    backend_lxqt
-elif command -v gsettings >/dev/null 2>&1; then
-    # GNOME, Budgie e qualquer outro que use o esquema do GNOME.
-    backend_gsettings org.gnome.desktop.background uri
-fi
+# O NAnDoroid nao usa hyprpaper: quem desenha o papel de parede e o proprio shell, que le
+# ~/.config/nandoroid/config.json. Merge com jq, nunca sobrescrever -- o arquivo guarda todas
+# as preferencias dele no shell.
+backend_nandoroid() {
+    local cfg="$CFG/nandoroid/config.json"
+    command -v jq >/dev/null 2>&1 || return 0
+    mkdir -p "$(dirname "$cfg")"
+    [[ -f $cfg ]] || printf '{}\n' > "$cfg"
+    local tmp
+    tmp="$(mktemp)"
+    if jq --arg w "file://$DEITADA" \
+          '.appearance.background.wallpaperPath = $w' "$cfg" > "$tmp" 2>/dev/null; then
+        mv "$tmp" "$cfg"
+    else
+        rm -f "$tmp"
+    fi
+}
+
+case "$(familia)" in
+    kde)
+        command -v qdbus6 >/dev/null 2>&1 && backend_plasma ;;
+    cosmic)
+        backend_cosmic ;;
+    hypr)
+        # NAnDoroid e Hyprland puro dividem a familia: o shell tem config propria, o Hyprland
+        # de fabrica depende do hyprpaper. Rodar os dois nao atrapalha quem nao usa o outro.
+        [[ -d "$CFG/quickshell/nandoroid" ]] && backend_nandoroid
+        backend_hyprpaper ;;
+    xfce)
+        command -v xfconf-query >/dev/null 2>&1 && backend_xfce ;;
+    cinnamon)
+        backend_gsettings org.cinnamon.desktop.background uri ;;
+    mate)
+        backend_gsettings org.mate.background filename ;;
+    lxqt)
+        command -v pcmanfm-qt >/dev/null 2>&1 && backend_lxqt ;;
+    gnome)
+        backend_gsettings org.gnome.desktop.background uri ;;
+esac

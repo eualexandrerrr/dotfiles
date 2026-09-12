@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Layout de tela dos dotfiles
+Comment=Taxa, rotacao, posicao e papel de parede -- XFCE, MATE, LXQt e Budgie nao acendem o graphical-session.target, entao a unit do systemd nao roda neles
+Exec=sh -c '"$HOME"/.dotfiles/bin/apply-screens.sh; "$HOME"/.dotfiles/bin/apply-wallpaper.sh'
+X-GNOME-Autostart-enabled=true
+NoDisplay=true

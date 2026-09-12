@@ -119,8 +119,12 @@ fabrica.
 disposicao de monitor, nao personalizacao: o `bin/apply-screens.sh` e o `bin/apply-wallpaper.sh`
 tem um backend por familia -- kscreen-doctor no Plasma, D-Bus do mutter no GNOME, xrandr nos
 X11 (XFCE, Cinnamon, MATE, LXQt, Budgie), `hl.monitor` e hyprpaper no Hyprland e no NAnDoroid,
-cosmic-randr no COSMIC. A disposicao em si esta escrita uma vez so, no topo do
-`apply-screens.sh`; qual conector e qual tela sai sempre do `bin/monitor.sh`, pela marca no
+cosmic-randr no COSMIC. Qual backend usar sai da sessao de pe e, sem ela (o `setup.sh` logo
+depois do format), da escolha gravada em `~/.local/state/dotfiles/de` -- e assim que o
+Hyprland e o NAnDoroid ja nascem com o `configs/screens.lua` escrito, antes do primeiro login.
+XFCE, MATE, LXQt, Cinnamon e Budgie nao acendem o `graphical-session.target`, entao neles quem
+dispara e o `autostart/` mais o `apply-screens.timer`, nao a unit. A disposicao em si esta
+escrita uma vez so, no topo do `apply-screens.sh`; qual conector e qual tela sai sempre do `bin/monitor.sh`, pela marca no
 EDID. Cuidado: o nome da saida muda de backend pra backend -- o kernel diz `HDMI-A-2`, o
 mutter diz `HDMI-2` e o X diz `DisplayPort-0`. Por isso o mutter casa por marca e o X11 casa
 o EDID byte a byte (`monitor.sh --xrandr`).

@@ -147,6 +147,10 @@ hl.monitor({
     scale = "1"
 })
 
+-- Depois do hl.monitor generico de cima: o configs/screens.lua e gerado pelo apply-screens.sh
+-- com a taxa, a posicao e o giro dos monitores desta maquina, e a ultima palavra e dele.
+pcall(require, "configs/screens")
+
 pcall(require, "configs/local")
 LUA
     ok "$CFG/hypr/hyprland.lua"

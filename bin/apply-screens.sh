@@ -27,6 +27,38 @@ for _v in XDG_CURRENT_DESKTOP XDG_SESSION_TYPE WAYLAND_DISPLAY DISPLAY HYPRLAND_
 done
 unset _v _val
 
+# Qual familia de desktop aplicar. A sessao de pe manda; sem ela (o setup.sh logo depois do
+# format, antes do primeiro login) vale a escolha gravada pelo install.sh. Backend que so
+# funciona com o compositor rodando sai vazio nesse caso -- quem aplica dali e a
+# apply-screens.service, no login.
+DEFILE="${XDG_STATE_HOME:-$HOME/.local/state}/dotfiles/de"
+familia() {
+    if [[ -n ${HYPRLAND_INSTANCE_SIGNATURE:-} ]]; then printf 'hypr'; return; fi
+    case "${XDG_CURRENT_DESKTOP:-}" in
+        *COSMIC*)   printf 'cosmic'; return ;;
+        *KDE*)      printf 'kde';    return ;;
+        *Hyprland*) printf 'hypr';   return ;;
+        *XFCE*)     printf 'xfce';   return ;;
+        *Cinnamon*) printf 'cinnamon'; return ;;
+        *MATE*)     printf 'mate';   return ;;
+        *LXQt*)     printf 'lxqt';   return ;;
+        *GNOME*|*Budgie*) printf 'gnome'; return ;;
+    esac
+
+    local escolhido=""
+    [[ -f $DEFILE ]] && escolhido="$(<"$DEFILE")"
+    case "${escolhido//[[:space:]]/}" in
+        kde)                 printf 'kde'      ;;
+        gnome|budgie)        printf 'gnome'    ;;
+        xfce)                printf 'xfce'     ;;
+        cinnamon)            printf 'cinnamon' ;;
+        mate)                printf 'mate'     ;;
+        lxqt)                printf 'lxqt'     ;;
+        cosmic)              printf 'cosmic'   ;;
+        hyprland|nandoroid)  printf 'hypr'     ;;
+    esac
+}
+
 # A disposicao, em um lugar so. Quem mexer aqui muda todos os desktops de uma vez.
 PRINC_W=2560; PRINC_H=1440; PRINC_HZ=144; PRINC_X=1080; PRINC_Y=240
 VERT_W=1920;  VERT_H=1080;  VERT_HZ=144;  VERT_X=0;     VERT_Y=0
@@ -180,12 +212,14 @@ hl.monitor({ output = "$vertical", mode = "${VERT_W}x${VERT_H}@${VERT_HZ}", posi
 LUA
 
     local raiz="$CFG/hypr/hyprland.lua"
+    if [[ ! -f $raiz ]]; then
+        # Hyprland de fabrica so copia o exemplo dele na primeira subida. Copiar aqui e o que
+        # deixa a tela certa ja no primeiro frame -- e sem os binds do exemplo a sessao nasce
+        # sem terminal e sem menu, entao o arquivo tem que ser o deles, nao um pedaco.
+        [[ -f /usr/share/hypr/hyprland.lua ]] && cp /usr/share/hypr/hyprland.lua "$raiz"
+    fi
     if [[ -f $raiz ]] && ! grep -q 'configs/screens' "$raiz"; then
-        printf '\nrequire("configs/screens")\n' >> "$raiz"
-    elif [[ ! -f $raiz ]]; then
-        # Hyprland de fabrica nao tem config nenhuma: sem este arquivo nao ha onde carregar as
-        # telas. So o minimo -- o resto do desktop e escolha dele, nao deste script.
-        printf 'require("configs/screens")\n' > "$raiz"
+        printf '\n-- Acrescentado por ~/.dotfiles/bin/apply-screens.sh\nrequire("configs/screens")\n' >> "$raiz"
     fi
 
     [[ -n ${HYPRLAND_INSTANCE_SIGNATURE:-} ]] && hyprctl reload >/dev/null 2>&1
@@ -206,17 +240,18 @@ backend_cosmic() {
     return 0
 }
 
-# Quem aplica sai do que a sessao expoe, nao do nome do desktop: assim uma sessao nova que
-# use um destes backends ja entra sem mexer aqui. X11 vem antes do mutter de proposito --
-# Cinnamon e Budgie rodam em X11 e tambem publicam o D-Bus de display.
-if [[ -n ${HYPRLAND_INSTANCE_SIGNATURE:-} ]] && command -v hyprctl >/dev/null 2>&1; then
-    backend_hypr
-elif [[ ${XDG_CURRENT_DESKTOP:-} == *COSMIC* ]] && command -v cosmic-randr >/dev/null 2>&1; then
-    backend_cosmic
-elif [[ ${XDG_CURRENT_DESKTOP:-} == *KDE* ]] && command -v kscreen-doctor >/dev/null 2>&1; then
-    backend_kscreen
-elif [[ ${XDG_SESSION_TYPE:-} == x11 && -n ${DISPLAY:-} ]] && command -v xrandr >/dev/null 2>&1; then
-    backend_xrandr
-elif [[ -n ${DBUS_SESSION_BUS_ADDRESS:-} ]]; then
-    backend_mutter
-fi
+# Quem aplica sai da familia do desktop. X11 e mutter nao se confundem porque a familia ja
+# separa os dois: Cinnamon e Budgie rodam em X11 aqui, mesmo publicando D-Bus de display.
+case "$(familia)" in
+    hypr)
+        backend_hypr ;;
+    cosmic)
+        command -v cosmic-randr >/dev/null 2>&1 && backend_cosmic ;;
+    kde)
+        command -v kscreen-doctor >/dev/null 2>&1 && backend_kscreen ;;
+    xfce|cinnamon|mate|lxqt)
+        # So tem o que fazer com o X de pe: xrandr nao escreve config, ele fala com o servidor.
+        [[ -n ${DISPLAY:-} ]] && command -v xrandr >/dev/null 2>&1 && backend_xrandr ;;
+    gnome)
+        [[ -n ${WAYLAND_DISPLAY:-}${DISPLAY:-} ]] && backend_mutter ;;
+esac
