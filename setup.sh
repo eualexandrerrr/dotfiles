@@ -335,6 +335,13 @@ etapa_sistema() {
     printf 'vm.max_map_count = 2147483642\n' | sudo tee /etc/sysctl.d/99-jogos.conf >/dev/null \
         && ok "/etc/sysctl.d/99-jogos.conf (max_map_count pro RedM)"
 
+    # O ananicy-cpp classifica o qemu como Heavy_CPU (nice 9, ionice 7): a VM do jogo perde
+    # disputa de CPU pra qualquer aba do Chrome. Aqui a VM e o jogo: tipo Game (nice -5).
+    sudo mkdir -p /etc/ananicy.d/99-dotfiles
+    printf '{ "name": "qemu-system-x86_64", "type": "Game" }\n{ "name": "vyprd", "type": "Game" }\n{ "name": "vypr-window", "type": "Game" }\n' \
+        | sudo tee /etc/ananicy.d/99-dotfiles/vm.rules >/dev/null \
+        && ok "/etc/ananicy.d/99-dotfiles/vm.rules (qemu e Vypr como Game, nao Heavy_CPU)"
+
     # zram com zstd: metade da RAM, teto de 8 GB. Os valores de vm.* sao os recomendados
     # quando o swap e comprimido em RAM -- swappiness alto de proposito, porque paginar pro
     # zram custa CPU, nao disco.

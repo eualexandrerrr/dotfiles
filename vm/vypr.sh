@@ -131,6 +131,7 @@ app_redm() {
     cat >"$CONF/apps/redm.conf" <<FIM
 NAME="RedM"
 TASK=vypr-redm
+PROCESS=RedM.exe
 CAPTURE=auto
 MATCHES=("RedM" )
 FIM
