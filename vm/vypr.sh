@@ -123,6 +123,19 @@ instalar() {
         && ok "vypr-setup.exe em $SETUP_EXE" || true
 }
 
+# O guest_put do guest.sh manda o arquivo inteiro num argumento so, e 1 MB de base64 estoura
+# o limite de linha de comando do virsh: aqui vai em pedacos de 48 KB pelo mesmo handle.
+guest_put_grande() {
+    local origem="$1" destino="${2//\\//}" h pedaco
+    h=$(_qga "{\"execute\":\"guest-file-open\",\"arguments\":{\"path\":\"$destino\",\"mode\":\"wb\"}}" \
+        | python3 -c 'import sys,json;print(json.load(sys.stdin)["return"])') || return 1
+    while IFS= read -r pedaco; do
+        _qga "{\"execute\":\"guest-file-write\",\"arguments\":{\"handle\":$h,\"buf-b64\":\"$pedaco\"}}" >/dev/null || return 1
+    done < <(base64 -w0 <"$origem" | fold -w 65536)
+    _qga "{\"execute\":\"guest-file-close\",\"arguments\":{\"handle\":$h}}" >/dev/null
+    ok "$(basename "$origem") copiado pra VM ($(stat -c %s "$origem") bytes)"
+}
+
 # Manda o instalador do lado Windows pra VM (ligada, com o guest-agent) e abre ele na sessao
 # interativa do usuario: ele instala o agente, o driver IVSHMEM, o Parsec (driver do mouse) e
 # autoriza a chave. Os prompts de driver so um humano clica -- pela janela do Looking Glass.
@@ -132,7 +145,7 @@ guest() {
     # shellcheck source=guest.sh
     source "$DOTFILES_DIR/vm/guest.sh"
     guest_ready 60 || { warn "guest-agent nao respondeu"; return 1; }
-    guest_put "$SETUP_EXE" "C:/Users/$GUEST_USER/Downloads/vypr-setup.exe"
+    guest_put_grande "$SETUP_EXE" "C:/Users/$GUEST_USER/Downloads/vypr-setup.exe" || { warn "nao copiei o instalador pra VM"; return 1; }
     guest_put "$CHAVE.pub" "C:/Users/$GUEST_USER/Downloads/vypr-guest.pub"
     guest_exec "
 \$acao = New-ScheduledTaskAction -Execute 'C:\\Users\\$GUEST_USER\\Downloads\\vypr-setup.exe'
