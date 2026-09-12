@@ -185,6 +185,9 @@ etapa_vscode() {
         fi
     done <"$DOTFILES_DIR/vscode/extensions.txt"
     ok "$faltam extensao(oes) instalada(s), o resto ja estava"
+
+    # Um lancador por projeto no menu, abrindo o .code-workspace de ~/Workspaces.
+    bash "$DOTFILES_DIR/bin/vscode-workspaces.sh" || falha "vscode-workspaces.sh falhou"
 }
 
 etapa_claude() {

@@ -175,7 +175,9 @@ um Node 24 avulso pra `~/.cache/dotfiles/node` que so entra no PATH do makepkg. 
 le a tag pelo clone do GitHub: a tag tem que estar no fork (`vscode-build.sh rebase <tag>` sobe
 ela junto). Config vai por stow: pacote `vscode/` com `settings.json` em `~/.config/Code - OSS`
 e `~/.vscode-oss/argv.json` (`password-store: basic`, sem keyring); extensoes do Open VSX em
-`vscode/extensions.txt`. `pkg/` e `extensions.txt` estao no `.stow-local-ignore`.
+`vscode/extensions.txt`. `pkg/` e `extensions.txt` estao no `.stow-local-ignore`. Os projetos
+abrem pelo menu: `bin/vscode-workspaces.sh` escreve um `.desktop` por `.code-workspace` de
+`~/Workspaces` listado na tabela dele (a pasta e pessoal, fica na raiz da home, fora do repo).
 
 **O que e hardware vale em todos os dez desktops.** Layout de tela e papel de parede sao
 disposicao de monitor, nao personalizacao: o `bin/apply-screens.sh` e o `bin/apply-wallpaper.sh`
