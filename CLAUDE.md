@@ -129,7 +129,7 @@ so como espelho, pronto pra receber patch sem virar fork solto depois.
 | fork | o que ele acrescenta |
 |---|---|
 | `cosmic-panel` | `background_per_group` (uma pilula por grupo), `exclusive_gap` (folga da janela maximizada), `side_inset` (folga das laterais), `wing_inset` (pilula das alas mais fina) |
-| `cosmic-applets` | no `cosmic-app-list`: `ignored` (app fora da barra, o `skipTaskbar` que o Wayland nao tem), `show_divider`, `hover_popup_delay_ms`, `click_last_window` (clique vai pra ultima janela usada; a lista fica no hover) |
+| `cosmic-applets` | no `cosmic-app-list`: `ignored` (app fora da barra, o `skipTaskbar` que o Wayland nao tem), `show_divider`, `hover_popup_delay_ms`, `click_last_window` (clique vai pra ultima janela usada; a lista fica no hover), `title_badge` (contador de nao lidas lido do "(N)" no titulo da janela, como Discord e WhatsApp fazem; nao ha libunity nem LauncherEntry aqui) |
 | `cosmic-launcher` | alt-tab centralizado e horizontal, janela da lista `ignored` fora dele, menu abrindo de baixo pra cima (encostado no painel) com todos os apps em lista em vez dos recentes, rodape com Configuracoes, Bloquear, Sair, Reiniciar e Desligar, e app antes das janelas abertas na busca |
 | `cosmic-settings` | secao **ReCosmic** na pagina Painel, com todas as chaves acima na interface grafica, em pt-BR |
 | `cosmic-files` | menu lateral redimensionavel pela borda (alca de 6 px), largura salva em `nav_bar_width`; pasta pessoal aparece com o nome do usuario, nao "Pasta pessoal" |
