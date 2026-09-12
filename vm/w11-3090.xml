@@ -234,6 +234,7 @@
     <shmem name="vypr">
       <model type="ivshmem-plain" />
       <size unit="M">512</size>
+      <address type="pci" domain="0x0000" bus="0x08" slot="0x00" function="0x0" />
     </shmem>
   <graphics type="spice" port="5900" autoport="no"><listen type="address" address="127.0.0.1" /><gl enable="no" /></graphics><video><model type="none" /></video><channel type="unix"><target type="virtio" name="org.qemu.guest_agent.0" /></channel></devices>
   <qemu:commandline>
