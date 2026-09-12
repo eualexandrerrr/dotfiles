@@ -195,9 +195,7 @@ package() {
   rsvg-convert -w 1024 -h 1024 "$startdir"/vscode.svg -o code-logo.png
   install -Dm 644 code-logo.png "$pkgdir"/usr/share/pixmaps/com.visualstudio.code.oss.png
   install -Dm 644 "$startdir"/vscode.svg "$pkgdir"/usr/share/icons/hicolor/scalable/apps/com.visualstudio.code.oss.svg
-  # O Arch linka o code-icon.svg como icone escalavel, mas ele nao e o logo (e um desenho generico
-  # de editor), e todo tema prefere o escalavel: a dock do COSMIC ficava sem o logo. O logo de
-  # verdade e o code.png de 1024 px.
+  # O Arch linka o code-icon.svg como escalavel: e um desenho generico de editor, nao o logo.
   install -Dm 644 code-logo.png "$pkgdir"/usr/share/icons/hicolor/1024x1024/apps/com.visualstudio.code.oss.png
   install -Dm 644 VSCode-linux-$_vscode_arch/resources/app/resources/linux/code.png "$pkgdir"/usr/share/icons/hicolor/1024x1024/mimetypes/application-x-code-oss-workspace.png
 
