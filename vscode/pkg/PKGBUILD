@@ -14,9 +14,13 @@ _electron=electron42
 pkgver=1.137.0
 pkgrel=1
 
+# Tag do Arch + quantos commits nossos em cima + sha: cada patch novo vira versao nova, senao o
+# makepkg reaproveita o pacote ja pronto em PKGDEST e o pacman diz "esta atualizado".
 pkgver() {
   cd vscode
-  printf '%s' "$(git describe --tags --abbrev=0 | sed 's/-.*//')"
+  local tag
+  tag="$(git describe --tags --abbrev=0)"
+  printf '%s.r%s.g%s' "$tag" "$(git rev-list --count "$tag..HEAD")" "$(git rev-parse --short=7 HEAD)"
 }
 arch=('x86_64')
 url='https://github.com/eualexandrerrr/vscode'

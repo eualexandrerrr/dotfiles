@@ -80,7 +80,7 @@ compilar() {
     rm -rf "$BUILD" && mkdir -p "$BUILD"
     cp "$DOTFILES_DIR"/vscode/pkg/* "$BUILD"/
     printf '  compilando o VS Code (%s)... uns 20 min, log em %s\n' "${head:0:8}" "$ESTADO/fork-vscode.log"
-    if (cd "$BUILD" && PATH="$nodebin:$PATH" makepkg -si --noconfirm --needed >"$ESTADO/fork-vscode.log" 2>&1); then
+    if (cd "$BUILD" && PATH="$nodebin:$PATH" makepkg -si --noconfirm >"$ESTADO/fork-vscode.log" 2>&1); then
         printf '%s' "$head" >"$marca"
         ok "code-rcode $(pacman -Q code-rcode | cut -d' ' -f2) instalado"
     else
