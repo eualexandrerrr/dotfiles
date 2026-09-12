@@ -1,4 +1,4 @@
-Some(([], [
+Some((["com.github.DiegoMMR.CosmicExtAppletNowPlaying"], [
     "com.system76.CosmicAppletStatusArea",
     "com.system76.CosmicAppletAudio",
     "com.system76.CosmicAppletNetwork",

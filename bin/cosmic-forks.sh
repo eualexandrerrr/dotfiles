@@ -7,8 +7,9 @@
 #   ~/.dotfiles/bin/cosmic-forks.sh estado   diz o que esta instalado e de qual commit
 #
 # Os forks sao do Alexandre (GPL-3.0-only, derivados do pop-os, credito no README de cada um):
-#   github.com/eualexandrerrr/cosmic-panel    background_per_group (uma pilula por grupo)
-#   github.com/eualexandrerrr/cosmic-applets  ignored e show_divider no cosmic-app-list
+#   github.com/eualexandrerrr/cosmic-panel                  background_per_group, exclusive_gap
+#   github.com/eualexandrerrr/cosmic-applets                ignored, show_divider, hover_popup_delay_ms
+#   github.com/eualexandrerrr/cosmic-ext-applet-now-playing  Spotify na ala esquerda (derivado do AdityaHebballe)
 #
 # So recompila quando o HEAD do repo mudou desde o ultimo binario instalado: o marcador em
 # ~/.local/state/dotfiles/ guarda o commit. Compilar do zero leva uns 3 min; incremental, 30 s.
@@ -19,31 +20,32 @@ BIN="$HOME/.local/bin"
 ESTADO="${XDG_STATE_HOME:-$HOME/.local/state}/dotfiles"
 mkdir -p "$BIN" "$ESTADO"
 
-# repo | pacote cargo | binario
+# repo | pacote cargo | binario | dono do upstream | branch
 FORKS=(
-    "cosmic-panel|cosmic-panel-bin|cosmic-panel"
-    "cosmic-applets|cosmic-app-list|cosmic-app-list"
+    "cosmic-panel|cosmic-panel-bin|cosmic-panel|pop-os|master"
+    "cosmic-applets|cosmic-app-list|cosmic-app-list|pop-os|master"
+    "cosmic-ext-applet-now-playing|cosmic-ext-applet-now-playing|cosmic-ext-applet-now-playing|AdityaHebballe|main"
 )
 
 ok()   { printf '  ok %s\n' "$*"; }
 warn() { printf '  !! %s\n' "$*"; }
 
 sincronizar() {
-    local repo="$1" dir="$HOME/$1"
+    local repo="$1" upstream="$2" branch="$3" dir="$HOME/$1"
     if [[ -d $dir/.git ]]; then
-        git -C "$dir" pull -q --ff-only origin master 2>/dev/null || warn "$repo: pull nao aplicou, seguindo com o que esta no disco"
+        git -C "$dir" pull -q --ff-only origin "$branch" 2>/dev/null || warn "$repo: pull nao aplicou, seguindo com o que esta no disco"
     else
         git clone -q "https://github.com/$DONO/$repo.git" "$dir" || { warn "$repo: clone falhou"; return 1; }
-        git -C "$dir" remote add upstream "https://github.com/pop-os/$repo.git" 2>/dev/null
+        git -C "$dir" remote add upstream "https://github.com/$upstream/$repo.git" 2>/dev/null
         ok "$repo clonado em $dir"
     fi
 }
 
 instalar() {
-    local repo pacote binario
+    local repo pacote binario upstream branch
     for entrada in "${FORKS[@]}"; do
-        IFS='|' read -r repo pacote binario <<<"$entrada"
-        sincronizar "$repo" || continue
+        IFS='|' read -r repo pacote binario upstream branch <<<"$entrada"
+        sincronizar "$repo" "$upstream" "$branch" || continue
         local dir="$HOME/$repo" head marca="$ESTADO/fork-$binario.commit"
         head="$(git -C "$dir" rev-parse HEAD)"
         if [[ -x $BIN/$binario && -f $marca && $(<"$marca") == "$head" ]]; then
@@ -71,7 +73,7 @@ instalar() {
 estado() {
     local repo pacote binario marca
     for entrada in "${FORKS[@]}"; do
-        IFS='|' read -r repo pacote binario <<<"$entrada"
+        IFS='|' read -r repo pacote binario _ _ <<<"$entrada"
         marca="$ESTADO/fork-$binario.commit"
         printf '%-16s %s  commit %s\n' "$binario" \
             "$([[ -x $BIN/$binario ]] && echo "$BIN/$binario" || echo 'FALTA')" \

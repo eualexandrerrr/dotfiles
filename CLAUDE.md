@@ -121,13 +121,18 @@ quando o conteudo difere, nunca o `output` (que muda com o conector, ver abaixo)
 la: painel embaixo, apps no centro e status a direita, `background_per_group` (uma pilula por
 grupo), favoritos, `ignored = ["RicePanel"]`, atalhos `SUPER+E`, `Shift+Print`, `ALT+D` e
 `SUPER+D` (`bin/minimize-all.py`, pywayland falando direto com o
-`zcosmic_toplevel_manager_v1`), e `repeat_delay: 210`. Tres dessas chaves nao existem no
-COSMIC de fabrica -- `background_per_group`, `ignored`, `show_divider` -- e vem dos **forks**
+`zcosmic_toplevel_manager_v1`), e `repeat_delay: 210`. Varias dessas chaves nao existem no
+COSMIC de fabrica -- `background_per_group`, `exclusive_gap` (painel), `ignored`,
+`show_divider`, `hover_popup_delay_ms` (app-list) -- e vem dos **forks**
 `eualexandrerrr/cosmic-panel` e `eualexandrerrr/cosmic-applets` (GPL-3.0-only, credito no
-README de cada um). O `bin/cosmic-forks.sh` clona em `~/<repo>`, compila com cargo (o pacote
-do painel chama `cosmic-panel-bin`) e instala em `~/.local/bin`, que vem antes de `/usr/bin`
-no PATH da sessao; so recompila quando o HEAD mudou desde o marcador em
-`~/.local/state/dotfiles/fork-<bin>.commit`. Commit nos forks vai direto na `master`.
+README de cada um). A ala esquerda tem o Spotify: `cosmic-ext-applet-now-playing`, fork do
+AdityaHebballe (prefere Spotify a aba de navegador, card compacto com icone e capa); o pacote
+do AUR fica na lista so pelo `.desktop` e pelo icone, o binario vem do fork. O
+`bin/cosmic-forks.sh` clona em `~/<repo>`, compila com cargo (o pacote do painel chama
+`cosmic-panel-bin`) e instala em `~/.local/bin`, que vem antes de `/usr/bin` no PATH da
+sessao; so recompila quando o HEAD mudou desde o marcador em
+`~/.local/state/dotfiles/fork-<bin>.commit`. Commit nos forks vai direto na branch principal
+(`master` nos do pop-os, `main` no do applet).
 Cuidado com `size_wings`: e `Option<(Option, Option)>`, e preencher as duas alas derruba o
 painel em loop de erro de protocolo; a forma certa e `Some((None, Some(XS)))`.
 

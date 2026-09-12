@@ -13,3 +13,7 @@ python-pywayland
 
 [repo-oficial:cosmic-login]
 sddm
+
+[aur]
+# Faixa e artista do Spotify na ala esquerda do painel, com controles no popup (MPRIS).
+cosmic-ext-applet-now-playing-extended-git
