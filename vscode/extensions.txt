@@ -23,3 +23,4 @@ janjoerke.align-by-regex
 plibither8.remove-comments
 nextbook.file-and-folder-icons
 tal7aouy.icons
+zhuangtongfa.material-theme
