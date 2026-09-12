@@ -1,5 +1,5 @@
 // Ctrl+N abre o Claude CLI como aba do editor, no lugar do "novo arquivo" (conceito do RCode).
-// Nunca no painel de terminal embaixo: location=editor aqui e defaultLocation=editor no settings.
+// Terminal comum continua embaixo (defaultLocation=view); so o Claude vai pra aba, pelo location=editor.
 // Arquivo em branco de verdade: Ctrl+Alt+N.
 [
     {
