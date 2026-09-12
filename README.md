@@ -22,7 +22,7 @@ Three scripts, that is all. All idempotent:
 | `setup.sh` | configures everything, VM included — no network | you touched a config |
 | `reload.sh` | reloads the session already running | something drifted just now |
 
-`setup.sh` steps: `links home perfil arquivos sistema vm ddcutil energia atalhos audio dns console chrome claude notificacoes painel tema servicos`.
+`setup.sh` steps: `links home perfil arquivos sistema graficos vm ddcutil energia atalhos audio dns console chrome claude notificacoes painel tema servicos`.
 
 ## Package cache
 
@@ -48,10 +48,16 @@ number:
 
 **Only KDE is configured here** — it is this machine's desktop. Picking another one
 installs it stock: the `plasma/` stow package and the `arquivos atalhos notificacoes painel
-tema` steps are skipped. The catch is that `plasma/.config/plasma-workspace/env/dotfiles.sh`
-— the only place exporting `GTK_IM_MODULE=simple` (dead keys in GTK apps on ABNT2),
-`LIBVA_DRIVER_NAME` and `KWIN_DRM_DEVICES` — is read by Plasma alone, so on another desktop
-those variables are gone.
+tema` steps are skipped.
+
+Hardware is the exception and lives in the `graficos` step, which runs on every desktop. It
+asks `bin/render-gpu.sh` which GPU has a monitor attached, then writes
+`~/.config/environment.d/50-dotfiles.conf` (`GTK_IM_MODULE=simple` for dead keys in GTK apps
+on ABNT2, `LANGUAGE`, `LIBVA_DRIVER_NAME`, `KWIN_DRM_DEVICES`, `AQ_DRM_DEVICES`) and
+`/etc/udev/rules.d/61-dotfiles-gpu.rules`, which tags the AMD card
+`mutter-device-preferred-primary` and the 3090 `mutter-device-ignore`. Mutter has no
+`KWIN_DRM_DEVICES`: without that rule it picks the primary GPU by Boot VGA, lands on the
+3090 and paints GNOME onto its dummy plugs, leaving the real monitor on a blank blue screen.
 
 ---
 
@@ -76,11 +82,12 @@ holds a connector name: the brand lives in `screens.conf` and is resolved at use
 compositor, it works the same inside the session, on a tty, or in a systemd
 `ExecCondition=`.
 
-**2. Session environment lives in `plasma-workspace/env/`.** Plasma sources everything under
-`~/.config/plasma-workspace/env/` before starting the session. That is where
-`GTK_IM_MODULE=simple` fixes dead keys in GTK apps on an ABNT2 layout, and where the video
-driver is picked **by reading which `card` belongs to which GPU** -- hardcoding `nvidia` while
-the displays hang off the AMD card kills video acceleration.
+**2. Session environment lives in `environment.d`.** GNOME, Plasma and Hyprland under uwsm
+all start the session from `systemd --user`, which reads `~/.config/environment.d/` — the one
+env location that holds on all four desktops. That is where `GTK_IM_MODULE=simple` fixes dead
+keys in GTK apps on an ABNT2 layout, and where the video driver is picked **by reading which
+`card` belongs to which GPU** -- hardcoding `nvidia` while the displays hang off the AMD card
+kills video acceleration.
 
 **3. Stow with `--no-folding --restow`.** Without `--no-folding`, stow symlinks the whole
 directory and apps start writing inside the repo. A package is any folder with a dotted entry

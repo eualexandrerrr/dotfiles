@@ -23,7 +23,7 @@ São três scripts, e só. Todos idempotentes:
 | `setup.sh` | configura tudo, VM inclusa — sem rede | mexeu numa config |
 | `reload.sh` | recarrega a sessão que já está de pé | algo saiu do lugar agora |
 
-Etapas do `setup.sh`: `links home perfil arquivos sistema vm ddcutil energia atalhos audio dns console chrome claude notificacoes painel tema servicos`.
+Etapas do `setup.sh`: `links home perfil arquivos sistema graficos vm ddcutil energia atalhos audio dns console chrome claude notificacoes painel tema servicos`.
 
 ## Cache de pacotes
 
@@ -45,10 +45,16 @@ O `install.sh` abre um menu numerado (mesmo desenho do `myarch-menu` da ISO) e g
 
 **Só o KDE tem configuração versionada aqui** — é o desktop desta máquina. Escolher outro
 instala ele de fábrica: o pacote stow `plasma/` e as etapas `arquivos atalhos notificacoes
-painel tema` são puladas. O preço é que `plasma/.config/plasma-workspace/env/dotfiles.sh`,
-único lugar que exporta `GTK_IM_MODULE=simple` (acento em app GTK no ABNT2),
-`LIBVA_DRIVER_NAME` e `KWIN_DRM_DEVICES`, só é lido pelo Plasma — em outro desktop essas
-variáveis somem.
+painel tema` são puladas.
+
+Hardware é a exceção e mora na etapa `graficos`, que roda em qualquer desktop. Ela pergunta
+ao `bin/render-gpu.sh` qual GPU tem monitor ligado e grava
+`~/.config/environment.d/50-dotfiles.conf` (`GTK_IM_MODULE=simple` para acento em app GTK no
+ABNT2, `LANGUAGE`, `LIBVA_DRIVER_NAME`, `KWIN_DRM_DEVICES`, `AQ_DRM_DEVICES`) e
+`/etc/udev/rules.d/61-dotfiles-gpu.rules`, que marca a AMD como
+`mutter-device-preferred-primary` e a 3090 como `mutter-device-ignore`. O mutter não tem
+`KWIN_DRM_DEVICES`: sem essa regra ele escolhe a GPU primária pela Boot VGA, cai na 3090 e
+desenha o GNOME nos dummy plugs dela, deixando o monitor real numa tela azul vazia.
 
 ---
 
@@ -72,11 +78,11 @@ marca mora em `screens.conf` e é resolvida na hora por `bin/monitor.sh`, que l�
 de `/sys/class/drm`. Sem depender de compositor, funciona igual dentro da sessão, numa tty ou
 num `ExecCondition=` de unit do systemd.
 
-**2. O ambiente da sessão fica no `plasma-workspace/env/`.** O Plasma faz `source` de tudo
-que estiver em `~/.config/plasma-workspace/env/` antes de subir a sessão. É lá que
-`GTK_IM_MODULE=simple` conserta acento em app GTK no teclado ABNT2, e é lá que o driver de
-vídeo é escolhido **lendo qual `card` pertence a qual GPU** -- fixar `nvidia` com as telas na
-AMD tira a aceleração de vídeo.
+**2. O ambiente da sessão fica no `environment.d`.** Quem sobe a sessão no GNOME, no Plasma
+e no Hyprland por uwsm é o `systemd --user`, e ele lê `~/.config/environment.d/` — é o único
+lugar de env que vale nos quatro desktops. É lá que `GTK_IM_MODULE=simple` conserta acento
+em app GTK no teclado ABNT2, e é lá que o driver de vídeo é escolhido **lendo qual `card`
+pertence a qual GPU** -- fixar `nvidia` com as telas na AMD tira a aceleração de vídeo.
 
 **3. Stow com `--no-folding --restow`.** Sem o `--no-folding` o stow linka o diretório
 inteiro e os apps passam a gravar dentro do repo. Pacote é a pasta com entrada começando em

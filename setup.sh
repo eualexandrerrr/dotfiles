@@ -22,7 +22,11 @@ falha() { printf '%s  !!%s %s\n' "$YEL" "$END" "$*" >&2; FALHAS+=("$*"); }
 # Desktop escolhido no install.sh. Sem o arquivo, kde: era o unico desktop que existia
 # antes desta divisao, e e o unico com configuracao versionada aqui.
 DEFILE="${XDG_STATE_HOME:-$HOME/.local/state}/dotfiles/de"
-DE="${DE:-$( [[ -f $DEFILE ]] && <"$DEFILE" )}"
+DE="${DE:-}"
+# `$( ... && <arquivo )` so redireciona, nao imprime nada: ate 11/09/2026 isso deixava o
+# setup.sh achando que o desktop era kde em qualquer maquina, inclusive com gnome gravado.
+[[ -z $DE && -f $DEFILE ]] && DE="$(<"$DEFILE")"
+DE="${DE//[[:space:]]/}"
 DE="${DE:-kde}"
 
 # Etapas que so fazem sentido no Plasma: mexem em kwriteconfig6, plasmashell, KWin ou
@@ -325,6 +329,66 @@ etapa_sistema() {
     fi
 }
 
+etapa_graficos() {
+    log "GPU que desenha: variaveis da sessao e GPU primaria do mutter"
+
+    local info
+    info="$(bash "$DOTFILES_DIR/bin/render-gpu.sh")" || { falha "nenhuma GPU com monitor ligado"; return; }
+    local GPU_DRIVER GPU_PCI GPU_CARD GPU_OUTRAS
+    eval "$info"
+
+    # environment.d e lido pelo systemd --user, que e quem sobe a sessao no GNOME, no Plasma
+    # e no Hyprland por uwsm -- e o unico lugar de env que vale nos quatro desktops. O
+    # plasma-workspace/env/dotfiles.sh so faz source deste arquivo.
+    local envdir="$HOME/.config/environment.d"
+    mkdir -p "$envdir"
+    {
+        printf '# Gerado por setup.sh graficos -- nao editar a mao.\n'
+        # GTK 4.20 parou de fazer dead key sozinho no Wayland sem IME instalado: sem isto o
+        # ghostty e qualquer app GTK engolem ' ` ^ ~ e nao sai letra acentuada no ABNT2.
+        printf 'GTK_IM_MODULE=simple\n'
+        # O Spotify nao olha o LANG: sem LANGUAGE ele abre em ingles mesmo com pt_BR.UTF-8.
+        printf 'LANGUAGE=pt_BR:pt\n'
+        if [[ $GPU_DRIVER == nvidia ]]; then
+            printf 'LIBVA_DRIVER_NAME=nvidia\n__GLX_VENDOR_LIBRARY_NAME=nvidia\nNVD_BACKEND=direct\n'
+        else
+            # Fixar nvidia com as telas na AMD joga app Electron pra swiftshader (CPU).
+            printf 'LIBVA_DRIVER_NAME=radeonsi\n'
+        fi
+        # KWin e aquamarine escolhem a placa de render sozinhos e escolhiam a 3090, compondo
+        # o desktop nela so pra copiar quadro a quadro pela PCIe ate quem tem os monitores.
+        # Caminho por by-path porque cardN troca de numero entre boots.
+        printf 'KWIN_DRM_DEVICES=%s\nAQ_DRM_DEVICES=%s\n' "$GPU_CARD" "$GPU_CARD"
+    } > "$envdir/50-dotfiles.conf"
+    ok "~/.config/environment.d/50-dotfiles.conf (telas na $GPU_DRIVER, $GPU_PCI)"
+
+    # O mutter nao tem variavel equivalente: ele elege a GPU primaria pela Boot VGA e pegava
+    # a 3090, desenhando GNOME inteiro nos dummy plugs dela -- monitor real ficava na tela
+    # azul, sem painel nem login. As duas tags valem tambem no gdm, que roda como outro
+    # usuario e nao le environment.d nenhum.
+    local regras="# Gerado por setup.sh graficos -- nao editar a mao.
+SUBSYSTEM==\"drm\", KERNEL==\"card[0-9]*\", ENV{ID_PATH}==\"pci-$GPU_PCI\", TAG+=\"mutter-device-preferred-primary\""
+    local outra
+    for outra in ${GPU_OUTRAS:-}; do
+        regras+="
+SUBSYSTEM==\"drm\", KERNEL==\"card[0-9]*\", ENV{ID_PATH}==\"pci-$outra\", TAG+=\"mutter-device-ignore\""
+    done
+    printf '%s\n' "$regras" | sudo tee /etc/udev/rules.d/61-dotfiles-gpu.rules >/dev/null \
+        && ok "/etc/udev/rules.d/61-dotfiles-gpu.rules (primaria do mutter na $GPU_DRIVER)" \
+        || falha "nao consegui gravar a regra de udev da GPU primaria"
+    sudo udevadm control --reload >/dev/null 2>&1
+    sudo udevadm trigger --subsystem-match=drm >/dev/null 2>&1
+
+    # Env gravado que so vale no proximo login nao serve: aplica tambem no systemd --user
+    # desta sessao, pra todo app aberto daqui pra frente ja nascer com os valores certos.
+    local linha
+    while read -r linha; do
+        [[ $linha == \#* || -z $linha ]] && continue
+        /usr/bin/systemctl --user set-environment "$linha" 2>/dev/null
+    done < "$envdir/50-dotfiles.conf"
+    ok "variaveis aplicadas no systemd --user desta sessao"
+}
+
 etapa_vm() {
     log "VM w11: vfio, kvmfr, hooks e firmware"
 
@@ -537,7 +601,7 @@ etapa_servicos() {
     fi
 }
 
-ETAPAS=(links home perfil arquivos sistema vm ddcutil energia atalhos audio dns console chrome claude notificacoes painel tema servicos)
+ETAPAS=(links home perfil arquivos sistema graficos vm ddcutil energia atalhos audio dns console chrome claude notificacoes painel tema servicos)
 
 if [[ ${1:-} == --lista ]]; then
     printf 'etapas: %s\n' "${ETAPAS[*]}"

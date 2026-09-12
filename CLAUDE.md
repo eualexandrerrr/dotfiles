@@ -58,7 +58,7 @@ Com duas GPUs o cenario de single-GPU passthrough (que derruba a sessao) nao se 
 
 ```
 ~/.dotfiles/setup.sh [etapa...]
-# links home perfil arquivos sistema vm ddcutil energia atalhos audio dns console chrome claude notificacoes painel tema servicos
+# links home perfil arquivos sistema graficos vm ddcutil energia atalhos audio dns console chrome claude notificacoes painel tema servicos
 ```
 
 **Nome de pasta, arquivo e unit sempre em ingles.** Este repo e publico: `secrets/`, nao
@@ -100,10 +100,19 @@ linha em cada uma mais um `packages/<nome>.txt`.
 
 **So o KDE tem configuracao versionada aqui.** As etapas `arquivos atalhos notificacoes
 painel tema` e o pacote stow `plasma/` sao puladas em qualquer outro desktop, que sobe de
-fabrica. Consequencia: `plasma/.config/plasma-workspace/env/dotfiles.sh` e o unico lugar
-que exporta `GTK_IM_MODULE=simple` (acento em app GTK no ABNT2), `LIBVA_DRIVER_NAME` e
-`KWIN_DRM_DEVICES`, e so o Plasma le esse diretorio -- em outro desktop essas variaveis
-somem.
+fabrica.
+
+**O que e hardware, porem, vale nos quatro desktops e mora na etapa `graficos`.** Ela le a
+GPU que tem monitor ligado pelo `bin/render-gpu.sh` e grava dois arquivos gerados, nenhum
+deles versionado: `~/.config/environment.d/50-dotfiles.conf`, com `GTK_IM_MODULE=simple`
+(acento em app GTK no ABNT2), `LANGUAGE`, `LIBVA_DRIVER_NAME`, `KWIN_DRM_DEVICES` e
+`AQ_DRM_DEVICES`; e `/etc/udev/rules.d/61-dotfiles-gpu.rules`, que marca a AMD como
+`mutter-device-preferred-primary` e a 3090 como `mutter-device-ignore`. O mutter nao tem
+variavel equivalente ao `KWIN_DRM_DEVICES`: sem essa regra ele elege a GPU primaria pela
+Boot VGA, pega a 3090 e desenha o GNOME nos dummy plugs dela, deixando o monitor real na
+tela azul (11/09/2026). A regra de udev tambem vale no gdm, que roda como outro usuario e
+nao le `environment.d` nenhum. O `plasma/.config/plasma-workspace/env/dotfiles.sh` hoje so
+faz source do arquivo gerado, pro caso de uma sessao do Plasma nascer fora do systemd.
 
 **Toda mudanca de config termina aplicada na sessao real dele.** Ele acompanha olhando a
 tela e decide vendo; config gravada que so aparece no proximo login e trabalho nao entregue.

@@ -148,6 +148,18 @@ status() {
                 "$RED" "$END" "$desenha"; faltou=1
         fi
 
+        # A GPU primaria do mutter vem de tag de udev, nao de variavel: sem a tag o GNOME
+        # nasce na Boot VGA -- a 3090 -- e desenha nos dummy plugs dela, deixando o monitor
+        # real na tela azul. A etapa `graficos` grava a regra.
+        local tags
+        tags="$(udevadm info "/dev/dri/$card" 2>/dev/null | grep -m1 '^E: CURRENT_TAGS=')"
+        if [[ $tags == *mutter-device-preferred-primary* ]]; then
+            printf '%sok%s %s marcada como GPU primaria do mutter\n' "$GRN" "$END" "$card"
+        else
+            printf '%s!!%s %s sem a tag mutter-device-preferred-primary -- rode setup.sh graficos\n' \
+                "$RED" "$END" "$card"; faltou=1
+        fi
+
         # Nao basta o driver certo nas variaveis: o KWin escolhe a placa de render sozinho e
         # em 11/09/2026 escolheu a 3090, compondo o desktop nela pra copiar pela PCIe ate a
         # AMD, que e quem tem os monitores. Aparecia so como "KDE arrastado", sem erro nenhum.
