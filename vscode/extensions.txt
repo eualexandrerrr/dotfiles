@@ -6,7 +6,6 @@ anthropic.claude-code
 ms-ceintl.vscode-language-pack-pt-br
 catppuccin.catppuccin-vsc
 beardedbear.beardedicons
-eamodio.gitlens
 aaron-bond.better-comments
 evgeniypeshkov.syntax-highlighter
 foxundermoon.shell-format
