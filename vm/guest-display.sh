@@ -17,16 +17,23 @@ source "$HERE/guest.sh"
 BRAND="${BRAND:-ASUSTek COMPUTER INC XG27ACS}"
 GUEST_USER="${GUEST_USER:-Alexandre}"
 
-# O conector sai do bin/monitor.sh (que le o EDID e nao depende de sessao); o modo atual
-# sai do kscreen-doctor, que e quem sabe a taxa de verdade.
+# O conector sai do bin/monitor.sh (que le o EDID e nao depende de sessao); a taxa de verdade
+# sai de quem manda nas telas na sessao de agora -- kscreen-doctor no Plasma, cosmic-randr no
+# COSMIC, hyprctl no Hyprland. Com o desktop errado o JSON vem vazio e a tela virtual fica nos
+# 60 Hz de nascenca, o que prende o jogo em 60 fps (visto no COSMIC em 12/09/2026).
 read_monitor() {
     local conector
     conector="$("${DOTFILES_DIR:-$HOME/.dotfiles}/bin/monitor.sh" principal 2>/dev/null)"
     [[ -n $conector ]] || return 1
-    kscreen-doctor -j 2>/dev/null | CONECTOR="$conector" python3 -c "
+
+    if command -v kscreen-doctor >/dev/null 2>&1; then
+        kscreen-doctor -j 2>/dev/null | CONECTOR="$conector" python3 -c "
 import sys, json, os
 alvo = os.environ['CONECTOR']
-dados = json.load(sys.stdin)
+try:
+    dados = json.load(sys.stdin)
+except ValueError:
+    sys.exit(1)
 for o in dados.get('outputs', []):
     if o.get('name') != alvo:
         continue
@@ -37,7 +44,46 @@ for o in dados.get('outputs', []):
             print(t['width'], t['height'], round(m['refreshRate'], 3))
             sys.exit(0)
 sys.exit(1)
-"
+" && return 0
+    fi
+
+    if command -v cosmic-randr >/dev/null 2>&1; then
+        cosmic-randr list 2>/dev/null | CONECTOR="$conector" python3 -c "
+import os, re, sys
+alvo = os.environ['CONECTOR']
+dentro = False
+for linha in sys.stdin:
+    linha = re.sub(r'\x1b\[[0-9;]*m', '', linha)
+    cabeca = re.match(r'^(\S+) \(', linha)
+    if cabeca:
+        dentro = cabeca.group(1) == alvo
+        continue
+    if dentro and '(current)' in linha:
+        m = re.search(r'(\d+)x(\d+) @ *([0-9.]+) Hz', linha)
+        if m:
+            print(m.group(1), m.group(2), round(float(m.group(3)), 3))
+            sys.exit(0)
+sys.exit(1)
+" && return 0
+    fi
+
+    if [[ -n ${HYPRLAND_INSTANCE_SIGNATURE:-} ]] && command -v hyprctl >/dev/null 2>&1; then
+        hyprctl -j monitors 2>/dev/null | CONECTOR="$conector" python3 -c "
+import sys, json, os
+alvo = os.environ['CONECTOR']
+try:
+    dados = json.load(sys.stdin)
+except ValueError:
+    sys.exit(1)
+for m in dados:
+    if m.get('name') == alvo:
+        print(m['width'], m['height'], round(m['refreshRate'], 3))
+        sys.exit(0)
+sys.exit(1)
+" && return 0
+    fi
+
+    return 1
 }
 
 read -r WIDTH HEIGHT HZ <<<"$(read_monitor)"
